@@ -43,16 +43,16 @@
 | DB_INSTANCE_15_01       | DB_INSTANCE         | 플로팅 IP 연결 해제        |
 | DB_INSTANCE_16_01       | DB_INSTANCE         | DB 인스턴스 용량 확보       |
 | DB_INSTANCE_16_04       | DB_INSTANCE         | DB 인스턴스 용량 확보 실패    |
-| DB_INSTANCE_17_01       | DB_INSTANCE         | DB 사용자 생성           |
-| DB_INSTANCE_17_04       | DB_INSTANCE         | DB 사용자 생성 실패        |
-| DB_INSTANCE_18_01       | DB_INSTANCE         | DB 사용자 변경           |
-| DB_INSTANCE_18_04       | DB_INSTANCE         | DB 사용자 변경 실패        |
-| DB_INSTANCE_19_01       | DB_INSTANCE         | DB 사용자 삭제           |
-| DB_INSTANCE_20_01       | DB_INSTANCE         | Database 생성         |
-| DB_INSTANCE_20_04       | DB_INSTANCE         | Database 생성 실패      |
-| DB_INSTANCE_21_01       | DB_INSTANCE         | Database 변경         |
-| DB_INSTANCE_21_04       | DB_INSTANCE         | Database 변경 실패      |
-| DB_INSTANCE_22_01       | DB_INSTANCE         | Database 삭제         |
+| DB_INSTANCE_17_01       | DB_INSTANCE         | 사용자 생성              |
+| DB_INSTANCE_17_04       | DB_INSTANCE         | 사용자 생성 실패           |
+| DB_INSTANCE_18_01       | DB_INSTANCE         | 사용자 변경              |
+| DB_INSTANCE_18_04       | DB_INSTANCE         | 사용자 변경 실패           |
+| DB_INSTANCE_19_01       | DB_INSTANCE         | 사용자 삭제              |
+| DB_INSTANCE_20_01       | DB_INSTANCE         | 데이터베이스 생성           |
+| DB_INSTANCE_20_04       | DB_INSTANCE         | 데이터베이스 생성 실패        |
+| DB_INSTANCE_21_01       | DB_INSTANCE         | 데이터베이스 변경           |
+| DB_INSTANCE_21_04       | DB_INSTANCE         | 데이터베이스 변경 실패        |
+| DB_INSTANCE_22_01       | DB_INSTANCE         | 데이터베이스 삭제           |
 | DB_INSTANCE_23_00       | DB_INSTANCE         | 파라미터 그룹 변경 시작       |
 | DB_INSTANCE_23_01       | DB_INSTANCE         | 파라미터 그룹 변경 완료       |
 | DB_INSTANCE_23_04       | DB_INSTANCE         | 파라미터 그룹 변경 실패       |
@@ -65,9 +65,9 @@
 | DB_INSTANCE_26_00       | DB_INSTANCE         | DB 인스턴스 마이그레이션 시작   |
 | DB_INSTANCE_26_01       | DB_INSTANCE         | DB 인스턴스 마이그레이션 완료   |
 | DB_INSTANCE_26_04       | DB_INSTANCE         | DB 인스턴스 마이그레이션 실패   |
-| DB_INSTANCE_27_00       | DB_INSTANCE         | DB 접근 제어 설정 변경 시작   |
-| DB_INSTANCE_27_01       | DB_INSTANCE         | DB 접근 제어 설정 변경 완료   |
-| DB_INSTANCE_27_04       | DB_INSTANCE         | DB 접근 제어 설정 변경 실패   |
+| DB_INSTANCE_27_00       | DB_INSTANCE         | 접근 제어 설정 변경 시작      |
+| DB_INSTANCE_27_01       | DB_INSTANCE         | 접근 제어 설정 변경 완료      |
+| DB_INSTANCE_27_04       | DB_INSTANCE         | 접근 제어 설정 변경 실패      |
 | DB_INSTANCE_28_01       | DB_INSTANCE         | DB 인스턴스 정상화         |
 | DB_INSTANCE_29_01       | DB_INSTANCE         | DB 인스턴스 용량 부족       |
 | DB_INSTANCE_30_01       | DB_INSTANCE         | DB 인스턴스 연결 실패       |

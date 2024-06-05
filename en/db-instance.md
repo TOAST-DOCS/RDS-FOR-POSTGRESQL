@@ -179,36 +179,36 @@ DB 인스턴스의 로그 탭에서는 각종 로그 파일을 보거나 다운�
 > **다운로드**를 클릭하면 로그 파일의 크기만큼 인터넷 트래픽이 과금됩니다.
 
 
-### DB & 사용자
+### 데이터베이스 & 사용자
 
-DB 인스턴스의 **DB & 사용자** 탭에서는 DB엔진에 생성된 Database와 사용자를 조회 및 제어할 수 있습니다.
+DB 인스턴스의 **데이터베이스 & 사용자** 탭에서는 DB엔진에 생성된 데이터베이스와 사용자를 조회 및 제어할 수 있습니다.
 
 
-#### Database 생성
+#### 데이터베이스 생성
 
 ![db-instance-detail-database](https://static.toastoven.net/prod_rds_postgres/24.06.11/ko/db-instance-detail-database.png)
 
-❶ **생성**을 클릭하면 Database의 이름을 입력할 수 있는 팝업 창이 나타납니다.
-❷ Database 이름을 입력한 뒤 **확인**을 클릭하여 Database를 생성할 수 있습니다.
+❶ **생성**을 클릭하면 데이터베이스의 이름을 입력할 수 있는 팝업 창이 나타납니다.
+❷ 데이터베이스 이름을 입력한 뒤 **확인**을 클릭하여 데이터베이스를 생성할 수 있습니다.
 
-Database 이름은 아래와 같은 제약 사항이 있습니다.
+데이터베이스 이름은 아래와 같은 제약 사항이 있습니다.
 
 * 1~63자 사이의 따옴표(',")를 제외한 문자만 사용할 수 있습니다.
-* `postgres` `information_schema` `performance_schema` `repmgr` `db_helper` `sys` `mysql` `rds_maintenance` `pgpool` `nsight` `watchdog` `barman` `rman`은 Database 이름으로 사용할 수 없습니다.
+* `postgres` `information_schema` `performance_schema` `repmgr` `db_helper` `sys` `mysql` `rds_maintenance` `pgpool` `nsight` `watchdog` `barman` `rman`은 데이터베이스 이름으로 사용할 수 없습니다.
 
-#### Database 수정
+#### 데이터베이스 수정
 
 ![db-instance-detail-database-modify-ko](https://static.toastoven.net/prod_rds_postgres/24.06.11/ko/db-instance-detail-database-modify.png)
 
-❶ 수정할 Database 행의 **수정**을 클릭하면 Database 정보를 수정할 수 있는 팝업 화면이 나타납니다.
+❶ 수정할 데이터베이스 행의 **수정**을 클릭하면 데이터베이스 정보를 수정할 수 있는 팝업 화면이 나타납니다.
 ❷ **확인**을 클릭하여 삭제를 요청할 수 있습니다.
-❸ 변경 예정 DB 접근 제어 즉시 적용을 체크하면 DB 접근 제어 규칙에도 수정사항이 즉시 적용 됩니다.
+❸ 변경 예정 접근 제어 즉시 적용을 체크하면 접근 제어 규칙에도 수정사항이 즉시 적용 됩니다.
 
-#### Database 삭제
+#### 데이터베이스 삭제
 
 ![db-instance-detail-database-delete-ko](https://static.toastoven.net/prod_rds_postgres/24.06.11/ko/db-instance-detail-database-delete.png)
 
-❶ 삭제할 Database를 선택 후 **삭제**를 클릭하면 삭제 확인 팝업 화면이 나타납니다.
+❶ 삭제할 데이터베이스를 선택 후 **삭제**를 클릭하면 삭제 확인 팝업 화면이 나타납니다.
 ❷ **삭제**를 클릭하여 삭제를 요청할 수 있습니다.
 
 #### 사용자 생성
@@ -223,9 +223,9 @@ Database 이름은 아래와 같은 제약 사항이 있습니다.
 * 1~63자 사이의 따옴표(',")를 제외한 문자만 사용할 수 있습니다.
 * `postgres` `repmgr` `barman` `rman` `pgpool` `nsight` `watchdog` `dba` `manager` `mysql.session` `mysql.sys` `mysql.infoschema` `sqlgw` `admin` `etladm` `alertman` `prom` `rds_admin` `rds_mha` `rds_repl` `mariadb.sys`은 사용자 ID로 사용할 수 없습니다.
 
-❸ Password를 입력합니다.
+❸ 비밀번호를 입력합니다.
 
-패스워드는 아래와 같은 제약 사항이 있습니다.
+비밀번호는 아래와 같은 제약 사항이 있습니다.
 
 * 1~100자 사이의 따옴표(',")를 제외한 문자만 사용할 수 있습니다.
 
@@ -239,8 +239,8 @@ Database 이름은 아래와 같은 제약 사항이 있습니다.
 ![db-instance-detail-user-modify-ko](https://static.toastoven.net/prod_rds_postgres/24.06.11/ko/db-instance-detail-dbuser-modify.png)
 
 ❶ 수정할 사용자 행의 **수정**을 클릭하면 사용자 정보를 수정할 수 있는 팝업 화면이 나타납니다.
-❷ Password를 입력하지 않으면 변경되지 않습니다.
-❸ 변경 예정 DB 접근 제어 즉시 적용을 체크하면 DB 접근 제어 규칙에도 수정사항이 즉시 적용 됩니다.
+❷ 비밀번호를 입력하지 않으면 변경되지 않습니다.
+❸ 변경 예정 접근 제어 즉시 적용을 체크하면 접근 제어 규칙에도 수정사항이 즉시 적용 됩니다.
 
 #### 사용자 삭제
 
@@ -249,9 +249,9 @@ Database 이름은 아래와 같은 제약 사항이 있습니다.
 ❶ 삭제할 사용자를 선택 후 드롭다운 메뉴를 클릭합니다.
 ❷ **삭제**를 클릭하면 **삭제 확인** 팝업 화면이 나타납니다. **확인**을 클릭하여 삭제를 요청할 수 있습니다.
 
-### DB 접근 제어
+### 접근 제어
 
-DB 인스턴스의 **DB 접근 제어** 탭에서는 특정 Database와 사용자에 대한 DB엔진 접근 규칙을 조회 및 제어할 수 있습니다. 여기에 설정한 규칙은 `pg_hba.conf` 파일에 적용됩니다.
+DB 인스턴스의 **접근 제어** 탭에서는 특정 데이터베이스와 사용자에 대한 DB엔진 접근 규칙을 조회 및 제어할 수 있습니다. 여기에 설정한 규칙은 `pg_hba.conf` 파일에 적용됩니다.
 
 ![db-instance-detail-hba-ko](https://static.toastoven.net/prod_rds_postgres/24.06.11/ko/db-instance-detail-hba.png)
 
@@ -270,24 +270,24 @@ DB 인스턴스의 **DB 접근 제어** 탭에서는 특정 Database와 사용�
 | -       | -      | 적용 불가         |
 
 > [주의]
-> 특정 Database와 사용자를 선택해서 추가한 규칙의 대상들이 모두 삭제된 경우 적용 불가 상태로 나타나며 설정 파일엔 적용되지 않습니다.
+> 특정 데이터베이스와 사용자를 선택해서 추가한 규칙의 대상들이 모두 삭제된 경우 적용 불가 상태로 나타나며 설정 파일엔 적용되지 않습니다.
 
 
-#### DB 접근 제어 규칙 추가
+#### 접근 제어 규칙 추가
 
 ![db-instance-detail-hba-create-ko](https://static.toastoven.net/prod_rds_postgres/24.06.11/ko/db-instance-detail-hba-create.png)
 
-❶ **+ 생성**을 클릭하면 DB 접근 제어 규칙 추가 팝업 화면이 나타납니다.
-❷ 규칙 적용 대상을 전체 대상으로 지정하거나 특정 Database나 사용자를 선택해서 지정할 수 있습니다.
-- 사용자 지정을 선택하면 **DB & 사용자** 탭에서 추가한 Database, 사용자를 선택하는 드롭다운 메뉴가 나타납니다.
+❶ **+ 생성**을 클릭하면 접근 제어 규칙 추가 팝업 화면이 나타납니다.
+❷ 규칙 적용 대상을 전체 대상으로 지정하거나 특정 데이터베이스나 사용자를 선택해서 지정할 수 있습니다.
+- 사용자 지정을 선택하면 **데이터베이스 & 사용자** 탭에서 추가한 데이터베이스, 사용자를 선택하는 드롭다운 메뉴가 나타납니다.
 ❸ 규칙을 적용할 접속 주소를 CIDR 형식으로 입력합니다.
 ❹ 인증 방식을 선택합니다. RDS for PostgreSQL에서 지원하는 인증 방식은 다음과 같습니다.
 
-| 인증 방식                | DB엔진 설정값      | 설명                                              |
-|----------------------|---------------|-------------------------------------------------|
-| 트러스트 (패스워드 불필요)      | trust         | 패스워드나 다른 인증없이 모든 연결을 허용합니다.                     |
-| 접속 차단                | reject        | 모든 연결을 차단합니다.                                   |
-| 패스워드 (SCRAM-SHA-256) | scram-sha-256 | DB & 사용자 탭에서 설정한 패스워드로 SCRAM-SHA-256 인증하도록 합니다. |
+| 인증 방식               | DB엔진 설정값      | 설명                                                  |
+|---------------------|---------------|-----------------------------------------------------|
+| 트러스트(패스워드 불필요)      | trust         | 비밀번호나 다른 인증없이 모든 연결을 허용합니다.                         |
+| 접속 차단               | reject        | 모든 연결을 차단합니다.                                       |
+| 비밀번호(SCRAM-SHA-256) | scram-sha-256 | 데이터베이스 & 사용자 탭에서 설정한 비밀번호로 SCRAM-SHA-256 인증하도록 합니다. |
 
 ❺ 위/아래 화살표 버튼으로 규칙을 적용할 순서를 조정합니다.
 ❻ 접근 제어 규칙은 위에서부터 순차적으로 적용하며 먼저 적용된 규칙이 우선됩니다.
@@ -296,14 +296,14 @@ DB 인스턴스의 **DB 접근 제어** 탭에서는 특정 Database와 사용�
   ❼ 설정을 마친 뒤 **변경사항 적용**을 클릭해 DB 인스턴스에 접근 제어 설정을 적용합니다.
   ❽ DB 인스턴스에 적용되면 상태가 적용됨으로 변경됩니다.
 
-#### DB 접근 제어 규칙 수정
+#### 접근 제어 규칙 수정
 
 ![db-instance-detail-hba-modify-ko](https://static.toastoven.net/prod_rds_postgres/24.06.11/ko/db-instance-detail-hba-modify.png)
 
 ❶ 수정할 접근 제어 규칙 행의 **수정**을 클릭하면 기존 정보를 수정할 수 있는 팝업 화면이 나타납니다.
 ❷ 수정한 규칙은 **변경사항 적용**을 클릭해 DB 인스턴스에 접근 제어 설정을 적용해야 합니다.
 
-#### DB 접근 제어 규칙 삭제
+#### 접근 제어 규칙 삭제
 
 ![db-instance-detail-hba-delete-ko](https://static.toastoven.net/prod_rds_postgres/24.06.11/ko/db-instance-detail-hba-delete.png)
 
@@ -314,23 +314,23 @@ DB 인스턴스의 **DB 접근 제어** 탭에서는 특정 Database와 사용�
 
 웹 콘솔을 통해 생성된 DB 인스턴스의 다양한 항목을 손쉽게 변경할 수 있습니다. 변경 요청한 항목은 순차적으로 DB 인스턴스에 적용합니다. 적용 과정에서 재시작이 필요할 경우 모든 변경을 적용한 후 DB 인스턴스를 재시작합니다. 변경 불가능한 항목과 재시작이 필요한 항목은 다음과 같습니다.
 
-| 항목          | 변경 가능 여부 | 재시작 필요 여부               |
-|-------------|----------|-------------------------|
-| 가용성 영역      | 아니오      |                         |
-| DB 엔진       | 아니오      |                         |
-| DB 인스턴스 타입  | 예        | 예                       |
-| 데이터 스토리지 종류 | 아니오      |                         |
-| 데이터 스토리지 크기 | 예        | 예                       |
-| 이름          | 예        | 아니오                     |
-| 설명          | 예        | 아니오                     |
-| DB 포트       | 예        | 예                       |
-| VPC 서브넷     | 아니오      |                         |
-| 플로팅 IP      | 예        | 아니오                     |
-| 파라미터 그룹     | 예        | 변경된 파라미터의 재시작 여부에 따라 결정 |
-| DB 보안 그룹    | 예        | 아니오                     |
-| 백업 설정       | 예        | 아니오                     |
-| DB & 사용자 제어 | 예        | 아니오                     |
-| DB 접근 제어    | 예        | 아니오                     |
+| 항목           | 변경 가능 여부 | 재시작 필요 여부               |
+|--------------|----------|-------------------------|
+| 가용성 영역       | 아니오      |                         |
+| DB 엔진        | 아니오      |                         |
+| DB 인스턴스 타입   | 예        | 예                       |
+| 데이터 스토리지 종류  | 아니오      |                         |
+| 데이터 스토리지 크기  | 예        | 예                       |
+| 이름           | 예        | 아니오                     |
+| 설명           | 예        | 아니오                     |
+| DB 포트        | 예        | 예                       |
+| VPC 서브넷      | 아니오      |                         |
+| 플로팅 IP       | 예        | 아니오                     |
+| 파라미터 그룹      | 예        | 변경된 파라미터의 재시작 여부에 따라 결정 |
+| DB 보안 그룹     | 예        | 아니오                     |
+| 백업 설정        | 예        | 아니오                     |
+| DB & 사용자 제어  | 예        | 아니오                     |
+| 접근 제어        | 예        | 아니오                     |
 
 
 ## DB 인스턴스 삭제
@@ -407,7 +407,7 @@ DB 인스턴스 강제 재시작을 하려면 웹 콘솔에서
 pg_dump -h {rds_instance_floating_ip} -U {db_id} -p {db_port} -d {database_name} -f {local_path_and_file_name}
 ```
 
-#### NHN Cloud RDS 외부의 PostgreSQL DB로 내보낼 경우
+#### NHN Cloud RDS 외부의 PostgreSQL 데이터베이스로 내보낼 경우
 
 ```
 pg_dump  -h {rds_instance_floating_ip} -U {db_id} -p {db_port} -d {database_name} | psql -h {external_db_host} -U {external_db_id} -p {external_db_port} -d {external_database_name}
