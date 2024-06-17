@@ -15,13 +15,13 @@ RDS for PostgreSQLではpg_basebackupツールを利用してデータベース�
 
 バックアップ時に適用される設定項目は下記の通りで、自動バックアップと手動バックアップの両方に適用されます。
 
-![backup-config](https://static.toastoven.net/prod_rds_postgres/20240611/backup-config-ko.png)
+![backup-config](https://static.toastoven.net/prod_rds_postgres/20240611/backup-config-ja.png)
 
 ### 手動バックアップ
 
 特定の時点のデータベースを永続的に保存するには、Webコンソールで手動バックアップを行います。手動バックアップは、自動バックアップと違って、明示的にバックアップを削除しない限り、DBインスタンスが削除される時に一緒に削除されません。 Webコンソールで手動バックアップを実行するには
 
-![db-instance-detail-backup](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-detail-backup-ko.png)
+![db-instance-detail-backup](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-detail-backup-ja.png)
 
 ❶バックアップするDBインスタンスを選択した後、**バックアップ**をクリックすると、**バックアップ作成** ポップアップ画面が表示されます。
 - DBインスタンスを選択せずに**バックアップ**をクリックすると、**バックアップ作成**ポップアップ画面内のドロップダウンメニューからDBインスタンスを選択できます。
@@ -32,7 +32,7 @@ RDS for PostgreSQLではpg_basebackupツールを利用してデータベース�
 
 または**バックアップ**タブで
 
-![backup-create](https://static.toastoven.net/prod_rds_postgres/20240611/backup-create-ko.png)
+![backup-create](https://static.toastoven.net/prod_rds_postgres/20240611/backup-create-ja.png)
 
 ❶ **+ バックアップ作成**をクリックすると、**バックアップ作成**ポップアップ画面が表示されます。
 ❷バックアップを実行するDBインスタンスを選択します。
@@ -42,7 +42,7 @@ RDS for PostgreSQLではpg_basebackupツールを利用してデータベース�
 
 手動でバックアップを実行する場合以外にも、復元作業のために必要な場合、または自動バックアップスケジュールの設定により、自動バックアップが実行されることがあります。DBインスタンスのバックアップ保管期間を1日以上に設定すると、自動バックアップが有効になり、指定された時間にバックアップが実行されます。自動バックアップはDBインスタンスとライフサイクルが同じです。DBインスタンスが削除されると、保管された自動バックアップはすべて削除されます。自動バックアップでサポートする設定項目は次の通りです。
 
-![backup-config](https://static.toastoven.net/prod_rds_postgres/20240611/backup-config-ko.png)
+![backup-config](https://static.toastoven.net/prod_rds_postgres/20240611/backup-config-ja.png)
 
 **バックアップ保管期間**
 
@@ -76,13 +76,13 @@ RDS for PostgreSQLではpg_basebackupツールを利用してデータベース�
 
 バックアップファイルだけで復元するため、バックアップを実行した元のDBインスタンスが必要ありません。 Webコンソールでスナップショットを復元するには
 
-![db-instance-detail-backup-restore](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-detail-backup-restore-ko.png)
+![db-instance-detail-backup-restore](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-detail-backup-restore-ja.png)
 
 ❶DBインスタンスの詳細タブで復元するバックアップファイルを選択した後、**スナップショット復元**をクリックすると、DBインスタンスの復元画面に移動します。
 
 または
 
-![backup-restore](https://static.toastoven.net/prod_rds_postgres/20240611/backup-restore-ko.png)
+![backup-restore](https://static.toastoven.net/prod_rds_postgres/20240611/backup-restore-ja.png)
 
 ❶バックアップタブで復元するバックアップファイルを選択した後、**スナップショット復元**をクリックします。
 
@@ -96,7 +96,7 @@ RDS for PostgreSQLではpg_basebackupツールを利用してデータベース�
 
 Webコンソールで時点復元を行うには
 
-![db-instance-pitr](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-pitr-ko.png)
+![db-instance-pitr](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-pitr-ja.png)
 
 ❶時点復元するDBインスタンスを選択した後、**時点復元**をクリックすると、時点復元を設定できるページに移動します。
 
@@ -104,11 +104,11 @@ Webコンソールで時点復元を行うには
 
 Timestampを使用した復元の場合は、選択した時点と最も近いバックアップファイルを基準に復元を行った後、希望する時点までのWALログを適用します。
 
-![db-instance-pitr-01](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-pitr-01-ko.png)
+![db-instance-pitr-01](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-pitr-01-ja.png)
 
 ❶復元方法を選択します。
 
-![db-instance-pitr-02](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-pitr-02-ko.png)
+![db-instance-pitr-02](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-pitr-02-ja.png)
 
 ❷復元時刻を選択します。最も最近の時点に復元するか、希望する特定の時点を直接入力できます。
 
@@ -117,6 +117,6 @@ Timestampを使用した復元の場合は、選択した時点と最も近い�
 
 WALログ位置を活用した復元過程では、入力した位置と最も近いバックアップファイルを基準に復元を行った後、元のインスタンスのWALログで希望する位置まで適用します。
 
-![db-instance-pitr-03](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-pitr-03-ko.png)
+![db-instance-pitr-03](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-pitr-03-ja.png)
 
 ❸ WALログの特定の位置を入力します。
