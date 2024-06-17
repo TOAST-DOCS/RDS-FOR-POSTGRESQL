@@ -115,7 +115,7 @@ DBインスタンス作成時、基本通知を設定できます。基本通知
 
 Webコンソールで作成されたDBインスタンスを確認できます。DBインスタンスグループ単位でまとめて見たり、個々のDBインスタンスで見ることができます。
 
-![db-instance-list](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-list-ko.png)
+![db-instance-list](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-list-ja.png)
 
 ❶ DBインスタンス画面モードを変更できます。
 ❷最近収集されたモニタリング指標を表示します。
@@ -136,7 +136,7 @@ DBインスタンスの状態は以下のような値で構成され、ユーザ
 
 変更できる検索条件は次のとおりです。
 
-![db-instance-list-filter](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-list-filter-ko.png)
+![db-instance-list-filter](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-list-filter-ja.png)
 
 ❶ DBインスタンスの状態をフィルタリング条件として検索できます。
 ❷アベイラビリティゾーンをフィルタリング条件として検索できます。
@@ -145,7 +145,7 @@ DBインスタンスの状態は以下のような値で構成され、ユーザ
 
 DBインスタンスを選択すると、詳細情報を確認できます。
 
-![db-instance-detail-basic](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-detail-basic-ko.png)
+![db-instance-detail-basic](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-detail-basic-ja.png)
 
 ❶接続情報のドメインをクリックすると、IPアドレスを確認できるポップアップ画面が表示されます。
 ❷ DBセキュリティグループをクリックすると、DBセキュリティルールを確認できるポップアップ画面が表示されます。
@@ -168,7 +168,7 @@ DBインスタンスのログタブでは、各種ログファイルの閲覧や
 | postgresql.log | 100MB 40個 | 固定  |
 | backup.log     | 毎日10個 | 固定  |
 
-![db-instance-detail-log](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-detail-log-ko.png)
+![db-instance-detail-log](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-detail-log-ja.png)
 
 ❶ **ログ表示**をクリックすると、ログファイルの内容を確認できるポップアップ画面が表示されます。最大65,535Bytesのログを確認できます。
 ❷ **インポート**をクリックすると、DBインスタンスのログファイルをダウンロードできるようにリクエストします。
@@ -186,7 +186,7 @@ DBインスタンスの**データベース＆ユーザー**タブでは、DBエ
 
 #### データベースの作成
 
-![db-instance-detail-db-create](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-detail-db-create-ko.png)
+![db-instance-detail-db-create](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-detail-db-create-ja.png)
 
 ❶ **+ 作成**をクリックすると、データベースの名前を入力できるポップアップ画面が表示されます。
 ❷データベース名を入力した後、**作成**をクリックしてデータベースを作成できます。
@@ -198,7 +198,7 @@ DBインスタンスの**データベース＆ユーザー**タブでは、DBエ
 
 #### データベースの修正
 
-![db-instance-detail-db-modify](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-detail-db-modify-ko.png)
+![db-instance-detail-db-modify](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-detail-db-modify-ja.png)
 
 ❶修正するデータベース行の**修正**をクリックすると、データベース情報を修正できるポップアップ画面が表示されます。
 ❷ **修正**をクリックして修正をリクエストできます。
@@ -206,14 +206,14 @@ DBインスタンスの**データベース＆ユーザー**タブでは、DBエ
 
 #### データベースの削除
 
-![db-instance-detail-db-delete](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-detail-db-delete-ko.png)
+![db-instance-detail-db-delete](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-detail-db-delete-ja.png)
 
 ❶削除するデータベースを選択し、**削除**をクリックすると、削除確認ポップアップ画面が表示されます。
 ❷ **削除**をクリックして削除をリクエストできます。
 
 #### ユーザーの作成
 
-![db-instance-detail-user-create](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-detail-user-create-ko.png)
+![db-instance-detail-user-create](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-detail-user-create-ja.png)
 
 ❶ **+ 作成**をクリックすると、ユーザー追加ポップアップ画面が表示されます。
 ❷ユーザーIDを入力します。
@@ -236,7 +236,7 @@ DBインスタンスの**データベース＆ユーザー**タブでは、DBエ
 
 #### ユーザーの修正
 
-![db-instance-detail-user-modify](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-detail-user-modify-ko.png)
+![db-instance-detail-user-modify](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-detail-user-modify-ja.png)
 
 ❶修正するユーザー行の**修正**をクリックすると、ユーザー情報を修正できるポップアップ画面が表示されます。
 ❷パスワードを入力しないと変更されません。
@@ -244,7 +244,7 @@ DBインスタンスの**データベース＆ユーザー**タブでは、DBエ
 
 #### ユーザーの削除
 
-![db-instance-detail-user-delete](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-detail-user-delete-ko.png)
+![db-instance-detail-user-delete](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-detail-user-delete-ja.png)
 
 ❶削除するユーザーを選択し、ドロップダウンメニューをクリックします。
 ❷ **削除**をクリックすると、**削除確認**ポップアップ画面が表示されます。**確認**をクリックして削除をリクエストできます。
@@ -253,7 +253,7 @@ DBインスタンスの**データベース＆ユーザー**タブでは、DBエ
 
 DBインスタンスの**アクセス制御**タブでは、特定のデータベースとユーザーに対するDBエンジンのアクセスルールを照会及び制御できます。ここで設定したルールは`pg_hba.conf`ファイルに適用されます。
 
-![db-instance-detail-hba](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-detail-hba-ko.png)
+![db-instance-detail-hba](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-detail-hba-ja.png)
 
 ❶アクセス制御ルールの適用状態を確認できます。
 ❷進行中の作業があれば、スピナーが表示されます。
@@ -275,7 +275,7 @@ DBインスタンスの**アクセス制御**タブでは、特定のデータ�
 
 #### アクセス制御ルールの追加
 
-![db-instance-detail-hba-create](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-detail-hba-create-ko.png)
+![db-instance-detail-hba-create](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-detail-hba-create-ja.png)
 
 ❶ **+ 作成**をクリックすると、アクセス制御ルールの追加ポップアップ画面が表示されます。
 ❷ルール適用対象を全体対象に指定するか、特定のデータベースやユーザーを選択して指定できます。
@@ -298,14 +298,14 @@ DBインスタンスの**アクセス制御**タブでは、特定のデータ�
 
 #### アクセス制御ルールの修正
 
-![db-instance-detail-hba-modify](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-detail-hba-modify-ko.png)
+![db-instance-detail-hba-modify](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-detail-hba-modify-ja.png)
 
 ❶修正するアクセス制御ルール行の**修正**をクリックすると、既存の情報を修正できるポップアップ画面が表示されます。
 ❷修正したルールは**変更事項の適用**をクリックしてDBインスタンスにアクセス制御設定を適用する必要があります。
 
 #### アクセス制御ルールの削除
 
-![db-instance-detail-hba-delete](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-detail-hba-delete-ko.png)
+![db-instance-detail-hba-delete](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-detail-hba-delete-ja.png)
 
 ❶削除するユーザーを選択し、**削除**をクリックすると、削除確認ポップアップ画面が表示されます。
 ❷削除したルールは、**変更の適用**をクリックしてDBインスタンスにアクセス制御設定を適用する必要があります。
@@ -358,7 +358,7 @@ DBインスタンスに接続されたパラメータグループの設定が変
 
 次のいずれかの方法を使用してDBインスタンスにパラメータグループの変更を適用できます。
 
-![db-instance-list-apply-parameter-group](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-list-apply-parameter-group-ko.png)
+![db-instance-list-apply-parameter-group](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-list-apply-parameter-group-ja.png)
 
 ❶対象DBインスタンスの **パラメータ**をクリックするか
 ❷対象DBインスタンスを選択した後、ドロップダウンメニューから**パラメータグループの変更内容を適用**メニューをクリックします。
@@ -371,7 +371,7 @@ PostgreSQLを再起動したい時、DBインスタンスを再起動できま�
 
 DBインスタンスの再起動を行うにはWebコンソールで
 
-![db-instance-list-restart](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-list-restart-ko.png)
+![db-instance-list-restart](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-list-restart-ja.png)
 
 ❶再起動したいDBインスタンスを選択した後、ドロップダウンメニューから**DBインスタンスの再起動**メニューをクリックします。
 
@@ -384,7 +384,7 @@ DBインスタンスのPostgreSQLが正常に動作しない場合、強制的�
 
 DBインスタンスを強制的に再起動するには、Webコンソールで
 
-![db-instance-list-force-restart](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-list-force-restart-ko.png)
+![db-instance-list-force-restart](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-list-force-restart-ja.png)
 
 ❶強制再起動を行いたいDBインスタンスを選択し、ドロップダウンメニューから**DBインスタンス強制再起動**メニューをクリックします。
 
@@ -427,11 +427,11 @@ DBインスタンスのマイグレーションは、NHN Cloudコンソールか
 
 名前の横にマイグレーションボタンがあるDBインスタンスが点検対象インスタンスです。
 
-![db-instance-planned-migration](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-planned-migration-ko.png)
+![db-instance-planned-migration](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-planned-migration-ja.png)
 
 マイグレーションボタンの上にマウスポインタを置くと、詳細な点検スケジュールを確認できます。
 
-![db-instance-planned-migration-popup](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-planned-migration-popup-ko.png)
+![db-instance-planned-migration-popup](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-planned-migration-popup-ja.png)
 
 #### 2. 点検対象DBインスタンスに接続しているアプリケーションを終了する必要があります。
 
@@ -440,13 +440,13 @@ DBに接続されたサービスに影響を与えないように適切な措置
 
 #### 3.点検対象のDBインスタンスを選択し、マイグレーションボタンをクリックした後、DBインスタンスのマイグレーション確認を求めるウィンドウが表示されたら、確認ボタンをクリックします。
 
-![db-instance-planned-migration-confirm](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-planned-migration-confirm-ko.png)
+![db-instance-planned-migration-confirm](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-planned-migration-confirm-ja.png)
 
 #### 4. DBインスタンスのマイグレーションが終わるまで待機します。
 
 DBインスタンスの状態が変更されない場合は、「更新」を行ってください。
 
-![db-instance-planned-migration-status](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-planned-migration-status-ko.png)
+![db-instance-planned-migration-status](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-planned-migration-status-ja.png)
 
 DBインスタンスがマイグレーションされている間は、何の操作もできません。
 DBインスタンスのマイグレーションが正常に完了しない場合、自動的に管理者に報告され、NHN Cloudから別途ご連絡いたします。
