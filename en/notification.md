@@ -1,86 +1,86 @@
-## Database > RDS for PostgreSQL > 알림
+## Database > RDS for PostgreSQL > Notification
 
-## 사용자 그룹
+## User Group
 
-알림을 받을 사용자를 그룹으로 관리할 수 있습니다. 알림 대상은 반드시 프로젝트 멤버로 등록되어 있어야 합니다. 사용자 그룹에 속한 사용자가 프로젝트 멤버에서 제외되면 사용자 그룹에 속해 있더라도 알림을 받을 수 없습니다.
+You can manage users who receive notifications as groups. Notification target must be registered as a project member. If a user in a user group is removed as a project member, they won't receive notifications, even if they belong to the user group.
 
-> [주의]
-> 실명 인증을 진행하지 않아 휴대폰 정보가 없을 경우 SMS 알림을 받을 수 없습니다.
+> [Caution]
+> If you don't have mobile phone information because you haven't completed identity verification, you can't receive SMS notifications.
 
-### 사용자 그룹 생성
+### Create a User Group
 
 ![user-group-create](https://static.toastoven.net/prod_rds_postgres/20240611/user-group-create-ko.png)
 
-❶ **+ 사용자 그룹 생성**을 누르면 사용자 그룹을 생성할 수 있는 팝업 화면이 나타납니다.
-❷ 사용자 그룹 이름을 입력합니다.
+❶ When you click **+ Create User Group**, a pop-up screen to create a user group appears.
+❷ Enter a user group name.
 
-사용자 그룹 이름은 아래와 같은 제약 사항이 있습니다.
+User group names have the following restrictions.
 
-* 1~100자 사이의 영문자, 숫자, 일부 기호(-, _, .)만 사용할 수 있으며, 첫 번째 글자는 영문자만 사용할 수 있습니다.
+* You can only use letters, numbers, and some symbols (-, \_, .) between 1 and 100 characters, and the first character can only be an alphabet.
 
-❸ 통보 방법을 선택합니다.
+❸ Select a notification method.
 
-* 전체 프로젝트 멤버로 선택한 경우 알람을 전송할 때 당시의 전체 프로젝트 멤버 대상으로 알람을 전송합니다.
+* If you select as an entire project member, send a notification to the entire project member at that time when you send a notification.
 
 ![user-group-custom](https://static.toastoven.net/prod_rds_postgres/20240611/user-group-custom-ko.png)
 
-❹ **+ 추가**를 누르면 프로젝트 멤버를 통보 대상으로 추가할 수 있는 팝업 화면이 나타납니다.
-❺ 삭제할 통보 대상을 선택 후 **삭제**를 눌러 통보 대상에서 제외할 수 있습니다.
-❻ **확인**을 눌러 사용자 그룹을 추가합니다.
+❹ Click **+ Add** to display a pop-up screen where you can add project members to notify.
+❺ You can select a notification target to delete and click **Delete** to exclude it from the notification target.
+❻ Click **Confirm** to add a user group.
 
-## 알림 그룹
+## Notification Group
 
-알림 그룹을 통해 성능 지표에 대한 알림을 받을 수 있습니다. 알림 그룹에 감시 대상 인스턴스와 알림을 받을 사용자 그룹을 지정합니다. 감시 설정을 통해 알림을 받을 성능 지표의 임곗값과 조건을 설정합니다. 설정된 지표가 감시 설정의 조건을 충족하면 연결된 사용자 그룹에 알림을 발송하게 됩니다. 알림 그룹에 설정된 알림 유형에 따라 SMS 혹은 메일로 알림을 발송합니다.
+You can receive notifications about performance metrics through the notification group. In the notification group, specify the monitored instance and the user group to receive the notification. Set the thresholds and conditions for the performance metrics that will be notified through monitoring settings. When the set metrics meet the criteria of the monitoring settings, it sends a notification to the connected user group. Send notifications by SMS or mail, depending on the notification type set in the notification group.
 
-### 알림 그룹 생성
+### Create Notification Group
 
 ![notification-group.png](https://static.toastoven.net/prod_rds_postgres/20240611/notification-group-ko.png)
 
-❶ **+ 알림 그룹 생성**을 누르면 알림 그룹을 생성할 수 있는 팝업 화면이 나타납니다.
-❷ 알림 그룹 이름을 입력합니다.
+❶ Click **+ Create Notification Group** to display a pop-up screen where you can create notification groups.
+❷ Enter the notification group name.
 
-알림 그룹 이름은 아래와 같은 제약 사항이 있습니다.
+Notification group names have the following restrictions.
 
-* 1~100자 사이의 영문자, 숫자, 일부 기호(-, _, .)만 사용할 수 있으며, 첫 번째 글자는 영문자만 사용할 수 있습니다.
+* You can only use letters, numbers, and some symbols (-, \_, .) between 1 and 100 characters, and the first character can only be an alphabet.
 
-❸ 알림을 받을 방법을 선택합니다.
-❹ 활성화되지 않은 알림 그룹은 알림 발송을 하지 않습니다.
-❺ 감시 대상 DB 인스턴스를 선택합니다.
-❻ 알림을 받을 사용자 그룹을 선택합니다.
+❸ Select how to receive notifications.
+❹ Notification groups that are disabled do not send notifications.
+❺ Select the DB instance to be monitored.
+❻ Select the user group to receive notifications.
 
-## 감시 설정
+## Monitoring Settings
 
-감시 설정은 감시 항목, 비교 방법, 임곗값 및 지속 시간으로 구성됩니다. 감시 항목의 성능 지푯값과 임곗값을 비교하여 조건이 충족하는지 판단합니다. 조건이 지속 시간 이상 연속해서 충족한다면 알림을 발송합니다. 예를 들어, CPU 사용률의 임곗값이 90% 이상이고 지속 시간이 5분이라면, 해당 알림 그룹과 연동된 DB 인스턴스의 CPU 사용률이 90% 이상인 상태가 5분 이상 지속되었을 때 사용자 그룹에 정의된 사용자들에게 알림을 보냅니다. 만약 CPU 사용률이 90% 이상이 되어도, 5분 이내에 90% 미만으로 떨어지면 알림이 발생하지 않습니다.
+Monitoring settings consist of monitoring items, comparison methods, thresholds, and duration. Compare the monitoring item's performance metrics value with the threshold to determine if the condition is met. Send a notification if the condition is met continuously for more than a duration. For example, if CPU utilization threshold is at least 90% and the duration is at least 5 minutes, it sends notifications to users defined in the user group when the CPU utilization of the DB instance associated with that notification group is at least 90% and lasts at least 5 minutes. Even if the CPU utilization is over 90%, no notification will send if it falls below 90 percent within 5 minutes.
 
-### 감시 설정 항목
+### Monitoring Settings items
 
-감시 가능한 성능 지표 항목은 다음과 같습니다.
+Performance metrics that can be monitored are as follows.
 
-| 힝목                         | 단위                 |
+| Items                         | Unit                 |
 |----------------------------|--------------------|
-| CPU 사용률                    | %                  |
-| CPU 사용량(IO Wait)           | %                  |
-| CPU 사용량(Nice)              | %                  |
-| CPU 사용량(System)            | %                  |
-| CPU 사용량(User)              | %                  |
+| CPU Usage                    | %                  |
+| CPU usage (IO Wait)           | %                  |
+| CPU usage (Nice)              | %                  |
+| CPU usage (System)            | %                  |
+| CPU usage (User)              | %                  |
 | Load Average 1M            |                    |
 | Load Average 5M            |                    |
 | Load Average 15M           |                    |
-| 메모리 사용량                    | %                  |
-| 메모리 사용량(바이트)               | MB                 |
-| 메모리 여유량(바이트)               | MB                 |
-| 메모리 버퍼(바이트)                | MB                 |
-| 캐시된 메모리(바이트)               | MB                 |
-| 스왑 사용량                     | MB                 |
-| 스왑 전체 크기                   | MB                 |
-| Storage 사용량                | %                  |
-| Storage 남은 사용량             | MB                 |
+| Memory Usage                    | %                  |
+| Memory Usage (bytes)               | MB                 |
+| Memory free capacity (bytes)               | MB                 |
+| Memory buffer (bytes)                | MB                 |
+| cached memory (bytes)               | MB                 |
+| Swap usage                     | MB                 |
+| Full swap size                   | MB                 |
+| Storage usage                | %                  |
+| Storage Remaining Usage             | MB                 |
 | Storage IO Read            | KB/sec             |
 | Storage IO Write           | KB/sec             |
-| 데이터 스토리지 결함                | 비정상: 0, 정상: 1      |
+| Data storage fault                | Abnormal: 0: normal 1      |
 | Network in BPS             | KB/sec             |
 | Network out BPS            | KB/sec             |
-| Database Connection Status | 접속 불가: 0, 접속 가능: 1 |
+| Database Connection Status | Unable to access: 0, able to access: 1 |
 | Queries Per Second         | counts/sec         |
 | Lock Tables                | counts/sec         |
 | Cache Hit Ratio            | %                  |
@@ -97,15 +97,15 @@
 | Deadlock                   | counts/sec         |
 | Conflict                   | counts/sec         |
 
-### 감시 설정 추가
+### Add Monitoring Setting
 
 ![notification-group-watchdog](https://static.toastoven.net/prod_rds_postgres/20240611/notification-group-watchdog-ko.png)
 
-❶ **감시 설정**을 누르면 감시 설정을 변경할 수 있는 팝업 화면이 나타납니다.
-❷ **+ 감시 설정 추가**를 눌러 신규 감시 설정을 추가합니다.
-❸ 감시할 항목과 비교 방법, 임곗값, 지속 시간을 입력한 뒤 **추가**를 클릭합니다.
+❶ Click **Monitoring Settings** to display a pop-up screen that allows you to change your monitoring settings.
+❷ Click **+ Add Monitoring Setting** to add new monitoring settings.
+❸ Enter items to be monitored, comparison method, threshold, and duration and Click **Add**.
 
-### 감시 설정 변경 및 삭제
+### Modify and delete Monitoring Setting
 
-❹ 버튼을 클릭하면 추가된 감시 설정을 변경할 수 있습니다.
-❺ 버튼을 클릭하면 추가된 감시 설정을 삭제할 수 있습니다.
+❹ Click the button to modify Monitoring settings added.
+❹ Click the button to delete Monitoring settings added.

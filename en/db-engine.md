@@ -1,13 +1,13 @@
-## Database > RDS for PostgreSQL > DB 엔진
+## Database > RDS for PostgreSQL > DB Engine
 
-## DB 엔진
-PostgreSQL에서 버전 번호는 버전 = `X.Y`로 구성됩니다. NHN Cloud의 RDS for PostgreSQL에서는 `X`의 경우 메이저 버전을, `Y`는 마이너 버전을 나타냅니다.
+## DB Engine
+In PostgreSQL, the version number consists of version = `X.Y`. In RDS for PostgreSQL of NHN Cloud, `X` represents the major version and `Y` the minor version.
 
 
-### RDS에서 제공하는 DB 엔진 버전
+### DB Engine Version provided by RDS
 
-아래에 명시된 버전을 사용할 수 있습니다.
+Available versions are as follows.
 
-| 버전                  | 비고    |
+| Version                  | Note    |
 |---------------------|-------|
 | PostgreSQL 14.6     |       |

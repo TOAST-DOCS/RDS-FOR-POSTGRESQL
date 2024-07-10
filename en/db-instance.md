@@ -1,452 +1,452 @@
-## Database > RDS for PostgreSQL > DB 인스턴스
+## Database > RDS for PostgreSQL > DB Instances
 
-## DB 인스턴스
+## DB Instance
 
-DB 인스턴스는 가상 장비와 설치된 PostgreSQL을 아우르는 개념으로, RDS for PostgreSQL에서 제공하는 PostgreSQL의 단위입니다.
-DB 인스턴스의 운영체제에 직접 접근할 수 없으며, 오직 DB 인스턴스 생성 시 입력하신 포트를 통해서 데이터베이스로만 접근할 수 있습니다. 사용할 수 있는 포트 범위는 아래와 같은 제약 사항이 있습니다.
+A DB instance is a concept that encompasses virtual equipment and installed PostgreSQL, a unit of PostgreSQL provided by RDS for PostgreSQL.
+You do not have direct access to the operating system of the DB instance; you can only access the database through the port you entered when you created the DB instance. The available port ranges have the following restrictions.
 
-* 사용할 수 있는 포트 범위는 5432~45432 사이입니다.
+* The available port ranges are from 5432 to 45432.
 
-DB 인스턴스는 고객이 부여하는 이름과 자동으로 부여되는 32바이트 아이디로 식별됩니다.
-DB 인스턴스 이름은 아래와 같은 제약 사항이 있습니다.
+DB instance is identified by the name given by the customer and the 32-byte ID given automatically.
+DB instance names have the following restrictions.
 
-* DB 인스턴스 이름은 리전별로 고유해야 합니다.
-* DB 인스턴스 이름은 1~100 사이의 영문자, 숫자, 일부 기호(-, _, .)만 사용할 수 있으며, 첫 번째 글자는 영문자만 사용할 수 있습니다.
+* DB instance name has to be unique for each region.
+* DB instance names can only contain alphabets between 1 and 100 characters, numbers, and some symbols (-, \_, .), and the first letter can only be an alphabetic character.
 
-## DB 인스턴스 생성
+## Create DB Instance
 
-아래 설정들을 통하여 DB 인스턴스를 생성할 수 있습니다.
+You can create a DB instance through the settings below.
 
-### 가용성 영역
+### Availability Zone
 
-NHN Cloud는 물리 하드웨어 문제로 생기는 장애에 대비하기 위해 전체 시스템을 여러 개의 가용성 영역으로 나누어 두었습니다. 이 가용성 영역별로 저장 시스템, 네트워크 스위치, 상면, 전원 장치가 모두 별도로 구성돼 있습니다. 한 가용성 영역 내에서 생기는 장애는 다른 가용성 영역에 영향을 주지 않으므로 서비스 전체의 가용성이 높아집니다. DB 인스턴스를 여러 가용성 영역에 나눠 구축한다면 서비스의 가용성을 더욱 높일 수 있습니다. 여러 가용성 영역에 흩어져서 생성된 DB 인스턴스끼리 네트워크 통신이 가능하며 이때 발생하는 네트워크 사용 비용은 부과되지 않습니다.
+NHN Cloud has divided the entire system into multiple availability areas to prepare for failures caused by physical hardware problems. For each of these availability areas, storage systems, network switches, top and power supplies are all configured separately. Failure within one area of availability does not affect another area of availability, which means increasing availability across the service. If you deploy DB instances across multiple availability areas, you can increase the availability of services. Network communication is possible between DB instances created across multiple availability zones, and there is no network usage charge for this.
 
-> [주의]
-> 이미 생성한 DB 인스턴스의 가용성 영역은 변경할 수 없습니다.
+> [Caution]
+> You cannot change the availability area of an already created DB instance.
 
-### DB 엔진
+### DB Engine
 
-아래에 명시된 버전을 사용할 수 있습니다.
+The versions specified below are available.
 
-| 버전                   | 비고 |
+| Version                   | Note |
 |----------------------|----|
 | PostgreSQL 14.6      |    |
 
 
-### DB 인스턴스 타입
+### DB instance type
 
-DB 인스턴스는 타입에 따라 서로 다른 CPU 코어 수와 메모리 용량을 가지고 있습니다.
-DB 인스턴스 생성 시 데이터베이스 워크로드에 따라 알맞은 DB 인스턴스 타입을 선택해야 합니다.
+DB instances have different CPU cores and different memory capacities, depending on the type.
+When you create a DB instance, you must select the appropriate DB instance type according to the database workload.
 
-| 타입 | 설명                                                        |
+| Type | Description                                                        |
 |----|-----------------------------------------------------------|
-| m2 | CPU와 메모리를 균형 있게 설정한 타입입니다.                                |
-| c2 | CPU의 성능을 높게 설정한 인스턴스 타입입니다.                               |
-| r2 | 다른 자원에 비해 메모리의 사용량이 많은 경우 사용할 수 있습니다.                     |
-| x1 | 고사양의 CPU와 메모리를 지원하는 타입입니다. 높은 성능이 필요한 서비스나 애플리케이션에 사용합니다. |
+| m2 | This is a type that balances CPU and memory.                                |
+| c2 | This is an Instance type with high CPU performance.                               |
+| r2 | It can be used when memory is used more than other resources.                     |
+| x1 | It is a type that supports high-specification CPU and memory. It can be used for services or applications that require high performance. |
 
-이미 생성한 DB 인스턴스의 타입은 웹 콘솔을 통해 손쉽게 변경 가능합니다.
+The type of DB instance that you have already created can be easily changed through web console.
 
-> [주의]
-> 이미 생성한 DB 인스턴스의 타입 변경 시 DB 인스턴스가 종료되므로 수분의 중단 시간이 발생합니다.
+> [Caution]
+> Changing the type of a DB instance that you have already created will shut down the DB instance, resulting in a few minutes of downtime.
 
-### 데이터 스토리지
+### Data Storage
 
-데이터 스토리지에 데이터베이스의 데이터 파일을 저장합니다. DB 인스턴스는 HDD, SSD의 2가지 데이터 스토리지 유형을 지원합니다. 데이터 스토리지 유형에 따라 성능과 가격이 다르므로 데이터베이스 워크로드에 따라 알맞은 유형을 선택해야 합니다. 데이터 스토리지는 20GB~2TB로 생성할 수 있습니다.
+Stores the database's data files in data storage. DB instances support two types of data storage: HDD and SSD. Performance and price vary by data storage type, so you need to choose the right type according to your database workload. Data storage can be created in 20GB to 2TB.
 
-> [주의]
-> 이미 생성한 DB 인스턴스의 데이터 스토리지 유형은 변경할 수 없습니다.
+> [Caution]
+> You cannot change the data storage type of an already created DB instance.
 
-> [참고]
-> 데이터 스토리지를 2TB 이상 사용하려면 NHN Cloud 고객 센터로 연락하세요.
+> [Note]
+> To use more than 2TB of data storage, contact NHN Cloud Customer Center.
 
-아래 작업은 데이터 스토리지의 I/O 용량을 사용하기 때문에 진행되는 동안 DB 인스턴스의 성능이 저하될 수 있습니다.
+The following tasks use the I/O capacity of the data storage, which may degrade the performance of DB instances during the process.
 
-* 단일 DB 인스턴스의 백업
-* 특정 시점으로 복원
+* Backup a single DB instance
+* Restore to a certain point in time
 
-### 정보
+### Information
 
-DB 인스턴스 기본 정보를 설정합니다. 인스턴스 이름, 설명, DB포트와 기본으로 생성할 사용자 정보를 입력할 수 있습니다.
-입력한 사용자 ID는 DDL 권한으로 생성됩니다.
+Set DB instance default information. You can enter the instance name, description, DB port, and user information that you want to create by default.
+The user ID you enter is created with DDL permissions.
 
 **DDL**
-* CRUD 권한을 포함하며, DDL 쿼리를 실행할 수 있는 권한을 가지고 있습니다.
+* Includes CRUD permissions, and has permissions to execute DDL queries.
 
 **CRUD**
-* 조회 권한을 포함하며, 데이터를 변경할 수 있는 권한을 가지고 있습니다.
-    * CRUD 사용자는 DB 인스턴스 생성 완료 후에 **DB & 사용자**탭에서 생성할 수 있습니다.
+* Includes query permissions, and has permission to change data.
+    * CRUD users can create a DB instance on **DB & User** tab after it has been created.
 
-> [주의]
-> DDL 사용자는 DB 인스턴스당 하나만 생성할 수 있으며 이미 생성한 사용자의 권한은 변경할 수 없습니다.
+> [Caution]
+> You can create only one DDL user per DB instance, and you cannot change the privileges of users that you have already created.
 
-### 플로팅 IP
+### Floating IP
 
-외부에서 DB 인스턴스에 접근하려면 플로팅 IP를 DB 인스턴스에 연결해야 합니다. Internet Gateway가 연결된 서브넷을 연결할 경우에만 플로팅 IP를 생성할 수 있습니다. 플로팅 IP는 사용과 동시에 과금이 되며, 이와 별개로 플로팅 IP를 통한 인터넷 방향의 트래픽이 발생할 경우 별도 과금합니다.
+To access a DB instance from outside, you must connect the floating IP to DB instance. You can create a floating IP only if you connect a subnet to which the Internet Gateway is connected. Floating IP is charged at the same time as it is used, and separately, it is charged separately if traffic is generated in the direction of the Internet through the floating IP.
 
-### 파라미터 그룹
+### Parameter Group
 
-파라미터 그룹은 DB 인스턴스에 설치된 데이터베이스를 설정할 수 있는 파라미터의 집합입니다. DB 인스턴스 생성 시 반드시 하나의 파라미터 그룹을 선택해야 합니다. 파라미터 그룹은 생성 이후에도 자유롭게 변경이 가능합니다. 파라미터 그룹에 대한 자세한 설명은 [파라미터 그룹](parameter-group/) 항목을 참고합니다.
+A parameter group is a set of parameters that allow you to set up a database installed on a DB instance. You must select one parameter group when you create a DB instance. The parameter group can be changed freely even after it is created. For a detailed description of the parameter group, refer to [Parameter Group](parameter-group/).
 
-### DB 보안 그룹
+### DB Security Group
 
-DB 보안 그룹은 외부 침입에 대비해 접속을 제한하기 위해서 사용합니다. 송수신 트래픽에 대해서 특정 포트 범위 또는 데이터베이스 포트에 대해서 접근을 허용할 수 있습니다. DB 인스턴스에 여러 개의 DB 보안 그룹을 적용할 수 있습니다. DB 보안 그룹에 대한 자세한 설명은 [DB 보안 그룹](db-security-group/) 항목을 참고합니다.
+DB security groups are used to restrict access against outside break-in. You can allow access to specific port ranges or database ports for incoming and outgoing traffic. You can apply multiple DB security groups to a DB instance. For a detailed description of DB security groups, refer to [DB security groups](db-security-group/).
 
-### 백업
+### Backup
 
-DB 인스턴스의 데이터베이스를 주기적으로 백업하도록 설정하거나, 웹 콘솔을 통해 원하는 시기에 백업을 생성할 수 있습니다. 백업이 수행되는 동안 성능 저하가 발생할 수 있습니다. 서비스에 영향을 주지 않기 위해 서비스의 부하가 적은 시간에 백업하는 것을 권장합니다. 백업 파일은 내부 백업 스토리지에 저장되며, 백업 용량에 따라 과금됩니다. 예상치 못한 장애에 대비하기 위해서 주기적으로 백업을 수행하도록 설정하는 것을 권장합니다. 백업에 대한 자세한 설명은 [백업 및 복원](backup-and-restore/) 항목을 참고합니다.
+You can set up a database of DB instances to periodically back up, or you can create backups at any time with web console. During the backup, the performance might degrade. We recommended that you back up at a time when the service load is not high so as not to affect the service. Backup files are stored in internal backup storage and are charged based on backup capacity. We recommend that you enable periodic backups to prepare for unexpected failures. For a detailed description of backups, see [Backup and Restore](backup-and-restore/).
 
-### 기본 알림
+### Default Notification
 
-DB 인스턴스 생성 시 기본 알림을 설정할 수 있습니다. 기본 알림을 설정하면 `{DB 인스턴스 이름}-default` 이름으로 새로운 알림 그룹이 생성되며 아래 알림 항목들이 자동으로 설정됩니다. 기본 알림으로 생성된 알림 그룹은 자유롭게 수정, 삭제할 수 있습니다. 알림 그룹에 대한 자세한 설명은 [알림 그룹](notification/) 항목을 참고합니다.
+You can set default notifications when creating a DB instance. Setting default notifications creates a new notification group with `{DB instance name}-default` name and automatically sets the notification items below. You can freely modify and delete notification groups generated by default notifications. See [Notification Groups](notification/) for a detailed description of notification groups.
 
-| 항목                         | 비교 방법 | 임곗값           | 지속 시간 |
+| Items                         | comparison method | Threshold value           | Duration |
 |----------------------------|-------|---------------|-------|
-| CPU 사용률                    | &gt;= | 80%           | 5분    |
-| Storage 남은 사용량             | &lt;= | 5,120MB       | 5분    |
-| Database Connection Status | &lt;= | 0             | 0분    |
-| Storage 사용량                | &gt;= | 95%           | 5분    |
-| 데이터 스토리지 결함                | &lt;= | 0             | 0분    |
-| Connection Ratio           | &gt;= | 85%           | 5분    |
-| 메모리 사용량                    | &gt;= | 90%           | 5분    |
+| CPU Usage                    | >= | 80%           | 5 minutes    |
+| Storage Remaining Usage             | <= | 5,120MB       | 5 minutes    |
+| Database Connection Status | <= | 0             | 0 minutes    |
+| Storage usage                | >= | 95%           | 5 minutes    |
+| Data storage fault                | <= | 0             | 0 minutes    |
+| Connection Ratio           | >= | 85%           | 5 minutes    |
+| Memory Usage                    | >= | 90%           | 5 minutes    |
 
 
-## DB 인스턴스 목록
+## DB Instances
 
-웹 콘솔에서 생성된 DB 인스턴스를 확인할 수 있습니다. DB 인스턴스 그룹 단위로 묶어서 보거나, 개별 DB 인스턴스로 볼 수 있습니다.
+You can view the DB instances created from the web console. You can view in groups of DB instances, or as individual DB instances.
 
 ![db-instance-list](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-list-ko.png)
 
-❶ DB 인스턴스 화면 모드를 변경할 수 있습니다.
-❷ 가장 최근 수집된 모니터링 지표를 보여줍니다.
-❸ 현재 상태를 볼 수 있습니다.
-❹ 진행 중인 작업이 있으면 스피너가 나타납니다.
-❺ 검색 조건을 변경할 수 있습니다.
+❶ Change the DB instance screen mode.
+❷ Display the most recently collected monitoring metrics.
+❸ Display the current status.
+❹ Spinner icon appears if any work in progress exists.
+❺ Change the search conditions.
 
-DB 인스턴스의 상태는 아래와 같은 값들로 구성되며, 사용자의 행위와 현재 상태에 따라 변경됩니다.
+DB instance's status consists of the following values, which change based on your behavior and your current status.
 
-| 상태                | 설명            |
+| Status                | Description            |
 |-------------------|---------------|
-| BEFORE_CREATE     | 생성 이전         |
-| AVAILABLE         | 사용 가능         |
-| STORAGE_FULL      | 용량 부족         |
-| FAIL_TO_CREATE    | 생성 실패         |
-| FAIL_TO_CONNECT   | 연결 실패         |
-| SHUTDOWN          | 중지됨           |
+| BEFORE_CREATE     | Before creating         |
+| AVAILABLE         | Available         |
+| STORAGE_FULL      | Lack of storage          |
+| FAIL_TO_CREATE    | Fail to create          |
+| FAIL_TO_CONNECT   | Fail to connect         |
+| SHUTDOWN          | shutdown           |
 
-변경할 수 있는 검색 조건은 아래와 같습니다.
+The search conditions that can be changed are as follows.
 
 ![db-instance-list-filter](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-list-filter-ko.png)
 
-❶ DB 인스턴스 상태를 필터링 조건으로 검색할 수 있습니다.
-❷ 가용성 영역을 필터링 조건으로 검색할 수 있습니다.
+❶ Retrieve the status of DB instance by filtering criteria.
+❷ Retrieve availability zones by filtering criteria.
 
-## DB 인스턴스 상세
+## DB Instance Details
 
-DB 인스턴스를 선택하면 상세 정보를 볼 수 있습니다.
+Select DB instance to view details.
 
 ![db-instance-detail-basic](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-detail-basic-ko.png)
 
-❶ 접속 정보의 도메인을 클릭하면 IP 주소를 확인할 수 있는 팝업 화면이 나타납니다.
-❷ DB 보안 그룹을 클릭하면 DB 보안 규칙을 확인할 수 있는 팝업 화면이 나타납니다.
-❸ 파라미터 그룹을 클릭하면 파라미터를 확인할 수 있는 화면으로 이동합니다.
-❹ 마우스로 드래그 앤드 드롭 하여 상세 정보 패널의 높이를 조절할 수 있습니다.
-❺ 상세 정보 패널의 높이를 미리 지정된 높이로 조절할 수 있습니다.
+❶ When you click on the domain of the connection information, the pop-up screen to verify the IP address appears.
+❷ When you click on the DB security group, a pop-up screen appears to verify the DB security rules.
+❸ Click a parameter group to go to the screen where you can check the parameters.
+❹ Adjust the height of the detail panel by dragging and dropping with the mouse.
+❺ Adjust the height of the detail panel to a pre-determined height.
 
-### 접속 정보
+### Connection Information
 
-DB 인스턴스 생성 시 내부 도메인을 발급합니다. 내부 도메인은 사용자 VPC 서브넷에 속한 IP 주소를 가리킵니다.
+Issues an internal domain when you create a DB instance. Internal domain refers to an IP address that belongs to the user's VPC subnet.
 
-플로팅 IP를 생성한 경우 외부 도메인을 추가로 발급합니다. 외부 도메인은 플로팅 IP의 주소를 가리킵니다. 외부 도메인 또는 플로팅 IP는 외부에서 접근이 가능하므로 DB 보안 그룹의 규칙을 적절히 설정하여 DB 인스턴스를 보호해야 합니다.
+If you created a floating IP, issue an additional external domain. External domain points to the address of the floating IP. Because the external domain or floating IP is externally accessible, you must set the rules of the DB security group appropriately to protect the DB instance.
 
-### 로그
+### Log
 
-DB 인스턴스의 로그 탭에서는 각종 로그 파일을 보거나 다운로드할 수 있습니다. 로그 파일은 아래와 같이 정해진 설정으로 로테이트 됩니다. 일부 로그 파일은 파라미터 그룹에서 활성화하거나 비활성화할 수 있습니다.
+On the Logs tab of the DB instance, you can view or download various log files. Log files will rotate to the set settings as follows. Some log files can be enabled or disabled in a parameter group.
 
-| 항목             | 로테이트 설정   | 변경 여부 | 
+| Items             | Rotate Settings   | Whether to change or not | 
 |----------------|-----------|-------|
-| postgresql.log | 100MB 40개 | 고정    |
-| backup.log     | 데일리 10개   | 고정    |
+| postgresql.log | 40 items of 100 MB  | Static    |
+| backup.log     | Daily 10 items   | Static    |
 
 ![db-instance-detail-log](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-detail-log-ko.png)
 
-❶ **로그 보기**를 클릭하면 로그 파일의 내용을 확인할 수 있는 팝업 화면이 나타납니다. 최대 65,535Bytes의 로그를 확인할 수 있습니다.
-❷ **가져오기**를 클릭하면 DB 인스턴스의 로그 파일을 다운로드할 수 있도록 요청합니다.
-❸ 다운로드가 준비되면 **다운로드** 버튼이 노출됩니다. 클릭하면 로그를 내려받습니다.
+❶ When you click **View Log**, a pop-up screen appears where you can view the contents of the log file. You can check logs up to 65,535 Bytes.
+❷ Click on **Import** to request that the log files of the DB instance be downloaded.
+❸ When the download is ready, the **Download** button is exposed. Click to download the log.
 
-> [주의]
-> **가져오기**를 클릭하면 약 5분간 로그 파일이 백업 스토리지에 업로드되며 로그 파일의 크기만큼 백업 스토리지 용량이 과금됩니다.
-> **다운로드**를 클릭하면 로그 파일의 크기만큼 인터넷 트래픽이 과금됩니다.
-
-
-### 데이터베이스 & 사용자
-
-DB 인스턴스의 **데이터베이스 & 사용자** 탭에서는 DB 엔진에 생성된 데이터베이스와 사용자를 조회 및 제어할 수 있습니다.
+> [Caution]
+> When **Import** is clicked, the log file is uploaded to the backup storage for approximately 5 minutes and the backup storage capacity is charged to the size of the log file.
+> Click on **Download** to charge Internet traffic as large as the log file.
 
 
-#### 데이터베이스 생성
+### Database & User
+
+**Database & User** tab of DB instance allows you to query and control databases and users created in the DB engine.
+
+
+#### Create a database
 
 ![db-instance-detail-db-create](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-detail-db-create-ko.png)
 
-❶ **+ 생성**을 클릭하면 데이터베이스의 이름을 입력할 수 있는 팝업 화면이 나타납니다.
-❷ 데이터베이스 이름을 입력한 뒤 **생성**을 클릭하여 데이터베이스를 생성할 수 있습니다.
+❶ When you click on **+ Create**, a pop-up screen appears where you can enter the name of the database.
+❷ You can create the database by entering the database name and clicking **Create**.
 
-데이터베이스 이름은 아래와 같은 제약 사항이 있습니다.
+Database names have the following restrictions.
 
-* 1~63자 사이의 따옴표(',")를 제외한 문자만 사용할 수 있습니다.
-* `postgres` `information_schema` `performance_schema` `repmgr` `db_helper` `sys` `mysql` `rds_maintenance` `pgpool` `nsight` `watchdog` `barman` `rman`은 데이터베이스 이름으로 사용할 수 없습니다.
+* Only characters between 1 and 63 characters, except quotes (','), can be used.
+* `postgres` `information_schema` `performance_schema` `repmgr` `db_helper` `sys` `mysql` `rds_maintenance` `pgpool` `nsight` `watchdog` `barman` `rman` are not allowed to use as database names. 
 
-#### 데이터베이스 수정
+#### Modify Database
 
 ![db-instance-detail-db-modify](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-detail-db-modify-ko.png)
 
-❶ 수정할 데이터베이스 행의 **수정**을 클릭하면 데이터베이스 정보를 수정할 수 있는 팝업 화면이 나타납니다.
-❷ **수정**을 클릭하여 수정을 요청할 수 있습니다.
-❸ **변경 예정 접근 제어 즉시 적용**을 체크하면 접근 제어 규칙에도 수정 사항이 즉시 적용됩니다.
+❶ When you click on **Modify** in the database row you want to modify, a pop-up screen appears where you can modify the database information.
+❷ You can request a modification by clicking on **Modify**.
+❸ When checking **Immediate Apply Scheduled Access Control**, the modifications are also applied to the access control rule immediately.
 
-#### 데이터베이스 삭제
+#### Deleting Database
 
 ![db-instance-detail-db-delete](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-detail-db-delete-ko.png)
 
-❶ 삭제할 데이터베이스를 선택 후 **삭제**를 클릭하면 삭제 확인 팝업 화면이 나타납니다.
-❷ **삭제**를 클릭하여 삭제를 요청할 수 있습니다.
+❶ If select the database you want to delete and click on **Delete**, the Delete confirmation pop-up screen appears.
+❷ You can request deletion by clicking on **Delete**.
 
-#### 사용자 생성
+#### Create a User
 
 ![db-instance-detail-user-create](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-detail-user-create-ko.png)
 
-❶ **+ 생성**을 클릭하면 사용자 추가 팝업 화면이 나타납니다.
-❷ 사용자 ID를 입력합니다.
+❶ Click on **+ Create** to see Add User pop-up screen.
+❷ Enter user ID.
 
-사용자 ID는 아래와 같은 제약 사항이 있습니다.
+User ID has the following restrictions.
 
-* 1~63자 사이의 따옴표(',")를 제외한 문자만 사용할 수 있습니다.
-* `postgres` `repmgr` `barman` `rman` `pgpool` `nsight` `watchdog` `dba` `manager` `mysql.session` `mysql.sys` `mysql.infoschema` `sqlgw` `admin` `etladm` `alertman` `prom` `rds_admin` `rds_mha` `rds_repl` `mariadb.sys`은 사용자 ID로 사용할 수 없습니다.
+* Only characters between 1 and 63 characters, except quotes (','), can be used.
+* `postgres` `repmgr` `barman` `rman` `pgpool` `nsight` `watchdog` `dba` `manager` `mysql.session` `mysql.sys` `mysql.infoschema` `sqlgw` `admin` `etladm` `alertman` `prom` `rds_admin` `rds_mha` `rds_repl` `mariadb.sys` are not allowed to be used as user ID.
 
-❸ 비밀번호를 입력합니다.
+❸ Enter a password.
 
-비밀번호는 아래와 같은 제약 사항이 있습니다.
+Password has the following restrictions.
 
-* 1~100자 사이의 따옴표(',")를 제외한 문자만 사용할 수 있습니다.
+* Only characters between 1 and 100 characters, except quotes (','), can be used.
 
-❹ 사용자에게 부여할 권한을 선택합니다. 부여할 수 있는 권한과 설명은 다음과 같습니다.
+❹ Select the permissions you want to grant to the user. The permissions and descriptions you can grant are as follows.
 
 **CRUD**
-* 조회 권한을 포함하며, 데이터를 변경할 수 있는 권한을 가지고 있습니다.
+* Includes query permissions, and has permission to change data.
 
-#### 사용자 수정
+#### Edit a User
 
 ![db-instance-detail-user-modify](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-detail-user-modify-ko.png)
 
-❶ 수정할 사용자 행의 **수정**을 클릭하면 사용자 정보를 수정할 수 있는 팝업 화면이 나타납니다.
-❷ 비밀번호를 입력하지 않으면 변경되지 않습니다.
-❸ **변경 예정 접근 제어 즉시 적용**을 체크하면 접근 제어 규칙에도 수정 사항이 즉시 적용됩니다.
+❶ When you click on **Modify** in the row of users that you want to edit, a pop-up screen appears where you can edit information.
+❷ If you do not enter a password, it will not be edited.
+❸ When checking **Immediate Apply Scheduled Access Control**, the modifications are also applied to the access control rule immediately.
 
-#### 사용자 삭제
+#### Delete a User
 
 ![db-instance-detail-user-delete](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-detail-user-delete-ko.png)
 
-❶ 삭제할 사용자를 선택 후 드롭다운 메뉴를 클릭합니다.
-❷ **삭제**를 클릭하면 **삭제 확인** 팝업 화면이 나타납니다. **확인**을 클릭하여 삭제를 요청할 수 있습니다.
+❶ Select the user that you want to delete and click on the drop-down menu.
+❷ When **Delete** is clicked, **Delete Confirmation** pop-up screen appears. You can request deletion by clicking on **Confirm**.
 
-### 접근 제어
+### Access Control
 
-DB 인스턴스의 **접근 제어** 탭에서는 특정 데이터베이스와 사용자에 대한 DB 엔진 접근 규칙을 조회 및 제어할 수 있습니다. 여기에 설정한 규칙은 `pg_hba.conf` 파일에 적용됩니다.
+**Access Control** tab of the DB instance allows you to query and control DB Engine access rules for specific databases and users. The rules set here apply to file `pg_hba.conf`.
 
 ![db-instance-detail-hba](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-detail-hba-ko.png)
 
-❶ 접근 제어 규칙에 대한 적용 상태를 볼 수 있습니다.
-❷ 진행 중인 작업이 있으면 스피너가 나타납니다.
-❸ 검색 키워드를 입력해 검색해서 볼 수 있습니다.
+❶ You can view the application status for access control rules.
+❷ If there is any work in progress, a spinner will appear.
+❸ You can search and view by entering search keywords.
 
-접근 제어의 상태는 아래와 같은 값들로 구성되며, 사용자의 행위와 현재 상태에 따라 변경됩니다.
+The status of access control consists of the following values, which change depending on your behavior and your current status.
 
-| 상태      | 예약 상태  | 설명           |
+| Status      | Schedule status   | Description           |
 |---------|--------|--------------|
-| CREATED | CREATE | 생성 예약(적용 필요) |
-| CREATED | MODIFY | 수정 예약(적용 필요) |
-| CREATED | DELETE | 삭제 예약(적용 필요) |
-| APPLIED | NONE   | 적용됨          |
-| -       | -      | 적용 불가        |
+| CREATED | CREATE | Schedule Create (requires application) |
+| CREATED | MODIFY | Schedule modify (requires application) |
+| CREATED | DELETE | Schedule delete (requires application) |
+| APPLIED | NONE   | Applied          |
+| -       | -      | Not applicable         |
 
-> [주의]
-> 특정 데이터베이스와 사용자를 선택해서 추가한 규칙의 대상들이 모두 삭제된 경우 적용 불가 상태로 나타나며 설정 파일엔 적용되지 않습니다.
+> [Caution]
+> If all the targets of the rule that you have added by selecting a specific database and user are deleted, they appear as not applicable state and do not apply to the configuration file.
 
 
-#### 접근 제어 규칙 추가
+#### Add Access Control Rules
 
 ![db-instance-detail-hba-create](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-detail-hba-create-ko.png)
 
-❶ **+ 생성**을 클릭하면 접근 제어 규칙 추가 팝업 화면이 나타납니다.
-❷ 규칙 적용 대상을 전체 대상으로 지정하거나 특정 데이터베이스나 사용자를 선택해서 지정할 수 있습니다.
-- **사용자 지정**을 선택하면 **데이터베이스 & 사용자** 탭에서 추가한 데이터베이스, 사용자를 선택하는 드롭다운 메뉴가 나타납니다.
-❸ 규칙을 적용할 접속 주소를 CIDR 형식으로 입력합니다.
-❹ 인증 방식을 선택합니다. RDS for PostgreSQL에서 지원하는 인증 방식은 다음과 같습니다.
+❶ When you click on **+ Create**, add Access Control Rule pop-up screen appears.
+❷ You can specify the full target of the rule or select a specific database or user.
+    - When **Custom** is selected, a drop-down menu for selecting the database and user is displayed on the **Database & User** tab.
+❸ Enter the connection address to which the rule applies in CIDR format.
+❹ Select authentication method. The following authentication methods are supported by RDS for PostgreSQL.
 
-| 인증 방식               | DB 엔진 설정값     | 설명                                                      |
+| authentication method               | DB Engine Settings value     | Description                                                      |
 |---------------------|---------------|---------------------------------------------------------|
-| 트러스트(비밀번호 불필요)      | trust         | 비밀번호나 다른 인증 없이 모든 연결을 허용합니다.                            |
-| 접속 차단               | reject        | 모든 연결을 차단합니다.                                           |
-| 비밀번호(SCRAM-SHA-256) | scram-sha-256 | **데이터베이스 & 사용자** 탭에서 설정한 비밀번호로 SCRAM-SHA-256 인증하도록 합니다. |
+| Trust (no password required)      | trust         | Allow all connections without passwords or other authentication.                            |
+| Block connection               | reject        | Block all connections.                                           |
+| password (SCRAM-SHA-256) | scram-sha-256 | Ensure that SCRAM-SHA-256 is authenticated with the password set on **Database & User** tab. |
 
-❺ 위/아래 화살표 버튼으로 규칙을 적용할 순서를 조정합니다.
-- 접근 제어 규칙은 위에서부터 순차적으로 적용하며 먼저 적용된 규칙이 우선됩니다.
-- 상단에 등록된 접근 허용 규칙이 먼저 적용되면 하단에 접근 차단 규칙이 있더라도 접근이 허용됩니다.
-- 반대로 하단에 접근 허용 규칙이 있더라도 상단에 등록된 접근 차단 규칙이 먼저 적용돼 있으면 접근이 불가능합니다.
-❻ 설정을 마친 뒤 **변경사항 적용**을 클릭해 DB 인스턴스에 접근 제어 설정을 적용합니다.
-❼ DB 인스턴스에 적용되면 상태가 **적용됨**으로 변경됩니다.
+❺ Adjust the order in which the rules are applied with the up/down arrow buttons.
+    - Access control rules are applied sequentially from above and the first applied rule takes priority.
+    - If the access permission rule registered at the top is applied first, access is allowed even if there is an access blocking rule at the bottom.
+    - Conversely, even if there is an access permission rule at the bottom, access is not allowed if the access blocking rule registered at the top is applied first.
+❻ After finish setting, click **Apply Changes** to apply the access control settings to DB instance.
+❼ When applied to DB instance, the status changes to **Applied**.
 
-#### 접근 제어 규칙 수정
+#### Modify Access Control Rules
 
 ![db-instance-detail-hba-modify](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-detail-hba-modify-ko.png)
 
-❶ 수정할 접근 제어 규칙 행의 **수정**을 클릭하면 기존 정보를 수정할 수 있는 팝업 화면이 나타납니다.
-❷ 수정한 규칙은 **변경사항 적용**을 클릭해 DB 인스턴스에 접근 제어 설정을 적용해야 합니다.
+❶ When click **Modify** in the row of access control rules to modify, a pop-up screen appears where you can modify existing information.
+❷ Modified rules must apply access control settings to DB instances by clicking on **Apply Changes**.
 
-#### 접근 제어 규칙 삭제
+#### Delete Access Control Rules
 
 ![db-instance-detail-hba-delete](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-detail-hba-delete-ko.png)
 
-❶ 삭제할 사용자를 선택 후 **삭제**를 클릭하면 삭제 확인 팝업 화면이 나타납니다.
-❷ 삭제한 규칙은 **변경사항 적용**을 클릭해 DB 인스턴스에 접근 제어 설정을 적용해야 합니다.
+❶ If you select the user you want to delete and click on **Delete**, Delete confirmation pop-up screen appears.
+❷ Deleted rules must apply access control settings to DB instances by clicking on **Apply Changes**.
 
-## DB 인스턴스 수정
+## Modify DB Instance
 
-웹 콘솔을 통해 생성된 DB 인스턴스의 다양한 항목을 손쉽게 변경할 수 있습니다. 변경 요청한 항목은 순차적으로 DB 인스턴스에 적용합니다. 적용 과정에서 재시작이 필요할 경우 모든 변경을 적용한 후 DB 인스턴스를 재시작합니다. 변경 불가능한 항목과 재시작이 필요한 항목은 다음과 같습니다.
+You can easily change various items in DB instance created through web console. The change items you request are applied to DB instances sequentially. If a restart is required during the application process, apply all changes and restart the DB instance. Items that cannot be changed and that require a restart are as follows.
 
-| 항목              | 변경 가능 여부 | 재시작 필요 여부               |
+| Items              | Whether able to change or not | Whether need to restart or not               |
 |-----------------|----------|-------------------------|
-| 가용성 영역          | 아니오      |                         |
-| DB 엔진           | 아니오      |                         |
-| DB 인스턴스 타입      | 예        | 예                       |
-| 데이터 스토리지 종류     | 아니오      |                         |
-| 데이터 스토리지 크기     | 예        | 예                       |
-| 이름              | 예        | 아니오                     |
-| 설명              | 예        | 아니오                     |
-| DB 포트           | 예        | 예                       |
-| VPC 서브넷         | 아니오      |                         |
-| 플로팅 IP          | 예        | 아니오                     |
-| 파라미터 그룹         | 예        | 변경된 파라미터의 재시작 여부에 따라 결정 |
-| DB 보안 그룹        | 예        | 아니오                     |
-| 백업 설정           | 예        | 아니오                     |
-| 데이터베이스 & 사용자 제어 | 예        | 아니오                     |
-| 접근 제어           | 예        | 아니오                     |
+| Availability Zone          | No      |                         |
+| DB Engine           | No      |                         |
+| DB instance type      | Yes        | Yes                       |
+| Data Storage Types     | No      |                         |
+| Data Storage Sizes     | Yes        | Yes                       |
+| Name              | Yes        | No                     |
+| Description              | Yes        | No                     |
+| DB port           | Yes        | Yes                       |
+| VPC Sub-net         | No      |                         |
+| Floating IP          | Yes        | No                     |
+| Parameter Group         | Yes        | Determines whether or not the changed parameters are restarted  |
+| DB Security Group        | Yes        | No                     |
+| Backup Settings           | Yes        | No                     |
+| Database and User Control | Yes        | No                     |
+| Access Control           | Yes        | No                     |
 
 
-## DB 인스턴스 삭제
+## Delete DB instance
 
-더 이상 사용하지 않는 DB 인스턴스는 삭제할 수 있습니다. 삭제된 DB 인스턴스는 복구할 수 없으므로 주의가 필요합니다.
+You can delete DB instances that are no longer in use. Be careful as deleted DB instances cannot be recovered.
 
-## 백업
+## Backup
 
-장애 상황에 대비하여 DB 인스턴스의 데이터베이스를 복구할 수 있도록 미리 준비할 수 있습니다. 필요할 때마다 웹 콘솔에서 백업을 수행하거나, 주기적으로 백업이 수행되도록 설정할 수 있습니다. 자세한 사항은 [백업](backup-and-restore/#_1) 항목을 참고합니다.
+You can prepare a database of DB instances to recover in case of a failure. You can perform backups from the web console whenever you need to or you can set to perform periodical back up. See [Backup](backup-and-restore/#_1) for more information.
 
-## 복원
+## Restoration
 
-백업을 이용하여 원하는 시점으로 데이터를 복원할 수 있습니다. 복원 시 항상 새로운 DB 인스턴스가 생성되며, 기존 DB 인스턴스에 복원할 수 없습니다. 자세한 사항은 [복원](backup-and-restore/#_6) 항목을 참고합니다.
+You can use backup to restore data to any point in time. Restore always creates a new DB instance and cannot be restored to an existing DB instance. See [Backup](backup-and-restore/#_6) for more information.
 
-## 용량 확보
+## Secure Capacity
 
-급격한 부하로 WAL 로그가 과도하게 생성되어 데이터 스토리지의 용량이 부족할 경우 웹 콘솔의 용량 확보 기능을 이용해 WAL 로그를 삭제할 수 있습니다. 웹 콘솔에서 용량 확보를 선택하면 DB 인스턴스의 WAL 로그를 선택할 수 있는 팝업 화면이 표시됩니다. WAL 로그를 선택한 뒤 **확인**을 눌러 선택한 항목 이전에 생성된 모든 WAL 로그를 삭제합니다. 용량 확보 기능은 일시적으로 용량을 확보하는 기능입니다. 계속해서 용량이 부족하다면 서비스 부하에 맞게 데이터 스토리지의 크기를 확장해야 합니다.
+If WAL logs are excessively generated due to rapid load and the data storage is low in capacity, you can delete the WAL logs using the capacity acquisition feature of web console. When you select Free Capacity from web console, a pop-up screen displays to select WAL log for the DB instance. Select the WAL log and click **Confirm** to delete all WAL logs created before the selected item. The capacity acquisition feature is a function of temporarily securing capacity. If you continue to run out of capacity, you must scale up your data storage to meet the service load.
 
-> [주의]
-> 삭제된 WAL 로그에 따라 특정 시점으로 복원되지 않을 수 있습니다.
+> [Caution]
+> Depending on the deleted WAL log, it may not be restored to a certain point in time.
 
-## 파라미터 그룹 변경 사항 적용
+## Apply Parameter Group Changes
 
-DB 인스턴스에 연결된 파라미터 그룹의 설정이 변경되어도 이 변경 사항은 DB 인스턴스에 자동으로 적용되지 않습니다. 만약 DB 인스턴스에 적용된 파라미터와 연결된 파라미터 그룹의 설정이 서로 다를 경우 웹 콘솔에 **파라미터** 버튼이 표시됩니다.
+Even though the settings of the parameter groups connected to the DB instance changed, it does not automatically apply to the DB instance. If the parameters applied to DB instance and the settings of the connected parameter group are different, **Parameter** button is displayed in the web console.
 
-다음 방법 중 하나를 사용하여 DB 인스턴스에 파라미터 그룹의 변경 사항을 적용할 수 있습니다.
+You can apply changes to a parameter group to a DB instance using one of the following methods.
 
 ![db-instance-list-apply-parameter-group](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-list-apply-parameter-group-ko.png)
 
-❶ 대상 DB 인스턴스의 **파라미터**를 클릭하거나
-❷ 대상 DB 인스턴스를 선택한 후 드롭다운 메뉴에서 **파라미터 그룹 변경 사항 적용** 메뉴를 클릭합니다.
+❶ Click **Parameter** for destination DB instance, or
+❷ Select a destination DB instance and click on **Apply Parameter Group Changes** menu from the drop-down menu.
 
-파라미터 그룹에서 재시작을 필요로 하는 파라미터가 변경된 경우, 변경 사항을 적용하는 과정에서 DB 인스턴스가 재시작됩니다.
+If the parameters that require restart in the parameter group are changed, such DB instance is restarted in the process of applying the changes.
 
-## DB 인스턴스 재시작
+## Restart DB Instances
 
-PostgreSQL을 재시작하고자 할 때, DB 인스턴스를 재시작할 수 있습니다. 재시작 시간을 최소화하기 위해 서비스 부하가 낮은 시간대에 수행하는 것이 좋습니다.
+If you want to restart PostgreSQL, you can restart a DB instance. To minimize restart time, it is recommended to perform when service load is low.
 
-DB 인스턴스 재시작을 하려면 웹 콘솔에서
+To restart a DB instance, use web console
 
 ![db-instance-list-restart](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-list-restart-ko.png)
 
-❶ 재시작을 원하는 DB 인스턴스를 선택 후 드롭다운 메뉴에서 **DB 인스턴스 재시작** 메뉴를 클릭합니다.
+❶ Select DB instance that you want to restart and click **Restart DB Instance** from the drop-down menu.
 
-## DB 인스턴스 강제 재시작
+## Force Restart DB Instances
 
-DB 인스턴스의 PostgreSQL이 정상 동작하지 않는 경우 강제로 재시작할 수 있습니다. 강제 재시작의 경우 PostgreSQL에 SIGTERM 명령을 내려 정상 종료되기를 10분간 기다립니다. 10분 안에 PostgreSQL이 정상 종료되면 이후 가상 머신을 재부팅합니다. 10분 안에 정상 종료되지 않으면 가상 머신을 강제로 재부팅합니다. 가상 머신이 강제로 재부팅되면 작업 중인 일부 트랜잭션이 유실될 수 있으며, 데이터 볼륨이 손상되어 복구가 불가능해질 수 있습니다. 강제 재시작 이후 DB 인스턴스의 상태가 사용 가능 상태로 돌아오지 않을 수 있습니다. 해당 상황 발생 시 고객 센터로 문의하세요.
+If PostgreSQL of a DB instance is not working properly, you can force a restart. For a forced restart, issue a SIGTERM command to PostgreSQL and wait 10 minutes for normal shutdown. After PostgreSQL shuts down successfully in 10 minutes, reboot the virtual machine afterward. If it does not shut down normally in 10 minutes, force a reboot of the virtual machine. If a virtual machine is forced to reboot, some work-in-progress transactions may be lost and the data volume may become corrupted, making it impossible to recover. After a forced restart, the state of the DB instance might not return to the enabled state. Please contact the customer center if such situation occurs.
 
-> [주의]
-> 데이터가 유실되거나 데이터 볼륨이 손상될 가능성이 있으므로 해당 기능은 긴급하고 불가피한 상황 이외에는 사용을 지양해야 합니다.
+> [Caution]
+> This feature should be avoided to use, except in urgent and unavoidable circumstances, as data may be lost or data volume may be compromised.
 
-DB 인스턴스 강제 재시작을 하려면 웹 콘솔에서
+To force a DB instance restart from web console
 
 ![db-instance-list-force-restart](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-list-force-restart-ko.png)
 
-❶ 강제 재시작을 원하는 DB 인스턴스를 선택 후 드롭다운 메뉴에서 **DB 인스턴스 강제 재시작** 메뉴를 클릭합니다.
+❶ Select the DB instance that you want to force restart and click on **Force Restart DB Instance** menu from the drop-down menu.
 
-## 데이터 마이그레이션
+## Data Migration
 
-* RDS는 pg_dump를 이용하여 NHN Cloud RDS의 외부로 가져올 수 있습니다.
-* pg_dump 유틸리티는 PostgreSQL을 설치했을 때 기본으로 제공됩니다.
+* RDS can be imported to the outside of the NHN Cloud RDS using pg_dump.
+* pg_dump utility is provided by default when you install PostgreSQL.
 
-### pg_dump를 이용하여 내보내기
+### Export using pg_dump
 
-* NHN Cloud RDS의 인스턴스를 준비하여 사용합니다.
-* 내보낼 데이터를 저장하게 될 외부 인스턴스, 또는 로컬 클라이언트가 설치된 컴퓨터의 용량이 충분히 확보되어 있는지 확인합니다.
-* NHN Cloud의 외부로 데이터를 내보내야 할 경우 Floating IP를 생성하여 데이터를 내보낼 RDS 인스턴스에 연결합니다.
-* 아래의 pg_dump 명령어를 통하여 외부로 데이터를 내보냅니다.
+* Get NHN Cloud RDS instances prepared.
+* Verify that the external instance where you want to store the data to export, or the computer on which the local client is installed has sufficient capacity.
+* If you need to export data to the outside of NHN Cloud, create a floating IP and connect it to the RDS instance where you want to export the data.
+* Export data to the outside via the pg_dump command below.
 
-#### 파일로 내보낼 경우
+#### Export in Files
 
 ```
 pg_dump -h {rds_instance_floating_ip} -U {db_id} -p {db_port} -d {database_name} -f {local_path_and_file_name}
 ```
 
-#### NHN Cloud RDS 외부의 PostgreSQL 데이터베이스로 내보낼 경우
+#### Export to PostgreSQL database outside NHN Cloud RDS
 
 ```
 pg_dump  -h {rds_instance_floating_ip} -U {db_id} -p {db_port} -d {database_name} | psql -h {external_db_host} -U {external_db_id} -p {external_db_port} -d {external_database_name}
 ```
 
-## 부록
+## Delete Registry Account
 
-### 부록1. 하이퍼바이저 점검을 위한 DB 인스턴스 마이그레이션 가이드
+### Delete Registry Account 1. DB Instance Migration Guide for Hypervisor maintenance
 
-NHN Cloud는 주기적으로 DB 인스턴스의 하이퍼바이저 소프트웨어를 업데이트하여 보안과 안정성을 향상시키고 있습니다.
-점검 대상 하이퍼바이저에서 구동 중인 DB 인스턴스는 마이그레이션을 통해 점검이 완료된 하이퍼바이저로 이동해야 합니다.
+NHN Cloud periodically updates the hypervisor software of DB instances to improve security and reliability.
+DB instances running on the hypervisor being checked for maintenance must be migrated to the hypervisor being checked for maintenance.
 
-DB 인스턴스 마이그레이션은 NHN Cloud 콘솔에서 시작할 수 있습니다.
-아래 가이드에 따라 콘솔에 있는 마이그레이션 기능을 이용하세요.
-점검 대상으로 지정된 DB 인스턴스가 있는 프로젝트로 이동합니다.
+DB instance migration can be initiated from NHN Cloud console.
+Follow the guide below to use the migration feature on the console.
+Navigate to the project that contains the DB instance that you specify to maintenance check.
 
-#### 1. 점검 대상 DB 인스턴스를 확인합니다.
+#### 1. Check the DB instance that you want to do maintenance check.
 
-이름 옆에 마이그레이션 버튼이 있는 DB 인스턴스가 점검 대상 인스턴스입니다.
+Those with the migration button next to name are the maintenance targets.
 
 ![db-instance-planned-migration](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-planned-migration-ko.png)
 
-마이그레이션 버튼 위에 마우스 포인터를 올리면 자세한 점검 일정을 확인할 수 있습니다.
+You can check the detailed schedule of maintenance by putting the mouse pointer over the migration button.
 
 ![db-instance-planned-migration-popup](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-planned-migration-popup-ko.png)
 
-#### 2. 점검 대상 DB 인스턴스에 접속 중인 응용 프로그램을 종료해야 합니다.
+#### 2. You have to end the application that is connecting to the DB instance for maintenance targets.
 
-DB에 연결된 서비스에 영향을 주지 않도록 적절한 조치하세요.
-서비스에 영향을 줄 수밖에 없을 때는 NHN Cloud 고객 센터로 연락해 주시면 적합한 조치를 안내해 드리겠습니다.
+Take appropriate measures to avoid affecting services connected to the DB.
+If you have no choice but to affect the service, please contact NHN Cloud Customer Center and we will guide you with appropriate measures.
 
-#### 3. 점검 대상 DB 인스턴스를 선택하고 마이그레이션 버튼을 클릭한 후 DB 인스턴스 마이그레이션 확인을 묻는 창이 나타나면 확인 버튼을 클릭합니다.
+#### 3. Select the DB instance to be checked, click on Migration button and when a window appears asking for confirmation of the DB instance migration, click on the OK button.
 
 ![db-instance-planned-migration-confirm](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-planned-migration-confirm-ko.png)
 
-#### 4. DB 인스턴스 마이그레이션이 끝날 때까지 대기합니다.
+#### 4. Wait for DB instance migration to finish.
 
-DB 인스턴스 상태가 변경되지 않는다면 '새로 고침'하세요.
+If the DB instance status does not change, 'refresh'.
 
 ![db-instance-planned-migration-status](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-planned-migration-status-ko.png)
 
-DB 인스턴스가 마이그레이션되는 동안에는 아무런 조작을 할 수 없습니다.
-DB 인스턴스 마이그레이션이 정상적으로 완료되지 않으면 자동으로 관리자에게 보고되며, NHN Cloud에서 별도로 연락을 드립니다.
+No action is allowed while the DB instance is being migrated.
+If DB instance migration does not complete successfully, it will be reported to the administrator automatically, and NHN Cloud will contact you separately.

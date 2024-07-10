@@ -1,122 +1,122 @@
-## Database > RDS for PostgreSQL > 백업 및 복원
+## Database > RDS for PostgreSQL > Backup and Restore
 
-## 백업
+## Backup
 
-장애 상황에 대비하여 DB 인스턴스의 데이터베이스를 복구할 수 있도록 미리 준비할 수 있습니다. 필요할 때마다 웹 콘솔에서 백업을 수행하거나, 주기적으로 백업이 수행되도록 설정할 수 있습니다. 백업이 수행되는 동안에는 해당 DB 인스턴스의 스토리지의 성능 저하가 발생할 수 있습니다. 서비스에 영향을 주지 않기 위해 서비스의 부하가 적은 시간에 백업할 것을 권장합니다.
+You can prepare a database of DB instances to restore in case of a failure. You can perform backups from the web console whenever needed or you can set to perform periodical backup. During the backup, the storage performance of that DB instance might degrade. It is recommended to back up during off-peak hours to avoid impacting your services.
 
-RDS for PostgreSQL에서는 pg_basebackup 도구를 이용하여 데이터베이스를 백업합니다. 외부 PostgreSQL의 백업으로 복원하거나 RDS for PostgreSQL의 백업으로 복원하기 위해서는 RDS for PostgreSQL에서 사용하는 pg_basebackup과 동일한 버전을 사용해야 합니다. DB 엔진 버전에 따른 pg_basebackup 버전은 아래와 같습니다.
+RDS for PostgreSQL uses the pg_basebackup tool to back up databases. To restore to a backup of an external PostgreSQL or to a backup of RDS for PostgreSQL, you must use the same version of pg_basebackup used by RDS for PostgreSQL. pg_basebackup version according to the DB engine version is as follows.
 
-| PostgreSQL 버전 | pg_basebackup 버전 |
+| PostgreSQL version | pg_basebackup version |
 |---------------|------------------|
 | 14.6          | 14.6             |
 
-* pg_basebackup의 설치에 대한 자세한 설명은 PostgreSQL 홈페이지를 참고합니다.
-    * https://www.postgresql.org/docs/14/app-pgbasebackup.html
+* For more information about installing pg_basebackup, refer to the PostgreSQL website.
+  * https://www.postgresql.org/docs/14/app-pgbasebackup.html
 
-백업 시에 적용되는 설정 항목은 다음과 같으며, 자동 백업 및 수동 백업 시에 모두 적용됩니다.
+The following settings are applied to backup and it applies to both auto and manual backups.
 
 ![backup-config](https://static.toastoven.net/prod_rds_postgres/20240611/backup-config-ko.png)
 
-### 수동 백업
+### Manual Backup
 
-특정 시점의 데이터베이스를 영구히 저장하려면 웹 콘솔에서 수동으로 백업을 수행할 수 있습니다. 수동 백업은 자동 백업과 달리 명시적으로 백업을 삭제하지 않는 한 DB 인스턴스가 삭제될 때 같이 삭제되지 않습니다. 웹 콘솔에서 수동 백업을 수행하려면
+If you want to permanently store a database at a specific point in time, you can perform a backup manually from the web console. Unlike auto backups, manual backups are not deleted when a DB instance is deleted unless you explicitly delete the backup. To perform a manual backup from the web console
 
 ![db-instance-detail-backup](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-detail-backup-ko.png)
 
-❶ 백업할 DB 인스턴스를 선택한 뒤 **백업**을 클릭하면 **백업 생성** 팝업 화면이 나타납니다.
-- DB 인스턴스를 선택하지 않고 **백업**을 클릭하면 **백업 생성** 팝업 화면 내 드롭다운 메뉴에서 DB 인스턴스를 선택할 수 있습니다.
-❷ 백업의 이름을 입력합니다. 아래와 같은 제약 사항이 있습니다.
+❶ After selecting the DB instance to back up, click **Backup**, and **Create Backup** and the pop-up screen appears.
+    - If you click **Backup** without selecting DB instance, you can select DB instance from the drop-down menu within the **Create Backup** pop-up screen.
+❷ Enter a name of the backup. There are the following restrictions.
 
-* 백업 이름은 리전별로 고유해야 합니다.
-* 백업 이름은 1~100자 사이의 영문자, 숫자, 일부 기호(-, _, .)만 입력할 수 있으며, 첫 번째 글자는 영문자만 사용할 수 있습니다.
+* Backup name has to be unique for each region.
+* Backup names are alphabetic, numeric and - _ between 1 and 100 Only and the first character has to be an alphabet letter.
 
-또는 **백업** 탭에서
+Or, on the **Backup** tab,
 
 ![backup-create](https://static.toastoven.net/prod_rds_postgres/20240611/backup-create-ko.png)
 
-❶ **+ 백업 생성**을 클릭하면 **백업 생성** 팝업 화면이 나타납니다.
-❷ 백업을 수행할 DB 인스턴스를 선택합니다.
-❸ 백업의 이름을 입력한 뒤 **생성**을 클릭하면 백업 생성을 요청할 수 있습니다.
+❶ Click **+ Create Backup** and the **Create Backup** pop-up screen will appear.
+❷ Select the DB instance on which to perform the backup.
+❸ You can enter a name for the backup and click **Create** to request backup creation.
 
-### 자동 백업
+### Auto Backup
 
-수동으로 백업을 수행하는 경우 외에도 복원 작업을 위해 필요한 경우 또는 자동 백업 스케줄 설정에 따라 자동 백업이 수행될 수 있습니다. DB 인스턴스의 백업 보관 기간을 1일 이상으로 설정하면 자동 백업이 활성화되며, 지정된 시간에 백업이 수행됩니다. 자동 백업은 DB 인스턴스와 생명 주기가 동일합니다. DB 인스턴스가 삭제되면 보관된 자동 백업은 모두 삭제됩니다. 자동 백업에서 지원하는 설정 항목은 아래와 같습니다.
+Even when performing manual backups, auto backups can be performed if necessary for restore jobs or depending on the auto backup schedule. If you set the backup retention period for DB instance to 1 day or longer, auto backups are activated, and backups are performed at the specified time. auto backups have the same life cycle as DB instances. When a DB instance is deleted, all archived auto backups are deleted. The settings that Auto Backup supports are as follows.
 
 ![backup-config](https://static.toastoven.net/prod_rds_postgres/20240611/backup-config-ko.png)
 
-**백업 보관 기간**
+**Backup Retention Period**
 
-* 백업을 스토리지에 저장하는 기간을 설정합니다. 최대 730일까지 보관할 수 있으며, 백업 보관 기간이 변경되면 보관 기간이 지난 자동 백업 파일은 바로 삭제됩니다.
+* Set how long the backup is stored in storage. It can be archived for up to 730 days, and if the backup retention period changes, auto backup files that are out of retention period are immediately deleted.
 
-**백업 재시도 횟수**
+**Backup Retry Count**
 
-* DML 쿼리 부하 또는 여러 다양한 이유로 자동 백업이 실패한 경우 재시도하도록 설정할 수 있습니다. 최대 10회까지 재시도할 수 있습니다. 재시도 횟수가 남아 있더라도 자동 백업 수행 시간 설정에 따라 재시도하지 않을 수 있습니다.
+* You can set it to retry if an auto backup fails for DML query load or for a variety of reasons. You can retry up to 10 times. If the number of retries remains, you may not want to retry depending on the setting of the auto backup run time.
 
-**백업 수행 시간**
+**Backup Execution Time**
 
-* 백업이 자동으로 수행되는 시간을 설정할 수 있습니다. 백업 시작 시간과 백업 윈도우, 백업 재시도 만료 시간으로 구성됩니다. 백업 수행 시간은 겹치지 않게 여러 번 설정할 수 있습니다. 백업 시작 시간을 기준으로 백업 윈도우 안의 어느 시점에서 백업을 수행합니다. 백업 윈도우는 백업의 총 수행 시간과는 관련이 없습니다. 백업에 걸리는 시간은 데이터베이스 크기에 비례하며, 서비스 부하에 따라 달라집니다. 백업이 실패할 경우 백업 재시도 만료 시간을 넘지 않았다면 백업 재시도 횟수에 따라 백업을 다시 시도합니다.
+* You can set the point of time the backup runs automatically. It consists of backup start time, backup window and backup retry expiration time. Backup execution times can be set multiple times without overlapping. Perform backup at some point in the backup window based on the backup start time. The backup window is not related to the total running time of the backup. The time it takes to back up is proportional to the size of the database and depends on the service load. If the backup fails, if it does not exceed the expiration time of the backup retry, try the backup again based on the number of backup retries.
 
-자동 백업의 이름은 `{DB 인스턴스의 이름}_yyyy-MM-dd-HH-mm` 형태로 부여됩니다.
+Auto backup name is given in the format of `{DB instance name} yyyy-MM-dd-HH-mm`.
 
-> [주의]
-> 앞선 백업이 종료되지 않는 등의 상황에서는 백업이 수행되지 않을 수 있습니다.
+> [Caution]
+> Backups may not be performed in situations such as previous backups not ending.
 
-### 백업 스토리지 및 과금
+### Backup Storage and Pricing
 
-모든 백업 파일은 내부 백업 스토리지에 업로드하여 저장합니다. 수동 백업의 경우 별도로 삭제하기 전까지 영구히 저장되며 백업 용량에 따라 백업 스토리지 과금이 발생합니다. 자동 백업의 경우 설정한 보관 기간만큼 저장되며 자동 백업 파일의 전체 크기 중 DB 인스턴스의 스토리지 크기를 초과한 용량에 대해서 과금합니다. 백업 파일이 저장된 내부 백업 스토리지에 직접 접근할 수 없습니다.
+All backup files are uploaded to the internal backup storage and saved. For manual backups, they are permanently stored until they are deleted separately and backup storage charges are incurred depending on the backup capacity. Auto backups are stored for the retention period you set, and you are charged for the portion of the total size of the auto backup file that exceeds the storage size of your DB instance. You cannot directly access the internal backup storage where the backup files are stored.
 
-## 복원
+## Restore
 
-백업을 이용하여 원하는 시점으로 데이터를 복원할 수 있습니다. 복원 시 항상 새로운 DB 인스턴스가 생성되며, 기존 DB 인스턴스에 복원할 수 없습니다. 백업을 수행한 원본 DB 인스턴스와 동일한 DB 엔진 버전으로만 복원할 수 있습니다. 백업이 생성된 시점으로 복원하는 스냅샷 복원, 원하는 특정 시점으로 복원하는 시점 복원을 지원합니다.
+You can use backup to restore data to any point in time. Restoration always creates a new DB instance and restoration cannot be performed on an existing DB instance. You can only restore to the same DB engine version as the original DB instance from which you performed the backup. It supports Snapshot Restore, which restores to the point in time when the backup was created, and Point-in-Time Restore, which restores to a specific point in time that you want.
 
-> [주의]
-> 복원할 DB 인스턴스의 데이터 스토리지 크기가 백업을 수행한 원본 DB 인스턴스의 데이터 스토리지 크기보다 작거나, 원본 DB 인스턴스의 파라미터 그룹과 다른 파라미터 그룹을 사용할 경우 복원에 실패할 수 있습니다.
+> [Caution]
+> The restoration might fail if the data storage size of the DB instance you want to restore is smaller than that of the original DB instance from which you performed the backup or if you use a parameter group different from the parameter group of the original DB instance.
 
-### 스냅샷 복원
+### Snapshot Restore
 
-백업 파일만으로 복원을 진행해 백업을 수행한 원본 DB 인스턴스가 필요하지 않습니다. 웹 콘솔에서 스냅샷을 복원하려면
+You do not need the original DB instance that performed the backup by restoring only the backup file. To restore a snapshot from the web console
 
 ![db-instance-detail-backup-restore](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-detail-backup-restore-ko.png)
 
-❶ DB 인스턴스의 상세 탭에서 복원할 백업 파일을 선택한 뒤 **스냅샷 복원**을 클릭하면 DB 인스턴스 복원 화면으로 이동합니다.
+❶ Select the backup file you want to restore on the details tab of the dB instance, and then click **Snapshot Restore** to go to the Restore DB instance screen.
 
-또는
+Or
 
 ![backup-restore](https://static.toastoven.net/prod_rds_postgres/20240611/backup-restore-ko.png)
 
-❶ 백업 탭에서 복원할 백업 파일을 선택한 뒤 **스냅샷 복원**을 클릭합니다.
+❶ On the Backup tab, select the backup file you want to restore and then click **Snapshot Restore**.
 
-### 시점 복원
+### Point-in-time Restore
 
-시점 복원을 이용하여 원하는 특정 시점 또는 WAL 로그의 특정 LSN으로 복원할 수 있습니다. 시점 복원을 하기 위해서는 백업 파일과 백업을 수행한 시점으로부터 복원을 원하는 시점까지의 WAL 로그가 필요합니다. WAL 로그는 백업이 수행되는 원본 DB 인스턴스의 스토리지에 저장됩니다. WAL 로그 보관 기간이 짧으면 스토리지 용량을 더 많이 사용할 수 있지만, 원하는 시점으로 복원이 어려울 수 있습니다. 아래 나열된 경우 시점 복원에 필요한 WAL 로그가 없기 때문에 원하는 시점으로 복원하지 못할 수 있습니다.
+You can use point-in-time restoration to restore to a specific point-in-time or specific LSN in the WAL log. To restore a point in time, you need a backup file and a WAL log from the time you performed the backup to the time you want to restore it. WAL logs are stored in the storage of the original DB instance where the backup takes place. Short WAL log retention periods allow more storage capacity, but recovery to the desired point in time can be challenging. For the case listed below, you might not be able to restore to the desired point in time because you do not have the WAL log required for point in time restoration.
 
-* 용량 확보를 위해 원본 DB 인스턴스의 WAL 로그를 삭제한 경우
-* WAL 로그 보관 기간(최대 7일)에 따라 PostgreSQL에 의해 자동으로 WAL 로그가 삭제된 경우
-* 기타 다양한 이유로 WAL 로그가 손상되거나 삭제된 경우
+* If you delete the WAL log of the original DB instance for capacity
+* WAL logs are automatically deleted by PostgreSQL depending on the WAL log retention period (up to 7 days)
+* WAL logs are corrupted or deleted for a variety of other reasons
 
-웹 콘솔에서 시점 복원을 하려면
+To restore a point in time from web console
 
 ![db-instance-pitr](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-pitr-ko.png)
 
-❶ 시점 복원할 DB 인스턴스를 선택한 뒤 **시점 복원**을 클릭하면 시점 복원을 설정할 수 있는 페이지로 이동합니다.
+❶ Select the DB instance you want to restore to a point in time and click **Point In Time Restore** to go to the page where you can set up a point in time restore.
 
-#### Timestamp를 이용한 복원
+#### Restore with Timestamp
 
-Timestamp를 사용한 복원 시에는 선택한 시점과 가장 가까운 백업 파일을 기준으로 복원을 진행한 뒤, 원하는 시점까지의 WAL 로그를 적용합니다.
+When restoring with Timestamp, perform the restore based on the backup file closest to the selected time point and apply the WAL log to the desired time point.
 
 ![db-instance-pitr-01](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-pitr-01-ko.png)
 
-❶ 복원 방법을 선택합니다.
+❶ Select a restore method.
 
 ![db-instance-pitr-02](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-pitr-02-ko.png)
 
-❷ 복원 시각을 선택합니다. 가장 최근 시점으로 복원하거나, 원하는 특정 시점을 직접 입력할 수 있습니다.
+❷ Select a time to restore. You can restore it to the most recent point in time, or enter the specific point in time that you want.
 
 
-#### WAL 로그 위치(LSN: Log Sequence Number)를 이용한 복원
+#### Restore using WAL Log Location (LSN: Log Sequence Number)
 
-WAL 로그 위치를 활용한 복원 과정에서는 입력한 위치와 가장 가까운 백업 파일을 기준으로 복원을 진행한 뒤 원본 인스턴스의 WAL 로그로 원하는 위치까지 적용합니다.
+During the restore process using the WAL log location, the restore is performed based on the backup file closest to the location you entered, and then WAL log of the original instance applies to the desired location.
 
 ![db-instance-pitr-03](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-pitr-03-ko.png)
 
-❸ WAL 로그의 특정 위치를 입력합니다.
+❸ Enter a specific location for WAL log.

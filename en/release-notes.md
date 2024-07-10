@@ -1,9 +1,9 @@
-## Database > RDS for PostgreSQL > 릴리스 노트
+## Database > RDS for PostgreSQL > Release Notes
 
-### 2024. 06. 11.
+### June 11, 2024
 
-#### 신규 서비스 출시
+#### Release of a New Service
 
-- Relational Database Service(RDS)는 관계형 데이터베이스를 클라우드 환경에서 제공하는 서비스입니다.
-- 복잡한 설정 없이 관계형 데이터베이스를 사용할 수 있습니다.
-- PostgreSQL 14.6 버전을 제공합니다.
+- Relational Database Service (RDS) is a service that provides relational databases in cloud environments.
+- You can use relational databases without difficult settings.
+- PostgreSQL 14.6 version is provided.
