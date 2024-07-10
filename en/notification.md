@@ -41,7 +41,7 @@ You can receive notifications about performance metrics through the notification
 
 Notification group names have the following restrictions.
 
-* You can only use letters, numbers, and some symbols (-, \_, .) between 1 and 100 characters, and the first character can only be an alphabet.
+* You can only use letters, numbers, and some symbols (-, _, .) between 1 and 100 characters, and the first character can only be an alphabet.
 
 ❸ Select how to receive notifications.
 ❹ Notification groups that are disabled do not send notifications.
