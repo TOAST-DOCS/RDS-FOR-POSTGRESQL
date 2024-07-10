@@ -16,7 +16,7 @@ You can manage users who receive notifications as groups. Notification target mu
 
 User group names have the following restrictions.
 
-* You can only use letters, numbers, and some symbols (-, \_, .) between 1 and 100 characters, and the first character can only be an alphabet.
+* You can only use letters, numbers, and some symbols (-, _, .) between 1 and 100 characters, and the first character can only be an alphabet.
 
 ❸ Select a notification method.
 
