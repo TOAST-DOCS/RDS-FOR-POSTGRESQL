@@ -85,7 +85,7 @@ DB instances and server groups appear together in the list of servers to the lef
 
 ![server-dashboard-group-manage](https://static.toastoven.net/prod_rds_postgres/20240611/server-dashboard-group-manage-ko.png)
 
-❶ Click **+** \*\*-** to expand or close the server group.
+❶ Click **+** or **-** to expand or close the server group.
 ❷ When you click a DB instance that belongs to a server group, Select Color pop-up appears where you can change the color that appears in the chart.
 
 ![server-dashboard-group-menu](https://static.toastoven.net/prod_rds_postgres/20240611/server-dashboard-group-menu-ko.png)
