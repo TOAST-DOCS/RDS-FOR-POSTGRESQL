@@ -13,7 +13,7 @@ DB security groups are used to protect DB instances by controlling the inbound a
 DB security groups consist of names, descriptions, and a number of DB security rules and the names of DB security groups have the following restrictions.
 
 * Name of DB security group must be unique for each region.
-* DB security group names can only contain alphabets between 1 and 100 characters, numbers, and some symbols (-, \_, .), and the first letter can only be an alphabetic character.
+* DB security group names can only contain alphabets between 1 and 100 characters, numbers, and some symbols (-, _, .), and the first letter can only be an alphabetic character.
 
 ### Apply DB Security Groups
 
