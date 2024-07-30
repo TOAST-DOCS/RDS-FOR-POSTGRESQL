@@ -21,7 +21,7 @@ RDS for PostgreSQL에서는 pg_basebackup 도구를 이용하여 데이터베이
 
 특정 시점의 데이터베이스를 영구히 저장하려면 웹 콘솔에서 수동으로 백업을 수행할 수 있습니다. 수동 백업은 자동 백업과 달리 명시적으로 백업을 삭제하지 않는 한 DB 인스턴스가 삭제될 때 같이 삭제되지 않습니다. 웹 콘솔에서 수동 백업을 수행하려면
 
-![db-instance-detail-backup](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-detail-backup-ko.png)
+![db-instance-detail-backup](https://static.toastoven.net/prod_rds_postgres/20240813/db-instance-detail-backup-ko.png)
 
 ❶ 백업할 DB 인스턴스를 선택한 뒤 **백업**을 클릭하면 **백업 생성** 팝업 화면이 나타납니다.
     - DB 인스턴스를 선택하지 않고 **백업**을 클릭하면 **백업 생성** 팝업 화면 내 드롭다운 메뉴에서 DB 인스턴스를 선택할 수 있습니다.
@@ -32,7 +32,7 @@ RDS for PostgreSQL에서는 pg_basebackup 도구를 이용하여 데이터베이
 
 또는 **백업** 탭에서
 
-![backup-create](https://static.toastoven.net/prod_rds_postgres/20240611/backup-create-ko.png)
+![backup-create](https://static.toastoven.net/prod_rds_postgres/20240813/backup-create-ko.png)
 
 ❶ **+ 백업 생성**을 클릭하면 **백업 생성** 팝업 화면이 나타납니다.
 ❷ 백업을 수행할 DB 인스턴스를 선택합니다.
@@ -76,13 +76,13 @@ RDS for PostgreSQL에서는 pg_basebackup 도구를 이용하여 데이터베이
 
 백업 파일만으로 복원을 진행해 백업을 수행한 원본 DB 인스턴스가 필요하지 않습니다. 웹 콘솔에서 스냅샷을 복원하려면
 
-![db-instance-detail-backup-restore](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-detail-backup-restore-ko.png)
+![db-instance-detail-backup-restore](https://static.toastoven.net/prod_rds_postgres/20240813/db-instance-detail-backup-restore-ko.png)
 
 ❶ DB 인스턴스의 상세 탭에서 복원할 백업 파일을 선택한 뒤 **스냅샷 복원**을 클릭하면 DB 인스턴스 복원 화면으로 이동합니다.
 
 또는
 
-![backup-restore](https://static.toastoven.net/prod_rds_postgres/20240611/backup-restore-ko.png)
+![backup-restore](https://static.toastoven.net/prod_rds_postgres/20240813/backup-restore-ko.png)
 
 ❶ 백업 탭에서 복원할 백업 파일을 선택한 뒤 **스냅샷 복원**을 클릭합니다.
 
@@ -96,7 +96,7 @@ RDS for PostgreSQL에서는 pg_basebackup 도구를 이용하여 데이터베이
 
 웹 콘솔에서 시점 복원을 하려면
 
-![db-instance-pitr](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-pitr-ko.png)
+![db-instance-pitr](https://static.toastoven.net/prod_rds_postgres/20240813/db-instance-pitr-ko.png)
 
 ❶ 시점 복원할 DB 인스턴스를 선택한 뒤 **시점 복원**을 클릭하면 시점 복원을 설정할 수 있는 페이지로 이동합니다.
 

@@ -71,6 +71,21 @@
 | DB_INSTANCE_28_01       | DB_INSTANCE         | DB 인스턴스 정상화         |
 | DB_INSTANCE_29_01       | DB_INSTANCE         | DB 인스턴스 용량 부족       |
 | DB_INSTANCE_30_01       | DB_INSTANCE         | DB 인스턴스 연결 실패       |
+| DB_INSTANCE_31_00       | DB_INSTANCE         | DB 인스턴스 복제 시작       |
+| DB_INSTANCE_31_01       | DB_INSTANCE         | DB 인스턴스 복제 완료       |
+| DB_INSTANCE_31_04       | DB_INSTANCE         | DB 인스턴스 복제 실패       |
+| DB_INSTANCE_32_00       | DB_INSTANCE         | DB 인스턴스 승격 시작       |
+| DB_INSTANCE_32_01       | DB_INSTANCE         | DB 인스턴스 승격 완료       |
+| DB_INSTANCE_32_04       | DB_INSTANCE         | DB 인스턴스 승격 실패       |
+| DB_INSTANCE_33_00       | DB_INSTANCE         | DB 인스턴스 강제 승격 시작    |
+| DB_INSTANCE_33_01       | DB_INSTANCE         | DB 인스턴스 강제 승격 완료    |
+| DB_INSTANCE_33_04       | DB_INSTANCE         | DB 인스턴스 강제 승격 실패    |
+| DB_INSTANCE_34_00       | DB_INSTANCE         | DB 인스턴스 복제 재구축 시작   |
+| DB_INSTANCE_34_01       | DB_INSTANCE         | DB 인스턴스 복제 재구축 시작   |
+| DB_INSTANCE_34_04       | DB_INSTANCE         | DB 인스턴스 복제 재구축 시작   |
+| DB_INSTANCE_35_00       | DB_INSTANCE         | DB 인스턴스 복제 지연       |
+| DB_INSTANCE_35_01       | DB_INSTANCE         | DB 인스턴스 복제 지연 종료    |
+| DB_INSTANCE_36_00       | DB_INSTANCE         | DB 인스턴스 복제 중단       |
 | DB_SECURITY_GROUP_01_01 | DB_SECURITY_GROUP   | DB 보안 그룹 생성         |
 | DB_SECURITY_GROUP_02_00 | DB_SECURITY_GROUP   | DB 보안 그룹 변경 시작      |
 | DB_SECURITY_GROUP_02_01 | DB_SECURITY_GROUP   | DB 보안 그룹 변경 완료      |
@@ -80,4 +95,18 @@
 | TENANT_02_04            | TENANT              | RAM 용량 제한	          |
 | TENANT_03_04            | TENANT              | 개별 볼륨 크기 제한         |
 | TENANT_04_04            | TENANT              | 프로젝트 전체 볼륨 크기 제한    |
+| TENANT_05_04            | TENANT              | 읽기 복제본 생성 제한        |
 | JOB_01_04               | JOB                 | Job 실행 실패           |
+
+### 이벤트 구독
+
+이벤트를 구독하면 이벤트 발생 시 이메일 및 SMS로 알림을 받을 수 있습니다. 이벤트 구독에 연결된 사용자 그룹의 사용자들에게 알림을 발송합니다. 이벤트 유형, 이벤트 코드, 이벤트 소스로 세분화하여 구독할 수 있습니다. 잠시 알림을 중단하려면 이벤트 구독의 활성화 여부를 수정합니다. 활성화하지 않으면 알림을 발송하지 않습니다.
+
+![event-subscription](https://static.toastoven.net/prod_rds_postgres/20240813/event-subscription-ko.png)
+
+* ❶ **이벤트 구독 등록**을 누르면 이벤트 구독을 등록할 수 있는 팝업 창이 나타납니다.
+* ❷ 구독할 이벤트 유형을 선택합니다. 이벤트 유형에 따라 선택할 수 있는 이벤트 코드가 변경됩니다.
+* ❸ 구독할 이벤트 코드를 선택합니다.
+* ❹ 구독할 이벤트 소스를 선택합니다.
+* ❺ 이벤트 알림을 받을 사용자 그룹을 선택합니다.
+* ❻ 활성화 여부를 선택합니다. 활성화 여부를 `아니요`로 선택할 경우 이벤트 발생 알림을 발송하지 않습니다

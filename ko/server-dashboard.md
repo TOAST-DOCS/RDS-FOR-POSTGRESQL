@@ -16,7 +16,7 @@
 
 레이아웃을 이용해 차트의 크기와 위치를 나타낼 수 있습니다. 서비스 활성화 시 `기본 시스템 지표`와 `기본 PostgreSQL 지표`를 기본 레이아웃으로 제공합니다. 기본 레이아웃은 변경하거나 삭제할 수 없습니다. 또한 차트를 추가하거나, 추가된 차트를 변경 또는 삭제할 수 없습니다. 차트에서 기본 레이아웃에 포함되지 않은 정보를 보려면 새 레이아웃을 만들어 차트를 추가할 수 있습니다.
 
-![server-dashboard-layout](https://static.toastoven.net/prod_rds_postgres/20240611/server-dashboard-layout-ko.png)
+![server-dashboard-layout](https://static.toastoven.net/prod_rds_postgres/20240813/server-dashboard-layout-ko.png)
 
 ❶ **레이아웃 관리**를 누르면 레이아웃을 관리하는 팝업 화면이 나타납니다.
 ❷ **+ 레이아웃 만들기**를 눌러 레이아웃을 생성할 수 있습니다.
@@ -26,7 +26,7 @@
 
 ### 레이아웃에 차트 추가
 
-![server-dashboard-chart-add](https://static.toastoven.net/prod_rds_postgres/20240611/server-dashboard-chart-add-ko.png)
+![server-dashboard-chart-add](https://static.toastoven.net/prod_rds_postgres/20240813/server-dashboard-chart-add-ko.png)
 
 ❶ 원하는 레이아웃을 선택합니다.
 ❷ **+ 차트 추가**를 누르면 차트를 추가할 수 있는 팝업 화면이 나타납니다.
@@ -36,7 +36,7 @@
 
 ### 레이아웃의 차트 변경 및 삭제
 
-![server-dashboard-chart-manage](https://static.toastoven.net/prod_rds_postgres/20240611/server-dashboard-chart-manage-ko.png)
+![server-dashboard-chart-manage](https://static.toastoven.net/prod_rds_postgres/20240813/server-dashboard-chart-manage-ko.png)
 
 ❶ 차트의 상단 영역을 클릭한 뒤 드래그 앤 드롭하여 위치를 이동할 수 있습니다.
 ❷ 차트의 오른쪽 하단 영역을 드래그 앤 드롭하여 차트의 크기를 변경할 수 있습니다.
@@ -67,6 +67,8 @@ DB 인스턴스의 각종 성능 지표를 차트 형태로 볼 수 있습니다
 | Transaction                | commit (counts/sec)<br/>rollback (counts/sec)                                                                              |                                        |
 | Deadlock/Conflict          | deadlock (counts/sec)<br/>conflict (counts/sec)                                                                            |                                        |
 | Cache Hit Ratio            | %                                                                                                                          |                                        |
+| 복제 딜레이(초)                  | seconds                                                                                                                    |                                        |
+| 복제 딜레이(바이트)                | bytes                                                                                                                      |                                        |
 
 ## 서버 그룹
 
@@ -74,7 +76,7 @@ DB 인스턴스의 각종 성능 지표를 차트 형태로 볼 수 있습니다
 
 ### 서버 그룹 생성
 
-![server-dashboard-group-add](https://static.toastoven.net/prod_rds_postgres/20240611/server-dashboard-group-add-ko.png)
+![server-dashboard-group-add](https://static.toastoven.net/prod_rds_postgres/20240813/server-dashboard-group-add-ko.png)
 
 ❶ **+ 그룹 추가**를 클릭하면 그룹을 생성할 수 있는 팝업 화면이 나타납니다.
 ❷ 서버 그룹에 추가할 DB 인스턴스를 선택합니다.
