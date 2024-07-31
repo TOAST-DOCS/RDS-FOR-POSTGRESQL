@@ -128,14 +128,16 @@ DB 인스턴스 생성 시 기본 알림을 설정할 수 있습니다. 기본 �
 
 DB 인스턴스의 상태는 아래와 같은 값들로 구성되며, 사용자의 행위와 현재 상태에 따라 변경됩니다.
 
-| 상태                | 설명            |
-|-------------------|---------------|
-| BEFORE_CREATE     | 생성 이전         |
-| AVAILABLE         | 사용 가능         |
-| STORAGE_FULL      | 용량 부족         |
-| FAIL_TO_CREATE    | 생성 실패         |
-| FAIL_TO_CONNECT   | 연결 실패         |
-| SHUTDOWN          | 중지됨           |
+| 상태                | 설명    |
+|-------------------|-------|
+| BEFORE_CREATE     | 생성 이전 |
+| AVAILABLE         | 사용 가능 |
+| STORAGE_FULL      | 용량 부족 |
+| FAIL_TO_CREATE    | 생성 실패 |
+| FAIL_TO_CONNECT   | 연결 실패 |
+| REPLICATION_DELAY | 복제 지연 |
+| REPLICATION_STOP  | 복제 중단 |
+| SHUTDOWN          | 중지됨   |
 
 변경할 수 있는 검색 조건은 아래와 같습니다.
 
