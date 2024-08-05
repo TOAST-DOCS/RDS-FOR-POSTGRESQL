@@ -11,7 +11,7 @@
 
 ![user-group-create](https://static.toastoven.net/prod_rds_postgres/20240813/user-group-create-ko.png)
 
-❶ **+ 사용자 그룹 생성**을 누르면 사용자 그룹을 생성할 수 있는 팝업 화면이 나타납니다.
+❶ **+ 사용자 그룹 생성**을 누르면 사용자 그룹을 생성할 수 있는 팝업 창이 나타납니다.
 ❷ 사용자 그룹 이름을 입력합니다.
 
 사용자 그룹 이름은 아래와 같은 제약 사항이 있습니다.
@@ -24,7 +24,7 @@
 
 ![user-group-custom](https://static.toastoven.net/prod_rds_postgres/20240813/user-group-custom-ko.png)
 
-❹ **+ 추가**를 누르면 프로젝트 멤버를 통보 대상으로 추가할 수 있는 팝업 화면이 나타납니다.
+❹ **+ 추가**를 누르면 프로젝트 멤버를 통보 대상으로 추가할 수 있는 팝업 창이 나타납니다.
 ❺ 삭제할 통보 대상을 선택 후 **삭제**를 눌러 통보 대상에서 제외할 수 있습니다.
 ❻ **확인**을 눌러 사용자 그룹을 추가합니다.
 
@@ -36,7 +36,7 @@
 
 ![notification-group.png](https://static.toastoven.net/prod_rds_postgres/20240813/notification-group-ko.png)
 
-❶ **+ 알림 그룹 생성**을 누르면 알림 그룹을 생성할 수 있는 팝업 화면이 나타납니다.
+❶ **+ 알림 그룹 생성**을 누르면 알림 그룹을 생성할 수 있는 팝업 창이 나타납니다.
 ❷ 알림 그룹 이름을 입력합니다.
 
 알림 그룹 이름은 아래와 같은 제약 사항이 있습니다.
@@ -96,14 +96,14 @@
 | Transaction Rollback       | counts/sec         |
 | Deadlock                   | counts/sec         |
 | Conflict                   | counts/sec         |
-| 복제 딜레이(초)                  | seconds            |
-| 복제 딜레이(바이트)                | MB                 |
+| 복제 지연(초)                   | seconds            |
+| 복제 지연(바이트)                 | MB                 |
 
 ### 감시 설정 추가
 
 ![notification-group-watchdog](https://static.toastoven.net/prod_rds_postgres/20240813/notification-group-watchdog-ko.png)
 
-❶ **감시 설정**을 누르면 감시 설정을 변경할 수 있는 팝업 화면이 나타납니다.
+❶ **감시 설정**을 누르면 감시 설정을 변경할 수 있는 팝업 창이 나타납니다.
 ❷ **+ 감시 설정 추가**를 눌러 신규 감시 설정을 추가합니다.
 ❸ 감시할 항목과 비교 방법, 임곗값, 지속 시간을 입력한 뒤 **추가**를 클릭합니다.
 

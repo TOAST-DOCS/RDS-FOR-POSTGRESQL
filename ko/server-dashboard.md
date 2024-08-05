@@ -18,7 +18,7 @@
 
 ![server-dashboard-layout](https://static.toastoven.net/prod_rds_postgres/20240813/server-dashboard-layout-ko.png)
 
-❶ **레이아웃 관리**를 누르면 레이아웃을 관리하는 팝업 화면이 나타납니다.
+❶ **레이아웃 관리**를 누르면 레이아웃을 관리하는 팝업 창이 나타납니다.
 ❷ **+ 레이아웃 만들기**를 눌러 레이아웃을 생성할 수 있습니다.
     - 레이아웃 이름을 입력한 뒤 **생성**을 눌러 레이아웃을 생성합니다.
 ❸ 버튼을 클릭하면 추가된 레이아웃을 변경할 수 있습니다.
@@ -29,7 +29,7 @@
 ![server-dashboard-chart-add](https://static.toastoven.net/prod_rds_postgres/20240813/server-dashboard-chart-add-ko.png)
 
 ❶ 원하는 레이아웃을 선택합니다.
-❷ **+ 차트 추가**를 누르면 차트를 추가할 수 있는 팝업 화면이 나타납니다.
+❷ **+ 차트 추가**를 누르면 차트를 추가할 수 있는 팝업 창이 나타납니다.
 ❸ 체크박스를 선택하여 추가할 지표를 여러 개 선택할 수 있습니다.
 ❹ 지표 이름을 클릭하면 왼쪽 미리 보기 영역에 차트가 나타납니다.
 ❺ **추가**를 클릭하면 선택된 차트가 모두 추가됩니다.
@@ -67,8 +67,8 @@ DB 인스턴스의 각종 성능 지표를 차트 형태로 볼 수 있습니다
 | Transaction                | commit (counts/sec)<br/>rollback (counts/sec)                                                                              |                                        |
 | Deadlock/Conflict          | deadlock (counts/sec)<br/>conflict (counts/sec)                                                                            |                                        |
 | Cache Hit Ratio            | %                                                                                                                          |                                        |
-| 복제 딜레이(초)                  | seconds                                                                                                                    |                                        |
-| 복제 딜레이(바이트)                | bytes                                                                                                                      |                                        |
+| 복제 지연(초)                   | seconds                                                                                                                    |                                        |
+| 복제 지연(바이트)                 | bytes                                                                                                                      |                                        |
 
 ## 서버 그룹
 
@@ -78,7 +78,7 @@ DB 인스턴스의 각종 성능 지표를 차트 형태로 볼 수 있습니다
 
 ![server-dashboard-group-add](https://static.toastoven.net/prod_rds_postgres/20240813/server-dashboard-group-add-ko.png)
 
-❶ **+ 그룹 추가**를 클릭하면 그룹을 생성할 수 있는 팝업 화면이 나타납니다.
+❶ **+ 그룹 추가**를 클릭하면 그룹을 생성할 수 있는 팝업 창이 나타납니다.
 ❷ 서버 그룹에 추가할 DB 인스턴스를 선택합니다.
 
 ### 서버 그룹 설정
