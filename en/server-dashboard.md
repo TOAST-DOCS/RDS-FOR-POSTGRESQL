@@ -18,7 +18,7 @@ You can use the layout to indicate the size and location of the chart. When acti
 
 ![server-dashboard-layout](https://static.toastoven.net/prod_rds_postgres/20240611/server-dashboard-layout-en.png)
 
-❶ click **Manage Layout** to display a pop-up screen to manage the layout.
+❶ click **Manage Layout** to display a pop-up window to manage the layout.
 ❷ You can create a layout by clicking on **+ Create Layout**.
     - Enter a layout name and click **Create** to create a layout.
 ❸ Click the button to change the layout added.
@@ -29,7 +29,7 @@ You can use the layout to indicate the size and location of the chart. When acti
 ![server-dashboard-chart-add](https://static.toastoven.net/prod_rds_postgres/20240611/server-dashboard-chart-add-en.png)
 
 ❶ Select the desired layout.
-❷ Click **+ Add Chart** to display a pop-up screen where you can add charts.
+❷ Click **+ Add Chart** to display a pop-up window where you can add charts.
 ❸ Select the check box to select multiple metrics to add.
 ❹ When you click metrics name, the chart appears in the left preview area.
 ❺ Click **Add** to add all selected charts.
@@ -46,27 +46,29 @@ You can use the layout to indicate the size and location of the chart. When acti
 
 You can view various performance metrics of DB instance in chart format. Each performance metric consists of different types of charts. In addition to basic system metrics, PostgreSQL provides a variety of performance metrics. Metrics that can be checked by chart are as follows.
 
-| Chart                         | Metric (Unit)                                                                                                                     | Note                                     |
-|----------------------------|----------------------------------------------------------------------------------------------------------------------------|----------------------------------------|
-| CPU Usage                    | cpu used (%)                                                                                                               |                                        |
-| CPU Details                     | cpu user (%)<br/>cpu system (%)<br/>cpu nice (%)<br/>cpu IO wait (%)                                                       |                                        |
-| CPU load average                  | 1m<br/>5m<br/>15m                                                                                                          |                                        |
-| Memory Usage                    | memory used (%)                                                                                                            |                                        |
-| Memory Details                     | memory used (bytes)<br/>memory free (bytes)                                                                                |                                        |
-| Swap usage                     | swap used (bytes)<br> swap total (bytes)                                                                                   |                                        |
-| Storage usage                | storage used (%)                                                                                                           |                                        |
-| Storage Remaining Usage             | storage free (%)                                                                                                           |                                        |
-| Storage IO                 | disk read (bytes)<br> disk write (bytes)                                                                                   |                                        |
-| Network data transfer               | nic incoming (bytes)<br> nic outgoing (bytes)                                                                              | Default network transfer used by PostgreSQL occurs. |
-| Data storage fault                | disk fault status                                                                                                          | Abnormal: 0: normal 1                          |
-| Database Connection Status | PostgreSQL status                                                                                                          | Unable to access: 0, able to access: 1                     |
-| Queries Per Second         | qps (counts/sec)                                                                                                           |                                        |
-| Connection                 | idle (counts)<br/>active (counts)<br/>total (counts)<br/>max (counts)                                                      |                                        |
-| Tuple Count                | fetched (counts/sec)<br/>returned (counts/sec)<br/>inserted (counts/sec)<br/>updated (counts/sec)<br/>deleted (counts/sec) |                                        |
-| Lock Tables                | count (counts/sec)                                                                                                         |                                        |
-| Transaction                | commit (counts/sec)<br/>rollback (counts/sec)                                                                              |                                        |
-| Deadlock/Conflict          | deadlock (counts/sec)<br/>conflict (counts/sec)                                                                            |                                        |
-| Cache Hit Ratio            | %                                                                                                                          |                                        |
+| Chart                      | Metric (Unit)                                                                                                              | Note                                                |
+|----------------------------|----------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------|
+| CPU Usage                  | cpu used (%)                                                                                                               |                                                     |
+| CPU Details                | cpu user (%)<br/>cpu system (%)<br/>cpu nice (%)<br/>cpu IO wait (%)                                                       |                                                     |
+| CPU load average           | 1m<br/>5m<br/>15m                                                                                                          |                                                     |
+| Memory Usage               | memory used (%)                                                                                                            |                                                     |
+| Memory Details             | memory used (bytes)<br/>memory free (bytes)                                                                                |                                                     |
+| Swap usage                 | swap used (bytes)<br> swap total (bytes)                                                                                   |                                                     |
+| Storage usage              | storage used (%)                                                                                                           |                                                     |
+| Storage Remaining Usage    | storage free (%)                                                                                                           |                                                     |
+| Storage IO                 | disk read (bytes)<br> disk write (bytes)                                                                                   |                                                     |
+| Network data transfer      | nic incoming (bytes)<br> nic outgoing (bytes)                                                                              | Default network transfer used by PostgreSQL occurs. |
+| Data storage fault         | disk fault status                                                                                                          | Abnormal: 0: normal 1                               |
+| Database Connection Status | PostgreSQL status                                                                                                          | Unable to access: 0, able to access: 1              |
+| Queries Per Second         | qps (counts/sec)                                                                                                           |                                                     |
+| Connection                 | idle (counts)<br/>active (counts)<br/>total (counts)<br/>max (counts)                                                      |                                                     |
+| Tuple Count                | fetched (counts/sec)<br/>returned (counts/sec)<br/>inserted (counts/sec)<br/>updated (counts/sec)<br/>deleted (counts/sec) |                                                     |
+| Lock Tables                | count (counts/sec)                                                                                                         |                                                     |
+| Transaction                | commit (counts/sec)<br/>rollback (counts/sec)                                                                              |                                                     |
+| Deadlock/Conflict          | deadlock (counts/sec)<br/>conflict (counts/sec)                                                                            |                                                     |
+| Cache Hit Ratio            | %                                                                                                                          |                                                     |
+| 복제 지연(초)                   | seconds                                                                                                                    |                                                     |
+| 복제 지연(바이트)                 | bytes                                                                                                                      |                                                     |
 
 ## Server Group
 
@@ -76,7 +78,7 @@ Server groups allow you to view performance metrics for multiple DB instances in
 
 ![server-dashboard-group-add](https://static.toastoven.net/prod_rds_postgres/20240611/server-dashboard-group-add-en.png)
 
-❶ When you click **+ Add Group** a pop-up screen appears where you can create a group.
+❶ When you click **+ Add Group** a pop-up window appears where you can create a group.
 ❷ Select DB instance to add to the server group.
 
 ### Set a Server Group

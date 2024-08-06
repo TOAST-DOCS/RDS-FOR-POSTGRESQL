@@ -2,7 +2,7 @@
 
 ## Backup
 
-You can prepare a database of DB instances to restore in case of a failure. You can perform backups from the web console whenever needed or you can set to perform periodical backup. During the backup, the storage performance of that DB instance might degrade. It is recommended to back up during off-peak hours to avoid impacting your services.
+You can prepare a database of DB instances to restore in case of a failure. You can perform backups from the console whenever needed or you can set to perform periodical backup. During the backup, the storage performance of that DB instance might degrade. It is recommended to back up during off-peak hours to avoid impacting your services.
 
 RDS for PostgreSQL uses the pg_basebackup tool to back up databases. To restore to a backup of an external PostgreSQL or to a backup of RDS for PostgreSQL, you must use the same version of pg_basebackup used by RDS for PostgreSQL. pg_basebackup version according to the DB engine version is as follows.
 
@@ -19,12 +19,12 @@ The following settings are applied to backup and it applies to both auto and man
 
 ### Manual Backup
 
-If you want to permanently store a database at a specific point in time, you can perform a backup manually from the web console. Unlike auto backups, manual backups are not deleted when a DB instance is deleted unless you explicitly delete the backup. To perform a manual backup from the web console
+If you want to permanently store a database at a specific point in time, you can perform a backup manually from the console. Unlike auto backups, manual backups are not deleted when a DB instance is deleted unless you explicitly delete the backup. To perform a manual backup from the console
 
 ![db-instance-detail-backup](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-detail-backup-en.png)
 
-❶ After selecting the DB instance to back up, click **Backup**, and **Create Backup** and the pop-up screen appears.
-    - If you click **Backup** without selecting DB instance, you can select DB instance from the drop-down menu within the **Create Backup** pop-up screen.
+❶ After selecting the DB instance to back up, click **Backup**, and **Create Backup** and the pop-up window appears.
+    - If you click **Backup** without selecting DB instance, you can select DB instance from the drop-down menu within the **Create Backup** pop-up window.
 ❷ Enter a name of the backup. There are the following restrictions.
 
 * Backup name has to be unique for each region.
@@ -34,7 +34,7 @@ Or, on the **Backup** tab,
 
 ![backup-create](https://static.toastoven.net/prod_rds_postgres/20240611/backup-create-en.png)
 
-❶ Click **+ Create Backup** and the **Create Backup** pop-up screen will appear.
+❶ Click **+ Create Backup** and the **Create Backup** pop-up window will appear.
 ❷ Select the DB instance on which to perform the backup.
 ❸ You can enter a name for the backup and click **Create** to request backup creation.
 
@@ -74,7 +74,7 @@ You can use backup to restore data to any point in time. Restoration always crea
 
 ### Snapshot Restore
 
-You do not need the original DB instance that performed the backup by restoring only the backup file. To restore a snapshot from the web console
+You do not need the original DB instance that performed the backup by restoring only the backup file. To restore a snapshot from the console
 
 ![db-instance-detail-backup-restore](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-detail-backup-restore-en.png)
 
@@ -94,7 +94,7 @@ You can use point-in-time restoration to restore to a specific point-in-time or 
 * WAL logs are automatically deleted by PostgreSQL depending on the WAL log retention period (up to 7 days)
 * WAL logs are corrupted or deleted for a variety of other reasons
 
-To restore a point in time from web console
+To restore a point in time from console
 
 ![db-instance-pitr](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-pitr-en.png)
 
