@@ -1,27 +1,27 @@
 ## Database > RDS for PostgreSQL > Release Notes
 
-### 2024. 08. 13.
+### August 13, 2024
 
-#### 기능 추가
+#### Added Features
 
-- DB 인스턴스 삭제 보호 기능 추가
-- DB 인스턴스 상세 보기 화면에 연결된 알림 그룹, 운영체제 정보 추가
-- 읽기 복제본 생성 기능 추가
-    - 모니터링 차트 및 감시 설정에 복제 지연 항목을 추가했습니다.
-- 이벤트 구독 기능 추가
-    - 특정 이벤트가 발생하면 알림을 전송합니다.
+- Added DB instance deletion protection feature
+- Added connected notification groups, operating system information to DB instance detail view screen
+- Added the feature to create read replicas
+  - Added replication latency to monitoring charts and monitoring settings.
+- Added the Subscribe to Events feature
+  - Notifications sent when certain events occur.
 
-#### 기능 개선/변경
+#### Feature Updates
 
-- 접근 제어 기능 개선
-    - 사용자 추가 시 기본 접근 제어 규칙을 추가할 수 있는 옵션 추가했습니다.
-    - 규칙 순서를 드래그 앤 드롭으로 조정할 수 있도록 사용성을 개선했습니다.
-- 파라미터 그룹 변경 사항 적용 시 실제로 변경되는 파라미터 항목을 확인할 수 있도록 개선
-- 서비스 활성화 화면 개선
-    - 서비스 활성화 시 자동 새로고침 되도록 수정했습니다.
-- 파라미터 그룹 상세 화면 개선
-    - TIMEZONE 타입을 추가하고 드롭다운으로 검색해 입력할 수 있도록 개선했습니다.
-    - 단위가 있는 파라미터 편집 시 드롭다운으로 단위를 선택할 수 있도록 개선했습니다.
+- Improved the access control feature
+  - Added the option to add default access control rules when adding users.
+  - Improved usability to allow drag-and-drop rule ordering.
+- Improved to see which parameter items actually change when applying parameter group changes
+- Improved the service activation screen
+  - Modified to auto-refresh on service activation.
+- Improved the parameter group detail Screen
+  - Added the TIMEZONE type and improved the dropdown to search for and enter it.
+  - Improved the feature to select units with a dropdown when editing parameters with units.
 
 
 ### June 11, 2024

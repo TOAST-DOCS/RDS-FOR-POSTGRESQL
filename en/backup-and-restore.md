@@ -94,7 +94,7 @@ You can use point-in-time restoration to restore to a specific point-in-time or 
 * WAL logs are automatically deleted by PostgreSQL depending on the WAL log retention period (up to 7 days)
 * WAL logs are corrupted or deleted for a variety of other reasons
 
-To restore a point in time from console
+To restore a point in time from the console
 
 ![db-instance-pitr](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-pitr-en.png)
 

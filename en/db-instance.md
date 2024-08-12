@@ -45,7 +45,7 @@ When you create a DB instance, you must select the appropriate DB instance type 
 | r2 | It can be used when memory is used more than other resources.                     |
 | x1 | It is a type that supports high-specification CPU and memory. It can be used for services or applications that require high performance. |
 
-The type of DB instance that you have already created can be easily changed through console.
+The type of DB instance that you have already created can be easily changed through the console.
 
 > [Caution]
 > Changing the type of a DB instance that you have already created will shut down the DB instance, resulting in a few minutes of downtime.
@@ -63,8 +63,8 @@ Stores the database's data files in data storage. DB instances support two types
 The following tasks use the I/O capacity of the data storage, which may degrade the performance of DB instances during the process.
 
 * Backup a single DB instance
-* 읽기 복제본 생성
-* 읽기 복제본 재구축
+* Create a read replica
+* Rebuild a read replica
 * Restore to a certain point in time
 
 ### Information
@@ -96,7 +96,7 @@ DB security groups are used to restrict access against outside break-in. You can
 
 ### Backup
 
-You can set up a database of DB instances to periodically back up, or you can create backups at any time with console. During the backup, the performance might degrade. We recommended that you back up at a time when the service load is not high so as not to affect the service. 백업으로 인한 성능 저하를 원치 않으면 읽기 복제본에서 백업을 수행할 수 있습니다. Backup files are stored in internal backup storage and are charged based on backup capacity. We recommend that you enable periodic backups to prepare for unexpected failures. For a detailed description of backups, see [Backup and Restore](backup-and-restore/).
+You can set up a database of DB instances to periodically back up, or you can create backups at any time with console. During the backup, the performance might degrade. We recommended that you back up at a time when the service load is not high so as not to affect the service. If you don't want performance degradation from backups, you can perform backups on a read replica. Backup files are stored in internal backup storage and are charged based on backup capacity. We recommend that you enable periodic backups to prepare for unexpected failures. For a detailed description of backups, see [Backup and Restore](backup-and-restore/).
 
 ### Default Notification
 
@@ -117,10 +117,10 @@ You can set default notifications when creating a DB instance. Setting default n
 
 You can view the DB instances created from the console. You can view in groups of DB instances, or as individual DB instances.
 
-![db-instance-list](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-list-en.png)
+![db-instance-list](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-list-basic-en.png)
 
 ❶ Change the DB instance screen mode.
-❷ 자물쇠 아이콘을 클릭해 삭제 보호 설정을 변경할 수 있습니다.
+❷ Change the deletion protection settings by clicking the lock icon.
 ❸ Display the most recently collected monitoring metrics.
 ❹ Display the current status.
 ❺ Spinner icon appears if any work in progress exists.
@@ -135,8 +135,8 @@ DB instance's status consists of the following values, which change based on you
 | STORAGE_FULL      | Lack of storage |
 | FAIL_TO_CREATE    | Fail to create  |
 | FAIL_TO_CONNECT   | Fail to connect |
-| REPLICATION_DELAY | 복제 지연           |
-| REPLICATION_STOP  | 복제 중단           |
+| REPLICATION_DELAY | Replication latency           |
+| REPLICATION_STOP  | Replication stopped           |
 | SHUTDOWN          | shutdown        |
 
 The search conditions that can be changed are as follows.
@@ -239,6 +239,8 @@ Password has the following restrictions.
 **CRUD**
 * Includes query permissions, and has permission to change data.
 
+❺ You can choose to add a default access control rule to give the user you're creating full database access. If you don't add a default access control rule, you must set a separate access control rule to access the database.
+
 #### Edit a User
 
 ![db-instance-detail-user-modify](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-detail-user-modify-en.png)
@@ -312,12 +314,12 @@ The status of access control consists of the following values, which change depe
 
 ![db-instance-detail-hba-delete](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-detail-hba-delete-en.png)
 
-❶ If you select the user you want to delete and click on **Delete**, Delete confirmation pop-up window appears.
+❶ If you select the user you want to delete and click on **Delete**, the **Delete confirmation** pop-up window appears.
 ❷ Deleted rules must apply access control settings to DB instances by clicking on **Apply Changes**.
 
 ## Modify DB Instance
 
-You can easily change various items in DB instance created through console. The change items you request are applied to DB instances sequentially. If a restart is required during the application process, apply all changes and restart the DB instance. Items that cannot be changed and that require a restart are as follows.
+You can easily change various items in DB instance created through the console. The change items you request are applied to DB instances sequentially. If a restart is required during the application process, apply all changes and restart the DB instance. Items that cannot be changed and that require a restart are as follows.
 
 | Items                     | Whether able to change or not | Whether need to restart or not                                 |
 |---------------------------|-------------------------------|----------------------------------------------------------------|
@@ -340,7 +342,7 @@ You can easily change various items in DB instance created through console. The 
 
 ## Delete DB instance
 
-You can delete DB instances that are no longer in use. 마스터를 삭제하면 해당 복제 그룹에 속한 읽기 복제본도 함께 삭제됩니다. 삭제된 DB 인스턴스는 복구할 수 없으므로 중요한 DB 인스턴스는 삭제 보호 설정을 활성화하는 것을 권장합니다.
+You can delete DB instances that are no longer in use. When you delete a master, the read replicas that belong to its replication group are also deleted. Because deleted DB instances cannot be recovered, it is recommended that you enable deletion protection for critical DB instances.
 
 ## Backup
 
@@ -352,7 +354,7 @@ You can use backup to restore data to any point in time. Restore always creates 
 
 ## Secure Capacity
 
-If WAL logs are excessively generated due to rapid load and the data storage is low in capacity, you can delete the WAL logs using the capacity acquisition feature of console. When you select Free Capacity from console, a pop-up window displays to select WAL log for the DB instance. Select the WAL log and click **Confirm** to delete all WAL logs created before the selected item. The capacity acquisition feature is a function of temporarily securing capacity. If you continue to run out of capacity, you must scale up your data storage to meet the service load.
+If WAL logs are excessively generated due to rapid load and the data storage is low in capacity, you can delete the WAL logs using the capacity acquisition feature on the console. When you select Free Capacity from the console, a pop-up window appears to select WAL log for the DB instance. Select the WAL log and click **Confirm** to delete all WAL logs created before the selected item. The capacity acquisition feature is a function of temporarily securing capacity. If you continue to run out of capacity, you must scale up your data storage to meet the service load.
 
 > [Caution]
 > Depending on the deleted WAL log, it may not be restored to a certain point in time.
@@ -370,106 +372,106 @@ You can apply changes to a parameter group to a DB instance using one of the fol
 
 If the parameters that require restart in the parameter group are changed, such DB instance is restarted in the process of applying the changes.
 
-![db-instance-list-apply-parameter-group-popup](https://static.toastoven.net/prod_rds_postgres/20240813/db-instance-list-apply-parameter-group-popup-ko.png)
+![db-instance-list-apply-parameter-group-popup](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-list-apply-parameter-group-popup-ko.png)
 
-❶ **변경 사항 비교**를 클릭해 변경된 파라미터를 확인할 수 있습니다.
-❷ 변경 사항 확인 후 **확인**을 클릭해 DB 인스턴스에 변경된 파라미터를 적용합니다.
+❶ Click **Compare Chnages** to check the changed parameters.
+❷ Click **Confirm** after checking the changes to apply the changed parameters to DB instances.
 
-![db-instance-list-apply-parameter-group-compare-popup](https://static.toastoven.net/prod_rds_postgres/20240813/db-instance-list-apply-parameter-group-compare-popup-ko.png)
+![db-instance-list-apply-parameter-group-compare-popup](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-list-apply-parameter-group-compare-popup-ko.png)
 
-## 읽기 복제본
+## Read Replica
 
-읽기 성능을 높이기 위해서 읽기 전용으로 사용할 수 있는 읽기 복제본을 생성할 수 있습니다. 읽기 복제본은 하나의 마스터에 대해서 최대 5대까지 생성할 수 있습니다. 읽기 복제본의 읽기 복제본은 생성할 수 없습니다.
+To increase read performance, you can create read replicas that are available for read-only use. You can create up to five read replicas for a single master. You cannot create read replicas of read replicas.
 
-### 읽기 복제본 생성
+### Create Read Replica
 
-읽기 복제본을 생성하려면 복제 그룹에 속한 DB 인스턴스에서 생성된 백업 파일이 필요합니다. 백업 파일이 없는 경우 다음 순서에 따라 백업을 수행할 DB 인스턴스를 선택합니다.
+To create a read replica, you need a backup file created on a DB instance that belongs to the replication group. If you do not have a backup file, select the DB instances to perform the backup in the following order
 
-❶ 자동 백업 설정한 읽기 복제본
-❷ 자동 백업 설정한 마스터
+❶ Read replicas with auto backup enabled
+❷ Masters with auto backup enabled
 
-조건에 맞는 DB 인스턴스가 없을 경우 읽기 복제본 생성 요청은 실패합니다.
+If there is no DB instance that meets the criteria, the request to create a read replica will fail.
 
-> [주의]
-> 마스터의 데이터베이스 크기에 비례하여 읽기 복제본 생성 시간이 늘어날 수 있습니다.
-> 백업이 수행되는 DB 인스턴스의 경우 읽기 복제본 생성 과정에서 스토리지 I/O 성능 하락이 있을 수 있습니다.
+> [Caution]
+The read replica creation time may increase in proportion to the database size of the master.
+For DB instances that are backed up, there may be a drop in storage I/O performance during the read replica creation process.
 
-> [참고]
-> 읽기 복제본 생성 과정에 필요한 데이터 스토리지 크기만큼 백업 스토리지 과금이 발생할 수 있습니다.
+> [Note]
+Backup storage charges can be incurred for the amount of data storage required for the read replica creation process.
 
-읽기 복제본을 생성하려면 콘솔에서
+To create a read replica from the console,
 
 ![db-instance-replica-create-ko](https://static.toastoven.net/prod_rds_postgres/240813/db-instance-list-replica-create-ko.png)
 
-❶ 원본 DB 인스턴스를 선택한 뒤 **읽기 복제본 생성**을 클릭하면 읽기 복제본을 생성하기 위한 페이지로 이동합니다.
+❶ After selecting the source DB instance, click **Create Read Replica** to go to the page for creating a read replica.
 
-아래 설정들을 통하여 읽기 복제본을 생성할 수 있습니다.
+You can create a read replica using the settings below.
 
-#### 변경 불가 항목
+#### Items unavailable to change
 
-읽기 복제본을 생성할 때 아래 나열된 항목들은 원본 DB 인스턴스의 설정을 따르기 때문에 변경할 수 없습니다.
+When creating a read replica, the items listed below cannot be changed because they follow the settings of the original DB instance.
 
-* DB 엔진
-* 데이터 스토리지 종류
-* 사용자 VPC 서브넷
+* DB engine
+* Data storage type
+* User VPC subnet
 
-#### 가용성 영역
+#### Availability Zone
 
-읽기 복제본의 가용성 영역을 선택합니다. 자세한 설명은 [가용성 영역](#가용성-영역) 항목을 참고합니다.
+Select the availability zone for the read replica. For a detailed description, see [Availability](#Availabilty) zones.
 
-#### DB 인스턴스 타입
+#### DB Instance Type
 
-읽기 복제본은 마스터와 동일한 사양 혹은 더 높은 사양으로 만드는 것을 권장합니다. 낮은 사양으로 생성 시 복제 지연이 발생할 수 있습니다.
+It is recommended that read replicas be created to the same specification or higher than the master; creating them to a lower specification can cause replication delays.
 
-#### 데이터 스토리지 크기
+#### Data storage size
 
-원본 DB 인스턴스와 동일한 크기로 만드는 것을 권장합니다. 크기를 작게 설정할 경우 데이터 스토리지 용량 부족으로 복제 과정이 중단될 수 있습니다.
+It is recommended to make it the same size as the source DB instance. If you set a smaller size, the replication process may be interrupted due to insufficient data storage capacity.
 
-#### 플로팅 IP
+#### Floating IP
 
-읽기 복제본의 플로팅 IP 사용 여부를 선택합니다. 자세한 설명은 [플로팅 IP](#플로팅-ip) 항목을 참고합니다.
+Select whether to use a floating IP for the read replica. For a detailed description, see [Floating IP](#floating-ip).
 
-#### 파라미터 그룹
+#### Parameter group
 
-읽기 복제본의 파라미터 그룹을 선택할 때 복제 관련 설정 변경이 필요 없다면 원본 DB 인스턴스와 동일한 파라미터 그룹을 선택하는 것을 권장합니다. 파라미터 그룹에 대한 자세한 설명은 [파라미터 그룹](parameter-group/) 항목을 참고합니다.
+When selecting a parameter group for a read replica, we recommend that you select the same parameter group as the source DB instance unless you need to change any replication-related settings. For a detailed description of parameter groups, see [Parameter Group](parameter-group/).
 
-#### DB 보안 그룹
+#### DB Security Group
 
-읽기 복제본에 적용할 DB 보안 그룹을 선택합니다. 복제에 필요한 규칙은 자동으로 적용되기 때문에 DB 보안 그룹에 별도로 추가할 필요가 없습니다. DB 보안 그룹에 대한 자세한 설명은 [DB 보안 그룹](db-security-group/) 항목을 참고합니다.
+Select the DB security group to apply to the read replica. The rules required for replication are applied automatically, so you do not need to add them to the DB security group. For a detailed description of DB security groups, see [DB Security Group](db-security-group/).
 
-#### 백업
+#### Backup
 
-읽기 복제본의 백업 설정을 선택합니다. 백업에 대한 자세한 설명은 [백업 및 복원](backup-and-restore/) 항목을 참고합니다.
+Select the backup settings for the read replica. For a detailed description of backups, see [Backup and Restore](backup-and-restore/).
 
-#### 기본 알림
+#### Default notifications
 
-기본 알림 사용 여부를 선택합니다. 자세한 설명은 [기본 알림](#기본-알림) 항목을 참고합니다.
+Select whether to enable default notifications. For a detailed description, see [Default notifications](#default-notification).
 
-#### 삭제 보호
+#### Deletion Protection
 
-삭제 보호 사용 여부를 선택합니다. 자세한 설명은 [삭제 보호](#삭제-보호-설정-변경) 항목을 참고합니다.
+Select whether to enable erasure protection. For a detailed description, see [Deletion Protection](#change-deletion-protection-settings).
 
-### 읽기 복제본 승격
+### Promote Read Replica
 
-마스터와의 복제 관계를 해제하고 읽기 복제본을 독립된 마스터로 전환하는 과정을 승격이라고 합니다. 승격된 마스터는 독립된 DB 인스턴스로서 작동하게 됩니다. 승격을 원하는 읽기 복제본과 마스터 사이에 복제 지연이 존재하는 경우 해당 지연이 해결될 때까지 승격이 이루어지지 않습니다. 한번 승격된 DB 인스턴스는 이전의 복제 관계로 되돌릴 수 없습니다.
+The process of breaking the replication relationship with a master and turning a read replica into a standalone master is called promotion. The promoted master will operate as a standalone DB instance. If there is a replication delay between the read replica and the master that you want to promote, the promotion will not occur until the delay is resolved. Once promoted, a DB instance cannot be reverted to its previous replication relationship.
 
-> [주의]
-> 마스터 DB 인스턴스의 상태가 비정상일 경우에는 승격 작업을 진행할 수 없습니다.
+> [Caution]
+If the status of the master DB instance is abnormal, you cannot proceed with the promotion operation.
 
-### 읽기 복제본 강제 승격
+### Force Promote Read Replicas
 
-마스터의 상태와 관계없이 읽기 복제본의 현재 시점 데이터를 기반으로 강제 승격을 진행합니다. 복제 지연이 있는 경우 데이터 유실이 발생할 수 있습니다. 따라서 읽기 복제본을 긴급하게 서비스에 투입해야 하는 상황이 아니라면 이 기능의 사용은 권장하지 않습니다.
+Force promotion based on current point-in-time data on the read replica, regardless of the state of the master. If there is a replication delay, data loss can occur. Therefore, we do not recommend using this feature unless there is an urgent need to bring the read replica into service.
 
-### 읽기 복제본의 복제 중단
+### Stop Replication of Read Replicas
 
-읽기 복제본은 여러 이유로 복제가 중단될 수 있습니다. 읽기 복제본의 상태가 `복제 중단`인 경우 빠르게 원인을 확인하여 정상화해야 합니다. `복제 중단` 상태가 장시간 지속될 경우 복제 지연이 늘어나게 됩니다. 정상화에 필요한 WAL 로그가 없는 경우 읽기 복제본을 재구축해야 합니다.
+A read replica can stop replicating for a number of reasons. If the status of a read replica is `Replication stopped`, you should quickly determine the cause and get it back to normal. If the `replication stopped` state persists for an extended period of time, replication latency will increase. If the WAL logs needed for normalization are not available, you will need to rebuild the read replica.
 
-### 읽기 복제본의 재구축
+### Rebuild Read Replica
 
-읽기 복제본의 복제 문제를 해결할 수 없는 경우 재구축을 통해 정상 상태로 복원할 수 있습니다. 이 과정에서 읽기 복제본의 모든 데이터베이스를 삭제하고, 마스터 데이터베이스를 기반으로 새롭게 재구축합니다. 재구축하는 동안 읽기 복제본은 사용할 수 없습니다. 읽기 복제본을 재구축하려면 복제 그룹에 속한 DB 인스턴스에서 생성된 백업 파일이 필요합니다. 백업 파일이 없는 경우 동작 및 주의 사항은 [읽기 복제본 생성](#읽기-복제본-생성) 항목을 참고합니다.
+If you are unable to resolve replication issues with the read replica, you can restore it to a healthy state by rebuilding it. During this process, all databases in the read replica are deleted and rebuilt anew based on the master database. The read replica is unavailable during the rebuild. Rebuilding a read replica requires a backup file created on a DB instance that belongs to the replication group. If you do not have a backup file, see [Create Read Replica](#create-read-replica) for behavior and cautions.
 
-> [참고]
-> 재구축 후에도 접속 정보(도메인, IP)는 변경되지 않습니다.
+> [Note]
+Access information (domain, IP) does not change after rebuilding.
 
 ## Restart DB Instances
 
@@ -494,17 +496,17 @@ To force a DB instance restart from console
 
 ❶ Select the DB instance that you want to force restart and click on **Force Restart DB Instance** menu from the drop-down menu.
 
-## 삭제 보호 설정 변경
+## Change Deletion Protection Settings
 
-삭제 보호를 활성화하면 실수로 DB 인스턴스가 삭제되지 않도록 보호할 수 있습니다. 삭제 보호를 비활성화할 때까지 해당 DB 인스턴스를 삭제할 수 없습니다. 삭제 보호 설정을 변경하려면
+Enabling deletion protection secures DB instances from accidental deletion. You will not be able to delete that DB instance until you disable the feature. To change the deletion protection settings
 
-![db-instance-deletion-protection-ko](https://static.toastoven.net/prod_rds_postgres/20240813/db-instance-list-deletion-protection-ko.png)
+![db-instance-deletion-protection-ko](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-list-deletion-protection-en.png)
 
-❶ 삭제 보호 설정을 변경하려는 DB 인스턴스를 선택 후 드롭다운 메뉴에서 **삭제 보호 설정 변경** 메뉴를 클릭하면 팝업 창이 나타납니다.
+❶ After selecting the DB instance for which you want to change the deletion protection settings, click **Change Deletion Protection Settings** from the drop-down menu, and a pop-up window will appear.
 
-![deletion-protection-popup-ko](https://static.toastoven.net/prod_rds_postgres/20240813/db-instance-list-deletion-protection-popup-ko.png)
+![deletion-protection-popup-ko](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-list-deletion-protection-popup-en.png)
 
-❷ 삭제 보호 설정을 변경한 뒤 **확인**을 클릭합니다.
+❷ Click **Confrim** after changing the deletion protection settings.
 
 ## Data Migration
 

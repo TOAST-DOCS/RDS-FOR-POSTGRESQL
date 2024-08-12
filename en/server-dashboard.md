@@ -67,8 +67,8 @@ You can view various performance metrics of DB instance in chart format. Each pe
 | Transaction                | commit (counts/sec)<br/>rollback (counts/sec)                                                                              |                                                     |
 | Deadlock/Conflict          | deadlock (counts/sec)<br/>conflict (counts/sec)                                                                            |                                                     |
 | Cache Hit Ratio            | %                                                                                                                          |                                                     |
-| 복제 지연(초)                   | seconds                                                                                                                    |                                                     |
-| 복제 지연(바이트)                 | bytes                                                                                                                      |                                                     |
+| Replication latency (seconds)                   | seconds                                                                                                                    |                                                     |
+| Replication latency (bytes)                 | bytes                                                                                                                      |                                                     |
 
 ## Server Group
 

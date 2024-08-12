@@ -70,22 +70,21 @@ Event refers to RDS for PostgreSQL or a significant event that is caused by a us
 | DB_INSTANCE_27_04       | DB_INSTANCE       | Changing access control setting failed        |
 | DB_INSTANCE_28_01       | DB_INSTANCE       | DB instance normalized                        |
 | DB_INSTANCE_29_01       | DB_INSTANCE       | Not enough DB instance storage                |
-| DB_INSTANCE_30_01       | DB_INSTANCE       | Connecting DB instance failed                 |
-| DB_INSTANCE_31_00       | DB_INSTANCE       | DB 인스턴스 복제 시작                                 |
-| DB_INSTANCE_31_01       | DB_INSTANCE       | DB 인스턴스 복제 완료                                 |
-| DB_INSTANCE_31_04       | DB_INSTANCE       | DB 인스턴스 복제 실패                                 |
-| DB_INSTANCE_32_00       | DB_INSTANCE       | DB 인스턴스 승격 시작                                 |
-| DB_INSTANCE_32_01       | DB_INSTANCE       | DB 인스턴스 승격 완료                                 |
-| DB_INSTANCE_32_04       | DB_INSTANCE       | DB 인스턴스 승격 실패                                 |
-| DB_INSTANCE_33_00       | DB_INSTANCE       | DB 인스턴스 강제 승격 시작                              |
-| DB_INSTANCE_33_01       | DB_INSTANCE       | DB 인스턴스 강제 승격 완료                              |
-| DB_INSTANCE_33_04       | DB_INSTANCE       | DB 인스턴스 강제 승격 실패                              |
-| DB_INSTANCE_34_00       | DB_INSTANCE       | DB 인스턴스 복제 재구축 시작                             |
-| DB_INSTANCE_34_01       | DB_INSTANCE       | DB 인스턴스 복제 재구축 시작                             |
-| DB_INSTANCE_34_04       | DB_INSTANCE       | DB 인스턴스 복제 재구축 시작                             |
-| DB_INSTANCE_35_00       | DB_INSTANCE       | DB 인스턴스 복제 지연                                 |
-| DB_INSTANCE_35_01       | DB_INSTANCE       | DB 인스턴스 복제 지연 종료                              |
-| DB_INSTANCE_36_00       | DB_INSTANCE       | DB 인스턴스 복제 중단                                 |
+| DB_INSTANCE_31_00       | DB_INSTANCE         | Replicating DB instance started       |
+| DB_INSTANCE_31_01       | DB_INSTANCE         | Replicating DB instance completed       |
+| DB_INSTANCE_31_04       | DB_INSTANCE         | Replicating DB instance failed       |
+| DB_INSTANCE_32_00       | DB_INSTANCE         | Promoting DB instance started       |
+| DB_INSTANCE_32_01       | DB_INSTANCE         | Promoting DB instance completed       |
+| DB_INSTANCE_32_04       | DB_INSTANCE         | Promoting DB instance failed       |
+| DB_INSTANCE_33_00       | DB_INSTANCE         | Force promoting DB instance started    |
+| DB_INSTANCE_33_01       | DB_INSTANCE         | DB instance force promotion completed    |
+| DB_INSTANCE_33_04       | DB_INSTANCE         | DB instance force promotion failed    |
+| DB_INSTANCE_34_00       | DB_INSTANCE         | DB instance replication rebuilding started   |
+| DB_INSTANCE_34_01       | DB_INSTANCE         | DB instance replication rebuilding started   |
+| DB_INSTANCE_34_04       | DB_INSTANCE         | DB instance replication rebuilding started   |
+| DB_INSTANCE_35_00       | DB_INSTANCE         | DB instance replication latency       |
+| DB_INSTANCE_35_01       | DB_INSTANCE         | End DB instance replication latency    |
+| DB_INSTANCE_36_00       | DB_INSTANCE         | Stop DB instance replication       |
 | DB_SECURITY_GROUP_01_01 | DB_SECURITY_GROUP | DB security group created                     |
 | DB_SECURITY_GROUP_02_00 | DB_SECURITY_GROUP | Changing DB security group started            |
 | DB_SECURITY_GROUP_02_01 | DB_SECURITY_GROUP | Changing DB security group completed          |
@@ -94,6 +93,19 @@ Event refers to RDS for PostgreSQL or a significant event that is caused by a us
 | TENANT_01_04            | TENANT            | CPU cores limit                               |
 | TENANT_02_04            | TENANT            | RAM capacity limit	                           |
 | TENANT_03_04            | TENANT            | Individual volume limit                       |
-| TENANT_04_04            | TENANT            | Total project volume limit                    |
-| TENANT_05_04            | TENANT            | 읽기 복제본 생성 제한                                  |
+| TENANT_04_04            | TENANT            | Total project volume limit                    | 
+| TENANT_05_04            | TENANT              | Limit read replica creation        |
 | JOB_01_04               | JOB               | Job execution failed                          |
+
+### Subscribe to Events
+
+If subscribed to an event, a notification will be received via email and SMS when the event occurs. Notifications are sent to users of the user group subscribed to the event. Subscription can be subdivided by event type, event code, and event source. In order to temporarily stop the notifications, modify the enabled event subscription. If disabled, notifications are not sent.
+
+![event-subscription](https://static.toastoven.net/prod_rds_postgres/20240813/event-subscription-ko.png)
+
+* ❶ Click **Register Event Subscription**and a pop-up window will appear where you can sign up for an event subscription.
+* ❷ Select the type of event you want to subscribe to. The event type changes the event codes you can select.
+* ❸ Select the event code to subscribe.
+* ❹ Select the event source to subscribe.
+* ❺ Select a user group to receive event notifications.
+* ❻ Select whether to enable or disable. If you select **No**, you will not send notifications when an event occurs.
