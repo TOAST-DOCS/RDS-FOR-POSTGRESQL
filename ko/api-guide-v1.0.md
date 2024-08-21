@@ -83,7 +83,6 @@ GET /v1.0/project/regions
 | regions.isEnabled  | Body | Boolean | 리전의 활성화 여부                   |
 
 <details><summary>예시</summary>
-<p>
 
 ```json
 {
@@ -100,7 +99,6 @@ GET /v1.0/project/regions
     ]
 }
 ```
-
 </details>
 
 ---
@@ -126,7 +124,6 @@ GET /v1.0/project/members
 | members.phoneNumber  | Body | String | 프로젝트 멤버의 전화번호   |
 
 <details><summary>예시</summary>
-<p>
 
 ```json
 {
@@ -145,8 +142,52 @@ GET /v1.0/project/members
     ]
 }
 ```
+</details>
 
-</p>
+## 네트워크
+
+### 서브넷 목록 보기
+
+```
+GET /v1.0/network/subnets
+```
+
+#### 요청
+
+이 API는 요청 본문을 요구하지 않습니다.
+
+#### 응답
+
+| 이름                       | 종류   | 형식      | 설명               |
+|--------------------------|------|---------|------------------|
+| subnets                  | Body | Array   | 서브넷 목록           |
+| subnets.subnetId         | Body | UUID    | 서브넷의 식별자         |
+| subnets.subnetName       | Body | String  | 서브넷을 식별할 수 있는 이름 |
+| subnets.subnetCidr       | Body | String  | 서브넷의 CIDR        |
+| subnets.usingGateway     | Body | Boolean | 게이트웨이 사용 여부      |
+| subnets.availableIpCount | Body | Number  | 사용 가능한 IP 수      |
+
+<details>
+<summary>예시</summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "subnets": [
+        {
+            "subnetId": "1b2a9b23-0725-4b92-8c78-35db66b8ad9f",
+            "subnetName": "Default Network",
+            "subnetCidr": "192.168.0.0/24",
+            "usingGateway": true,
+            "availableIpCount": 240
+        }
+    ]
+}
+```
 </details>
 
 ## 작업 정보
@@ -195,7 +236,6 @@ GET /v1.0/jobs/{jobId}
 | updatedYmdt                    | Body | DateTime | 수정 일시(YYYY-MM-DDThh:mm:ss.SSSTZD) |
 
 <details><summary>예시</summary>
-<p>
 
 ```
 {
@@ -216,6 +256,4 @@ GET /v1.0/jobs/{jobId}
     "updatedYmdt": "2023-02-22T20:49:46+09:00"
 }
 ```
-
-</p>
 </details>
