@@ -190,6 +190,74 @@ GET /v1.0/network/subnets
 ```
 </details>
 
+## 스토리지
+
+### 스토리지 타입 목록 보기
+
+```
+GET /v1.0/storage-types
+```
+
+#### 요청
+
+이 API는 요청 본문을 요구하지 않습니다.
+
+#### 응답
+
+| 이름           | 종류   | 형식    | 설명         |
+|--------------|------|-------|------------|
+| storageTypes | Body | Array | 스토리지 타입 목록 |
+
+<details><summary>예시</summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "storageTypes": [
+        "General SSD",
+        "General HDD"
+    ]
+}
+```
+</details>
+
+### 스토리지 목록 보기
+
+```
+GET /v1.0/storages
+```
+
+#### 요청
+
+이 API는 요청 본문을 요구하지 않습니다.
+
+#### 응답
+
+| 이름       | 종류   | 형식    | 설명      |
+|----------|------|-------|---------|
+| storages | Body | Array | 스토리지 목록 |
+
+<details><summary>예시</summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "storages": [
+        "General SSD",
+        "General HDD"
+    ]
+}
+```
+</details>
+
 ## 작업 정보
 
 ### 작업 상태
