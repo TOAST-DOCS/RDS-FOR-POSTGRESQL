@@ -67,7 +67,7 @@ API 요청 시 인증에 실패하거나 권한이 없을 경우 다음과 같�
 ### 리전 목록 보기
 
 ```
-GET /v3.0/project/regions
+GET /v1.0/project/regions
 ```
 
 #### 요청
@@ -108,7 +108,7 @@ GET /v3.0/project/regions
 ### 프로젝트 멤버 목록 보기
 
 ```
-GET /v3.0/project/members
+GET /v1.0/project/members
 ```
 
 #### 요청
