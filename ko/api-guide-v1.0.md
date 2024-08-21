@@ -148,3 +148,74 @@ GET /v3.0/project/members
 
 </p>
 </details>
+
+## 작업 정보
+
+### 작업 상태
+
+| 상태명                | 설명                   |
+|--------------------|----------------------|
+| `PREPARING`        | 작업이 준비 중인 경우         |
+| `READY`            | 작업이 준비 완료된 경우        |
+| `RUNNING`          | 작업이 진행 중인 경우         |
+| `COMPLETED`        | 작업이 완료된 경우           |
+| `REGISTERED`       | 작업이 등록된 경우           |
+| `WAIT_TO_REGISTER` | 작업 등록 대기 중인 경우       |
+| `INTERRUPTED`      | 작업 진행 중 인터럽트가 발생한 경우 |
+| `CANCELED`         | 작업이 취소된 경우           |
+| `FAILED`           | 작업이 실패한 경우           |
+| `ERROR`            | 작업 진행 중 오류가 발생한 경우   |
+| `DELETED`          | 작업이 삭제된 경우           |
+| `FAIL_TO_READY`    | 작업 준비에 실패한 경우        |
+
+### 작업 정보 상세 보기
+
+```
+GET /v1.0/jobs/{jobId}
+```
+
+#### 요청
+
+이 API는 요청 본문을 요구하지 않습니다.
+
+| 이름    | 종류  | 형식   | 필수 | 설명      |
+|-------|-----|------|----|---------|
+| jobId | URL | UUID | O  | 작업의 식별자 |
+
+#### 응답
+
+| 이름                             | 종류   | 형식       | 설명                                |
+|--------------------------------|------|----------|-----------------------------------|
+| jobId                          | Body | UUID     | 작업의 식별자                           |
+| jobStatus                      | Body | Enum     | 작업의 현재 상태                         |
+| resourceRelations              | Body | Array    | 연관 리소스 목록                         |
+| resourceRelations.resourceType | Body | Enum     | 연관 리소스 유형                         |
+| resourceRelations.resourceId   | Body | UUID     | 연관 리소스의 식별자                       |
+| createdYmdt                    | Body | DateTime | 생성 일시(YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| updatedYmdt                    | Body | DateTime | 수정 일시(YYYY-MM-DDThh:mm:ss.SSSTZD) |
+
+<details><summary>예시</summary>
+<p>
+
+```
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "0ddb042c-5af6-43fb-a914-f4dd0540eb7c",
+    "jobStatus": "RUNNING",
+    "resourceRelations": [
+        {
+            "resourceType": "INSTANCE",
+            "resourceId": "56b39dcf-65eb-47ec-9d4f-09f160ba2266"
+        }
+    ],
+    "createdYmdt": "2023-02-22T20:47:12+09:00",
+    "updatedYmdt": "2023-02-22T20:49:46+09:00"
+}
+```
+
+</p>
+</details>
