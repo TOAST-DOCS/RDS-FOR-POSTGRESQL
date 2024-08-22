@@ -55,12 +55,51 @@ API 요청 시 인증에 실패하거나 권한이 없을 경우 다음과 같�
 
 ## DB 엔진 유형
 
-| DB 엔진 유형         | 생성 가능 여부 |
-|------------------|----------|
-| POSTGRESQL_V1446 | O        |
+| DB 엔진 유형        | 생성 가능 여부 |
+|-----------------|----------|
+| POSTGRESQL_V146 | O        |
 
 * ENUM 타입의 dbVersion 필드에 대해 해당 값을 사용할 수 있습니다.
 * 버전에 따라 생성이 불가능하거나, 복원이 불가능한 경우가 있을 수 있습니다.
+
+### DB 엔진 목록 보기
+
+```
+GET /v1.0/db-versions
+```
+
+#### 요청
+
+이 API는 요청 본문을 요구하지 않습니다.
+
+#### 응답
+
+| 이름                           | 종류   | 형식      | 설명                    |
+|------------------------------|------|---------|-----------------------|
+| dbVersions                   | Body | Array   | DB 엔진 목록              |
+| dbVersions.dbVersion         | Body | String  | DB 엔진 유형              |
+| dbVersions.dbVersionName     | Body | String  | DB 엔진 이름              |
+| dbVersions.restorableFromObs | Body | Boolean | 오브젝트 스토리지로부터 복원 가능 여부 |
+
+<details><summary>예시</summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "dbVersions": [
+        {
+            "dbVersion": "POSTGRESQL_V146",
+            "dbVersionName": "PostgreSQL V14.6",
+            "restorableFromObs": true
+        }
+    ]
+}
+```
+</details>
 
 ## 프로젝트 정보
 
@@ -218,39 +257,6 @@ GET /v1.0/storage-types
         "isSuccessful": true
     },
     "storageTypes": [
-        "General SSD",
-        "General HDD"
-    ]
-}
-```
-</details>
-
-### 스토리지 목록 보기
-
-```
-GET /v1.0/storages
-```
-
-#### 요청
-
-이 API는 요청 본문을 요구하지 않습니다.
-
-#### 응답
-
-| 이름       | 종류   | 형식    | 설명      |
-|----------|------|-------|---------|
-| storages | Body | Array | 스토리지 목록 |
-
-<details><summary>예시</summary>
-
-```json
-{
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "storages": [
         "General SSD",
         "General HDD"
     ]
