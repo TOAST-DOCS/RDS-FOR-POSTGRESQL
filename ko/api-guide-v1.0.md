@@ -101,6 +101,49 @@ GET /v1.0/db-versions
 ```
 </details>
 
+## DB 인스턴스 사양
+
+### DB 인스턴스 사양 목록 보기
+
+```
+GET /v1.0/db-flavors
+```
+
+#### 요청
+
+이 API는 요청 본문을 요구하지 않습니다.
+
+#### 응답
+
+| 이름                     | 종류   | 형식     | 설명              |
+|------------------------|------|--------|-----------------|
+| dbFlavors              | Body | Array  | DB 인스턴스 사양 목록   |
+| dbFlavors.dbFlavorId   | Body | UUID   | DB 인스턴스 사양의 식별자 |
+| dbFlavors.dbFlavorName | Body | String | DB 인스턴스 사양 이름   |
+| dbFlavors.ram          | Body | Number | 메모리 용량(MB)      |
+| dbFlavors.vcpus        | Body | Number | CPU 코어 수        |
+
+<details><summary>예시</summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "dbFlavors": [
+        {
+            "dbFlavorId": "50be6d9c-02d6-4594-a2d4-12010eb65ec0",
+            "dbFlavorName": "m2.c1m2",
+            "ram": 2048,
+            "vcpus": 1
+        }
+    ]
+}
+```
+</details>
+
 ## 프로젝트 정보
 
 ### 리전 목록 보기
