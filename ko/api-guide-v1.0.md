@@ -183,8 +183,6 @@ GET /v1.0/project/regions
 ```
 </details>
 
----
-
 ### 프로젝트 멤버 목록 보기
 
 ```
@@ -354,7 +352,7 @@ GET /v1.0/jobs/{jobId}
 
 <details><summary>예시</summary>
 
-```
+```json
 {
     "header": {
         "resultCode": 0,
@@ -371,6 +369,417 @@ GET /v1.0/jobs/{jobId}
     ],
     "createdYmdt": "2023-02-22T20:47:12+09:00",
     "updatedYmdt": "2023-02-22T20:49:46+09:00"
+}
+```
+</details>
+
+## DB 보안 그룹
+
+### DB 보안 그룹 진행 상태
+
+| 상태                      | 설명           |
+|-------------------------|--------------|
+| `NONE`                  | 진행 중인 작업이 없음 |
+| `CREATING_RULE`         | 규칙 정책 생성 중   |
+| `UPDATING_RULE`         | 규칙 정책 수정 중   |
+| `DELETING_RULE`         | 규칙 정책 삭제 중   |
+| `APPLYING_DEFAULT_RULE` | 기본 규칙 적용 중   |
+
+### DB 보안 그룹 목록 보기
+
+```
+GET /v1.0/db-security-groups
+```
+
+#### 요청
+
+이 API는 요청 본문을 요구하지 않습니다.
+
+#### 응답
+
+| 이름                                   | 종류   | 형식       | 설명                                |
+|--------------------------------------|------|----------|-----------------------------------|
+| dbSecurityGroups                     | Body | Array    | DB 보안 그룹 목록                       |
+| dbSecurityGroups.dbSecurityGroupId   | Body | UUID     | DB 보안 그룹의 식별자                     |
+| dbSecurityGroups.dbSecurityGroupName | Body | String   | DB 보안 그룹을 식별할 수 있는 이름             |
+| dbSecurityGroups.description         | Body | String   | DB 보안 그룹에 대한 추가 정보                |
+| dbSecurityGroups.progressStatus      | Body | Enum     | DB 보안 그룹의 현재 진행 상태                |
+| dbSecurityGroups.createdYmdt         | Body | DateTime | 생성 일시(YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| dbSecurityGroups.updatedYmdt         | Body | DateTime | 수정 일시(YYYY-MM-DDThh:mm:ss.SSSTZD) |
+
+<details><summary>예시</summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "dbSecurityGroups": [
+        {
+            "dbSecurityGroupId": "fe4f2aee-afbb-4c19-a5e9-eb2eab394708",
+            "dbSecurityGroupName": "dbSecurityGroup",
+            "description": "description",
+            "progressStatus": "NONE",
+            "createdYmdt": "2023-02-19T19:18:13+09:00",
+            "updatedYmdt": "2022-02-19T19:18:13+09:00"
+        }
+    ]
+}
+```
+</details>
+
+### DB 보안 그룹 상세 보기
+
+```
+GET /v1.0/db-security-groups/{dbSecurityGroupId}
+```
+
+#### 요청
+
+이 API는 요청 본문을 요구하지 않습니다.
+
+| 이름                | 종류  | 형식   | 필수 | 설명            |
+|-------------------|-----|------|----|---------------|
+| dbSecurityGroupId | URL | UUID | O  | DB 보안 그룹의 식별자 |
+
+#### 응답
+
+| 이름                  | 종류   | 형식       | 설명                                                                                                                 |
+|---------------------|------|----------|--------------------------------------------------------------------------------------------------------------------|
+| dbSecurityGroupId   | Body | UUID     | DB 보안 그룹의 식별자                                                                                                      |
+| dbSecurityGroupName | Body | String   | DB 보안 그룹을 식별할 수 있는 이름                                                                                              |
+| description         | Body | String   | DB 보안 그룹에 대한 추가 정보                                                                                                 |
+| progressStatus      | Body | Enum     | DB 보안 그룹의 현재 진행 상태                                                                                                 |
+| rules               | Body | Array    | DB 보안 그룹 규칙 목록                                                                                                     |
+| rules.ruleId        | Body | UUID     | DB 보안 그룹 규칙의 식별자                                                                                                   |
+| rules.description   | Body | String   | DB 보안 그룹 규칙에 대한 추가 정보                                                                                              |
+| rules.direction     | Body | Enum     | 통신 방향<br/>- `INGRESS`: 수신<br/>- `EGRESS`: 송신                                                                       |
+| rules.etherType     | Body | Enum     | Ether 타입<br/>- `IPV4`: IPv4<br/>- `IPV6`: IPv6                                                                     |
+| rules.port          | Body | Object   | 포트 객체                                                                                                              |
+| rules.port.portType | Body | Enum     | 포트 타입<br/>- `DB_PORT`: 각 DB 인스턴스 포트값으로 설정됩니다.<br/>- `PORT`: 지정된 포트값으로 설정됩니다.<br/>- `PORT_RANGE`: 지정된 포트 범위로 설정됩니다. |
+| rules.port.minPort  | Body | Number   | 최소 포트 범위                                                                                                           |
+| rules.port.maxPort  | Body | Number   | 최대 포트 범위                                                                                                           |
+| rules.cidr          | Body | String   | 허용할 트래픽의 원격 소스                                                                                                     |
+| rules.createdYmdt   | Body | DateTime | 생성 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                  |
+| rules.updatedYmdt   | Body | DateTime | 수정 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                  |
+| createdYmdt         | Body | DateTime | 생성 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                  |
+| updatedYmdt         | Body | DateTime | 수정 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                  |
+
+<details><summary>예시</summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "dbSecurityGroup": {
+        "dbSecurityGroupId": "fe4f2aee-afbb-4c19-a5e9-eb2eab394708",
+        "dbSecurityGroupName": "dbSecurityGroup",
+        "description": "description",
+        "progressStatus": "NONE",
+        "rules": [
+            {
+                "ruleId": "17c88ef6-95f1-4678-84f9-fee1b22e250d",
+                "description": "description",
+                "direction": "INGRESS",
+                "etherType": "IPV4",
+                "port": {
+                    "portType": "PORT_RANGE",
+                    "minPort": 10000,
+                    "maxPort": 10005
+                },
+                "cidr": "0.0.0.0/0",
+                "createdYmdt": "2023-02-19T19:18:13+09:00",
+                "updatedYmdt": "2023-02-19T19:18:13+09:00"
+            }
+        ],
+        "createdYmdt": "2023-02-19T19:18:13+09:00",
+        "updatedYmdt": "2023-02-19T19:18:13+09:00"
+    }
+}
+```
+</details>
+
+### DB 보안 그룹 생성하기
+
+```
+POST /v1.0/db-security-groups
+```
+
+#### 요청
+
+| 이름                  | 종류   | 형식     | 필수 | 설명                                                                                                                                                                                       |
+|---------------------|------|--------|----|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| dbSecurityGroupName | Body | String | O  | DB 보안 그룹을 식별할 수 있는 이름                                                                                                                                                                    |
+| description         | Body | String | X  | DB 보안 그룹에 대한 추가 정보                                                                                                                                                                       |
+| rules               | Body | Array  | O  | DB 보안 그룹 규칙 목록                                                                                                                                                                           |
+| rules.description   | Body | String | X  | DB 보안 그룹 규칙에 대한 추가 정보                                                                                                                                                                    |
+| rules.direction     | Body | Enum   | O  | 통신 방향<br/>- `INGRESS`: 수신<br/>- `EGRESS`: 송신                                                                                                                                             |
+| rules.etherType     | Body | Enum   | O  | Ether 타입<br/>- `IPV4`: IPv4<br/>- `IPV6`: IPv6                                                                                                                                           |
+| rules.cidr          | Body | String | O  | 허용할 트래픽의 원격 소스<br/>- 예시: `1.1.1.1/32`                                                                                                                                                    |
+| rules.port          | Body | Object | O  | 포트 객체                                                                                                                                                                                    |
+| rules.port.portType | Body | Enum   | O  | 포트 타입<br/>- `DB_PORT`: 각 DB 인스턴스 포트값으로 설정됩니다. `minPort`값과 `maxPort`값을 필요로 하지 않습니다.<br/>- `PORT`: 지정된 포트값으로 설정됩니다. `minPort`값과 `maxPort`값이 같아야 합니다.<br/>- `PORT_RANGE`: 지정된 포트 범위로 설정됩니다. |
+| rules.port.minPort  | Body | Number | X  | 최소 포트 범위<br/>- 최솟값: 1                                                                                                                                                                    |
+| rules.port.maxPort  | Body | Number | X  | 최대 포트 범위<br/>- 최댓값: 65535                                                                                                                                                                |
+
+<details><summary>예시</summary>
+
+```json
+{
+    "dbSecurityGroupName": "dbSecurityGroup",
+    "description": "description",
+    "rules": [
+        {
+            "direction": "INGRESS",
+            "etherType": "IPV4",
+            "port": {
+                "portType": "PORT_RANGE",
+                "minPort": 10000,
+                "maxPort": 10005
+            },
+            "cidr": "0.0.0.0/0"
+        }
+    ]
+}
+```
+</details>
+
+#### 응답
+
+| 이름                | 종류   | 형식   | 설명            |
+|-------------------|------|------|---------------|
+| dbSecurityGroupId | Body | UUID | DB 보안 그룹의 식별자 |
+
+<details><summary>예시</summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "dbSecurityGroupId": "fe4f2aee-afbb-4c19-a5e9-eb2eab394708"
+}
+```
+</details>
+
+### DB 보안 그룹 수정하기
+
+```
+PUT /v1.0/db-security-groups/{dbSecurityGroupId}
+```
+
+#### 요청
+
+| 이름                  | 종류   | 형식     | 필수 | 설명                    |
+|---------------------|------|--------|----|-----------------------|
+| dbSecurityGroupId   | URL  | UUID   | O  | DB 보안 그룹의 식별자         |
+| dbSecurityGroupName | Body | String | X  | DB 보안 그룹을 식별할 수 있는 이름 |
+| description         | Body | String | X  | DB 보안 그룹에 대한 추가 정보    |
+
+<details><summary>예시</summary>
+
+```json
+{
+    "dbSecurityGroupName": "dbSecurityGroup",
+    "description": "description"
+}
+```
+</details>
+
+#### 응답
+
+이 API는 응답 본문을 반환하지 않습니다.
+
+<details><summary>예시</summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    }
+}
+```
+</details>
+
+### DB 보안 그룹 삭제하기
+
+```
+DELETE /v1.0/db-security-groups/{dbSecurityGroupId}
+```
+
+#### 요청
+
+이 API는 요청 본문을 요구하지 않습니다.
+
+| 이름                | 종류  | 형식   | 필수 | 설명            |
+|-------------------|-----|------|----|---------------|
+| dbSecurityGroupId | URL | UUID | O  | DB 보안 그룹의 식별자 |
+
+#### 응답
+
+이 API는 응답 본문을 반환하지 않습니다.
+
+<details><summary>예시</summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    }
+}
+```
+</details>
+
+### DB 보안 그룹 규칙 생성하기
+
+```
+POST /v1.0/db-security-groups/{dbSecurityGroupId}/rules
+```
+
+#### 요청
+
+| 이름                | 종류     | 형식      | 필수  | 설명                                                                                                                                                                                       |
+|-------------------|--------|---------|-----|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| dbSecurityGroupId | URL    | UUID    | O   | DB 보안 그룹의 식별자                                                                                                                                                                            |
+| description       | Body   | String  | X   | DB 보안 그룹 규칙에 대한 추가 정보                                                                                                                                                                    |
+| direction         | Body   | Enum    | O   | 통신 방향<br/>- `INGRESS`: 수신<br/>- `EGRESS`: 송신                                                                                                                                             |
+| etherType         | Body   | Enum    | O   | Ether 타입<br/>- `IPV4`: IPv4<br/>- `IPV6`: IPv6                                                                                                                                           |
+| port              | Body   | Object  | O   | 포트 객체                                                                                                                                                                                    |
+| port.portType     | Body   | Enum    | O   | 포트 타입<br/>- `DB_PORT`: 각 DB 인스턴스 포트값으로 설정됩니다. `minPort`값과 `maxPort`값을 필요로 하지 않습니다.<br/>- `PORT`: 지정된 포트값으로 설정됩니다. `minPort`값과 `maxPort`값이 같아야 합니다.<br/>- `PORT_RANGE`: 지정된 포트 범위로 설정됩니다. |
+| port.minPort      | Body   | Number  | X   | 최소 포트 범위<br/>- 최솟값: 1                                                                                                                                                                    |
+| port.maxPort      | Body   | Number  | X   | 최대 포트 범위<br/>- 최댓값: 65535                                                                                                                                                                |
+| cidr              | Body   | String  | O   | 허용할 트래픽의 원격 소스<br/>- 예시: `1.1.1.1/32`                                                                                                                                                    |
+
+<details><summary>예시</summary>
+
+```json
+{
+    "direction": "INGRESS",
+    "etherType": "IPV4",
+    "port": {
+        "portType": "PORT",
+        "minPort": 10000,
+        "maxPort": 10000
+    },
+    "cidr": "0.0.0.0/0"
+}
+```
+</details>
+
+#### 응답
+
+| 이름    | 종류   | 형식   | 설명          |
+|-------|------|------|-------------|
+| jobId | Body | UUID | 요청한 작업의 식별자 |
+
+<details><summary>예시</summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "0ddb042c-5af6-43fb-a914-f4dd0540eb7c"
+}
+```
+</details>
+
+### DB 보안 그룹 규칙 수정하기
+
+```
+PUT /v1.0/db-security-groups/{dbSecurityGroupId}/rules/{ruleId}
+```
+
+#### 요청
+
+| 이름                | 종류    | 형식     | 필수 | 설명                                                                                                                                                                                       |
+|-------------------|-------|--------|----|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| dbSecurityGroupId | URL   | UUID   | O  | DB 보안 그룹의 식별자                                                                                                                                                                            |
+| ruleId            | URL   | UUID   | O  | DB 보안 그룹 규칙의 식별자                                                                                                                                                                         |
+| description       | Body  | String | X  | DB 보안 그룹 규칙에 대한 추가 정보                                                                                                                                                                    |
+| direction         | Body  | Enum   | O  | 통신 방향<br/>- `INGRESS`: 수신<br/>- `EGRESS`: 송신                                                                                                                                             |
+| etherType         | Body  | Enum   | O  | Ether 타입<br/>- `IPV4`: IPv4<br/>- `IPV6`: IPv6                                                                                                                                           |
+| port              | Body  | Object | O  | 포트 객체                                                                                                                                                                                    |
+| port.portType     | Body  | Enum   | O  | 포트 타입<br/>- `DB_PORT`: 각 DB 인스턴스 포트값으로 설정됩니다. `minPort`값과 `maxPort`값을 필요로 하지 않습니다.<br/>- `PORT`: 지정된 포트값으로 설정됩니다. `minPort`값과 `maxPort`값이 같아야 합니다.<br/>- `PORT_RANGE`: 지정된 포트 범위로 설정됩니다. |
+| port.minPort      | Body  | Number | X  | 최소 포트 범위<br/>- 최솟값: 1                                                                                                                                                                    |
+| port.maxPort      | Body  | Number | X  | 최대 포트 범위<br/>- 최댓값: 65535                                                                                                                                                                |
+| cidr              | Body  | String | O  | 허용할 트래픽의 원격 소스<br/>- 예시: `1.1.1.1/32`                                                                                                                                                    |
+
+<details><summary>예시</summary>
+
+```json
+{
+    "direction": "INGRESS",
+    "etherType": "IPV4",
+    "port": {
+        "portType": "DB_PORT"
+    },
+    "cidr": "0.0.0.0/0"
+}
+```
+</details>
+
+#### 응답
+
+| 이름    | 종류   | 형식   | 설명          |
+|-------|------|------|-------------|
+| jobId | Body | UUID | 요청한 작업의 식별자 |
+
+<details><summary>예시</summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "0ddb042c-5af6-43fb-a914-f4dd0540eb7c"
+}
+```
+</details>
+
+```
+DELETE /v1.0/db-security-groups/{dbSecurityGroupId}/rules
+```
+
+#### 요청
+
+이 API는 요청 본문을 요구하지 않습니다.
+
+| 이름                | 종류    | 형식    | 필수 | 설명                  |
+|-------------------|-------|-------|----|---------------------|
+| dbSecurityGroupId | URL   | UUID  | O  | DB 보안 그룹의 식별자       |
+| ruleIds           | Query | Array | O  | DB 보안 그룹 규칙의 식별자 목록 |
+
+#### 응답
+
+| 이름    | 종류   | 형식   | 설명          |
+|-------|------|------|-------------|
+| jobId | Body | UUID | 요청한 작업의 식별자 |
+
+<details><summary>예시</summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "0ddb042c-5af6-43fb-a914-f4dd0540eb7c"
 }
 ```
 </details>
