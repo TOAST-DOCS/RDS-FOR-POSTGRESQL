@@ -751,6 +751,8 @@ PUT /v1.0/db-security-groups/{dbSecurityGroupId}/rules/{ruleId}
 ```
 </details>
 
+### DB 보안 그룹 규칙 삭제하기
+
 ```
 DELETE /v1.0/db-security-groups/{dbSecurityGroupId}/rules
 ```
