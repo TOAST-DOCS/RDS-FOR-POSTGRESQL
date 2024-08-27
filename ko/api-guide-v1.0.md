@@ -53,9 +53,9 @@ API 요청 시 인증에 실패하거나 권한이 없을 경우 다음과 같�
 | resultMessage | String  | 결과 메시지                |
 | successful    | boolean | 성공 여부                 |
 
-## DB 엔진 유형
+## DB 엔진 버전
 
-| DB 엔진 유형        | 생성 가능 여부 |
+| DB 엔진 버전        | 생성 가능 여부 |
 |-----------------|----------|
 | POSTGRESQL_V146 | O        |
 
@@ -77,8 +77,8 @@ GET /v1.0/db-versions
 | 이름                           | 종류   | 형식      | 설명                    |
 |------------------------------|------|---------|-----------------------|
 | dbVersions                   | Body | Array   | DB 엔진 목록              |
-| dbVersions.dbVersion         | Body | String  | DB 엔진 유형              |
-| dbVersions.dbVersionName     | Body | String  | DB 엔진 이름              |
+| dbVersions.dbVersion         | Body | String  | DB 엔진 버전              |
+| dbVersions.dbVersionName     | Body | String  | DB 엔진 버전명             |
 | dbVersions.restorableFromObs | Body | Boolean | 오브젝트 스토리지로부터 복원 가능 여부 |
 
 <details><summary>예시</summary>
@@ -790,6 +790,364 @@ DELETE /v1.0/db-security-groups/{dbSecurityGroupId}/rules
         "isSuccessful": true
     },
     "jobId": "0ddb042c-5af6-43fb-a914-f4dd0540eb7c"
+}
+```
+</details>
+
+## 파라미터 그룹
+
+### 파라미터 그룹 목록 보기
+
+```
+GET /v1.0/parameter-groups
+```
+
+#### 요청
+
+이 API는 요청 본문을 요구하지 않습니다.
+
+| 이름        | 종류    | 형식   | 필수 | 설명       |
+|-----------|-------|------|----|----------|
+| dbVersion | Query | Enum | X  | DB 엔진 버전 |
+
+#### 응답
+
+| 이름                                   | 종류   | 형식       | 설명                                                                |
+|--------------------------------------|------|----------|-------------------------------------------------------------------|
+| parameterGroups                      | Body | Array    | 파라미터 그룹 목록                                                        |
+| parameterGroups.parameterGroupId     | Body | UUID     | 파라미터 그룹의 식별자                                                      |
+| parameterGroups.parameterGroupName   | Body | String   | 파라미터 그룹을 식별할 수 있는 이름                                              |
+| parameterGroups.description          | Body | String   | 파라미터 그룹에 대한 추가 정보                                                 |
+| parameterGroups.dbVersion            | Body | Enum     | DB 엔진 버전                                                          |
+| parameterGroups.parameterGroupStatus | Body | Enum     | 파라미터 그룹의 현재 상태<br/>- `STABLE`: 적용 완료<br/>- `NEED_TO_APPLY`: 적용 필요 |
+| parameterGroups.createdYmdt          | Body | DateTime | 생성 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                 |
+| parameterGroups.updatedYmdt          | Body | DateTime | 수정 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                 |
+
+<details><summary>예시</summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "parameterGroups": [
+        {
+            "parameterGroupId": "404e8a89-ca4d-4fca-96c2-1518754d50b7",
+            "parameterGroupName": "parameter-group",
+            "description": null,
+            "dbVersion": "POSTGRESQL_V146",
+            "parameterGroupStatus": "STABLE",
+            "createdYmdt": "2023-02-31T15:28:17+09:00",
+            "updatedYmdt": "2023-02-31T15:28:17+09:00"
+        }
+    ]
+}
+```
+</details>
+
+
+### 파라미터 그룹 상세 보기
+
+```
+GET /v1.0/parameter-groups/{parameterGroupId}
+```
+
+#### 요청
+
+이 API는 요청 본문을 요구하지 않습니다.
+
+| 이름               | 종류  | 형식   | 필수 | 설명           |
+|------------------|-----|------|----|--------------|
+| parameterGroupId | URL | UUID | O  | 파라미터 그룹의 식별자 |
+
+#### 응답
+
+| 이름                           | 종류   | 형식       | 설명                                                                                                                                                                                                                                                                                                                                                   |
+|------------------------------|------|----------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| parameterGroupId             | Body | UUID     | 파라미터 그룹의 식별자                                                                                                                                                                                                                                                                                                                                         |
+| parameterGroupName           | Body | String   | 파라미터 그룹을 식별할 수 있는 이름                                                                                                                                                                                                                                                                                                                                 |
+| description                  | Body | String   | 파라미터 그룹에 대한 추가 정보                                                                                                                                                                                                                                                                                                                                    |
+| dbVersion                    | Body | Enum     | DB 엔진 버전                                                                                                                                                                                                                                                                                                                                             |
+| parameterGroupStatus         | Body | Enum     | 파라미터 그룹의 현재 상태<br/>- `STABLE`: 적용 완료<br/>- `NEED_TO_APPLY`: 적용 필요<br/>- `DELETED`: 삭제됨                                                                                                                                                                                                                                                               |
+| parameters                   | Body | Array    | 파라미터 목록                                                                                                                                                                                                                                                                                                                                              |
+| parameters.parameterCategory | Body | String   | 파라미터 카테고리                                                                                                                                                                                                                                                                                                                                            |
+| parameters.parameterName     | Body | String   | 파라미터 이름                                                                                                                                                                                                                                                                                                                                              |
+| parameters.value             | Body | String   | 현재 설정된 값                                                                                                                                                                                                                                                                                                                                             |
+| parameters.defaultValue      | Body | String   | 기본값                                                                                                                                                                                                                                                                                                                                                  |
+| parameters.allowedValue      | Body | String   | 허용된 값                                                                                                                                                                                                                                                                                                                                                |
+| parameters.valueType         | Body | Enum     | 값 타입<br/>- `BOOLEAN`: 불린 타입<br/>- `STRING`: 문자열 타입<br/>- `NUMERIC`: 정수 및 부동 소수점 타입<br/>- `NUMERIC_WITH_BYTE_UNIT`: 바이트 단위의 숫자 타입 (예: 120kB, 100MB)<br/>- `NUMERIC_WITH_TIME_UNIT`: 시간 단위의 숫자 타입 (예: 120ms, 100s, 1d)<br/>- `ENUMERATED`: 허용된 값에 선언된 값 중 한 개 입력<br/>- `MULTI_ENUMERATED`: 허용된 값에 선언된 값 중 여러개 입력 (콤마(,)로 구분됨)<br/>- `TIMEZONE`: 타임존 타입 |
+| parameters.updateType        | Body | Enum     | 수정 타입<br/>- `VARIABLE`: 언제든 수정 가능<br/>- `CONSTANT`: 수정 불가능<br/>- `INIT_VARIABLE`: DB 인스턴스 생성 시에만 수정 가능                                                                                                                                                                                                                                               |
+| parameters.applyType         | Body | Enum     | 적용 타입<br/>- `SESSION`: 세션 적용<br/>- `FILE`: 설정 파일 적용(재시작 필요)<br/>- `BOTH`: 전체                                                                                                                                                                                                                                                                         | 
+| createdYmdt                  | Body | DateTime | 생성 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                                                                                                                                                                                                                    |
+| updatedYmdt                  | Body | DateTime | 수정 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                                                                                                                                                                                                                    |
+
+<details><summary>예시</summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "parameterGroupId": "404e8a89-ca4d-4fca-96c2-1518754d50b7",
+    "parameterGroupName": "parameter-group",
+    "description": null,
+    "dbVersion": "POSTGRESQL_V146",
+    "parameterGroupStatus": "STABLE",
+    "parameters": [
+        {
+            "parameterCategory": "Write-Ahead Log / Checkpoints",
+            "parameterName": "checkpoint_timeout",
+            "value": "300s",
+            "defaultValue": "300s",
+            "allowedValue": "30~86400s",
+            "valueType": "NUMERIC_WITH_TIME_UNIT",
+            "updateType": "VARIABLE",
+            "applyType": "BOTH"
+        }
+    ],
+    "createdYmdt": "2023-03-13T11:02:28+09:00",
+    "updatedYmdt": "2023-03-13T11:02:28+09:00"
+}
+```
+</details>
+
+
+### 파라미터 그룹 생성하기
+
+```
+POST /v1.0/parameter-groups
+```
+
+#### 요청
+
+| 이름                 | 종류   | 형식     | 필수 | 설명                   |
+|--------------------|------|--------|----|----------------------|
+| parameterGroupName | Body | String | O  | 파라미터 그룹을 식별할 수 있는 이름 |
+| description        | Body | String | X  | 파라미터 그룹에 대한 추가 정보    |
+| dbVersion          | Body | Enum   | O  | DB 엔진 버전             |
+
+<details><summary>예시</summary>
+
+```json
+{
+    "parameterGroupName": "parameter-group",
+    "description": "description",
+    "dbVersion": "POSTGRESQL_V146"
+}
+```
+</details>
+
+#### 응답
+
+| 이름               | 종류   | 형식   | 설명           |
+|------------------|------|------|--------------|
+| parameterGroupId | Body | UUID | 파라미터 그룹의 식별자 |
+
+<details><summary>예시</summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "parameterGroupId": "404e8a89-ca4d-4fca-96c2-1518754d50b7"
+}
+```
+</details>
+
+### 파라미터 그룹 복사하기
+
+```
+POST /v1.0/parameter-groups/{parameterGroupId}/copy
+```
+
+#### 요청
+
+| 이름                 | 종류   | 형식     | 필수 | 설명                   |
+|--------------------|------|--------|----|----------------------|
+| parameterGroupId   | URL  | UUID   | O  | 파라미터 그룹의 식별자         |
+| parameterGroupName | Body | String | O  | 파라미터 그룹을 식별할 수 있는 이름 |
+| description        | Body | String | X  | 파라미터 그룹에 대한 추가 정보    |
+
+<details><summary>예시</summary>
+
+```json
+{
+    "parameterGroupName": "parameter-group-copy",
+    "description": "copy"
+}
+```
+</details>
+
+#### 응답
+
+| 이름               | 종류   | 형식   | 설명           |
+|------------------|------|------|--------------|
+| parameterGroupId | Body | UUID | 파라미터 그룹의 식별자 |
+
+<details><summary>예시</summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "parameterGroupId": "404e8a89-ca4d-4fca-96c2-1518754d50b7"
+}
+```
+</details>
+
+### 파라미터 그룹 수정하기
+
+```
+PUT /v1.0/parameter-groups/{parameterGroupId}
+```
+
+#### 요청
+
+| 이름                 | 종류   | 형식     | 필수 | 설명                   |
+|--------------------|------|--------|----|----------------------|
+| parameterGroupId   | URL  | UUID   | O  | 파라미터 그룹의 식별자         |
+| parameterGroupName | Body | String | X  | 파라미터 그룹을 식별할 수 있는 이름 |
+| description        | Body | String | X  | 파라미터 그룹에 대한 추가 정보    |
+
+<details><summary>예시</summary>
+
+```json
+{
+    "parameterGroupName": "parameter-group",
+    "description": "description"
+}
+```
+</details>
+
+#### 응답
+
+이 API는 응답 본문을 반환하지 않습니다.
+
+<details><summary>예시</summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    }
+}
+```
+</details>
+
+### 파라미터 수정하기
+
+```
+PUT /v1.0/parameter-groups/{parameterGroupId}/parameters
+```
+
+#### 요청
+
+| 이름                               | 종류   | 형식     | 필수 | 설명           |
+|----------------------------------|------|--------|----|--------------|
+| parameterGroupId                 | URL  | UUID   | O  | 파라미터 그룹의 식별자 |
+| modifiedParameters               | Body | Array  | O  | 변경할 파라미터 목록  |
+| modifiedParameters.parameterName | Body | UUID   | O  | 파라미터 이름      |
+| modifiedParameters.value         | Body | String | O  | 변경할 파라미터 값   |
+
+<details><summary>예시</summary>
+
+```json
+{
+   "modifiedParameters": [
+       {
+           "parameterName": "checkpoint_timeout",
+           "value": "100s"
+       }
+   ]
+}
+```
+</details>
+
+#### 응답
+
+이 API는 응답 본문을 반환하지 않습니다.
+
+<details><summary>예시</summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    }
+}
+```
+</details>
+
+### 파라미터 그룹 재설정하기
+
+```
+PUT /v1.0/parameter-groups/{parameterGroupId}/reset
+```
+
+#### 요청
+
+| 이름               | 종류  | 형식   | 필수 | 설명           |
+|------------------|-----|------|----|--------------|
+| parameterGroupId | URL | UUID | O  | 파라미터 그룹의 식별자 |
+
+#### 응답
+
+이 API는 응답 본문을 반환하지 않습니다.
+
+<details><summary>예시</summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    }
+}
+```
+</details>
+
+### 파라미터 그룹 삭제하기
+
+```
+DELETE /v1.0/parameter-groups/{parameterGroupId}
+```
+
+#### 요청
+
+이 API는 요청 본문을 요구하지 않습니다.
+
+| 이름               | 종류  | 형식   | 필수 | 설명           |
+|------------------|-----|------|----|--------------|
+| parameterGroupId | URL | UUID | O  | 파라미터 그룹의 식별자 |
+
+#### 응답
+
+이 API는 응답 본문을 반환하지 않습니다.
+
+<details><summary>예시</summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    }
 }
 ```
 </details>
