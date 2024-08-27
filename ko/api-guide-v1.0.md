@@ -375,6 +375,13 @@ GET /v1.0/jobs/{jobId}
 
 ## DB 보안 그룹
 
+### DB 보안 그룹 상태
+
+| 상태                      | 설명  |
+|-------------------------|-----|
+| `CREATED`               | 생성됨 |
+| `DELETED`               | 삭제됨 |
+
 ### DB 보안 그룹 진행 상태
 
 | 상태                      | 설명           |
@@ -403,6 +410,7 @@ GET /v1.0/db-security-groups
 | dbSecurityGroups.dbSecurityGroupId   | Body | UUID     | DB 보안 그룹의 식별자                     |
 | dbSecurityGroups.dbSecurityGroupName | Body | String   | DB 보안 그룹을 식별할 수 있는 이름             |
 | dbSecurityGroups.description         | Body | String   | DB 보안 그룹에 대한 추가 정보                |
+| dbSecurityGroups.status              | Body | Enum     | DB 보안 그룹의 현재 상태                   |
 | dbSecurityGroups.progressStatus      | Body | Enum     | DB 보안 그룹의 현재 진행 상태                |
 | dbSecurityGroups.createdYmdt         | Body | DateTime | 생성 일시(YYYY-MM-DDThh:mm:ss.SSSTZD) |
 | dbSecurityGroups.updatedYmdt         | Body | DateTime | 수정 일시(YYYY-MM-DDThh:mm:ss.SSSTZD) |
