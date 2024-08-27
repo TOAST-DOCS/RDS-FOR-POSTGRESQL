@@ -1154,3 +1154,206 @@ DELETE /v1.0/parameter-groups/{parameterGroupId}
 }
 ```
 </details>
+
+## 사용자 그룹
+
+### 사용자 그룹 목록 보기
+
+```http
+GET /v1.0/user-groups
+```
+
+#### 요청
+
+이 API는 요청 본문을 요구하지 않습니다.
+
+#### 응답
+
+| 이름                       | 종류   | 형식       | 설명                                |
+|--------------------------|------|----------|-----------------------------------|
+| userGroups               | Body | Array    | 사용자 그룹 목록                         |
+| userGroups.userGroupId   | Body | UUID     | 사용자 그룹의 식별자                       |
+| userGroups.userGroupName | Body | String   | 사용자 그룹을 식별할 수 있는 이름               |
+| userGroups.createdYmdt   | Body | DateTime | 생성 일시(YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| userGroups.updatedYmdt   | Body | DateTime | 수정 일시(YYYY-MM-DDThh:mm:ss.SSSTZD) |
+
+<details><summary>예시</summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "userGroups": [
+        {
+            "userGroupId": "1aac0437-f32d-4923-ad3c-ac61c1cfdfe0",
+            "userGroupName": "dev-team",
+            "createdYmdt": "2023-02-23T10:07:54+09:00",
+            "updatedYmdt": "2023-02-26T01:15:50+09:00"
+        }
+    ]
+}
+```
+</details>
+
+
+### 사용자 그룹 상세 보기
+
+```http
+GET /v1.0/user-groups/{userGroupId}
+```
+
+#### 요청
+
+이 API는 요청 본문을 요구하지 않습니다.
+
+| 이름          | 종류  | 형식   | 필수 | 설명          |
+|-------------|-----|------|----|-------------|
+| userGroupId | URL | UUID | O  | 사용자 그룹의 식별자 |
+
+#### 응답
+
+| 이름                | 종류   | 형식       | 설명                                                                                                        |
+|-------------------|------|----------|-----------------------------------------------------------------------------------------------------------|
+| userGroupId       | Body | UUID     | 사용자 그룹의 식별자                                                                                               |
+| userGroupName     | Body | String   | 사용자 그룹을 식별할 수 있는 이름                                                                                       |
+| userGroupTypeCode | Body | Enum     | 사용자 그룹 종류    <br /> `ENTIRE`: 프로젝트 멤버 전체를 포함하는 사용자 그룹 <br /> `INDIVIDUAL_MEMBER`: 특정 프로젝트 멤버를 포함하는 사용자 그룹 |
+| members           | Body | Array    | 프로젝트 멤버 목록                                                                                                |
+| members.memberId  | Body | UUID     | 프로젝트 멤버의 식별자                                                                                              |
+| createdYmdt       | Body | DateTime | 생성 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                         |
+| updatedYmdt       | Body | DateTime | 수정 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                         |
+
+<details><summary>예시</summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "userGroupId": "1aac0437-f32d-4923-ad3c-ac61c1cfdfe0",
+    "userGroupName": "dev-team",
+	"userGroupTypeCode": "INDIVIDUAL_MEMBER",
+    "members": [
+        {
+            "memberId": "1321e759-2ef3-4b85-9921-b13e918b24b5"
+        }
+    ],
+    "createdYmdt": "2023-02-23T10:07:54+09:00",
+    "updatedYmdt": "2023-02-26T01:15:50+09:00"
+}
+```
+</details>
+
+
+### 사용자 그룹 생성하기
+
+```http
+POST /v1.0/user-groups
+```
+
+#### 요청
+
+| 이름            | 종류   | 형식      | 필수 | 설명                                                               |
+|---------------|------|---------|----|------------------------------------------------------------------|
+| userGroupName | Body | String  | O  | 사용자 그룹을 식별할 수 있는 이름                                              |
+| memberIds     | Body | Array   | O  | 프로젝트 멤버의 식별자 목록     <br /> `selectAllYN`이 true인 경우 해당 필드 값은 무시됨. |
+| selectAllYN   | Body | Boolean | X  | 프로젝트 멤버 전체 유무 <br /> true인 경우 해당 그룹은 전체 멤버에 대해 설정됨               |
+
+<details><summary>예시</summary>
+
+```json
+{
+    "userGroupName": "dev-team",
+    "memberIds": ["1321e759-2ef3-4b85-9921-b13e918b24b5"]
+}
+```
+
+```json
+{
+    "userGroupName": "dev-team",
+    "selectAllYN":true
+}
+```
+</details>
+
+#### 응답
+
+| 이름          | 종류   | 형식   | 설명          |
+|-------------|------|------|-------------|
+| userGroupId | Body | UUID | 사용자 그룹의 식별자 |
+
+
+### 사용자 그룹 수정하기
+
+```http
+PUT /v1.0/user-groups/{userGroupId}
+```
+
+#### 요청
+
+| 이름            | 종류   | 형식      | 필수 | 설명                                                 |
+|---------------|------|---------|----|----------------------------------------------------|
+| userGroupId   | URL  | UUID    | O  | 사용자 그룹의 식별자                                        |
+| userGroupName | Body | String  | X  | 사용자 그룹을 식별할 수 있는 이름                                |
+| memberIds     | Body | Array   | X  | 프로젝트 멤버의 식별자 목록                                    |
+| selectAllYN   | Body | Boolean | X  | 프로젝트 멤버 전체 유무 <br /> true인 경우 해당 그룹은 전체 멤버에 대해 설정됨 |
+
+<details><summary>예시</summary>
+
+```json
+{
+    "userGroupName": "dev-team",
+    "memberIds": ["1321e759-2ef3-4b85-9921-b13e918b24b5","f9064b09-2b15-442e-a4b0-3a5a2754555e"]
+}
+```
+</details>
+
+#### 응답
+
+이 API는 응답 본문을 반환하지 않습니다.
+
+<details><summary>예시</summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    }
+}
+```
+</details>
+
+### 사용자 그룹 삭제하기
+
+```http
+DELETE /v1.0/user-groups/{userGroupId}
+```
+
+#### 요청
+
+| 이름          | 종류  | 형식   | 필수 | 설명          |
+|-------------|-----|------|----|-------------|
+| userGroupId | URL | UUID | O  | 사용자 그룹의 식별자 |
+
+#### 응답
+
+이 API는 응답 본문을 반환하지 않습니다.
+
+<details><summary>예시</summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    }
+}
+```
+</details>
