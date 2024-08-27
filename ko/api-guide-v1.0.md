@@ -307,23 +307,6 @@ GET /v1.0/storage-types
 
 ## 작업 정보
 
-### 작업 상태
-
-| 상태명                | 설명                   |
-|--------------------|----------------------|
-| `PREPARING`        | 작업이 준비 중인 경우         |
-| `READY`            | 작업이 준비 완료된 경우        |
-| `RUNNING`          | 작업이 진행 중인 경우         |
-| `COMPLETED`        | 작업이 완료된 경우           |
-| `REGISTERED`       | 작업이 등록된 경우           |
-| `WAIT_TO_REGISTER` | 작업 등록 대기 중인 경우       |
-| `INTERRUPTED`      | 작업 진행 중 인터럽트가 발생한 경우 |
-| `CANCELED`         | 작업이 취소된 경우           |
-| `FAILED`           | 작업이 실패한 경우           |
-| `ERROR`            | 작업 진행 중 오류가 발생한 경우   |
-| `DELETED`          | 작업이 삭제된 경우           |
-| `FAIL_TO_READY`    | 작업 준비에 실패한 경우        |
-
 ### 작업 정보 상세 보기
 
 ```http
@@ -340,15 +323,15 @@ GET /v1.0/jobs/{jobId}
 
 #### 응답
 
-| 이름                             | 종류   | 형식       | 설명                                |
-|--------------------------------|------|----------|-----------------------------------|
-| jobId                          | Body | UUID     | 작업의 식별자                           |
-| jobStatus                      | Body | Enum     | 작업의 현재 상태                         |
-| resourceRelations              | Body | Array    | 연관 리소스 목록                         |
-| resourceRelations.resourceType | Body | Enum     | 연관 리소스 유형                         |
-| resourceRelations.resourceId   | Body | UUID     | 연관 리소스의 식별자                       |
-| createdYmdt                    | Body | DateTime | 생성 일시(YYYY-MM-DDThh:mm:ss.SSSTZD) |
-| updatedYmdt                    | Body | DateTime | 수정 일시(YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| 이름                             | 종류   | 형식       | 설명                                                                                                                                                                                                                                                                                                                                                                                                              |
+|--------------------------------|------|----------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| jobId                          | Body | UUID     | 작업의 식별자                                                                                                                                                                                                                                                                                                                                                                                                         |
+| jobStatus                      | Body | Enum     | 작업의 현재 상태<br/>- `PREPARING`: 작업이 준비 중인 경우<br/>- `READY`: 작업이 준비 완료된 경우<br/>- `RUNNING`: 작업이 진행 중인 경우<br/>- `COMPLETED`: 작업이 완료된 경우<br/>- `REGISTERED`: 작업이 등록된 경우<br/>- `WAIT_TO_REGISTER`: 작업 등록 대기 중인 경우<br/>- `INTERRUPTED`: 작업 진행 중 인터럽트가 발생한 경우<br/>- `CANCELED`: 작업이 취소된 경우<br/>- `FAILED`: 작업이 실패한 경우<br/>- `ERROR`: 작업 진행 중 오류가 발생한 경우<br/>- `DELETED`: 작업이 삭제된 경우<br/>- `FAIL_TO_READY`: 작업 준비에 실패한 경우 |
+| resourceRelations              | Body | Array    | 연관 리소스 목록                                                                                                                                                                                                                                                                                                                                                                                                       |
+| resourceRelations.resourceType | Body | Enum     | 연관 리소스 유형<br/>- `DB_INSTANCE`: DB 인스턴스<br/>- `DB_INSTANCE_GROUP`: DB 인스턴스 그룹<br/>- `DB_SECURITY_GROUP`: DB 보안 그룹<br/>- `PARAMETER_GROUP`: 파라미터 그룹<br/>- `BACKUP`: 백업<br/>- `TENANT`: 테넌트                                                                                                                                                                                                                        |
+| resourceRelations.resourceId   | Body | UUID     | 연관 리소스의 식별자                                                                                                                                                                                                                                                                                                                                                                                                     |
+| createdYmdt                    | Body | DateTime | 생성 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                                                                                                                                                                                                                                                                               |
+| updatedYmdt                    | Body | DateTime | 수정 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                                                                                                                                                                                                                                                                               |
 
 <details><summary>예시</summary>
 
@@ -363,7 +346,7 @@ GET /v1.0/jobs/{jobId}
     "jobStatus": "RUNNING",
     "resourceRelations": [
         {
-            "resourceType": "INSTANCE",
+            "resourceType": "DB_INSTANCE",
             "resourceId": "56b39dcf-65eb-47ec-9d4f-09f160ba2266"
         }
     ],
@@ -374,23 +357,6 @@ GET /v1.0/jobs/{jobId}
 </details>
 
 ## DB 보안 그룹
-
-### DB 보안 그룹 상태
-
-| 상태                      | 설명  |
-|-------------------------|-----|
-| `CREATED`               | 생성됨 |
-| `DELETED`               | 삭제됨 |
-
-### DB 보안 그룹 진행 상태
-
-| 상태                      | 설명           |
-|-------------------------|--------------|
-| `NONE`                  | 진행 중인 작업이 없음 |
-| `CREATING_RULE`         | 규칙 정책 생성 중   |
-| `UPDATING_RULE`         | 규칙 정책 수정 중   |
-| `DELETING_RULE`         | 규칙 정책 삭제 중   |
-| `APPLYING_DEFAULT_RULE` | 기본 규칙 적용 중   |
 
 ### DB 보안 그룹 목록 보기
 
@@ -404,16 +370,16 @@ GET /v1.0/db-security-groups
 
 #### 응답
 
-| 이름                                   | 종류   | 형식       | 설명                                |
-|--------------------------------------|------|----------|-----------------------------------|
-| dbSecurityGroups                     | Body | Array    | DB 보안 그룹 목록                       |
-| dbSecurityGroups.dbSecurityGroupId   | Body | UUID     | DB 보안 그룹의 식별자                     |
-| dbSecurityGroups.dbSecurityGroupName | Body | String   | DB 보안 그룹을 식별할 수 있는 이름             |
-| dbSecurityGroups.description         | Body | String   | DB 보안 그룹에 대한 추가 정보                |
-| dbSecurityGroups.status              | Body | Enum     | DB 보안 그룹의 현재 상태                   |
-| dbSecurityGroups.progressStatus      | Body | Enum     | DB 보안 그룹의 현재 진행 상태                |
-| dbSecurityGroups.createdYmdt         | Body | DateTime | 생성 일시(YYYY-MM-DDThh:mm:ss.SSSTZD) |
-| dbSecurityGroups.updatedYmdt         | Body | DateTime | 수정 일시(YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| 이름                                     | 종류   | 형식       | 설명                                                                                                                                                                                             |
+|----------------------------------------|------|----------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| dbSecurityGroups                       | Body | Array    | DB 보안 그룹 목록                                                                                                                                                                                    |
+| dbSecurityGroups.dbSecurityGroupId     | Body | UUID     | DB 보안 그룹의 식별자                                                                                                                                                                                  |
+| dbSecurityGroups.dbSecurityGroupName   | Body | String   | DB 보안 그룹을 식별할 수 있는 이름                                                                                                                                                                          |
+| dbSecurityGroups.dbSecurityGroupStatus | Body | Enum     | DB 보안 그룹의 현재 상태<br/>- `CREATED`: 생성됨<br/>- `DELETED`: 삭제됨                                                                                                                                      |
+| dbSecurityGroups.description           | Body | String   | DB 보안 그룹에 대한 추가 정보                                                                                                                                                                             |
+| dbSecurityGroups.progressStatus        | Body | Enum     | DB 보안 그룹의 현재 진행 상태<br/>- `NONE`: 진행 중인 작업이 없음<br/>- `CREATING_RULE`: 규칙 정책 생성 중<br/>- `UPDATING_RULE`: 규칙 정책 수정 중<br/>- `DELETING_RULE`: 규칙 정책 삭제 중<br/>- `APPLYING_DEFAULT_RULE`: 기본 규칙 적용 중  |
+| dbSecurityGroups.createdYmdt           | Body | DateTime | 생성 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                                                              |
+| dbSecurityGroups.updatedYmdt           | Body | DateTime | 수정 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                                                              |
 
 <details><summary>예시</summary>
 
@@ -428,6 +394,7 @@ GET /v1.0/db-security-groups
         {
             "dbSecurityGroupId": "fe4f2aee-afbb-4c19-a5e9-eb2eab394708",
             "dbSecurityGroupName": "dbSecurityGroup",
+            "dbSecurityGroupStatus": "CREATED",
             "description": "description",
             "progressStatus": "NONE",
             "createdYmdt": "2023-02-19T19:18:13+09:00",
@@ -817,9 +784,9 @@ GET /v1.0/parameter-groups
 | parameterGroups                      | Body | Array    | 파라미터 그룹 목록                                                        |
 | parameterGroups.parameterGroupId     | Body | UUID     | 파라미터 그룹의 식별자                                                      |
 | parameterGroups.parameterGroupName   | Body | String   | 파라미터 그룹을 식별할 수 있는 이름                                              |
+| parameterGroups.parameterGroupStatus | Body | Enum     | 파라미터 그룹의 현재 상태<br/>- `STABLE`: 적용 완료<br/>- `NEED_TO_APPLY`: 적용 필요 |
 | parameterGroups.description          | Body | String   | 파라미터 그룹에 대한 추가 정보                                                 |
 | parameterGroups.dbVersion            | Body | Enum     | DB 엔진 버전                                                          |
-| parameterGroups.parameterGroupStatus | Body | Enum     | 파라미터 그룹의 현재 상태<br/>- `STABLE`: 적용 완료<br/>- `NEED_TO_APPLY`: 적용 필요 |
 | parameterGroups.createdYmdt          | Body | DateTime | 생성 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                 |
 | parameterGroups.updatedYmdt          | Body | DateTime | 수정 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                 |
 
@@ -836,9 +803,9 @@ GET /v1.0/parameter-groups
         {
             "parameterGroupId": "404e8a89-ca4d-4fca-96c2-1518754d50b7",
             "parameterGroupName": "parameter-group",
+            "parameterGroupStatus": "STABLE",
             "description": null,
             "dbVersion": "POSTGRESQL_V146",
-            "parameterGroupStatus": "STABLE",
             "createdYmdt": "2023-02-31T15:28:17+09:00",
             "updatedYmdt": "2023-02-31T15:28:17+09:00"
         }
@@ -1220,6 +1187,7 @@ GET /v1.0/user-groups/{userGroupId}
 | userGroupId       | Body | UUID     | 사용자 그룹의 식별자                                                                                               |
 | userGroupName     | Body | String   | 사용자 그룹을 식별할 수 있는 이름                                                                                       |
 | userGroupTypeCode | Body | Enum     | 사용자 그룹 종류    <br /> `ENTIRE`: 프로젝트 멤버 전체를 포함하는 사용자 그룹 <br /> `INDIVIDUAL_MEMBER`: 특정 프로젝트 멤버를 포함하는 사용자 그룹 |
+| userGroupStatus   | Body | Enum     | 사용자 그룹의 현재 상태<br/>- `CREATED`: 생성됨<br/>- `DELETED`: 삭제됨                                                   |
 | members           | Body | Array    | 프로젝트 멤버 목록                                                                                                |
 | members.memberId  | Body | UUID     | 프로젝트 멤버의 식별자                                                                                              |
 | createdYmdt       | Body | DateTime | 생성 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                         |
@@ -1236,6 +1204,7 @@ GET /v1.0/user-groups/{userGroupId}
     },
     "userGroupId": "1aac0437-f32d-4923-ad3c-ac61c1cfdfe0",
     "userGroupName": "dev-team",
+    "userGroupStatus": "CREATED",
 	"userGroupTypeCode": "INDIVIDUAL_MEMBER",
     "members": [
         {
