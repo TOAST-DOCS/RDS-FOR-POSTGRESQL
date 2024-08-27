@@ -51,7 +51,7 @@ API 요청 시 인증에 실패하거나 권한이 없을 경우 다음과 같�
 |---------------|---------|-----------------------|
 | resultCode    | int     | 결과코드 (성공: 0, 그 외: 실패) |
 | resultMessage | String  | 결과 메시지                |
-| successful    | boolean | 성공 여부                 |
+| successful    | Boolean | 성공 여부                 |
 
 ## DB 엔진 버전
 
@@ -64,7 +64,7 @@ API 요청 시 인증에 실패하거나 권한이 없을 경우 다음과 같�
 
 ### DB 엔진 목록 보기
 
-```
+```http
 GET /v1.0/db-versions
 ```
 
@@ -105,7 +105,7 @@ GET /v1.0/db-versions
 
 ### DB 인스턴스 사양 목록 보기
 
-```
+```http
 GET /v1.0/db-flavors
 ```
 
@@ -148,7 +148,7 @@ GET /v1.0/db-flavors
 
 ### 리전 목록 보기
 
-```
+```http
 GET /v1.0/project/regions
 ```
 
@@ -185,7 +185,7 @@ GET /v1.0/project/regions
 
 ### 프로젝트 멤버 목록 보기
 
-```
+```http
 GET /v1.0/project/members
 ```
 
@@ -228,7 +228,7 @@ GET /v1.0/project/members
 
 ### 서브넷 목록 보기
 
-```
+```http
 GET /v1.0/network/subnets
 ```
 
@@ -274,7 +274,7 @@ GET /v1.0/network/subnets
 
 ### 스토리지 타입 목록 보기
 
-```
+```http
 GET /v1.0/storage-types
 ```
 
@@ -326,7 +326,7 @@ GET /v1.0/storage-types
 
 ### 작업 정보 상세 보기
 
-```
+```http
 GET /v1.0/jobs/{jobId}
 ```
 
@@ -394,7 +394,7 @@ GET /v1.0/jobs/{jobId}
 
 ### DB 보안 그룹 목록 보기
 
-```
+```http
 GET /v1.0/db-security-groups
 ```
 
@@ -440,7 +440,7 @@ GET /v1.0/db-security-groups
 
 ### DB 보안 그룹 상세 보기
 
-```
+```http
 GET /v1.0/db-security-groups/{dbSecurityGroupId}
 ```
 
@@ -514,7 +514,7 @@ GET /v1.0/db-security-groups/{dbSecurityGroupId}
 
 ### DB 보안 그룹 생성하기
 
-```
+```http
 POST /v1.0/db-security-groups
 ```
 
@@ -619,7 +619,7 @@ PUT /v1.0/db-security-groups/{dbSecurityGroupId}
 
 ### DB 보안 그룹 삭제하기
 
-```
+```http
 DELETE /v1.0/db-security-groups/{dbSecurityGroupId}
 ```
 
@@ -650,7 +650,7 @@ DELETE /v1.0/db-security-groups/{dbSecurityGroupId}
 
 ### DB 보안 그룹 규칙 생성하기
 
-```
+```http
 POST /v1.0/db-security-groups/{dbSecurityGroupId}/rules
 ```
 
@@ -761,7 +761,7 @@ PUT /v1.0/db-security-groups/{dbSecurityGroupId}/rules/{ruleId}
 
 ### DB 보안 그룹 규칙 삭제하기
 
-```
+```http
 DELETE /v1.0/db-security-groups/{dbSecurityGroupId}/rules
 ```
 
@@ -798,7 +798,7 @@ DELETE /v1.0/db-security-groups/{dbSecurityGroupId}/rules
 
 ### 파라미터 그룹 목록 보기
 
-```
+```http
 GET /v1.0/parameter-groups
 ```
 
@@ -850,7 +850,7 @@ GET /v1.0/parameter-groups
 
 ### 파라미터 그룹 상세 보기
 
-```
+```http
 GET /v1.0/parameter-groups/{parameterGroupId}
 ```
 
@@ -875,13 +875,15 @@ GET /v1.0/parameter-groups/{parameterGroupId}
 | parameters.parameterCategory | Body | String   | 파라미터 카테고리                                                                                                                                                                                                                                                                                                                                            |
 | parameters.parameterName     | Body | String   | 파라미터 이름                                                                                                                                                                                                                                                                                                                                              |
 | parameters.value             | Body | String   | 현재 설정된 값                                                                                                                                                                                                                                                                                                                                             |
+| parameters.valueUnit         | Body | String   | 현재 설정된 값의 단위<br/>- `B`: 바이트<br/>- `kB`: 킬로바이트<br/>- `MB`: 메가바이트<br/>- `GB`: 기가바이트<br/>- `TB`: 테라바이트<br/>- `us`: 마이크로초<br/>- `ms`: 밀리초<br/>- `s`: 초<br/>- `min`: 분<br/>- `h`: 시<br/>- `d`: 일                                                                                                                                                          |
 | parameters.defaultValue      | Body | String   | 기본값                                                                                                                                                                                                                                                                                                                                                  |
 | parameters.allowedValue      | Body | String   | 허용된 값                                                                                                                                                                                                                                                                                                                                                |
 | parameters.valueType         | Body | Enum     | 값 타입<br/>- `BOOLEAN`: 불린 타입<br/>- `STRING`: 문자열 타입<br/>- `NUMERIC`: 정수 및 부동 소수점 타입<br/>- `NUMERIC_WITH_BYTE_UNIT`: 바이트 단위의 숫자 타입 (예: 120kB, 100MB)<br/>- `NUMERIC_WITH_TIME_UNIT`: 시간 단위의 숫자 타입 (예: 120ms, 100s, 1d)<br/>- `ENUMERATED`: 허용된 값에 선언된 값 중 한 개 입력<br/>- `MULTI_ENUMERATED`: 허용된 값에 선언된 값 중 여러개 입력 (콤마(,)로 구분됨)<br/>- `TIMEZONE`: 타임존 타입 |
-| parameters.updateType        | Body | Enum     | 수정 타입<br/>- `VARIABLE`: 언제든 수정 가능<br/>- `CONSTANT`: 수정 불가능<br/>- `INIT_VARIABLE`: DB 인스턴스 생성 시에만 수정 가능                                                                                                                                                                                                                                               |
+| parameters.updateType        | Body | Enum     | 수정 타입<br/>- `VARIABLE`: 언제든 수정 가능<br/>- `CONSTANT`: 수정 불가능                                                                                                                                                                                                                                                                                           |
 | parameters.applyType         | Body | Enum     | 적용 타입<br/>- `SESSION`: 세션 적용<br/>- `FILE`: 설정 파일 적용(재시작 필요)<br/>- `BOTH`: 전체                                                                                                                                                                                                                                                                         | 
 | createdYmdt                  | Body | DateTime | 생성 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                                                                                                                                                                                                                    |
 | updatedYmdt                  | Body | DateTime | 수정 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                                                                                                                                                                                                                    |
+| expressionAvailable          | Body | Boolean  | 수식 허용 여부                                                                                                                                                                                                                                                                                                                                             |
 
 <details><summary>예시</summary>
 
@@ -906,7 +908,8 @@ GET /v1.0/parameter-groups/{parameterGroupId}
             "allowedValue": "30~86400s",
             "valueType": "NUMERIC_WITH_TIME_UNIT",
             "updateType": "VARIABLE",
-            "applyType": "BOTH"
+            "applyType": "BOTH",
+            "expressionAvailable": true
         }
     ],
     "createdYmdt": "2023-03-13T11:02:28+09:00",
@@ -918,7 +921,7 @@ GET /v1.0/parameter-groups/{parameterGroupId}
 
 ### 파라미터 그룹 생성하기
 
-```
+```http
 POST /v1.0/parameter-groups
 ```
 
@@ -963,7 +966,7 @@ POST /v1.0/parameter-groups
 
 ### 파라미터 그룹 복사하기
 
-```
+```http
 POST /v1.0/parameter-groups/{parameterGroupId}/copy
 ```
 
@@ -1123,7 +1126,7 @@ PUT /v1.0/parameter-groups/{parameterGroupId}/reset
 
 ### 파라미터 그룹 삭제하기
 
-```
+```http
 DELETE /v1.0/parameter-groups/{parameterGroupId}
 ```
 
