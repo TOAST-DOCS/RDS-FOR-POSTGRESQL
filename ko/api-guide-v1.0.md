@@ -1817,7 +1817,7 @@ GET /v1.0/metric-statistics
 
 ## 이벤트
 
-### 이벤트 목록 조회
+### 이벤트 목록 보기
 
 ```
 GET /v1.0/events
