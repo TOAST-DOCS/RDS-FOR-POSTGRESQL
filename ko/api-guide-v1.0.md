@@ -421,26 +421,27 @@ GET /v1.0/db-security-groups/{dbSecurityGroupId}
 
 #### 응답
 
-| 이름                  | 종류   | 형식       | 설명                                                                                                                 |
-|---------------------|------|----------|--------------------------------------------------------------------------------------------------------------------|
-| dbSecurityGroupId   | Body | UUID     | DB 보안 그룹의 식별자                                                                                                      |
-| dbSecurityGroupName | Body | String   | DB 보안 그룹을 식별할 수 있는 이름                                                                                              |
-| description         | Body | String   | DB 보안 그룹에 대한 추가 정보                                                                                                 |
-| progressStatus      | Body | Enum     | DB 보안 그룹의 현재 진행 상태                                                                                                 |
-| rules               | Body | Array    | DB 보안 그룹 규칙 목록                                                                                                     |
-| rules.ruleId        | Body | UUID     | DB 보안 그룹 규칙의 식별자                                                                                                   |
-| rules.description   | Body | String   | DB 보안 그룹 규칙에 대한 추가 정보                                                                                              |
-| rules.direction     | Body | Enum     | 통신 방향<br/>- `INGRESS`: 수신<br/>- `EGRESS`: 송신                                                                       |
-| rules.etherType     | Body | Enum     | Ether 타입<br/>- `IPV4`: IPv4<br/>- `IPV6`: IPv6                                                                     |
-| rules.port          | Body | Object   | 포트 객체                                                                                                              |
-| rules.port.portType | Body | Enum     | 포트 타입<br/>- `DB_PORT`: 각 DB 인스턴스 포트값으로 설정됩니다.<br/>- `PORT`: 지정된 포트값으로 설정됩니다.<br/>- `PORT_RANGE`: 지정된 포트 범위로 설정됩니다. |
-| rules.port.minPort  | Body | Number   | 최소 포트 범위                                                                                                           |
-| rules.port.maxPort  | Body | Number   | 최대 포트 범위                                                                                                           |
-| rules.cidr          | Body | String   | 허용할 트래픽의 원격 소스                                                                                                     |
-| rules.createdYmdt   | Body | DateTime | 생성 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                  |
-| rules.updatedYmdt   | Body | DateTime | 수정 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                  |
-| createdYmdt         | Body | DateTime | 생성 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                  |
-| updatedYmdt         | Body | DateTime | 수정 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                  |
+| 이름                    | 종류   | 형식       | 설명                                                                                                                                                                                            |
+|-----------------------|------|----------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| dbSecurityGroupId     | Body | UUID     | DB 보안 그룹의 식별자                                                                                                                                                                                 |
+| dbSecurityGroupName   | Body | String   | DB 보안 그룹을 식별할 수 있는 이름                                                                                                                                                                         |
+| dbSecurityGroupStatus | Body | Enum     | DB 보안 그룹의 현재 상태<br/>- `CREATED`: 생성됨<br/>- `DELETED`: 삭제됨                                                                                                                                     |
+| description           | Body | String   | DB 보안 그룹에 대한 추가 정보                                                                                                                                                                            |
+| progressStatus        | Body | Enum     | DB 보안 그룹의 현재 진행 상태<br/>- `NONE`: 진행 중인 작업이 없음<br/>- `CREATING_RULE`: 규칙 정책 생성 중<br/>- `UPDATING_RULE`: 규칙 정책 수정 중<br/>- `DELETING_RULE`: 규칙 정책 삭제 중<br/>- `APPLYING_DEFAULT_RULE`: 기본 규칙 적용 중 |
+| rules                 | Body | Array    | DB 보안 그룹 규칙 목록                                                                                                                                                                                |
+| rules.ruleId          | Body | UUID     | DB 보안 그룹 규칙의 식별자                                                                                                                                                                              |
+| rules.description     | Body | String   | DB 보안 그룹 규칙에 대한 추가 정보                                                                                                                                                                         |
+| rules.direction       | Body | Enum     | 통신 방향<br/>- `INGRESS`: 수신<br/>- `EGRESS`: 송신                                                                                                                                                  |
+| rules.etherType       | Body | Enum     | Ether 타입<br/>- `IPV4`: IPv4<br/>- `IPV6`: IPv6                                                                                                                                                |
+| rules.port            | Body | Object   | 포트 객체                                                                                                                                                                                         |
+| rules.port.portType   | Body | Enum     | 포트 타입<br/>- `DB_PORT`: 각 DB 인스턴스 포트값으로 설정됩니다.<br/>- `PORT`: 지정된 포트값으로 설정됩니다.<br/>- `PORT_RANGE`: 지정된 포트 범위로 설정됩니다.                                                                            |
+| rules.port.minPort    | Body | Number   | 최소 포트 범위                                                                                                                                                                                      |
+| rules.port.maxPort    | Body | Number   | 최대 포트 범위                                                                                                                                                                                      |
+| rules.cidr            | Body | String   | 허용할 트래픽의 원격 소스                                                                                                                                                                                |
+| rules.createdYmdt     | Body | DateTime | 생성 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                                                             |
+| rules.updatedYmdt     | Body | DateTime | 수정 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                                                             |
+| createdYmdt           | Body | DateTime | 생성 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                                                             |
+| updatedYmdt           | Body | DateTime | 수정 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                                                             |
 
 <details><summary>예시</summary>
 
@@ -454,6 +455,7 @@ GET /v1.0/db-security-groups/{dbSecurityGroupId}
     "dbSecurityGroup": {
         "dbSecurityGroupId": "fe4f2aee-afbb-4c19-a5e9-eb2eab394708",
         "dbSecurityGroupName": "dbSecurityGroup",
+        "dbSecurityGroupStatus": "CREATED",
         "description": "description",
         "progressStatus": "NONE",
         "rules": [
@@ -842,7 +844,7 @@ GET /v1.0/parameter-groups/{parameterGroupId}
 | parameters.parameterCategory | Body | String   | 파라미터 카테고리                                                                                                                                                                                                                                                                                                                                            |
 | parameters.parameterName     | Body | String   | 파라미터 이름                                                                                                                                                                                                                                                                                                                                              |
 | parameters.value             | Body | String   | 현재 설정된 값                                                                                                                                                                                                                                                                                                                                             |
-| parameters.valueUnit         | Body | String   | 현재 설정된 값의 단위<br/>- `B`: 바이트<br/>- `kB`: 킬로바이트<br/>- `MB`: 메가바이트<br/>- `GB`: 기가바이트<br/>- `TB`: 테라바이트<br/>- `us`: 마이크로초<br/>- `ms`: 밀리초<br/>- `s`: 초<br/>- `min`: 분<br/>- `h`: 시<br/>- `d`: 일                                                                                                                                                          |
+| parameters.valueUnit         | Body | Enum     | 현재 설정된 값의 단위<br/>- `B`: 바이트<br/>- `kB`: 킬로바이트<br/>- `MB`: 메가바이트<br/>- `GB`: 기가바이트<br/>- `TB`: 테라바이트<br/>- `us`: 마이크로초<br/>- `ms`: 밀리초<br/>- `s`: 초<br/>- `min`: 분<br/>- `h`: 시<br/>- `d`: 일                                                                                                                                                          |
 | parameters.defaultValue      | Body | String   | 기본값                                                                                                                                                                                                                                                                                                                                                  |
 | parameters.allowedValue      | Body | String   | 허용된 값                                                                                                                                                                                                                                                                                                                                                |
 | parameters.valueType         | Body | Enum     | 값 타입<br/>- `BOOLEAN`: 불린 타입<br/>- `STRING`: 문자열 타입<br/>- `NUMERIC`: 정수 및 부동 소수점 타입<br/>- `NUMERIC_WITH_BYTE_UNIT`: 바이트 단위의 숫자 타입 (예: 120kB, 100MB)<br/>- `NUMERIC_WITH_TIME_UNIT`: 시간 단위의 숫자 타입 (예: 120ms, 100s, 1d)<br/>- `ENUMERATED`: 허용된 값에 선언된 값 중 한 개 입력<br/>- `MULTI_ENUMERATED`: 허용된 값에 선언된 값 중 여러개 입력 (콤마(,)로 구분됨)<br/>- `TIMEZONE`: 타임존 타입 |
@@ -1136,13 +1138,14 @@ GET /v1.0/user-groups
 
 #### 응답
 
-| 이름                       | 종류   | 형식       | 설명                                |
-|--------------------------|------|----------|-----------------------------------|
-| userGroups               | Body | Array    | 사용자 그룹 목록                         |
-| userGroups.userGroupId   | Body | UUID     | 사용자 그룹의 식별자                       |
-| userGroups.userGroupName | Body | String   | 사용자 그룹을 식별할 수 있는 이름               |
-| userGroups.createdYmdt   | Body | DateTime | 생성 일시(YYYY-MM-DDThh:mm:ss.SSSTZD) |
-| userGroups.updatedYmdt   | Body | DateTime | 수정 일시(YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| 이름                       | 종류   | 형식       | 설명                                                      |
+|--------------------------|------|----------|---------------------------------------------------------|
+| userGroups               | Body | Array    | 사용자 그룹 목록                                               |
+| userGroups.userGroupId   | Body | UUID     | 사용자 그룹의 식별자                                             |
+| userGroups.userGroupName | Body | String   | 사용자 그룹을 식별할 수 있는 이름                                     |
+| userGroupStatus          | Body | Enum     | 사용자 그룹의 현재 상태<br/>- `CREATED`: 생성됨<br/>- `DELETED`: 삭제됨 |
+| userGroups.createdYmdt   | Body | DateTime | 생성 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                       |
+| userGroups.updatedYmdt   | Body | DateTime | 수정 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                       |
 
 <details><summary>예시</summary>
 
@@ -1157,6 +1160,7 @@ GET /v1.0/user-groups
         {
             "userGroupId": "1aac0437-f32d-4923-ad3c-ac61c1cfdfe0",
             "userGroupName": "dev-team",
+            "userGroupStatus": "CREATED",
             "createdYmdt": "2023-02-23T10:07:54+09:00",
             "updatedYmdt": "2023-02-26T01:15:50+09:00"
         }
