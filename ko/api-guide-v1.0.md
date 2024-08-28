@@ -49,7 +49,7 @@ API 요청 시 인증에 실패하거나 권한이 없을 경우 다음과 같�
 
 | 이름            | 자료형     | 설명                    |
 |---------------|---------|-----------------------|
-| resultCode    | int     | 결과코드 (성공: 0, 그 외: 실패) |
+| resultCode    | Int     | 결과코드 (성공: 0, 그 외: 실패) |
 | resultMessage | String  | 결과 메시지                |
 | successful    | Boolean | 성공 여부                 |
 
@@ -547,7 +547,7 @@ POST /v1.0/db-security-groups
 
 ### DB 보안 그룹 수정하기
 
-```
+```http
 PUT /v1.0/db-security-groups/{dbSecurityGroupId}
 ```
 
@@ -675,7 +675,7 @@ POST /v1.0/db-security-groups/{dbSecurityGroupId}/rules
 
 ### DB 보안 그룹 규칙 수정하기
 
-```
+```http
 PUT /v1.0/db-security-groups/{dbSecurityGroupId}/rules/{ruleId}
 ```
 
@@ -979,7 +979,7 @@ POST /v1.0/parameter-groups/{parameterGroupId}/copy
 
 ### 파라미터 그룹 수정하기
 
-```
+```http
 PUT /v1.0/parameter-groups/{parameterGroupId}
 ```
 
@@ -1020,7 +1020,7 @@ PUT /v1.0/parameter-groups/{parameterGroupId}
 
 ### 파라미터 수정하기
 
-```
+```http
 PUT /v1.0/parameter-groups/{parameterGroupId}/parameters
 ```
 
@@ -1066,7 +1066,7 @@ PUT /v1.0/parameter-groups/{parameterGroupId}/parameters
 
 ### 파라미터 그룹 재설정하기
 
-```
+```http
 PUT /v1.0/parameter-groups/{parameterGroupId}/reset
 ```
 
@@ -1313,6 +1313,396 @@ DELETE /v1.0/user-groups/{userGroupId}
 | 이름          | 종류  | 형식   | 필수 | 설명          |
 |-------------|-----|------|----|-------------|
 | userGroupId | URL | UUID | O  | 사용자 그룹의 식별자 |
+
+#### 응답
+
+이 API는 응답 본문을 반환하지 않습니다.
+
+<details><summary>예시</summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    }
+}
+```
+</details>
+
+## 알림 그룹
+
+### 알림 그룹 목록 보기
+
+```http
+GET /v1.0/notification-groups
+```
+
+#### 요청
+
+이 API는 요청 본문을 요구하지 않습니다.
+
+#### 응답
+
+| 이름                                         | 종류   | 형식       | 설명                                                     |
+|--------------------------------------------|------|----------|--------------------------------------------------------|
+| notificationGroups                         | Body | Array    | 알림 그룹 목록                                               |
+| notificationGroups.notificationGroupId     | Body | UUID     | 알림 그룹의 식별자                                             |
+| notificationGroups.notificationGroupName   | Body | String   | 알림 그룹을 식별할 수 있는 이름                                     |
+| notificationGroups.notificationGroupStatus | Body | Enum     | 알림 그룹의 현재 상태<br/>- `CREATED`: 생성됨<br/>- `DELETED`: 삭제됨 |
+| notificationGroups.notifyEmail             | Body | Boolean  | 이메일 알림 여부                                              |
+| notificationGroups.notifySms               | Body | Boolean  | SMS 알림 여부                                              |
+| notificationGroups.isEnabled               | Body | Boolean  | 활성화 여부                                                 |
+| notificationGroups.createdYmdt             | Body | DateTime | 생성 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                      |
+| notificationGroups.updatedYmdt             | Body | DateTime | 수정 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                      |
+
+<details><summary>예시</summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "notificationGroups": [
+        {
+            "notificationGroupId": "b3901f17-9971-4d1e-8a81-8448cf533dc7",
+            "notificationGroupName": "dev-team-noti",
+            "notifyEmail": true,
+            "notifySms": false,
+            "isEnabled": true,
+            "createdYmdt": "2023-02-20T13:34:13+09:00",
+            "updatedYmdt": "2023-02-20T13:34:13+09:00"
+        }
+    ]
+}
+```
+</details>
+
+
+### 알림 그룹 상세 보기
+
+```http
+GET /v1.0/notification-groups/{notificationGroupId}
+```
+
+#### 요청
+
+이 API는 요청 본문을 요구하지 않습니다.
+
+| 이름                  | 종류  | 형식   | 필수 | 설명         |
+|---------------------|-----|------|----|------------|
+| notificationGroupId | URL | UUID | O  | 알림 그룹의 식별자 |
+
+#### 응답
+
+| 이름                         | 종류   | 형식       | 설명                                                     |
+|----------------------------|------|----------|--------------------------------------------------------|
+| notificationGroupId        | Body | UUID     | 알림 그룹의 식별자                                             |
+| notificationGroupName      | Body | String   | 알림 그룹을 식별할 수 있는 이름                                     |
+| notificationGroupStatus    | Body | Enum     | 알림 그룹의 현재 상태<br/>- `CREATED`: 생성됨<br/>- `DELETED`: 삭제됨 |
+| notifyEmail                | Body | Boolean  | 이메일 알림 여부                                              |
+| notifySms                  | Body | Boolean  | SMS 알림 여부                                              |
+| isEnabled                  | Body | Boolean  | 활성화 여부                                                 |
+| dbInstances                | Body | Array    | 감시 대상 DB 인스턴스 목록                                       |
+| dbInstances.dbInstanceId   | Body | UUID     | DB 인스턴스의 식별자                                           |
+| dbInstances.dbInstanceName | Body | String   | DB 인스턴스를 식별할 수 있는 이름                                   |
+| userGroups                 | Body | Array    | 사용자 그룹 목록                                              |
+| userGroups.userGroupId     | Body | UUID     | 사용자 그룹의 식별자                                            |
+| userGroups.userGroupName   | Body | String   | 사용자 그룹을 식별할 수 있는 이름                                    |
+| createdYmdt                | Body | DateTime | 생성 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                      |
+| updatedYmdt                | Body | DateTime | 수정 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                      |
+
+<details><summary>예시</summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "notificationGroupId": "b3901f17-9971-4d1e-8a81-8448cf533dc7",
+    "notificationGroupName": "dev-team-noti",
+    "notifyEmail": true,
+    "notifySms": false,
+    "isEnabled": true,
+    "dbInstances": [
+        {
+            "dbInstanceId": "ed5cb985-526f-4c54-9ae0-40288593de65",
+            "dbInstanceName": "database"
+        }
+    ],
+    "userGroups": [
+        {
+            "userGroupId": "1aac0437-f32d-4923-ad3c-ac61c1cfdfe0",
+            "userGroupName": "dev-team"
+        }
+    ],
+    "createdYmdt": "2023-02-20T13:34:13+09:00",
+    "updatedYmdt": "2023-02-20T13:34:13+09:00"
+}
+```
+</details>
+
+
+### 알림 그룹 생성하기
+
+```http
+POST /v1.0/notification-groups
+```
+
+#### 요청
+
+| 이름                    | 종류   | 형식      | 필수 | 설명                          |
+|-----------------------|------|---------|----|-----------------------------|
+| notificationGroupName | Body | String  | O  | 알림 그룹을 식별할 수 있는 이름          |
+| notifyEmail           | Body | Boolean | X  | 이메일 알림 여부<br/>- 기본값: `true` |
+| notifySms             | Body | Boolean | X  | SMS 알림 여부<br/>- 기본값: `true` |
+| isEnabled             | Body | Boolean | X  | 활성화 여부<br/>- 기본값: `true`    |
+| dbInstanceIds         | Body | Array   | X  | 감시 대상 DB 인스턴스의 식별자 목록       |
+| userGroupIds          | Body | Array   | X  | 사용자 그룹의 식별자 목록              |
+
+<details><summary>예시</summary>
+
+```json
+{
+    "notificationGroupName": "dev-team-noti",
+    "notifyEmail": false,
+    "isEnable": true,
+    "dbInstanceIds": ["ed5cb985-526f-4c54-9ae0-40288593de65"],
+    "userGroupIds": ["1aac0437-f32d-4923-ad3c-ac61c1cfdfe0"]
+}
+```
+</details>
+
+#### 응답
+
+| 이름                  | 종류   | 형식   | 설명         |
+|---------------------|------|------|------------|
+| notificationGroupId | Body | UUID | 알림 그룹의 식별자 |
+
+
+### 알림 그룹 수정하기
+
+```http
+PUT /v1.0/notification-groups/{notificationGroupId}
+```
+
+#### 요청
+
+| 이름                    | 종류   | 형식      | 필수 | 설명                    |
+|-----------------------|------|---------|----|-----------------------|
+| notificationGroupId   | URL  | UUID    | O  | 알림 그룹의 식별자            |
+| notificationGroupName | Body | String  | X  | 알림 그룹을 식별할 수 있는 이름    |
+| notifyEmail           | Body | Boolean | X  | 이메일 알림 여부             |
+| notifySms             | Body | Boolean | X  | SMS 알림 여부             |
+| isEnabled             | Body | Boolean | X  | 활성화 여부                |
+| dbInstanceIds         | Body | Array   | X  | 감시 대상 DB 인스턴스의 식별자 목록 |
+| userGroupIds          | Body | Array   | X  | 사용자 그룹의 식별자 목록        |
+
+<details><summary>예시</summary>
+
+```json
+{
+    "notifyEmail": true,
+    "dbInstanceIds": ["ed5cb985-526f-4c54-9ae0-40288593de65", "d51b7da0-682f-47ff-b588-b739f6adc740"]
+}
+```
+</details>
+
+#### 응답
+
+이 API는 응답 본문을 반환하지 않습니다.
+
+<details><summary>예시</summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    }
+}
+```
+</details>
+
+### 알림 그룹 삭제하기
+
+```http
+DELETE /v1.0/notification-groups/{notificationGroupId}
+```
+
+#### 요청
+
+이 API는 요청 본문을 요구하지 않습니다.
+
+| 이름                  | 종류  | 형식   | 필수 | 설명         |
+|---------------------|-----|------|----|------------|
+| notificationGroupId | URL | UUID | O  | 알림 그룹의 식별자 |
+
+#### 응답
+
+이 API는 응답 본문을 반환하지 않습니다.
+
+<details><summary>예시</summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    }
+}
+```
+</details>
+
+### 감시 설정 목록 보기
+
+```http
+GET /v1.0/notification-groups/{notificationGroupId}/watchdogs
+```
+
+#### 요청
+
+이 API는 요청 본문을 요구하지 않습니다.
+
+#### 응답
+
+| 이름                           | 종류   | 형식       | 설명                                                                    |
+|------------------------------|------|----------|-----------------------------------------------------------------------|
+| notificationGroupId          | URL  | UUID     | 알림 그룹의 식별자                                                            | 알림 그룹의 식별자                                                            |
+| watchdogs                    | Body | Array    | 감시 설정 목록                                                              |
+| watchdogs.watchdogId         | Body | UUID     | 감시 설정의 식별자                                                            |
+| watchdogs.metricName         | Body | Enum     | 감시 대상 성능 지표<br/>- 성능 지표에 대한 자세한 설명은 [알림 그룹](notification/) 항목을 참고합니다. |
+| watchdogs.comparisonOperator | Body | Enum     | 감시 대상 비교 방법<br/>- `LE`: <=<br/>- `LT`: <<br/>- `GE`: >=<br/>- `GT`: > |
+| watchdogs.threshold          | Body | Long     | 감시 대상 임곗값                                                             |
+| watchdogs.duration           | Body | Long     | 감시 대상 지속 시간<br/>- 단위: `분`                                             |
+| watchdogs.createdYmdt        | Body | DateTime | 생성 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                     |
+
+<details><summary>예시</summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "watchdogs": [
+        {
+            "watchdogId": "b3901f17-9971-4d1e-8a81-8448cf533dc7",
+            "metricName": "DATABASE_STATUS",
+            "comparisonOperator": "LE",
+            "threshold": 0,
+            "duration": 5,
+            "createdYmdt": "2023-02-20T13:34:13+09:00",
+            "updatedYmdt": "2023-02-20T13:34:13+09:00"
+        }
+    ]
+}
+```
+</details>
+
+### 감시 설정 생성하기
+
+```http
+POST /v1.0/notification-groups/{notificationGroupId}/watchdogs
+```
+
+#### 요청
+
+| 이름                  | 종류   | 형식   | 필수 | 설명                                                                    |
+|---------------------|------|------|----|-----------------------------------------------------------------------|
+| notificationGroupId | URL  | UUID | O  | 알림 그룹의 식별자                                                            |
+| metricName          | Body | Enum | O  | 감시 대상 성능 지표<br/>- 성능 지표에 대한 자세한 설명은 [알림 그룹](notification/) 항목을 참고합니다. |
+| comparisonOperator  | Body | Enum | O  | 감시 대상 비교 방법<br/>- `LE`: <=<br/>- `LT`: <<br/>- `GE`: >=<br/>- `GT`: > |
+| threshold           | Body | Long | O  | 감시 대상 임곗값                                                             |
+| duration            | Body | Long | O  | 감시 대상 지속 시간<br/>- 단위: `분`                                             |
+
+<details><summary>예시</summary>
+
+```json
+{
+    "metricName": "DATABASE_STATUS",
+    "comparisonOperator": "LE",
+    "threshold": 0,
+    "duration": 5
+}
+```
+</details>
+
+#### 응답
+
+| 이름         | 종류   | 형식   | 설명         |
+|------------|------|------|------------|
+| watchdogId | Body | UUID | 감시 설정의 식별자 |
+
+
+### 감시 설정 수정하기
+
+```http
+PUT /v1.0/notification-groups/{notificationGroupId}/watchdogs/{watchdogId}
+```
+
+#### 요청
+
+| 이름                  | 종류   | 형식   | 필수 | 설명                                                                    |
+|---------------------|------|------|----|-----------------------------------------------------------------------|
+| notificationGroupId | URL  | UUID | O  | 알림 그룹의 식별자                                                            |
+| watchdogId          | URL  | UUID | O  | 감시 설정의 식별자                                                            |
+| metricName          | Body | Enum | O  | 감시 대상 성능 지표<br/>- 성능 지표에 대한 자세한 설명은 [알림 그룹](notification/) 항목을 참고합니다. |
+| comparisonOperator  | Body | Enum | O  | 감시 대상 비교 방법<br/>- `LE`: <=<br/>- `LT`: <<br/>- `GE`: >=<br/>- `GT`: > |
+| threshold           | Body | Long | O  | 감시 대상 임곗값                                                             |
+| duration            | Body | Long | O  | 감시 대상 지속 시간<br/>- 단위: `분`                                             |
+
+<details><summary>예시</summary>
+
+```json
+{
+    "metricName": "DATABASE_STATUS",
+    "comparisonOperator": "LE",
+    "threshold": 0,
+    "duration": 10
+}
+```
+</details>
+
+#### 응답
+
+이 API는 응답 본문을 반환하지 않습니다.
+
+<details><summary>예시</summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    }
+}
+```
+</details>
+
+### 감시 설정 삭제하기
+
+```http
+DELETE /v1.0/notification-groups/{notificationGroupId}/watchdogs/{watchdogId}
+```
+
+#### 요청
+
+이 API는 요청 본문을 요구하지 않습니다.
+
+| 이름                  | 종류  | 형식   | 필수 | 설명         |
+|---------------------|-----|------|----|------------|
+| notificationGroupId | URL | UUID | O  | 알림 그룹의 식별자 |
+| watchdogId          | URL | UUID | O  | 감시 설정의 식별자 |
 
 #### 응답
 
