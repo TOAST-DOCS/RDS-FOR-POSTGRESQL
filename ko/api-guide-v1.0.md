@@ -1573,16 +1573,16 @@ GET /v1.0/notification-groups/{notificationGroupId}/watchdogs
 
 #### 응답
 
-| 이름                           | 종류   | 형식       | 설명                                                                    |
-|------------------------------|------|----------|-----------------------------------------------------------------------|
-| notificationGroupId          | URL  | UUID     | 알림 그룹의 식별자                                                            | 알림 그룹의 식별자                                                            |
-| watchdogs                    | Body | Array    | 감시 설정 목록                                                              |
-| watchdogs.watchdogId         | Body | UUID     | 감시 설정의 식별자                                                            |
-| watchdogs.metricName         | Body | Enum     | 감시 대상 성능 지표<br/>- 성능 지표에 대한 자세한 설명은 [알림 그룹](notification/) 항목을 참고합니다. |
-| watchdogs.comparisonOperator | Body | Enum     | 감시 대상 비교 방법<br/>- `LE`: <=<br/>- `LT`: <<br/>- `GE`: >=<br/>- `GT`: > |
-| watchdogs.threshold          | Body | Long     | 감시 대상 임곗값                                                             |
-| watchdogs.duration           | Body | Long     | 감시 대상 지속 시간<br/>- 단위: `분`                                             |
-| watchdogs.createdYmdt        | Body | DateTime | 생성 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                     |
+| 이름                           | 종류   | 형식       | 설명                                                                     |
+|------------------------------|------|----------|------------------------------------------------------------------------|
+| notificationGroupId          | URL  | UUID     | 알림 그룹의 식별자                                                             | 알림 그룹의 식별자                                                            |
+| watchdogs                    | Body | Array    | 감시 설정 목록                                                               |
+| watchdogs.watchdogId         | Body | UUID     | 감시 설정의 식별자                                                             |
+| watchdogs.metricName         | Body | Enum     | 감시 대상 성능 지표<br/>- 설정 가능한 성능 지표는 [성능 지표 목록 보기](#성능-지표-목록-보기) 항목을 참고합니다. |
+| watchdogs.comparisonOperator | Body | Enum     | 감시 대상 비교 방법<br/>- `LE`: <=<br/>- `LT`: <<br/>- `GE`: >=<br/>- `GT`: >  |
+| watchdogs.threshold          | Body | Long     | 감시 대상 임곗값                                                              |
+| watchdogs.duration           | Body | Long     | 감시 대상 지속 시간<br/>- 단위: `분`                                              |
+| watchdogs.createdYmdt        | Body | DateTime | 생성 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                      |
 
 <details><summary>예시</summary>
 
@@ -1616,13 +1616,13 @@ POST /v1.0/notification-groups/{notificationGroupId}/watchdogs
 
 #### 요청
 
-| 이름                  | 종류   | 형식   | 필수 | 설명                                                                    |
-|---------------------|------|------|----|-----------------------------------------------------------------------|
-| notificationGroupId | URL  | UUID | O  | 알림 그룹의 식별자                                                            |
-| metricName          | Body | Enum | O  | 감시 대상 성능 지표<br/>- 성능 지표에 대한 자세한 설명은 [알림 그룹](notification/) 항목을 참고합니다. |
-| comparisonOperator  | Body | Enum | O  | 감시 대상 비교 방법<br/>- `LE`: <=<br/>- `LT`: <<br/>- `GE`: >=<br/>- `GT`: > |
-| threshold           | Body | Long | O  | 감시 대상 임곗값                                                             |
-| duration            | Body | Long | O  | 감시 대상 지속 시간<br/>- 단위: `분`                                             |
+| 이름                  | 종류   | 형식   | 필수 | 설명                                                                     |
+|---------------------|------|------|----|------------------------------------------------------------------------|
+| notificationGroupId | URL  | UUID | O  | 알림 그룹의 식별자                                                             |
+| metricName          | Body | Enum | O  | 감시 대상 성능 지표<br/>- 설정 가능한 성능 지표는 [성능 지표 목록 보기](#성능-지표-목록-보기) 항목을 참고합니다. |
+| comparisonOperator  | Body | Enum | O  | 감시 대상 비교 방법<br/>- `LE`: <=<br/>- `LT`: <<br/>- `GE`: >=<br/>- `GT`: >  |
+| threshold           | Body | Long | O  | 감시 대상 임곗값                                                              |
+| duration            | Body | Long | O  | 감시 대상 지속 시간<br/>- 단위: `분`                                              |
 
 <details><summary>예시</summary>
 
@@ -1651,14 +1651,14 @@ PUT /v1.0/notification-groups/{notificationGroupId}/watchdogs/{watchdogId}
 
 #### 요청
 
-| 이름                  | 종류   | 형식   | 필수 | 설명                                                                    |
-|---------------------|------|------|----|-----------------------------------------------------------------------|
-| notificationGroupId | URL  | UUID | O  | 알림 그룹의 식별자                                                            |
-| watchdogId          | URL  | UUID | O  | 감시 설정의 식별자                                                            |
-| metricName          | Body | Enum | O  | 감시 대상 성능 지표<br/>- 성능 지표에 대한 자세한 설명은 [알림 그룹](notification/) 항목을 참고합니다. |
-| comparisonOperator  | Body | Enum | O  | 감시 대상 비교 방법<br/>- `LE`: <=<br/>- `LT`: <<br/>- `GE`: >=<br/>- `GT`: > |
-| threshold           | Body | Long | O  | 감시 대상 임곗값                                                             |
-| duration            | Body | Long | O  | 감시 대상 지속 시간<br/>- 단위: `분`                                             |
+| 이름                  | 종류   | 형식   | 필수 | 설명                                                                     |
+|---------------------|------|------|----|------------------------------------------------------------------------|
+| notificationGroupId | URL  | UUID | O  | 알림 그룹의 식별자                                                             |
+| watchdogId          | URL  | UUID | O  | 감시 설정의 식별자                                                             |
+| metricName          | Body | Enum | O  | 감시 대상 성능 지표<br/>- 설정 가능한 성능 지표는 [성능 지표 목록 보기](#성능-지표-목록-보기) 항목을 참고합니다. |
+| comparisonOperator  | Body | Enum | O  | 감시 대상 비교 방법<br/>- `LE`: <=<br/>- `LT`: <<br/>- `GE`: >=<br/>- `GT`: >  |
+| threshold           | Body | Long | O  | 감시 대상 임곗값                                                              |
+| duration            | Body | Long | O  | 감시 대상 지속 시간<br/>- 단위: `분`                                              |
 
 <details><summary>예시</summary>
 
@@ -1717,6 +1717,100 @@ DELETE /v1.0/notification-groups/{notificationGroupId}/watchdogs/{watchdogId}
         "resultMessage": "SUCCESS",
         "isSuccessful": true
     }
+}
+```
+</details>
+
+## 모니터링
+
+### 성능 지표 목록 보기
+
+```http
+GET /v1.0/metrics
+```
+
+#### 요청
+
+이 API는 요청 본문을 요구하지 않습니다.
+
+#### 응답
+
+| 이름                 | 종류   | 형식     | 설명       |
+|--------------------|------|--------|----------|
+| metrics            | Body | Array  | 성능 지표 목록 |
+| metrics.metricName | Body | Enum   | 성능 지표 유형 |
+| metrics.unit       | Body | String | 측정값 단위   |
+
+<details><summary>예시</summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "metrics": [
+        {
+            "metricName": "CPU_USAGE",
+            "unit": "%"
+        }
+    ]
+}
+```
+</details>
+
+### 통계 정보 조회
+
+```http
+GET /v1.0/metric-statistics
+```
+
+#### 요청
+
+| 이름           | 종류    | 형식       | 필수 | 설명                                                        |
+|--------------|-------|----------|----|-----------------------------------------------------------|
+| dbInstanceId | Query | UUID     | O  | DB 인스턴스의 식별자                                              |
+| metricNames  | Query | Array    | O  | 조회할 성능 지표 목록<br/>- 최소 크기: `1`                             |
+| from         | Query | Datetime | O  | 시작 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                         |
+| to           | Query | Datetime | O  | 종료 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                         |
+| interval     | Query | Number   | X  | 조회 간격<br/>- 단위: `분`<br/>- 기본값: 시작/종료 일시에 따라 적절한 값을 자동 선택함 |
+
+#### 응답
+
+| 이름                                | 종류   | 형식        | 설명       |
+|-----------------------------------|------|-----------|----------|
+| metricStatistics                  | Body | Array     | 통계 정보 목록 |
+| metricStatistics.metricName       | Body | Enum      | 성능 지표 유형 |
+| metricStatistics.unit             | Body | String    | 측정값 단위   |
+| metricStatistics.values           | Body | Array     | 측정값 목록   |
+| metricStatistics.values.timestamp | Body | Timestamp | 측정 시간    |
+| metricStatistics.values.value     | Body | Object    | 측정값      |
+
+<details><summary>예시</summary>
+
+```json
+{
+    "metricStatistics": [
+        {
+            "metricName": "DATABASE_STATUS",
+            "unit": "",
+            "values": [
+                [
+                    1679298540,
+                    "1"
+                ],
+                [
+                    1679298600,
+                    "1"
+                ],
+                [
+                    1679298660,
+                    "1"
+                ]
+            ]
+        }
+    ]
 }
 ```
 </details>
