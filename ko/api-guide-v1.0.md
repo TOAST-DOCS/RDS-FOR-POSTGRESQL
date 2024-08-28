@@ -1814,3 +1814,119 @@ GET /v1.0/metric-statistics
 }
 ```
 </details>
+
+## 이벤트
+
+### 이벤트 목록 조회
+
+```
+GET /v1.0/events
+```
+
+#### 요청
+
+이 API는 요청 본문을 요구하지 않습니다.
+
+| 이름                | 종류    | 형식       | 필수 | 설명                                                                                                                                                                               |
+|-------------------|-------|----------|----|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| page              | Query | Number   | O  | 조회할 목록의 페이지<br/>- 최솟값: `1`                                                                                                                                                       |
+| size              | Query | Number   | O  | 조회할 목록의 페이지 크기<br/>- 최솟값: `1`<br/>- 최댓값: `100`                                                                                                                                   |
+| from              | Query | Datetime | O  | 시작 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                                                |
+| to                | Query | Datetime | O  | 종료 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                                                |
+| eventCategoryType | Query | Enum     | O  | 조회할 이벤트 카테고리 유형<br/>- `ALL`: 전체<br/>- `BACKUP`: 백업<br/>- `DB_INSTANCE`: DB 인스턴스<br/>- `DB_SECURITY_GROUP`: DB 보안 그룹<br/>- `JOB`: 작업<br/>- `TENANT`: 테넌트<br/>- `MONITORING`: 모니터링 |
+| sourceId          | Query | String   | X  | 이벤트가 발생한 대상 리소스의 식별자                                                                                                                                                             |
+| keyword           | Query | String   | X  | 이벤트 메시지에 포함된 문자열 검색어                                                                                                                                                             |
+
+#### 응답
+
+| 이름                       | 종류   | 형식       | 설명                                                 |
+|--------------------------|------|----------|----------------------------------------------------|
+| totalCounts              | Body | Number   | 전체 이벤트 목록 수                                        |
+| events                   | Body | Array    | 이벤트 목록                                             |
+| events.eventCategoryType | Body | Enum     | 이벤트 카테고리 유형                                        |
+| events.eventCode         | Body | Enum     | 발생한 이벤트의 유형<br/>- 자세한 설명은 [이벤트](event/) 항목을 참고합니다. |
+| events.sourceId          | Body | String   | 이벤트 소스의 식별자                                        |
+| events.sourceName        | Body | String   | 이벤트 소스를 식별할 수 있는 이름                                |
+| events.messages          | Body | Array    | 이벤트 메시지 목록                                         |
+| events.messages.langCode | Body | String   | 언어 코드                                              |
+| events.messages.message  | Body | String   | 이벤트 메시지                                            |
+| events.eventYmdt         | Body | DateTime | 이벤트 발생 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)              |
+
+<details><summary>예시</summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "totalCounts": 28,
+    "events": [
+        {
+            "eventCategoryType": "DB_INSTANCE",
+            "eventCode": "DB_INSTANCE_02_01",
+            "sourceId": "76f00947-356e-4a20-8922-428368cc45ed",
+            "sourceName": "db-instance",
+            "messages": [
+                {
+                    "langCode": "EN",
+                    "message": "DB instance started"
+                },
+                {
+                    "langCode": "JA",
+                    "message": "DBインスタンスの起動"
+                },
+                {
+                    "langCode": "KO",
+                    "message": "DB 인스턴스 시작"
+                },
+                {
+                    "langCode": "ZH",
+                    "message": "DB instance started"
+                }
+            ],
+            "eventYmdt": "2023-03-20T16:31:59+09:00"
+        }
+    ]
+}
+```
+</details>
+
+
+### 구독 가능한 이벤트 코드 목록 보기
+
+```http
+GET /v1.0/event-codes
+```
+
+#### 요청
+
+이 API는 요청 본문을 요구하지 않습니다.
+
+#### 응답
+
+| 이름                           | 종류   | 형식    | 설명          |
+|------------------------------|------|-------|-------------|
+| eventCodes                   | Body | Array | 이벤트 코드 목록   |
+| eventCodes.eventCode         | Body | Enum  | 이벤트 코드      |
+| eventCodes.eventCategoryType | Body | Enum  | 이벤트 카테고리 유형 |
+
+<details><summary>예시</summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "eventCodes": [
+        {
+            "eventCode": "DB_INSTANCE_02_01",
+            "eventCategoryType": "DB_INSTANCE"
+        }
+    ]
+}
+```
+</details>
