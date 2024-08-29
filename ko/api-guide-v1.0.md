@@ -49,7 +49,7 @@ API 요청 시 인증에 실패하거나 권한이 없을 경우 다음과 같�
 
 | 이름            | 자료형     | 설명                    |
 |---------------|---------|-----------------------|
-| resultCode    | Int     | 결과코드 (성공: 0, 그 외: 실패) |
+| resultCode    | Number  | 결과코드 (성공: 0, 그 외: 실패) |
 | resultMessage | String  | 결과 메시지                |
 | successful    | Boolean | 성공 여부                 |
 
@@ -352,6 +352,211 @@ GET /v1.0/jobs/{jobId}
     ],
     "createdYmdt": "2023-02-22T20:47:12+09:00",
     "updatedYmdt": "2023-02-22T20:49:46+09:00"
+}
+```
+</details>
+
+## 백업
+
+### 백업 목록 조회
+
+```http
+GET /v1.0/backups
+```
+
+#### 요청
+
+이 API는 요청 본문을 요구하지 않습니다.
+
+| 이름           | 종류    | 형식     | 필수 | 설명                                                         |
+|--------------|-------|--------|----|------------------------------------------------------------|
+| page         | Query | Number | O  | 조회할 목록의 페이지<br/>- 최솟값: `1`                                 |
+| size         | Query | Number | O  | 조회할 목록의 페이지 크기<br/>- 최솟값: `1`<br/>- 최댓값: `100`             |
+| backupType   | Query | Enum   | X  | 백업 유형<br/>- `AUTO`: 자동<br/>- `MANUAL`:  수동<br/>- 기본값: `전체` |
+| dbInstanceId | Query | UUID   | X  | 원본 DB 인스턴스의 식별자                                            |
+| dbVersion    | Query | Enum   | X  | DB 엔진 유형                                                   |
+
+#### 응답
+
+| 이름                   | 종류   | 형식       | 설명                                                                                                                                                             |
+|----------------------|------|----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| totalCounts          | Body | Number   | 전체 백업 목록 수                                                                                                                                                     |
+| backups              | Body | Array    | 백업 목록                                                                                                                                                          |
+| backups.backupId     | Body | UUID     | 백업의 식별자                                                                                                                                                        |
+| backups.backupName   | Body | String   | 백업을 식별할 수 있는 이름                                                                                                                                                |
+| backups.backupStatus | Body | Enum     | 백업의 현재 상태<br/>- `BACKING_UP` : 백업 중인 경우<br/>- `COMPLETED` : 백업이 완료된 경우<br/>- `DELETING` : 백업이 삭제 중인 경우<br/>- `DELETED` : 백업이 삭제된 경우<br/>- `ERROR` : 오류가 발생한 경우 |
+| backups.dbInstanceId | Body | UUID     | 원본 DB 인스턴스의 식별자                                                                                                                                                |
+| backups.dbVersion    | Body | Enum     | DB 엔진 유형                                                                                                                                                       |
+| backups.backupType   | Body | Enum     | 백업 유형<br/>- `AUTO`: 자동<br/>- `MANUAL`:  수동                                                                                                                     |
+| backups.backupSize   | Body | Number   | 백업의 크기<br/>- 단위: `바이트`                                                                                                                                         |
+| createdYmdt          | Body | DateTime | 생성 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                              |
+| updatedYmdt          | Body | DateTime | 수정 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                              |
+
+<details><summary>예시</summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "totalCounts": 1,
+    "backups": [
+        {
+            "backupId": "0017f136-3e01-4530-94aa-20661afe6632",
+            "backupName": "backup",
+            "backupStatus": "COMPLETED",
+            "dbInstanceId": "142e6ccc-3bfb-4e1e-84f7-38861284fafd",
+            "dbVersion": "POSTGRESQL_V146",
+            "backupType": "AUTO",
+            "backupSize": 4996786,
+            "createdYmdt": "2023-02-21T00:35:00+09:00",
+            "updatedYmdt": "2023-02-22T00:35:32+09:00"
+        }
+    ]
+}
+```
+</details>
+
+#### 응답
+
+| 이름    | 종류   | 형식   | 설명          |
+|-------|------|------|-------------|
+| jobId | Body | UUID | 요청한 작업의 식별자 |
+
+<details><summary>예시</summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "0ddb042c-5af6-43fb-a914-f4dd0540eb7c"
+}
+```
+</details>
+
+
+### 백업 복원하기
+
+```http
+POST /v1.0/backups/{backupId}/restore
+```
+
+#### 요청
+
+| 이름                                           | 종류   | 형식      | 필수 | 설명                                                                                                                                                                                                                          |
+|----------------------------------------------|------|---------|----|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| backupId                                     | URL  | UUID    | O  | 백업의 식별자                                                                                                                                                                                                                     |
+| dbInstanceName                               | Body | String  | O  | DB 인스턴스를 식별할 수 있는 이름                                                                                                                                                                                                        |
+| description                                  | Body | String  | X  | DB 인스턴스에 대한 추가 정보                                                                                                                                                                                                           |
+| dbFlavorId                                   | Body | UUID    | O  | DB 인스턴스 사양의 식별자                                                                                                                                                                                                             |
+| dbPort                                       | Body | Number  | O  | DB 포트<br/>- 최솟값: `5432`<br/>- 최댓값: `45432`                                                                                                                                                                                  |
+| parameterGroupId                             | Body | UUID    | O  | 파라미터 그룹의 식별자                                                                                                                                                                                                                |
+| dbSecurityGroupIds                           | Body | Array   | X  | DB 보안 그룹의 식별자 목록                                                                                                                                                                                                            ||network|Body|Object|O|네트워크 정보 객체|
+| userGroupIds                                 | Body | Array   | X  | 사용자 그룹의 식별자 목록                                                                                                                                                                                                              |
+| useHighAvailability                          | Body | Boolean | X  | 고가용성 사용 여부<br/>- 기본값: `false`                                                                                                                                                                                               |
+| useDefaultNotification                       | Body | Boolean | X  | 기본 알림 사용 여부<br/>- 기본값: `false`                                                                                                                                                                                              |
+| useDeletionProtection                        | Body | Boolean | X  | 삭제 보호 여부<br/>- 기본값: `false`                                                                                                                                                                                                 | 
+| network                                      | Body | Object  | O  | 네트워크 정보 객체                                                                                                                                                                                                                  |
+| network.subnetId                             | Body | UUID    | O  | 서브넷의 식별자                                                                                                                                                                                                                    |
+| network.usePublicAccess                      | Body | Boolean | X  | 외부 접속 가능 여부<br/>- 기본값: `false`                                                                                                                                                                                              |
+| network.availabilityZone                     | Body | Enum    | X  | DB 인스턴스를 생성할 가용성 영역<br/>- 예시: `kr-pub-a`<br/>- 기본값: `임의의 가용성 영역`                                                                                                                                                            |
+| storage                                      | Body | Object  | O  | 스토리지 정보 객체                                                                                                                                                                                                                  |    
+| storage.storageType                          | Body | Enum    | O  | 데이터 스토리지 타입<br/>- 예시: `General SSD`                                                                                                                                                                                         |
+| storage.storageSize                          | Body | Number  | O  | 데이터 스토리지 크기<br/>- 단위: `기가바이트`<br/>- 최솟값: `20`<br/>- 최댓값: `2048`                                                                                                                                                             |
+| backup                                       | Body | Object  | O  | 백업 정보 객체                                                                                                                                                                                                                    |
+| backup.backupPeriod                          | Body | Number  | O  | 백업 보관 기간(일)<br/>- 최솟값: `0`<br/>- 최댓값: `730`                                                                                                                                                                                 |
+| backup.backupRetryCount                      | Body | Number  | X  | 백업 재시도 횟수<br/>- 기본값: `0`<br/>- 최솟값: `0`<br/>- 최댓값: `10`                                                                                                                                                                     |
+| backup.backupSchedules                       | Body | Array   | O  | 백업 스케줄 목록                                                                                                                                                                                                                   |
+| backup.backupSchedules.backupWndBgnTime      | Body | String  | O  | 백업 시작 시간<br/>- 예시: `00:00:00`                                                                                                                                                                                               |
+| backup.backupSchedules.backupWndDuration     | Body | Enum    | O  | 백업 Duration<br/>백업 시작 시간부터 Duration 안에 자동 백업이 실행됩니다.<br/>- `HALF_AN_HOUR`: 30분<br/>- `ONE_HOUR`: 1시간<br/>- `ONE_HOUR_AND_HALF`: 1시간 30분<br/>- `TWO_HOURS`: 2시간<br/>- `TWO_HOURS_AND_HALF`: 2시간 30분<br/>- `THREE_HOURS`: 3시간 |
+| backup.backupSchedules.backupRetryExpireTime | Body | String  | O  | 백업 재시도 만료 시간<br/>- 백업 재시도 만료 시간은 백업 시작 시간 이전이거나 이후여야 합니다.<br/>- 예시: `01:30:00`                                                                                                                                              |
+
+<details><summary>예시</summary>
+
+```json
+
+{
+  "dbInstanceName": "db-instance-restore",
+  "dbFlavorId": "50be6d9c-02d6-4594-a2d4-12010eb65ec0",
+  "dbPort": 15432,
+  "parameterGroupId": "132d383c-38e3-468a-a826-5e9a8fff15d0",
+  "network": {
+    "subnetId": "e721a9dd-dad0-4cf0-a53b-dd654ebfc683",
+    "availabilityZone": "kr-pub-a"
+  },
+  "storage": {
+    "storageType": "General SSD",
+    "storageSize": 20
+  },
+  "backup": {
+    "backupPeriod": 1,
+    "backupSchedules": [
+      {
+        "backupWndBgnTime": "00:00:00",
+        "backupWndDuration": "HALF_AN_HOUR",
+        "backupRetryExpireTime": "01:30:00"
+      }
+    ]
+  }
+}
+```
+</details>
+
+#### 응답
+
+| 이름    | 종류   | 형식   | 설명          |
+|-------|------|------|-------------|
+| jobId | Body | UUID | 요청한 작업의 식별자 |
+
+<details><summary>예시</summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "0ddb042c-5af6-43fb-a914-f4dd0540eb7c"
+}
+```
+</details>
+
+### 백업 삭제하기
+
+```http
+DELETE /v1.0/backups/{backupId}
+```
+
+#### 요청
+
+이 API는 요청 본문을 요구하지 않습니다.
+
+| 이름       | 종류  | 형식   | 필수 | 설명      |
+|----------|-----|------|----|---------|
+| backupId | URL | UUID | O  | 백업의 식별자 |
+
+#### 응답
+
+| 이름    | 종류   | 형식   | 설명          |
+|-------|------|------|-------------|
+| jobId | Body | UUID | 요청한 작업의 식별자 |
+
+<details><summary>예시</summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "0ddb042c-5af6-43fb-a914-f4dd0540eb7c"
 }
 ```
 </details>
