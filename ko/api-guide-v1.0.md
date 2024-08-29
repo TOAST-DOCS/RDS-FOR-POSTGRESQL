@@ -374,7 +374,7 @@ GET /v1.0/backups
 | size         | Query | Number | O  | 조회할 목록의 페이지 크기<br/>- 최솟값: `1`<br/>- 최댓값: `100`             |
 | backupType   | Query | Enum   | X  | 백업 유형<br/>- `AUTO`: 자동<br/>- `MANUAL`:  수동<br/>- 기본값: `전체` |
 | dbInstanceId | Query | UUID   | X  | 원본 DB 인스턴스의 식별자                                            |
-| dbVersion    | Query | Enum   | X  | DB 엔진 유형                                                   |
+| dbVersion    | Query | Enum   | X  | DB 엔진 버전                                                   |
 
 #### 응답
 
@@ -386,11 +386,12 @@ GET /v1.0/backups
 | backups.backupName   | Body | String   | 백업을 식별할 수 있는 이름                                                                                                                                                |
 | backups.backupStatus | Body | Enum     | 백업의 현재 상태<br/>- `BACKING_UP` : 백업 중인 경우<br/>- `COMPLETED` : 백업이 완료된 경우<br/>- `DELETING` : 백업이 삭제 중인 경우<br/>- `DELETED` : 백업이 삭제된 경우<br/>- `ERROR` : 오류가 발생한 경우 |
 | backups.dbInstanceId | Body | UUID     | 원본 DB 인스턴스의 식별자                                                                                                                                                |
-| backups.dbVersion    | Body | Enum     | DB 엔진 유형                                                                                                                                                       |
+| backups.dbVersion    | Body | Enum     | DB 엔진 버전                                                                                                                                                       |
 | backups.backupType   | Body | Enum     | 백업 유형<br/>- `AUTO`: 자동<br/>- `MANUAL`:  수동                                                                                                                     |
 | backups.backupSize   | Body | Number   | 백업의 크기<br/>- 단위: `바이트`                                                                                                                                         |
 | createdYmdt          | Body | DateTime | 생성 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                              |
 | updatedYmdt          | Body | DateTime | 수정 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                              |
+| completedYmdt        | Body | DateTime | 완료 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                              |
 
 <details><summary>예시</summary>
 
@@ -412,7 +413,8 @@ GET /v1.0/backups
             "backupType": "AUTO",
             "backupSize": 4996786,
             "createdYmdt": "2023-02-21T00:35:00+09:00",
-            "updatedYmdt": "2023-02-22T00:35:32+09:00"
+            "updatedYmdt": "2023-02-22T00:35:32+09:00",
+            "completedYmdt": "2023-02-22T00:35:32+09:00"
         }
     ]
 }
