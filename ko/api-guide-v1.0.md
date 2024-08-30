@@ -356,6 +356,105 @@ GET /v1.0/jobs/{jobId}
 ```
 </details>
 
+## DB 인스턴스 그룹
+
+### DB 인스턴스 그룹 목록 보기
+
+```http
+GET /v1.0/db-instance-groups
+```
+
+#### 요청
+
+이 API는 요청 본문을 요구하지 않습니다.
+
+#### 응답
+
+| 이름                                     | 종류   | 형식       | 설명                                                                       |
+|----------------------------------------|------|----------|--------------------------------------------------------------------------|
+| dbInstanceGroups                       | Body | Array    | DB 인스턴스 그룹 목록                                                            |
+| dbInstanceGroups.dbInstanceGroupId     | Body | UUID     | DB 인스턴스 그룹의 식별자                                                          |
+| dbInstanceGroups.dbInstanceGroupStatus | Body | Enum     | DB 인스턴스 그룹의 현재 상태<br/>- `CREATED`: 생성됨<br/>- `DELETED`: 삭제됨              |
+| dbInstanceGroups.replicationType       | Body | Enum     | DB 인스턴스 그룹의 복제 형태<br/>- `STANDALONE`: 단일<br/>- `HIGH_AVAILABILITY`: 고가용성 |
+| dbInstanceGroups.createdYmdt           | Body | DateTime | 생성 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                        |
+| dbInstanceGroups.updatedYmdt           | Body | DateTime | 수정 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                        |
+
+<details><summary>예시</summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "dbInstanceGroups": [
+        {
+            "dbInstanceGroupId": "05de0746-89fd-49c8-94f9-9c5b1df97009",
+            "dbInstanceGroupStatus": "CREATED",
+            "replicationType": "STANDALONE",
+            "createdYmdt": "2023-02-13T17:35:20+09:00",
+            "updatedYmdt": "2023-02-13T17:35:20+09:00"
+        }
+    ]
+}
+```
+</details>
+
+
+### DB 인스턴스 그룹 상세 보기
+
+```http
+GET /v1.0/db-instance-groups/{dbInstanceGroupId}
+```
+
+#### 요청
+
+이 API는 요청 본문을 요구하지 않습니다.
+
+| 이름                | 종류  | 형식   | 필수 | 설명              |
+|-------------------|-----|------|----|-----------------|
+| dbInstanceGroupId | URL | UUID | O  | DB 인스턴스 그룹의 식별자 |
+
+#### 응답
+
+| 이름                           | 종류   | 형식       | 설명                                                                                                                                    |
+|------------------------------|------|----------|---------------------------------------------------------------------------------------------------------------------------------------|
+| dbInstanceGroupId            | Body | UUID     | DB 인스턴스 그룹의 식별자                                                                                                                       |
+| dbInstanceGroupStatus        | Body | Enum     | DB 인스턴스 그룹의 현재 상태<br/>- `CREATED`: 생성됨<br/>- `DELETED`: 삭제됨                                                                           |
+| replicationType              | Body | Enum     | DB 인스턴스 그룹의 복제 형태<br/>- `STANDALONE`: 단일<br/>- `HIGH_AVAILABILITY`: 고가용성                                                              |
+| dbInstances                  | Body | Array    | DB 인스턴스 그룹에 속한 DB 인스턴스 목록                                                                                                             |
+| dbInstances.dbInstanceId     | Body | UUID     | DB 인스턴스의 식별자                                                                                                                          |
+| dbInstances.dbInstanceType   | Body | Enum     | DB 인스턴스의 역할 타입<br/>- `MASTER`: 마스터<br/>- `FAILED_MASTER`: 장애 조치된 마스터<br/>- `CANDIDATE_MASTER`: 예비 마스터<br/>- `READ_ONLY_SLAVE`: 읽기 복제본 |
+| dbInstances.dbInstanceStatus | Body | Enum     | DB 인스턴스의 현재 상태                                                                                                                        |
+| createdYmdt                  | Body | DateTime | 생성 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                     |
+| updatedYmdt                  | Body | DateTime | 수정 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                     |
+
+<details><summary>예시</summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "dbInstanceGroupId": "36617a8e-0df8-4b16-b6ea-6306019e95da",
+    "dbInstanceGroupStatus": "CREATED",
+    "replicationType": "STANDALONE",
+    "dbInstances": [
+        {
+            "dbInstanceId": "6d2db0ef-fe9b-4ed4-97b1-d97fcb4cf1b8",
+            "dbInstanceType": "MASTER",
+            "dbInstanceStatus": "AVAILABLE"
+        }
+    ],
+    "createdYmdt": "2023-03-03T17:38:14+09:00",
+    "updatedYmdt": "2023-03-03T17:38:14+09:00"
+}
+```
+</details>
+
 ## DB 인스턴스
 
 ### DB 인스턴스 상태
