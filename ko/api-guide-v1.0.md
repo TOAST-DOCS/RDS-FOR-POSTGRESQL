@@ -554,7 +554,6 @@ GET /v1.0/db-instances/{dbInstanceId}/storage-info
 | storageType      | Body | Enum    | 데이터 스토리지 타입                                                                          |
 | storageSize      | Body | Number  | 데이터 스토리지 크기(GB)                                                                      |
 | storageStatus    | Body | Enum    | 데이터 스토리지의 현재 상태<br/>- `DETACHED`: 부착되지 않음<br/>- `ATTACHED`: 부착됨<br/>- `DELETED`: 삭제됨 |
-| publicAccessible | Body | Boolean | 외부 접속 가능 여부                                                                          |
 
 <details><summary>예시</summary>
 
@@ -567,8 +566,7 @@ GET /v1.0/db-instances/{dbInstanceId}/storage-info
     },
     "storageType": "General SSD",
     "storageSize": 20,
-    "storageStatus": "ATTACHED",
-    "publicAccessible": true
+    "storageStatus": "ATTACHED"
 }
 ```
 </details>
@@ -623,17 +621,18 @@ GET /v1.0/db-instances/{dbInstanceId}/network-info
 
 #### 응답
 
-| 이름                     | 종류   | 형식     | 설명                                                                                                                                      |
-|------------------------|------|--------|-----------------------------------------------------------------------------------------------------------------------------------------|
-| availabilityZone       | Body | Enum   | DB 인스턴스를 생성할 가용성 영역                                                                                                                     |
-| subnet                 | Body | Object | 서브넷 객체                                                                                                                                  |
-| subnet.subnetId        | Body | UUID   | 서브넷의 식별자                                                                                                                                |
-| subnet.subnetName      | Body | UUID   | 서브넷을 식별할 수 있는 이름                                                                                                                        |
-| subnet.subnetCidr      | Body | UUID   | 서브넷의 CIDR                                                                                                                               |
-| endPoints              | Body | Array  | 접속 정보 목록                                                                                                                                |
-| endPoints.domain       | Body | String | 도메인                                                                                                                                     |
-| endPoints.ipAddress    | Body | String | IP 주소                                                                                                                                   |
-| endPoints.endPointType | Body | Enum   | 접속 정보 타입<br>-`EXTERNAL`: 외부 접속 도메인<br>-`INTERNAL`: 내부 접속 도메인<br>-`PUBLIC`: (Deprecated) 외부 접속 도메인<br>-`PRIVATE`: (Deprecated) 내부 접속 도메인 |
+| 이름                      | 종류   | 형식      | 설명                                                                                                                                      |
+|-------------------------|------|---------|-----------------------------------------------------------------------------------------------------------------------------------------|
+| availabilityZone        | Body | Enum    | DB 인스턴스를 생성할 가용성 영역                                                                                                                     |
+| subnet                  | Body | Object  | 서브넷 객체                                                                                                                                  |
+| subnet.subnetId         | Body | UUID    | 서브넷의 식별자                                                                                                                                |
+| subnet.subnetName       | Body | UUID    | 서브넷을 식별할 수 있는 이름                                                                                                                        |
+| subnet.subnetCidr       | Body | UUID    | 서브넷의 CIDR                                                                                                                               |
+| subnet.publicAccessible | Body | Boolean | 외부 접속 가능 여부                                                                                                                             |
+| endPoints               | Body | Array   | 접속 정보 목록                                                                                                                                |
+| endPoints.domain        | Body | String  | 도메인                                                                                                                                     |
+| endPoints.ipAddress     | Body | String  | IP 주소                                                                                                                                   |
+| endPoints.endPointType  | Body | Enum    | 접속 정보 타입<br>-`EXTERNAL`: 외부 접속 도메인<br>-`INTERNAL`: 내부 접속 도메인<br>-`PUBLIC`: (Deprecated) 외부 접속 도메인<br>-`PRIVATE`: (Deprecated) 내부 접속 도메인 |
 
 <details><summary>예시</summary>
 
@@ -648,7 +647,8 @@ GET /v1.0/db-instances/{dbInstanceId}/network-info
     "subnet": {
         "subnetId": "bd453789-34ae-416c-9f78-05b9e43a46be",
         "subnetName": "Default Network",
-        "subnetCidr": "192.168.0.0/16"
+        "subnetCidr": "192.168.0.0/16",
+        "publicAccessible": true
     },
     "endPoints": [
         {
