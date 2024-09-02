@@ -1498,11 +1498,12 @@ PUT /v1.0/db-instances/{dbInstanceId}/databases/{databaseId}
 
 #### 요청
 
-| 이름           | 종류   | 형식     | 필수 | 설명           |
-|--------------|------|--------|----|--------------|
-| dbInstanceId | URL  | UUID   | O  | DB 인스턴스의 식별자 |
-| databaseId   | URL  | UUID   | O  | 데이터베이스의 식별자  |
-| databaseName | Body | String | O  | 데이터베이스 이름    |
+| 이름                       | 종류   | 형식      | 필수 | 설명                                                                                         |
+|--------------------------|------|---------|----|--------------------------------------------------------------------------------------------|
+| dbInstanceId             | URL  | UUID    | O  | DB 인스턴스의 식별자                                                                               |
+| databaseId               | URL  | UUID    | O  | 데이터베이스의 식별자                                                                                |
+| databaseName             | Body | String  | O  | 데이터베이스 이름                                                                                  |
+| applyHbaRulesImmediately | Body | Boolean | X  | 연관된 접근 제어 규칙 즉시 적용 여부<br/>- 데이터베이스 이름 변경시 이전 데이터베이스 이름으로 설정된 접근 제어 규칙이 있으면 변경된 이름으로 반영합니다. |
 
 <details><summary>예시</summary>
 
