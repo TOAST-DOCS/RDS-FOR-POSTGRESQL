@@ -1627,12 +1627,14 @@ POST /v1.0/db-instances/{dbInstanceId}/db-users
 
 #### 요청
 
-| 이름            | 종류   | 형식     | 필수 | 설명                                                                        |
-|---------------|------|--------|----|---------------------------------------------------------------------------|
-| dbInstanceId  | URL  | UUID   | O  | DB 인스턴스의 식별자                                                              |
-| dbUserName    | Body | String | O  | DB 사용자 계정 이름<br/>- 최소 길이: `1`<br/>- 최대 길이: `20`                           |
-| password      | Body | String | O  | DB 사용자 계정 암호<br/>- 최소 길이: `1`<br/>- 최대 길이: `100`                          |
-| authorityType | Body | Enum   | O  | DB 사용자 권한 타입<br/>- `CRUD`: DML 쿼리 수행 가능한 권한<br/>- `DDL`: DDL 쿼리 수행 가능한 권한 |
+| 이름                    | 종류   | 형식      | 필수 | 설명                                                                        |
+|-----------------------|------|---------|----|---------------------------------------------------------------------------|
+| dbInstanceId          | URL  | UUID    | O  | DB 인스턴스의 식별자                                                              |
+| dbUserName            | Body | String  | O  | DB 사용자 계정 이름<br/>- 최소 길이: `1`<br/>- 최대 길이: `20`                           |
+| password              | Body | String  | O  | DB 사용자 계정 암호<br/>- 최소 길이: `1`<br/>- 최대 길이: `100`                          |
+| authorityType         | Body | Enum    | O  | DB 사용자 권한 타입<br/>- `CRUD`: DML 쿼리 수행 가능한 권한<br/>- `DDL`: DDL 쿼리 수행 가능한 권한 |
+| createDefaultHbaRules | Body | Boolean | X  | 기본 접근 제어 규칙 생성 여부                                                         |
+| address               | Body | String  | X  | 기본 접근 제어 규칙 생성 시 사용할 접속 주소                                                |
 
 <details><summary>예시</summary>
 
