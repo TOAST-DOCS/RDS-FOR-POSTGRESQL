@@ -1401,6 +1401,173 @@ POST /v1.0/db-instances/{dbInstanceId}/apply-recent-parameter-group
 ```
 </details>
 
+## DB 인스턴스 > 데이터베이스
+
+### 데이터베이스 목록 보기
+
+```http
+GET /v1.0/db-instances/{dbInstanceId}/databases
+```
+
+#### 요청
+
+이 API는 요청 본문을 요구하지 않습니다.
+
+| 이름           | 종류  | 형식   | 필수 | 설명           |
+|--------------|-----|------|----|--------------|
+| dbInstanceId | URL | UUID | O  | DB 인스턴스의 식별자 |
+
+#### 응답
+
+| 이름                       | 종류   | 형식       | 설명                                                                                                                           |
+|--------------------------|------|----------|------------------------------------------------------------------------------------------------------------------------------|
+| databases                | Body | Array    | 데이터베이스 목록                                                                                                                    |
+| databases.databaseId     | Body | UUID     | 데이터베이스의 식별자                                                                                                                  |
+| databases.databaseName   | Body | String   | 데이터베이스 이름                                                                                                                    |
+| databases.databaseStatus | Body | Enum     | 데이터베이스의 현재 상태<br/>- `STABLE`: 생성됨<br/>- `CREATING`: 생성 중<br/>- `MODIFYING`: 수정 중<br/>- `DELETING`: 삭제 중<br/>- `DELETED`: 삭제됨 |
+| databases.createdYmdt    | Body | DateTime | 생성 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                            |
+
+<details><summary>예시</summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "databases": [
+        {
+            "databaseId": "7c9a94b8-86c1-435d-8af2-82a5e9d53fd4",
+            "databaseName": "database",
+            "databaseStatus": "STABLE",
+            "createdYmdt": "2023-03-20T13:37:45+09:00"
+        }
+    ]
+}
+```
+</details>
+
+### 데이터베이스 생성하기
+
+```http
+POST /v1.0/db-instances/{dbInstanceId}/databases
+```
+
+#### 요청
+
+| 이름           | 종류   | 형식     | 필수 | 설명           |
+|--------------|------|--------|----|--------------|
+| dbInstanceId | URL  | UUID   | O  | DB 인스턴스의 식별자 |
+| databaseName | Body | String | O  | 데이터베이스 이름    |
+
+<details><summary>예시</summary>
+
+```json
+{
+    "databaseName": "database"
+}
+```
+</details>
+
+#### 응답
+
+| 이름    | 종류   | 형식   | 설명          |
+|-------|------|------|-------------|
+| jobId | Body | UUID | 요청한 작업의 식별자 |
+
+<details><summary>예시</summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "0ddb042c-5af6-43fb-a914-f4dd0540eb7c"
+}
+```
+</details>
+
+### 데이터베이스 수정하기
+
+```http
+PUT /v1.0/db-instances/{dbInstanceId}/databases/{databaseId}
+```
+
+#### 요청
+
+| 이름           | 종류   | 형식     | 필수 | 설명           |
+|--------------|------|--------|----|--------------|
+| dbInstanceId | URL  | UUID   | O  | DB 인스턴스의 식별자 |
+| databaseId   | URL  | UUID   | O  | 데이터베이스의 식별자  |
+| databaseName | Body | String | O  | 데이터베이스 이름    |
+
+<details><summary>예시</summary>
+
+```json
+{
+    "databaseName": "database-1"
+}
+```
+</details>
+
+#### 응답
+
+| 이름    | 종류   | 형식   | 설명          |
+|-------|------|------|-------------|
+| jobId | Body | UUID | 요청한 작업의 식별자 |
+
+<details><summary>예시</summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "0ddb042c-5af6-43fb-a914-f4dd0540eb7c"
+}
+```
+</details>
+
+### 데이터베이스 삭제하기
+
+```http
+DELETE /v1.0/db-instances/{dbInstanceId}/databases/{databaseId}
+```
+
+#### 요청
+
+이 API는 요청 본문을 요구하지 않습니다.
+
+| 이름           | 종류  | 형식   | 필수 | 설명           |
+|--------------|-----|------|----|--------------|
+| dbInstanceId | URL | UUID | O  | DB 인스턴스의 식별자 |
+| databaseId   | URL | UUID | O  | 데이터베이스의 식별자  |
+
+#### 응답
+
+| 이름    | 종류   | 형식   | 설명          |
+|-------|------|------|-------------|
+| jobId | Body | UUID | 요청한 작업의 식별자 |
+
+<details><summary>예시</summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "0ddb042c-5af6-43fb-a914-f4dd0540eb7c"
+}
+```
+</details>
+
 
 ## 백업
 
