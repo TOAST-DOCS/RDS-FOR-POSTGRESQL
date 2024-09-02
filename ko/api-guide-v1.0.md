@@ -1419,13 +1419,14 @@ GET /v1.0/db-instances/{dbInstanceId}/databases
 
 #### 응답
 
-| 이름                       | 종류   | 형식       | 설명                                                                                                                           |
-|--------------------------|------|----------|------------------------------------------------------------------------------------------------------------------------------|
-| databases                | Body | Array    | 데이터베이스 목록                                                                                                                    |
-| databases.databaseId     | Body | UUID     | 데이터베이스의 식별자                                                                                                                  |
-| databases.databaseName   | Body | String   | 데이터베이스 이름                                                                                                                    |
-| databases.databaseStatus | Body | Enum     | 데이터베이스의 현재 상태<br/>- `STABLE`: 생성됨<br/>- `CREATING`: 생성 중<br/>- `MODIFYING`: 수정 중<br/>- `DELETING`: 삭제 중<br/>- `DELETED`: 삭제됨 |
-| databases.createdYmdt    | Body | DateTime | 생성 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                            |
+| 이름                       | 종류   | 형식       | 설명                                                                                                                                                  |
+|--------------------------|------|----------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
+| databases                | Body | Array    | 데이터베이스 목록                                                                                                                                           |
+| databases.databaseId     | Body | UUID     | 데이터베이스의 식별자                                                                                                                                         |
+| databases.databaseName   | Body | String   | 데이터베이스 이름                                                                                                                                           |
+| databases.databaseStatus | Body | Enum     | 데이터베이스의 현재 상태<br/>- `STABLE`: 생성됨<br/>- `CREATING`: 생성 중<br/>- `MODIFYING`: 수정 중<br/>- `SYNCING`: 동기화 중<br/>- `DELETING`: 삭제 중<br/>- `DELETED`: 삭제됨 |
+| databases.createdYmdt    | Body | DateTime | 생성 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                   |
+| databases.updatedYmdt    | Body | DateTime | 수정 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                   |
 
 <details><summary>예시</summary>
 
@@ -1548,6 +1549,183 @@ DELETE /v1.0/db-instances/{dbInstanceId}/databases/{databaseId}
 |--------------|-----|------|----|--------------|
 | dbInstanceId | URL | UUID | O  | DB 인스턴스의 식별자 |
 | databaseId   | URL | UUID | O  | 데이터베이스의 식별자  |
+
+#### 응답
+
+| 이름    | 종류   | 형식   | 설명          |
+|-------|------|------|-------------|
+| jobId | Body | UUID | 요청한 작업의 식별자 |
+
+<details><summary>예시</summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "0ddb042c-5af6-43fb-a914-f4dd0540eb7c"
+}
+```
+</details>
+
+## DB 인스턴스 > 사용자
+
+### 사용자 목록 보기
+
+```http
+GET /v1.0/db-instances/{dbInstanceId}/db-users
+```
+
+#### 요청
+
+이 API는 요청 본문을 요구하지 않습니다.
+
+| 이름           | 종류  | 형식   | 필수 | 설명           |
+|--------------|-----|------|----|--------------|
+| dbInstanceId | URL | UUID | O  | DB 인스턴스의 식별자 |
+
+#### 응답
+
+| 이름                    | 종류   | 형식       | 설명                                                                                                                                                  |
+|-----------------------|------|----------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
+| dbUsers               | Body | Array    | DB 사용자 목록                                                                                                                                           |
+| dbUsers.dbUserId      | Body | UUID     | DB 사용자의 식별자                                                                                                                                         |
+| dbUsers.dbUserName    | Body | String   | DB 사용자 계정 이름                                                                                                                                        |
+| dbUsers.authorityType | Body | Enum     | DB 사용자 권한 타입<br/>- `CRUD`: DML 쿼리 수행 가능한 권한<br/>- `DDL`: DDL 쿼리 수행 가능한 권한                                                                           |
+| dbUsers.dbUserStatus  | Body | Enum     | DB 사용자의 현재 상태<br/>- `STABLE`: 생성됨<br/>- `CREATING`: 생성 중<br/>- `MODIFYING`: 수정 중<br/>- `SYNCING`: 동기화 중<br/>- `DELETING`: 삭제 중<br/>- `DELETED`: 삭제됨 |
+| dbUsers.createdYmdt   | Body | DateTime | 생성 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                   |
+| dbUsers.updatedYmdt   | Body | DateTime | 수정 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                   |
+
+<details><summary>예시</summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "databases": [
+        {
+            "databaseId": "7c9a94b8-86c1-435d-8af2-82a5e9d53fd4",
+            "databaseName": "database",
+            "databaseStatus": "STABLE",
+            "createdYmdt": "2023-03-20T13:37:45+09:00"
+        }
+    ]
+}
+```
+</details>
+
+### 사용자 생성하기
+
+```http
+POST /v1.0/db-instances/{dbInstanceId}/db-users
+```
+
+#### 요청
+
+| 이름            | 종류   | 형식     | 필수 | 설명                                                                        |
+|---------------|------|--------|----|---------------------------------------------------------------------------|
+| dbInstanceId  | URL  | UUID   | O  | DB 인스턴스의 식별자                                                              |
+| dbUserName    | Body | String | O  | DB 사용자 계정 이름<br/>- 최소 길이: `1`<br/>- 최대 길이: `20`                           |
+| password      | Body | String | O  | DB 사용자 계정 암호<br/>- 최소 길이: `1`<br/>- 최대 길이: `100`                          |
+| authorityType | Body | Enum   | O  | DB 사용자 권한 타입<br/>- `CRUD`: DML 쿼리 수행 가능한 권한<br/>- `DDL`: DDL 쿼리 수행 가능한 권한 |
+
+<details><summary>예시</summary>
+
+```json
+{
+    "dbUserName": "db-user",
+    "dbPassword": "password",
+    "authorityType": "CRUD"
+}
+```
+</details>
+
+#### 응답
+
+| 이름    | 종류   | 형식   | 설명          |
+|-------|------|------|-------------|
+| jobId | Body | UUID | 요청한 작업의 식별자 |
+
+<details><summary>예시</summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "0ddb042c-5af6-43fb-a914-f4dd0540eb7c"
+}
+```
+</details>
+
+### 사용자 수정하기
+
+```http
+PUT /v1.0/db-instances/{dbInstanceId}/db-users/{dbUserId}
+```
+
+#### 요청
+
+| 이름                       | 종류   | 형식      | 필수 | 설명                                                                                         |
+|--------------------------|------|---------|----|--------------------------------------------------------------------------------------------|
+| dbInstanceId             | URL  | UUID    | O  | DB 인스턴스의 식별자                                                                               |
+| dbUserId                 | URL  | UUID    | O  | DB 사용자의 식별자                                                                                |
+| dbUserName               | Body | String  | X  | DB 사용자 계정 이름<br/>- 최소 길이: `1`<br/>- 최대 길이: `20`                                            |
+| password                 | Body | String  | X  | DB 사용자 계정 암호<br/>- 최소 길이: `1`<br/>- 최대 길이: `100`                                           |
+| authorityType            | Body | Enum    | X  | DB 사용자 권한 타입<br/>- `CRUD`: DML 쿼리 수행 가능한 권한<br/>- `DDL`: DDL 쿼리 수행 가능한 권한                  |
+| applyHbaRulesImmediately | Body | Boolean | X  | 연관된 접근 제어 규칙 즉시 적용 여부<br/>- 사용자 계정 이름 변경시 이전 사용자 계정 이름으로 설정된 접근 제어 규칙이 있으면 변경된 이름으로 반영합니다. |
+
+<details><summary>예시</summary>
+
+```json
+{
+    "dbUserName": "db-user-1",
+    "dbPassword": "new-password"
+}
+```
+</details>
+
+#### 응답
+
+| 이름    | 종류   | 형식   | 설명          |
+|-------|------|------|-------------|
+| jobId | Body | UUID | 요청한 작업의 식별자 |
+
+<details><summary>예시</summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "0ddb042c-5af6-43fb-a914-f4dd0540eb7c"
+}
+```
+</details>
+
+### 사용자 삭제하기
+
+```http
+DELETE /v1.0/db-instances/{dbInstanceId}/db-users/{dbUserId}
+```
+
+#### 요청
+
+이 API는 요청 본문을 요구하지 않습니다.
+
+| 이름           | 종류  | 형식   | 필수 | 설명           |
+|--------------|-----|------|----|--------------|
+| dbInstanceId | URL | UUID | O  | DB 인스턴스의 식별자 |
+| dbUserId     | URL | UUID | O  | DB 사용자의 식별자  |
 
 #### 응답
 
