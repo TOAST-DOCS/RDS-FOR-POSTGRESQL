@@ -1401,6 +1401,109 @@ POST /v1.0/db-instances/{dbInstanceId}/apply-recent-parameter-group
 ```
 </details>
 
+### DB 인스턴스 복제하기
+
+```http
+POST /v1.0/db-instances/{dbInstanceId}/replicate
+```
+
+#### 요청
+
+| 이름                                           | 종류   | 형식      | 필수 | 설명                                                                                                                                                                                                                                                  |
+|----------------------------------------------|------|---------|----|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| dbInstanceId                                 | URL  | UUID    | O  | DB 인스턴스의 식별자                                                                                                                                                                                                                                        |
+| dbInstanceName                               | Body | String  | O  | DB 인스턴스를 식별할 수 있는 이름                                                                                                                                                                                                                                |
+| description                                  | Body | String  | X  | DB 인스턴스에 대한 추가 정보                                                                                                                                                                                                                                   |
+| dbFlavorId                                   | Body | UUID    | X  | DB 인스턴스 사양의 식별자<br/>- 기본값: 원본 DB 인스턴스 값                                                                                                                                                                                                             |
+| dbPort                                       | Body | Number  | X  | DB 포트<br/>- 기본값: 원본 DB 인스턴스 값<br/>- 최솟값: `5432`<br/>- 최댓값: `45432`                                                                                                                                                                                  |
+| parameterGroupId                             | Body | UUID    | X  | 파라미터 그룹의 식별자<br/>- 기본값: 원본 DB 인스턴스 값                                                                                                                                                                                                                |
+| dbSecurityGroupIds                           | Body | Array   | X  | DB 보안 그룹의 식별자 목록<br/>- 기본값: 원본 DB 인스턴스 값                                                                                                                                                                                                            |
+| userGroupIds                                 | Body | Array   | X  | 사용자 그룹의 식별자 목록                                                                                                                                                                                                                                      |
+| useDefaultUserNotification                   | Body | Boolean | X  | 기본 알림 사용 여부<br/>- 기본값: `false`                                                                                                                                                                                                                      |
+| useDeletionProtection                        | Body | Boolean | X  | 삭제 보호 여부<br/>- 기본값: `false`                                                                                                                                                                                                                         |
+| network                                      | Body | Object  | X  | 네트워크 정보 객체                                                                                                                                                                                                                                          |
+| network.usePublicAccess                      | Body | Boolean | X  | 외부 접속 가능 여부<br/>- 기본값: `false`                                                                                                                                                                                                                      |
+| network.availabilityZone                     | Body | Enum    | X  | DB 인스턴스를 생성할 가용성 영역<br/>- 예시: `kr-pub-a`<br/>- 기본값: `임의의 가용성 영역`                                                                                                                                                                                    |  
+| storage                                      | Body | Object  | X  | 스토리지 정보 객체                                                                                                                                                                                                                                          |    
+| storage.storageType                          | Body | Enum    | X  | 데이터 스토리지 타입<br>- 예시: `General SSD`                                                                                                                                                                                                                  |
+| storage.storageSize                          | Body | Number  | X  | 데이터 스토리지 크기(GB)<br/>- 기본값: 원본 DB 인스턴스 값<br/>- 최솟값: `20`<br/>- 최댓값: `2048`                                                                                                                                                                           |
+| backup                                       | Body | Object  | X  | 백업 정보 객체                                                                                                                                                                                                                                            |
+| backup.backupPeriod                          | Body | Number  | X  | 백업 보관 기간(일)<br/>- 기본값: 원본 DB 인스턴스 값<br/>- 최솟값: `0`<br/>- 최댓값: `730`                                                                                                                                                                                 |
+| backup.backupRetryCount                      | Body | Number  | X  | 백업 재시도 횟수<br/>- 기본값: 원본 DB 인스턴스 값<br/>- 최솟값: `0`<br/>- 최댓값: `10`                                                                                                                                                                                    |
+| backup.backupSchedules                       | Body | Array   | X  | 백업 스케줄 목록                                                                                                                                                                                                                                           |
+| backup.backupSchedules.backupWndBgnTime      | Body | String  | X  | 백업 시작 시각<br/>- 예시: `00:00:00`<br/>- 기본값: 원본 DB 인스턴스 값                                                                                                                                                                                               |
+| backup.backupSchedules.backupWndDuration     | Body | Enum    | X  | 백업 Duration<br/>백업 시작 시각부터 Duration 안에 자동 백업이 실행됩니다.<br/>- `HALF_AN_HOUR`: 30분<br/>- `ONE_HOUR`: 1시간<br/>- `ONE_HOUR_AND_HALF`: 1시간 30분<br/>- `TWO_HOURS`: 2시간<br/>- `TWO_HOURS_AND_HALF`: 2시간 30분<br/>- `THREE_HOURS`: 3시간<br/>- 기본값: 원본 DB 인스턴스 값 |
+| backup.backupSchedules.backupRetryExpireTime | Body | String  | X  | 백업 재시도 만료 시간<br/>- 백업 재시도 만료 시간은 백업 시작 시간보다 앞서거나 백업 윈도우를 벗어난 값으로 설정할 수 없습니다.<br/>- 예시: 백업 시작 시간이 `00:00:00`이면서 백업 윈도우가 `1시간`인 경우 `01:00:00`<br/>- 기본값: 원본 DB 인스턴스 값                                                                                 |
+
+<details><summary>예시</summary>
+
+```json
+{
+    "dbInstanceName": "db-instance-replicate",
+    "description": "description",
+    "dbPort": 15432,
+    "storage": {
+        "storageSize": 100
+    }
+}
+```
+</details>
+
+#### 응답
+
+| 이름    | 종류   | 형식   | 설명          |
+|-------|------|------|-------------|
+| jobId | Body | UUID | 요청한 작업의 식별자 |
+
+<details><summary>예시</summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "0ddb042c-5af6-43fb-a914-f4dd0540eb7c"
+}
+```
+</details>
+
+### DB 인스턴스 승격하기
+
+```http
+POST /v1.0/db-instances/{dbInstanceId}/promote
+```
+
+#### 요청
+
+이 API는 요청 본문을 요구하지 않습니다.
+
+| 이름           | 종류  | 형식   | 필수 | 설명           |
+|--------------|-----|------|----|--------------|
+| dbInstanceId | URL | UUID | O  | DB 인스턴스의 식별자 |
+
+#### 응답
+
+| 이름    | 종류   | 형식   | 설명          |
+|-------|------|------|-------------|
+| jobId | Body | UUID | 요청한 작업의 식별자 |
+
+<details><summary>예시</summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "0ddb042c-5af6-43fb-a914-f4dd0540eb7c"
+}
+```
+</details>
+
+
 ## DB 인스턴스 > 데이터베이스
 
 ### 데이터베이스 목록 보기
