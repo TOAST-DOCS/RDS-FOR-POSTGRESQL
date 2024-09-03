@@ -1749,6 +1749,287 @@ DELETE /v1.0/db-instances/{dbInstanceId}/db-users/{dbUserId}
 ```
 </details>
 
+## DB 인스턴스 > 접근 제어
+
+### 접근 제어 규칙 목록 보기
+
+```http
+GET /v1.0/db-instances/{dbInstanceId}/hba-rules
+```
+
+#### 요청
+
+이 API는 요청 본문을 요구하지 않습니다.
+
+| 이름           | 종류  | 형식   | 필수 | 설명           |
+|--------------|-----|------|----|--------------|
+| dbInstanceId | URL | UUID | O  | DB 인스턴스의 식별자 |
+
+#### 응답
+
+| 이름                              | 종류   | 형식      | 설명                                                                                                                                                   |
+|---------------------------------|------|---------|------------------------------------------------------------------------------------------------------------------------------------------------------|
+| hbaRules                        | Body | Array   | 접근 제어 규칙 목록                                                                                                                                          |
+| hbaRules.hbaRuleId              | Body | UUID    | 접근 제어 규칙의 식별자                                                                                                                                        |
+| hbaRules.hbaRuleStatus          | Body | Enum    | 접근 제어 규칙의 현재 상태<br/>- `CREATED`: 생성됨<br/>- `APPLIED`: 적용됨<br/>- `CREATING`: 생성 중<br/>- `MODIFYING`: 수정 중<br/>- `DELETING`: 삭제 중<br/>- `DELETED`: 삭제됨 |
+| hbaRules.databaseApplyType      | Body | String  | 데이터베이스 규칙 적용 방식<br/>- `ENTIRE`: 전체<br/>- `USER_CUSTOM`: 사용자 지정                                                                                       |
+| hbaRules.dbUserApplyType        | Body | Enum    | DB 사용자 규칙 적용 방식<br/>- `ENTIRE`: 전체<br/>- `USER_CUSTOM`: 사용자 지정                                                                                       |
+| hbaRules.databases              | Body | Array   | 사용자 지정 데이터베이스 목록                                                                                                                                     |
+| hbaRules.databases.databaseId   | Body | UUID    | 사용자 지정 데이터베이스의 식별자                                                                                                                                   |
+| hbaRules.databases.databaseName | Body | String  | 사용자 지정 데이터베이스 이름                                                                                                                                     |
+| hbaRules.dbUsers                | Body | Array   | 사용자 지정 DB 사용자 목록                                                                                                                                     |
+| hbaRules.dbUsers.dbUserId       | Body | UUID    | 사용자 지정 DB 사용자의 식별자                                                                                                                                   |
+| hbaRules.dbUsers.dbUserName     | Body | String  | 사용자 지정 DB 사용자 계정 이름                                                                                                                                  |
+| hbaRules.address                | Body | String  | 접속 주소                                                                                                                                                |
+| hbaRules.authMethod             | Body | Enum    | 인증 방식<br/>- `TRUST`: 트러스트 (패스워드 불필요)<br/>- `REJECT`: 접속 차단<br/>- `SCRAM_SHA_256`: 패스워드 (SCRAM-SHA-256)                                               |
+| hbaRules.reservedAction         | Body | Enum    | 예악 작업<br/>- `NONE`: 없음<br/>- `CREATE`: 생성 예약 (적용 필요)<br/>- `MODIFY`: 수정 예약 (적용 필요)<br/>- `DELETE`: 삭제 예약 (적용 필요)                                     |
+| hbaRules.order                  | Body | Number  | 적용 순서                                                                                                                                                |
+| hbaRules.applicable             | Body | Boolean | 적용 가능 여부<br/>- 적용 불가 상태의 규칙은 무시됨                                                                                                                     |
+| needToApply                     | Body | Boolean | 변경사항 적용 필요 여부                                                                                                                                        |
+
+<details><summary>예시</summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "hbaRules": [
+        {
+            "hbaRuleId": "7c9a94b8-86c1-435d-8af2-82a5e9d53fd4",
+            "hbaRuleStatus": "APPLIED",
+            "databaseApplyType": "USER_CUSTOM",
+            "dbUserApplyType": "ENTIRE",
+            "databases": [
+                {
+                    "databaseId": "7c9a94b8-86c1-435d-8af2-82a5e9d53fd4",
+                    "databaseName": "database"
+                }
+            ],
+            "dbUsers": [],
+            "address": "0.0.0.0/0",
+            "authMethod": "TRUST",
+            "reservedAction": "NONE",
+            "order": 0,
+            "applicable": true
+        }
+    ]
+}
+```
+</details>
+
+### 접근 제어 규칙 추가하기
+
+```http
+POST /v1.0/db-instances/{dbInstanceId}/hba-rules
+```
+
+#### 요청
+
+| 이름                | 종류   | 형식     | 필수 | 설명                                                                                                     |
+|-------------------|------|--------|----|--------------------------------------------------------------------------------------------------------|
+| dbInstanceId      | URL  | UUID   | O  | DB 인스턴스의 식별자                                                                                           |
+| databaseApplyType | Body | String | O  | 데이터베이스 규칙 적용 방식<br/>- `ENTIRE`: 전체<br/>- `USER_CUSTOM`: 사용자 지정                                         |
+| dbUserApplyType   | Body | Enum   | O  | DB 사용자 규칙 적용 방식<br/>- `ENTIRE`: 전체<br/>- `USER_CUSTOM`: 사용자 지정                                         |
+| databaseIds       | Body | Array  | X  | 사용자 지정 데이터베이스의 식별자 목록                                                                                  |
+| dbUserIds         | Body | Array  | X  | 사용자 지정 DB 사용자의 식별자 목록                                                                                  |
+| address           | Body | String | O  | 접속 주소<br/>- CIDR 형식, 호스트명 또는 도메인 형식으로 입력                                                               |
+| authMethod        | Body | Enum   | O  | 인증 방식<br/>- `TRUST`: 트러스트 (패스워드 불필요)<br/>- `REJECT`: 접속 차단<br/>- `SCRAM_SHA_256`: 패스워드 (SCRAM-SHA-256) |
+
+<details><summary>예시</summary>
+
+```json
+{
+    "databaseApplyType": "ENTIRE",
+    "dbUserApplyType": "USER_CUSTOM",
+    "databaseIds": [], 
+    "dbUserIds": [
+        "7c9a94b8-86c1-435d-8af2-82a5e9d53fd4"
+    ],
+    "address": "0.0.0.0/0",
+    "authMethod": "TRUST"
+}
+```
+</details>
+
+#### 응답
+
+| 이름        | 종류   | 형식   | 설명            |
+|-----------|------|------|---------------|
+| hbaRuleId | Body | UUID | 접근 제어 규칙의 식별자 |
+
+<details><summary>예시</summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "hbaRuleId": "0ddb042c-5af6-43fb-a914-f4dd0540eb7c"
+}
+```
+</details>
+
+### 접근 제어 규칙 수정하기
+
+```http
+PUT /v1.0/db-instances/{dbInstanceId}/hba-rules/{hbaRuleId}
+```
+
+#### 요청
+
+| 이름                | 종류   | 형식     | 필수 | 설명                                                                                                     |
+|-------------------|------|--------|----|--------------------------------------------------------------------------------------------------------|
+| dbInstanceId      | URL  | UUID   | O  | DB 인스턴스의 식별자                                                                                           |
+| hbaRuleId         | URL  | UUID   | O  | 접근 제어 규칙의 식별자                                                                                          |
+| databaseApplyType | Body | String | O  | 데이터베이스 규칙 적용 방식<br/>- `ENTIRE`: 전체<br/>- `USER_CUSTOM`: 사용자 지정                                         |
+| dbUserApplyType   | Body | Enum   | O  | DB 사용자 규칙 적용 방식<br/>- `ENTIRE`: 전체<br/>- `USER_CUSTOM`: 사용자 지정                                         |
+| databaseIds       | Body | Array  | X  | 사용자 지정 데이터베이스의 식별자 목록                                                                                  |
+| dbUserIds         | Body | Array  | X  | 사용자 지정 DB 사용자의 식별자 목록                                                                                  |
+| address           | Body | String | O  | 접속 주소<br/>- CIDR 형식, 호스트명 또는 도메인 형식으로 입력                                                               |
+| authMethod        | Body | Enum   | O  | 인증 방식<br/>- `TRUST`: 트러스트 (패스워드 불필요)<br/>- `REJECT`: 접속 차단<br/>- `SCRAM_SHA_256`: 패스워드 (SCRAM-SHA-256) |
+
+<details><summary>예시</summary>
+
+```json
+{
+    "databaseApplyType": "ENTIRE",
+    "dbUserApplyType": "ENTIRE",
+    "databaseIds": [], 
+    "dbUserIds": [],
+    "address": "0.0.0.0/0",
+    "authMethod": "REJECT"
+}
+```
+</details>
+
+#### 응답
+
+이 API는 응답 본문을 반환하지 않습니다.
+
+<details><summary>예시</summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    }
+}
+```
+</details>
+
+### 접근 제어 규칙 삭제하기
+
+```http
+DELETE /v1.0/db-instances/{dbInstanceId}/hba-rules/{hbaRuleId}
+```
+
+#### 요청
+
+이 API는 요청 본문을 요구하지 않습니다.
+
+| 이름           | 종류  | 형식   | 필수 | 설명            |
+|--------------|-----|------|----|---------------|
+| dbInstanceId | URL | UUID | O  | DB 인스턴스의 식별자  |
+| hbaRuleId    | URL | UUID | O  | 접근 제어 규칙의 식별자 |
+
+#### 응답
+
+이 API는 응답 본문을 반환하지 않습니다.
+
+<details><summary>예시</summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    }
+}
+```
+</details>
+
+### 접근 제어 규칙 순서 조정
+
+```http
+PUT /v1.0/db-instances/{dbInstanceId}/hba-rules/orders
+```
+
+#### 요청
+
+| 이름           | 종류  | 형식   | 필수 | 설명                                  |
+|--------------|-----|------|----|-------------------------------------|
+| dbInstanceId | URL | UUID | O  | DB 인스턴스의 식별자                        |
+| hbaRuleIds   | URL | Body | O  | 접근 제어 규칙의 식별자 목록<br/>- 요청한 순서대로 조정됨 |
+
+<details><summary>예시</summary>
+
+```json
+{
+    "hbaRuleIds": [
+        "7c9a94b8-86c1-435d-8af2-82a5e9d53fd4"
+    ]
+}
+```
+</details>
+
+#### 응답
+
+이 API는 응답 본문을 반환하지 않습니다.
+
+<details><summary>예시</summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    }
+}
+```
+</details>
+
+### 접근제어 규칙 적용하기
+
+```http
+POST /v1.0/db-instances/{dbInstanceId}/hba-rules/apply
+```
+
+#### 요청
+
+이 API는 요청 본문을 요구하지 않습니다.
+
+| 이름           | 종류  | 형식   | 필수 | 설명           |
+|--------------|-----|------|----|--------------|
+| dbInstanceId | URL | UUID | O  | DB 인스턴스의 식별자 |
+
+#### 응답
+
+| 이름    | 종류   | 형식   | 설명          |
+|-------|------|------|-------------|
+| jobId | Body | UUID | 요청한 작업의 식별자 |
+
+<details><summary>예시</summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "0ddb042c-5af6-43fb-a914-f4dd0540eb7c"
+}
+```
+</details>
 
 ## 백업
 
