@@ -31,15 +31,15 @@
 
 추가 제공되는 확장 기능을 설치하려면 필요한 경우 파라미터 그룹의 `shared_preload_libraries` 파라미터에 설정 추가 후 DB 엔진 재시작이 필요합니다. 재시작이 완료되면 [CREATE EXTENSION](https://www.postgresql.org/docs/14/sql-createextension.html) 구문으로 필요한 확장 기능을 설치할 수 있습니다.
 
-| 확장 기능 이름                     | 버전    | 파라미터 설정 | 비고            | 홈페이지                               |
-|------------------------------|-------|---------|---------------|------------------------------------|
-| pg_repack                    | 1.4.8 |         |               | https://reorg.github.io/pg_repack/ |
-| pgAudit                      | 1.6.2 | 추가 필요   |               | https://www.pgaudit.org/           |
-| pgrouting                    | 3.6.2 |         | postgis 설치 필요 | https://pgrouting.org/             |
-| postgis                      | 3.4.1 | 추가 필요   |               | https://postgis.net/               |
-| postgis_raster               | 3.4.1 |         | postgis 포함 기능 |                                    |
-| postgis_sfcgal               | 3.4.1 |         | postgis 포함 기능 |                                    |
-| postgis_tiger_geocoder       | 3.4.1 |         | postgis 포함 기능 |                                    |
-| postgis_topology             | 3.4.1 |         | postgis 포함 기능 |                                    |
-| address_standardizer         | 3.4.1 |         | postgis 포함 기능 |                                    |
-| address_standardizer_data_us | 3.4.1 |         | postgis 포함 기능 |                                    |
+| 확장 기능 이름                     | 버전    | 파라미터 설정 | 비고                           | 홈페이지                               |
+|------------------------------|-------|---------|------------------------------|------------------------------------|
+| pg_repack                    | 1.4.8 |         |                              | https://reorg.github.io/pg_repack/ |
+| pgAudit                      | 1.6.2 | 추가 필요   |                              | https://www.pgaudit.org/           |
+| pgrouting                    | 3.6.2 |         | postgis 설치 필요                | https://pgrouting.org/             |
+| postgis                      | 3.4.1 | 추가 필요   |                              | https://postgis.net/               |
+| postgis_raster               | 3.4.1 |         | postgis 설치 필요                |                                    |
+| postgis_sfcgal               | 3.4.1 |         | postgis 설치 필요                |                                    |
+| postgis_tiger_geocoder       | 3.4.1 |         | fuzzystrmatch, postgis 설치 필요 |                                    |
+| postgis_topology             | 3.4.1 |         | postgis 설치 필요                |                                    |
+| address_standardizer         | 3.4.1 |         | postgis 설치 필요                |                                    |
+| address_standardizer_data_us | 3.4.1 |         | postgis 설치 필요                |                                    |
