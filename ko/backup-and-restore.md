@@ -111,12 +111,3 @@ Timestamp를 사용한 복원 시에는 선택한 시점과 가장 가까운 백
 ![db-instance-pitr-02](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-pitr-02-ko.png)
 
 ❷ 복원 시각을 선택합니다. 가장 최근 시점으로 복원하거나, 원하는 특정 시점을 직접 입력할 수 있습니다.
-
-
-#### WAL 로그 위치(LSN: Log Sequence Number)를 이용한 복원
-
-WAL 로그 위치를 활용한 복원 과정에서는 입력한 위치와 가장 가까운 백업 파일을 기준으로 복원을 진행한 뒤 원본 인스턴스의 WAL 로그로 원하는 위치까지 적용합니다.
-
-![db-instance-pitr-03](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-pitr-03-ko.png)
-
-❸ WAL 로그의 특정 위치를 입력합니다.

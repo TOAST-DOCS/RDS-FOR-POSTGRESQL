@@ -111,12 +111,3 @@ When restoring with Timestamp, perform the restore based on the backup file clos
 ![db-instance-pitr-02](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-pitr-02-en.png)
 
 ❷ Select a time to restore. You can restore it to the most recent point in time, or enter the specific point in time that you want.
-
-
-#### Restore using WAL Log Location (LSN: Log Sequence Number)
-
-During the restore process using the WAL log location, the restore is performed based on the backup file closest to the location you entered, and then WAL log of the original instance applies to the desired location.
-
-![db-instance-pitr-03](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-pitr-03-en.png)
-
-❸ Enter a specific location for WAL log.

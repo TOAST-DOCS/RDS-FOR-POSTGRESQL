@@ -111,12 +111,3 @@ Timestampを使用した復元の場合は、選択した時点と最も近い�
 ![db-instance-pitr-02](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-pitr-02-ja.png)
 
 ❷復元時刻を選択します。最も最近の時点に復元するか、希望する特定の時点を直接入力できます。
-
-
-#### WALログ位置(LSN: Log Sequence Number)を利用した復元
-
-WALログ位置を活用した復元過程では、入力した位置と最も近いバックアップファイルを基準に復元を行った後、元のインスタンスのWALログで希望する位置まで適用します。
-
-![db-instance-pitr-03](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-pitr-03-ja.png)
-
-❸ WALログの特定の位置を入力します。
