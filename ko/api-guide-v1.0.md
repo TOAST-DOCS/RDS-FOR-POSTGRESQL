@@ -370,14 +370,14 @@ GET /v1.0/db-instance-groups
 
 #### 응답
 
-| 이름                                     | 종류   | 형식       | 설명                                                                       |
-|----------------------------------------|------|----------|--------------------------------------------------------------------------|
-| dbInstanceGroups                       | Body | Array    | DB 인스턴스 그룹 목록                                                            |
-| dbInstanceGroups.dbInstanceGroupId     | Body | UUID     | DB 인스턴스 그룹의 식별자                                                          |
-| dbInstanceGroups.dbInstanceGroupStatus | Body | Enum     | DB 인스턴스 그룹의 현재 상태<br/>- `CREATED`: 생성됨<br/>- `DELETED`: 삭제됨              |
-| dbInstanceGroups.replicationType       | Body | Enum     | DB 인스턴스 그룹의 복제 형태<br/>- `STANDALONE`: 단일<br/>- `HIGH_AVAILABILITY`: 고가용성 |
-| dbInstanceGroups.createdYmdt           | Body | DateTime | 생성 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                        |
-| dbInstanceGroups.updatedYmdt           | Body | DateTime | 수정 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                        |
+| 이름                                     | 종류   | 형식       | 설명                                                          |
+|----------------------------------------|------|----------|-------------------------------------------------------------|
+| dbInstanceGroups                       | Body | Array    | DB 인스턴스 그룹 목록                                               |
+| dbInstanceGroups.dbInstanceGroupId     | Body | UUID     | DB 인스턴스 그룹의 식별자                                             |
+| dbInstanceGroups.dbInstanceGroupStatus | Body | Enum     | DB 인스턴스 그룹의 현재 상태<br/>- `CREATED`: 생성됨<br/>- `DELETED`: 삭제됨 |
+| dbInstanceGroups.replicationType       | Body | Enum     | DB 인스턴스 그룹의 복제 형태<br/>- `STANDALONE`: 단일                    |
+| dbInstanceGroups.createdYmdt           | Body | DateTime | 생성 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                           |
+| dbInstanceGroups.updatedYmdt           | Body | DateTime | 수정 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                           |
 
 <details><summary>예시</summary>
 
@@ -418,17 +418,17 @@ GET /v1.0/db-instance-groups/{dbInstanceGroupId}
 
 #### 응답
 
-| 이름                           | 종류   | 형식       | 설명                                                                                                                                    |
-|------------------------------|------|----------|---------------------------------------------------------------------------------------------------------------------------------------|
-| dbInstanceGroupId            | Body | UUID     | DB 인스턴스 그룹의 식별자                                                                                                                       |
-| dbInstanceGroupStatus        | Body | Enum     | DB 인스턴스 그룹의 현재 상태<br/>- `CREATED`: 생성됨<br/>- `DELETED`: 삭제됨                                                                           |
-| replicationType              | Body | Enum     | DB 인스턴스 그룹의 복제 형태<br/>- `STANDALONE`: 단일<br/>- `HIGH_AVAILABILITY`: 고가용성                                                              |
-| dbInstances                  | Body | Array    | DB 인스턴스 그룹에 속한 DB 인스턴스 목록                                                                                                             |
-| dbInstances.dbInstanceId     | Body | UUID     | DB 인스턴스의 식별자                                                                                                                          |
-| dbInstances.dbInstanceType   | Body | Enum     | DB 인스턴스의 역할 타입<br/>- `MASTER`: 마스터<br/>- `FAILED_MASTER`: 장애 조치된 마스터<br/>- `CANDIDATE_MASTER`: 예비 마스터<br/>- `READ_ONLY_SLAVE`: 읽기 복제본 |
-| dbInstances.dbInstanceStatus | Body | Enum     | DB 인스턴스의 현재 상태                                                                                                                        |
-| createdYmdt                  | Body | DateTime | 생성 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                     |
-| updatedYmdt                  | Body | DateTime | 수정 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                     |
+| 이름                           | 종류   | 형식       | 설명                                                                 |
+|------------------------------|------|----------|--------------------------------------------------------------------|
+| dbInstanceGroupId            | Body | UUID     | DB 인스턴스 그룹의 식별자                                                    |
+| dbInstanceGroupStatus        | Body | Enum     | DB 인스턴스 그룹의 현재 상태<br/>- `CREATED`: 생성됨<br/>- `DELETED`: 삭제됨        |
+| replicationType              | Body | Enum     | DB 인스턴스 그룹의 복제 형태<br/>- `STANDALONE`: 단일                           |
+| dbInstances                  | Body | Array    | DB 인스턴스 그룹에 속한 DB 인스턴스 목록                                          |
+| dbInstances.dbInstanceId     | Body | UUID     | DB 인스턴스의 식별자                                                       |
+| dbInstances.dbInstanceType   | Body | Enum     | DB 인스턴스의 역할 타입<br/>- `MASTER`: 마스터<br/>- `READ_ONLY_SLAVE`: 읽기 복제본 |
+| dbInstances.dbInstanceStatus | Body | Enum     | DB 인스턴스의 현재 상태                                                     |
+| createdYmdt                  | Body | DateTime | 생성 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                  |
+| updatedYmdt                  | Body | DateTime | 수정 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                  |
 
 <details><summary>예시</summary>
 
@@ -468,7 +468,6 @@ GET /v1.0/db-instance-groups/{dbInstanceGroupId}
 | `FAIL_TO_CONNECT`   | DB 인스턴스 연결에 실패한 경우           |
 | `REPLICATION_STOP`  | DB 인스턴스의 복제가 중단된 경우          |
 | `REPLICATION_DELAY` | DB 인스턴스의 복제가 지연 중인 경우        |
-| `FAILOVER`          | DB 인스턴스가 고가용성 장애 조치된 경우      |
 | `SHUTDOWN`          | DB 인스턴스가 중지된 경우              |
 | `DELETED`           | DB 인스턴스가 삭제된 경우              |
 
@@ -486,7 +485,6 @@ GET /v1.0/db-instance-groups/{dbInstanceGroupId}
 | `DELETING`                      | 삭제 중          |
 | `DELETING_DATABASE`             | 데이터베이스 삭제 중   |
 | `DELETING_USER`                 | 사용자 삭제 중      |
-| `FAILING_OVER`                  | 장애 조치 중       |
 | `MIGRATING`                     | 마이그레이션 중      |
 | `MODIFYING`                     | 수정 중          |
 | `OCCUPIED`                      | 점유 중          |
@@ -518,20 +516,20 @@ GET /v1.0/db-instances
 
 #### 응답
 
-| 이름                            | 종류   | 형식       | 설명                                                                                                                                    |
-|-------------------------------|------|----------|---------------------------------------------------------------------------------------------------------------------------------------|
-| dbInstances                   | Body | Array    | DB 인스턴스 목록                                                                                                                            |
-| dbInstances.dbInstanceId      | Body | UUID     | DB 인스턴스의 식별자                                                                                                                          |
-| dbInstances.dbInstanceGroupId | Body | UUID     | DB 인스턴스 그룹의 식별자                                                                                                                       |
-| dbInstances.dbInstanceName    | Body | String   | DB 인스턴스를 식별할 수 있는 이름                                                                                                                  |
-| dbInstances.description       | Body | String   | DB 인스턴스에 대한 추가 정보                                                                                                                     |
-| dbInstances.dbVersion         | Body | Enum     | DB 엔진 버전                                                                                                                              |
-| dbInstances.dbPort            | Body | Number   | DB 포트                                                                                                                                 |
-| dbInstances.dbInstanceType    | Body | Enum     | DB 인스턴스의 역할 타입<br/>- `MASTER`: 마스터<br/>- `FAILED_MASTER`: 장애 조치된 마스터<br/>- `CANDIDATE_MASTER`: 예비 마스터<br/>- `READ_ONLY_SLAVE`: 읽기 복제본 |
-| dbInstances.dbInstanceStatus  | Body | Enum     | DB 인스턴스의 현재 상태                                                                                                                        |
-| dbInstances.progressStatus    | Body | Enum     | DB 인스턴스의 현재 진행 상태                                                                                                                     |
-| dbInstances.createdYmdt       | Body | DateTime | 생성 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                     |
-| dbInstances.updatedYmdt       | Body | DateTime | 수정 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                     |
+| 이름                            | 종류   | 형식       | 설명                                                                 |
+|-------------------------------|------|----------|--------------------------------------------------------------------|
+| dbInstances                   | Body | Array    | DB 인스턴스 목록                                                         |
+| dbInstances.dbInstanceId      | Body | UUID     | DB 인스턴스의 식별자                                                       |
+| dbInstances.dbInstanceGroupId | Body | UUID     | DB 인스턴스 그룹의 식별자                                                    |
+| dbInstances.dbInstanceName    | Body | String   | DB 인스턴스를 식별할 수 있는 이름                                               |
+| dbInstances.description       | Body | String   | DB 인스턴스에 대한 추가 정보                                                  |
+| dbInstances.dbVersion         | Body | Enum     | DB 엔진 버전                                                           |
+| dbInstances.dbPort            | Body | Number   | DB 포트                                                              |
+| dbInstances.dbInstanceType    | Body | Enum     | DB 인스턴스의 역할 타입<br/>- `MASTER`: 마스터<br/>- `READ_ONLY_SLAVE`: 읽기 복제본 |
+| dbInstances.dbInstanceStatus  | Body | Enum     | DB 인스턴스의 현재 상태                                                     |
+| dbInstances.progressStatus    | Body | Enum     | DB 인스턴스의 현재 진행 상태                                                  |
+| dbInstances.createdYmdt       | Body | DateTime | 생성 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                  |
+| dbInstances.updatedYmdt       | Body | DateTime | 수정 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                  |
 
 <details><summary>예시</summary>
 
@@ -578,27 +576,27 @@ GET /v1.0/db-instances/{dbInstanceId}
 
 #### 응답
 
-| 이름                        | 종류   | 형식       | 설명                                                                                                                                    |
-|---------------------------|------|----------|---------------------------------------------------------------------------------------------------------------------------------------|
-| dbInstanceId              | Body | UUID     | DB 인스턴스의 식별자                                                                                                                          |
-| dbInstanceGroupId         | Body | UUID     | DB 인스턴스 그룹의 식별자                                                                                                                       |
-| dbInstanceName            | Body | String   | DB 인스턴스를 식별할 수 있는 이름                                                                                                                  |
-| description               | Body | String   | DB 인스턴스에 대한 추가 정보                                                                                                                     |
-| dbVersion                 | Body | Enum     | DB 엔진 버전                                                                                                                              |
-| dbPort                    | Body | Number   | DB 포트                                                                                                                                 |
-| dbInstanceType            | Body | Enum     | DB 인스턴스의 역할 타입<br/>- `MASTER`: 마스터<br/>- `FAILED_MASTER`: 장애 조치된 마스터<br/>- `CANDIDATE_MASTER`: 예비 마스터<br/>- `READ_ONLY_SLAVE`: 읽기 복제본 |
-| dbInstanceStatus          | Body | Enum     | DB 인스턴스의 현재 상태                                                                                                                        |
-| progressStatus            | Body | Enum     | DB 인스턴스의 현재 작업 진행 상태                                                                                                                  |
-| dbFlavorId                | Body | UUID     | DB 인스턴스 사양의 식별자                                                                                                                       |
-| parameterGroupId          | Body | UUID     | DB 인스턴스에 적용된 파라미터 그룹의 식별자                                                                                                             |
-| dbSecurityGroupIds        | Body | Array    | DB 인스턴스에 적용된 DB 보안 그룹의 식별자 목록                                                                                                         |
-| notificationGroupIds      | Body | Array    | DB 인스턴스에 적용된 알림 그룹의 식별자 목록                                                                                                            |
-| useDeletionProtection     | Body | Boolean  | DB 인스턴스 삭제 보호 여부                                                                                                                      |
-| needToApplyParameterGroup | Body | Boolean  | 최신 파라미터 그룹 적용 필요 여부                                                                                                                   |
-| needMigration             | Body | Boolean  | 마이그레이션 필요 여부                                                                                                                          |
-| osVersion                 | Body | String   | 운영체제 버전                                                                                                                               |
-| createdYmdt               | Body | DateTime | 생성 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                     |
-| updatedYmdt               | Body | DateTime | 수정 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                     |
+| 이름                        | 종류   | 형식       | 설명                                                                 |
+|---------------------------|------|----------|--------------------------------------------------------------------|
+| dbInstanceId              | Body | UUID     | DB 인스턴스의 식별자                                                       |
+| dbInstanceGroupId         | Body | UUID     | DB 인스턴스 그룹의 식별자                                                    |
+| dbInstanceName            | Body | String   | DB 인스턴스를 식별할 수 있는 이름                                               |
+| description               | Body | String   | DB 인스턴스에 대한 추가 정보                                                  |
+| dbVersion                 | Body | Enum     | DB 엔진 버전                                                           |
+| dbPort                    | Body | Number   | DB 포트                                                              |
+| dbInstanceType            | Body | Enum     | DB 인스턴스의 역할 타입<br/>- `MASTER`: 마스터<br/>- `READ_ONLY_SLAVE`: 읽기 복제본 |
+| dbInstanceStatus          | Body | Enum     | DB 인스턴스의 현재 상태                                                     |
+| progressStatus            | Body | Enum     | DB 인스턴스의 현재 작업 진행 상태                                               |
+| dbFlavorId                | Body | UUID     | DB 인스턴스 사양의 식별자                                                    |
+| parameterGroupId          | Body | UUID     | DB 인스턴스에 적용된 파라미터 그룹의 식별자                                          |
+| dbSecurityGroupIds        | Body | Array    | DB 인스턴스에 적용된 DB 보안 그룹의 식별자 목록                                      |
+| notificationGroupIds      | Body | Array    | DB 인스턴스에 적용된 알림 그룹의 식별자 목록                                         |
+| useDeletionProtection     | Body | Boolean  | DB 인스턴스 삭제 보호 여부                                                   |
+| needToApplyParameterGroup | Body | Boolean  | 최신 파라미터 그룹 적용 필요 여부                                                |
+| needMigration             | Body | Boolean  | 마이그레이션 필요 여부                                                       |
+| osVersion                 | Body | String   | 운영체제 버전                                                            |
+| createdYmdt               | Body | DateTime | 생성 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                  |
+| updatedYmdt               | Body | DateTime | 수정 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                  |
 
 <details><summary>예시</summary>
 
@@ -651,7 +649,6 @@ POST /v1.0/db-instances
 | dbPassword                                   | Body | String  | O  | DB 엔진 내 신규 생성할 사용자 계정 암호<br/>- 최소 길이: `4`<br/>- 최대 길이: `16`                                                                                                                                                          |
 | parameterGroupId                             | Body | UUID    | O  | 파라미터 그룹의 식별자                                                                                                                                                                                                         |
 | dbSecurityGroupIds                           | Body | Array   | X  | DB 보안 그룹의 식별자 목록                                                                                                                                                                                                     |
-| useHighAvailability                          | Body | Boolean | X  | 고가용성 사용 여부<br/>- 기본값: `false`                                                                                                                                                                                        |
 | useDeletionProtection                        | Body | Boolean | X  | 삭제 보호 여부<br/>- 기본값: `false`                                                                                                                                                                                          |
 | useDefaultUserNotification                   | Body | Boolean | X  | 기본 알림 사용 여부<br/>- 기본값: `false`                                                                                                                                                                                       |
 | userGroupIds                                 | Body | Array   | X  | 기본 알림 수신용 사용자 그룹의 식별자 목록                                                                                                                                                                                             |
@@ -747,7 +744,6 @@ PUT /v1.0/db-instances/{dbInstanceId}
 | parameterGroupId   | Body | UUID    | X  | 파라미터 그룹의 식별자                                                              |
 | dbSecurityGroupIds | Body | Array   | X  | DB 보안 그룹의 식별자 목록                                                          |
 | executeBackup      | Body | Boolean | X  | 현재 시점 백업 진행 여부<br/>- 기본값: `false`                                         |
-| useOnlineFailover  | Body | Boolean | X  | 장애 조치를 이용한 재시작 여부<br/>고가용성을 사용 중인 DB 인스턴스에서만 사용 가능합니다.<br/>- 기본값: `false` |
 
 <details><summary>예시</summary>
 
@@ -1072,7 +1068,6 @@ GET /v1.0/db-instances/{dbInstanceId}/restoration-info
 | restorableBackups.backup.dbInstanceId   | Body | UUID     | 원본 DB 인스턴스의 식별자                                                                                                                                       |
 | restorableBackups.backup.dbInstanceName | Body | String   | 원본 DB 인스턴스의 이름                                                                                                                                        |
 | restorableBackups.backup.dbVersion      | Body | String   | DB 엔진 유형                                                                                                                                              |
-| restorableBackups.backup.failoverCount  | Body | Number   | 장애 조치 횟수                                                                                                                                              |
 | restorableBackups.backup.walFileName    | Body | String   | WAL 로그 파일 이름                                                                                                                                          |
 | restorableBackups.backup.createdYmdt    | Body | DateTime | 백업 생성 일시                                                                                                                                              |
 | restorableBackups.backup.updatedYmdt    | Body | DateTime | 백업 갱신 일시                                                                                                                                              |
@@ -1100,7 +1095,6 @@ GET /v1.0/db-instances/{dbInstanceId}/restoration-info
 				"dbVersion": "POSTGRESQL_V146",
 				"backupType": "MANUAL",
 				"backupSize": 8299904,
-				"failoverCount": 0,
 				"walFileName": "000000010000000000000005",
 				"createdYmdt": "2023-07-10T15:44:44+09:00",
 				"updatedYmdt": "2023-07-10T15:46:07+09:00"
@@ -1186,7 +1180,6 @@ POST /v1.0/db-instances/{dbInstanceId}/restart
 | 이름                | 종류   | 형식      | 필수 | 설명                                                                        |
 |-------------------|------|---------|----|---------------------------------------------------------------------------|
 | dbInstanceId      | URL  | UUID    | O  | DB 인스턴스의 식별자                                                              |
-| useOnlineFailover | Body | Boolean | X  | 장애 조치를 이용한 재시작 여부<br/>고가용성을 사용 중인 DB 인스턴스에서만 사용 가능합니다.<br/>- 기본값: `false` |
 | executeBackup     | Body | Boolean | X  | 현재 시점 백업 진행 여부<br/>- 기본값: `false`                                         |
 
 <details><summary>예시</summary>
@@ -1369,7 +1362,6 @@ POST /v1.0/db-instances/{dbInstanceId}/apply-recent-parameter-group
 | 이름                | 종류   | 형식      | 필수 | 설명                                                                        |
 |-------------------|------|---------|----|---------------------------------------------------------------------------|
 | dbInstanceId      | URL  | UUID    | O  | DB 인스턴스의 식별자                                                              |
-| useOnlineFailover | Body | Boolean | X  | 장애 조치를 이용한 재시작 여부<br/>고가용성을 사용 중인 DB 인스턴스에서만 사용 가능합니다.<br/>- 기본값: `false` |
 | executeBackup     | Body | Boolean | X  | 현재 시점 백업 진행 여부<br/>- 기본값: `false`                                         |
 
 <details><summary>예시</summary>
@@ -2238,7 +2230,6 @@ POST /v1.0/backups/{backupId}/restore
 | parameterGroupId                             | Body | UUID    | O  | 파라미터 그룹의 식별자                                                                                                                                                                                                              |
 | dbSecurityGroupIds                           | Body | Array   | X  | DB 보안 그룹의 식별자 목록                                                                                                                                                                                                          ||network|Body|Object|O|네트워크 정보 객체|
 | userGroupIds                                 | Body | Array   | X  | 사용자 그룹의 식별자 목록                                                                                                                                                                                                            |
-| useHighAvailability                          | Body | Boolean | X  | 고가용성 사용 여부<br/>- 기본값: `false`                                                                                                                                                                                             |
 | useDefaultNotification                       | Body | Boolean | X  | 기본 알림 사용 여부<br/>- 기본값: `false`                                                                                                                                                                                            |
 | useDeletionProtection                        | Body | Boolean | X  | 삭제 보호 여부<br/>- 기본값: `false`                                                                                                                                                                                               | 
 | network                                      | Body | Object  | O  | 네트워크 정보 객체                                                                                                                                                                                                                |
