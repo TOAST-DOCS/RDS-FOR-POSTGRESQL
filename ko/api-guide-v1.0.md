@@ -1726,7 +1726,7 @@ POST /v1.0/db-instances/{dbInstanceId}/db-users
 |-----------------------|------|---------|----|---------------------------------------------------------------------------|
 | dbInstanceId          | URL  | UUID    | O  | DB 인스턴스의 식별자                                                              |
 | dbUserName            | Body | String  | O  | DB 사용자 계정 이름<br/>- 최소 길이: `1`<br/>- 최대 길이: `20`                           |
-| password              | Body | String  | O  | DB 사용자 계정 암호<br/>- 최소 길이: `1`<br/>- 최대 길이: `100`                          |
+| dbPassword            | Body | String  | O  | DB 사용자 계정 암호<br/>- 최소 길이: `1`<br/>- 최대 길이: `100`                          |
 | authorityType         | Body | Enum    | O  | DB 사용자 권한 타입<br/>- `CRUD`: DML 쿼리 수행 가능한 권한<br/>- `DDL`: DDL 쿼리 수행 가능한 권한 |
 | createDefaultHbaRules | Body | Boolean | X  | 기본 접근 제어 규칙 생성 여부                                                         |
 | address               | Body | String  | X  | 기본 접근 제어 규칙 생성 시 사용할 접속 주소                                                |
@@ -1775,7 +1775,7 @@ PUT /v1.0/db-instances/{dbInstanceId}/db-users/{dbUserId}
 | dbInstanceId             | URL  | UUID    | O  | DB 인스턴스의 식별자                                                                               |
 | dbUserId                 | URL  | UUID    | O  | DB 사용자의 식별자                                                                                |
 | dbUserName               | Body | String  | X  | DB 사용자 계정 이름<br/>- 최소 길이: `1`<br/>- 최대 길이: `20`                                            |
-| password                 | Body | String  | X  | DB 사용자 계정 암호<br/>- 최소 길이: `1`<br/>- 최대 길이: `100`                                           |
+| dbPassword               | Body | String  | X  | DB 사용자 계정 암호<br/>- 최소 길이: `1`<br/>- 최대 길이: `100`                                           |
 | authorityType            | Body | Enum    | X  | DB 사용자 권한 타입<br/>- `CRUD`: DML 쿼리 수행 가능한 권한<br/>- `DDL`: DDL 쿼리 수행 가능한 권한                  |
 | applyHbaRulesImmediately | Body | Boolean | X  | 연관된 접근 제어 규칙 즉시 적용 여부<br/>- 사용자 계정 이름 변경시 이전 사용자 계정 이름으로 설정된 접근 제어 규칙이 있으면 변경된 이름으로 반영합니다. |
 
