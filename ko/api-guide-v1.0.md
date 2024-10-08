@@ -2475,8 +2475,8 @@ POST /v1.0/db-security-groups
 | rules.cidr          | Body | String | O  | 허용할 트래픽의 원격 소스<br/>- 예시: `1.1.1.1/32`                                                                                                                                                    |
 | rules.port          | Body | Object | O  | 포트 객체                                                                                                                                                                                    |
 | rules.port.portType | Body | Enum   | O  | 포트 타입<br/>- `DB_PORT`: 각 DB 인스턴스 포트값으로 설정됩니다. `minPort`값과 `maxPort`값을 필요로 하지 않습니다.<br/>- `PORT`: 지정된 포트값으로 설정됩니다. `minPort`값과 `maxPort`값이 같아야 합니다.<br/>- `PORT_RANGE`: 지정된 포트 범위로 설정됩니다. |
-| rules.port.minPort  | Body | Number | X  | 최소 포트 범위<br/>- 최솟값: 1                                                                                                                                                                    |
-| rules.port.maxPort  | Body | Number | X  | 최대 포트 범위<br/>- 최댓값: 65535                                                                                                                                                                |
+| rules.port.minPort  | Body | Number | X  | 최소 포트 범위<br/>- 수신 최솟값: 5432<br/>- 송신 최솟값: 1                                                                                                                                              |
+| rules.port.maxPort  | Body | Number | X  | 최대 포트 범위<br/>- 수신 최댓값: 45432<br/>- 송신 최댓값: 65535                                                                                                                                         |
 
 <details><summary>예시</summary>
 
@@ -2600,17 +2600,17 @@ POST /v1.0/db-security-groups/{dbSecurityGroupId}/rules
 
 #### 요청
 
-| 이름                | 종류     | 형식      | 필수  | 설명                                                                                                                                                                                       |
-|-------------------|--------|---------|-----|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| dbSecurityGroupId | URL    | UUID    | O   | DB 보안 그룹의 식별자                                                                                                                                                                            |
-| description       | Body   | String  | X   | DB 보안 그룹 규칙에 대한 추가 정보                                                                                                                                                                    |
-| direction         | Body   | Enum    | O   | 통신 방향<br/>- `INGRESS`: 수신<br/>- `EGRESS`: 송신                                                                                                                                             |
-| etherType         | Body   | Enum    | O   | Ether 타입<br/>- `IPV4`: IPv4<br/>- `IPV6`: IPv6                                                                                                                                           |
-| port              | Body   | Object  | O   | 포트 객체                                                                                                                                                                                    |
-| port.portType     | Body   | Enum    | O   | 포트 타입<br/>- `DB_PORT`: 각 DB 인스턴스 포트값으로 설정됩니다. `minPort`값과 `maxPort`값을 필요로 하지 않습니다.<br/>- `PORT`: 지정된 포트값으로 설정됩니다. `minPort`값과 `maxPort`값이 같아야 합니다.<br/>- `PORT_RANGE`: 지정된 포트 범위로 설정됩니다. |
-| port.minPort      | Body   | Number  | X   | 최소 포트 범위<br/>- 최솟값: 1                                                                                                                                                                    |
-| port.maxPort      | Body   | Number  | X   | 최대 포트 범위<br/>- 최댓값: 65535                                                                                                                                                                |
-| cidr              | Body   | String  | O   | 허용할 트래픽의 원격 소스<br/>- 예시: `1.1.1.1/32`                                                                                                                                                    |
+| 이름                | 종류   | 형식     | 필수 | 설명                                                                                                                                                                                       |
+|-------------------|------|--------|----|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| dbSecurityGroupId | URL  | UUID   | O  | DB 보안 그룹의 식별자                                                                                                                                                                            |
+| description       | Body | String | X  | DB 보안 그룹 규칙에 대한 추가 정보                                                                                                                                                                    |
+| direction         | Body | Enum   | O  | 통신 방향<br/>- `INGRESS`: 수신<br/>- `EGRESS`: 송신                                                                                                                                             |
+| etherType         | Body | Enum   | O  | Ether 타입<br/>- `IPV4`: IPv4<br/>- `IPV6`: IPv6                                                                                                                                           |
+| port              | Body | Object | O  | 포트 객체                                                                                                                                                                                    |
+| port.portType     | Body | Enum   | O  | 포트 타입<br/>- `DB_PORT`: 각 DB 인스턴스 포트값으로 설정됩니다. `minPort`값과 `maxPort`값을 필요로 하지 않습니다.<br/>- `PORT`: 지정된 포트값으로 설정됩니다. `minPort`값과 `maxPort`값이 같아야 합니다.<br/>- `PORT_RANGE`: 지정된 포트 범위로 설정됩니다. |
+| port.minPort      | Body | Number | X  | 최소 포트 범위<br/>- 수신 최솟값: 5432<br/>- 송신 최솟값: 1                                                                                                                                              |
+| port.maxPort      | Body | Number | X  | 최대 포트 범위<br/>- 수신 최댓값: 45432<br/>- 송신 최댓값: 65535                                                                                                                                         |
+| cidr              | Body | String | O  | 허용할 트래픽의 원격 소스<br/>- 예시: `1.1.1.1/32`                                                                                                                                                    |
 
 <details><summary>예시</summary>
 
@@ -2656,18 +2656,18 @@ PUT /v1.0/db-security-groups/{dbSecurityGroupId}/rules/{ruleId}
 
 #### 요청
 
-| 이름                | 종류    | 형식     | 필수 | 설명                                                                                                                                                                                       |
-|-------------------|-------|--------|----|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| dbSecurityGroupId | URL   | UUID   | O  | DB 보안 그룹의 식별자                                                                                                                                                                            |
-| ruleId            | URL   | UUID   | O  | DB 보안 그룹 규칙의 식별자                                                                                                                                                                         |
-| description       | Body  | String | X  | DB 보안 그룹 규칙에 대한 추가 정보                                                                                                                                                                    |
-| direction         | Body  | Enum   | O  | 통신 방향<br/>- `INGRESS`: 수신<br/>- `EGRESS`: 송신                                                                                                                                             |
-| etherType         | Body  | Enum   | O  | Ether 타입<br/>- `IPV4`: IPv4<br/>- `IPV6`: IPv6                                                                                                                                           |
-| port              | Body  | Object | O  | 포트 객체                                                                                                                                                                                    |
-| port.portType     | Body  | Enum   | O  | 포트 타입<br/>- `DB_PORT`: 각 DB 인스턴스 포트값으로 설정됩니다. `minPort`값과 `maxPort`값을 필요로 하지 않습니다.<br/>- `PORT`: 지정된 포트값으로 설정됩니다. `minPort`값과 `maxPort`값이 같아야 합니다.<br/>- `PORT_RANGE`: 지정된 포트 범위로 설정됩니다. |
-| port.minPort      | Body  | Number | X  | 최소 포트 범위<br/>- 최솟값: 1                                                                                                                                                                    |
-| port.maxPort      | Body  | Number | X  | 최대 포트 범위<br/>- 최댓값: 65535                                                                                                                                                                |
-| cidr              | Body  | String | O  | 허용할 트래픽의 원격 소스<br/>- 예시: `1.1.1.1/32`                                                                                                                                                    |
+| 이름                | 종류   | 형식     | 필수 | 설명                                                                                                                                                                                       |
+|-------------------|------|--------|----|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| dbSecurityGroupId | URL  | UUID   | O  | DB 보안 그룹의 식별자                                                                                                                                                                            |
+| ruleId            | URL  | UUID   | O  | DB 보안 그룹 규칙의 식별자                                                                                                                                                                         |
+| description       | Body | String | X  | DB 보안 그룹 규칙에 대한 추가 정보                                                                                                                                                                    |
+| direction         | Body | Enum   | O  | 통신 방향<br/>- `INGRESS`: 수신<br/>- `EGRESS`: 송신                                                                                                                                             |
+| etherType         | Body | Enum   | O  | Ether 타입<br/>- `IPV4`: IPv4<br/>- `IPV6`: IPv6                                                                                                                                           |
+| port              | Body | Object | O  | 포트 객체                                                                                                                                                                                    |
+| port.portType     | Body | Enum   | O  | 포트 타입<br/>- `DB_PORT`: 각 DB 인스턴스 포트값으로 설정됩니다. `minPort`값과 `maxPort`값을 필요로 하지 않습니다.<br/>- `PORT`: 지정된 포트값으로 설정됩니다. `minPort`값과 `maxPort`값이 같아야 합니다.<br/>- `PORT_RANGE`: 지정된 포트 범위로 설정됩니다. |
+| port.minPort      | Body | Number | X  | 최소 포트 범위<br/>- 수신 최솟값: 5432<br/>- 송신 최솟값: 1                                                                                                                                              |
+| port.maxPort      | Body | Number | X  | 최대 포트 범위<br/>- 수신 최댓값: 45432<br/>- 송신 최댓값: 65535                                                                                                                                         |
+| cidr              | Body | String | O  | 허용할 트래픽의 원격 소스<br/>- 예시: `1.1.1.1/32`                                                                                                                                                    |
 
 <details><summary>예시</summary>
 
