@@ -353,7 +353,7 @@ You can easily change various items in DB instance created through the console. 
 | Items                     | Whether able to change or not | Whether need to restart or not                                 |
 |---------------------------|-------------------------------|----------------------------------------------------------------|
 | Availability Zone         | No                            |                                                                |
-| DB Engine                 | Yes                            |          Yes                                                     |
+| DB Version                 | Yes                            |          Yes                                                     |
 | DB instance type          | Yes                           | Yes                                                            |
 | Data Storage Types        | No                            |                                                                |
 | Data Storage Sizes        | Yes                           | Yes                                                            |
