@@ -1,38 +1,38 @@
-## Database > RDS for PostgreSQL > API 가이드
+## Database > RDS for PostgreSQL > APIガイド
 
-| 리전        | 엔드포인트                                            |
+| リージョン       | エンドポイント                                           |
 |-----------|--------------------------------------------------|
-| 한국(판교) 리전 | https://kr1-rds-postgres.api.nhncloudservice.com |
+| 韓国(パンギョ)リージョン | https://kr1-rds-postgres.api.nhncloudservice.com |
 
-## 인증 및 권한
+## 認証および権限
 
-API를 사용하려면 [Public API > API 호출 및 인증](https://docs.nhncloud.com/ko/nhncloud/ko/public-api/api-authentication/)을 통해 발급 받은 Bearer 유형의 토큰이 필요합니다.
-발급 받은 토큰은 Appkey와 함께 요청 Header에 포함해야 합니다.
+APIを使用するには[Public API > API呼び出しおよび認証](https://docs.nhncloud.com/ko/nhncloud/ko/public-api/api-authentication/)を通じて発行されたBearerタイプのトークンが必要です。
+発行されたトークンはAppkeyと共にリクエストHeaderに含める必要があります。
 
-| 이름                  | 종류     | 형식     | 필수 | 설명                                               |
+| 名前                 | 種類    | 形式    | 必須 | 説明                                              |
 |---------------------|--------|--------|----|--------------------------------------------------|
-| X-TC-APP-KEY        | Header | String | O  | RDS for PostgreSQL 서비스의 Appkey 또는 프로젝트 통합 Appkey |
-| X-NHN-AUTHORIZATION | Header | String | O  | Public API로 발급 받은 Bearer 유형 토큰                   |
+| X-TC-APP-KEY        | Header | String | O  | RDS for PostgreSQLサービスのAppkeyまたはプロジェクト統合Appkey |
+| X-NHN-AUTHORIZATION | Header | String | O  | Public APIで発行されたBearerタイプトークン                  |
 
-또한 프로젝트 권한에 따라 호출할 수 있는 API가 제한됩니다. `RDS for PostgreSQL ADMIN`, `RDS for PostgreSQL VIEWER` 역할에는 아래처럼 기본 권한이 부여돼 있고 프로젝트 내 역할 그룹 관리 메뉴에서 필요한 권한만 부여할 수 있습니다.
+また、プロジェクト権限によって呼び出せるAPIが制限されます。`RDS for PostgreSQL ADMIN`、`RDS for PostgreSQL VIEWER`のロールには、次のような基本権限が付与されており、プロジェクト内のロールグループ管理メニューで必要な権限のみを付与できます。
 
-* `RDS for PostgreSQL ADMIN` 역할은 API 실행에 필요한 모든 권한이 부여됩니다.
-* `RDS for PostgreSQL VIEWER` 역할은 정보를 조회하는 권한만 부여됩니다.
-    * DB 인스턴스를 생성, 수정, 삭제하거나, DB 인스턴스를 대상으로 하는 어떠한 기능도 사용할 수 없습니다.
-    * 단, 알림 그룹과 사용자 그룹 관련된 기능은 사용할 수 있습니다.
+* `RDS for PostgreSQL ADMIN`のロールには、API実行に必要なすべての権限が付与されます。
+* `RDS for PostgreSQL VIEWER`のロールには、情報を照会する権限のみ付与されます。
+    * DBインスタンスを作成、修正、削除およびDBインスタンスを対象とするいかなる機能も使用できません。
+    * ただし、通知グループとユーザーグループに関連する機能は使用できます。
 
-API 요청 시 인증에 실패하거나 권한이 없으면 다음과 같은 오류가 발생합니다.
+APIリクエスト時、認証に失敗または権限がない場合、次のようなエラーが発生します。
 
-| resultCode | resultMessage | 설명          |
+| resultCode | resultMessage | 説明         |
 |------------|---------------|-------------|
-| 80401      | Unauthorized  | 인증에 실패했습니다. |
-| 80403      | Forbidden     | 권한이 없습니다.   |
+| 80401      | Unauthorized  | 認証に失敗しました。 |
+| 80403      | Forbidden     | 権限がありません。   |
 
-## 응답 공통 정보
+## レスポンス共通情報
 
-모든 API 요청에 `200 OK`로 응답합니다. 자세한 응답 결과는 응답 본문의 헤더를 참고합니다.
+すべてのAPIリクエストに`200 OK`でレスポンスします。詳しいレスポンス結果はレスポンス本文のヘッダを参照してください。
 
-#### 응답 본문
+#### レスポンス本文
 
 ```json
 {
@@ -44,49 +44,49 @@ API 요청 시 인증에 실패하거나 권한이 없으면 다음과 같은 �
 }
 ```
 
-#### 필드
+#### フィールド
 
-| 이름            | 자료형     | 설명                    |
+| 名前           | データ型    | 説明                   |
 |---------------|---------|-----------------------|
-| resultCode    | Number  | 결과 코드(성공: 0, 그 외: 실패) |
-| resultMessage | String  | 결과 메시지                |
-| successful    | Boolean | 성공 여부                 |
+| resultCode    | Number  | 結果コード(成功:0、その他:失敗) |
+| resultMessage | String  | 結果メッセージ               |
+| successful    | Boolean | 成否                |
 
-## DB 버전
+## DBバージョン
 
-| DB 버전           | 생성 가능 여부 |
+| DBバージョン          | 作成可否 |
 |-----------------|----------|
 | POSTGRESQL_V146 | O        |
 
-* ENUM 유형의 dbVersion 필드에 대해 해당 값을 사용할 수 있습니다.
-* 버전에 따라 생성이 불가능하거나, 복원이 불가능한 경우가 있을 수 있습니다.
+* ENUMタイプのdbVersionフィールドに対して該当値を使用できます。
+* バージョンによっては、作成不可能な場合や復元不可能な場合があります。
 
-### DB 버전 목록 보기
+### DBバージョンリストを表示
 
 ```http
 GET /v1.0/db-versions
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                             | 설명          |
+| 権限名                            | 説明         |
 |---------------------------------|-------------|
-| RDSforPostgreSQL:DbVersion.List | DB 버전 목록 보기 |
+| RDSforPostgreSQL:DbVersion.List | DBバージョンリストを表示 |
 
-#### 요청
+#### リクエスト
 
-이 API는 요청 본문을 요구하지 않습니다.
+このAPIはリクエスト本文を要求しません。
 
-#### 응답
+#### レスポンス
 
-| 이름                           | 종류   | 형식      | 설명                    |
+| 名前                          | 種類  | 形式     | 説明                   |
 |------------------------------|------|---------|-----------------------|
-| dbVersions                   | Body | Array   | DB 버전 목록              |
-| dbVersions.dbVersion         | Body | String  | DB 버전                 |
-| dbVersions.dbVersionName     | Body | String  | DB 버전명                |
-| dbVersions.restorableFromObs | Body | Boolean | 오브젝트 스토리지로부터 복원 가능 여부 |
+| dbVersions                   | Body | Array   | DBバージョンリスト             |
+| dbVersions.dbVersion         | Body | String  | DBバージョン                |
+| dbVersions.dbVersionName     | Body | String  | DBバージョン名               |
+| dbVersions.restorableFromObs | Body | Boolean | オブジェクトストレージから復元可能かどうか |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -106,35 +106,35 @@ GET /v1.0/db-versions
 ```
 </details>
 
-## DB 인스턴스 사양
+## DBインスタンス仕様
 
-### DB 인스턴스 사양 목록 보기
+### DBインスタンス仕様リストを表示
 
 ```http
 GET /v1.0/db-flavors
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                            | 설명               |
+| 権限名                           | 説明              |
 |--------------------------------|------------------|
-| RDSforPostgreSQL:DbFlavor.List | DB 인스턴스 사양 목록 보기 |
+| RDSforPostgreSQL:DbFlavor.List | DBインスタンス仕様リスト表示 |
 
-#### 요청
+#### リクエスト
 
-이 API는 요청 본문을 요구하지 않습니다.
+このAPIはリクエスト本文を要求しません。
 
-#### 응답
+#### レスポンス
 
-| 이름                     | 종류   | 형식     | 설명              |
+| 名前                    | 種類  | 形式    | 説明             |
 |------------------------|------|--------|-----------------|
-| dbFlavors              | Body | Array  | DB 인스턴스 사양 목록   |
-| dbFlavors.dbFlavorId   | Body | UUID   | DB 인스턴스 사양의 식별자 |
-| dbFlavors.dbFlavorName | Body | String | DB 인스턴스 사양 이름   |
-| dbFlavors.ram          | Body | Number | 메모리 용량(MB)      |
-| dbFlavors.vcpus        | Body | Number | CPU 코어 수        |
+| dbFlavors              | Body | Array  | DBインスタンス仕様リスト  |
+| dbFlavors.dbFlavorId   | Body | UUID   | DBインスタンス仕様の識別子 |
+| dbFlavors.dbFlavorName | Body | String | DBインスタンス仕様名  |
+| dbFlavors.ram          | Body | Number | メモリ容量(MB)      |
+| dbFlavors.vcpus        | Body | Number | CPUコア数       |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -155,33 +155,33 @@ GET /v1.0/db-flavors
 ```
 </details>
 
-## 프로젝트 정보
+## プロジェクト情報
 
-### 리전 목록 보기
+### リージョンリストを表示
 
 ```http
 GET /v1.0/project/regions
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                          | 설명         |
+| 権限名                         | 説明        |
 |------------------------------|------------|
-| RDSforPostgreSQL:Project.Get | 프로젝트 정보 조회 |
+| RDSforPostgreSQL:Project.Get | プロジェクト情報を照会 |
 
-#### 요청
+#### リクエスト
 
-이 API는 요청 본문을 요구하지 않습니다.
+このAPIはリクエスト本文を要求しません。
 
-#### 응답
+#### レスポンス
 
-| 이름                 | 종류   | 형식      | 설명                           |
+| 名前                | 種類  | 形式     | 説明                          |
 |--------------------|------|---------|------------------------------|
-| regions            | Body | Array   | 리전 목록                        |
-| regions.regionCode | Body | Enum    | 리전 코드<br/>- `KR1`: 한국(판교) 리전 |
-| regions.isEnabled  | Body | Boolean | 리전의 활성화 여부                   |
+| regions            | Body | Array   | リージョンリスト                       |
+| regions.regionCode | Body | Enum    | リージョンコード<br/>- `KR1`:韓国(パンギョ)リージョン |
+| regions.isEnabled  | Body | Boolean | リージョンが有効かどうか                   |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -200,33 +200,33 @@ GET /v1.0/project/regions
 ```
 </details>
 
-### 프로젝트 멤버 목록 보기
+### プロジェクトメンバーリストを表示
 
 ```http
 GET /v1.0/project/members
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                          | 설명         |
+| 権限名                         | 説明        |
 |------------------------------|------------|
-| RDSforPostgreSQL:Project.Get | 프로젝트 정보 조회 |
+| RDSforPostgreSQL:Project.Get | プロジェクト情報照会 |
 
-#### 요청
+#### リクエスト
 
-이 API는 요청 본문을 요구하지 않습니다.
+このAPIはリクエスト本文を要求しません。
 
-#### 응답
+#### レスポンス
 
-| 이름                   | 종류   | 형식     | 설명              |
+| 名前                  | 種類  | 形式    | 説明             |
 |----------------------|------|--------|-----------------|
-| members              | Body | Array  | 프로젝트 멤버 목록      |
-| members.memberId     | Body | UUID   | 프로젝트 멤버의 식별자    |
-| members.memberName   | Body | String | 프로젝트 멤버의 이름     |
-| members.emailAddress | Body | String | 프로젝트 멤버의 이메일 주소 |
-| members.phoneNumber  | Body | String | 프로젝트 멤버의 전화번호   |
+| members              | Body | Array  | プロジェクトメンバーリスト     |
+| members.memberId     | Body | UUID   | プロジェクトメンバーの識別子   |
+| members.memberName   | Body | String | プロジェクトメンバーの名前    |
+| members.emailAddress | Body | String | プロジェクトメンバーのメールアドレス |
+| members.phoneNumber  | Body | String | プロジェクトメンバーの電話番号  |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -238,7 +238,7 @@ GET /v1.0/project/members
     "members": [
         {
             "memberId": "1b1d3627-507a-49ea-8cb7-c86dfa9caa58",
-            "memberName": "홍길동",
+            "memberName": "ホン・ギルドン",
             "emailAddress": "gildong.hong@nhn.com",
             "phoneNumber": "+821012345678"
         }
@@ -247,37 +247,37 @@ GET /v1.0/project/members
 ```
 </details>
 
-## 네트워크
+## ネットワーク
 
-### 서브넷 목록 보기
+### サブネットリストを表示
 
 ```http
 GET /v1.0/network/subnets
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                           | 설명        |
+| 権限名                          | 説明       |
 |-------------------------------|-----------|
-| RDSforPostgreSQL:Network.List | 서브넷 목록 보기 |
+| RDSforPostgreSQL:Network.List | サブネットリストを表示 |
 
-#### 요청
+#### リクエスト
 
-이 API는 요청 본문을 요구하지 않습니다.
+このAPIはリクエスト本文を要求しません。
 
-#### 응답
+#### レスポンス
 
-| 이름                       | 종류   | 형식      | 설명               |
+| 名前                      | 種類  | 形式     | 説明              |
 |--------------------------|------|---------|------------------|
-| subnets                  | Body | Array   | 서브넷 목록           |
-| subnets.subnetId         | Body | UUID    | 서브넷의 식별자         |
-| subnets.subnetName       | Body | String  | 서브넷을 식별할 수 있는 이름 |
-| subnets.subnetCidr       | Body | String  | 서브넷의 CIDR        |
-| subnets.usingGateway     | Body | Boolean | 게이트웨이 사용 여부      |
-| subnets.availableIpCount | Body | Number  | 사용 가능한 IP 수      |
+| subnets                  | Body | Array   | サブネットリスト          |
+| subnets.subnetId         | Body | UUID    | サブネットの識別子        |
+| subnets.subnetName       | Body | String  | サブネットを識別できる名前 |
+| subnets.subnetCidr       | Body | String  | サブネットのCIDR        |
+| subnets.usingGateway     | Body | Boolean | ゲートウェイ使用有無      |
+| subnets.availableIpCount | Body | Number  | 使用可能なIP数      |
 
 <details>
-<summary>예시</summary>
+<summary>例</summary>
 
 ```json
 {
@@ -299,31 +299,31 @@ GET /v1.0/network/subnets
 ```
 </details>
 
-## 스토리지
+## ストレージ
 
-### 스토리지 유형 목록 보기
+### ストレージタイプリストを表示
 
 ```http
 GET /v1.0/storage-types
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                           | 설명            |
+| 権限名                          | 説明           |
 |-------------------------------|---------------|
-| RDSforPostgreSQL:Storage.List | 스토리지 유형 목록 보기 |
+| RDSforPostgreSQL:Storage.List | ストレージタイプリストを表示 |
 
-#### 요청
+#### リクエスト
 
-이 API는 요청 본문을 요구하지 않습니다.
+このAPIはリクエスト本文を要求しません。
 
-#### 응답
+#### レスポンス
 
-| 이름           | 종류   | 형식    | 설명         |
+| 名前          | 種類  | 形式   | 説明        |
 |--------------|------|-------|------------|
-| storageTypes | Body | Array | 스토리지 유형 목록 |
+| storageTypes | Body | Array | ストレージタイプリスト |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -340,41 +340,41 @@ GET /v1.0/storage-types
 ```
 </details>
 
-## 작업 정보
+## 作業情報
 
-### 작업 정보 상세 보기
+### 作業情報の詳細を表示
 
 ```http
 GET /v1.0/jobs/{jobId}
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                      | 설명          |
+| 権限名                     | 説明         |
 |--------------------------|-------------|
-| RDSforPostgreSQL:Job.Get | 작업 정보 상세 보기 |
+| RDSforPostgreSQL:Job.Get | 作業情報の詳細を表示 |
 
-#### 요청
+#### リクエスト
 
-이 API는 요청 본문을 요구하지 않습니다.
+このAPIはリクエスト本文を要求しません。
 
-| 이름    | 종류  | 형식   | 필수 | 설명      |
+| 名前   | 種類 | 形式  | 必須 | 説明     |
 |-------|-----|------|----|---------|
-| jobId | URL | UUID | O  | 작업의 식별자 |
+| jobId | URL | UUID | O  | 作業の識別子 |
 
-#### 응답
+#### レスポンス
 
-| 이름                             | 종류   | 형식       | 설명                                                                                                                                                                                                                                                                                                                                                                                                              |
+| 名前                            | 種類  | 形式      | 説明                                                                                                                                                                                                                                                                                                                                                                                                             |
 |--------------------------------|------|----------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| jobId                          | Body | UUID     | 작업의 식별자                                                                                                                                                                                                                                                                                                                                                                                                         |
-| jobStatus                      | Body | Enum     | 작업의 현재 상태<br/>- `PREPARING`: 작업이 준비 중인 경우<br/>- `READY`: 작업이 준비 완료된 경우<br/>- `RUNNING`: 작업이 진행 중인 경우<br/>- `COMPLETED`: 작업이 완료된 경우<br/>- `REGISTERED`: 작업이 등록된 경우<br/>- `WAIT_TO_REGISTER`: 작업 등록 대기 중인 경우<br/>- `INTERRUPTED`: 작업 진행 중 인터럽트가 발생한 경우<br/>- `CANCELED`: 작업이 취소된 경우<br/>- `FAILED`: 작업이 실패한 경우<br/>- `ERROR`: 작업 진행 중 오류가 발생한 경우<br/>- `DELETED`: 작업이 삭제된 경우<br/>- `FAIL_TO_READY`: 작업 준비에 실패한 경우 |
-| resourceRelations              | Body | Array    | 연관 리소스 목록                                                                                                                                                                                                                                                                                                                                                                                                       |
-| resourceRelations.resourceType | Body | Enum     | 연관 리소스 유형<br/>- `DB_INSTANCE`: DB 인스턴스<br/>- `DB_INSTANCE_GROUP`: DB 인스턴스 그룹<br/>- `DB_SECURITY_GROUP`: DB 보안 그룹<br/>- `PARAMETER_GROUP`: 파라미터 그룹<br/>- `BACKUP`: 백업<br/>- `TENANT`: 테넌트                                                                                                                                                                                                                        |
-| resourceRelations.resourceId   | Body | UUID     | 연관 리소스의 식별자                                                                                                                                                                                                                                                                                                                                                                                                     |
-| createdYmdt                    | Body | DateTime | 생성 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                                                                                                                                                                                                                                                                               |
-| updatedYmdt                    | Body | DateTime | 수정 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                                                                                                                                                                                                                                                                               |
+| jobId                          | Body | UUID     | 作業の識別子                                                                                                                                                                                                                                                                                                                                                                                                        |
+| jobStatus                      | Body | Enum     | 作業の現在状態<br/>- `PREPARING`:作業が準備中の場合<br/>- `READY`:作業が準備完了した場合<br/>- `RUNNING`:作業が進行中の場合<br/>- `COMPLETED`:作業が完了した場合<br/>- `REGISTERED`:作業が登録された場合<br/>- `WAIT_TO_REGISTER`:作業が登録待機中の場合<br/>- `INTERRUPTED`:作業進行中に割り込みが発生した場合<br/>- `CANCELED`:作業がキャンセルされた場合<br/>- `FAILED`:作業が失敗した場合<br/>- `ERROR`:作業進行中にエラーが発生した場合<br/>- `DELETED`:作業が削除された場合<br/>- `FAIL_TO_READY`:作業準備に失敗した場合 |
+| resourceRelations              | Body | Array    | 関連リソースリスト                                                                                                                                                                                                                                                                                                                                                                                                      |
+| resourceRelations.resourceType | Body | Enum     | 関連リソースタイプ<br/>- `DB_INSTANCE`: DBインスタンス<br/>- `DB_INSTANCE_GROUP`: DBインスタンスグループ<br/>- `DB_SECURITY_GROUP`: DBセキュリティグループ<br/>- `PARAMETER_GROUP`:パラメータグループ<br/>- `BACKUP`:バックアップ<br/>- `TENANT`:テナント                                                                                                                                                                                                                       |
+| resourceRelations.resourceId   | Body | UUID     | 関連リソースの識別子                                                                                                                                                                                                                                                                                                                                                                                                    |
+| createdYmdt                    | Body | DateTime | 作成日時(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                                                                                                                                                                                                                                                                               |
+| updatedYmdt                    | Body | DateTime | 修正日時(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                                                                                                                                                                                                                                                                               |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -397,36 +397,36 @@ GET /v1.0/jobs/{jobId}
 ```
 </details>
 
-## DB 인스턴스 그룹
+## DBインスタンスグループ
 
-### DB 인스턴스 그룹 목록 보기
+### DBインスタンスグループリストを表示
 
 ```http
 GET /v1.0/db-instance-groups
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                                   | 설명               |
+| 権限名                                  | 説明              |
 |---------------------------------------|------------------|
-| RDSforPostgreSQL:DbInstanceGroup.List | DB 인스턴스 그룹 목록 보기 |
+| RDSforPostgreSQL:DbInstanceGroup.List | DBインスタンスグループリストを表示 |
 
-#### 요청
+#### リクエスト
 
-이 API는 요청 본문을 요구하지 않습니다.
+このAPIはリクエスト本文を要求しません。
 
-#### 응답
+#### レスポンス
 
-| 이름                                     | 종류   | 형식       | 설명                                                          |
+| 名前                                    | 種類  | 形式      | 説明                                                         |
 |----------------------------------------|------|----------|-------------------------------------------------------------|
-| dbInstanceGroups                       | Body | Array    | DB 인스턴스 그룹 목록                                               |
-| dbInstanceGroups.dbInstanceGroupId     | Body | UUID     | DB 인스턴스 그룹의 식별자                                             |
-| dbInstanceGroups.dbInstanceGroupStatus | Body | Enum     | DB 인스턴스 그룹의 현재 상태<br/>- `CREATED`: 생성됨<br/>- `DELETED`: 삭제됨 |
-| dbInstanceGroups.replicationType       | Body | Enum     | DB 인스턴스 그룹의 복제 형태<br/>- `STANDALONE`: 단일                    |
-| dbInstanceGroups.createdYmdt           | Body | DateTime | 생성 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                           |
-| dbInstanceGroups.updatedYmdt           | Body | DateTime | 수정 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                           |
+| dbInstanceGroups                       | Body | Array    | DBインスタンスグループリスト                                              |
+| dbInstanceGroups.dbInstanceGroupId     | Body | UUID     | DBインスタンスグループの識別子                                            |
+| dbInstanceGroups.dbInstanceGroupStatus | Body | Enum     | DBインスタンスグループの現在状態<br/>- `CREATED`:作成済み<br/>- `DELETED`:削除済み |
+| dbInstanceGroups.replicationType       | Body | Enum     | DBインスタンスグループのレプリケーションタイプ<br/>- `STANDALONE`:単一                    |
+| dbInstanceGroups.createdYmdt           | Body | DateTime | 作成日時(YYYY-MM-DDThh:mm:ss.SSSTZD)                           |
+| dbInstanceGroups.updatedYmdt           | Body | DateTime | 修正日時(YYYY-MM-DDThh:mm:ss.SSSTZD)                           |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -449,41 +449,41 @@ GET /v1.0/db-instance-groups
 </details>
 
 
-### DB 인스턴스 그룹 상세 보기
+### DBインスタンスグループ詳細を表示
 
 ```http
 GET /v1.0/db-instance-groups/{dbInstanceGroupId}
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                                  | 설명               |
+| 権限名                                 | 説明              |
 |--------------------------------------|------------------|
-| RDSforPostgreSQL:DbInstanceGroup.Get | DB 인스턴스 그룹 상세 보기 |
+| RDSforPostgreSQL:DbInstanceGroup.Get | DBインスタンスグループ詳細を表示 |
 
-#### 요청
+#### リクエスト
 
-이 API는 요청 본문을 요구하지 않습니다.
+このAPIはリクエスト本文を要求しません。
 
-| 이름                | 종류  | 형식   | 필수 | 설명              |
+| 名前               | 種類 | 形式  | 必須 | 説明             |
 |-------------------|-----|------|----|-----------------|
-| dbInstanceGroupId | URL | UUID | O  | DB 인스턴스 그룹의 식별자 |
+| dbInstanceGroupId | URL | UUID | O  | DBインスタンスグループの識別子 |
 
-#### 응답
+#### レスポンス
 
-| 이름                           | 종류   | 형식       | 설명                                                                                                                                    |
+| 名前                          | 種類  | 形式      | 説明                                                                                                                                   |
 |------------------------------|------|----------|---------------------------------------------------------------------------------------------------------------------------------------|
-| dbInstanceGroupId            | Body | UUID     | DB 인스턴스 그룹의 식별자                                                                                                                       |
-| dbInstanceGroupStatus        | Body | Enum     | DB 인스턴스 그룹의 현재 상태<br/>- `CREATED`: 생성됨<br/>- `DELETED`: 삭제됨                                                                           |
-| replicationType              | Body | Enum     | DB 인스턴스 그룹의 복제 형태<br/>- `STANDALONE`: 단일<br/>- `HIGH_AVAILABILITY`: 고가용성                                                              |
-| dbInstances                  | Body | Array    | DB 인스턴스 그룹에 속한 DB 인스턴스 목록                                                                                                             |
-| dbInstances.dbInstanceId     | Body | UUID     | DB 인스턴스의 식별자                                                                                                                          |
-| dbInstances.dbInstanceType   | Body | Enum     | DB 인스턴스의 역할 타입<br/>- `MASTER`: 마스터<br/>- `FAILED_MASTER`: 장애 조치된 마스터<br/>- `CANDIDATE_MASTER`: 예비 마스터<br/>- `READ_ONLY_SLAVE`: 읽기 복제본 |
-| dbInstances.dbInstanceStatus | Body | Enum     | DB 인스턴스의 현재 상태                                                                                                                        |
-| createdYmdt                  | Body | DateTime | 생성 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                     |
-| updatedYmdt                  | Body | DateTime | 수정 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                     |
+| dbInstanceGroupId            | Body | UUID     | DBインスタンスグループの識別子                                                                                                                      |
+| dbInstanceGroupStatus        | Body | Enum     | DBインスタンスグループの現在状態<br/>- `CREATED`:作成済み<br/>- `DELETED`:削除済み                                                                          |
+| replicationType              | Body | Enum     | DBインスタンスグループのレプリケーションタイプ<br/>- `STANDALONE`:単一<br/>- `HIGH_AVAILABILITY`:高可用性                                                             |
+| dbInstances                  | Body | Array    | DBインスタンスグループに属するDBインスタンスリスト                                                                                                            |
+| dbInstances.dbInstanceId     | Body | UUID     | DBインスタンスの識別子                                                                                                                         |
+| dbInstances.dbInstanceType   | Body | Enum     | DBインスタンスのロールタイプ<br/>- `MASTER`:マスター<br/>- `FAILED_MASTER`:フェイルオーバーされたマスター<br/>- `CANDIDATE_MASTER`:予備マスター<br/>- `READ_ONLY_SLAVE`:リードレプリカ |
+| dbInstances.dbInstanceStatus | Body | Enum     | DBインスタンスの現在状態                                                                                                                       |
+| createdYmdt                  | Body | DateTime | 作成日時(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                     |
+| updatedYmdt                  | Body | DateTime | 修正日時(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                     |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -508,92 +508,92 @@ GET /v1.0/db-instance-groups/{dbInstanceGroupId}
 ```
 </details>
 
-## DB 인스턴스
+## DBインスタンス
 
-### DB 인스턴스 상태
+### DBインスタンスの状態
 
-| 상태                  | 설명                          |
+| 状態                 | 説明                         |
 |---------------------|-----------------------------|
-| `AVAILABLE`         | DB 인스턴스가 사용 가능한 경우          |
-| `BEFORE_CREATE`     | DB 인스턴스 생성 전인 경우           |
-| `STORAGE_FULL`      | DB 인스턴스의 용량이 부족한 경우         |
-| `FAIL_TO_CREATE`    | DB 인스턴스 생성에 실패한 경우          |
-| `FAIL_TO_CONNECT`   | DB 인스턴스 연결에 실패한 경우          |
-| `REPLICATION_STOP`  | DB 인스턴스의 복제가 중단된 경우         |
-| `REPLICATION_DELAY` | DB 인스턴스의 복제가 지연 중인 경우       |
-| `FAILOVER`          | 고가용성 DB 인스턴스의 장애 조치가 완료된 경우 |
-| `SHUTDOWN`          | DB 인스턴스가 중지된 경우             |
-| `DELETED`           | DB 인스턴스가 삭제된 경우             |
+| `AVAILABLE`         | DBインスタンスが使用可能な場合         |
+| `BEFORE_CREATE`     | DBインスタンス作成前の場合          |
+| `STORAGE_FULL`      | DBインスタンスの容量が不足している場合        |
+| `FAIL_TO_CREATE`    | DBインスタンス作成に失敗した場合         |
+| `FAIL_TO_CONNECT`   | DBインスタンス接続に失敗した場合         |
+| `REPLICATION_STOP`  | DBインスタンスの複製が中断された場合        |
+| `REPLICATION_DELAY` | DBインスタンスの複製が遅延している場合      |
+| `FAILOVER`          | 高可用性DBインスタンスのフェイルオーバーが完了した場合 |
+| `SHUTDOWN`          | DBインスタンスが中止された場合            |
+| `DELETED`           | DBインスタンスが削除された場合            |
 
-### DB 인스턴스 진행 상태
+### DBインスタンスの進行状態
 
-| 상태                              | 설명             |
+| 状態                             | 説明            |
 |---------------------------------|----------------|
-| `APPLYING_DB_INSTANCE_HBA_RULE` | 접근 제어 규칙 적용 중  |
-| `APPLYING_PARAMETER_GROUP`      | 파라미터 그룹 적용 중   |
-| `BACKING_UP`                    | 백업 중           |
-| `CANCELING`                     | 취소 중           |
-| `CREATING`                      | 생성 중           |
-| `CREATING_DATABASE`             | 데이터베이스 생성 중	   |
-| `CREATING_USER`                 | 사용자 생성 중	      |
-| `DELETING`                      | 삭제 중           |
-| `DELETING_DATABASE`             | 데이터베이스 삭제 중    |
-| `DELETING_USER`                 | 사용자 삭제 중       |
-| `FAILING_OVER`                  | 장애 조치 중        |
-| `MIGRATING`                     | 마이그레이션 중       |
-| `MODIFYING`                     | 수정 중           |
-| `OCCUPIED`                      | 점유 중           |
-| `PREPARING`                     | 준비 중           |
-| `PROMOTING`                     | 승격 중           |
-| `PROMOTING_FORCIBLY`            | 강제 승격 중        |
-| `REBUILDING`                    | 재구축 중          |
-| `REPAIRING`                     | 복구 중           |
-| `REPLICATING`                   | 복제 중           |
-| `RESTARTING`                    | 재시작 중          |
-| `RESTARTING_FORCIBLY`           | 강제 재시작 중       |
-| `RESTORING`                     | 복원 중           |
-| `STARTING`                      | 시작 중           |
-| `STOPPING`                      | 정지 중           |
-| `SYNCING_DATABASE`              | 데이터베이스 동기화 중   |
-| `SYNCING_USER`                  | 사용자 동기화 중	     |
-| `UPDATING_USER`                 | 사용자 수정 중	      |
-| `UPDATING_DATABASE`             | 데이터베이스 수정 중	   |
-| `WAIT_MANUAL_CONTROL`           | 수동 장애 조치 대기 중	 |
+| `APPLYING_DB_INSTANCE_HBA_RULE` | アクセス制御ルール適用中 |
+| `APPLYING_PARAMETER_GROUP`      | パラメータグループ適用中  |
+| `BACKING_UP`                    | バックアップ中          |
+| `CANCELING`                     | キャンセル中          |
+| `CREATING`                      | 作成中          |
+| `CREATING_DATABASE`             | データベース作成中	   |
+| `CREATING_USER`                 | ユーザー作成中	      |
+| `DELETING`                      | 削除中          |
+| `DELETING_DATABASE`             | データベース削除中   |
+| `DELETING_USER`                 | ユーザー削除中      |
+| `FAILING_OVER`                  | フェイルオーバー中       |
+| `MIGRATING`                     | マイグレーション中      |
+| `MODIFYING`                     | 修正中          |
+| `OCCUPIED`                      | 占有中           |
+| `PREPARING`                     | 準備中          |
+| `PROMOTING`                     | 昇格中          |
+| `PROMOTING_FORCIBLY`            | 強制昇格中       |
+| `REBUILDING`                    | 再構築中         |
+| `REPAIRING`                     | 復旧中          |
+| `REPLICATING`                   | 複製中          |
+| `RESTARTING`                    | 再起動中         |
+| `RESTARTING_FORCIBLY`           | 強制再起動中      |
+| `RESTORING`                     | 復元中          |
+| `STARTING`                      | 起動中          |
+| `STOPPING`                      | 停止中          |
+| `SYNCING_DATABASE`              | データベース同期中  |
+| `SYNCING_USER`                  | ユーザー同期中	     |
+| `UPDATING_USER`                 | ユーザー修正中	      |
+| `UPDATING_DATABASE`             | データベース修正中	   |
+| `WAIT_MANUAL_CONTROL`           | 手動フェイルオーバー待機中	 |
 
-### DB 인스턴스 목록 보기
+### DBインスタンスリストを表示
 
 ```http
 GET /v1.0/db-instances
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                              | 설명            |
+| 権限名                             | 説明           |
 |----------------------------------|---------------|
-| RDSforPostgreSQL:DbInstance.List | DB 인스턴스 목록 보기 |
+| RDSforPostgreSQL:DbInstance.List | DBインスタンスリストを表示 |
 
-#### 요청
+#### リクエスト
 
-이 API는 요청 본문을 요구하지 않습니다.
+このAPIはリクエスト本文を要求しません。
 
-#### 응답
+#### レスポンス
 
-| 이름                            | 종류   | 형식       | 설명                                                                                                                                    |
+| 名前                           | 種類  | 形式      | 説明                                                                                                                                   |
 |-------------------------------|------|----------|---------------------------------------------------------------------------------------------------------------------------------------|
-| dbInstances                   | Body | Array    | DB 인스턴스 목록                                                                                                                            |
-| dbInstances.dbInstanceId      | Body | UUID     | DB 인스턴스의 식별자                                                                                                                          |
-| dbInstances.dbInstanceGroupId | Body | UUID     | DB 인스턴스 그룹의 식별자                                                                                                                       |
-| dbInstances.dbInstanceName    | Body | String   | DB 인스턴스를 식별할 수 있는 이름                                                                                                                  |
-| dbInstances.description       | Body | String   | DB 인스턴스에 대한 추가 정보                                                                                                                     |
-| dbInstances.dbVersion         | Body | Enum     | DB 버전 정보                                                                                                                              |
-| dbInstances.dbPort            | Body | Number   | DB 포트                                                                                                                                 |
-| dbInstances.dbInstanceType    | Body | Enum     | DB 인스턴스의 역할 타입<br/>- `MASTER`: 마스터<br/>- `FAILED_MASTER`: 장애 조치된 마스터<br/>- `CANDIDATE_MASTER`: 예비 마스터<br/>- `READ_ONLY_SLAVE`: 읽기 복제본 |
-| dbInstances.dbInstanceStatus  | Body | Enum     | DB 인스턴스의 현재 상태                                                                                                                        |
-| dbInstances.progressStatus    | Body | Enum     | DB 인스턴스의 현재 진행 상태                                                                                                                     |
-| dbInstances.createdYmdt       | Body | DateTime | 생성 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                     |
-| dbInstances.updatedYmdt       | Body | DateTime | 수정 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                     |
+| dbInstances                   | Body | Array    | DBインスタンスリスト                                                                                                                           |
+| dbInstances.dbInstanceId      | Body | UUID     | DBインスタンスの識別子                                                                                                                         |
+| dbInstances.dbInstanceGroupId | Body | UUID     | DBインスタンスグループの識別子                                                                                                                      |
+| dbInstances.dbInstanceName    | Body | String   | DBインスタンスを識別できる名前                                                                                                                 |
+| dbInstances.description       | Body | String   | DBインスタンスの追加情報                                                                                                                    |
+| dbInstances.dbVersion         | Body | Enum     | DBバージョン情報                                                                                                                             |
+| dbInstances.dbPort            | Body | Number   | DBポート                                                                                                                                |
+| dbInstances.dbInstanceType    | Body | Enum     | DBインスタンスのロールタイプ<br/>- `MASTER`:マスター<br/>- `FAILED_MASTER`:フェイルオーバーされたマスター<br/>- `CANDIDATE_MASTER`:予備マスター<br/>- `READ_ONLY_SLAVE`:リードレプリカ |
+| dbInstances.dbInstanceStatus  | Body | Enum     | DBインスタンスの現在状態                                                                                                                       |
+| dbInstances.progressStatus    | Body | Enum     | DBインスタンスの現在進行状態                                                                                                                    |
+| dbInstances.createdYmdt       | Body | DateTime | 作成日時(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                     |
+| dbInstances.updatedYmdt       | Body | DateTime | 修正日時(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                     |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -622,51 +622,51 @@ GET /v1.0/db-instances
 </details>
 
 
-### DB 인스턴스 상세 보기
+### DBインスタンス詳細を表示
 
 ```http
 GET /v1.0/db-instances/{dbInstanceId}
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                             | 설명            |
+| 権限名                            | 説明           |
 |---------------------------------|---------------|
-| RDSforPostgreSQL:DbInstance.Get | DB 인스턴스 상세 보기 |
+| RDSforPostgreSQL:DbInstance.Get | DBインスタンス詳細を表示 |
 
-#### 요청
+#### リクエスト
 
-이 API는 요청 본문을 요구하지 않습니다.
+このAPIはリクエスト本文を要求しません。
 
-| 이름           | 종류  | 형식   | 필수 | 설명           |
+| 名前          | 種類 | 形式  | 必須 | 説明          |
 |--------------|-----|------|----|--------------|
-| dbInstanceId | URL | UUID | O  | DB 인스턴스의 식별자 |
+| dbInstanceId | URL | UUID | O  | DBインスタンスの識別子 |
 
-#### 응답
+#### レスポンス
 
-| 이름                        | 종류   | 형식       | 설명                                                                                                                                    |
+| 名前                       | 種類  | 形式      | 説明                                                                                                                                   |
 |---------------------------|------|----------|---------------------------------------------------------------------------------------------------------------------------------------|
-| dbInstanceId              | Body | UUID     | DB 인스턴스의 식별자                                                                                                                          |
-| dbInstanceGroupId         | Body | UUID     | DB 인스턴스 그룹의 식별자                                                                                                                       |
-| dbInstanceName            | Body | String   | DB 인스턴스를 식별할 수 있는 이름                                                                                                                  |
-| description               | Body | String   | DB 인스턴스에 대한 추가 정보                                                                                                                     |
-| dbVersion                 | Body | Enum     | DB 버전 정보                                                                                                                              |
-| dbPort                    | Body | Number   | DB 포트                                                                                                                                 |
-| dbInstanceType            | Body | Enum     | DB 인스턴스의 역할 타입<br/>- `MASTER`: 마스터<br/>- `FAILED_MASTER`: 장애 조치된 마스터<br/>- `CANDIDATE_MASTER`: 예비 마스터<br/>- `READ_ONLY_SLAVE`: 읽기 복제본 |
-| dbInstanceStatus          | Body | Enum     | DB 인스턴스의 현재 상태                                                                                                                        |
-| progressStatus            | Body | Enum     | DB 인스턴스의 현재 작업 진행 상태                                                                                                                  |
-| dbFlavorId                | Body | UUID     | DB 인스턴스 사양의 식별자                                                                                                                       |
-| parameterGroupId          | Body | UUID     | DB 인스턴스에 적용된 파라미터 그룹의 식별자                                                                                                             |
-| dbSecurityGroupIds        | Body | Array    | DB 인스턴스에 적용된 DB 보안 그룹의 식별자 목록                                                                                                         |
-| notificationGroupIds      | Body | Array    | DB 인스턴스에 적용된 알림 그룹의 식별자 목록                                                                                                            |
-| useDeletionProtection     | Body | Boolean  | DB 인스턴스 삭제 보호 여부                                                                                                                      |
-| needToApplyParameterGroup | Body | Boolean  | 최신 파라미터 그룹 적용 필요 여부                                                                                                                   |
-| needMigration             | Body | Boolean  | 마이그레이션 필요 여부                                                                                                                          |
-| osVersion                 | Body | String   | 운영체제 버전                                                                                                                               |
-| createdYmdt               | Body | DateTime | 생성 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                     |
-| updatedYmdt               | Body | DateTime | 수정 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                     |
+| dbInstanceId              | Body | UUID     | DBインスタンスの識別子                                                                                                                         |
+| dbInstanceGroupId         | Body | UUID     | DBインスタンスグループの識別子                                                                                                                      |
+| dbInstanceName            | Body | String   | DBインスタンスを識別できる名前                                                                                                                 |
+| description               | Body | String   | DBインスタンスの追加情報                                                                                                                    |
+| dbVersion                 | Body | Enum     | DBバージョン情報                                                                                                                             |
+| dbPort                    | Body | Number   | DBポート                                                                                                                                |
+| dbInstanceType            | Body | Enum     | DBインスタンスのロールタイプ<br/>- `MASTER`:マスター<br/>- `FAILED_MASTER`:フェイルオーバーされたマスター<br/>- `CANDIDATE_MASTER`:予備マスター<br/>- `READ_ONLY_SLAVE`:リードレプリカ |
+| dbInstanceStatus          | Body | Enum     | DBインスタンスの現在状態                                                                                                                       |
+| progressStatus            | Body | Enum     | DBインスタンスの現在の作業進行状態                                                                                                                 |
+| dbFlavorId                | Body | UUID     | DBインスタンス仕様の識別子                                                                                                                      |
+| parameterGroupId          | Body | UUID     | DBインスタンスに適用されたパラメータグループの識別子                                                                                                            |
+| dbSecurityGroupIds        | Body | Array    | DBインスタンスに適用されたDBセキュリティグループの識別子リスト                                                                                                        |
+| notificationGroupIds      | Body | Array    | DBインスタンスに適用された通知グループの識別子リスト                                                                                                           |
+| useDeletionProtection     | Body | Boolean  | DBインスタンス削除保護の有無                                                                                                                      |
+| needToApplyParameterGroup | Body | Boolean  | 最新パラメータグループの適用可否                                                                                                                   |
+| needMigration             | Body | Boolean  | マイグレーションの要否                                                                                                                          |
+| osVersion                 | Body | String   | OSバージョン                                                                                                                              |
+| createdYmdt               | Body | DateTime | 作成日時(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                     |
+| updatedYmdt               | Body | DateTime | 修正日時(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                     |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -697,52 +697,52 @@ GET /v1.0/db-instances/{dbInstanceId}
 ```
 </details>
 
-### DB 인스턴스 생성하기
+### DBインスタンスを作成する
 
 ```http
 POST /v1.0/db-instances
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                                | 설명           |
+| 権限名                               | 説明          |
 |------------------------------------|--------------|
-| RDSforPostgreSQL:DbInstance.Create | DB 인스턴스 생성하기 |
+| RDSforPostgreSQL:DbInstance.Create | DBインスタンスを作成する |
 
-#### 요청
+#### リクエスト
 
-| 이름                                       | 종류   | 형식      | 필수 | 설명                                                                                                                                                                                                                   |
+| 名前                                      | 種類  | 形式     | 必須 | 説明                                                                                                                                                                                                                  |
 |------------------------------------------|------|---------|----|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| dbInstanceName                           | Body | String  | O  | DB 인스턴스를 식별할 수 있는 이름                                                                                                                                                                                                 |
-| description                              | Body | String  | X  | DB 인스턴스에 대한 추가 정보                                                                                                                                                                                                    |
-| dbFlavorId                               | Body | UUID    | O  | DB 인스턴스 사양의 식별자                                                                                                                                                                                                      |
-| dbVersion                                | Body | Enum    | O  | DB 버전 정보                                                                                                                                                                                                             |
-| dbPort                                   | Body | Number  | O  | DB 포트<br/>- 최솟값: `5432`<br/>- 최댓값: `45432`                                                                                                                                                                           |
-| databaseName                             | Body | String  | O  | DB 엔진 내 신규 생성할 데이터베이스명                                                                                                                                                                                               |
-| dbUserName                               | Body | String  | O  | DB 엔진 내 신규 생성할 사용자 계정명                                                                                                                                                                                               |
-| dbPassword                               | Body | String  | O  | DB 엔진 내 신규 생성할 사용자 계정 암호<br/>- 최소 길이: `4`<br/>- 최대 길이: `16`                                                                                                                                                          |
-| parameterGroupId                         | Body | UUID    | O  | 파라미터 그룹의 식별자                                                                                                                                                                                                         |
-| dbSecurityGroupIds                       | Body | Array   | X  | DB 보안 그룹의 식별자 목록                                                                                                                                                                                                     |
-| useDeletionProtection                    | Body | Boolean | X  | 삭제 보호 여부<br/>- 기본값: `false`                                                                                                                                                                                          |
-| useDefaultNotification                   | Body | Boolean | X  | 기본 알림 사용 여부<br/>- 기본값: `false`                                                                                                                                                                                       |
-| useHighAvailability                      | Body | Boolean | X  | 고가용성 사용 여부                                                                                                                                                                                                           |
-| pingInterval                             | Body | Number  | X  | 고가용성 사용 시 Ping 간격(초)<br/>- 최솟값: `1`<br/>- 최댓값: `600`                                                                                                                                                                 |
-| failoverReplWaitingTime                  | Body | Number  | X  | 고가용성 사용 시 장애 조치 대기 시간<br/>- 최솟값: `-1`<br/>- -1로 설정 시, 복제 지연 해소까지 계속해서 대기합니다.                                                                                                                                         |                                                                                                                                                                                                                      | userGroupIds                             | Body | Array   | X  | 기본 알림 수신용 사용자 그룹의 식별자 목록                                                                                                                                                                                             |
-| network                                  | Body | Object  | O  | 네트워크 정보 객체                                                                                                                                                                                                           |
-| network.subnetId                         | Body | UUID    | O  | 서브넷의 식별자                                                                                                                                                                                                             |
-| network.usePublicAccess                  | Body | Boolean | X  | 외부 접속 가능  여부<br/>- 기본값: `false`                                                                                                                                                                                      |
-| network.availabilityZone                 | Body | Enum    | X  | DB 인스턴스를 생성할 가용성 영역<br/>- 예시: `kr-pub-a`<br/>- 기본값: `임의의 가용성 영역`                                                                                                                                                     |
-| storage                                  | Body | Object  | O  | 스토리지 정보 객체                                                                                                                                                                                                           |    
-| storage.storageType                      | Body | Enum    | O  | 데이터 스토리지 유형<br/>- 예시: `General SSD`                                                                                                                                                                                  |
-| storage.storageSize                      | Body | Number  | O  | 데이터 스토리지 크기(GB)<br/>- 최솟값: `20`<br/>- 최댓값: `2048`                                                                                                                                                                    |
-| backup                                   | Body | Object  | O  | 백업 정보 객체                                                                                                                                                                                                             |
-| backup.backupPeriod                      | Body | Number  | O  | 백업 보관 기간(일)<br/>- 최솟값: `0`<br/>- 최댓값: `730`                                                                                                                                                                          |
-| backup.backupRetryCount                  | Body | Number  | X  | 백업 재시도 횟수<br/>- 기본값: `0`<br/>- 최솟값: `0`<br/>- 최댓값: `10`                                                                                                                                                              |
-| backup.backupSchedules                   | Body | Array   | X  | 백업 스케줄 목록                                                                                                                                                                                                            |
-| backup.backupSchedules.backupWndBgnTime  | Body | String  | O  | 백업 시작 시간<br/>- 예시: `00:00:00`                                                                                                                                                                                        |
-| backup.backupSchedules.backupWndDuration | Body | Enum    | O  | 백업 윈도우<br/>백업 시작 시간부터 설정된 기간 안에 자동 백업이 실행됩니다.<br/>- `HALF_AN_HOUR`: 30분<br/>- `ONE_HOUR`: 1시간<br/>- `ONE_HOUR_AND_HALF`: 1시간 30분<br/>- `TWO_HOURS`: 2시간<br/>- `TWO_HOURS_AND_HALF`: 2시간 30분<br/>- `THREE_HOURS`: 3시간 |
+| dbInstanceName                           | Body | String  | O  | DBインスタンスを識別できる名前                                                                                                                                                                                                |
+| description                              | Body | String  | X  | DBインスタンスの追加情報                                                                                                                                                                                                   |
+| dbFlavorId                               | Body | UUID    | O  | DBインスタンス仕様の識別子                                                                                                                                                                                                     |
+| dbVersion                                | Body | Enum    | O  | DBバージョン情報                                                                                                                                                                                                            |
+| dbPort                                   | Body | Number  | O  | DBポート<br/>- 最小値:`5432`<br/>- 最大値:`45432`                                                                                                                                                                           |
+| databaseName                             | Body | String  | O  | DBエンジン内で新規作成するデータベース名                                                                                                                                                                                              |
+| dbUserName                               | Body | String  | O  | DBエンジン内で新規作成するユーザーアカウント名                                                                                                                                                                                              |
+| dbPassword                               | Body | String  | O  | DBエンジン内で新規作成するユーザーアカウントのパスワード<br/>- 最小文字数:`4`<br/>- 最大文字数:`16`                                                                                                                                                          |
+| parameterGroupId                         | Body | UUID    | O  | パラメータグループの識別子                                                                                                                                                                                                        |
+| dbSecurityGroupIds                       | Body | Array   | X  | DBセキュリティグループの識別子リスト                                                                                                                                                                                                    |
+| useDeletionProtection                    | Body | Boolean | X  | 削除保護の有無<br/>- デフォルト値:`false`                                                                                                                                                                                          |
+| useDefaultNotification                   | Body | Boolean | X  | 基本通知の使用有無<br/>- デフォルト値:`false`                                                                                                                                                                                       |
+| useHighAvailability                      | Body | Boolean | X  | 高可用性の使用有無                                                                                                                                                                                                           |
+| pingInterval                             | Body | Number  | X  | 高可用性使用時のPing間隔(秒)<br/>- 最小値:`1`<br/>- 最大値:`600`                                                                                                                                                                 |
+| failoverReplWaitingTime                  | Body | Number  | X  | 高可用性使用時のフェイルオーバー待機時間<br/>- 最小値:`-1`<br/>- -1に設定時、複製遅延が解消されるまで待機し続けます。                                                                                                                                         |                                                                                                                                                                                                                      | userGroupIds                             | Body | Array   | X  | 基本通知受信用のユーザーグループの識別子リスト                                                                                                                                                                                            |
+| network                                  | Body | Object  | O  | ネットワーク情報オブジェクト                                                                                                                                                                                                          |
+| network.subnetId                         | Body | UUID    | O  | サブネットの識別子                                                                                                                                                                                                            |
+| network.usePublicAccess                  | Body | Boolean | X  | 外部接続可否<br/>- デフォルト値:`false`                                                                                                                                                                                      |
+| network.availabilityZone                 | Body | Enum    | X  | DBインスタンスを作成するアベイラビリティゾーン<br/>- 例:`kr-pub-a`<br/>- デフォルト値:`任意のアベイラビリティゾーン`                                                                                                                                                     |
+| storage                                  | Body | Object  | O  | ストレージ情報オブジェクト                                                                                                                                                                                                          |    
+| storage.storageType                      | Body | Enum    | O  | データストレージタイプ<br/>- 例:`General SSD`                                                                                                                                                                                  |
+| storage.storageSize                      | Body | Number  | O  | データストレージサイズ(GB)<br/>- 最小値:`20`<br/>- 最大値:`2048`                                                                                                                                                                    |
+| backup                                   | Body | Object  | O  | バックアップ情報オブジェクト                                                                                                                                                                                                            |
+| backup.backupPeriod                      | Body | Number  | O  | バックアップ保管期間(日)<br/>- 最小値:`0`<br/>- 最大値:`730`                                                                                                                                                                          |
+| backup.backupRetryCount                  | Body | Number  | X  | バックアップ再試行回数<br/>- デフォルト値:`0`<br/>- 最小値:`0`<br/>- 最大値:`10`                                                                                                                                                              |
+| backup.backupSchedules                   | Body | Array   | X  | バックアップスケジュールリスト                                                                                                                                                                                                           |
+| backup.backupSchedules.backupWndBgnTime  | Body | String  | O  | バックアップ開始時間<br/>- 例:`00:00:00`                                                                                                                                                                                        |
+| backup.backupSchedules.backupWndDuration | Body | Enum    | O  | バックアップWindows<br/>バックアップ開始時間から設定された期間内に自動バックアップが実行されます。<br/>- `HALF_AN_HOUR`:30分<br/>- `ONE_HOUR`:1時間<br/>- `ONE_HOUR_AND_HALF`:1時間30分<br/>- `TWO_HOURS`:2時間<br/>- `TWO_HOURS_AND_HALF`:2時間30分<br/>- `THREE_HOURS`:3時間 |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -781,13 +781,13 @@ POST /v1.0/db-instances
 ```
 </details>
 
-#### 응답
+#### レスポンス
 
-| 이름    | 종류   | 형식   | 설명          |
+| 名前   | 種類  | 形式  | 説明         |
 |-------|------|------|-------------|
-| jobId | Body | UUID | 요청한 작업의 식별자 |
+| jobId | Body | UUID | リクエストした作業の識別子 |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -801,32 +801,32 @@ POST /v1.0/db-instances
 ```
 </details>
 
-### DB 인스턴스 수정하기
+### DBインスタンスを修正する
 
 ```http
 PUT /v1.0/db-instances/{dbInstanceId}
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                                | 설명           |
+| 権限名                               | 説明          |
 |------------------------------------|--------------|
-| RDSforPostgreSQL:DbInstance.Modify | DB 인스턴스 수정하기 |
+| RDSforPostgreSQL:DbInstance.Modify | DBインスタンスを修正する |
 
-#### 요청
+#### リクエスト
 
-| 이름                 | 종류   | 형식      | 필수 | 설명                                                                        |
+| 名前                | 種類  | 形式     | 必須 | 説明                                                                       |
 |--------------------|------|---------|----|---------------------------------------------------------------------------|
-| dbInstanceId       | URL  | UUID    | O  | DB 인스턴스의 식별자                                                              |
-| dbInstanceName     | Body | String  | X  | DB 인스턴스를 식별할 수 있는 이름                                                      |
-| description        | Body | String  | X  | DB 인스턴스에 대한 추가 정보                                                         |
-| dbPort             | Body | Number  | X  | DB 포트<br/>- 최솟값: `5432`<br/>- 최댓값: `45432`                                |
-| dbFlavorId         | Body | UUID    | X  | DB 인스턴스 사양의 식별자                                                           |
-| parameterGroupId   | Body | UUID    | X  | 파라미터 그룹의 식별자                                                              |
-| dbSecurityGroupIds | Body | Array   | X  | DB 보안 그룹의 식별자 목록                                                          |
-| executeBackup      | Body | Boolean | X  | 현재 시점 백업 진행 여부<br/>- 기본값: `false`                                         |
+| dbInstanceId       | URL  | UUID    | O  | DBインスタンスの識別子                                                             |
+| dbInstanceName     | Body | String  | X  | DBインスタンスを識別できる名前                                                     |
+| description        | Body | String  | X  | DBインスタンスの追加情報                                                        |
+| dbPort             | Body | Number  | X  | DBポート<br/>- 最小値:`5432`<br/>- 最大値:`45432`                                |
+| dbFlavorId         | Body | UUID    | X  | DBインスタンス仕様の識別子                                                          |
+| parameterGroupId   | Body | UUID    | X  | パラメータグループの識別子                                                             |
+| dbSecurityGroupIds | Body | Array   | X  | DBセキュリティグループの識別子リスト                                                         |
+| executeBackup      | Body | Boolean | X  | 現時点バックアップを実行するかどうか<br/>- デフォルト値:`false`                                         |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -839,13 +839,13 @@ PUT /v1.0/db-instances/{dbInstanceId}
 ```
 </details>
 
-#### 응답
+#### レスポンス
 
-| 이름    | 종류   | 형식   | 설명          |
+| 名前   | 種類  | 形式  | 説明         |
 |-------|------|------|-------------|
-| jobId | Body | UUID | 요청한 작업의 식별자 |
+| jobId | Body | UUID | リクエストした作業の識別子 |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -860,33 +860,33 @@ PUT /v1.0/db-instances/{dbInstanceId}
 </details>
 
 
-### 고가용성 정보 조회
+### 高可用性情報の照会
 
 ```http
 GET /v1.0/db-instances/{dbInstanceId}/high-availability
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                                   | 설명         |
+| 権限名                                  | 説明        |
 |---------------------------------------|------------|
-| RDSforPostgreSQL:HighAvailability.Get | 고가용성 정보 조회 |
+| RDSforPostgreSQL:HighAvailability.Get | 高可用性情報照会 |
 
-#### 요청
+#### リクエスト
 
-| 이름                  | 종류   | 형식      | 필수 | 설명                                                   |
+| 名前                 | 種類  | 形式     | 必須 | 説明                                                  |
 |---------------------|------|---------|----|------------------------------------------------------|
-| dbInstanceId        | URL  | UUID    | O  | DB 인스턴스의 식별자                                         |
+| dbInstanceId        | URL  | UUID    | O  | DBインスタンスの識別子                                        |
 
-#### 응답
+#### レスポンス
 
-| 이름                      | 종류   | 형식      | 설명                                                                                                                                                                                                                                                                                                                             |
+| 名前                     | 種類  | 形式     | 説明                                                                                                                                                                                                                                                                                                                            |
 |-------------------------|------|---------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| haStatus                | Body | Boolean | 고가용성 상태<br/>- `CREATED`: 생성됨<br/>- `STABLE`: 정상<br/>- `DISABLE_REPLICATION_DELAY`: 복제 지연으로 인한 장애 조치 정지<br/>- `PAUSING`: 일시 중지 중<br/>- `PAUSED`: 일시 중지<br/>- `PAUSED_DUE_TO_TASK`: 작업으로 인한 일시 중지<br/>- `FAILOVER_STARTED`: 장애 조치 시작<br/>- `FAILOVER_FAILED`: 장애 조치 실패<br/>- `FAILOVER_COMPLETED`: 장애 조치 완료<br/>- `DELETED`: 삭제됨 |
-| pingInterval            | Body | Number  | 고가용성 사용 시 Ping 간격(초)<br/>- 최솟값: `1`<br/>- 최댓값: `600`                                                                                                                                                                                                                                                                           |
-| failoverReplWaitingTime | Body | Number  | 고가용성 사용 시 장애 조치 대기 시간<br/>- 최솟값: `-1`<br/>- -1로 설정 시, 복제 지연 해소까지 계속해서 대기합니다.                                                                                                                                                                                                                                                   |
+| haStatus                | Body | Boolean | 高可用性状態<br/>- `CREATED`:作成済み<br/>- `STABLE`:正常<br/>- `DISABLE_REPLICATION_DELAY`:複製遅延によるフェイルオーバー停止<br/>- `PAUSING`:一時停止中<br/>- `PAUSED`:一時停止<br/>- `PAUSED_DUE_TO_TASK`:作業による一時停止<br/>- `FAILOVER_STARTED`:フェイルオーバー開始<br/>- `FAILOVER_FAILED`:フェイルオーバー失敗<br/>- `FAILOVER_COMPLETED`:フェイルオーバー完了<br/>- `DELETED`:削除済み |
+| pingInterval            | Body | Number  | 高可用性使用時のPing間隔(秒)<br/>- 最小値:`1`<br/>- 最大値:`600`                                                                                                                                                                                                                                                                           |
+| failoverReplWaitingTime | Body | Number  | 高可用性使用時のフェイルオーバー待機時間<br/>- 最小値:`-1`<br/>- -1に設定時、複製遅延が解消されるまで待機し続けます。                                                                                                                                                                                                                                                   |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -904,34 +904,34 @@ GET /v1.0/db-instances/{dbInstanceId}/high-availability
 </details>
 
 
-### 고가용성 수정하기
+### 高可用性を修正する
 
 ```http
 PUT /v1.0/db-instances/{dbInstanceId}/high-availability
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                                      | 설명        |
+| 権限名                                     | 説明       |
 |------------------------------------------|-----------|
-| RDSforPostgreSQL:HighAvailability.Modify | 고가용성 수정하기 |
+| RDSforPostgreSQL:HighAvailability.Modify | 高可用性を修正する |
 
-#### 요청
+#### リクエスト
 
-| 이름                      | 종류   | 형식      | 필수 | 설명                                                                           |
+| 名前                     | 種類  | 形式     | 必須 | 説明                                                                          |
 |-------------------------|------|---------|----|------------------------------------------------------------------------------|
-| dbInstanceId            | URL  | UUID    | O  | DB 인스턴스의 식별자                                                                 |
-| useHighAvailability     | Body | Boolean | O  | 고가용성 사용 여부                                                                   |
-| pingInterval            | Body | Number  | X  | 고가용성 사용 시 Ping 간격(초)<br/>- 최솟값: `1`<br/>- 최댓값: `600`                         |
-| failoverReplWaitingTime | Body | Number  | X  | 고가용성 사용 시 장애 조치 대기 시간<br/>- 최솟값: `-1`<br/>- -1로 설정 시, 복제 지연 해소까지 계속해서 대기합니다. |
+| dbInstanceId            | URL  | UUID    | O  | DBインスタンスの識別子                                                                |
+| useHighAvailability     | Body | Boolean | O  | 高可用性の使用有無                                                                   |
+| pingInterval            | Body | Number  | X  | 高可用性使用時のPing間隔(秒)<br/>- 最小値:`1`<br/>- 最大値:`600`                         |
+| failoverReplWaitingTime | Body | Number  | X  | 高可用性使用時フェイルオーバー待機時間<br/>- 最小値:`-1`<br/>- -1に設定時、複製遅延が解消されるまで待機し続けます。 |
 
-#### 응답
+#### レスポンス
 
-| 이름    | 종류   | 형식   | 설명          |
+| 名前   | 種類  | 形式  | 説明         |
 |-------|------|------|-------------|
-| jobId | Body | UUID | 요청한 작업의 식별자 |
+| jobId | Body | UUID | リクエストした作業の識別子 |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -945,33 +945,33 @@ PUT /v1.0/db-instances/{dbInstanceId}/high-availability
 ```
 </details>
 
-### 고가용성 다시 시작하기
+### 高可用性の再起動
 
 ```http
 POST /v1.0/db-instances/{dbInstanceId}/high-availability/resume
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                                      | 설명           |
+| 権限名                                     | 説明          |
 |------------------------------------------|--------------|
-| RDSforPostgreSQL:HighAvailability.Resume | 고가용성 다시 시작하기 |
+| RDSforPostgreSQL:HighAvailability.Resume | 高可用性の再起動 |
 
-#### 요청
+#### リクエスト
 
-이 API는 요청 본문을 요구하지 않습니다.
+このAPIはリクエスト本文を要求しません。
 
-| 이름           | 종류  | 형식   | 필수 | 설명           |
+| 名前          | 種類 | 形式  | 必須 | 説明          |
 |--------------|-----|------|----|--------------|
-| dbInstanceId | URL | UUID | O  | DB 인스턴스의 식별자 |
+| dbInstanceId | URL | UUID | O  | DBインスタンスの識別子 |
 
-#### 응답
+#### レスポンス
 
-| 이름    | 종류   | 형식   | 설명          |
+| 名前   | 種類  | 形式  | 説明         |
 |-------|------|------|-------------|
-| jobId | Body | UUID | 요청한 작업의 식별자 |
+| jobId | Body | UUID | リクエストした作業の識別子 |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -986,33 +986,33 @@ POST /v1.0/db-instances/{dbInstanceId}/high-availability/resume
 </details>
 
 
-### 고가용성 일시 중지하기
+### 高可用性の一時停止
 
 ```http
 POST /v1.0/db-instances/{dbInstanceId}/high-availability/pause
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                                     | 설명           |
+| 権限名                                    | 説明          |
 |-----------------------------------------|--------------|
-| RDSforPostgreSQL:HighAvailability.Pause | 고가용성 일시 중지하기 |
+| RDSforPostgreSQL:HighAvailability.Pause | 高可用性の一時停止 |
 
-#### 요청
+#### リクエスト
 
-이 API는 요청 본문을 요구하지 않습니다.
+このAPIはリクエスト本文を要求しません。
 
-| 이름           | 종류  | 형식   | 필수 | 설명           |
+| 名前          | 種類 | 形式  | 必須 | 説明          |
 |--------------|-----|------|----|--------------|
-| dbInstanceId | URL | UUID | O  | DB 인스턴스의 식별자 |
+| dbInstanceId | URL | UUID | O  | DBインスタンスの識別子 |
 
-#### 응답
+#### レスポンス
 
-| 이름    | 종류   | 형식   | 설명          |
+| 名前   | 種類  | 形式  | 説明         |
 |-------|------|------|-------------|
-| jobId | Body | UUID | 요청한 작업의 식별자 |
+| jobId | Body | UUID | リクエストした作業の識別子 |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -1027,33 +1027,33 @@ POST /v1.0/db-instances/{dbInstanceId}/high-availability/pause
 </details>
 
 
-### 고가용성 복구하기
+### 高可用性の復旧
 
 ```http
 POST /v1.0/db-instances/{dbInstanceId}/high-availability/repair
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                                      | 설명        |
+| 権限名                                     | 説明       |
 |------------------------------------------|-----------|
-| RDSforPostgreSQL:HighAvailability.Repair | 고가용성 복구하기 |
+| RDSforPostgreSQL:HighAvailability.Repair | 高可用性の復旧 |
 
-#### 요청
+#### リクエスト
 
-이 API는 요청 본문을 요구하지 않습니다.
+このAPIはリクエスト本文を要求しません。
 
-| 이름           | 종류  | 형식   | 필수 | 설명           |
+| 名前          | 種類 | 形式  | 必須 | 説明          |
 |--------------|-----|------|----|--------------|
-| dbInstanceId | URL | UUID | O  | DB 인스턴스의 식별자 |
+| dbInstanceId | URL | UUID | O  | DBインスタンスの識別子 |
 
-#### 응답
+#### レスポンス
 
-| 이름    | 종류   | 형식   | 설명          |
+| 名前   | 種類  | 形式  | 説明         |
 |-------|------|------|-------------|
-| jobId | Body | UUID | 요청한 작업의 식별자 |
+| jobId | Body | UUID | リクエストした作業の識別子 |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -1068,33 +1068,33 @@ POST /v1.0/db-instances/{dbInstanceId}/high-availability/repair
 </details>
 
 
-### 고가용성 분리하기
+### 高可用性の分離
 
 ```http
 POST /v1.0/db-instances/{dbInstanceId}/high-availability/split
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                                     | 설명        |
+| 権限名                                    | 説明       |
 |-----------------------------------------|-----------|
-| RDSforPostgreSQL:HighAvailability.Split | 고가용성 분리하기 |
+| RDSforPostgreSQL:HighAvailability.Split | 高可用性の分離 |
 
-#### 요청
+#### リクエスト
 
-이 API는 요청 본문을 요구하지 않습니다.
+このAPIはリクエスト本文を要求しません。
 
-| 이름           | 종류  | 형식   | 필수 | 설명           |
+| 名前          | 種類 | 形式  | 必須 | 説明          |
 |--------------|-----|------|----|--------------|
-| dbInstanceId | URL | UUID | O  | DB 인스턴스의 식별자 |
+| dbInstanceId | URL | UUID | O  | DBインスタンスの識別子 |
 
-#### 응답
+#### レスポンス
 
-| 이름    | 종류   | 형식   | 설명          |
+| 名前   | 種類  | 形式  | 説明         |
 |-------|------|------|-------------|
-| jobId | Body | UUID | 요청한 작업의 식별자 |
+| jobId | Body | UUID | リクエストした作業の識別子 |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -1109,35 +1109,35 @@ POST /v1.0/db-instances/{dbInstanceId}/high-availability/split
 </details>
 
 
-### DB 인스턴스 스토리지 정보 조회
+### DBインスタンスストレージ情報の照会
 
 ```http
 GET /v1.0/db-instances/{dbInstanceId}/storage-info
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                             | 설명            |
+| 権限名                            | 説明           |
 |---------------------------------|---------------|
-| RDSforPostgreSQL:DbInstance.Get | DB 인스턴스 상세 보기 |
+| RDSforPostgreSQL:DbInstance.Get | DBインスタンス詳細を表示 |
 
-#### 요청
+#### リクエスト
 
-이 API는 요청 본문을 요구하지 않습니다.
+このAPIはリクエスト本文を要求しません。
 
-| 이름           | 종류  | 형식   | 필수 | 설명           |
+| 名前          | 種類 | 形式  | 必須 | 説明          |
 |--------------|-----|------|----|--------------|
-| dbInstanceId | URL | UUID | O  | DB 인스턴스의 식별자 |
+| dbInstanceId | URL | UUID | O  | DBインスタンスの識別子 |
 
-#### 응답
+#### レスポンス
 
-| 이름               | 종류   | 형식      | 설명                                                                                   |
+| 名前              | 種類  | 形式     | 説明                                                                                  |
 |------------------|------|---------|--------------------------------------------------------------------------------------|
-| storageType      | Body | Enum    | 데이터 스토리지 유형                                                                          |
-| storageSize      | Body | Number  | 데이터 스토리지 크기(GB)                                                                      |
-| storageStatus    | Body | Enum    | 데이터 스토리지의 현재 상태<br/>- `DETACHED`: 부착되지 않음<br/>- `ATTACHED`: 부착됨<br/>- `DELETED`: 삭제됨 |
+| storageType      | Body | Enum    | データストレージタイプ                                                                         |
+| storageSize      | Body | Number  | データストレージサイズ(GB)                                                                      |
+| storageStatus    | Body | Enum    | データストレージの現在状態<br/>- `DETACHED`:デタッチ<br/>- `ATTACHED`:アタッチ<br/>- `DELETED`:削除済み |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -1154,32 +1154,32 @@ GET /v1.0/db-instances/{dbInstanceId}/storage-info
 </details>
 
 
-### DB 인스턴스 스토리지 정보 수정하기
+### DBインスタンスストレージ情報の修正
 
 ```http
 PUT /v1.0/db-instances/{dbInstanceId}/storage-info
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                                | 설명           |
+| 権限名                               | 説明          |
 |------------------------------------|--------------|
-| RDSforPostgreSQL:DbInstance.Modify | DB 인스턴스 수정하기 |
+| RDSforPostgreSQL:DbInstance.Modify | DBインスタンスの修正 |
 
-#### 요청
+#### リクエスト
 
-| 이름                | 종류   | 형식      | 필수 | 설명                                                                        |
+| 名前               | 種類  | 形式     | 必須 | 説明                                                                       |
 |-------------------|------|---------|----|---------------------------------------------------------------------------|
-| dbInstanceId      | URL  | UUID    | O  | DB 인스턴스의 식별자                                                              |
-| storageSize       | Body | Number  | O  | 데이터 스토리지 크기(GB)<br/>- 최솟값: 현재값<br/>- 최댓값: `2048`                          |
+| dbInstanceId      | URL  | UUID    | O  | DBインスタンスの識別子                                                             |
+| storageSize       | Body | Number  | O  | データストレージサイズ(GB)<br/>- 最小値:現在値<br/>- 最大値:`2048`                          |
 
-#### 응답
+#### レスポンス
 
-| 이름    | 종류   | 형식   | 설명          |
+| 名前   | 種類  | 形式  | 説明         |
 |-------|------|------|-------------|
-| jobId | Body | UUID | 요청한 작업의 식별자 |
+| jobId | Body | UUID | リクエストした作業の識別子 |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -1193,42 +1193,42 @@ PUT /v1.0/db-instances/{dbInstanceId}/storage-info
 ```
 </details>
 
-### DB 인스턴스 네트워크 정보 조회
+### DBインスタンスネットワーク情報の照会
 
 ```http
 GET /v1.0/db-instances/{dbInstanceId}/network-info
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                             | 설명            |
+| 権限名                            | 説明           |
 |---------------------------------|---------------|
-| RDSforPostgreSQL:DbInstance.Get | DB 인스턴스 상세 보기 |
+| RDSforPostgreSQL:DbInstance.Get | DBインスタンス詳細を表示 |
 
-#### 요청
+#### リクエスト
 
-이 API는 요청 본문을 요구하지 않습니다.
+このAPIはリクエスト本文を要求しません。
 
-| 이름           | 종류  | 형식   | 필수 | 설명           |
+| 名前          | 種類 | 形式  | 必須 | 説明          |
 |--------------|-----|------|----|--------------|
-| dbInstanceId | URL | UUID | O  | DB 인스턴스의 식별자 |
+| dbInstanceId | URL | UUID | O  | DBインスタンスの識別子 |
 
-#### 응답
+#### レスポンス
 
-| 이름                      | 종류   | 형식      | 설명                                                                                                                                      |
+| 名前                     | 種類  | 形式     | 説明                                                                                                                                     |
 |-------------------------|------|---------|-----------------------------------------------------------------------------------------------------------------------------------------|
-| availabilityZone        | Body | Enum    | DB 인스턴스를 생성할 가용성 영역                                                                                                                     |
-| subnet                  | Body | Object  | 서브넷 객체                                                                                                                                  |
-| subnet.subnetId         | Body | UUID    | 서브넷의 식별자                                                                                                                                |
-| subnet.subnetName       | Body | UUID    | 서브넷을 식별할 수 있는 이름                                                                                                                        |
-| subnet.subnetCidr       | Body | UUID    | 서브넷의 CIDR                                                                                                                               |
-| subnet.publicAccessible | Body | Boolean | 외부 접속 가능 여부                                                                                                                             |
-| endPoints               | Body | Array   | 접속 정보 목록                                                                                                                                |
-| endPoints.domain        | Body | String  | 도메인                                                                                                                                     |
-| endPoints.ipAddress     | Body | String  | IP 주소                                                                                                                                   |
-| endPoints.endPointType  | Body | Enum    | 접속 정보 유형<br>-`EXTERNAL`: 외부 접속 도메인<br>-`INTERNAL`: 내부 접속 도메인<br>-`PUBLIC`: (Deprecated) 외부 접속 도메인<br>-`PRIVATE`: (Deprecated) 내부 접속 도메인 |
+| availabilityZone        | Body | Enum    | DBインスタンスを作成するアベイラビリティゾーン                                                                                                                    |
+| subnet                  | Body | Object  | サブネットオブジェクト                                                                                                                                 |
+| subnet.subnetId         | Body | UUID    | サブネットの識別子                                                                                                                               |
+| subnet.subnetName       | Body | UUID    | サブネットを識別できる名前                                                                                                                       |
+| subnet.subnetCidr       | Body | UUID    | サブネットのCIDR                                                                                                                               |
+| subnet.publicAccessible | Body | Boolean | 外部接続可否                                                                                                                            |
+| endPoints               | Body | Array   | 接続情報リスト                                                                                                                               |
+| endPoints.domain        | Body | String  | ドメイン                                                                                                                                    |
+| endPoints.ipAddress     | Body | String  | IPアドレス                                                                                                                                  |
+| endPoints.endPointType  | Body | Enum    | 接続情報タイプ<br>-`EXTERNAL`:外部接続ドメイン<br>-`INTERNAL`:内部接続ドメイン<br>-`PUBLIC`:(Deprecated)外部接続ドメイン<br>-`PRIVATE`:(Deprecated)内部接続ドメイン |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -1255,32 +1255,32 @@ GET /v1.0/db-instances/{dbInstanceId}/network-info
 ```
 </details>
 
-### DB 인스턴스 네트워크 정보 수정하기
+### DBインスタンスネットワーク情報の修正
 
 ```http
 PUT /v1.0/db-instances/{dbInstanceId}/network-info
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                                | 설명           |
+| 権限名                               | 説明          |
 |------------------------------------|--------------|
-| RDSforPostgreSQL:DbInstance.Modify | DB 인스턴스 수정하기 |
+| RDSforPostgreSQL:DbInstance.Modify | DBインスタンスの修正 |
 
-#### 요청
+#### リクエスト
 
-| 이름              | 종류   | 형식      | 필수 | 설명           |
+| 名前             | 種類  | 形式     | 必須 | 説明          |
 |-----------------|------|---------|----|--------------|
-| dbInstanceId    | URL  | UUID    | O  | DB 인스턴스의 식별자 |
-| usePublicAccess | Body | Boolean | O  | 외부 접속 가능 여부  |
+| dbInstanceId    | URL  | UUID    | O  | DBインスタンスの識別子 |
+| usePublicAccess | Body | Boolean | O  | 外部接続可否 |
 
-#### 응답
+#### レスポンス
 
-| 이름    | 종류   | 형식   | 설명          |
+| 名前   | 種類  | 形式  | 説明         |
 |-------|------|------|-------------|
-| jobId | Body | UUID | 요청한 작업의 식별자 |
+| jobId | Body | UUID | リクエストした作業の識別子 |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -1294,37 +1294,37 @@ PUT /v1.0/db-instances/{dbInstanceId}/network-info
 ```
 </details>
 
-### DB 인스턴스 백업 정보 조회
+### DBインスタンスバックアップ情報の照会
 
 ```http
 GET /v1.0/db-instances/{dbInstanceId}/backup-info
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                             | 설명            |
+| 権限名                            | 説明           |
 |---------------------------------|---------------|
-| RDSforPostgreSQL:DbInstance.Get | DB 인스턴스 상세 보기 |
+| RDSforPostgreSQL:DbInstance.Get | DBインスタンス詳細を表示 |
 
-#### 요청
+#### リクエスト
 
-이 API는 요청 본문을 요구하지 않습니다.
+このAPIはリクエスト本文を要求しません。
 
-| 이름           | 종류  | 형식   | 필수 | 설명           |
+| 名前          | 種類 | 形式  | 必須 | 説明          |
 |--------------|-----|------|----|--------------|
-| dbInstanceId | URL | UUID | O  | DB 인스턴스의 식별자 |
+| dbInstanceId | URL | UUID | O  | DBインスタンスの識別子 |
 
-#### 응답
+#### レスポンス
 
-| 이름                                    | 종류   | 형식     | 설명                                                                                                                                                                                                                   |
+| 名前                                   | 種類  | 形式    | 説明                                                                                                                                                                                                                  |
 |---------------------------------------|------|--------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| backupPeriod                          | Body | Number | 백업 보관 기간(일)                                                                                                                                                                                                          |
-| backupRetryCount                      | Body | Number | 백업 재시도 횟수                                                                                                                                                                                                            |
-| backupSchedules                       | Body | Array  | 백업 스케줄 목록                                                                                                                                                                                                            |
-| backupSchedules.backupWndBgnTime      | Body | String | 백업 시작 시간                                                                                                                                                                                                             |
-| backupSchedules.backupWndDuration     | Body | Enum   | 백업 윈도우<br/>백업 시작 시간부터 설정된 기간 안에 자동 백업이 실행됩니다.<br/>- `HALF_AN_HOUR`: 30분<br/>- `ONE_HOUR`: 1시간<br/>- `ONE_HOUR_AND_HALF`: 1시간 30분<br/>- `TWO_HOURS`: 2시간<br/>- `TWO_HOURS_AND_HALF`: 2시간 30분<br/>- `THREE_HOURS`: 3시간 |
+| backupPeriod                          | Body | Number | バックアップの保管期間(日)                                                                                                                                                                                                          |
+| backupRetryCount                      | Body | Number | バックアップの再試行回数                                                                                                                                                                                                           |
+| backupSchedules                       | Body | Array  | バックアップスケジュールリスト                                                                                                                                                                                                           |
+| backupSchedules.backupWndBgnTime      | Body | String | バックアップ開始時間                                                                                                                                                                                                            |
+| backupSchedules.backupWndDuration     | Body | Enum   | バックアップWindows<br/>バックアップ開始時間から設定された期間内に自動バックアップが実行されます。<br/>- `HALF_AN_HOUR`:30分<br/>- `ONE_HOUR`:1時間<br/>- `ONE_HOUR_AND_HALF`:1時間30分<br/>- `TWO_HOURS`:2時間<br/>- `TWO_HOURS_AND_HALF`:2時間30分<br/>- `THREE_HOURS`:3時間 |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -1346,30 +1346,30 @@ GET /v1.0/db-instances/{dbInstanceId}/backup-info
 ```
 </details>
 
-### DB 인스턴스 백업 정보 수정하기
+### DBインスタンスバックアップ情報の修正
 
 ```http
 PUT /v1.0/db-instances/{dbInstanceId}/backup-info
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                                | 설명           |
+| 権限名                               | 説明          |
 |------------------------------------|--------------|
-| RDSforPostgreSQL:DbInstance.Modify | DB 인스턴스 수정하기 |
+| RDSforPostgreSQL:DbInstance.Modify | DBインスタンスの修正 |
 
-#### 요청
+#### リクエスト
 
-| 이름                                    | 종류   | 형식     | 필수 | 설명                                                                                                                                                                                                                   |
+| 名前                                   | 種類  | 形式    | 必須 | 説明                                                                                                                                                                                                                  |
 |---------------------------------------|------|--------|----|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| dbInstanceId                          | URL  | UUID   | O  | DB 인스턴스의 식별자                                                                                                                                                                                                         |
-| backupPeriod                          | Body | Number | X  | 백업 보관 기간(일)<br/>- 최솟값: `0`<br/>- 최댓값: `730`                                                                                                                                                                          |
-| backupRetryCount                      | Body | Number | X  | 백업 재시도 횟수<br/>- 최솟값: `0`<br/>- 최댓값: `10`                                                                                                                                                                             |
-| backupSchedules                       | Body | Array  | X  | 백업 스케줄 목록                                                                                                                                                                                                            |
-| backupSchedules.backupWndBgnTime      | Body | String | O  | 백업 시작 시간<br/>- 예시: `00:00:00`                                                                                                                                                                                        |
-| backupSchedules.backupWndDuration     | Body | Enum   | O  | 백업 윈도우<br/>백업 시작 시간부터 설정된 기간 안에 자동 백업이 실행됩니다.<br/>- `HALF_AN_HOUR`: 30분<br/>- `ONE_HOUR`: 1시간<br/>- `ONE_HOUR_AND_HALF`: 1시간 30분<br/>- `TWO_HOURS`: 2시간<br/>- `TWO_HOURS_AND_HALF`: 2시간 30분<br/>- `THREE_HOURS`: 3시간 |
+| dbInstanceId                          | URL  | UUID   | O  | DBインスタンスの識別子                                                                                                                                                                                                        |
+| backupPeriod                          | Body | Number | X  | バックアップの保管期間(日)<br/>- 最小値:`0`<br/>- 最大値:`730`                                                                                                                                                                          |
+| backupRetryCount                      | Body | Number | X  | バックアップの再試行回数<br/>- 最小値:`0`<br/>- 最大値:`10`                                                                                                                                                                             |
+| backupSchedules                       | Body | Array  | X  | バックアップスケジュールリスト                                                                                                                                                                                                           |
+| backupSchedules.backupWndBgnTime      | Body | String | O  | バックアップ開始時間<br/>- 例:`00:00:00`                                                                                                                                                                                        |
+| backupSchedules.backupWndDuration     | Body | Enum   | O  | バックアップWindows<br/>バックアップ開始時間から設定された期間内に自動バックアップが実行されます。<br/>- `HALF_AN_HOUR`:30分<br/>- `ONE_HOUR`:1時間<br/>- `ONE_HOUR_AND_HALF`:1時間30分<br/>- `TWO_HOURS`:2時間<br/>- `TWO_HOURS_AND_HALF`:2時間30分<br/>- `THREE_HOURS`:3時間 |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -1385,13 +1385,13 @@ PUT /v1.0/db-instances/{dbInstanceId}/backup-info
 ```
 </details>
 
-#### 응답
+#### レスポンス
 
-| 이름    | 종류   | 형식   | 설명          |
+| 名前   | 種類  | 形式  | 説明         |
 |-------|------|------|-------------|
-| jobId | Body | UUID | 요청한 작업의 식별자 |
+| jobId | Body | UUID | リクエストした作業の識別子 |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -1405,48 +1405,48 @@ PUT /v1.0/db-instances/{dbInstanceId}/backup-info
 ```
 </details>
 
-### DB 인스턴스 복원 정보 조회
+### DBインスタンス復元情報の照会
 
 ```http
 GET /v1.0/db-instances/{dbInstanceId}/restoration-info
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                             | 설명            |
+| 権限名                            | 説明           |
 |---------------------------------|---------------|
-| RDSforPostgreSQL:DbInstance.Get | DB 인스턴스 상세 보기 |
+| RDSforPostgreSQL:DbInstance.Get | DBインスタンス詳細を表示 |
 
-#### 요청
+#### リクエスト
 
-| 이름           | 종류  | 형식   | 필수 | 설명           |
+| 名前          | 種類 | 形式  | 必須 | 説明          |
 |--------------|-----|------|----|--------------|
-| dbInstanceId | URL | UUID | O  | DB 인스턴스의 식별자 |
+| dbInstanceId | URL | UUID | O  | DBインスタンスの識別子 |
 
-#### 응답
+#### レスポンス
 
-| 이름                                      | 종류   | 형식       | 설명                                                                                                                                                    |
+| 名前                                     | 種類  | 形式      | 説明                                                                                                                                                   |
 |-----------------------------------------|------|----------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
-| oldestRestorableYmdt                    | Body | DateTime | 가장 오래된 복원 가능한 시간                                                                                                                                      |
-| latestRestorableYmdt                    | Body | DateTime | 가장 최신의 복원 가능한 시간                                                                                                                                      |
-| restorableBackups                       | Body | Array    | 복원 가능한 백업 목록                                                                                                                                          |
-| restorableBackups.backup                | Body | Object   | 백업 정보 객체                                                                                                                                              |
-| restorableBackups.backup.backupId       | Body | UUID     | 백업의 식별자                                                                                                                                               |
-| restorableBackups.backup.backupName     | Body | String   | 백업 이름                                                                                                                                                 |
-| restorableBackups.backup.backupSize     | Body | Number   | 백업 크기                                                                                                                                                 |
-| restorableBackups.backup.backupType     | Body | Enum     | 백업 유형<br/>- `AUTO`: 자동<br/>- `MANUAL`: 수동                                                                                                             |
-| restorableBackups.backup.backupStatus   | Body | Enum     | 백업 상태<br/>- `BACKING_UP`: 백업 중인 경우<br/>- `COMPLETED`: 백업이 완료된 경우<br/>- `DELETING`: 백업이 삭제 중인 경우<br/>- `DELETED`: 백업이 삭제된 경우<br/>- `ERROR`: 오류가 발생한 경우 |
-| restorableBackups.backup.dbInstanceId   | Body | UUID     | 원본 DB 인스턴스의 식별자                                                                                                                                       |
-| restorableBackups.backup.dbInstanceName | Body | String   | 원본 DB 인스턴스의 이름                                                                                                                                        |
-| restorableBackups.backup.dbVersion      | Body | String   | DB 버전 정보                                                                                                                                              |
-| restorableBackups.backup.failoverCount  | Body | Number   | 장애 조치 횟수                                                                                                                                              |
-| restorableBackups.backup.walFileName    | Body | String   | WAL 로그 파일 이름                                                                                                                                          |
-| restorableBackups.backup.createdYmdt    | Body | DateTime | 백업 생성 일시                                                                                                                                              |
-| restorableBackups.backup.updatedYmdt    | Body | DateTime | 백업 갱신 일시                                                                                                                                              |
-| restorableBackups.backup.startYmdt      | Body | DateTime | 백업 시작 일시                                                                                                                                              |
-| restorableBackups.backup.completedYmdt  | Body | DateTime | 백업 완료 일시                                                                                                                                              |
+| oldestRestorableYmdt                    | Body | DateTime | 最も古い復元可能時間                                                                                                                                     |
+| latestRestorableYmdt                    | Body | DateTime | 最も最新の復元可能時間                                                                                                                                     |
+| restorableBackups                       | Body | Array    | 復元可能なバックアップリスト                                                                                                                                         |
+| restorableBackups.backup                | Body | Object   | バックアップの情報オブジェクト                                                                                                                                             |
+| restorableBackups.backup.backupId       | Body | UUID     | バックアップの識別子                                                                                                                                              |
+| restorableBackups.backup.backupName     | Body | String   | バックアップ名                                                                                                                                                |
+| restorableBackups.backup.backupSize     | Body | Number   | バックアップサイズ                                                                                                                                                |
+| restorableBackups.backup.backupType     | Body | Enum     | バックアップタイプ<br/>- `AUTO`:自動<br/>- `MANUAL`:手動                                                                                                            |
+| restorableBackups.backup.backupStatus   | Body | Enum     | バックアップ状態<br/>- `BACKING_UP`:バックアップ中の場合<br/>- `COMPLETED`:バックアップが完了した場合<br/>- `DELETING`:バックアップが削除中の場合<br/>- `DELETED`:バックアップが削除された場合<br/>- `ERROR`:エラーが発生した場合 |
+| restorableBackups.backup.dbInstanceId   | Body | UUID     | 原本DBインスタンスの識別子                                                                                                                                      |
+| restorableBackups.backup.dbInstanceName | Body | String   | 原本DBインスタンス名                                                                                                                                       |
+| restorableBackups.backup.dbVersion      | Body | String   | DBバージョン情報                                                                                                                                             |
+| restorableBackups.backup.failoverCount  | Body | Number   | フェイルオーバー回数                                                                                                                                             |
+| restorableBackups.backup.walFileName    | Body | String   | WALログファイル名                                                                                                                                         |
+| restorableBackups.backup.createdYmdt    | Body | DateTime | バックアップ作成日時                                                                                                                                             |
+| restorableBackups.backup.updatedYmdt    | Body | DateTime | バックアップ更新日時                                                                                                                                             |
+| restorableBackups.backup.startYmdt      | Body | DateTime | バックアップ開始日時                                                                                                                                             |
+| restorableBackups.backup.completedYmdt  | Body | DateTime | バックアップ完了日時                                                                                                                                             |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -1478,58 +1478,58 @@ GET /v1.0/db-instances/{dbInstanceId}/restoration-info
 ```
 </details>
 
-### DB 인스턴스 복원하기
+### DBインスタンスの復元
 
 ```http
 GET /v1.0/db-instances/{dbInstanceId}/restore
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                                 | 설명           |
+| 権限名                                | 説明          |
 |-------------------------------------|--------------|
-| RDSforPostgreSQL:DbInstance.Restore | DB 인스턴스 복원하기 |
+| RDSforPostgreSQL:DbInstance.Restore | DBインスタンスの復元 |
 
-#### 공통 요청
+#### 共通リクエスト
 
-| 이름                                       | 종류   | 형식      | 필수 | 설명                                                                                                                                                                                                                                                  |
+| 名前                                      | 種類  | 形式     | 必須 | 説明                                                                                                                                                                                                                                                 |
 |------------------------------------------|------|---------|----|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| dbInstanceId                             | URL  | UUID    | O  | DB 인스턴스의 식별자                                                                                                                                                                                                                                        |
-| restore                                  | Body | Object  | O  | 복원 정보 객체                                                                                                                                                                                                                                            |
-| restore.restoreType                      | Body | Enum    | O  | 복원 타입 종류<br/>- `TIMESTAMP`: 복원 가능한 시간 이내의 시간을 이용한 시점 복원 타입<br/>- `BACKUP`: 기존에 생성한 백업을 이용한 복원 타입                                                                                                                                                    |
-| dbInstanceName                           | Body | String  | O  | DB 인스턴스를 식별할 수 있는 이름                                                                                                                                                                                                                                |
-| description                              | Body | String  | X  | DB 인스턴스에 대한 추가 정보                                                                                                                                                                                                                                   |
-| dbFlavorId                               | Body | UUID    | O  | DB 인스턴스 사양의 식별자                                                                                                                                                                                                                                     |
-| dbPort                                   | Body | Number  | O  | DB 포트<br/>- 최솟값: `3306`<br/>- 최댓값: `43306`                                                                                                                                                                                                          |
-| parameterGroupId                         | Body | UUID    | O  | 파라미터 그룹의 식별자                                                                                                                                                                                                                                        |
-| dbSecurityGroupIds                       | Body | Array   | X  | DB 보안 그룹의 식별자 목록                                                                                                                                                                                                                                    |
-| userGroupIds                             | Body | Array   | X  | 사용자 그룹의 식별자 목록                                                                                                                                                                                                                                      |
-| useDefaultNotification                   | Body | Boolean | X  | 기본 알림 사용 여부<br/>- 기본값: `false`                                                                                                                                                                                                                      |
-| useDeletionProtection                    | Body | Boolean | X  | 삭제 보호 여부<br>기본값: `false`                                                                                                                                                                                                                            |                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| useHighAvailability                      | Body | Boolean | X  | 고가용성 사용 여부<br/>- 기본값: `false`                                                                                                                                                                                                                       |
-| pingInterval                             | Body | Number  | X  | 고가용성 사용 시 Ping 간격(초)<br/>- 기본값: `3`최솟값: `1`<br/>- 최댓값: `600`                                                                                                                                                                                        |
-| failoverReplWaitingTime                  | Body | Number  | X  | 고가용성 사용 시 장애 조치 대기 시간<br/>- 최솟값: `-1`<br/>- -1로 설정 시, 복제 지연 해소까지 계속해서 대기합니다.                                                                                                                                                                        |                                                                                                                                                                                                                      | userGroupIds                             | Body | Array   | X  | 기본 알림 수신용 사용자 그룹의 식별자 목록                                                                                                                                                                                             |
-| network                                  | Body | Object  | O  | 네트워크 정보 객체                                                                                                                                                                                                                                          |
-| network.subnetId                         | Body | UUID    | O  | 서브넷의 식별자                                                                                                                                                                                                                                            |
-| network.usePublicAccess                  | Body | Boolean | X  | 외부 접속 가능 여부<br/>- 기본값: `false`</li></ul>                                                                                                                                                                                                            |
-| network.availabilityZone                 | Body | Enum    | X  | DB 인스턴스를 생성할 가용성 영역<br/>- 예시: `kr-pub-a`<br/>- 기본값: `임의의 가용성 영역`                                                                                                                                                                                    |
-| storage                                  | Body | Object  | O  | 스토리지 정보 객체                                                                                                                                                                                                                                          |
-| storage.storageType                      | Body | Enum    | O  | 데이터 스토리지 타입<br/>- 예시: `General SSD`                                                                                                                                                                                                                 |
-| storage.storageSize                      | Body | Number  | O  | 데이터 스토리지 크기(GB)<br/>- 최솟값: `20`<br/>- 최댓값: `2048`                                                                                                                                                                                                   |
-| backup                                   | Body | Object  | O  | 백업 정보 객체                                                                                                                                                                                                                                            |
-| backup.backupPeriod                      | Body | Number  | O  | 백업 보관 기간(일)<br/>- 최솟값: `0`<br/>- 최댓값: `730`                                                                                                                                                                                                         |
-| backup.backupRetryCount                  | Body | Number  | X  | 백업 재시도 횟수<br/>- 기본값: `0`<br/>- 최솟값: `0`<br/>- 최댓값: `10`                                                                                                                                                                                             |
-| backup.backupSchedules                   | Body | Array   | O  | 백업 스케줄 목록                                                                                                                                                                                                                                           |
-| backup.backupSchedules.backupWndBgnTime  | Body | String  | X  | 백업 시작 시각<br/>- 예시: `00:00:00`<br/>- 기본값: 원본 DB 인스턴스 값                                                                                                                                                                                               |
-| backup.backupSchedules.backupWndDuration | Body | Enum    | X  | 백업 Duration<br/>백업 시작 시각부터 Duration 안에 자동 백업이 실행됩니다.<br/>- `HALF_AN_HOUR`: 30분<br/>- `ONE_HOUR`: 1시간<br/>- `ONE_HOUR_AND_HALF`: 1시간 30분<br/>- `TWO_HOURS`: 2시간<br/>- `TWO_HOURS_AND_HALF`: 2시간 30분<br/>- `THREE_HOURS`: 3시간<br/>- 기본값: 원본 DB 인스턴스 값 |
+| dbInstanceId                             | URL  | UUID    | O  | DBインスタンスの識別子                                                                                                                                                                                                                                       |
+| restore                                  | Body | Object  | O  | 復元情報オブジェクト                                                                                                                                                                                                                                           |
+| restore.restoreType                      | Body | Enum    | O  | 復元タイプ種類<br/>- `TIMESTAMP`:復元可能時間内の時間を利用した時点復元タイプ<br/>- `BACKUP`:既存のバックアップを利用した復元タイプ                                                                                                                                                   |
+| dbInstanceName                           | Body | String  | O  | DBインスタンスを識別できる名前                                                                                                                                                                                                                               |
+| description                              | Body | String  | X  | DBインスタンスの追加情報                                                                                                                                                                                                                                  |
+| dbFlavorId                               | Body | UUID    | O  | DBインスタンス仕様の識別子                                                                                                                                                                                                                                    |
+| dbPort                                   | Body | Number  | O  | DBポート<br/>- 最小値:`3306`<br/>- 最大値:`43306`                                                                                                                                                                                                          |
+| parameterGroupId                         | Body | UUID    | O  | パラメータグループの識別子                                                                                                                                                                                                                                       |
+| dbSecurityGroupIds                       | Body | Array   | X  | DBセキュリティグループの識別子リスト                                                                                                                                                                                                                                   |
+| userGroupIds                             | Body | Array   | X  | ユーザーグループの識別子リスト                                                                                                                                                                                                                                     |
+| useDefaultNotification                   | Body | Boolean | X  | 基本通知の使用有無<br/>- デフォルト値:`false`                                                                                                                                                                                                                      |
+| useDeletionProtection                    | Body | Boolean | X  | 削除保護の有無<br>デフォルト値:`false`                                                                                                                                                                                                                            |                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| useHighAvailability                      | Body | Boolean | X  | 高可用性の使用有無<br/>- デフォルト値:`false`                                                                                                                                                                                                                       |
+| pingInterval                             | Body | Number  | X  | 高可用性使用時Ping間隔(秒)<br/>- デフォルト値: `3`最小値: `1`<br/>- 最大値: `600`                                                                                                                                                                                        |
+| failoverReplWaitingTime                  | Body | Number  | X  | 高可用性使用時のフェイルオーバー待機時間<br/>- 最小値:`-1`<br/>- -1に設定時、複製遅延が解消されるまで待機し続けます。                                                                                                                                                                        |                                                                                                                                                                                                                      | userGroupIds                             | Body | Array   | X  | 基本通知受信用のユーザーグループの識別子リスト                                                                                                                                                                                            |
+| network                                  | Body | Object  | O  | ネットワーク情報オブジェクト                                                                                                                                                                                                                                         |
+| network.subnetId                         | Body | UUID    | O  | サブネットの識別子                                                                                                                                                                                                                                           |
+| network.usePublicAccess                  | Body | Boolean | X  | 外部接続可否<br/>- デフォルト値:`false`</li></ul>                                                                                                                                                                                                            |
+| network.availabilityZone                 | Body | Enum    | X  | DBインスタンスを作成するアベイラビリティゾーン<br/>- 例:`kr-pub-a`<br/>- デフォルト値:`任意のアベイラビリティゾーン`                                                                                                                                                                                    |
+| storage                                  | Body | Object  | O  | ストレージ情報オブジェクト                                                                                                                                                                                                                                         |
+| storage.storageType                      | Body | Enum    | O  | データストレージタイプ<br/>- 例:`General SSD`                                                                                                                                                                                                                 |
+| storage.storageSize                      | Body | Number  | O  | データストレージサイズ(GB)<br/>- 最小値:`20`<br/>- 最大値:`2048`                                                                                                                                                                                                   |
+| backup                                   | Body | Object  | O  | バックアップの情報オブジェクト                                                                                                                                                                                                                                           |
+| backup.backupPeriod                      | Body | Number  | O  | バックアップの保管期間(日)<br/>- 最小値:`0`<br/>- 最大値:`730`                                                                                                                                                                                                         |
+| backup.backupRetryCount                  | Body | Number  | X  | バックアップの再試行回数<br/>- デフォルト値:`0`<br/>- 最小値:`0`<br/>- 最大値:`10`                                                                                                                                                                                             |
+| backup.backupSchedules                   | Body | Array   | O  | バックアップスケジュールリスト                                                                                                                                                                                                                                          |
+| backup.backupSchedules.backupWndBgnTime  | Body | String  | X  | バックアップ開始時刻<br/>- 例:`00:00:00`<br/>- デフォルト値:原本DBインスタンス値                                                                                                                                                                                              |
+| backup.backupSchedules.backupWndDuration | Body | Enum    | X  | バックアップDuration<br/>バックアップ開始時刻からDuration内に自動バックアップが実行されます。<br/>- `HALF_AN_HOUR`:30分<br/>- `ONE_HOUR`:1時間<br/>- `ONE_HOUR_AND_HALF`:1時間30分<br/>- `TWO_HOURS`:2時間<br/>- `TWO_HOURS_AND_HALF`:2時間30分<br/>- `THREE_HOURS`:3時間<br/>- デフォルト値:原本DBインスタンス値 |
 
-#### Timestamp를 이용한 시점 복원 시 요청(restoreType이 `TIMESTAMP`인 경우)
+#### Timestampを利用した時点復元時のリクエスト(restoreTypeが`TIMESTAMP`の場合)
 
-| 이름                  | 종류   | 형식       | 필수 | 설명                                                                                              |
+| 名前                 | 種類  | 形式      | 必須 | 説明                                                                                             |
 |---------------------|------|----------|----|-------------------------------------------------------------------------------------------------|
-| restore.restoreYmdt | Body | DateTime | O  | DB 인스턴스 복원 시간.(YYYY-MM-DDThh:mm:ss.SSSTZD)<br>복원 정보 조회로 조회한 가장 최신의 복원 가능한 시간 이전에 대해서만 복원이 가능하다. |
+| restore.restoreYmdt | Body | DateTime | O  | DBインスタンス復元時間。(YYYY-MM-DDThh:mm:ss.SSSTZD)<br>復元情報照会で照会した最も最新の復元可能な時間以前のデータのみ復元が可能 |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -1568,13 +1568,13 @@ GET /v1.0/db-instances/{dbInstanceId}/restore
 ```
 </details>
 
-#### 응답
+#### レスポンス
 
-| 이름    | 종류   | 형식   | 설명          |
+| 名前   | 種類  | 形式  | 説明         |
 |-------|------|------|-------------|
-| jobId | Body | UUID | 요청한 작업의 식별자 |
+| jobId | Body | UUID | リクエストした作業の識別子 |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -1589,30 +1589,30 @@ GET /v1.0/db-instances/{dbInstanceId}/restore
 </details>
 
 
-### DB 인스턴스 삭제 보호 설정 변경하기
+### DBインスタンス削除保護設定の変更
 
 ```http
 PUT /v1.0/db-instances/{dbInstanceId}/deletion-protection
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                                | 설명           |
+| 権限名                               | 説明          |
 |------------------------------------|--------------|
-| RDSforPostgreSQL:DbInstance.Modify | DB 인스턴스 수정하기 |
+| RDSforPostgreSQL:DbInstance.Modify | DBインスタンスの修正 |
 
-#### 요청
+#### リクエスト
 
-| 이름                    | 종류   | 형식      | 필수 | 설명           |
+| 名前                   | 種類  | 形式     | 必須 | 説明          |
 |-----------------------|------|---------|----|--------------|
-| dbInstanceId          | URL  | UUID    | O  | DB 인스턴스의 식별자 |
-| useDeletionProtection | Body | Boolean | O  | 삭제 보호 여부     |
+| dbInstanceId          | URL  | UUID    | O  | DBインスタンスの識別子 |
+| useDeletionProtection | Body | Boolean | O  | 削除保護の有無     |
 
-#### 응답
+#### レスポンス
 
-이 API는 응답 본문을 반환하지 않습니다.
+このAPIはレスポンス本文を返しません。
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -1624,7 +1624,6 @@ PUT /v1.0/db-instances/{dbInstanceId}/deletion-protection
 }
 ```
 </details>
-
 
 ### DB 인스턴스 유지보수 정보 조회
 
@@ -1759,33 +1758,33 @@ GET /v1.0/db-instances/{dbInstanceId}/available-db-versions
 ```
 </details>
 
-### DB 인스턴스 삭제하기
+### DBインスタンスの削除
 
 ```http
 DELETE /v1.0/db-instances/{dbInstanceId}
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                                | 설명           |
+| 権限名                               | 説明          |
 |------------------------------------|--------------|
-| RDSforPostgreSQL:DbInstance.Delete | DB 인스턴스 삭제하기 |
+| RDSforPostgreSQL:DbInstance.Delete | DBインスタンスの削除 |
 
-#### 요청
+#### リクエスト
 
-이 API는 요청 본문을 요구하지 않습니다.
+このAPIはリクエスト本文を要求しません。
 
-| 이름           | 종류  | 형식   | 필수 | 설명           |
+| 名前          | 種類 | 形式  | 必須 | 説明          |
 |--------------|-----|------|----|--------------|
-| dbInstanceId | URL | UUID | O  | DB 인스턴스의 식별자 |
+| dbInstanceId | URL | UUID | O  | DBインスタンスの識別子 |
 
-#### 응답
+#### レスポンス
 
-| 이름    | 종류   | 형식   | 설명          |
+| 名前   | 種類  | 形式  | 説明         |
 |-------|------|------|-------------|
-| jobId | Body | UUID | 요청한 작업의 식별자 |
+| jobId | Body | UUID | リクエストした作業の識別子 |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -1799,27 +1798,27 @@ DELETE /v1.0/db-instances/{dbInstanceId}
 ```
 </details>
 
-### DB 인스턴스 재시작하기
+### DBインスタンスの再起動
 
 ```http
 POST /v1.0/db-instances/{dbInstanceId}/restart
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                                 | 설명            |
+| 権限名                                | 説明           |
 |-------------------------------------|---------------|
-| RDSforPostgreSQL:DbInstance.Restart | DB 인스턴스 재시작하기 |
+| RDSforPostgreSQL:DbInstance.Restart | DBインスタンスの再起動 |
 
-#### 요청
+#### リクエスト
 
-| 이름                | 종류   | 형식      | 필수 | 설명                                                                        |
+| 名前               | 種類  | 形式     | 必須 | 説明                                                                       |
 |-------------------|------|---------|----|---------------------------------------------------------------------------|
-| dbInstanceId      | URL  | UUID    | O  | DB 인스턴스의 식별자                                                              |
-| useOnlineFailover | Body | Boolean | X  | 장애 조치를 이용한 재시작 여부<br/>고가용성을 사용 중인 DB 인스턴스에서만 사용 가능합니다.<br/>- 기본값: `false` |
-| executeBackup     | Body | Boolean | X  | 현재 시점 백업 진행 여부<br/>- 기본값: `false`                                         |
+| dbInstanceId      | URL  | UUID    | O  | DBインスタンスの識別子                                                             |
+| useOnlineFailover | Body | Boolean | X  | フェイルオーバーを利用した再起動の有無<br/>高可用性を使用中のDBインスタンスでのみ使用可能です。<br/>- デフォルト値:`false` |
+| executeBackup     | Body | Boolean | X  | 現時点バックアップを実行するかどうか<br/>- デフォルト値: `false`                                         |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -1828,13 +1827,13 @@ POST /v1.0/db-instances/{dbInstanceId}/restart
 ```
 </details>
 
-#### 응답
+#### レスポンス
 
-| 이름    | 종류   | 형식   | 설명          |
+| 名前   | 種類  | 形式  | 説明         |
 |-------|------|------|-------------|
-| jobId | Body | UUID | 요청한 작업의 식별자 |
+| jobId | Body | UUID | リクエストした作業の識別子 |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -1848,29 +1847,29 @@ POST /v1.0/db-instances/{dbInstanceId}/restart
 ```
 </details>
 
-### DB 인스턴스 강제 재시작하기
+### DBインスタンスの強制再起動
 
 ```http
 POST /v1.0/db-instances/{dbInstanceId}/force-restart
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                                      | 설명               |
+| 権限名                                     | 説明              |
 |------------------------------------------|------------------|
-| RDSforPostgreSQL:DbInstance.ForceRestart | DB 인스턴스 강제 재시작하기 |
+| RDSforPostgreSQL:DbInstance.ForceRestart | DBインスタンスの強制再起動 |
 
-#### 요청
+#### リクエスト
 
-| 이름           | 종류  | 형식   | 필수 | 설명           |
+| 名前          | 種類 | 形式  | 必須 | 説明          |
 |--------------|-----|------|----|--------------|
-| dbInstanceId | URL | UUID | O  | DB 인스턴스의 식별자 |
+| dbInstanceId | URL | UUID | O  | DBインスタンスの識別子 |
 
-#### 응답
+#### レスポンス
 
-이 API는 응답 본문을 반환하지 않습니다.
+このAPIはレスポンス本文を返しません。
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -1884,33 +1883,33 @@ POST /v1.0/db-instances/{dbInstanceId}/force-restart
 </details>
 
 
-### DB 인스턴스 시작하기
+### DBインスタンス開始
 
 ```http
 POST /v1.0/db-instances/{dbInstanceId}/start
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                               | 설명           |
+| 権限名                              | 説明          |
 |-----------------------------------|--------------|
-| RDSforPostgreSQL:DbInstance.Start | DB 인스턴스 시작하기 |
+| RDSforPostgreSQL:DbInstance.Start | DBインスタンス開始 |
 
-#### 요청
+#### リクエスト
 
-이 API는 요청 본문을 요구하지 않습니다.
+このAPIはリクエスト本文を要求しません。
 
-| 이름           | 종류  | 형식   | 필수 | 설명           |
+| 名前          | 種類 | 形式  | 必須 | 説明          |
 |--------------|-----|------|----|--------------|
-| dbInstanceId | URL | UUID | O  | DB 인스턴스의 식별자 |
+| dbInstanceId | URL | UUID | O  | DBインスタンスの識別子 |
 
-#### 응답
+#### レスポンス
 
-| 이름    | 종류   | 형식   | 설명          |
+| 名前   | 種類  | 形式  | 説明         |
 |-------|------|------|-------------|
-| jobId | Body | UUID | 요청한 작업의 식별자 |
+| jobId | Body | UUID | リクエストした作業の識別子 |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -1924,33 +1923,33 @@ POST /v1.0/db-instances/{dbInstanceId}/start
 ```
 </details>
 
-### DB 인스턴스 정지하기
+### DBインスタンス停止
 
 ```http
 POST /v1.0/db-instances/{dbInstanceId}/stop
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                               | 설명           |
+| 権限名                              | 説明          |
 |-----------------------------------|--------------|
-| RDSforPostgreSQL:DbInstance.Start | DB 인스턴스 시작하기 |
+| RDSforPostgreSQL:DbInstance.Start | DBインスタンス開始 |
 
-#### 요청
+#### リクエスト
 
-이 API는 요청 본문을 요구하지 않습니다.
+このAPIはリクエスト本文を要求しません。
 
-| 이름           | 종류  | 형식   | 필수 | 설명           |
+| 名前          | 種類 | 形式  | 必須 | 説明          |
 |--------------|-----|------|----|--------------|
-| dbInstanceId | URL | UUID | O  | DB 인스턴스의 식별자 |
+| dbInstanceId | URL | UUID | O  | DBインスタンスの識別子 |
 
-#### 응답
+#### レスポンス
 
-| 이름    | 종류   | 형식   | 설명          |
+| 名前   | 種類  | 形式  | 説明         |
 |-------|------|------|-------------|
-| jobId | Body | UUID | 요청한 작업의 식별자 |
+| jobId | Body | UUID | リクエストした作業の識別子 |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -1964,26 +1963,26 @@ POST /v1.0/db-instances/{dbInstanceId}/stop
 ```
 </details>
 
-### DB 인스턴스 백업하기
+### DBインスタンスのバックアップ
 
 ```http
 POST /v1.0/db-instances/{dbInstanceId}/backup
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                                | 설명           |
+| 権限名                               | 説明          |
 |------------------------------------|--------------|
-| RDSforPostgreSQL:DbInstance.Backup | DB 인스턴스 백업하기 |
+| RDSforPostgreSQL:DbInstance.Backup | DBインスタンスのバックアップ |
 
-#### 요청
+#### リクエスト
 
-| 이름           | 종류   | 형식     | 필수 | 설명              |
+| 名前          | 種類  | 形式    | 必須 | 説明             |
 |--------------|------|--------|----|-----------------|
-| dbInstanceId | URL  | UUID   | O  | DB 인스턴스의 식별자    |
-| backupName   | Body | String | O  | 백업을 식별할 수 있는 이름 |
+| dbInstanceId | URL  | UUID   | O  | DBインスタンスの識別子   |
+| backupName   | Body | String | O  | バックアップを識別できる名前 |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -1992,13 +1991,13 @@ POST /v1.0/db-instances/{dbInstanceId}/backup
 ```
 </details>
 
-#### 응답
+#### レスポンス
 
-| 이름    | 종류   | 형식   | 설명          |
+| 名前   | 種類  | 形式  | 説明         |
 |-------|------|------|-------------|
-| jobId | Body | UUID | 요청한 작업의 식별자 |
+| jobId | Body | UUID | リクエストした作業の識別子 |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -2012,30 +2011,30 @@ POST /v1.0/db-instances/{dbInstanceId}/backup
 ```
 </details>
 
-### DB 인스턴스 백업 후 내보내기
+### DBインスタンスバックアップ後にエクスポート
 
 ```http
 POST /v1.0/db-instances/{dbInstanceId}/backup-to-object-storage
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                                               | 설명                         |
+| 権限名                                              | 説明                        |
 |---------------------------------------------------|----------------------------|
-| RDSforPostgreSQL:DbInstance.BackupToObjectStorage | 백업 후 백업 파일 오브젝트 스토리지로 내보내기 |
+| RDSforPostgreSQL:DbInstance.BackupToObjectStorage | バックアップ後にバックアップファイルをオブジェクトストレージにエクスポート |
 
-#### 요청
+#### リクエスト
 
-| 이름              | 종류   | 형식     | 필수 | 설명                          |
+| 名前             | 種類  | 形式    | 必須 | 説明                         |
 |-----------------|------|--------|----|-----------------------------|
-| dbInstanceId    | URL  | UUID   | O  | DB 인스턴스의 식별자                |
-| tenantId        | Body | String | O  | 백업이 저장될 오브젝트 스토리지의 테넌트 ID   |
-| username        | Body | String | O  | NHN Cloud 계정 또는 IAM 계정 ID   |
-| password        | Body | String | O  | 백업이 저장될 오브젝트 스토리지의 API 비밀번호 |
-| targetContainer | Body | String | O  | 백업이 저장될 오브젝트 스토리지의 컨테이너     |
-| objectPath      | Body | String | O  | 컨테이너에 저장될 백업의 경로            |
+| dbInstanceId    | URL  | UUID   | O  | DBインスタンスの識別子               |
+| tenantId        | Body | String | O  | バックアップが保存されるオブジェクトストレージのテナントID   |
+| username        | Body | String | O  | NHN CloudアカウントまたはIAMアカウントID   |
+| password        | Body | String | O  | バックアップが保存されるオブジェクトストレージのAPIパスワード |
+| targetContainer | Body | String | O  | バックアップが保存されるオブジェクトストレージのコンテナ    |
+| objectPath      | Body | String | O  | コンテナに保存されるバックアップのパス           |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -2048,13 +2047,13 @@ POST /v1.0/db-instances/{dbInstanceId}/backup-to-object-storage
 ```
 </details>
 
-#### 응답
+#### レスポンス
 
-| 이름    | 종류   | 형식   | 설명          |
+| 名前   | 種類  | 形式  | 説明         |
 |-------|------|------|-------------|
-| jobId | Body | UUID | 요청한 작업의 식별자 |
+| jobId | Body | UUID | リクエストした作業の識別子 |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -2068,26 +2067,26 @@ POST /v1.0/db-instances/{dbInstanceId}/backup-to-object-storage
 ```
 </details>
 
-### DB 인스턴스 최신 파라미터 그룹 적용하기
+### DBインスタンスの最新パラメータグループを適用する
 
 ```http
 POST /v1.0/db-instances/{dbInstanceId}/apply-recent-parameter-group
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                                | 설명           |
+| 権限名                               | 説明          |
 |------------------------------------|--------------|
-| RDSforPostgreSQL:DbInstance.Modify | DB 인스턴스 수정하기 |
+| RDSforPostgreSQL:DbInstance.Modify | DBインスタンスの修正 |
 
-#### 요청
+#### リクエスト
 
-| 이름                | 종류   | 형식      | 필수 | 설명                                                                        |
+| 名前               | 種類  | 形式     | 必須 | 説明                                                                       |
 |-------------------|------|---------|----|---------------------------------------------------------------------------|
-| dbInstanceId      | URL  | UUID    | O  | DB 인스턴스의 식별자                                                              |
-| executeBackup     | Body | Boolean | X  | 현재 시점 백업 진행 여부<br/>- 기본값: `false`                                         |
+| dbInstanceId      | URL  | UUID    | O  | DBインスタンスの識別子                                                             |
+| executeBackup     | Body | Boolean | X  | 現時点バックアップを実行するかどうか<br/>- デフォルト値:`false`                                         |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -2096,13 +2095,13 @@ POST /v1.0/db-instances/{dbInstanceId}/apply-recent-parameter-group
 ```
 </details>
 
-#### 응답
+#### レスポンス
 
-| 이름    | 종류   | 형식   | 설명          |
+| 名前   | 種類  | 形式  | 説明         |
 |-------|------|------|-------------|
-| jobId | Body | UUID | 요청한 작업의 식별자 |
+| jobId | Body | UUID | リクエストした作業の識別子 |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -2116,46 +2115,46 @@ POST /v1.0/db-instances/{dbInstanceId}/apply-recent-parameter-group
 ```
 </details>
 
-### DB 인스턴스 복제하기
+### DBインスタンスの複製
 
 ```http
 POST /v1.0/db-instances/{dbInstanceId}/replicate
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                                   | 설명           |
+| 権限名                                  | 説明          |
 |---------------------------------------|--------------|
-| RDSforPostgreSQL:DbInstance.Replicate | DB 인스턴스 복제하기 |
+| RDSforPostgreSQL:DbInstance.Replicate | DBインスタンスの複製 |
 
-#### 요청
+#### リクエスト
 
-| 이름                                           | 종류   | 형식      | 필수 | 설명                                                                                                                                                                                                                                                  |
+| 名前                                          | 種類  | 形式     | 必須 | 説明                                                                                                                                                                                                                                                 |
 |----------------------------------------------|------|---------|----|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| dbInstanceId                                 | URL  | UUID    | O  | DB 인스턴스의 식별자                                                                                                                                                                                                                                        |
-| dbInstanceName                               | Body | String  | O  | DB 인스턴스를 식별할 수 있는 이름                                                                                                                                                                                                                                |
-| description                                  | Body | String  | X  | DB 인스턴스에 대한 추가 정보                                                                                                                                                                                                                                   |
-| dbFlavorId                                   | Body | UUID    | X  | DB 인스턴스 사양의 식별자<br/>- 기본값: 원본 DB 인스턴스 값                                                                                                                                                                                                             |
-| dbPort                                       | Body | Number  | X  | DB 포트<br/>- 기본값: 원본 DB 인스턴스 값<br/>- 최솟값: `5432`<br/>- 최댓값: `45432`                                                                                                                                                                                  |
-| parameterGroupId                             | Body | UUID    | X  | 파라미터 그룹의 식별자<br/>- 기본값: 원본 DB 인스턴스 값                                                                                                                                                                                                                |
-| dbSecurityGroupIds                           | Body | Array   | X  | DB 보안 그룹의 식별자 목록<br/>- 기본값: 원본 DB 인스턴스 값                                                                                                                                                                                                            |
-| userGroupIds                                 | Body | Array   | X  | 사용자 그룹의 식별자 목록                                                                                                                                                                                                                                      |
-| useDefaultNotification                       | Body | Boolean | X  | 기본 알림 사용 여부<br/>- 기본값: `false`                                                                                                                                                                                                                      |
-| useDeletionProtection                        | Body | Boolean | X  | 삭제 보호 여부<br/>- 기본값: `false`                                                                                                                                                                                                                         |
-| network                                      | Body | Object  | X  | 네트워크 정보 객체                                                                                                                                                                                                                                          |
-| network.usePublicAccess                      | Body | Boolean | X  | 외부 접속 가능 여부<br/>- 기본값: `false`                                                                                                                                                                                                                      |
-| network.availabilityZone                     | Body | Enum    | X  | DB 인스턴스를 생성할 가용성 영역<br/>- 예시: `kr-pub-a`<br/>- 기본값: `임의의 가용성 영역`                                                                                                                                                                                    |  
-| storage                                      | Body | Object  | X  | 스토리지 정보 객체                                                                                                                                                                                                                                          |    
-| storage.storageType                          | Body | Enum    | X  | 데이터 스토리지 유형<br>- 예시: `General SSD`                                                                                                                                                                                                                  |
-| storage.storageSize                          | Body | Number  | X  | 데이터 스토리지 크기(GB)<br/>- 기본값: 원본 DB 인스턴스 값<br/>- 최솟값: `20`<br/>- 최댓값: `2048`                                                                                                                                                                           |
-| backup                                       | Body | Object  | X  | 백업 정보 객체                                                                                                                                                                                                                                            |
-| backup.backupPeriod                          | Body | Number  | X  | 백업 보관 기간(일)<br/>- 기본값: 원본 DB 인스턴스 값<br/>- 최솟값: `0`<br/>- 최댓값: `730`                                                                                                                                                                                 |
-| backup.backupRetryCount                      | Body | Number  | X  | 백업 재시도 횟수<br/>- 기본값: 원본 DB 인스턴스 값<br/>- 최솟값: `0`<br/>- 최댓값: `10`                                                                                                                                                                                    |
-| backup.backupSchedules                       | Body | Array   | X  | 백업 스케줄 목록                                                                                                                                                                                                                                           |
-| backup.backupSchedules.backupWndBgnTime      | Body | String  | X  | 백업 시작 시각<br/>- 예시: `00:00:00`<br/>- 기본값: 원본 DB 인스턴스 값                                                                                                                                                                                               |
-| backup.backupSchedules.backupWndDuration     | Body | Enum    | X  | 백업 Duration<br/>백업 시작 시각부터 Duration 안에 자동 백업이 실행됩니다.<br/>- `HALF_AN_HOUR`: 30분<br/>- `ONE_HOUR`: 1시간<br/>- `ONE_HOUR_AND_HALF`: 1시간 30분<br/>- `TWO_HOURS`: 2시간<br/>- `TWO_HOURS_AND_HALF`: 2시간 30분<br/>- `THREE_HOURS`: 3시간<br/>- 기본값: 원본 DB 인스턴스 값 |
+| dbInstanceId                                 | URL  | UUID    | O  | DBインスタンスの識別子                                                                                                                                                                                                                                       |
+| dbInstanceName                               | Body | String  | O  | DBインスタンスを識別できる名前                                                                                                                                                                                                                               |
+| description                                  | Body | String  | X  | DBインスタンスの追加情報                                                                                                                                                                                                                                  |
+| dbFlavorId                                   | Body | UUID    | X  | DBインスタンス仕様の識別子<br/>- デフォルト値:原本DBインスタンス値                                                                                                                                                                                                            |
+| dbPort                                       | Body | Number  | X  | DBポート<br/>- デフォルト値:原本DBインスタンス値<br/>- 最小値:`5432`<br/>- 最大値:`45432`                                                                                                                                                                                  |
+| parameterGroupId                             | Body | UUID    | X  | パラメータグループの識別子<br/>- デフォルト値:原本DBインスタンス値                                                                                                                                                                                                               |
+| dbSecurityGroupIds                           | Body | Array   | X  | DBセキュリティグループの識別子リスト<br/>- デフォルト値:原本DBインスタンス値                                                                                                                                                                                                           |
+| userGroupIds                                 | Body | Array   | X  | ユーザーグループの識別子リスト                                                                                                                                                                                                                                     |
+| useDefaultNotification                       | Body | Boolean | X  | 基本通知の使用有無<br/>- デフォルト値:`false`                                                                                                                                                                                                                      |
+| useDeletionProtection                        | Body | Boolean | X  | 削除保護の有無<br/>- デフォルト値: `false`                                                                                                                                                                                                                         |
+| network                                      | Body | Object  | X  | ネットワーク情報オブジェクト                                                                                                                                                                                                                                         |
+| network.usePublicAccess                      | Body | Boolean | X  | 外部接続可否<br/>- デフォルト値:`false`                                                                                                                                                                                                                      |
+| network.availabilityZone                     | Body | Enum    | X  | DBインスタンスを作成するアベイラビリティゾーン<br/>- 例:`kr-pub-a`<br/>- デフォルト値:`任意のアベイラビリティゾーン`                                                                                                                                                                                    |  
+| storage                                      | Body | Object  | X  | ストレージ情報オブジェクト                                                                                                                                                                                                                                         |    
+| storage.storageType                          | Body | Enum    | X  | データストレージタイプ<br>- 例:`General SSD`                                                                                                                                                                                                                  |
+| storage.storageSize                          | Body | Number  | X  | データストレージサイズ(GB)<br/>- デフォルト値:原本DBインスタンス値<br/>- 最小値:`20`<br/>- 最大値:`2048`                                                                                                                                                                           |
+| backup                                       | Body | Object  | X  | バックアップ情報オブジェクト                                                                                                                                                                                                                                           |
+| backup.backupPeriod                          | Body | Number  | X  | バックアップの保管期間(日)<br/>- デフォルト値:原本DBインスタンス値<br/>- 最小値:`0`<br/>- 最大値:`730`                                                                                                                                                                                 |
+| backup.backupRetryCount                      | Body | Number  | X  | バックアップの再試行回数<br/>- デフォルト値:原本DBインスタンス値<br/>- 最小値:`0`<br/>- 最大値:`10`                                                                                                                                                                                    |
+| backup.backupSchedules                       | Body | Array   | X  | バックアップスケジュールリスト                                                                                                                                                                                                                                          |
+| backup.backupSchedules.backupWndBgnTime      | Body | String  | X  | バックアップ開始時刻<br/>- 例:`00:00:00`<br/>- デフォルト値:原本DBインスタンス値                                                                                                                                                                                              |
+| backup.backupSchedules.backupWndDuration     | Body | Enum    | X  | バックアップDuration<br/>バックアップ開始時刻からDuration内に自動バックアップが実行されます。<br/>- `HALF_AN_HOUR`:30分<br/>- `ONE_HOUR`:1時間<br/>- `ONE_HOUR_AND_HALF`:1時間30分<br/>- `TWO_HOURS`:2時間<br/>- `TWO_HOURS_AND_HALF`:2時間30分<br/>- `THREE_HOURS`:3時間<br/>- デフォルト値:原本DBインスタンス値 |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -2169,13 +2168,13 @@ POST /v1.0/db-instances/{dbInstanceId}/replicate
 ```
 </details>
 
-#### 응답
+#### レスポンス
 
-| 이름    | 종류   | 형식   | 설명          |
+| 名前   | 種類  | 形式  | 説明         |
 |-------|------|------|-------------|
-| jobId | Body | UUID | 요청한 작업의 식별자 |
+| jobId | Body | UUID | リクエストした作業の識別子 |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -2189,33 +2188,33 @@ POST /v1.0/db-instances/{dbInstanceId}/replicate
 ```
 </details>
 
-### DB 인스턴스 승격하기
+### DBインスタンスの昇格
 
 ```http
 POST /v1.0/db-instances/{dbInstanceId}/promote
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                                 | 설명           |
+| 権限名                                | 説明          |
 |-------------------------------------|--------------|
-| RDSforPostgreSQL:DbInstance.Promote | DB 인스턴스 승격하기 |
+| RDSforPostgreSQL:DbInstance.Promote | DBインスタンスの昇格 |
 
-#### 요청
+#### リクエスト
 
-이 API는 요청 본문을 요구하지 않습니다.
+このAPIはリクエスト本文を要求しません。
 
-| 이름           | 종류  | 형식   | 필수 | 설명           |
+| 名前          | 種類 | 形式  | 必須 | 説明          |
 |--------------|-----|------|----|--------------|
-| dbInstanceId | URL | UUID | O  | DB 인스턴스의 식별자 |
+| dbInstanceId | URL | UUID | O  | DBインスタンスの識別子 |
 
-#### 응답
+#### レスポンス
 
-| 이름    | 종류   | 형식   | 설명          |
+| 名前   | 種類  | 形式  | 説明         |
 |-------|------|------|-------------|
-| jobId | Body | UUID | 요청한 작업의 식별자 |
+| jobId | Body | UUID | リクエストした作業の識別子 |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -2230,42 +2229,42 @@ POST /v1.0/db-instances/{dbInstanceId}/promote
 </details>
 
 
-## DB 인스턴스 > 데이터베이스
+## DBインスタンス > データベース
 
-### 데이터베이스 목록 보기
+### データベースリスト表示
 
 ```http
 GET /v1.0/db-instances/{dbInstanceId}/databases
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                                      | 설명                     |
+| 権限名                                     | 説明                    |
 |------------------------------------------|------------------------|
-| RDSforPostgreSQL:DbInstanceDatabase.List | DB 인스턴스 내 데이터베이스 목록 보기 |
+| RDSforPostgreSQL:DbInstanceDatabase.List | DBインスタンス内のデータベースリスト表示 |
 
-#### 요청
+#### リクエスト
 
-이 API는 요청 본문을 요구하지 않습니다.
+このAPIはリクエスト本文を要求しません。
 
-| 이름           | 종류  | 형식   | 필수 | 설명           |
+| 名前          | 種類 | 形式  | 必須 | 説明          |
 |--------------|-----|------|----|--------------|
-| dbInstanceId | URL | UUID | O  | DB 인스턴스의 식별자 |
+| dbInstanceId | URL | UUID | O  | DBインスタンスの識別子 |
 
-#### 응답
+#### レスポンス
 
-| 이름                           | 종류   | 형식       | 설명                                                                                                                                                  |
+| 名前                          | 種類  | 形式      | 説明                                                                                                                                                 |
 |------------------------------|------|----------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
-| databases                    | Body | Array    | 데이터베이스 목록                                                                                                                                           |
-| databases.databaseId         | Body | UUID     | 데이터베이스의 식별자                                                                                                                                         |
-| databases.databaseName       | Body | String   | 데이터베이스 이름                                                                                                                                           |
-| databases.databaseStatus     | Body | Enum     | 데이터베이스의 현재 상태<br/>- `STABLE`: 생성됨<br/>- `CREATING`: 생성 중<br/>- `MODIFYING`: 수정 중<br/>- `SYNCING`: 동기화 중<br/>- `DELETING`: 삭제 중<br/>- `DELETED`: 삭제됨 |
-| databases.createdYmdt        | Body | DateTime | 생성 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                   |
-| databases.updatedYmdt        | Body | DateTime | 수정 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                   |
-| databases.schemas            | Body | Array    | 데이터베이스 내 스키마 목록                                                                                                                                     |
-| databases.schemas.schemaName | Body | String   | 스키마 이름                                                                                                                                              |
+| databases                    | Body | Array    | データベースリスト                                                                                                                                          |
+| databases.databaseId         | Body | UUID     | データベースの識別子                                                                                                                                        |
+| databases.databaseName       | Body | String   | データベース名                                                                                                                                          |
+| databases.databaseStatus     | Body | Enum     | データベースの現在状態<br/>- `STABLE`:作成済み<br/>- `CREATING`:作成中<br/>- `MODIFYING`:修正中<br/>- `SYNCING`:同期中<br/>- `DELETING`:削除中<br/>- `DELETED`:削除済み |
+| databases.createdYmdt        | Body | DateTime | 作成日時(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                   |
+| databases.updatedYmdt        | Body | DateTime | 修正日時(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                   |
+| databases.schemas            | Body | Array    | データベース内のスキーマリスト                                                                                                                                    |
+| databases.schemas.schemaName | Body | String   | スキーマ名                                                                                                                                             |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -2292,26 +2291,26 @@ GET /v1.0/db-instances/{dbInstanceId}/databases
 ```
 </details>
 
-### 데이터베이스 생성하기
+### データベース作成
 
 ```http
 POST /v1.0/db-instances/{dbInstanceId}/databases
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                                        | 설명                    |
+| 権限名                                       | 説明                   |
 |--------------------------------------------|-----------------------|
-| RDSforPostgreSQL:DbInstanceDatabase.Create | DB 인스턴스 내 데이터베이스 생성하기 |
+| RDSforPostgreSQL:DbInstanceDatabase.Create | DBインスタンス内のデータベース作成 |
 
-#### 요청
+#### リクエスト
 
-| 이름           | 종류   | 형식     | 필수 | 설명           |
+| 名前          | 種類  | 形式    | 必須 | 説明          |
 |--------------|------|--------|----|--------------|
-| dbInstanceId | URL  | UUID   | O  | DB 인스턴스의 식별자 |
-| databaseName | Body | String | O  | 데이터베이스 이름    |
+| dbInstanceId | URL  | UUID   | O  | DBインスタンスの識別子 |
+| databaseName | Body | String | O  | データベース名   |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -2320,13 +2319,13 @@ POST /v1.0/db-instances/{dbInstanceId}/databases
 ```
 </details>
 
-#### 응답
+#### レスポンス
 
-| 이름    | 종류   | 형식   | 설명          |
+| 名前   | 種類  | 形式  | 説明         |
 |-------|------|------|-------------|
-| jobId | Body | UUID | 요청한 작업의 식별자 |
+| jobId | Body | UUID | リクエストした作業の識別子 |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -2340,28 +2339,28 @@ POST /v1.0/db-instances/{dbInstanceId}/databases
 ```
 </details>
 
-### 데이터베이스 수정하기
+### データベースの修正
 
 ```http
 PUT /v1.0/db-instances/{dbInstanceId}/databases/{databaseId}
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                                        | 설명                    |
+| 権限名                                       | 説明                   |
 |--------------------------------------------|-----------------------|
-| RDSforPostgreSQL:DbInstanceDatabase.Modify | DB 인스턴스 내 데이터베이스 수정하기 |
+| RDSforPostgreSQL:DbInstanceDatabase.Modify | DBインスタンス内のデータベース修正 |
 
-#### 요청
+#### リクエスト
 
-| 이름                       | 종류   | 형식      | 필수 | 설명                                                                                          |
+| 名前                      | 種類  | 形式     | 必須 | 説明                                                                                         |
 |--------------------------|------|---------|----|---------------------------------------------------------------------------------------------|
-| dbInstanceId             | URL  | UUID    | O  | DB 인스턴스의 식별자                                                                                |
-| databaseId               | URL  | UUID    | O  | 데이터베이스의 식별자                                                                                 |
-| databaseName             | Body | String  | O  | 데이터베이스 이름                                                                                   |
-| applyHbaRulesImmediately | Body | Boolean | X  | 연관된 접근 제어 규칙 즉시 적용 여부<br/>- 데이터베이스 이름 변경 시 이전 데이터베이스 이름으로 설정된 접근 제어 규칙이 있으면 변경된 이름으로 반영합니다. |
+| dbInstanceId             | URL  | UUID    | O  | DBインスタンスの識別子                                                                               |
+| databaseId               | URL  | UUID    | O  | データベースの識別子                                                                                |
+| databaseName             | Body | String  | O  | データベース名                                                                                  |
+| applyHbaRulesImmediately | Body | Boolean | X  | 関連するアクセス制御ルールを即時適用するかどうか<br/>- データベース名変更時、以前のデータベース名で設定されたアクセス制御ルールが存在する場合、変更された名前で反映します。 |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -2370,13 +2369,13 @@ PUT /v1.0/db-instances/{dbInstanceId}/databases/{databaseId}
 ```
 </details>
 
-#### 응답
+#### レスポンス
 
-| 이름    | 종류   | 형식   | 설명          |
+| 名前   | 種類  | 形式  | 説明         |
 |-------|------|------|-------------|
-| jobId | Body | UUID | 요청한 작업의 식별자 |
+| jobId | Body | UUID | リクエストした作業の識別子 |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -2390,34 +2389,34 @@ PUT /v1.0/db-instances/{dbInstanceId}/databases/{databaseId}
 ```
 </details>
 
-### 데이터베이스 삭제하기
+### データベース削除
 
 ```http
 DELETE /v1.0/db-instances/{dbInstanceId}/databases/{databaseId}
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                                        | 설명                    |
+| 権限名                                       | 説明                   |
 |--------------------------------------------|-----------------------|
-| RDSforPostgreSQL:DbInstanceDatabase.Delete | DB 인스턴스 내 데이터베이스 삭제하기 |
+| RDSforPostgreSQL:DbInstanceDatabase.Delete | DBインスタンス内のデータベースを削除 |
 
-#### 요청
+#### リクエスト
 
-이 API는 요청 본문을 요구하지 않습니다.
+このAPIはリクエスト本文を要求しません。
 
-| 이름           | 종류  | 형식   | 필수 | 설명           |
+| 名前          | 種類 | 形式  | 必須 | 説明          |
 |--------------|-----|------|----|--------------|
-| dbInstanceId | URL | UUID | O  | DB 인스턴스의 식별자 |
-| databaseId   | URL | UUID | O  | 데이터베이스의 식별자  |
+| dbInstanceId | URL | UUID | O  | DBインスタンスの識別子 |
+| databaseId   | URL | UUID | O  | データベースの識別子 |
 
-#### 응답
+#### レスポンス
 
-| 이름    | 종류   | 형식   | 설명          |
+| 名前   | 種類  | 形式  | 説明         |
 |-------|------|------|-------------|
-| jobId | Body | UUID | 요청한 작업의 식별자 |
+| jobId | Body | UUID | リクエストした作業の識別子 |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -2431,41 +2430,41 @@ DELETE /v1.0/db-instances/{dbInstanceId}/databases/{databaseId}
 ```
 </details>
 
-## DB 인스턴스 > 사용자
+## DBインスタンス > ユーザー
 
-### 사용자 목록 보기
+### ユーザーリスト表示
 
 ```http
 GET /v1.0/db-instances/{dbInstanceId}/db-users
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                                  | 설명                  |
+| 権限名                                 | 説明                 |
 |--------------------------------------|---------------------|
-| RDSforPostgreSQL:DbInstanceUser.List | DB 인스턴스 내 사용자 목록 보기 |
+| RDSforPostgreSQL:DbInstanceUser.List | DBインスタンス内のユーザーリストを表示 |
 
-#### 요청
+#### リクエスト
 
-이 API는 요청 본문을 요구하지 않습니다.
+このAPIはリクエスト本文を要求しません。
 
-| 이름           | 종류  | 형식   | 필수 | 설명           |
+| 名前          | 種類 | 形式  | 必須 | 説明          |
 |--------------|-----|------|----|--------------|
-| dbInstanceId | URL | UUID | O  | DB 인스턴스의 식별자 |
+| dbInstanceId | URL | UUID | O  | DBインスタンスの識別子 |
 
-#### 응답
+#### レスポンス
 
-| 이름                    | 종류   | 형식       | 설명                                                                                                                                                  |
+| 名前                   | 種類  | 形式      | 説明                                                                                                                                                 |
 |-----------------------|------|----------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
-| dbUsers               | Body | Array    | DB 사용자 목록                                                                                                                                           |
-| dbUsers.dbUserId      | Body | UUID     | DB 사용자의 식별자                                                                                                                                         |
-| dbUsers.dbUserName    | Body | String   | DB 사용자 계정 이름                                                                                                                                        |
-| dbUsers.authorityType | Body | Enum     | DB 사용자 권한 유형<br/>- `CRUD`: DML 쿼리 수행 가능한 권한<br/>- `DDL`: DDL 쿼리 수행 가능한 권한                                                                           |
-| dbUsers.dbUserStatus  | Body | Enum     | DB 사용자의 현재 상태<br/>- `STABLE`: 생성됨<br/>- `CREATING`: 생성 중<br/>- `MODIFYING`: 수정 중<br/>- `SYNCING`: 동기화 중<br/>- `DELETING`: 삭제 중<br/>- `DELETED`: 삭제됨 |
-| dbUsers.createdYmdt   | Body | DateTime | 생성 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                   |
-| dbUsers.updatedYmdt   | Body | DateTime | 수정 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                   |
+| dbUsers               | Body | Array    | DBユーザーリスト                                                                                                                                          |
+| dbUsers.dbUserId      | Body | UUID     | DBユーザーの識別子                                                                                                                                        |
+| dbUsers.dbUserName    | Body | String   | DBユーザーアカウント名                                                                                                                                       |
+| dbUsers.authorityType | Body | Enum     | DBユーザー権限タイプ<br/>- `CRUD`:DMLクエリ実行可能な権限<br/>- `DDL`:DDLクエリ実行可能な権限                                                                          |
+| dbUsers.dbUserStatus  | Body | Enum     | DBユーザーの現在状態<br/>- `STABLE`:作成済み<br/>- `CREATING`:作成中<br/>- `MODIFYING`:修正中<br/>- `SYNCING`:同期中<br/>- `DELETING`:削除中<br/>- `DELETED`:削除済み |
+| dbUsers.createdYmdt   | Body | DateTime | 作成日時(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                   |
+| dbUsers.updatedYmdt   | Body | DateTime | 修正日時(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                   |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -2486,30 +2485,30 @@ GET /v1.0/db-instances/{dbInstanceId}/db-users
 ```
 </details>
 
-### 사용자 생성하기
+### ユーザー作成
 
 ```http
 POST /v1.0/db-instances/{dbInstanceId}/db-users
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                                    | 설명                 |
+| 権限名                                   | 説明                |
 |----------------------------------------|--------------------|
-| RDSforPostgreSQL:DbInstanceUser.Create | DB 인스턴스 내 사용자 생성하기 |
+| RDSforPostgreSQL:DbInstanceUser.Create | DBインスタンス内のユーザー作成 |
 
-#### 요청
+#### リクエスト
 
-| 이름                    | 종류   | 형식      | 필수 | 설명                                                                        |
+| 名前                   | 種類  | 形式     | 必須 | 説明                                                                       |
 |-----------------------|------|---------|----|---------------------------------------------------------------------------|
-| dbInstanceId          | URL  | UUID    | O  | DB 인스턴스의 식별자                                                              |
-| dbUserName            | Body | String  | O  | DB 사용자 계정 이름<br/>- 최소 길이: `1`<br/>- 최대 길이: `20`                           |
-| dbPassword            | Body | String  | O  | DB 사용자 계정 암호<br/>- 최소 길이: `1`<br/>- 최대 길이: `100`                          |
-| authorityType         | Body | Enum    | O  | DB 사용자 권한 유형<br/>- `CRUD`: DML 쿼리 수행 가능한 권한<br/>- `DDL`: DDL 쿼리 수행 가능한 권한 |
-| createDefaultHbaRules | Body | Boolean | X  | 기본 접근 제어 규칙 생성 여부                                                         |
-| address               | Body | String  | X  | 기본 접근 제어 규칙 생성 시 사용할 접속 주소                                                |
+| dbInstanceId          | URL  | UUID    | O  | DBインスタンスの識別子                                                             |
+| dbUserName            | Body | String  | O  | DBユーザーアカウント名<br/>- 最小文字数:`1`<br/>- 最大文字数:`20`                           |
+| dbPassword            | Body | String  | O  | DBユーザーアカウントパスワード<br/>- 最小文字数:`1`<br/>- 最大文字数:`100`                          |
+| authorityType         | Body | Enum    | O  | DBユーザー権限タイプ<br/>- `CRUD`:DMLクエリ実行可能な権限<br/>- `DDL`:DDLクエリ実行可能な権限 |
+| createDefaultHbaRules | Body | Boolean | X  | 基本アクセス制御ルールの作成可否                                                          |
+| address               | Body | String  | X  | 基本アクセス制御ルール作成時に使用する接続アドレス                                               |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -2520,13 +2519,13 @@ POST /v1.0/db-instances/{dbInstanceId}/db-users
 ```
 </details>
 
-#### 응답
+#### レスポンス
 
-| 이름    | 종류   | 형식   | 설명          |
+| 名前   | 種類  | 形式  | 説明         |
 |-------|------|------|-------------|
-| jobId | Body | UUID | 요청한 작업의 식별자 |
+| jobId | Body | UUID | リクエストした作業の識別子 |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -2540,30 +2539,30 @@ POST /v1.0/db-instances/{dbInstanceId}/db-users
 ```
 </details>
 
-### 사용자 수정하기
+### ユーザー修正
 
 ```http
 PUT /v1.0/db-instances/{dbInstanceId}/db-users/{dbUserId}
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                                    | 설명                 |
+| 権限名                                   | 説明                |
 |----------------------------------------|--------------------|
-| RDSforPostgreSQL:DbInstanceUser.Modify | DB 인스턴스 내 사용자 수정하기 |
+| RDSforPostgreSQL:DbInstanceUser.Modify | DBインスタンス内のユーザー修正 |
 
-#### 요청
+#### リクエスト
 
-| 이름                       | 종류   | 형식      | 필수 | 설명                                                                                          |
+| 名前                      | 種類  | 形式     | 必須 | 説明                                                                                         |
 |--------------------------|------|---------|----|---------------------------------------------------------------------------------------------|
-| dbInstanceId             | URL  | UUID    | O  | DB 인스턴스의 식별자                                                                                |
-| dbUserId                 | URL  | UUID    | O  | DB 사용자의 식별자                                                                                 |
-| dbUserName               | Body | String  | X  | DB 사용자 계정 이름<br/>- 최소 길이: `1`<br/>- 최대 길이: `20`                                             |
-| dbPassword               | Body | String  | X  | DB 사용자 계정 암호<br/>- 최소 길이: `1`<br/>- 최대 길이: `100`                                            |
-| authorityType            | Body | Enum    | X  | DB 사용자 권한 유형<br/>- `CRUD`: DML 쿼리 수행 가능한 권한<br/>- `DDL`: DDL 쿼리 수행 가능한 권한                   |
-| applyHbaRulesImmediately | Body | Boolean | X  | 연관된 접근 제어 규칙 즉시 적용 여부<br/>- 사용자 계정 이름 변경 시 이전 사용자 계정 이름으로 설정된 접근 제어 규칙이 있으면 변경된 이름으로 반영합니다. |
+| dbInstanceId             | URL  | UUID    | O  | DBインスタンスの識別子                                                                               |
+| dbUserId                 | URL  | UUID    | O  | DBユーザーの識別子                                                                                |
+| dbUserName               | Body | String  | X  | DBユーザーアカウント名<br/>- 最小文字数:`1`<br/>- 最大文字数:`20`                                             |
+| dbPassword               | Body | String  | X  | DBユーザーアカウントパスワード<br/>- 最小文字数:`1`<br/>- 最大文字数:`100`                                            |
+| authorityType            | Body | Enum    | X  | DBユーザー権限タイプ<br/>- `CRUD`:DMLクエリ実行可能な権限<br/>- `DDL`:DDLクエリ実行可能な権限                  |
+| applyHbaRulesImmediately | Body | Boolean | X  | 関連するアクセス制御ルールを即時適用するかどうか<br/>- ユーザーアカウント名変更時に以前のユーザーアカウント名で設定されたアクセス制御ルールが存在する場合、変更された名前で反映します。 |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -2573,13 +2572,13 @@ PUT /v1.0/db-instances/{dbInstanceId}/db-users/{dbUserId}
 ```
 </details>
 
-#### 응답
+#### レスポンス
 
-| 이름    | 종류   | 형식   | 설명          |
+| 名前   | 種類  | 形式  | 説明         |
 |-------|------|------|-------------|
-| jobId | Body | UUID | 요청한 작업의 식별자 |
+| jobId | Body | UUID | リクエストした作業の識別子 |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -2593,34 +2592,34 @@ PUT /v1.0/db-instances/{dbInstanceId}/db-users/{dbUserId}
 ```
 </details>
 
-### 사용자 삭제하기
+### ユーザー削除
 
 ```http
 DELETE /v1.0/db-instances/{dbInstanceId}/db-users/{dbUserId}
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                                    | 설명                 |
+| 権限名                                   | 説明                |
 |----------------------------------------|--------------------|
-| RDSforPostgreSQL:DbInstanceUser.Delete | DB 인스턴스 내 사용자 삭제하기 |
+| RDSforPostgreSQL:DbInstanceUser.Delete | DBインスタンス内のユーザー削除 |
 
-#### 요청
+#### リクエスト
 
-이 API는 요청 본문을 요구하지 않습니다.
+このAPIはリクエスト本文を要求しません。
 
-| 이름           | 종류  | 형식   | 필수 | 설명           |
+| 名前          | 種類 | 形式  | 必須 | 説明          |
 |--------------|-----|------|----|--------------|
-| dbInstanceId | URL | UUID | O  | DB 인스턴스의 식별자 |
-| dbUserId     | URL | UUID | O  | DB 사용자의 식별자  |
+| dbInstanceId | URL | UUID | O  | DBインスタンスの識別子 |
+| dbUserId     | URL | UUID | O  | DBユーザーの識別子 |
 
-#### 응답
+#### レスポンス
 
-| 이름    | 종류   | 형식   | 설명          |
+| 名前   | 種類  | 形式  | 説明         |
 |-------|------|------|-------------|
-| jobId | Body | UUID | 요청한 작업의 식별자 |
+| jobId | Body | UUID | リクエストした作業の識別子 |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -2634,51 +2633,51 @@ DELETE /v1.0/db-instances/{dbInstanceId}/db-users/{dbUserId}
 ```
 </details>
 
-## DB 인스턴스 > 접근 제어
+## DBインスタンス > アクセス制御
 
-### 접근 제어 규칙 목록 보기
+### アクセス制御ルールリストを表示
 
 ```http
 GET /v1.0/db-instances/{dbInstanceId}/hba-rules
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                                 | 설명                       |
+| 権限名                                | 説明                      |
 |-------------------------------------|--------------------------|
-| RDSforPostgreSQL:DbInstanceHba.List | DB 인스턴스 내 접근 제어 규칙 목록 보기 |
+| RDSforPostgreSQL:DbInstanceHba.List | DBインスタンス内のアクセス制御ルールリストを表示 |
 
-#### 요청
+#### リクエスト
 
-이 API는 요청 본문을 요구하지 않습니다.
+このAPIはリクエスト本文を要求しません。
 
-| 이름           | 종류  | 형식   | 필수 | 설명           |
+| 名前          | 種類 | 形式  | 必須 | 説明          |
 |--------------|-----|------|----|--------------|
-| dbInstanceId | URL | UUID | O  | DB 인스턴스의 식별자 |
+| dbInstanceId | URL | UUID | O  | DBインスタンスの識別子 |
 
-#### 응답
+#### レスポンス
 
-| 이름                              | 종류   | 형식      | 설명                                                                                                                                                   |
+| 名前                             | 種類  | 形式     | 説明                                                                                                                                                  |
 |---------------------------------|------|---------|------------------------------------------------------------------------------------------------------------------------------------------------------|
-| hbaRules                        | Body | Array   | 접근 제어 규칙 목록                                                                                                                                          |
-| hbaRules.hbaRuleId              | Body | UUID    | 접근 제어 규칙의 식별자                                                                                                                                        |
-| hbaRules.hbaRuleStatus          | Body | Enum    | 접근 제어 규칙의 현재 상태<br/>- `CREATED`: 생성됨<br/>- `APPLIED`: 적용됨<br/>- `CREATING`: 생성 중<br/>- `MODIFYING`: 수정 중<br/>- `DELETING`: 삭제 중<br/>- `DELETED`: 삭제됨 |
-| hbaRules.databaseApplyType      | Body | String  | 데이터베이스 규칙 적용 방식<br/>- `ENTIRE`: 전체<br/>- `USER_CUSTOM`: 사용자 지정                                                                                       |
-| hbaRules.dbUserApplyType        | Body | Enum    | DB 사용자 규칙 적용 방식<br/>- `ENTIRE`: 전체<br/>- `USER_CUSTOM`: 사용자 지정                                                                                       |
-| hbaRules.databases              | Body | Array   | 사용자 지정 데이터베이스 목록                                                                                                                                     |
-| hbaRules.databases.databaseId   | Body | UUID    | 사용자 지정 데이터베이스의 식별자                                                                                                                                   |
-| hbaRules.databases.databaseName | Body | String  | 사용자 지정 데이터베이스 이름                                                                                                                                     |
-| hbaRules.dbUsers                | Body | Array   | 사용자 지정 DB 사용자 목록                                                                                                                                     |
-| hbaRules.dbUsers.dbUserId       | Body | UUID    | 사용자 지정 DB 사용자의 식별자                                                                                                                                   |
-| hbaRules.dbUsers.dbUserName     | Body | String  | 사용자 지정 DB 사용자 계정 이름                                                                                                                                  |
-| hbaRules.address                | Body | String  | 접속 주소                                                                                                                                                |
-| hbaRules.authMethod             | Body | Enum    | 인증 방식<br/>- `TRUST`: 트러스트(패스워드 불필요)<br/>- `REJECT`: 접속 차단<br/>- `SCRAM_SHA_256`: 패스워드(SCRAM-SHA-256)                                                 |
-| hbaRules.reservedAction         | Body | Enum    | 예악 작업<br/>- `NONE`: 없음<br/>- `CREATE`: 생성 예약(적용 필요)<br/>- `MODIFY`: 수정 예약(적용 필요)<br/>- `DELETE`: 삭제 예약(적용 필요)                                        |
-| hbaRules.order                  | Body | Number  | 적용 순서                                                                                                                                                |
-| hbaRules.applicable             | Body | Boolean | 적용 가능 여부<br/>- 적용 불가 상태의 규칙은 무시됨                                                                                                                     |
-| needToApply                     | Body | Boolean | 변경 사항 적용 필요 여부                                                                                                                                       |
+| hbaRules                        | Body | Array   | アクセス制御ルールリスト                                                                                                                                         |
+| hbaRules.hbaRuleId              | Body | UUID    | アクセス制御ルールの識別子                                                                                                                                       |
+| hbaRules.hbaRuleStatus          | Body | Enum    | アクセス制御ルールの現在状態<br/>- `CREATED`:作成済み<br/>- `APPLIED`:適用済み<br/>- `CREATING`:作成中<br/>- `MODIFYING`:修正中<br/>- `DELETING`:削除中<br/>- `DELETED`:削除済み |
+| hbaRules.databaseApplyType      | Body | String  | データベースルールの適用方式<br/>- `ENTIRE`:全体<br/>- `USER_CUSTOM`:ユーザー指定                                                                                      |
+| hbaRules.dbUserApplyType        | Body | Enum    | DBユーザールールの適用方式<br/>- `ENTIRE`:全体<br/>- `USER_CUSTOM`:ユーザー指定                                                                                      |
+| hbaRules.databases              | Body | Array   | ユーザー指定のデータベースリスト                                                                                                                                    |
+| hbaRules.databases.databaseId   | Body | UUID    | ユーザー指定のデータベースの識別子                                                                                                                                  |
+| hbaRules.databases.databaseName | Body | String  | ユーザー指定のデータベース名                                                                                                                                    |
+| hbaRules.dbUsers                | Body | Array   | ユーザー指定のDBユーザーリスト                                                                                                                                    |
+| hbaRules.dbUsers.dbUserId       | Body | UUID    | ユーザー指定のDBユーザーの識別子                                                                                                                                  |
+| hbaRules.dbUsers.dbUserName     | Body | String  | ユーザー指定のDBユーザーアカウント名                                                                                                                                 |
+| hbaRules.address                | Body | String  | 接続アドレス                                                                                                                                               |
+| hbaRules.authMethod             | Body | Enum    | 認証方式<br/>- `TRUST`:トラスト(パスワード不要)<br/>- `REJECT`:接続ブロック<br/>- `SCRAM_SHA_256`:パスワード(SCRAM-SHA-256)                                                 |
+| hbaRules.reservedAction         | Body | Enum    | 予約作業<br/>- `NONE`:なし<br/>- `CREATE`:作成予約(適用必要)<br/>- `MODIFY`:修正予約(適用必要)<br/>- `DELETE`:削除予約(適用必要)                                        |
+| hbaRules.order                  | Body | Number  | 適用順序                                                                                                                                               |
+| hbaRules.applicable             | Body | Boolean | 適用可否<br/>- 適用不可状態のルールは無視される                                                                                                                     |
+| needToApply                     | Body | Boolean | 変更内容の適用が必要かどうか                                                                                                                                       |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -2711,31 +2710,31 @@ GET /v1.0/db-instances/{dbInstanceId}/hba-rules
 ```
 </details>
 
-### 접근 제어 규칙 추가하기
+### アクセス制御ルールの追加
 
 ```http
 POST /v1.0/db-instances/{dbInstanceId}/hba-rules
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                                   | 설명                      |
+| 権限名                                  | 説明                     |
 |---------------------------------------|-------------------------|
-| RDSforPostgreSQL:DbInstanceHba.Create | DB 인스턴스 내 접근 제어 규칙 추가하기 |
+| RDSforPostgreSQL:DbInstanceHba.Create | DBインスタンス内のアクセス制御ルール追加 |
 
-#### 요청
+#### リクエスト
 
-| 이름                | 종류   | 형식     | 필수 | 설명                                                                                                   |
+| 名前               | 種類  | 形式    | 必須 | 説明                                                                                                  |
 |-------------------|------|--------|----|------------------------------------------------------------------------------------------------------|
-| dbInstanceId      | URL  | UUID   | O  | DB 인스턴스의 식별자                                                                                         |
-| databaseApplyType | Body | String | O  | 데이터베이스 규칙 적용 방식<br/>- `ENTIRE`: 전체<br/>- `USER_CUSTOM`: 사용자 지정                                       |
-| dbUserApplyType   | Body | Enum   | O  | DB 사용자 규칙 적용 방식<br/>- `ENTIRE`: 전체<br/>- `USER_CUSTOM`: 사용자 지정                                       |
-| databaseIds       | Body | Array  | X  | 사용자 지정 데이터베이스의 식별자 목록                                                                                |
-| dbUserIds         | Body | Array  | X  | 사용자 지정 DB 사용자의 식별자 목록                                                                                |
-| address           | Body | String | O  | 접속 주소<br/>- CIDR 형식, 호스트명 또는 도메인 형식으로 입력                                                             |
-| authMethod        | Body | Enum   | O  | 인증 방식<br/>- `TRUST`: 트러스트(패스워드 불필요)<br/>- `REJECT`: 접속 차단<br/>- `SCRAM_SHA_256`: 패스워드(SCRAM-SHA-256) |
+| dbInstanceId      | URL  | UUID   | O  | DBインスタンスの識別子                                                                                        |
+| databaseApplyType | Body | String | O  | データベースルール適用方式<br/>- `ENTIRE`:全体<br/>- `USER_CUSTOM`:ユーザー指定                                      |
+| dbUserApplyType   | Body | Enum   | O  | DBユーザールール適用方式<br/>- `ENTIRE`:全体<br/>- `USER_CUSTOM`:ユーザー指定                                      |
+| databaseIds       | Body | Array  | X  | ユーザー指定のデータベースの識別子リスト                                                                               |
+| dbUserIds         | Body | Array  | X  | ユーザー指定のDBユーザーの識別子リスト                                                                               |
+| address           | Body | String | O  | 接続アドレス<br/>- CIDR形式、ホスト名またはドメイン形式で入力                                                            |
+| authMethod        | Body | Enum   | O  | 認証方式<br/>- `TRUST`:トラスト(パスワード不要)<br/>- `REJECT`:接続ブロック<br/>- `SCRAM_SHA_256`:パスワード(SCRAM-SHA-256) |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -2751,13 +2750,13 @@ POST /v1.0/db-instances/{dbInstanceId}/hba-rules
 ```
 </details>
 
-#### 응답
+#### レスポンス
 
-| 이름        | 종류   | 형식   | 설명            |
+| 名前       | 種類  | 形式  | 説明           |
 |-----------|------|------|---------------|
-| hbaRuleId | Body | UUID | 접근 제어 규칙의 식별자 |
+| hbaRuleId | Body | UUID | アクセス制御ルールの識別子 |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -2771,32 +2770,32 @@ POST /v1.0/db-instances/{dbInstanceId}/hba-rules
 ```
 </details>
 
-### 접근 제어 규칙 수정하기
+### アクセス制御ルールの修正
 
 ```http
 PUT /v1.0/db-instances/{dbInstanceId}/hba-rules/{hbaRuleId}
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                                   | 설명                      |
+| 権限名                                  | 説明                     |
 |---------------------------------------|-------------------------|
-| RDSforPostgreSQL:DbInstanceHba.Modify | DB 인스턴스 내 접근 제어 규칙 수정하기 |
+| RDSforPostgreSQL:DbInstanceHba.Modify | DBインスタンス内のアクセス制御ルール修正 |
 
-#### 요청
+#### リクエスト
 
-| 이름                | 종류   | 형식     | 필수 | 설명                                                                                                   |
+| 名前               | 種類  | 形式    | 必須 | 説明                                                                                                  |
 |-------------------|------|--------|----|------------------------------------------------------------------------------------------------------|
-| dbInstanceId      | URL  | UUID   | O  | DB 인스턴스의 식별자                                                                                         |
-| hbaRuleId         | URL  | UUID   | O  | 접근 제어 규칙의 식별자                                                                                        |
-| databaseApplyType | Body | String | O  | 데이터베이스 규칙 적용 방식<br/>- `ENTIRE`: 전체<br/>- `USER_CUSTOM`: 사용자 지정                                       |
-| dbUserApplyType   | Body | Enum   | O  | DB 사용자 규칙 적용 방식<br/>- `ENTIRE`: 전체<br/>- `USER_CUSTOM`: 사용자 지정                                       |
-| databaseIds       | Body | Array  | X  | 사용자 지정 데이터베이스의 식별자 목록                                                                                |
-| dbUserIds         | Body | Array  | X  | 사용자 지정 DB 사용자의 식별자 목록                                                                                |
-| address           | Body | String | O  | 접속 주소<br/>- CIDR 형식, 호스트명 또는 도메인 형식으로 입력                                                             |
-| authMethod        | Body | Enum   | O  | 인증 방식<br/>- `TRUST`: 트러스트(패스워드 불필요)<br/>- `REJECT`: 접속 차단<br/>- `SCRAM_SHA_256`: 패스워드(SCRAM-SHA-256) |
+| dbInstanceId      | URL  | UUID   | O  | DBインスタンスの識別子                                                                                        |
+| hbaRuleId         | URL  | UUID   | O  | アクセス制御ルールの識別子                                                                                       |
+| databaseApplyType | Body | String | O  | データベースルールの適用方式<br/>- `ENTIRE`:全体<br/>- `USER_CUSTOM`:ユーザー指定                                      |
+| dbUserApplyType   | Body | Enum   | O  | DBユーザールールの適用方式<br/>- `ENTIRE`:全体<br/>- `USER_CUSTOM`:ユーザー指定                                      |
+| databaseIds       | Body | Array  | X  | ユーザー指定のデータベースの識別子リスト                                                                               |
+| dbUserIds         | Body | Array  | X  | ユーザー指定のDBユーザーの識別子リスト                                                                               |
+| address           | Body | String | O  | 接続アドレス<br/>- CIDR形式、ホスト名またはドメイン形式で入力                                                            |
+| authMethod        | Body | Enum   | O  | 認証方式<br/>- `TRUST`:トラスト(パスワード不要)<br/>- `REJECT`:接続ブロック<br/>- `SCRAM_SHA_256`:パスワード(SCRAM-SHA-256) |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -2810,11 +2809,11 @@ PUT /v1.0/db-instances/{dbInstanceId}/hba-rules/{hbaRuleId}
 ```
 </details>
 
-#### 응답
+#### レスポンス
 
-이 API는 응답 본문을 반환하지 않습니다.
+このAPIはレスポンス本文を返しません。
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -2827,32 +2826,32 @@ PUT /v1.0/db-instances/{dbInstanceId}/hba-rules/{hbaRuleId}
 ```
 </details>
 
-### 접근 제어 규칙 삭제하기
+### アクセス制御ルールの削除
 
 ```http
 DELETE /v1.0/db-instances/{dbInstanceId}/hba-rules/{hbaRuleId}
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                                   | 설명                      |
+| 権限名                                  | 説明                     |
 |---------------------------------------|-------------------------|
-| RDSforPostgreSQL:DbInstanceHba.Delete | DB 인스턴스 내 접근 제어 규칙 삭제하기 |
+| RDSforPostgreSQL:DbInstanceHba.Delete | DBインスタンス内のアクセス制御ルール削除 |
 
-#### 요청
+#### リクエスト
 
-이 API는 요청 본문을 요구하지 않습니다.
+このAPIはリクエスト本文を要求しません。
 
-| 이름           | 종류  | 형식   | 필수 | 설명            |
+| 名前          | 種類 | 形式  | 必須 | 説明           |
 |--------------|-----|------|----|---------------|
-| dbInstanceId | URL | UUID | O  | DB 인스턴스의 식별자  |
-| hbaRuleId    | URL | UUID | O  | 접근 제어 규칙의 식별자 |
+| dbInstanceId | URL | UUID | O  | DBインスタンスの識別子 |
+| hbaRuleId    | URL | UUID | O  | アクセス制御ルールの識別子 |
 
-#### 응답
+#### レスポンス
 
-이 API는 응답 본문을 반환하지 않습니다.
+このAPIはレスポンス本文を返しません。
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -2865,26 +2864,26 @@ DELETE /v1.0/db-instances/{dbInstanceId}/hba-rules/{hbaRuleId}
 ```
 </details>
 
-### 접근 제어 규칙 순서 조정
+### アクセス制御ルールの順序調整
 
 ```http
 PUT /v1.0/db-instances/{dbInstanceId}/hba-rules/orders
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                                   | 설명                      |
+| 権限名                                  | 説明                     |
 |---------------------------------------|-------------------------|
-| RDSforPostgreSQL:DbInstanceHba.Modify | DB 인스턴스 내 접근 제어 규칙 수정하기 |
+| RDSforPostgreSQL:DbInstanceHba.Modify | DBインスタンス内のアクセス制御ルール修正 |
 
-#### 요청
+#### リクエスト
 
-| 이름           | 종류  | 형식   | 필수 | 설명                                  |
+| 名前          | 種類 | 形式  | 必須 | 説明                                 |
 |--------------|-----|------|----|-------------------------------------|
-| dbInstanceId | URL | UUID | O  | DB 인스턴스의 식별자                        |
-| hbaRuleIds   | URL | Body | O  | 접근 제어 규칙의 식별자 목록<br/>- 요청한 순서대로 조정됨 |
+| dbInstanceId | URL | UUID | O  | DBインスタンスの識別子                       |
+| hbaRuleIds   | URL | Body | O  | アクセス制御ルールの識別子リスト<br/>- リクエストした順序どおりに調整 |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -2895,11 +2894,11 @@ PUT /v1.0/db-instances/{dbInstanceId}/hba-rules/orders
 ```
 </details>
 
-#### 응답
+#### レスポンス
 
-이 API는 응답 본문을 반환하지 않습니다.
+このAPIはレスポンス本文を返しません。
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -2912,33 +2911,33 @@ PUT /v1.0/db-instances/{dbInstanceId}/hba-rules/orders
 ```
 </details>
 
-### 접근제어 규칙 적용하기
+### アクセス制御ルールを適用
 
 ```http
 POST /v1.0/db-instances/{dbInstanceId}/hba-rules/apply
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                                   | 설명           |
+| 権限名                                  | 説明          |
 |---------------------------------------|--------------|
-| RDSforPostgreSQL:DbInstance.Modify    | DB 인스턴스 수정하기 |
+| RDSforPostgreSQL:DbInstance.Modify    | DBインスタンスの修正 |
 
-#### 요청
+#### リクエスト
 
-이 API는 요청 본문을 요구하지 않습니다.
+このAPIはリクエスト本文を要求しません。
 
-| 이름           | 종류  | 형식   | 필수 | 설명           |
+| 名前          | 種類 | 形式  | 必須 | 説明          |
 |--------------|-----|------|----|--------------|
-| dbInstanceId | URL | UUID | O  | DB 인스턴스의 식별자 |
+| dbInstanceId | URL | UUID | O  | DBインスタンスの識別子 |
 
-#### 응답
+#### レスポンス
 
-| 이름    | 종류   | 형식   | 설명          |
+| 名前   | 種類  | 形式  | 説明         |
 |-------|------|------|-------------|
-| jobId | Body | UUID | 요청한 작업의 식별자 |
+| jobId | Body | UUID | リクエストした作業の識別子 |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -2952,50 +2951,50 @@ POST /v1.0/db-instances/{dbInstanceId}/hba-rules/apply
 ```
 </details>
 
-## 백업
+## バックアップ
 
-### 백업 목록 조회
+### バックアップリスト照会
 
 ```http
 GET /v1.0/backups
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                          | 설명       |
+| 権限名                         | 説明      |
 |------------------------------|----------|
-| RDSforPostgreSQL:Backup.List | 백업 목록 조회 |
+| RDSforPostgreSQL:Backup.List | バックアップリスト照会 |
 
-#### 요청
+#### リクエスト
 
-이 API는 요청 본문을 요구하지 않습니다.
+このAPIはリクエスト本文を要求しません。
 
-| 이름           | 종류    | 형식     | 필수 | 설명                                                         |
+| 名前          | 種類   | 形式    | 必須 | 説明                                                        |
 |--------------|-------|--------|----|------------------------------------------------------------|
-| page         | Query | Number | O  | 조회할 목록의 페이지<br/>- 최솟값: `1`                                 |
-| size         | Query | Number | O  | 조회할 목록의 페이지 크기<br/>- 최솟값: `1`<br/>- 최댓값: `100`             |
-| backupType   | Query | Enum   | X  | 백업 유형<br/>- `AUTO`: 자동<br/>- `MANUAL`:  수동<br/>- 기본값: `전체` |
-| dbInstanceId | Query | UUID   | X  | 원본 DB 인스턴스의 식별자                                            |
-| dbVersion    | Query | Enum   | X  | DB 버전 정보                                                   |
+| page         | Query | Number | O  | 照会するリストのページ<br/>- 最小値:`1`                                 |
+| size         | Query | Number | O  | 照会するリストのページサイズ<br/>- 最小値:`1`<br/>- 最大値:`100`             |
+| backupType   | Query | Enum   | X  | バックアップタイプ<br/>- `AUTO`:自動<br/>- `MANUAL`: 手動<br/>- デフォルト値:`全体` |
+| dbInstanceId | Query | UUID   | X  | 原本DBインスタンスの識別子                                           |
+| dbVersion    | Query | Enum   | X  | DBバージョン情報                                                  |
 
-#### 응답
+#### レスポンス
 
-| 이름                   | 종류   | 형식       | 설명                                                                                                                                                        |
+| 名前                  | 種類  | 形式      | 説明                                                                                                                                                       |
 |----------------------|------|----------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|
-| totalCounts          | Body | Number   | 전체 백업 목록 수                                                                                                                                                |
-| backups              | Body | Array    | 백업 목록                                                                                                                                                     |
-| backups.backupId     | Body | UUID     | 백업의 식별자                                                                                                                                                   |
-| backups.backupName   | Body | String   | 백업을 식별할 수 있는 이름                                                                                                                                           |
-| backups.backupStatus | Body | Enum     | 백업의 현재 상태<br/>- `BACKING_UP`: 백업 중인 경우<br/>- `COMPLETED`: 백업이 완료된 경우<br/>- `DELETING`: 백업이 삭제 중인 경우<br/>- `DELETED`: 백업이 삭제된 경우<br/>- `ERROR`: 오류가 발생한 경우 |
-| backups.dbInstanceId | Body | UUID     | 원본 DB 인스턴스의 식별자                                                                                                                                           |
-| backups.dbVersion    | Body | Enum     | DB 버전 정보                                                                                                                                                  |
-| backups.backupType   | Body | Enum     | 백업 유형<br/>- `AUTO`: 자동<br/>- `MANUAL`:  수동                                                                                                                |
-| backups.backupSize   | Body | Number   | 백업의 크기<br/>- 단위: `바이트`                                                                                                                                    |
-| createdYmdt          | Body | DateTime | 생성 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                         |
-| updatedYmdt          | Body | DateTime | 수정 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                         |
-| completedYmdt        | Body | DateTime | 완료 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                         |
+| totalCounts          | Body | Number   | 全体バックアップリスト数                                                                                                                                                |
+| backups              | Body | Array    | バックアップリスト                                                                                                                                                    |
+| backups.backupId     | Body | UUID     | バックアップの識別子                                                                                                                                                  |
+| backups.backupName   | Body | String   | バックアップを識別できる名前                                                                                                                                          |
+| backups.backupStatus | Body | Enum     | バックアップの現在状態<br/>- `BACKING_UP`:バックアップ中の場合<br/>- `COMPLETED`:バックアップが完了した場合<br/>- `DELETING`:バックアップが削除中の場合<br/>- `DELETED`:バックアップが削除された場合<br/>- `ERROR`:エラーが発生した場合 |
+| backups.dbInstanceId | Body | UUID     | 原本DBインスタンスの識別子                                                                                                                                          |
+| backups.dbVersion    | Body | Enum     | DBバージョン情報                                                                                                                                                 |
+| backups.backupType   | Body | Enum     | バックアップタイプ<br/>- `AUTO`:自動<br/>- `MANUAL`: 手動                                                                                                               |
+| backups.backupSize   | Body | Number   | バックアップのサイズ<br/>- 単位:`バイト`                                                                                                                                    |
+| createdYmdt          | Body | DateTime | 作成日時(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                         |
+| updatedYmdt          | Body | DateTime | 修正日時(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                         |
+| completedYmdt        | Body | DateTime | 完了日時(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                         |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -3023,13 +3022,13 @@ GET /v1.0/backups
 ```
 </details>
 
-#### 응답
+#### レスポンス
 
-| 이름    | 종류   | 형식   | 설명          |
+| 名前   | 種類  | 形式  | 説明         |
 |-------|------|------|-------------|
-| jobId | Body | UUID | 요청한 작업의 식별자 |
+| jobId | Body | UUID | リクエストした作業の識別子 |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -3043,30 +3042,30 @@ GET /v1.0/backups
 ```
 </details>
 
-### 오브젝트 스토리지로 백업 내보내기
+### オブジェクトストレージにバックアップをエクスポート
 
 ```http
 POST /v1.0/backups/{backupId}/export
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                            | 설명                 |
+| 権限名                           | 説明                |
 |--------------------------------|--------------------|
-| RDSforPostgreSQL:Backup.Export | 오브젝트 스토리지로 백업 내보내기 |
+| RDSforPostgreSQL:Backup.Export | オブジェクトストレージにバックアップをエクスポート |
 
-#### 요청
+#### リクエスト
 
-| 이름              | 종류   | 형식     | 필수 | 설명                          |
+| 名前             | 種類  | 形式    | 必須 | 説明                         |
 |-----------------|------|--------|----|-----------------------------|
-| backupId        | URL  | UUID   | O  | 백업의 식별자                     |
-| tenantId        | Body | String | O  | 백업이 저장될 오브젝트 스토리지의 테넌트 ID   |
-| username        | Body | String | O  | NHN Cloud 계정 또는 IAM 계정 ID   |
-| password        | Body | String | O  | 백업이 저장될 오브젝트 스토리지의 API 비밀번호 |
-| targetContainer | Body | String | O  | 백업이 저장될 오브젝트 스토리지의 컨테이너     |
-| objectPath      | Body | String | O  | 컨테이너에 저장될 백업의 경로            |
+| backupId        | URL  | UUID   | O  | バックアップの識別子                    |
+| tenantId        | Body | String | O  | バックアップが保存されるオブジェクトストレージのテナントID   |
+| username        | Body | String | O  | NHN CloudアカウントまたはIAMアカウントID   |
+| password        | Body | String | O  | バックアップが保存されるオブジェクトストレージのAPIパスワード |
+| targetContainer | Body | String | O  | バックアップが保存されるオブジェクトストレージのコンテナ    |
+| objectPath      | Body | String | O  | コンテナに保存されるバックアップのパス           |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -3079,13 +3078,13 @@ POST /v1.0/backups/{backupId}/export
 ```
 </details>
 
-#### 응답
+#### レスポンス
 
-| 이름    | 종류   | 형식   | 설명          |
+| 名前   | 種類  | 形式  | 説明         |
 |-------|------|------|-------------|
-| jobId | Body | UUID | 요청한 작업의 식별자 |
+| jobId | Body | UUID | リクエストした作業の識別子 |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -3099,50 +3098,50 @@ POST /v1.0/backups/{backupId}/export
 ```
 </details>
 
-### 백업 복원하기
+### バックアップの復元
 
 ```http
 POST /v1.0/backups/{backupId}/restore
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                             | 설명      |
+| 権限名                            | 説明     |
 |---------------------------------|---------|
-| RDSforPostgreSQL:Backup.Restore | 백업 복원하기 |
+| RDSforPostgreSQL:Backup.Restore | バックアップの復元 |
 
-#### 요청
+#### リクエスト
 
-| 이름                                       | 종류   | 형식      | 필수 | 설명                                                                                                                                                                                                                        |
+| 名前                                      | 種類  | 形式     | 必須 | 説明                                                                                                                                                                                                                       |
 |------------------------------------------|------|---------|----|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| backupId                                 | URL  | UUID    | O  | 백업의 식별자                                                                                                                                                                                                                   |
-| dbInstanceName                           | Body | String  | O  | DB 인스턴스를 식별할 수 있는 이름                                                                                                                                                                                                      |
-| description                              | Body | String  | X  | DB 인스턴스에 대한 추가 정보                                                                                                                                                                                                         |
-| dbFlavorId                               | Body | UUID    | O  | DB 인스턴스 사양의 식별자                                                                                                                                                                                                           |
-| dbPort                                   | Body | Number  | O  | DB 포트<br/>- 최솟값: `5432`<br/>- 최댓값: `45432`                                                                                                                                                                                |
-| parameterGroupId                         | Body | UUID    | O  | 파라미터 그룹의 식별자                                                                                                                                                                                                              |
-| dbSecurityGroupIds                       | Body | Array   | X  | DB 보안 그룹의 식별자 목록                                                                                                                                                                                                          ||network|Body|Object|O|네트워크 정보 객체|
-| userGroupIds                             | Body | Array   | X  | 사용자 그룹의 식별자 목록                                                                                                                                                                                                            |
-| useDefaultNotification                   | Body | Boolean | X  | 기본 알림 사용 여부<br/>- 기본값: `false`                                                                                                                                                                                            |
-| useDeletionProtection                    | Body | Boolean | X  | 삭제 보호 여부<br/>- 기본값: `false`                                                                                                                                                                                               | 
-| useHighAvailability                      | Body | Boolean | X  | 고가용성 사용 여부                                                                                                                                                                                                                |
-| pingInterval                             | Body | Number  | X  | 고가용성 사용 시 Ping 간격(초)<br/>- 최솟값: `1`<br/>- 최댓값: `600`                                                                                                                                                                      |
-| failoverReplWaitingTime                  | Body | Number  | X  | 고가용성 사용 시 장애 조치 대기 시간<br/>- 최솟값: `-1`<br/>- -1로 설정 시, 복제 지연 해소까지 계속해서 대기합니다.                                                                                                                                              |                                                                                                                                                                                                                      | userGroupIds                             | Body | Array   | X  | 기본 알림 수신용 사용자 그룹의 식별자 목록                                                                                                                                                                                             |
-| network                                  | Body | Object  | O  | 네트워크 정보 객체                                                                                                                                                                                                                |
-| network.subnetId                         | Body | UUID    | O  | 서브넷의 식별자                                                                                                                                                                                                                  |
-| network.usePublicAccess                  | Body | Boolean | X  | 외부 접속 가능 여부<br/>- 기본값: `false`                                                                                                                                                                                            |
-| network.availabilityZone                 | Body | Enum    | X  | DB 인스턴스를 생성할 가용성 영역<br/>- 예시: `kr-pub-a`<br/>- 기본값: `임의의 가용성 영역`                                                                                                                                                          |
-| storage                                  | Body | Object  | O  | 스토리지 정보 객체                                                                                                                                                                                                                |    
-| storage.storageType                      | Body | Enum    | O  | 데이터 스토리지 유형<br/>- 예시: `General SSD`                                                                                                                                                                                       |
-| storage.storageSize                      | Body | Number  | O  | 데이터 스토리지 크기<br/>- 단위: `기가바이트`<br/>- 최솟값: `20`<br/>- 최댓값: `2048`                                                                                                                                                           |
-| backup                                   | Body | Object  | O  | 백업 정보 객체                                                                                                                                                                                                                  |
-| backup.backupPeriod                      | Body | Number  | O  | 백업 보관 기간(일)<br/>- 최솟값: `0`<br/>- 최댓값: `730`                                                                                                                                                                               |
-| backup.backupRetryCount                  | Body | Number  | X  | 백업 재시도 횟수<br/>- 기본값: `0`<br/>- 최솟값: `0`<br/>- 최댓값: `10`                                                                                                                                                                   |
-| backup.backupSchedules                   | Body | Array   | X  | 백업 스케줄 목록                                                                                                                                                                                                                 |
-| backup.backupSchedules.backupWndBgnTime  | Body | String  | O  | 백업 시작 시간<br/>- 예시: `00:00:00`                                                                                                                                                                                             |
-| backup.backupSchedules.backupWndDuration | Body | Enum    | O  | 백업 Duration<br/>백업 시작 시간부터 설정된 기간 안에 자동 백업이 실행됩니다.<br/>- `HALF_AN_HOUR`: 30분<br/>- `ONE_HOUR`: 1시간<br/>- `ONE_HOUR_AND_HALF`: 1시간 30분<br/>- `TWO_HOURS`: 2시간<br/>- `TWO_HOURS_AND_HALF`: 2시간 30분<br/>- `THREE_HOURS`: 3시간 |
+| backupId                                 | URL  | UUID    | O  | バックアップの識別子                                                                                                                                                                                                                  |
+| dbInstanceName                           | Body | String  | O  | DBインスタンスを識別できる名前                                                                                                                                                                                                     |
+| description                              | Body | String  | X  | DBインスタンスの追加情報                                                                                                                                                                                                        |
+| dbFlavorId                               | Body | UUID    | O  | DBインスタンス仕様の識別子                                                                                                                                                                                                          |
+| dbPort                                   | Body | Number  | O  | DBポート<br/>- 最小値:`5432`<br/>- 最大値:`45432`                                                                                                                                                                                |
+| parameterGroupId                         | Body | UUID    | O  | パラメータグループの識別子                                                                                                                                                                                                             |
+| dbSecurityGroupIds                       | Body | Array   | X  | DBセキュリティグループの識別子リスト                                                                                                                                                                                                         ||network|Body|Object|O|ネットワーク情報オブジェクト|
+| userGroupIds                             | Body | Array   | X  | ユーザーグループの識別子リスト                                                                                                                                                                                                           |
+| useDefaultNotification                   | Body | Boolean | X  | 基本通知の使用有無<br/>- デフォルト値:`false`                                                                                                                                                                                            |
+| useDeletionProtection                    | Body | Boolean | X  | 削除保護の有無<br/>- デフォルト値:`false`                                                                                                                                                                                               | 
+| useHighAvailability                      | Body | Boolean | X  | 高可用性の使用有無                                                                                                                                                                                                                |
+| pingInterval                             | Body | Number  | X  | 高可用性使用時のPing間隔(秒)<br/>- 最小値:`1`<br/>- 最大値:`600`                                                                                                                                                                      |
+| failoverReplWaitingTime                  | Body | Number  | X  | 高可用性使用時のフェイルオーバー待機時間<br/>- 最小値:`-1`<br/>- -1に設定時、複製遅延が解消されるまで待機し続けます。                                                                                                                                              |                                                                                                                                                                                                                      | userGroupIds                             | Body | Array   | X  | 基本通知受信用のユーザーグループの識別子リスト                                                                                                                                                                                            |
+| network                                  | Body | Object  | O  | ネットワーク情報オブジェクト                                                                                                                                                                                                               |
+| network.subnetId                         | Body | UUID    | O  | サブネットの識別子                                                                                                                                                                                                                 |
+| network.usePublicAccess                  | Body | Boolean | X  | 外部接続可否<br/>- デフォルト値:`false`                                                                                                                                                                                            |
+| network.availabilityZone                 | Body | Enum    | X  | DBインスタンスを作成するアベイラビリティゾーン<br/>- 例:`kr-pub-a`<br/>- デフォルト値:`任意のアベイラビリティゾーン`                                                                                                                                                          |
+| storage                                  | Body | Object  | O  | ストレージ情報オブジェクト                                                                                                                                                                                                               |    
+| storage.storageType                      | Body | Enum    | O  | データストレージタイプ<br/>- 例:`General SSD`                                                                                                                                                                                       |
+| storage.storageSize                      | Body | Number  | O  | データストレージサイズ<br/>- 単位: `ギガバイト`<br/>- 最小値:`20`<br/>- 最大値:`2048`                                                                                                                                                           |
+| backup                                   | Body | Object  | O  | バックアップ情報オブジェクト                                                                                                                                                                                                                 |
+| backup.backupPeriod                      | Body | Number  | O  | バックアップの保管期間(日)<br/>- 最小値:`0`<br/>- 最大値:`730`                                                                                                                                                                               |
+| backup.backupRetryCount                  | Body | Number  | X  | バックアップの再試行回数<br/>- デフォルト値:`0`<br/>- 最小値:`0`<br/>- 最大値:`10`                                                                                                                                                                   |
+| backup.backupSchedules                   | Body | Array   | X  | バックアップスケジュールリスト                                                                                                                                                                                                                |
+| backup.backupSchedules.backupWndBgnTime  | Body | String  | O  | バックアップ開始時間<br/>- 例:`00:00:00`                                                                                                                                                                                             |
+| backup.backupSchedules.backupWndDuration | Body | Enum    | O  | バックアップDuration<br/>バックアップ開始時間から設定された期間内に自動バックアップが実行されます。<br/>- `HALF_AN_HOUR`:30分<br/>- `ONE_HOUR`:1時間<br/>- `ONE_HOUR_AND_HALF`:1時間30分<br/>- `TWO_HOURS`:2時間<br/>- `TWO_HOURS_AND_HALF`:2時間30分<br/>- `THREE_HOURS`:3時間 |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 
@@ -3172,13 +3171,13 @@ POST /v1.0/backups/{backupId}/restore
 ```
 </details>
 
-#### 응답
+#### レスポンス
 
-| 이름    | 종류   | 형식   | 설명          |
+| 名前   | 種類  | 形式  | 説明         |
 |-------|------|------|-------------|
-| jobId | Body | UUID | 요청한 작업의 식별자 |
+| jobId | Body | UUID | リクエストした作業の識別子 |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -3192,33 +3191,33 @@ POST /v1.0/backups/{backupId}/restore
 ```
 </details>
 
-### 백업 삭제하기
+### バックアップ削除
 
 ```http
 DELETE /v1.0/backups/{backupId}
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                            | 설명      |
+| 権限名                           | 説明     |
 |--------------------------------|---------|
-| RDSforPostgreSQL:Backup.Delete | 백업 삭제하기 |
+| RDSforPostgreSQL:Backup.Delete | バックアップ削除 |
 
-#### 요청
+#### リクエスト
 
-이 API는 요청 본문을 요구하지 않습니다.
+このAPIはリクエスト本文を要求しません。
 
-| 이름       | 종류  | 형식   | 필수 | 설명      |
+| 名前      | 種類 | 形式  | 必須 | 説明     |
 |----------|-----|------|----|---------|
-| backupId | URL | UUID | O  | 백업의 식별자 |
+| backupId | URL | UUID | O  | バックアップの識別子 |
 
-#### 응답
+#### レスポンス
 
-| 이름    | 종류   | 형식   | 설명          |
+| 名前   | 種類  | 形式  | 説明         |
 |-------|------|------|-------------|
-| jobId | Body | UUID | 요청한 작업의 식별자 |
+| jobId | Body | UUID | リクエストした作業の識別子 |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -3232,38 +3231,38 @@ DELETE /v1.0/backups/{backupId}
 ```
 </details>
 
-## DB 보안 그룹
+## DBセキュリティグループ
 
-### DB 보안 그룹 목록 보기
+### DBセキュリティグループリストを表示
 
 ```http
 GET /v1.0/db-security-groups
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                                   | 설명             |
+| 権限名                                  | 説明            |
 |---------------------------------------|----------------|
-| RDSforPostgreSQL:DbSecurityGroup.List | DB 보안 그룹 목록 보기 |
+| RDSforPostgreSQL:DbSecurityGroup.List | DBセキュリティグループリストを表示 |
 
-#### 요청
+#### リクエスト
 
-이 API는 요청 본문을 요구하지 않습니다.
+このAPIはリクエスト本文を要求しません。
 
-#### 응답
+#### レスポンス
 
-| 이름                                     | 종류   | 형식       | 설명                                                                                                                                                                                             |
+| 名前                                    | 種類  | 形式      | 説明                                                                                                                                                                                            |
 |----------------------------------------|------|----------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| dbSecurityGroups                       | Body | Array    | DB 보안 그룹 목록                                                                                                                                                                                    |
-| dbSecurityGroups.dbSecurityGroupId     | Body | UUID     | DB 보안 그룹의 식별자                                                                                                                                                                                  |
-| dbSecurityGroups.dbSecurityGroupName   | Body | String   | DB 보안 그룹을 식별할 수 있는 이름                                                                                                                                                                          |
-| dbSecurityGroups.dbSecurityGroupStatus | Body | Enum     | DB 보안 그룹의 현재 상태<br/>- `CREATED`: 생성됨<br/>- `DELETED`: 삭제됨                                                                                                                                      |
-| dbSecurityGroups.description           | Body | String   | DB 보안 그룹에 대한 추가 정보                                                                                                                                                                             |
-| dbSecurityGroups.progressStatus        | Body | Enum     | DB 보안 그룹의 현재 진행 상태<br/>- `NONE`: 진행 중인 작업이 없음<br/>- `CREATING_RULE`: 규칙 정책 생성 중<br/>- `UPDATING_RULE`: 규칙 정책 수정 중<br/>- `DELETING_RULE`: 규칙 정책 삭제 중<br/>- `APPLYING_DEFAULT_RULE`: 기본 규칙 적용 중  |
-| dbSecurityGroups.createdYmdt           | Body | DateTime | 생성 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                                                              |
-| dbSecurityGroups.updatedYmdt           | Body | DateTime | 수정 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                                                              |
+| dbSecurityGroups                       | Body | Array    | DBセキュリティグループリスト                                                                                                                                                                                   |
+| dbSecurityGroups.dbSecurityGroupId     | Body | UUID     | DBセキュリティグループの識別子                                                                                                                                                                                 |
+| dbSecurityGroups.dbSecurityGroupName   | Body | String   | DBセキュリティグループを識別できる名前                                                                                                                                                                         |
+| dbSecurityGroups.dbSecurityGroupStatus | Body | Enum     | DBセキュリティグループの現在状態<br/>- `CREATED`:作成済み<br/>- `DELETED`:削除済み                                                                                                                                     |
+| dbSecurityGroups.description           | Body | String   | DBセキュリティグループの追加情報                                                                                                                                                                            |
+| dbSecurityGroups.progressStatus        | Body | Enum     | DBセキュリティグループの現在の進行状態<br/>- `NONE`:進行中の作業なし<br/>- `CREATING_RULE`:ルールポリシー作成中<br/>- `UPDATING_RULE`:ルールポリシー修正中<br/>- `DELETING_RULE`:ルールポリシー削除中<br/>- `APPLYING_DEFAULT_RULE`:基本ルール適用中 |
+| dbSecurityGroups.createdYmdt           | Body | DateTime | 作成日時(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                                                              |
+| dbSecurityGroups.updatedYmdt           | Body | DateTime | 修正日時(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                                                              |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -3287,51 +3286,51 @@ GET /v1.0/db-security-groups
 ```
 </details>
 
-### DB 보안 그룹 상세 보기
+### DBセキュリティグループ詳細を表示
 
 ```http
 GET /v1.0/db-security-groups/{dbSecurityGroupId}
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                                  | 설명             |
+| 権限名                                 | 説明            |
 |--------------------------------------|----------------|
-| RDSforPostgreSQL:DbSecurityGroup.Get | DB 보안 그룹 상세 보기 |
+| RDSforPostgreSQL:DbSecurityGroup.Get | DBセキュリティグループ詳細を表示 |
 
-#### 요청
+#### リクエスト
 
-이 API는 요청 본문을 요구하지 않습니다.
+このAPIはリクエスト本文を要求しません。
 
-| 이름                | 종류  | 형식   | 필수 | 설명            |
+| 名前               | 種類 | 形式  | 必須 | 説明           |
 |-------------------|-----|------|----|---------------|
-| dbSecurityGroupId | URL | UUID | O  | DB 보안 그룹의 식별자 |
+| dbSecurityGroupId | URL | UUID | O  | DBセキュリティグループの識別子 |
 
-#### 응답
+#### レスポンス
 
-| 이름                    | 종류   | 형식       | 설명                                                                                                                                                                                            |
+| 名前                   | 種類  | 形式      | 説明                                                                                                                                                                                           |
 |-----------------------|------|----------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| dbSecurityGroupId     | Body | UUID     | DB 보안 그룹의 식별자                                                                                                                                                                                 |
-| dbSecurityGroupName   | Body | String   | DB 보안 그룹을 식별할 수 있는 이름                                                                                                                                                                         |
-| dbSecurityGroupStatus | Body | Enum     | DB 보안 그룹의 현재 상태<br/>- `CREATED`: 생성됨<br/>- `DELETED`: 삭제됨                                                                                                                                     |
-| description           | Body | String   | DB 보안 그룹에 대한 추가 정보                                                                                                                                                                            |
-| progressStatus        | Body | Enum     | DB 보안 그룹의 현재 진행 상태<br/>- `NONE`: 진행 중인 작업이 없음<br/>- `CREATING_RULE`: 규칙 정책 생성 중<br/>- `UPDATING_RULE`: 규칙 정책 수정 중<br/>- `DELETING_RULE`: 규칙 정책 삭제 중<br/>- `APPLYING_DEFAULT_RULE`: 기본 규칙 적용 중 |
-| rules                 | Body | Array    | DB 보안 그룹 규칙 목록                                                                                                                                                                                |
-| rules.ruleId          | Body | UUID     | DB 보안 그룹 규칙의 식별자                                                                                                                                                                              |
-| rules.description     | Body | String   | DB 보안 그룹 규칙에 대한 추가 정보                                                                                                                                                                         |
-| rules.direction       | Body | Enum     | 통신 방향<br/>- `INGRESS`: 수신<br/>- `EGRESS`: 송신                                                                                                                                                  |
-| rules.etherType       | Body | Enum     | Ether 유형<br/>- `IPV4`: IPv4<br/>- `IPV6`: IPv6                                                                                                                                                |
-| rules.port            | Body | Object   | 포트 객체                                                                                                                                                                                         |
-| rules.port.portType   | Body | Enum     | 포트 유형<br/>- `DB_PORT`: 각 DB 인스턴스 포트값으로 설정됩니다.<br/>- `PORT`: 지정된 포트값으로 설정됩니다.<br/>- `PORT_RANGE`: 지정된 포트 범위로 설정됩니다.                                                                            |
-| rules.port.minPort    | Body | Number   | 최소 포트 범위                                                                                                                                                                                      |
-| rules.port.maxPort    | Body | Number   | 최대 포트 범위                                                                                                                                                                                      |
-| rules.cidr            | Body | String   | 허용할 트래픽의 원격 소스                                                                                                                                                                                |
-| rules.createdYmdt     | Body | DateTime | 생성 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                                                             |
-| rules.updatedYmdt     | Body | DateTime | 수정 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                                                             |
-| createdYmdt           | Body | DateTime | 생성 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                                                             |
-| updatedYmdt           | Body | DateTime | 수정 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                                                             |
+| dbSecurityGroupId     | Body | UUID     | DBセキュリティグループの識別子                                                                                                                                                                                |
+| dbSecurityGroupName   | Body | String   | DBセキュリティグループを識別できる名前                                                                                                                                                                        |
+| dbSecurityGroupStatus | Body | Enum     | DBセキュリティグループの現在状態<br/>- `CREATED`:作成済み<br/>- `DELETED`:削除済み                                                                                                                                    |
+| description           | Body | String   | DBセキュリティグループの追加情報                                                                                                                                                                           |
+| progressStatus        | Body | Enum     | DBセキュリティグループの現在の進行状態<br/>- `NONE`:進行中の作業なし<br/>- `CREATING_RULE`:ルールポリシー作成中<br/>- `UPDATING_RULE`:ルールポリシー修正中<br/>- `DELETING_RULE`:ルールポリシー削除中<br/>- `APPLYING_DEFAULT_RULE`:基本ルール適用中 |
+| rules                 | Body | Array    | DBセキュリティグループルールリスト                                                                                                                                                                               |
+| rules.ruleId          | Body | UUID     | DBセキュリティグループルールの識別子                                                                                                                                                                             |
+| rules.description     | Body | String   | DBセキュリティグループルールの追加情報                                                                                                                                                                        |
+| rules.direction       | Body | Enum     | 通信方向<br/>- `INGRESS`:受信<br/>- `EGRESS`:送信                                                                                                                                                 |
+| rules.etherType       | Body | Enum     | Etherタイプ<br/>- `IPV4`: IPv4<br/>- `IPV6`: IPv6                                                                                                                                                |
+| rules.port            | Body | Object   | ポートオブジェクト                                                                                                                                                                                        |
+| rules.port.portType   | Body | Enum     | ポートタイプ<br/>- `DB_PORT`:各DBインスタンスポート値で設定されます。<br/>- `PORT`:指定されたポート値で設定されます。<br/>- `PORT_RANGE`:指定されたポート範囲で設定されます。                                                                            |
+| rules.port.minPort    | Body | Number   | 最小ポート範囲                                                                                                                                                                                     |
+| rules.port.maxPort    | Body | Number   | 最大ポート範囲                                                                                                                                                                                     |
+| rules.cidr            | Body | String   | 許可するトラフィックの遠隔ソース                                                                                                                                                                               |
+| rules.createdYmdt     | Body | DateTime | 作成日時(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                                                             |
+| rules.updatedYmdt     | Body | DateTime | 修正日時(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                                                             |
+| createdYmdt           | Body | DateTime | 作成日時(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                                                             |
+| updatedYmdt           | Body | DateTime | 修正日時(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                                                             |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -3369,35 +3368,35 @@ GET /v1.0/db-security-groups/{dbSecurityGroupId}
 ```
 </details>
 
-### DB 보안 그룹 생성하기
+### DBセキュリティグループの作成
 
 ```http
 POST /v1.0/db-security-groups
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                                     | 설명            |
+| 権限名                                    | 説明           |
 |-----------------------------------------|---------------|
-| RDSforPostgreSQL:DbSecurityGroup.Create | DB 보안 그룹 생성하기 |
+| RDSforPostgreSQL:DbSecurityGroup.Create | DBセキュリティグループ作成 |
 
-#### 요청
+#### リクエスト
 
-| 이름                  | 종류   | 형식     | 필수 | 설명                                                                                                                                                                                       |
+| 名前                 | 種類  | 形式    | 必須 | 説明                                                                                                                                                                                      |
 |---------------------|------|--------|----|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| dbSecurityGroupName | Body | String | O  | DB 보안 그룹을 식별할 수 있는 이름                                                                                                                                                                    |
-| description         | Body | String | X  | DB 보안 그룹에 대한 추가 정보                                                                                                                                                                       |
-| rules               | Body | Array  | O  | DB 보안 그룹 규칙 목록                                                                                                                                                                           |
-| rules.description   | Body | String | X  | DB 보안 그룹 규칙에 대한 추가 정보                                                                                                                                                                    |
-| rules.direction     | Body | Enum   | O  | 통신 방향<br/>- `INGRESS`: 수신<br/>- `EGRESS`: 송신                                                                                                                                             |
-| rules.etherType     | Body | Enum   | O  | Ether 유형<br/>- `IPV4`: IPv4<br/>- `IPV6`: IPv6                                                                                                                                           |
-| rules.cidr          | Body | String | O  | 허용할 트래픽의 원격 소스<br/>- 예시: `1.1.1.1/32`                                                                                                                                                    |
-| rules.port          | Body | Object | O  | 포트 객체                                                                                                                                                                                    |
-| rules.port.portType | Body | Enum   | O  | 포트 유형<br/>- `DB_PORT`: 각 DB 인스턴스 포트값으로 설정됩니다. `minPort`값과 `maxPort`값을 필요로 하지 않습니다.<br/>- `PORT`: 지정된 포트값으로 설정됩니다. `minPort`값과 `maxPort`값이 같아야 합니다.<br/>- `PORT_RANGE`: 지정된 포트 범위로 설정됩니다. |
-| rules.port.minPort  | Body | Number | X  | 최소 포트 범위<br/>- 수신 최솟값: 5432<br/>- 송신 최솟값: 1                                                                                                                                              |
-| rules.port.maxPort  | Body | Number | X  | 최대 포트 범위<br/>- 수신 최댓값: 45432<br/>- 송신 최댓값: 65535                                                                                                                                         |
+| dbSecurityGroupName | Body | String | O  | DBセキュリティグループを識別できる名前                                                                                                                                                                   |
+| description         | Body | String | X  | DBセキュリティグループの追加情報                                                                                                                                                                      |
+| rules               | Body | Array  | O  | DBセキュリティグループルールリスト                                                                                                                                                                          |
+| rules.description   | Body | String | X  | DBセキュリティグループルールの追加情報                                                                                                                                                                   |
+| rules.direction     | Body | Enum   | O  | 通信方向<br/>- `INGRESS`:受信<br/>- `EGRESS`:送信                                                                                                                                            |
+| rules.etherType     | Body | Enum   | O  | Etherタイプ<br/>- `IPV4`: IPv4<br/>- `IPV6`: IPv6                                                                                                                                           |
+| rules.cidr          | Body | String | O  | 許可するトラフィックの遠隔ソース<br/>- 例:`1.1.1.1/32`                                                                                                                                                    |
+| rules.port          | Body | Object | O  | ポートオブジェクト                                                                                                                                                                                   |
+| rules.port.portType | Body | Enum   | O  | ポートタイプ<br/>- `DB_PORT`:各DBインスタンスポート値で設定されます。`minPort`値と`maxPort`値を必要としません。<br/>- `PORT`:指定されたポート値で設定されます。`minPort`値と`maxPort`値が同じである必要があります。<br/>- `PORT_RANGE`:指定されたポート範囲で設定されます。 |
+| rules.port.minPort  | Body | Number | X  | 最小ポート範囲<br/>- 受信最小値:5432<br/>- 送信最小値:1                                                                                                                                              |
+| rules.port.maxPort  | Body | Number | X  | 最大ポート範囲<br/>- 受信最大値:45432<br/>- 送信最大値:65535                                                                                                                                         |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -3419,13 +3418,13 @@ POST /v1.0/db-security-groups
 ```
 </details>
 
-#### 응답
+#### レスポンス
 
-| 이름                | 종류   | 형식   | 설명            |
+| 名前               | 種類  | 形式  | 説明           |
 |-------------------|------|------|---------------|
-| dbSecurityGroupId | Body | UUID | DB 보안 그룹의 식별자 |
+| dbSecurityGroupId | Body | UUID | DBセキュリティグループの識別子 |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -3439,27 +3438,27 @@ POST /v1.0/db-security-groups
 ```
 </details>
 
-### DB 보안 그룹 수정하기
+### DBセキュリティグループの修正
 
 ```http
 PUT /v1.0/db-security-groups/{dbSecurityGroupId}
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                                     | 설명            |
+| 権限名                                    | 説明           |
 |-----------------------------------------|---------------|
-| RDSforPostgreSQL:DbSecurityGroup.Modify | DB 보안 그룹 수정하기 |
+| RDSforPostgreSQL:DbSecurityGroup.Modify | DBセキュリティグループの修正 |
 
-#### 요청
+#### リクエスト
 
-| 이름                  | 종류   | 형식     | 필수 | 설명                    |
+| 名前                 | 種類  | 形式    | 必須 | 説明                   |
 |---------------------|------|--------|----|-----------------------|
-| dbSecurityGroupId   | URL  | UUID   | O  | DB 보안 그룹의 식별자         |
-| dbSecurityGroupName | Body | String | X  | DB 보안 그룹을 식별할 수 있는 이름 |
-| description         | Body | String | X  | DB 보안 그룹에 대한 추가 정보    |
+| dbSecurityGroupId   | URL  | UUID   | O  | DBセキュリティグループの識別子        |
+| dbSecurityGroupName | Body | String | X  | DBセキュリティグループを識別できる名前 |
+| description         | Body | String | X  | DBセキュリティグループの追加情報   |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -3469,11 +3468,11 @@ PUT /v1.0/db-security-groups/{dbSecurityGroupId}
 ```
 </details>
 
-#### 응답
+#### レスポンス
 
-이 API는 응답 본문을 반환하지 않습니다.
+このAPIはレスポンス本文を返しません。
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -3486,31 +3485,31 @@ PUT /v1.0/db-security-groups/{dbSecurityGroupId}
 ```
 </details>
 
-### DB 보안 그룹 삭제하기
+### DBセキュリティグループの削除
 
 ```http
 DELETE /v1.0/db-security-groups/{dbSecurityGroupId}
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                                     | 설명            |
+| 権限名                                    | 説明           |
 |-----------------------------------------|---------------|
-| RDSforPostgreSQL:DbSecurityGroup.Delete | DB 보안 그룹 삭제하기 |
+| RDSforPostgreSQL:DbSecurityGroup.Delete | DBセキュリティグループの削除 |
 
-#### 요청
+#### リクエスト
 
-이 API는 요청 본문을 요구하지 않습니다.
+このAPIはリクエスト本文を要求しません。
 
-| 이름                | 종류  | 형식   | 필수 | 설명            |
+| 名前               | 種類 | 形式  | 必須 | 説明           |
 |-------------------|-----|------|----|---------------|
-| dbSecurityGroupId | URL | UUID | O  | DB 보안 그룹의 식별자 |
+| dbSecurityGroupId | URL | UUID | O  | DBセキュリティグループの識別子 |
 
-#### 응답
+#### レスポンス
 
-이 API는 응답 본문을 반환하지 않습니다.
+このAPIはレスポンス本文を返しません。
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -3523,33 +3522,33 @@ DELETE /v1.0/db-security-groups/{dbSecurityGroupId}
 ```
 </details>
 
-### DB 보안 그룹 규칙 생성하기
+### DBセキュリティグループルールの作成
 
 ```http
 POST /v1.0/db-security-groups/{dbSecurityGroupId}/rules
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                                         | 설명               |
+| 権限名                                        | 説明              |
 |---------------------------------------------|------------------|
-| RDSforPostgreSQL:DbSecurityGroupRule.Create | DB 보안 그룹 규칙 생성하기 |
+| RDSforPostgreSQL:DbSecurityGroupRule.Create | DBセキュリティグループルールの作成 |
 
-#### 요청
+#### リクエスト
 
-| 이름                | 종류   | 형식     | 필수 | 설명                                                                                                                                                                                       |
+| 名前               | 種類  | 形式    | 必須 | 説明                                                                                                                                                                                      |
 |-------------------|------|--------|----|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| dbSecurityGroupId | URL  | UUID   | O  | DB 보안 그룹의 식별자                                                                                                                                                                            |
-| description       | Body | String | X  | DB 보안 그룹 규칙에 대한 추가 정보                                                                                                                                                                    |
-| direction         | Body | Enum   | O  | 통신 방향<br/>- `INGRESS`: 수신<br/>- `EGRESS`: 송신                                                                                                                                             |
-| etherType         | Body | Enum   | O  | Ether 유형<br/>- `IPV4`: IPv4<br/>- `IPV6`: IPv6                                                                                                                                           |
-| port              | Body | Object | O  | 포트 객체                                                                                                                                                                                    |
-| port.portType     | Body | Enum   | O  | 포트 유형<br/>- `DB_PORT`: 각 DB 인스턴스 포트값으로 설정됩니다. `minPort`값과 `maxPort`값을 필요로 하지 않습니다.<br/>- `PORT`: 지정된 포트값으로 설정됩니다. `minPort`값과 `maxPort`값이 같아야 합니다.<br/>- `PORT_RANGE`: 지정된 포트 범위로 설정됩니다. |
-| port.minPort      | Body | Number | X  | 최소 포트 범위<br/>- 수신 최솟값: 5432<br/>- 송신 최솟값: 1                                                                                                                                              |
-| port.maxPort      | Body | Number | X  | 최대 포트 범위<br/>- 수신 최댓값: 45432<br/>- 송신 최댓값: 65535                                                                                                                                         |
-| cidr              | Body | String | O  | 허용할 트래픽의 원격 소스<br/>- 예시: `1.1.1.1/32`                                                                                                                                                    |
+| dbSecurityGroupId | URL  | UUID   | O  | DBセキュリティグループの識別子                                                                                                                                                                           |
+| description       | Body | String | X  | DBセキュリティグループルールの追加情報                                                                                                                                                                   |
+| direction         | Body | Enum   | O  | 通信方向<br/>- `INGRESS`:受信<br/>- `EGRESS`:送信                                                                                                                                            |
+| etherType         | Body | Enum   | O  | Etherタイプ<br/>- `IPV4`: IPv4<br/>- `IPV6`: IPv6                                                                                                                                           |
+| port              | Body | Object | O  | ポートオブジェクト                                                                                                                                                                                   |
+| port.portType     | Body | Enum   | O  | ポートタイプ<br/>- `DB_PORT`:各DBインスタンスポート値で設定されます。`minPort`値と`maxPort`値を必要としません。<br/>- `PORT`:指定されたポート値で設定されます。`minPort`値と`maxPort`値が同じである必要があります。<br/>- `PORT_RANGE`:指定されたポート範囲で設定されます。 |
+| port.minPort      | Body | Number | X  | 最小ポート範囲<br/>- 受信最小値:5432<br/>- 送信最小値:1                                                                                                                                              |
+| port.maxPort      | Body | Number | X  | 最大ポート範囲<br/>- 受信最大値:45432<br/>- 送信最大値:65535                                                                                                                                         |
+| cidr              | Body | String | O  | 許可するトラフィックの遠隔ソース<br/>- 例:`1.1.1.1/32`                                                                                                                                                    |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -3565,13 +3564,13 @@ POST /v1.0/db-security-groups/{dbSecurityGroupId}/rules
 ```
 </details>
 
-#### 응답
+#### レスポンス
 
-| 이름    | 종류   | 형식   | 설명          |
+| 名前   | 種類  | 形式  | 説明         |
 |-------|------|------|-------------|
-| jobId | Body | UUID | 요청한 작업의 식별자 |
+| jobId | Body | UUID | リクエストした作業の識別子 |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -3585,34 +3584,34 @@ POST /v1.0/db-security-groups/{dbSecurityGroupId}/rules
 ```
 </details>
 
-### DB 보안 그룹 규칙 수정하기
+### DBセキュリティグループルールの修正
 
 ```http
 PUT /v1.0/db-security-groups/{dbSecurityGroupId}/rules/{ruleId}
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                                         | 설명               |
+| 権限名                                        | 説明              |
 |---------------------------------------------|------------------|
-| RDSforPostgreSQL:DbSecurityGroupRule.Modify | DB 보안 그룹 규칙 수정하기 |
+| RDSforPostgreSQL:DbSecurityGroupRule.Modify | DBセキュリティグループルールの修正 |
 
-#### 요청
+#### リクエスト
 
-| 이름                | 종류   | 형식     | 필수 | 설명                                                                                                                                                                                       |
+| 名前               | 種類  | 形式    | 必須 | 説明                                                                                                                                                                                      |
 |-------------------|------|--------|----|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| dbSecurityGroupId | URL  | UUID   | O  | DB 보안 그룹의 식별자                                                                                                                                                                            |
-| ruleId            | URL  | UUID   | O  | DB 보안 그룹 규칙의 식별자                                                                                                                                                                         |
-| description       | Body | String | X  | DB 보안 그룹 규칙에 대한 추가 정보                                                                                                                                                                    |
-| direction         | Body | Enum   | O  | 통신 방향<br/>- `INGRESS`: 수신<br/>- `EGRESS`: 송신                                                                                                                                             |
-| etherType         | Body | Enum   | O  | Ether 유형<br/>- `IPV4`: IPv4<br/>- `IPV6`: IPv6                                                                                                                                           |
-| port              | Body | Object | O  | 포트 객체                                                                                                                                                                                    |
-| port.portType     | Body | Enum   | O  | 포트 유형<br/>- `DB_PORT`: 각 DB 인스턴스 포트값으로 설정됩니다. `minPort`값과 `maxPort`값을 필요로 하지 않습니다.<br/>- `PORT`: 지정된 포트값으로 설정됩니다. `minPort`값과 `maxPort`값이 같아야 합니다.<br/>- `PORT_RANGE`: 지정된 포트 범위로 설정됩니다. |
-| port.minPort      | Body | Number | X  | 최소 포트 범위<br/>- 수신 최솟값: 5432<br/>- 송신 최솟값: 1                                                                                                                                              |
-| port.maxPort      | Body | Number | X  | 최대 포트 범위<br/>- 수신 최댓값: 45432<br/>- 송신 최댓값: 65535                                                                                                                                         |
-| cidr              | Body | String | O  | 허용할 트래픽의 원격 소스<br/>- 예시: `1.1.1.1/32`                                                                                                                                                    |
+| dbSecurityGroupId | URL  | UUID   | O  | DBセキュリティグループの識別子                                                                                                                                                                           |
+| ruleId            | URL  | UUID   | O  | DBセキュリティグループルールの識別子                                                                                                                                                                        |
+| description       | Body | String | X  | DBセキュリティグループルールの追加情報                                                                                                                                                                   |
+| direction         | Body | Enum   | O  | 通信方向<br/>- `INGRESS`:受信<br/>- `EGRESS`:送信                                                                                                                                            |
+| etherType         | Body | Enum   | O  | Etherタイプ<br/>- `IPV4`: IPv4<br/>- `IPV6`: IPv6                                                                                                                                           |
+| port              | Body | Object | O  | ポートオブジェクト                                                                                                                                                                                   |
+| port.portType     | Body | Enum   | O  | ポートタイプ<br/>- `DB_PORT`:各DBインスタンスポート値で設定されます。`minPort`値と`maxPort`値を必要としません。<br/>- `PORT`:指定されたポート値で設定されます。`minPort`値と`maxPort`値が同じである必要があります。<br/>- `PORT_RANGE`:指定されたポート範囲で設定されます。 |
+| port.minPort      | Body | Number | X  | 最小ポート範囲<br/>- 受信最小値:5432<br/>- 送信最小値:1                                                                                                                                              |
+| port.maxPort      | Body | Number | X  | 最大ポート範囲<br/>- 受信最大値:45432<br/>- 送信最大値:65535                                                                                                                                         |
+| cidr              | Body | String | O  | 許可するトラフィックの遠隔ソース<br/>- 例:`1.1.1.1/32`                                                                                                                                                    |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -3626,13 +3625,13 @@ PUT /v1.0/db-security-groups/{dbSecurityGroupId}/rules/{ruleId}
 ```
 </details>
 
-#### 응답
+#### レスポンス
 
-| 이름    | 종류   | 형식   | 설명          |
+| 名前   | 種類  | 形式  | 説明         |
 |-------|------|------|-------------|
-| jobId | Body | UUID | 요청한 작업의 식별자 |
+| jobId | Body | UUID | リクエストした作業の識別子 |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -3646,34 +3645,34 @@ PUT /v1.0/db-security-groups/{dbSecurityGroupId}/rules/{ruleId}
 ```
 </details>
 
-### DB 보안 그룹 규칙 삭제하기
+### DBセキュリティグループルールの削除
 
 ```http
 DELETE /v1.0/db-security-groups/{dbSecurityGroupId}/rules
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                                         | 설명               |
+| 権限名                                        | 説明              |
 |---------------------------------------------|------------------|
-| RDSforPostgreSQL:DbSecurityGroupRule.Create | DB 보안 그룹 규칙 삭제하기 |
+| RDSforPostgreSQL:DbSecurityGroupRule.Create | DBセキュリティグループルールの削除 |
 
-#### 요청
+#### リクエスト
 
-이 API는 요청 본문을 요구하지 않습니다.
+このAPIはリクエスト本文を要求しません。
 
-| 이름                | 종류    | 형식    | 필수 | 설명                  |
+| 名前               | 種類   | 形式   | 必須 | 説明                 |
 |-------------------|-------|-------|----|---------------------|
-| dbSecurityGroupId | URL   | UUID  | O  | DB 보안 그룹의 식별자       |
-| ruleIds           | Query | Array | O  | DB 보안 그룹 규칙의 식별자 목록 |
+| dbSecurityGroupId | URL   | UUID  | O  | DBセキュリティグループの識別子      |
+| ruleIds           | Query | Array | O  | DBセキュリティグループルールの識別子リスト |
 
-#### 응답
+#### レスポンス
 
-| 이름    | 종류   | 형식   | 설명          |
+| 名前   | 種類  | 形式  | 説明         |
 |-------|------|------|-------------|
-| jobId | Body | UUID | 요청한 작업의 식별자 |
+| jobId | Body | UUID | リクエストした作業の識別子 |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -3687,42 +3686,42 @@ DELETE /v1.0/db-security-groups/{dbSecurityGroupId}/rules
 ```
 </details>
 
-## 파라미터 그룹
+## パラメータグループ
 
-### 파라미터 그룹 목록 보기
+### パラメータグループリストを表示
 
 ```http
 GET /v1.0/parameter-groups
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                                  | 설명            |
+| 権限名                                 | 説明           |
 |--------------------------------------|---------------|
-| RDSforPostgreSQL:ParameterGroup.List | 파라미터 그룹 목록 보기 |
+| RDSforPostgreSQL:ParameterGroup.List | パラメータグループリストを表示 |
 
-#### 요청
+#### リクエスト
 
-이 API는 요청 본문을 요구하지 않습니다.
+このAPIはリクエスト本文を要求しません。
 
-| 이름        | 종류    | 형식   | 필수 | 설명       |
+| 名前       | 種類   | 形式  | 必須 | 説明      |
 |-----------|-------|------|----|----------|
-| dbVersion | Query | Enum | X  | DB 버전 정보 |
+| dbVersion | Query | Enum | X  | DBバージョン情報 |
 
-#### 응답
+#### レスポンス
 
-| 이름                                   | 종류   | 형식       | 설명                                                                |
+| 名前                                  | 種類  | 形式      | 説明                                                               |
 |--------------------------------------|------|----------|-------------------------------------------------------------------|
-| parameterGroups                      | Body | Array    | 파라미터 그룹 목록                                                        |
-| parameterGroups.parameterGroupId     | Body | UUID     | 파라미터 그룹의 식별자                                                      |
-| parameterGroups.parameterGroupName   | Body | String   | 파라미터 그룹을 식별할 수 있는 이름                                              |
-| parameterGroups.parameterGroupStatus | Body | Enum     | 파라미터 그룹의 현재 상태<br/>- `STABLE`: 적용 완료<br/>- `NEED_TO_APPLY`: 적용 필요 |
-| parameterGroups.description          | Body | String   | 파라미터 그룹에 대한 추가 정보                                                 |
-| parameterGroups.dbVersion            | Body | Enum     | DB 버전 정보                                                          |
-| parameterGroups.createdYmdt          | Body | DateTime | 생성 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                 |
-| parameterGroups.updatedYmdt          | Body | DateTime | 수정 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                 |
+| parameterGroups                      | Body | Array    | パラメータグループリスト                                                       |
+| parameterGroups.parameterGroupId     | Body | UUID     | パラメータグループの識別子                                                     |
+| parameterGroups.parameterGroupName   | Body | String   | パラメータグループを識別できる名前                                             |
+| parameterGroups.parameterGroupStatus | Body | Enum     | パラメータグループの現在状態<br/>- `STABLE`:適用完了<br/>- `NEED_TO_APPLY`:適用必要 |
+| parameterGroups.description          | Body | String   | パラメータグループの追加情報                                                |
+| parameterGroups.dbVersion            | Body | Enum     | DBバージョン情報                                                         |
+| parameterGroups.createdYmdt          | Body | DateTime | 作成日時(YYYY-MM-DDThh:mm:ss.SSSTZD)                                 |
+| parameterGroups.updatedYmdt          | Body | DateTime | 修正日時(YYYY-MM-DDThh:mm:ss.SSSTZD)                                 |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -3747,50 +3746,50 @@ GET /v1.0/parameter-groups
 </details>
 
 
-### 파라미터 그룹 상세 보기
+### パラメータグループ詳細を表示
 
 ```http
 GET /v1.0/parameter-groups/{parameterGroupId}
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                                 | 설명            |
+| 権限名                                | 説明           |
 |-------------------------------------|---------------|
-| RDSforPostgreSQL:ParameterGroup.Get | 파라미터 그룹 상세 보기 |
+| RDSforPostgreSQL:ParameterGroup.Get | パラメータグループ詳細を表示 |
 
-#### 요청
+#### リクエスト
 
-이 API는 요청 본문을 요구하지 않습니다.
+このAPIはリクエスト本文を要求しません。
 
-| 이름               | 종류  | 형식   | 필수 | 설명           |
+| 名前              | 種類 | 形式  | 必須 | 説明          |
 |------------------|-----|------|----|--------------|
-| parameterGroupId | URL | UUID | O  | 파라미터 그룹의 식별자 |
+| parameterGroupId | URL | UUID | O  | パラメータグループの識別子 |
 
-#### 응답
+#### レスポンス
 
-| 이름                           | 종류   | 형식       | 설명                                                                                                                                                                                                                                                                                                                                                 |
+| 名前                          | 種類  | 形式      | 説明                                                                                                                                                                                                                                                                                                                                                |
 |------------------------------|------|----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| parameterGroupId             | Body | UUID     | 파라미터 그룹의 식별자                                                                                                                                                                                                                                                                                                                                       |
-| parameterGroupName           | Body | String   | 파라미터 그룹을 식별할 수 있는 이름                                                                                                                                                                                                                                                                                                                               |
-| description                  | Body | String   | 파라미터 그룹에 대한 추가 정보                                                                                                                                                                                                                                                                                                                                  |
-| dbVersion                    | Body | Enum     | DB 버전 정보                                                                                                                                                                                                                                                                                                                                           |
-| parameterGroupStatus         | Body | Enum     | 파라미터 그룹의 현재 상태<br/>- `STABLE`: 적용 완료<br/>- `NEED_TO_APPLY`: 적용 필요<br/>- `DELETED`: 삭제됨                                                                                                                                                                                                                                                             |
-| parameters                   | Body | Array    | 파라미터 목록                                                                                                                                                                                                                                                                                                                                            |
-| parameters.parameterCategory | Body | String   | 파라미터 카테고리                                                                                                                                                                                                                                                                                                                                          |
-| parameters.parameterName     | Body | String   | 파라미터 이름                                                                                                                                                                                                                                                                                                                                            |
-| parameters.value             | Body | String   | 현재 설정된 값                                                                                                                                                                                                                                                                                                                                           |
-| parameters.valueUnit         | Body | Enum     | 현재 설정된 값의 단위<br/>- `B`: 바이트<br/>- `kB`: 킬로바이트<br/>- `MB`: 메가바이트<br/>- `GB`: 기가바이트<br/>- `TB`: 테라바이트<br/>- `us`: 마이크로초<br/>- `ms`: 밀리초<br/>- `s`: 초<br/>- `min`: 분<br/>- `h`: 시<br/>- `d`: 일                                                                                                                                                        |
-| parameters.defaultValue      | Body | String   | 기본값                                                                                                                                                                                                                                                                                                                                                |
-| parameters.allowedValue      | Body | String   | 허용된 값                                                                                                                                                                                                                                                                                                                                              |
-| parameters.valueType         | Body | Enum     | 값 유형<br/>- `BOOLEAN`: 불린 유형<br/>- `STRING`: 문자열 유형<br/>- `NUMERIC`: 정수 및 부동 소수점 유형<br/>- `NUMERIC_WITH_BYTE_UNIT`: 바이트 단위의 숫자 유형(예: 120KB, 100MB)<br/>- `NUMERIC_WITH_TIME_UNIT`: 시간 단위의 숫자 유형(예: 120ms, 100s, 1d)<br/>- `ENUMERATED`: 허용된 값에 선언된 값 중 한 개 입력<br/>- `MULTI_ENUMERATED`: 허용된 값에 선언된 값 중 여러 개 입력(콤마(,)로 구분됨)<br/>- `TIMEZONE`: 타임존 유형 |
-| parameters.updateType        | Body | Enum     | 수정 유형<br/>- `VARIABLE`: 언제든 수정 가능<br/>- `CONSTANT`: 수정 불가능                                                                                                                                                                                                                                                                                         |
-| parameters.applyType         | Body | Enum     | 적용 유형<br/>- `SESSION`: 세션 적용<br/>- `FILE`: 설정 파일 적용(재시작 필요)<br/>- `BOTH`: 전체                                                                                                                                                                                                                                                                       | 
-| createdYmdt                  | Body | DateTime | 생성 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                                                                                                                                                                                                                  |
-| updatedYmdt                  | Body | DateTime | 수정 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                                                                                                                                                                                                                  |
-| expressionAvailable          | Body | Boolean  | 수식 허용 여부                                                                                                                                                                                                                                                                                                                                           |
+| parameterGroupId             | Body | UUID     | パラメータグループの識別子                                                                                                                                                                                                                                                                                                                                      |
+| parameterGroupName           | Body | String   | パラメータグループを識別できる名前                                                                                                                                                                                                                                                                                                                              |
+| description                  | Body | String   | パラメータグループの追加情報                                                                                                                                                                                                                                                                                                                                 |
+| dbVersion                    | Body | Enum     | DBバージョン情報                                                                                                                                                                                                                                                                                                                                          |
+| parameterGroupStatus         | Body | Enum     | パラメータグループの現在状態<br/>- `STABLE`:適用完了<br/>- `NEED_TO_APPLY`:適用必要<br/>- `DELETED`:削除済み                                                                                                                                                                                                                                                            |
+| parameters                   | Body | Array    | パラメータリスト                                                                                                                                                                                                                                                                                                                                           |
+| parameters.parameterCategory | Body | String   | パラメータカテゴリー                                                                                                                                                                                                                                                                                                                                         |
+| parameters.parameterName     | Body | String   | パラメータ名                                                                                                                                                                                                                                                                                                                                           |
+| parameters.value             | Body | String   | 現在設定されている値                                                                                                                                                                                                                                                                                                                                          |
+| parameters.valueUnit         | Body | Enum     | 現在設定されている値の単位<br/>- `B`:バイト<br/>- `kB`:キロバイト<br/>- `MB`:メガバイト<br/>- `GB`:ギガバイト<br/>- `TB`:テラバイト<br/>- `us`:マイクロ秒<br/>- `ms`:ミリ秒<br/>- `s`:秒<br/>- `min`:分<br/>- `h`:時間<br/>- `d`:日                                                                                                                                                        |
+| parameters.defaultValue      | Body | String   | デフォルト値                                                                                                                                                                                                                                                                                                                                               |
+| parameters.allowedValue      | Body | String   | 許可された値                                                                                                                                                                                                                                                                                                                                             |
+| parameters.valueType         | Body | Enum     | 値タイプ<br/>- `BOOLEAN`:ブーリアンタイプ<br/>- `STRING`:文字列タイプ<br/>- `NUMERIC`:整数および浮動小数点タイプ<br/>- `NUMERIC_WITH_BYTE_UNIT`:バイト単位の数字タイプ(例：120KB、100MB)<br/>- `NUMERIC_WITH_TIME_UNIT`:時間単位の数字タイプ(例：120ms、100s、1d)<br/>- `ENUMERATED`:許可された値に宣言された値の中から1つを入力<br/>- `MULTI_ENUMERATED`:許可された値に宣言された値の中から複数個を入力(コンマ(,)で区分される)<br/>- `TIMEZONE`:タイムゾーンタイプ |
+| parameters.updateType        | Body | Enum     | 修正タイプ<br/>- `VARIABLE`:常に修正可能<br/>- `CONSTANT`:修正 不可能                                                                                                                                                                                                                                                                                        |
+| parameters.applyType         | Body | Enum     | 適用タイプ<br/>- `SESSION`:セッション適用<br/>- `FILE`:設定ファイル適用(再起動必要)<br/>- `BOTH`:全体                                                                                                                                                                                                                                                                      | 
+| createdYmdt                  | Body | DateTime | 作成日時(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                                                                                                                                                                                                                  |
+| updatedYmdt                  | Body | DateTime | 修正日時(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                                                                                                                                                                                                                  |
+| expressionAvailable          | Body | Boolean  | 数式の使用可否                                                                                                                                                                                                                                                                                                                                           |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -3824,27 +3823,27 @@ GET /v1.0/parameter-groups/{parameterGroupId}
 </details>
 
 
-### 파라미터 그룹 생성하기
+### パラメータグループの作成
 
 ```http
 POST /v1.0/parameter-groups
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                                    | 설명           |
+| 権限名                                   | 説明          |
 |----------------------------------------|--------------|
-| RDSforPostgreSQL:ParameterGroup.Create | 파라미터 그룹 생성하기 |
+| RDSforPostgreSQL:ParameterGroup.Create | パラメータグループの作成 |
 
-#### 요청
+#### リクエスト
 
-| 이름                 | 종류   | 형식     | 필수 | 설명                   |
+| 名前                | 種類  | 形式    | 必須 | 説明                  |
 |--------------------|------|--------|----|----------------------|
-| parameterGroupName | Body | String | O  | 파라미터 그룹을 식별할 수 있는 이름 |
-| description        | Body | String | X  | 파라미터 그룹에 대한 추가 정보    |
-| dbVersion          | Body | Enum   | O  | DB 버전 정보             |
+| parameterGroupName | Body | String | O  | パラメータグループを識別できる名前 |
+| description        | Body | String | X  | パラメータグループの追加情報   |
+| dbVersion          | Body | Enum   | O  | DBバージョン情報            |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -3855,13 +3854,13 @@ POST /v1.0/parameter-groups
 ```
 </details>
 
-#### 응답
+#### レスポンス
 
-| 이름               | 종류   | 형식   | 설명           |
+| 名前              | 種類  | 形式  | 説明          |
 |------------------|------|------|--------------|
-| parameterGroupId | Body | UUID | 파라미터 그룹의 식별자 |
+| parameterGroupId | Body | UUID | パラメータグループの識別子 |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -3875,27 +3874,27 @@ POST /v1.0/parameter-groups
 ```
 </details>
 
-### 파라미터 그룹 복사하기
+### パラメータグループのコピー
 
 ```http
 POST /v1.0/parameter-groups/{parameterGroupId}/copy
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                                  | 설명           |
+| 権限名                                 | 説明          |
 |--------------------------------------|--------------|
-| RDSforPostgreSQL:ParameterGroup.Copy | 파라미터 그룹 복사하기 |
+| RDSforPostgreSQL:ParameterGroup.Copy | パラメータグループのコピー |
 
-#### 요청
+#### リクエスト
 
-| 이름                 | 종류   | 형식     | 필수 | 설명                   |
+| 名前                | 種類  | 形式    | 必須 | 説明                  |
 |--------------------|------|--------|----|----------------------|
-| parameterGroupId   | URL  | UUID   | O  | 파라미터 그룹의 식별자         |
-| parameterGroupName | Body | String | O  | 파라미터 그룹을 식별할 수 있는 이름 |
-| description        | Body | String | X  | 파라미터 그룹에 대한 추가 정보    |
+| parameterGroupId   | URL  | UUID   | O  | パラメータグループの識別子        |
+| parameterGroupName | Body | String | O  | パラメータグループを識別できる名前 |
+| description        | Body | String | X  | パラメータグループの追加情報   |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -3905,13 +3904,13 @@ POST /v1.0/parameter-groups/{parameterGroupId}/copy
 ```
 </details>
 
-#### 응답
+#### レスポンス
 
-| 이름               | 종류   | 형식   | 설명           |
+| 名前              | 種類  | 形式  | 説明          |
 |------------------|------|------|--------------|
-| parameterGroupId | Body | UUID | 파라미터 그룹의 식별자 |
+| parameterGroupId | Body | UUID | パラメータグループの識別子 |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -3925,27 +3924,27 @@ POST /v1.0/parameter-groups/{parameterGroupId}/copy
 ```
 </details>
 
-### 파라미터 그룹 수정하기
+### パラメータグループの修正
 
 ```http
 PUT /v1.0/parameter-groups/{parameterGroupId}
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                                    | 설명           |
+| 権限名                                   | 説明          |
 |----------------------------------------|--------------|
-| RDSforPostgreSQL:ParameterGroup.Modify | 파라미터 그룹 수정하기 |
+| RDSforPostgreSQL:ParameterGroup.Modify | パラメータグループの修正 |
 
-#### 요청
+#### リクエスト
 
-| 이름                 | 종류   | 형식     | 필수 | 설명                   |
+| 名前                | 種類  | 形式    | 必須 | 説明                  |
 |--------------------|------|--------|----|----------------------|
-| parameterGroupId   | URL  | UUID   | O  | 파라미터 그룹의 식별자         |
-| parameterGroupName | Body | String | X  | 파라미터 그룹을 식별할 수 있는 이름 |
-| description        | Body | String | X  | 파라미터 그룹에 대한 추가 정보    |
+| parameterGroupId   | URL  | UUID   | O  | パラメータグループの識別子        |
+| parameterGroupName | Body | String | X  | パラメータグループを識別できる名前 |
+| description        | Body | String | X  | パラメータグループの追加情報   |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -3955,11 +3954,11 @@ PUT /v1.0/parameter-groups/{parameterGroupId}
 ```
 </details>
 
-#### 응답
+#### レスポンス
 
-이 API는 응답 본문을 반환하지 않습니다.
+このAPIはレスポンス本文を返しません。
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -3972,28 +3971,28 @@ PUT /v1.0/parameter-groups/{parameterGroupId}
 ```
 </details>
 
-### 파라미터 수정하기
+### パラメータ修正
 
 ```http
 PUT /v1.0/parameter-groups/{parameterGroupId}/parameters
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                                    | 설명           |
+| 権限名                                   | 説明          |
 |----------------------------------------|--------------|
-| RDSforPostgreSQL:ParameterGroup.Modify | 파라미터 그룹 수정하기 |
+| RDSforPostgreSQL:ParameterGroup.Modify | パラメータグループの修正 |
 
-#### 요청
+#### リクエスト
 
-| 이름                               | 종류   | 형식     | 필수 | 설명           |
+| 名前                              | 種類  | 形式    | 必須 | 説明          |
 |----------------------------------|------|--------|----|--------------|
-| parameterGroupId                 | URL  | UUID   | O  | 파라미터 그룹의 식별자 |
-| modifiedParameters               | Body | Array  | O  | 변경할 파라미터 목록  |
-| modifiedParameters.parameterName | Body | UUID   | O  | 파라미터 이름      |
-| modifiedParameters.value         | Body | String | O  | 변경할 파라미터 값   |
+| parameterGroupId                 | URL  | UUID   | O  | パラメータグループの識別子 |
+| modifiedParameters               | Body | Array  | O  | 変更するパラメータリスト |
+| modifiedParameters.parameterName | Body | UUID   | O  | パラメータ名     |
+| modifiedParameters.value         | Body | String | O  | 変更するパラメータ値  |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -4007,11 +4006,11 @@ PUT /v1.0/parameter-groups/{parameterGroupId}/parameters
 ```
 </details>
 
-#### 응답
+#### レスポンス
 
-이 API는 응답 본문을 반환하지 않습니다.
+このAPIはレスポンス本文を返しません。
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -4024,29 +4023,29 @@ PUT /v1.0/parameter-groups/{parameterGroupId}/parameters
 ```
 </details>
 
-### 파라미터 그룹 재설정하기
+### パラメータグループの再設定
 
 ```http
 PUT /v1.0/parameter-groups/{parameterGroupId}/reset
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                                   | 설명            |
+| 権限名                                  | 説明           |
 |---------------------------------------|---------------|
-| RDSforPostgreSQL:ParameterGroup.Reset | 파라미터 그룹 재설정하기 |
+| RDSforPostgreSQL:ParameterGroup.Reset | パラメータグループの再設定 |
 
-#### 요청
+#### リクエスト
 
-| 이름               | 종류  | 형식   | 필수 | 설명           |
+| 名前              | 種類 | 形式  | 必須 | 説明          |
 |------------------|-----|------|----|--------------|
-| parameterGroupId | URL | UUID | O  | 파라미터 그룹의 식별자 |
+| parameterGroupId | URL | UUID | O  | パラメータグループの識別子 |
 
-#### 응답
+#### レスポンス
 
-이 API는 응답 본문을 반환하지 않습니다.
+このAPIはレスポンス本文を返しません。
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -4059,31 +4058,31 @@ PUT /v1.0/parameter-groups/{parameterGroupId}/reset
 ```
 </details>
 
-### 파라미터 그룹 삭제하기
+### パラメータグループの削除
 
 ```http
 DELETE /v1.0/parameter-groups/{parameterGroupId}
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                                    | 설명           |
+| 権限名                                   | 説明          |
 |----------------------------------------|--------------|
-| RDSforPostgreSQL:ParameterGroup.Delete | 파라미터 그룹 삭제하기 |
+| RDSforPostgreSQL:ParameterGroup.Delete | パラメータグループの削除 |
 
-#### 요청
+#### リクエスト
 
-이 API는 요청 본문을 요구하지 않습니다.
+このAPIはリクエスト本文を要求しません。
 
-| 이름               | 종류  | 형식   | 필수 | 설명           |
+| 名前              | 種類 | 形式  | 必須 | 説明          |
 |------------------|-----|------|----|--------------|
-| parameterGroupId | URL | UUID | O  | 파라미터 그룹의 식별자 |
+| parameterGroupId | URL | UUID | O  | パラメータグループの識別子 |
 
-#### 응답
+#### レスポンス
 
-이 API는 응답 본문을 반환하지 않습니다.
+このAPIはレスポンス本文を返しません。
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -4096,36 +4095,36 @@ DELETE /v1.0/parameter-groups/{parameterGroupId}
 ```
 </details>
 
-## 사용자 그룹
+## ユーザーグループ
 
-### 사용자 그룹 목록 보기
+### ユーザーグループリストを表示
 
 ```http
 GET /v1.0/user-groups
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                             | 설명           |
+| 権限名                            | 説明          |
 |---------------------------------|--------------|
-| RDSforPostgreSQL:UserGroup.List | 사용자 그룹 목록 보기 |
+| RDSforPostgreSQL:UserGroup.List | ユーザーグループリストを表示 |
 
-#### 요청
+#### リクエスト
 
-이 API는 요청 본문을 요구하지 않습니다.
+このAPIはリクエスト本文を要求しません。
 
-#### 응답
+#### レスポンス
 
-| 이름                       | 종류   | 형식       | 설명                                                      |
+| 名前                      | 種類  | 形式      | 説明                                                     |
 |--------------------------|------|----------|---------------------------------------------------------|
-| userGroups               | Body | Array    | 사용자 그룹 목록                                               |
-| userGroups.userGroupId   | Body | UUID     | 사용자 그룹의 식별자                                             |
-| userGroups.userGroupName | Body | String   | 사용자 그룹을 식별할 수 있는 이름                                     |
-| userGroupStatus          | Body | Enum     | 사용자 그룹의 현재 상태<br/>- `CREATED`: 생성됨<br/>- `DELETED`: 삭제됨 |
-| userGroups.createdYmdt   | Body | DateTime | 생성 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                       |
-| userGroups.updatedYmdt   | Body | DateTime | 수정 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                       |
+| userGroups               | Body | Array    | ユーザーグループリスト                                              |
+| userGroups.userGroupId   | Body | UUID     | ユーザーグループの識別子                                            |
+| userGroups.userGroupName | Body | String   | ユーザーグループを識別できる名前                                    |
+| userGroupStatus          | Body | Enum     | ユーザーグループの現在状態<br/>- `CREATED`:作成済み<br/>- `DELETED`:削除済み |
+| userGroups.createdYmdt   | Body | DateTime | 作成日時(YYYY-MM-DDThh:mm:ss.SSSTZD)                       |
+| userGroups.updatedYmdt   | Body | DateTime | 修正日時(YYYY-MM-DDThh:mm:ss.SSSTZD)                       |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -4148,40 +4147,40 @@ GET /v1.0/user-groups
 </details>
 
 
-### 사용자 그룹 상세 보기
+### ユーザーグループ詳細を表示
 
 ```http
 GET /v1.0/user-groups/{userGroupId}
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                            | 설명           |
+| 権限名                           | 説明          |
 |--------------------------------|--------------|
-| RDSforPostgreSQL:UserGroup.Get | 사용자 그룹 상세 보기 |
+| RDSforPostgreSQL:UserGroup.Get | ユーザーグループ詳細を表示 |
 
-#### 요청
+#### リクエスト
 
-이 API는 요청 본문을 요구하지 않습니다.
+このAPIはリクエスト本文を要求しません。
 
-| 이름          | 종류  | 형식   | 필수 | 설명          |
+| 名前         | 種類 | 形式  | 必須 | 説明         |
 |-------------|-----|------|----|-------------|
-| userGroupId | URL | UUID | O  | 사용자 그룹의 식별자 |
+| userGroupId | URL | UUID | O  | ユーザーグループの識別子 |
 
-#### 응답
+#### レスポンス
 
-| 이름                | 종류   | 형식       | 설명                                                                                                        |
+| 名前               | 種類  | 形式      | 説明                                                                                                       |
 |-------------------|------|----------|-----------------------------------------------------------------------------------------------------------|
-| userGroupId       | Body | UUID     | 사용자 그룹의 식별자                                                                                               |
-| userGroupName     | Body | String   | 사용자 그룹을 식별할 수 있는 이름                                                                                       |
-| userGroupTypeCode | Body | Enum     | 사용자 그룹 종류    <br /> `ENTIRE`: 프로젝트 멤버 전체를 포함하는 사용자 그룹 <br /> `INDIVIDUAL_MEMBER`: 특정 프로젝트 멤버를 포함하는 사용자 그룹 |
-| userGroupStatus   | Body | Enum     | 사용자 그룹의 현재 상태<br/>- `CREATED`: 생성됨<br/>- `DELETED`: 삭제됨                                                   |
-| members           | Body | Array    | 프로젝트 멤버 목록                                                                                                |
-| members.memberId  | Body | UUID     | 프로젝트 멤버의 식별자                                                                                              |
-| createdYmdt       | Body | DateTime | 생성 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                         |
-| updatedYmdt       | Body | DateTime | 수정 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                         |
+| userGroupId       | Body | UUID     | ユーザーグループの識別子                                                                                              |
+| userGroupName     | Body | String   | ユーザーグループを識別できる名前                                                                                      |
+| userGroupTypeCode | Body | Enum     | ユーザーグループ種類<br />`ENTIRE`:プロジェクトメンバー全体を含むユーザーグループ<br />`INDIVIDUAL_MEMBER`:特定プロジェクトメンバーを含むユーザーグループ |
+| userGroupStatus   | Body | Enum     | ユーザーグループの現在状態<br/>- `CREATED`:作成済み<br/>- `DELETED`:削除済み                                                  |
+| members           | Body | Array    | プロジェクトメンバーリスト                                                                                               |
+| members.memberId  | Body | UUID     | プロジェクトメンバーの識別子                                                                                             |
+| createdYmdt       | Body | DateTime | 作成日時(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                         |
+| updatedYmdt       | Body | DateTime | 修正日時(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                         |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -4206,27 +4205,27 @@ GET /v1.0/user-groups/{userGroupId}
 </details>
 
 
-### 사용자 그룹 생성하기
+### ユーザーグループの作成
 
 ```http
 POST /v1.0/user-groups
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                               | 설명          |
+| 権限名                              | 説明         |
 |-----------------------------------|-------------|
-| RDSforPostgreSQL:UserGroup.Create | 사용자 그룹 생성하기 |
+| RDSforPostgreSQL:UserGroup.Create | ユーザーグループの作成 |
 
-#### 요청
+#### リクエスト
 
-| 이름            | 종류   | 형식      | 필수 | 설명                                                              |
+| 名前           | 種類  | 形式     | 必須 | 説明                                                             |
 |---------------|------|---------|----|-----------------------------------------------------------------|
-| userGroupName | Body | String  | O  | 사용자 그룹을 식별할 수 있는 이름                                             |
-| memberIds     | Body | Array   | O  | 프로젝트 멤버의 식별자 목록     <br /> `selectAllYN`이 true인 경우 해당 필드 값은 무시됨 |
-| selectAllYN   | Body | Boolean | X  | 프로젝트 멤버 전체 유무 <br /> true인 경우 해당 그룹은 전체 멤버에 대해 설정됨              |
+| userGroupName | Body | String  | O  | ユーザーグループを識別できる名前                                            |
+| memberIds     | Body | Array   | O  | プロジェクトメンバーの識別子リスト<br />`selectAllYN`がtrueの場合、該当フィールド値は無視される |
+| selectAllYN   | Body | Boolean | X  | プロジェクトメンバー全体の有無<br />trueの場合、該当グループは全メンバーに対して設定される              |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -4243,35 +4242,35 @@ POST /v1.0/user-groups
 ```
 </details>
 
-#### 응답
+#### レスポンス
 
-| 이름          | 종류   | 형식   | 설명          |
+| 名前         | 種類  | 形式  | 説明         |
 |-------------|------|------|-------------|
-| userGroupId | Body | UUID | 사용자 그룹의 식별자 |
+| userGroupId | Body | UUID | ユーザーグループの識別子 |
 
 
-### 사용자 그룹 수정하기
+### ユーザーグループの修正
 
 ```http
 PUT /v1.0/user-groups/{userGroupId}
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                               | 설명          |
+| 権限名                              | 説明         |
 |-----------------------------------|-------------|
-| RDSforPostgreSQL:UserGroup.Modify | 사용자 그룹 수정하기 |
+| RDSforPostgreSQL:UserGroup.Modify | ユーザーグループの修正 |
 
-#### 요청
+#### リクエスト
 
-| 이름            | 종류   | 형식      | 필수 | 설명                                                 |
+| 名前           | 種類  | 形式     | 必須 | 説明                                                |
 |---------------|------|---------|----|----------------------------------------------------|
-| userGroupId   | URL  | UUID    | O  | 사용자 그룹의 식별자                                        |
-| userGroupName | Body | String  | X  | 사용자 그룹을 식별할 수 있는 이름                                |
-| memberIds     | Body | Array   | X  | 프로젝트 멤버의 식별자 목록                                    |
-| selectAllYN   | Body | Boolean | X  | 프로젝트 멤버 전체 유무 <br /> true인 경우 해당 그룹은 전체 멤버에 대해 설정됨 |
+| userGroupId   | URL  | UUID    | O  | ユーザーグループの識別子                                       |
+| userGroupName | Body | String  | X  | ユーザーグループを識別できる名前                               |
+| memberIds     | Body | Array   | X  | プロジェクトメンバーの識別子リスト                                   |
+| selectAllYN   | Body | Boolean | X  | プロジェクトメンバー全体の有無<br />trueの 場合、該当グループは全メンバーに対して設定される |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -4281,11 +4280,11 @@ PUT /v1.0/user-groups/{userGroupId}
 ```
 </details>
 
-#### 응답
+#### レスポンス
 
-이 API는 응답 본문을 반환하지 않습니다.
+このAPIはレスポンス本文を返しません。
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -4298,29 +4297,29 @@ PUT /v1.0/user-groups/{userGroupId}
 ```
 </details>
 
-### 사용자 그룹 삭제하기
+### ユーザーグループの削除
 
 ```http
 DELETE /v1.0/user-groups/{userGroupId}
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                               | 설명          |
+| 権限名                              | 説明         |
 |-----------------------------------|-------------|
-| RDSforPostgreSQL:UserGroup.Delete | 사용자 그룹 삭제하기 |
+| RDSforPostgreSQL:UserGroup.Delete | ユーザーグループの削除 |
 
-#### 요청
+#### リクエスト
 
-| 이름          | 종류  | 형식   | 필수 | 설명          |
+| 名前         | 種類 | 形式  | 必須 | 説明         |
 |-------------|-----|------|----|-------------|
-| userGroupId | URL | UUID | O  | 사용자 그룹의 식별자 |
+| userGroupId | URL | UUID | O  | ユーザーグループの識別子 |
 
-#### 응답
+#### レスポンス
 
-이 API는 응답 본문을 반환하지 않습니다.
+このAPIはレスポンス本文を返しません。
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -4333,39 +4332,39 @@ DELETE /v1.0/user-groups/{userGroupId}
 ```
 </details>
 
-## 알림 그룹
+## 通知グループ
 
-### 알림 그룹 목록 보기
+### 通知グループリストを表示
 
 ```http
 GET /v1.0/notification-groups
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                                     | 설명          |
+| 権限名                                    | 説明         |
 |-----------------------------------------|-------------|
-| RDSforPostgreSQL:NotificationGroup.List | 알림 그룹 목록 보기 |
+| RDSforPostgreSQL:NotificationGroup.List | 通知グループリストを表示 |
 
-#### 요청
+#### リクエスト
 
-이 API는 요청 본문을 요구하지 않습니다.
+このAPIはリクエスト本文を要求しません。
 
-#### 응답
+#### レスポンス
 
-| 이름                                         | 종류   | 형식       | 설명                                                     |
+| 名前                                        | 種類  | 形式      | 説明                                                    |
 |--------------------------------------------|------|----------|--------------------------------------------------------|
-| notificationGroups                         | Body | Array    | 알림 그룹 목록                                               |
-| notificationGroups.notificationGroupId     | Body | UUID     | 알림 그룹의 식별자                                             |
-| notificationGroups.notificationGroupName   | Body | String   | 알림 그룹을 식별할 수 있는 이름                                     |
-| notificationGroups.notificationGroupStatus | Body | Enum     | 알림 그룹의 현재 상태<br/>- `CREATED`: 생성됨<br/>- `DELETED`: 삭제됨 |
-| notificationGroups.notifyEmail             | Body | Boolean  | 이메일 알림 여부                                              |
-| notificationGroups.notifySms               | Body | Boolean  | SMS 알림 여부                                              |
-| notificationGroups.isEnabled               | Body | Boolean  | 활성화 여부                                                 |
-| notificationGroups.createdYmdt             | Body | DateTime | 생성 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                      |
-| notificationGroups.updatedYmdt             | Body | DateTime | 수정 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                      |
+| notificationGroups                         | Body | Array    | 通知グループリスト                                              |
+| notificationGroups.notificationGroupId     | Body | UUID     | 通知グループの識別子                                            |
+| notificationGroups.notificationGroupName   | Body | String   | 通知グループを識別できる名前                                    |
+| notificationGroups.notificationGroupStatus | Body | Enum     | 通知グループの現在状態<br/>- `CREATED`:作成済み<br/>- `DELETED`:削除済み |
+| notificationGroups.notifyEmail             | Body | Boolean  | メール通知の有無                                              |
+| notificationGroups.notifySms               | Body | Boolean  | SMS通知の有無                                              |
+| notificationGroups.isEnabled               | Body | Boolean  | 有効かどうか                                                 |
+| notificationGroups.createdYmdt             | Body | DateTime | 作成日時(YYYY-MM-DDThh:mm:ss.SSSTZD)                      |
+| notificationGroups.updatedYmdt             | Body | DateTime | 修正日時(YYYY-MM-DDThh:mm:ss.SSSTZD)                      |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -4390,46 +4389,46 @@ GET /v1.0/notification-groups
 </details>
 
 
-### 알림 그룹 상세 보기
+### 通知グループ詳細を表示
 
 ```http
 GET /v1.0/notification-groups/{notificationGroupId}
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                                    | 설명          |
+| 権限名                                   | 説明         |
 |----------------------------------------|-------------|
-| RDSforPostgreSQL:NotificationGroup.Get | 알림 그룹 상세 보기 |
+| RDSforPostgreSQL:NotificationGroup.Get | 通知グループ詳細を表示 |
 
-#### 요청
+#### リクエスト
 
-이 API는 요청 본문을 요구하지 않습니다.
+このAPIはリクエスト本文を要求しません。
 
-| 이름                  | 종류  | 형식   | 필수 | 설명         |
+| 名前                 | 種類 | 形式  | 必須 | 説明        |
 |---------------------|-----|------|----|------------|
-| notificationGroupId | URL | UUID | O  | 알림 그룹의 식별자 |
+| notificationGroupId | URL | UUID | O  | 通知グループの識別子 |
 
-#### 응답
+#### レスポンス
 
-| 이름                         | 종류   | 형식       | 설명                                                     |
+| 名前                        | 種類  | 形式      | 説明                                                    |
 |----------------------------|------|----------|--------------------------------------------------------|
-| notificationGroupId        | Body | UUID     | 알림 그룹의 식별자                                             |
-| notificationGroupName      | Body | String   | 알림 그룹을 식별할 수 있는 이름                                     |
-| notificationGroupStatus    | Body | Enum     | 알림 그룹의 현재 상태<br/>- `CREATED`: 생성됨<br/>- `DELETED`: 삭제됨 |
-| notifyEmail                | Body | Boolean  | 이메일 알림 여부                                              |
-| notifySms                  | Body | Boolean  | SMS 알림 여부                                              |
-| isEnabled                  | Body | Boolean  | 활성화 여부                                                 |
-| dbInstances                | Body | Array    | 감시 대상 DB 인스턴스 목록                                       |
-| dbInstances.dbInstanceId   | Body | UUID     | DB 인스턴스의 식별자                                           |
-| dbInstances.dbInstanceName | Body | String   | DB 인스턴스를 식별할 수 있는 이름                                   |
-| userGroups                 | Body | Array    | 사용자 그룹 목록                                              |
-| userGroups.userGroupId     | Body | UUID     | 사용자 그룹의 식별자                                            |
-| userGroups.userGroupName   | Body | String   | 사용자 그룹을 식별할 수 있는 이름                                    |
-| createdYmdt                | Body | DateTime | 생성 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                      |
-| updatedYmdt                | Body | DateTime | 수정 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                      |
+| notificationGroupId        | Body | UUID     | 通知グループの識別子                                            |
+| notificationGroupName      | Body | String   | 通知グループを識別できる名前                                    |
+| notificationGroupStatus    | Body | Enum     | 通知グループの現在状態<br/>- `CREATED`:作成済み<br/>- `DELETED`:削除済み |
+| notifyEmail                | Body | Boolean  | メール通知の有無                                              |
+| notifySms                  | Body | Boolean  | SMS通知の有無                                              |
+| isEnabled                  | Body | Boolean  | 有効かどうか                                                 |
+| dbInstances                | Body | Array    | 監視対象のDBインスタンスリスト                                      |
+| dbInstances.dbInstanceId   | Body | UUID     | DBインスタンスの識別子                                          |
+| dbInstances.dbInstanceName | Body | String   | DBインスタンスを識別できる名前                                  |
+| userGroups                 | Body | Array    | ユーザーグループリスト                                             |
+| userGroups.userGroupId     | Body | UUID     | ユーザーグループの識別子                                           |
+| userGroups.userGroupName   | Body | String   | ユーザーグループを識別できる名前                                   |
+| createdYmdt                | Body | DateTime | 作成日時(YYYY-MM-DDThh:mm:ss.SSSTZD)                      |
+| updatedYmdt                | Body | DateTime | 修正日時(YYYY-MM-DDThh:mm:ss.SSSTZD)                      |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -4462,30 +4461,30 @@ GET /v1.0/notification-groups/{notificationGroupId}
 </details>
 
 
-### 알림 그룹 생성하기
+### 通知グループの作成
 
 ```http
 POST /v1.0/notification-groups
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                                       | 설명         |
+| 権限名                                      | 説明        |
 |-------------------------------------------|------------|
-| RDSforPostgreSQL:NotificationGroup.Create | 알림 그룹 생성하기 |
+| RDSforPostgreSQL:NotificationGroup.Create | 通知グループの作成 |
 
-#### 요청
+#### リクエスト
 
-| 이름                    | 종류   | 형식      | 필수 | 설명                          |
+| 名前                   | 種類  | 形式     | 必須 | 説明                         |
 |-----------------------|------|---------|----|-----------------------------|
-| notificationGroupName | Body | String  | O  | 알림 그룹을 식별할 수 있는 이름          |
-| notifyEmail           | Body | Boolean | X  | 이메일 알림 여부<br/>- 기본값: `true` |
-| notifySms             | Body | Boolean | X  | SMS 알림 여부<br/>- 기본값: `true` |
-| isEnabled             | Body | Boolean | X  | 활성화 여부<br/>- 기본값: `true`    |
-| dbInstanceIds         | Body | Array   | X  | 감시 대상 DB 인스턴스의 식별자 목록       |
-| userGroupIds          | Body | Array   | X  | 사용자 그룹의 식별자 목록              |
+| notificationGroupName | Body | String  | O  | 通知グループを識別できる名前         |
+| notifyEmail           | Body | Boolean | X  | メール通知の有無<br/>- デフォルト値:`true` |
+| notifySms             | Body | Boolean | X  | SMS通知の有無<br/>- デフォルト値:`true` |
+| isEnabled             | Body | Boolean | X  | 有効かどうか<br/>- デフォルト値:`true`    |
+| dbInstanceIds         | Body | Array   | X  | 監視対象のDBインスタンスの識別子リスト      |
+| userGroupIds          | Body | Array   | X  | ユーザーグループの識別子リスト             |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -4498,38 +4497,38 @@ POST /v1.0/notification-groups
 ```
 </details>
 
-#### 응답
+#### レスポンス
 
-| 이름                  | 종류   | 형식   | 설명         |
+| 名前                 | 種類  | 形式  | 説明        |
 |---------------------|------|------|------------|
-| notificationGroupId | Body | UUID | 알림 그룹의 식별자 |
+| notificationGroupId | Body | UUID | 通知グループの識別子 |
 
 
-### 알림 그룹 수정하기
+### 通知グループの修正
 
 ```http
 PUT /v1.0/notification-groups/{notificationGroupId}
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                                       | 설명         |
+| 権限名                                      | 説明        |
 |-------------------------------------------|------------|
-| RDSforPostgreSQL:NotificationGroup.Modify | 알림 그룹 수정하기 |
+| RDSforPostgreSQL:NotificationGroup.Modify | 通知グループの修正 |
 
-#### 요청
+#### リクエスト
 
-| 이름                    | 종류   | 형식      | 필수 | 설명                    |
+| 名前                   | 種類  | 形式     | 必須 | 説明                   |
 |-----------------------|------|---------|----|-----------------------|
-| notificationGroupId   | URL  | UUID    | O  | 알림 그룹의 식별자            |
-| notificationGroupName | Body | String  | X  | 알림 그룹을 식별할 수 있는 이름    |
-| notifyEmail           | Body | Boolean | X  | 이메일 알림 여부             |
-| notifySms             | Body | Boolean | X  | SMS 알림 여부             |
-| isEnabled             | Body | Boolean | X  | 활성화 여부                |
-| dbInstanceIds         | Body | Array   | X  | 감시 대상 DB 인스턴스의 식별자 목록 |
-| userGroupIds          | Body | Array   | X  | 사용자 그룹의 식별자 목록        |
+| notificationGroupId   | URL  | UUID    | O  | 通知グループの識別子           |
+| notificationGroupName | Body | String  | X  | 通知グループを識別できる名前   |
+| notifyEmail           | Body | Boolean | X  | メール通知の有無             |
+| notifySms             | Body | Boolean | X  | SMS通知の有無             |
+| isEnabled             | Body | Boolean | X  | 有効かどうか                |
+| dbInstanceIds         | Body | Array   | X  | 監視対象のDBインスタンスの識別子リスト |
+| userGroupIds          | Body | Array   | X  | ユーザーグループの識別子リスト       |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -4539,11 +4538,11 @@ PUT /v1.0/notification-groups/{notificationGroupId}
 ```
 </details>
 
-#### 응답
+#### レスポンス
 
-이 API는 응답 본문을 반환하지 않습니다.
+このAPIはレスポンス本文を返しません。
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -4556,31 +4555,31 @@ PUT /v1.0/notification-groups/{notificationGroupId}
 ```
 </details>
 
-### 알림 그룹 삭제하기
+### 通知グループの削除
 
 ```http
 DELETE /v1.0/notification-groups/{notificationGroupId}
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                                       | 설명         |
+| 権限名                                      | 説明        |
 |-------------------------------------------|------------|
-| RDSforPostgreSQL:NotificationGroup.Delete | 알림 그룹 삭제하기 |
+| RDSforPostgreSQL:NotificationGroup.Delete | 通知グループの削除 |
 
-#### 요청
+#### リクエスト
 
-이 API는 요청 본문을 요구하지 않습니다.
+このAPIはリクエスト本文を要求しません。
 
-| 이름                  | 종류  | 형식   | 필수 | 설명         |
+| 名前                 | 種類 | 形式  | 必須 | 説明        |
 |---------------------|-----|------|----|------------|
-| notificationGroupId | URL | UUID | O  | 알림 그룹의 식별자 |
+| notificationGroupId | URL | UUID | O  | 通知グループの識別子 |
 
-#### 응답
+#### レスポンス
 
-이 API는 응답 본문을 반환하지 않습니다.
+このAPIはレスポンス本文を返しません。
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -4593,36 +4592,36 @@ DELETE /v1.0/notification-groups/{notificationGroupId}
 ```
 </details>
 
-### 감시 설정 목록 보기
+### 監視設定リストを表示
 
 ```http
 GET /v1.0/notification-groups/{notificationGroupId}/watchdogs
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                                        | 설명          |
+| 権限名                                       | 説明         |
 |--------------------------------------------|-------------|
-| RDSforPostgreSQL:NotificationWatchdog.List | 감시 설정 목록 보기 |
+| RDSforPostgreSQL:NotificationWatchdog.List | 監視設定リストを表示 |
 
-#### 요청
+#### リクエスト
 
-이 API는 요청 본문을 요구하지 않습니다.
+このAPIはリクエスト本文を要求しません。
 
-#### 응답
+#### レスポンス
 
-| 이름                           | 종류   | 형식       | 설명                                                                     |
+| 名前                          | 種類  | 形式      | 説明                                                                    |
 |------------------------------|------|----------|------------------------------------------------------------------------|
-| notificationGroupId          | URL  | UUID     | 알림 그룹의 식별자                                                             | 알림 그룹의 식별자                                                            |
-| watchdogs                    | Body | Array    | 감시 설정 목록                                                               |
-| watchdogs.watchdogId         | Body | UUID     | 감시 설정의 식별자                                                             |
-| watchdogs.metricName         | Body | Enum     | 감시 대상 성능 지표<br/>- 설정 가능한 성능 지표는 [성능 지표 목록 보기](#성능-지표-목록-보기) 항목을 참고합니다. |
-| watchdogs.comparisonOperator | Body | Enum     | 감시 대상 비교 방법<br/>- `LE`: <=<br/>- `LT`: <<br/>- `GE`: >=<br/>- `GT`: >  |
-| watchdogs.threshold          | Body | Long     | 감시 대상 임곗값                                                              |
-| watchdogs.duration           | Body | Long     | 감시 대상 지속 시간<br/>- 단위: `분`                                              |
-| watchdogs.createdYmdt        | Body | DateTime | 생성 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                      |
+| notificationGroupId          | URL  | UUID     | 通知グループの識別子                                                            | 通知グループの識別子                                                           |
+| watchdogs                    | Body | Array    | 監視設定リスト                                                              |
+| watchdogs.watchdogId         | Body | UUID     | 監視設定の識別子                                                            |
+| watchdogs.metricName         | Body | Enum     | 監視対象の性能指標<br/>- 設定可能な性能指標は[性能指標リスト表示](#性能-指標-リスト-表示)項目を参照してください。 |
+| watchdogs.comparisonOperator | Body | Enum     | 監視対象の比較方法<br/>- `LE`: <=<br/>- `LT`: <<br/>- `GE`: >=<br/>- `GT`: >  |
+| watchdogs.threshold          | Body | Long     | 監視対象のしきい値                                                             |
+| watchdogs.duration           | Body | Long     | 監視対象の持続時間<br/>- 単位:`分`                                              |
+| watchdogs.createdYmdt        | Body | DateTime | 作成日時(YYYY-MM-DDThh:mm:ss.SSSTZD)                                      |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -4646,29 +4645,29 @@ GET /v1.0/notification-groups/{notificationGroupId}/watchdogs
 ```
 </details>
 
-### 감시 설정 생성하기
+### 監視設定の作成
 
 ```http
 POST /v1.0/notification-groups/{notificationGroupId}/watchdogs
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                                          | 설명         |
+| 権限名                                         | 説明        |
 |----------------------------------------------|------------|
-| RDSforPostgreSQL:NotificationWatchdog.Create | 감시 설정 생성하기 |
+| RDSforPostgreSQL:NotificationWatchdog.Create | 監視設定の作成 |
 
-#### 요청
+#### リクエスト
 
-| 이름                  | 종류   | 형식   | 필수 | 설명                                                                     |
+| 名前                 | 種類  | 形式  | 必須 | 説明                                                                    |
 |---------------------|------|------|----|------------------------------------------------------------------------|
-| notificationGroupId | URL  | UUID | O  | 알림 그룹의 식별자                                                             |
-| metricName          | Body | Enum | O  | 감시 대상 성능 지표<br/>- 설정 가능한 성능 지표는 [성능 지표 목록 보기](#성능-지표-목록-보기) 항목을 참고합니다. |
-| comparisonOperator  | Body | Enum | O  | 감시 대상 비교 방법<br/>- `LE`: <=<br/>- `LT`: <<br/>- `GE`: >=<br/>- `GT`: >  |
-| threshold           | Body | Long | O  | 감시 대상 임곗값                                                              |
-| duration            | Body | Long | O  | 감시 대상 지속 시간<br/>- 단위: `분`                                              |
+| notificationGroupId | URL  | UUID | O  | 通知グループの識別子                                                            |
+| metricName          | Body | Enum | O  | 監視対象の性能指標<br/>- 設定可能な性能指標は[性能指標リスト表示](#性能-指標-リスト-表示)項目を参照してください。 |
+| comparisonOperator  | Body | Enum | O  | 監視対象の比較方法<br/>- `LE`: <=<br/>- `LT`: <<br/>- `GE`: >=<br/>- `GT`: >  |
+| threshold           | Body | Long | O  | 監視対象しきい値                                                             |
+| duration            | Body | Long | O  | 監視対象持続時間<br/>- 単位:`分`                                              |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -4680,37 +4679,37 @@ POST /v1.0/notification-groups/{notificationGroupId}/watchdogs
 ```
 </details>
 
-#### 응답
+#### レスポンス
 
-| 이름         | 종류   | 형식   | 설명         |
+| 名前        | 種類  | 形式  | 説明        |
 |------------|------|------|------------|
-| watchdogId | Body | UUID | 감시 설정의 식별자 |
+| watchdogId | Body | UUID | 監視設定の識別子 |
 
 
-### 감시 설정 수정하기
+### 監視設定の修正
 
 ```http
 PUT /v1.0/notification-groups/{notificationGroupId}/watchdogs/{watchdogId}
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                                          | 설명         |
+| 権限名                                         | 説明        |
 |----------------------------------------------|------------|
-| RDSforPostgreSQL:NotificationWatchdog.Modify | 감시 설정 수정하기 |
+| RDSforPostgreSQL:NotificationWatchdog.Modify | 監視設定の修正 |
 
-#### 요청
+#### リクエスト
 
-| 이름                  | 종류   | 형식   | 필수 | 설명                                                                     |
+| 名前                 | 種類  | 形式  | 必須 | 説明                                                                    |
 |---------------------|------|------|----|------------------------------------------------------------------------|
-| notificationGroupId | URL  | UUID | O  | 알림 그룹의 식별자                                                             |
-| watchdogId          | URL  | UUID | O  | 감시 설정의 식별자                                                             |
-| metricName          | Body | Enum | O  | 감시 대상 성능 지표<br/>- 설정 가능한 성능 지표는 [성능 지표 목록 보기](#성능-지표-목록-보기) 항목을 참고합니다. |
-| comparisonOperator  | Body | Enum | O  | 감시 대상 비교 방법<br/>- `LE`: <=<br/>- `LT`: <<br/>- `GE`: >=<br/>- `GT`: >  |
-| threshold           | Body | Long | O  | 감시 대상 임곗값                                                              |
-| duration            | Body | Long | O  | 감시 대상 지속 시간<br/>- 단위: `분`                                              |
+| notificationGroupId | URL  | UUID | O  | 通知グループの識別子                                                            |
+| watchdogId          | URL  | UUID | O  | 監視設定の識別子                                                            |
+| metricName          | Body | Enum | O  | 監視対象の性能指標<br/>- 設定可能な性能指標は[性能指標リスト表示](#性能-指標-リスト-表示)項目を参照してください。 |
+| comparisonOperator  | Body | Enum | O  | 監視対象の比較方法<br/>- `LE`: <=<br/>- `LT`: <<br/>- `GE`: >=<br/>- `GT`: >  |
+| threshold           | Body | Long | O  | 監視対象のしきい値                                                             |
+| duration            | Body | Long | O  | 監視対象の持続時間<br/>- 単位:`分`                                              |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -4722,11 +4721,11 @@ PUT /v1.0/notification-groups/{notificationGroupId}/watchdogs/{watchdogId}
 ```
 </details>
 
-#### 응답
+#### レスポンス
 
-이 API는 응답 본문을 반환하지 않습니다.
+このAPIはレスポンス本文を返しません。
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -4739,32 +4738,32 @@ PUT /v1.0/notification-groups/{notificationGroupId}/watchdogs/{watchdogId}
 ```
 </details>
 
-### 감시 설정 삭제하기
+### 監視設定の削除
 
 ```http
 DELETE /v1.0/notification-groups/{notificationGroupId}/watchdogs/{watchdogId}
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                                          | 설명         |
+| 権限名                                         | 説明        |
 |----------------------------------------------|------------|
-| RDSforPostgreSQL:NotificationWatchdog.Delete | 감시 설정 삭제하기 |
+| RDSforPostgreSQL:NotificationWatchdog.Delete | 監視設定の削除 |
 
-#### 요청
+#### リクエスト
 
-이 API는 요청 본문을 요구하지 않습니다.
+このAPIはリクエスト本文を要求しません。
 
-| 이름                  | 종류  | 형식   | 필수 | 설명         |
+| 名前                 | 種類 | 形式  | 必須 | 説明        |
 |---------------------|-----|------|----|------------|
-| notificationGroupId | URL | UUID | O  | 알림 그룹의 식별자 |
-| watchdogId          | URL | UUID | O  | 감시 설정의 식별자 |
+| notificationGroupId | URL | UUID | O  | 通知グループの識別子 |
+| watchdogId          | URL | UUID | O  | 監視設定の識別子 |
 
-#### 응답
+#### レスポンス
 
-이 API는 응답 본문을 반환하지 않습니다.
+このAPIはレスポンス本文を返しません。
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -4777,33 +4776,33 @@ DELETE /v1.0/notification-groups/{notificationGroupId}/watchdogs/{watchdogId}
 ```
 </details>
 
-## 모니터링
+## モニタリング
 
-### 성능 지표 목록 보기
+### 性能指標リストを表示
 
 ```http
 GET /v1.0/metrics
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                          | 설명       |
+| 権限名                         | 説明      |
 |------------------------------|----------|
-| RDSforPostgreSQL:Metric.List | 통계 정보 조회 |
+| RDSforPostgreSQL:Metric.List | 統計情報照会 |
 
-#### 요청
+#### リクエスト
 
-이 API는 요청 본문을 요구하지 않습니다.
+このAPIはリクエスト本文を要求しません。
 
-#### 응답
+#### レスポンス
 
-| 이름                 | 종류   | 형식     | 설명       |
+| 名前                | 種類  | 形式    | 説明      |
 |--------------------|------|--------|----------|
-| metrics            | Body | Array  | 성능 지표 목록 |
-| metrics.metricName | Body | Enum   | 성능 지표 유형 |
-| metrics.unit       | Body | String | 측정값 단위   |
+| metrics            | Body | Array  | 性能指標リスト |
+| metrics.metricName | Body | Enum   | 性能指標タイプ |
+| metrics.unit       | Body | String | 測定値単位  |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -4822,40 +4821,40 @@ GET /v1.0/metrics
 ```
 </details>
 
-### 통계 정보 조회
+### 統計情報照会
 
 ```http
 GET /v1.0/metric-statistics
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                          | 설명       |
+| 権限名                         | 説明      |
 |------------------------------|----------|
-| RDSforPostgreSQL:Metric.List | 통계 정보 조회 |
+| RDSforPostgreSQL:Metric.List | 統計情報照会 |
 
-#### 요청
+#### リクエスト
 
-| 이름           | 종류    | 형식       | 필수 | 설명                                                        |
+| 名前          | 種類   | 形式      | 必須 | 説明                                                       |
 |--------------|-------|----------|----|-----------------------------------------------------------|
-| dbInstanceId | Query | UUID     | O  | DB 인스턴스의 식별자                                              |
-| metricNames  | Query | Array    | O  | 조회할 성능 지표 목록<br/>- 최소 크기: `1`                             |
-| from         | Query | Datetime | O  | 시작 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                         |
-| to           | Query | Datetime | O  | 종료 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                         |
-| interval     | Query | Number   | X  | 조회 간격<br/>- 단위: `분`<br/>- 기본값: 시작/종료 일시에 따라 적절한 값을 자동 선택함 |
+| dbInstanceId | Query | UUID     | O  | DBインスタンスの識別子                                             |
+| metricNames  | Query | Array    | O  | 照会する性能指標リスト<br/>- 最小サイズ:`1`                             |
+| from         | Query | Datetime | O  | 開始日時(YYYY-MM-DDThh:mm:ss.SSSTZD)                         |
+| to           | Query | Datetime | O  | 終了日時(YYYY-MM-DDThh:mm:ss.SSSTZD)                         |
+| interval     | Query | Number   | X  | 照会間隔<br/>- 単位:`分`<br/>- デフォルト値:開始/終了日時に応じて適切な値を自動選択する |
 
-#### 응답
+#### レスポンス
 
-| 이름                                | 종류   | 형식        | 설명       |
+| 名前                               | 種類  | 形式       | 説明      |
 |-----------------------------------|------|-----------|----------|
-| metricStatistics                  | Body | Array     | 통계 정보 목록 |
-| metricStatistics.metricName       | Body | Enum      | 성능 지표 유형 |
-| metricStatistics.unit             | Body | String    | 측정값 단위   |
-| metricStatistics.values           | Body | Array     | 측정값 목록   |
-| metricStatistics.values.timestamp | Body | Timestamp | 측정 시간    |
-| metricStatistics.values.value     | Body | Object    | 측정값      |
+| metricStatistics                  | Body | Array     | 統計情報リスト |
+| metricStatistics.metricName       | Body | Enum      | 性能指標タイプ |
+| metricStatistics.unit             | Body | String    | 測定値単位  |
+| metricStatistics.values           | Body | Array     | 測定値リスト  |
+| metricStatistics.values.timestamp | Body | Timestamp | 測定時間   |
+| metricStatistics.values.value     | Body | Object    | 測定値     |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -4883,50 +4882,50 @@ GET /v1.0/metric-statistics
 ```
 </details>
 
-## 이벤트
+## イベント
 
-### 이벤트 목록 보기
+### イベントリストを表示
 
 ```
 GET /v1.0/events
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                         | 설명        |
+| 権限名                        | 説明       |
 |-----------------------------|-----------|
-| RDSforPostgreSQL:Event.List | 이벤트 목록 보기 |
+| RDSforPostgreSQL:Event.List | イベントリスト表示 |
 
-#### 요청
+#### リクエスト
 
-이 API는 요청 본문을 요구하지 않습니다.
+このAPIはリクエスト本文を要求しません。
 
-| 이름                | 종류    | 형식       | 필수 | 설명                                                                                                                                                                               |
+| 名前               | 種類   | 形式      | 必須 | 説明                                                                                                                                                                              |
 |-------------------|-------|----------|----|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| page              | Query | Number   | O  | 조회할 목록의 페이지<br/>- 최솟값: `1`                                                                                                                                                       |
-| size              | Query | Number   | O  | 조회할 목록의 페이지 크기<br/>- 최솟값: `1`<br/>- 최댓값: `100`                                                                                                                                   |
-| from              | Query | Datetime | O  | 시작 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                                                |
-| to                | Query | Datetime | O  | 종료 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                                                |
-| eventCategoryType | Query | Enum     | O  | 조회할 이벤트 카테고리 유형<br/>- `ALL`: 전체<br/>- `BACKUP`: 백업<br/>- `DB_INSTANCE`: DB 인스턴스<br/>- `DB_SECURITY_GROUP`: DB 보안 그룹<br/>- `JOB`: 작업<br/>- `TENANT`: 테넌트<br/>- `MONITORING`: 모니터링 |
-| sourceId          | Query | String   | X  | 이벤트가 발생한 대상 리소스의 식별자                                                                                                                                                             |
-| keyword           | Query | String   | X  | 이벤트 메시지에 포함된 문자열 검색어                                                                                                                                                             |
+| page              | Query | Number   | O  | 照会するリストのページ<br/>- 最小値:`1`                                                                                                                                                       |
+| size              | Query | Number   | O  | 照会するリストのページサイズ<br/>- 最小値:`1`<br/>- 最大値:`100`                                                                                                                                   |
+| from              | Query | Datetime | O  | 開始日時(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                                                |
+| to                | Query | Datetime | O  | 終了日時(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                                                |
+| eventCategoryType | Query | Enum     | O  | 照会するイベントカテゴリータイプ<br/>- `ALL`:全体<br/>- `BACKUP`:バックアップ<br/>- `DB_INSTANCE`:DBインスタンス<br/>- `DB_SECURITY_GROUP`:DBセキュリティグループ<br/>- `JOB`:作業<br/>- `TENANT`:テナント<br/>- `MONITORING`:モニタリング |
+| sourceId          | Query | String   | X  | イベントが発生した対象リソースの識別子                                                                                                                                                            |
+| keyword           | Query | String   | X  | イベントメッセージに含まれた文字列検索ワード                                                                                                                                                            |
 
-#### 응답
+#### レスポンス
 
-| 이름                       | 종류   | 형식       | 설명                                                 |
+| 名前                      | 種類  | 形式      | 説明                                                |
 |--------------------------|------|----------|----------------------------------------------------|
-| totalCounts              | Body | Number   | 전체 이벤트 목록 수                                        |
-| events                   | Body | Array    | 이벤트 목록                                             |
-| events.eventCategoryType | Body | Enum     | 이벤트 카테고리 유형                                        |
-| events.eventCode         | Body | Enum     | 발생한 이벤트의 유형<br/>- 자세한 설명은 [이벤트](event/) 항목을 참고합니다. |
-| events.sourceId          | Body | String   | 이벤트 소스의 식별자                                        |
-| events.sourceName        | Body | String   | 이벤트 소스를 식별할 수 있는 이름                                |
-| events.messages          | Body | Array    | 이벤트 메시지 목록                                         |
-| events.messages.langCode | Body | String   | 언어 코드                                              |
-| events.messages.message  | Body | String   | 이벤트 메시지                                            |
-| events.eventYmdt         | Body | DateTime | 이벤트 발생 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)              |
+| totalCounts              | Body | Number   | 全体のイベントリスト数                                        |
+| events                   | Body | Array    | イベントリスト                                            |
+| events.eventCategoryType | Body | Enum     | イベントカテゴリータイプ                                       |
+| events.eventCode         | Body | Enum     | 発生したイベントのタイプ<br/>- 詳細は[イベント](event/)項目を参照してください。 |
+| events.sourceId          | Body | String   | イベントソースの識別子                                       |
+| events.sourceName        | Body | String   | イベントソースを識別できる名前                               |
+| events.messages          | Body | Array    | イベントメッセージリスト                                        |
+| events.messages.langCode | Body | String   | 言語コード                                             |
+| events.messages.message  | Body | String   | イベントメッセージ                                           |
+| events.eventYmdt         | Body | DateTime | イベント発生日時(YYYY-MM-DDThh:mm:ss.SSSTZD)              |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {
@@ -4953,7 +4952,7 @@ GET /v1.0/events
                 },
                 {
                     "langCode": "KO",
-                    "message": "DB 인스턴스 시작"
+                    "message": "DBインスタンス開始"
                 },
                 {
                     "langCode": "ZH",
@@ -4968,31 +4967,31 @@ GET /v1.0/events
 </details>
 
 
-### 구독 가능한 이벤트 코드 목록 보기
+### 購読可能なイベントコードリストを表示
 
 ```http
 GET /v1.0/event-codes
 ```
 
-#### 필요 권한
+#### 必要権限
 
-| 권한명                         | 설명        |
+| 権限名                        | 説明       |
 |-----------------------------|-----------|
-| RDSforPostgreSQL:Event.List | 이벤트 목록 보기 |
+| RDSforPostgreSQL:Event.List | イベントリストを表示 |
 
-#### 요청
+#### リクエスト
 
-이 API는 요청 본문을 요구하지 않습니다.
+このAPIはリクエスト本文を要求しません。
 
-#### 응답
+#### レスポンス
 
-| 이름                           | 종류   | 형식    | 설명          |
+| 名前                          | 種類  | 形式   | 説明         |
 |------------------------------|------|-------|-------------|
-| eventCodes                   | Body | Array | 이벤트 코드 목록   |
-| eventCodes.eventCode         | Body | Enum  | 이벤트 코드      |
-| eventCodes.eventCategoryType | Body | Enum  | 이벤트 카테고리 유형 |
+| eventCodes                   | Body | Array | イベントコードリスト  |
+| eventCodes.eventCode         | Body | Enum  | イベントコード     |
+| eventCodes.eventCategoryType | Body | Enum  | イベントカテゴリータイプ |
 
-<details><summary>예시</summary>
+<details><summary>例</summary>
 
 ```json
 {

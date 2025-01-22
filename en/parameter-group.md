@@ -82,6 +82,6 @@ You can change the parameters by selecting a parameter group from the console an
 
 When changing the `max_connections` value with read replicas added, there is an issue with the order of application. If you only change the value on the master, you cannot apply it to a value larger than the read replica, because the value on the master must be set to a smaller value than the read replica. For the same reason, if you only change the value on the read replica, you cannot apply it to a value smaller than the master. It is recommended to apply it globally on a DB instance group basis if necessary. 
 
-### `shared_buffers` 파라미터 변경
+### Change the `shared_buffers` Parameter
 
-`shared_buffers` 파라미터의 경우 지나치게 큰 값을 사용하는 경우 DB 엔진 구동에 문제가 발생할 수 있습니다. RDS for PostgreSQL에서는 해당 문제를 방지하기 위해, 파라미터 적용 시점에 DB 인스턴스의 RAM 크기에 따라 최적화(최대 RAM 크기의 50%)를 진행합니다. 
+For the `shared_buffers` parameter, using an excessively large value can cause problems running the DB engine. To avoid this problem, RDS for PostgreSQL optimizes according to the RAM size of the DB instance at the time the parameter is applied (50% of the maximum RAM size).
