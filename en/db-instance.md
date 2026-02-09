@@ -245,14 +245,14 @@ Database names have the following restrictions.
 ❶ If select the database you want to delete and click on **Delete**, the Delete confirmation pop-up window appears.
 ❷ You can request deletion by clicking on **Delete**.
 
-#### 스키마 수정
+#### Modify Schema
 
 ![db-instance-detail-schema-modify](https://static.toastoven.net/prod_rds_postgres/20260210/db-instance-detail-schema-modify-en.png)
 
-❶ 수정할 스키마 행의 **수정**을 클릭하면 스키마 정보를 수정할 수 있는 팝업 창이 나타납니다.
-❷ DDL 사용자를 선택해 소유자로 설정할 수 있습니다.
-❸ 쿼리 권한을 부여할 사용자를 선택하면 해당 사용자의 권한에 따라 스키마 쿼리 권한이 부여됩니다.
-❹ **수정**을 클릭하여 수정을 요청할 수 있습니다.
+❶ Click **Modify** on the schema row you wish to modify. A pop-up window will appear where you can update the schema information.
+❷ Select a DDL user to assign as the owner.
+❸ Select users to grant query permissions. Schema query access will be granted based on the selected user's permission level.
+❹ Click **Modify** to submit your changes.
 
 #### Create a User
 
