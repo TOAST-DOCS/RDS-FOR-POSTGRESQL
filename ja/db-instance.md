@@ -80,8 +80,9 @@ DBインスタンスの基本情報を設定します。インスタンス名、
 * 照会権限を含み、データを変更する権限を持っています。
     * CRUDユーザーは、DBインスタンス作成完了後、**DB &ユーザー**タブで作成できます。
 
-> [注意]
-> DDLユーザーは、DBインスタンスごとに1つだけ作成することができ、すでに作成したユーザーの権限は変更できません。
+**DDL**
+* CRUD権限を含み、DDLクエリを実行できる権限を持っています。
+* データベースやスキーマの所有者に設定できます。
 
 ### Floating IP
 
@@ -212,11 +213,13 @@ DBインスタンスの**データベース＆ユーザー**タブでは、DBエ
 
 #### データベースの修正
 
-![db-instance-detail-db-modify](https://static.toastoven.net/prod_rds_postgres/20240813/db-instance-detail-db-modify-ja.png)
+![db-instance-detail-db-modify](https://static.toastoven.net/prod_rds_postgres/20260210/db-instance-detail-db-modify-ja.png)
 
 ❶修正するデータベース行の**修正**をクリックすると、データベース情報を修正できるポップアップウィンドウが表示されます。
-❷ **修正**をクリックして修正をリクエストできます。
-❸ **変更予定アクセス制御即時適用**をチェックすると、アクセス制御ルールにも修正内容が即時適用されます。
+❷ DDLユーザーを選択し、所有者に設定できます。
+❸ 接続権限を付与するユーザーを選択すると、データベースに接続できる権限が付与されます。
+❹ **修正**をクリックし、修正をリクエストできます。
+❺ **変更予定のアクセス制御を即時適用**をチェックすると、アクセス制御ルールにも修正事項が即時適用されます。
 
 #### データベースの削除
 
@@ -225,9 +228,18 @@ DBインスタンスの**データベース＆ユーザー**タブでは、DBエ
 ❶削除するデータベースを選択し、**削除**をクリックすると、削除確認ポップアップウィンドウが表示されます。
 ❷ **削除**をクリックして削除をリクエストできます。
 
+#### スキーマ修正
+
+![db-instance-detail-schema-modify](https://static.toastoven.net/prod_rds_postgres/20260210/db-instance-detail-schema-modify-ko.png)
+
+❶ 修正するスキーマ行の**修正**をクリックすると、スキーマ情報を修正できるポップアップウィンドウが表示されます。
+❷ DDLユーザーを選択し、所有者に設定できます。
+❸ クエリ権限を付与するユーザーを選択すると、そのユーザーの権限に応じてスキーマクエリ権限が付与されます。
+❹ **修正**をクリックし、修正をリクエストできます。
+
 #### ユーザーの作成
 
-![db-instance-detail-user-create](https://static.toastoven.net/prod_rds_postgres/20240813/db-instance-detail-user-create-ja.png)
+![db-instance-detail-user-create](https://static.toastoven.net/prod_rds_postgres/20260210/db-instance-detail-user-create-ja.png)
 
 ❶ **+ 作成**をクリックすると、ユーザー追加ポップアップウィンドウが表示されます。
 ❷ユーザーIDを入力します。
@@ -245,14 +257,21 @@ DBインスタンスの**データベース＆ユーザー**タブでは、DBエ
 
 ❹ユーザーに付与する権限を選択します。付与できる権限と説明は次のとおりです。
 
+**READ**
+* データを参照する権限のみ持っています。
+
 * CRUD権限を含み、DDLクエリを実行できる権限を持っています。
-* 照会権限を含み、データを変更する権限を持っています。
+* READ権限を含み、データを変更できる権限を持っています。
+
+**DDL**
+* CRUD権限を含み、DDLクエリを実行できる権限を持っています。
+* データベースやスキーマの所有者に設定できます。
 
 ❺作成するユーザーに全データベースへのアクセス権を与えるための基本アクセス制御ルールを追加するように設定できます。基本アクセス制御ルールを追加しない場合、別途のアクセス制御ルールを設定すると、データベースへのアクセスが可能です。
 
 #### ユーザーの修正
 
-![db-instance-detail-user-modify](https://static.toastoven.net/prod_rds_postgres/20240813/db-instance-detail-user-modify-ja.png)
+![db-instance-detail-user-modify](https://static.toastoven.net/prod_rds_postgres/20260210/db-instance-detail-user-modify-ja.png)
 
 ❶修正するユーザー行の**修正**をクリックすると、ユーザー情報を修正できるポップアップウィンドウが表示されます。
 ❷パスワードを入力しないと変更されません。
@@ -260,10 +279,29 @@ DBインスタンスの**データベース＆ユーザー**タブでは、DBエ
 
 #### ユーザーの削除
 
-![db-instance-detail-user-delete](https://static.toastoven.net/prod_rds_postgres/20240813/db-instance-detail-user-delete-ja.png)
+![db-instance-detail-user-delete](https://static.toastoven.net/prod_rds_postgres/20260210/db-instance-detail-user-delete-ja.png)
 
 ❶削除するユーザーを選択し、ドロップダウンメニューをクリックします。
 ❷ **削除**をクリックすると、**削除確認**ポップアップウィンドウが表示されます。**確認**をクリックして削除をリクエストできます。
+
+![db-instance-detail-user-delete-with-option](https://static.toastoven.net/prod_rds_postgres/20260210/db-instance-detail-user-delete-with-option-ko.png)
+
+❶ 削除するユーザーが所有するオブジェクトがある場合、下部に追加オプションが表示されます。選択できるオプションと説明は次の通りです。
+
+**強制削除**
+* 所有する全てのオブジェクトを強制的に削除します。
+
+> [注意]
+> 保有しているバックアップがない場合、復旧できませんので慎重に選択してください。
+
+**オブジェクト所有権限の移行**
+* 所有する全てのオブジェクトを選択したユーザーに移行した後、削除します。
+* 移行対象はDDLユーザーのみ選択できます。
+* オブジェクト移行作業にはデータベースも含まれます。
+
+❷ **所有オブジェクト確認**をクリックすると、**所有オブジェクト確認**ポップアップウィンドウが表示されます。
+❸ ボタンをクリックすると、削除対象から除外できます。
+❹ **削除**をクリックすると、**削除確認**ポップアップウィンドウが表示されます。**確認**をクリックし、削除をリクエストできます。
 
 ### アクセス制御
 
