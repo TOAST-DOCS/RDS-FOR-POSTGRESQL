@@ -55,6 +55,7 @@ Event refers to RDS for PostgreSQL or a significant event that is caused by a us
 | DB_INSTANCE_18_01       | DB_INSTANCE       | Changing user                                                                 |
 | DB_INSTANCE_18_04       | DB_INSTANCE       | Changing user failed                                                          |
 | DB_INSTANCE_19_01       | DB_INSTANCE       | Deleting a user                                                               |
+| DB_INSTANCE_19_04       | DB_INSTANCE       | Failed to delete user                                                         |
 | DB_INSTANCE_20_01       | DB_INSTANCE       | Create Database                                                               |
 | DB_INSTANCE_20_04       | DB_INSTANCE       | Creating database failed                                                      |
 | DB_INSTANCE_21_01       | DB_INSTANCE       | Changing database                                                             |

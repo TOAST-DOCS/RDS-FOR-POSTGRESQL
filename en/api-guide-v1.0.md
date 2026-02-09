@@ -1,12 +1,16 @@
-## Database > RDS for PostgreSQL > API Guide
+## Database > RDS for PostgreSQL > API Guide > API v1.0 Guide
+
+## Common Information on RDS for PostgreSQL API
+
+### API Endpoint
 
 | Region                | Endpoint                                         |
 |-----------------------|--------------------------------------------------|
 | Korea (Pangyo) region | https://kr1-rds-postgres.api.nhncloudservice.com |
 
-## Authentication and Authorization
+### Authentication and Authorization
 
-To use the API, you need a token of type Bearer, issued through [Public API > API Calls and Authentication](/nhncloud/en/public-api/api-authentication/).
+RDS for PostgreSQL uses User Access Key tokens for authentication and authorization when making API calls. The User Access Key token is a temporary, Bearer-type access token issued from a User Access Key. For more information on issuing and using User Access Key tokens, please refer to the [User Access Key Token](/nhncloud/en/public-api/user-access-key-token).
 The issued token must be included in the request header along with the Appkey.
 
 | Name                | Type   | Format | Required | Description                                                         |
@@ -28,7 +32,7 @@ If an API request fails to authenticate or is not authorized, the following erro
 | 80401      | Unauthorized  | Failed to authenticate |
 | 80403      | Forbidden     | Unauthorized.          |
 
-## Response Common Information
+### Response Common Information
 
 The API responds with "200 OK" to all API requests. For more information on the response results, see Response Body Header.
 

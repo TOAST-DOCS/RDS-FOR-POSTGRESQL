@@ -1,12 +1,16 @@
-## Database > RDS for PostgreSQL > API 가이드
+## Database > RDS for PostgreSQL > API 가이드 > API v1.0 가이드
+
+## RDS for PostgreSQL API 공통 정보
+
+### API 엔드포인트
 
 | 리전        | 엔드포인트                                            |
 |-----------|--------------------------------------------------|
 | 한국(판교) 리전 | https://kr1-rds-postgres.api.nhncloudservice.com |
 
-## 인증 및 권한
+### 인증 및 권한
 
-API를 사용하려면 [Public API > API 호출 및 인증](/nhncloud/ko/public-api/api-authentication/)을 통해 발급 받은 Bearer 유형의 토큰이 필요합니다.
+RDS for PostgreSQL은 API 호출 시 인증/인가를 위해 User Access Key 토큰을 사용합니다. User Access Key 토큰은 User Access Key를 기반으로 발급되는 Bearer 타입의 일시적 액세스 토큰입니다. User Access Key 토큰 발급 및 사용에 대한 자세한 내용은 [User Access Key 토큰](/nhncloud/ko/public-api/auth-method/user-access-key-token)을 참고하세요.
 발급 받은 토큰은 Appkey와 함께 요청 Header에 포함해야 합니다.
 
 | 이름                  | 종류     | 형식     | 필수 | 설명                                               |
@@ -28,7 +32,7 @@ API 요청 시 인증에 실패하거나 권한이 없으면 다음과 같은 �
 | 80401      | Unauthorized  | 인증에 실패했습니다. |
 | 80403      | Forbidden     | 권한이 없습니다.   |
 
-## 응답 공통 정보
+### 응답 공통 정보
 
 모든 API 요청에 `200 OK`로 응답합니다. 자세한 응답 결과는 응답 본문의 헤더를 참고합니다.
 

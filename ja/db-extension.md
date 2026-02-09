@@ -21,6 +21,7 @@
 | lo                 | 1.1                 | 1.1                 |             |              | https://www.postgresql.org/docs/17/lo.html               |
 | ltree              | 1.2                 | 1.3                 |             |              | https://www.postgresql.org/docs/17/ltree.html            |
 | pg_stat_statements | 1.9                 | 1.11                | O           |              | https://www.postgresql.org/docs/17/pgstatstatements.html |
+| pg_trgm            | 1.6                 | 1.6                 |              |            | https://www.postgresql.org/docs/17/pgtrgm.html           |
 | pgcrypto           | 1.2                 | 1.2                 |             |              | https://www.postgresql.org/docs/17/pgcrypto.html         |
 | pgrowlocks         | 1.1                 | 1.1                 | O           |              | https://www.postgresql.org/docs/17/pgrowlocks.html       |
 | postgres_fdw       | 1.0                 | 1.0                 | O           |              | https://www.postgresql.org/docs/17/postgres-fdw.html     |
@@ -34,6 +35,7 @@
 |------------------------------|---------------------|---------------------|-------------|---------|--------------------------------|--------------------------------------|
 | address_standardizer         | 3.4.1               | 3.5.1               | O           |         | postgisインストール必要                |                                      |
 | address_standardizer_data_us | 3.4.1               | 3.5.1               | O           |         | postgisインストール必要                |                                      |
+| pg_cron                      | 1.6.7               | 1.6.7               | O            | 追加が必要  |                              | https://github.com/citusdata/pg_cron |
 | pg_repack                    | 1.4.8               | 1.5.2               | O           |         |                                | https://reorg.github.io/pg_repack/   |
 | pgAudit                      | 1.6.2               | 17.0                | O           | 追加必要    |                                | https://www.pgaudit.org/             |
 | pgrouting                    | 3.6.2               | 3.7.1               | O           |         | postgisインストール必要                | https://pgrouting.org/               |
