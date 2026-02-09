@@ -82,15 +82,15 @@ High availability DB instances increase availability and data durability, and pr
 Set DB instance default information. You can enter the instance name, description, DB port, and user information that you want to create by default.
 The user ID you enter is created with DDL permissions.
 
-**DDL**
-* Includes CRUD permissions, and has permissions to execute DDL queries.
+**READ**
+* Includes read-only access to the data.
 
 **CRUD**
-* Includes query permissions, and has permission to change data.
-    * CRUD users can create a DB instance on **DB & User** tab after it has been created.
+* Includes READ permissions with the ability to modify data.
 
-> [Caution]
-> You can create only one DDL user per DB instance, and you cannot change the privileges of users that you have already created.
+**DDL**
+* Includes full CRUD permissions and the authority to execute DDL queries.
+* Enables assignment as the database or schema owner.
 
 ### Floating IP
 
@@ -221,11 +221,13 @@ Database names have the following restrictions.
 
 #### Modify Database
 
-![db-instance-detail-db-modify](https://static.toastoven.net/prod_rds_postgres/20241210/db-instance-detail-db-modify-en.png)
+![db-instance-detail-db-modify](https://static.toastoven.net/prod_rds_postgres/20260210/db-instance-detail-db-modify-en.png)
 
 ❶ When you click on **Modify** in the database row you want to modify, a pop-up window appears where you can modify the database information.
-❷ You can request a modification by clicking on **Modify**.
-❸ When checking **Immediate Apply Scheduled Access Control**, the modifications are also applied to the access control rule immediately.
+❷ Designate a DDL user to be the owner.
+❸ Grant database access by selecting the desired users.
+❹ Click **Modify** to request modifications.
+❺ Enabling **Immediate Apply Scheduled Access Control** applies modifications to access control rules immediately.
 
 #### Synchronize Database
 
@@ -241,9 +243,18 @@ Database names have the following restrictions.
 ❶ If select the database you want to delete and click on **Delete**, the Delete confirmation pop-up window appears.
 ❷ You can request deletion by clicking on **Delete**.
 
+#### 스키마 수정
+
+![db-instance-detail-schema-modify](https://static.toastoven.net/prod_rds_postgres/20260210/db-instance-detail-schema-modify-ko.png)
+
+❶ 수정할 스키마 행의 **수정**을 클릭하면 스키마 정보를 수정할 수 있는 팝업 창이 나타납니다.
+❷ DDL 사용자를 선택해 소유자로 설정할 수 있습니다.
+❸ 쿼리 권한을 부여할 사용자를 선택하면 해당 사용자의 권한에 따라 스키마 쿼리 권한이 부여됩니다.
+❹ **수정**을 클릭하여 수정을 요청할 수 있습니다.
+
 #### Create a User
 
-![db-instance-detail-user-create](https://static.toastoven.net/prod_rds_postgres/20241210/db-instance-detail-user-create-en.png)
+![db-instance-detail-user-create](https://static.toastoven.net/prod_rds_postgres/20260210/db-instance-detail-user-create-en.png)
 
 ❶ Click on **+ Create** to see the **Add User** pop-up window.
 ❷ Enter user ID.
@@ -261,14 +272,21 @@ Password has the following restrictions.
 
 ❹ Select the permissions you want to grant to the user. The permissions and descriptions you can grant are as follows.
 
+**READ**
+* Includes read-only access to the data.
+
 **CRUD**
-* Includes query permissions, and has permission to change data.
+* Includes READ permissions with the ability to modify data.
+
+**DDL**
+* Includes full CRUD permissions and the authority to execute DDL queries.
+* Enables assignment as the database or schema owner.
 
 ❺ You can choose to add a default access control rule to give the user you're creating full database access. If you don't add a default access control rule, you must set a separate access control rule to access the database.
 
 #### Edit a User
 
-![db-instance-detail-user-modify](https://static.toastoven.net/prod_rds_postgres/20241210/db-instance-detail-user-modify-en.png)
+![db-instance-detail-user-modify](https://static.toastoven.net/prod_rds_postgres/20260210/db-instance-detail-user-modify-en.png)
 
 ❶ When you click on **Modify** in the row of users that you want to edit, a pop-up window appears where you can edit information.
 ❷ If you do not enter a password, it will not be edited.
@@ -283,10 +301,30 @@ Password has the following restrictions.
 
 #### Delete a User
 
-![db-instance-detail-user-delete](https://static.toastoven.net/prod_rds_postgres/20241210/db-instance-detail-user-delete-en.png)
+![db-instance-detail-user-delete](https://static.toastoven.net/prod_rds_postgres/20260210/db-instance-detail-user-delete-en.png)
 
 ❶ Select the user that you want to delete and click on the drop-down menu.
 ❷ When **Delete** is clicked, **Delete Confirmation** pop-up window appears. You can request deletion by clicking on **Confirm**.
+
+![db-instance-detail-user-delete-with-option](https://static.toastoven.net/prod_rds_postgres/20260210/db-instance-detail-user-delete-with-option-ko.png)
+
+❶ Displays additional options below when deleting a user who owns objects. See the table below for available options and their descriptions:
+
+**Force Delete**
+* Forcibly deletes all owned objects.
+
+> [Caution]
+> Proceed with caution, as recovery is impossible without an existing backup.
+
+**Transfer Object Ownership**
+* Transfer all owned objects to the selected user before deletion.
+* Allow only DDL users to be designated as the new owner.
+* Include databases in the scope of the object transfer.
+
+❷ Click **View Owned Objects** to open **Confirm Owned Objects** popup.
+❸ Exclude items from the deletion list by clicking the button.
+❹ Click **Delete** to open **Confirm Deletion** dialog, then select **Confirm** to complete the request.
+
 
 ### Access Control
 
