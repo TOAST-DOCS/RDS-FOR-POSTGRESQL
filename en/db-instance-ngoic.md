@@ -209,10 +209,12 @@ On the Logs tab of the DB instance, you can view or download various log files. 
 
 #### Create a database
 
-![db-instance-detail-db-create](https://static-station.ngoic.com/v1/AUTH_c8bd5293535a46f8bc6705b349f67ea3/cdn/prod_rds_postgres/20241210/db-instance-detail-db-create-en.png)
+![db-instance-detail-db-create](https://static-station.ngoic.com/v1/AUTH_c8bd5293535a46f8bc6705b349f67ea3/cdn/prod_rds_postgres/20260210/db-instance-detail-db-create-en.png)
 
 ❶ When you click on **+ Create**, a pop-up window appears where you can enter the name of the database.
 ❷ You can create the database by entering the database name and clicking **Create**.
+❸ Designate a DDL user to be the owner.
+❹ Grant database access by selecting the desired users.
 
 Database names have the following restrictions.
 
@@ -226,19 +228,19 @@ Database names have the following restrictions.
 ❶ When you click on **Modify** in the database row you want to modify, a pop-up window appears where you can modify the database information.
 ❷ Designate a DDL user to be the owner.
 ❸ Grant database access by selecting the desired users.
-❹ Click **Modify** to request modifications.
-❺ Enabling **Immediate Apply Scheduled Access Control** applies modifications to access control rules immediately.
+❹ Enabling **Immediate Apply Scheduled Access Control** applies modifications to access control rules immediately.
+❺ Click **Modify** to request modifications.
 
 #### Synchronize Database
 
-![db-instance-detail-db-sync](https://static-station.ngoic.com/v1/AUTH_c8bd5293535a46f8bc6705b349f67ea3/cdn/prod_rds_postgres/20241210/db-instance-detail-db-sync-en.png)
+![db-instance-detail-db-sync](https://static-station.ngoic.com/v1/AUTH_c8bd5293535a46f8bc6705b349f67ea3/cdn/prod_rds_postgres/20260210/db-instance-detail-db-sync-en.png)
 
 ❶ After you click **Synchronization**, the **synchronization confirmation** pop-up window appears.
 ❷ You can click **Confirm** to request the synchronization.
 
 #### Delete Database
 
-![db-instance-detail-db-delete](https://static-station.ngoic.com/v1/AUTH_c8bd5293535a46f8bc6705b349f67ea3/cdn/prod_rds_postgres/20241210/db-instance-detail-db-delete-en.png)
+![db-instance-detail-db-delete](https://static-station.ngoic.com/v1/AUTH_c8bd5293535a46f8bc6705b349f67ea3/cdn/prod_rds_postgres/20260210/db-instance-detail-db-delete-en.png)
 
 ❶ If select the database you want to delete and click on **Delete**, the Delete confirmation pop-up window appears.
 ❷ You can request deletion by clicking on **Delete**.
@@ -294,7 +296,7 @@ Password has the following restrictions.
 
 #### Synchronize User
 
-![db-instance-detail-user-sync](https://static-station.ngoic.com/v1/AUTH_c8bd5293535a46f8bc6705b349f67ea3/cdn/prod_rds_postgres/20241210/db-instance-detail-user-sync-en.png)
+![db-instance-detail-user-sync](https://static-station.ngoic.com/v1/AUTH_c8bd5293535a46f8bc6705b349f67ea3/cdn/prod_rds_postgres/20260210/db-instance-detail-user-sync-en.png)
 
 ❶ Click **Synchronization** and a **Confirm Synchronization** pop-up window will appear.
 ❷ Click **Confirm** to request synchronization.

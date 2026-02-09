@@ -201,10 +201,12 @@ DBインスタンスの**データベース＆ユーザー**タブでは、DBエ
 
 #### データベースの作成
 
-![db-instance-detail-db-create](https://static.toastoven.net/prod_rds_postgres/20240813/db-instance-detail-db-create-ja.png)
+![db-instance-detail-db-create](https://static.toastoven.net/prod_rds_postgres/20260210/db-instance-detail-db-create-ja.png)
 
 ❶ **+ 作成**をクリックすると、データベースの名前を入力できるポップアップウィンドウが表示されます。
 ❷データベース名を入力した後、**作成**をクリックしてデータベースを作成できます。
+❸ DDLユーザーを選択し、所有者に設定できます。
+❹ 接続権限を付与するユーザーを選択すると、データベースに接続できる権限が付与されます。
 
 データベース名には以下のような制約があります。
 
@@ -218,12 +220,12 @@ DBインスタンスの**データベース＆ユーザー**タブでは、DBエ
 ❶修正するデータベース行の**修正**をクリックすると、データベース情報を修正できるポップアップウィンドウが表示されます。
 ❷ DDLユーザーを選択し、所有者に設定できます。
 ❸ 接続権限を付与するユーザーを選択すると、データベースに接続できる権限が付与されます。
-❹ **修正**をクリックし、修正をリクエストできます。
-❺ **変更予定のアクセス制御を即時適用**をチェックすると、アクセス制御ルールにも修正事項が即時適用されます。
+❹ **変更予定のアクセス制御を即時適用**をチェックすると、アクセス制御ルールにも修正事項が即時適用されます。
+❺ **修正**をクリックし、修正をリクエストできます。
 
 #### データベースの削除
 
-![db-instance-detail-db-delete](https://static.toastoven.net/prod_rds_postgres/20240813/db-instance-detail-db-delete-ja.png)
+![db-instance-detail-db-delete](https://static.toastoven.net/prod_rds_postgres/20260210/db-instance-detail-db-delete-ja.png)
 
 ❶削除するデータベースを選択し、**削除**をクリックすると、削除確認ポップアップウィンドウが表示されます。
 ❷ **削除**をクリックして削除をリクエストできます。

@@ -204,10 +204,12 @@ DBインスタンスの**データベース＆ユーザー**タブでは、DBエ
 
 #### データベースの作成
 
-![db-instance-detail-db-create](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20240813/db-instance-detail-db-create-ja.png)
+![db-instance-detail-db-create](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260210/db-instance-detail-db-create-ja.png)
 
 ❶ **+ 作成**をクリックすると、データベースの名前を入力できるポップアップウィンドウが表示されます。
 ❷データベース名を入力した後、**作成**をクリックしてデータベースを作成できます。
+❸ DDLユーザーを選択し、所有者に設定できます。
+❹ 接続権限を付与するユーザーを選択すると、データベースに接続できる権限が付与されます。
 
 データベース名には以下のような制約があります。
 
@@ -216,22 +218,24 @@ DBインスタンスの**データベース＆ユーザー**タブでは、DBエ
 
 #### データベースの修正
 
-![db-instance-detail-db-modify](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20240813/db-instance-detail-db-modify-ja.png)
+![db-instance-detail-db-modify](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260210/db-instance-detail-db-modify-ja.png)
 
 ❶修正するデータベース行の**修正**をクリックすると、データベース情報を修正できるポップアップウィンドウが表示されます。
-❷ **修正**をクリックして修正をリクエストできます。
-❸ **変更予定アクセス制御即時適用**をチェックすると、アクセス制御ルールにも修正内容が即時適用されます。
+❷ DDLユーザーを選択し、所有者に設定できます。
+❸ 接続権限を付与するユーザーを選択すると、データベースに接続できる権限が付与されます。
+❹ **変更予定のアクセス制御を即時適用**をチェックすると、アクセス制御ルールにも修正事項が即時適用されます。
+❺ **修正**をクリックし、修正をリクエストできます。
 
 #### データベースの削除
 
-![db-instance-detail-db-delete](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20240813/db-instance-detail-db-delete-ja.png)
+![db-instance-detail-db-delete](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260210/db-instance-detail-db-delete-ja.png)
 
 ❶削除するデータベースを選択し、**削除**をクリックすると、削除確認ポップアップウィンドウが表示されます。
 ❷ **削除**をクリックして削除をリクエストできます。
 
 #### ユーザーの作成
 
-![db-instance-detail-user-create](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20240813/db-instance-detail-user-create-ja.png)
+![db-instance-detail-user-create](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260210/db-instance-detail-user-create-ja.png)
 
 ❶ **+ 作成**をクリックすると、ユーザー追加ポップアップウィンドウが表示されます。
 ❷ユーザーIDを入力します。

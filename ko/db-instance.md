@@ -209,10 +209,12 @@ DB 인스턴스의 **데이터베이스 & 사용자** 탭에서는 DB 엔진에 
 
 #### 데이터베이스 생성
 
-![db-instance-detail-db-create](https://static.toastoven.net/prod_rds_postgres/20241210/db-instance-detail-db-create-ko.png)
+![db-instance-detail-db-create](https://static.toastoven.net/prod_rds_postgres/20260210/db-instance-detail-db-create-ko.png)
 
 ❶ **+ 생성**을 클릭하면 데이터베이스의 이름을 입력할 수 있는 팝업 창이 나타납니다.
 ❷ 데이터베이스 이름을 입력한 뒤 **생성**을 클릭하여 데이터베이스를 생성할 수 있습니다.
+❸ DDL 사용자를 선택해 소유자로 설정할 수 있습니다.
+❹ 접속 권한을 부여할 사용자를 선택하면 데이터베이스에 접속할 수 있는 권한이 부여됩니다.
 
 데이터베이스 이름은 아래와 같은 제약 사항이 있습니다.
 
@@ -226,19 +228,19 @@ DB 인스턴스의 **데이터베이스 & 사용자** 탭에서는 DB 엔진에 
 ❶ 수정할 데이터베이스 행의 **수정**을 클릭하면 데이터베이스 정보를 수정할 수 있는 팝업 창이 나타납니다.
 ❷ DDL 사용자를 선택해 소유자로 설정할 수 있습니다.
 ❸ 접속 권한을 부여할 사용자를 선택하면 데이터베이스에 접속할 수 있는 권한이 부여됩니다.
-❹ **수정**을 클릭하여 수정을 요청할 수 있습니다.
-❺ **변경 예정 접근 제어 즉시 적용**을 체크하면 접근 제어 규칙에도 수정 사항이 즉시 적용됩니다.
+❹ **변경 예정 접근 제어 즉시 적용**을 체크하면 접근 제어 규칙에도 수정 사항이 즉시 적용됩니다.
+❺ **수정**을 클릭하여 수정을 요청할 수 있습니다.
 
 #### 데이터베이스 동기화
 
-![db-instance-detail-db-sync](https://static.toastoven.net/prod_rds_postgres/20241210/db-instance-detail-db-sync-ko.png)
+![db-instance-detail-db-sync](https://static.toastoven.net/prod_rds_postgres/20260210/db-instance-detail-db-sync-ko.png)
 
 ❶ **동기화**를 클릭하면 **동기화 확인** 팝업 창이 나타납니다.
 ❷ **확인**을 클릭하여 동기화를 요청할 수 있습니다.
 
 #### 데이터베이스 삭제
 
-![db-instance-detail-db-delete](https://static.toastoven.net/prod_rds_postgres/20241210/db-instance-detail-db-delete-ko.png)
+![db-instance-detail-db-delete](https://static.toastoven.net/prod_rds_postgres/20260210/db-instance-detail-db-delete-ko.png)
 
 ❶ 삭제할 데이터베이스를 선택 후 **삭제**를 클릭하면 **삭제 확인** 팝업 창이 나타납니다.
 ❷ **삭제**를 클릭하여 삭제를 요청할 수 있습니다.
@@ -294,7 +296,7 @@ DB 인스턴스의 **데이터베이스 & 사용자** 탭에서는 DB 엔진에 
 
 #### 사용자 동기화
 
-![db-instance-detail-user-sync](https://static.toastoven.net/prod_rds_postgres/20241210/db-instance-detail-user-sync-ko.png)
+![db-instance-detail-user-sync](https://static.toastoven.net/prod_rds_postgres/20260210/db-instance-detail-user-sync-ko.png)
 
 ❶ **동기화**를 클릭하면 **동기화 확인** 팝업 창이 나타납니다.
 ❷ **확인**을 클릭하여 동기화를 요청할 수 있습니다.
