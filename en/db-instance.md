@@ -245,7 +245,7 @@ Database names have the following restrictions.
 
 #### 스키마 수정
 
-![db-instance-detail-schema-modify](https://static.toastoven.net/prod_rds_postgres/20260210/db-instance-detail-schema-modify-ko.png)
+![db-instance-detail-schema-modify](https://static.toastoven.net/prod_rds_postgres/20260210/db-instance-detail-schema-modify-en.png)
 
 ❶ 수정할 스키마 행의 **수정**을 클릭하면 스키마 정보를 수정할 수 있는 팝업 창이 나타납니다.
 ❷ DDL 사용자를 선택해 소유자로 설정할 수 있습니다.
@@ -306,7 +306,7 @@ Password has the following restrictions.
 ❶ Select the user that you want to delete and click on the drop-down menu.
 ❷ When **Delete** is clicked, **Delete Confirmation** pop-up window appears. You can request deletion by clicking on **Confirm**.
 
-![db-instance-detail-user-delete-with-option](https://static.toastoven.net/prod_rds_postgres/20260210/db-instance-detail-user-delete-with-option-ko.png)
+![db-instance-detail-user-delete-with-option](https://static.toastoven.net/prod_rds_postgres/20260210/db-instance-detail-user-delete-with-option-en.png)
 
 ❶ Displays additional options below when deleting a user who owns objects. See the table below for available options and their descriptions:
 
