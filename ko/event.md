@@ -55,6 +55,7 @@
 | DB_INSTANCE_18_01       | DB_INSTANCE       | 사용자 변경                               |
 | DB_INSTANCE_18_04       | DB_INSTANCE       | 사용자 변경 실패                            |
 | DB_INSTANCE_19_01       | DB_INSTANCE       | 사용자 삭제                               |
+| DB_INSTANCE_19_04       | DB_INSTANCE       | 사용자 삭제 실패                            |
 | DB_INSTANCE_20_01       | DB_INSTANCE       | 데이터베이스 생성                            |
 | DB_INSTANCE_20_04       | DB_INSTANCE       | 데이터베이스 생성 실패                         |
 | DB_INSTANCE_21_01       | DB_INSTANCE       | 데이터베이스 변경                            |

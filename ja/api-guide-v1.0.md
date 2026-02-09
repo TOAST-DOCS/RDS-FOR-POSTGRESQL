@@ -1,12 +1,16 @@
-## Database > RDS for PostgreSQL > APIガイド
+## Database > RDS for PostgreSQL > APIガイド > API v1.0ガイド
+
+## RDS for PostgreSQL API 共通情報
+
+### API エンドポイント
 
 | リージョン         | エンドポイント                                          |
 |---------------|--------------------------------------------------|
 | 韓国(パンギョ)リージョン | https://kr1-rds-postgres.api.nhncloudservice.com |
 
-## 認証および権限
+### 認証および権限
 
-APIを使用するには[Public API > API呼び出しおよび認証](/nhncloud/ja/public-api/api-authentication/)を通じて発行されたBearerタイプのトークンが必要です。
+RDS for PostgreSQLは、API呼び出し時の認証/認可のためにUser Access Keyトークンを使用します。User Access Keyトークンは、User Access Keyに基づいて発行されるBearerタイプの一時的なアクセストークンです。User Access Keyトークンの発行及び使用に関する詳細は、[User Access Keyトークン](/nhncloud/ja/public-api/user-access-key-token)を参照してください。
 発行されたトークンはAppkeyと共にリクエストHeaderに含める必要があります。
 
 | 名前                  | 種類     | 形式     | 必須 | 説明                                             |
@@ -28,7 +32,7 @@ APIリクエスト時、認証に失敗または権限がない場合、次の�
 | 80401      | Unauthorized  | 認証に失敗しました。 |
 | 80403      | Forbidden     | 権限がありません。  |
 
-## レスポンス共通情報
+### レスポンス共通情報
 
 すべてのAPIリクエストに`200 OK`でレスポンスします。詳しいレスポンス結果はレスポンス本文のヘッダを参照してください。
 

@@ -55,6 +55,7 @@
 | DB_INSTANCE_18_01       | DB_INSTANCE       | ユーザー変更                                    |
 | DB_INSTANCE_18_04       | DB_INSTANCE       | ユーザー変更失敗                                  |
 | DB_INSTANCE_19_01       | DB_INSTANCE       | ユーザー削除                                    |
+| DB_INSTANCE_19_04       | DB_INSTANCE       | ユーザー削除失敗                           |
 | DB_INSTANCE_20_01       | DB_INSTANCE       | データベース作成                                  |
 | DB_INSTANCE_20_04       | DB_INSTANCE       | データベース作成失敗                                |
 | DB_INSTANCE_21_01       | DB_INSTANCE       | データベース変更                                  |
