@@ -232,7 +232,7 @@ DBインスタンスの**データベース＆ユーザー**タブでは、DBエ
 
 #### スキーマ修正
 
-![db-instance-detail-schema-modify](https://static.toastoven.net/prod_rds_postgres/20260210/db-instance-detail-schema-modify-ko.png)
+![db-instance-detail-schema-modify](https://static.toastoven.net/prod_rds_postgres/20260210/db-instance-detail-schema-modify-ja.png)
 
 ❶ 修正するスキーマ行の**修正**をクリックすると、スキーマ情報を修正できるポップアップウィンドウが表示されます。
 ❷ DDLユーザーを選択し、所有者に設定できます。
@@ -286,7 +286,7 @@ DBインスタンスの**データベース＆ユーザー**タブでは、DBエ
 ❶削除するユーザーを選択し、ドロップダウンメニューをクリックします。
 ❷ **削除**をクリックすると、**削除確認**ポップアップウィンドウが表示されます。**確認**をクリックして削除をリクエストできます。
 
-![db-instance-detail-user-delete-with-option](https://static.toastoven.net/prod_rds_postgres/20260210/db-instance-detail-user-delete-with-option-ko.png)
+![db-instance-detail-user-delete-with-option](https://static.toastoven.net/prod_rds_postgres/20260210/db-instance-detail-user-delete-with-option-ja.png)
 
 ❶ 削除するユーザーが所有するオブジェクトがある場合、下部に追加オプションが表示されます。選択できるオプションと説明は次の通りです。
 
