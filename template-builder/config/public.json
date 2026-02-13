@@ -1,0 +1,24 @@
+{
+  "engine": {
+    "lowerCase": "postgresql",
+    "upperCase": "POSTGRESQL",
+    "pascalCase": "PostgreSQL",
+    "sampleDbVersionCode": "POSTGRESQL_V17_6",
+    "sampleDbVersionName": "POSTGRESQL V17.6"
+  },
+  "env": "public",
+  "url": {
+    "cdn": "https://static.toastoven.net/prod_rds_postgres"
+  },
+  "regions": [
+    {
+      "text": {
+        "ko": "한국(판교) 리전",
+        "en": "Korea (Pangyo) region",
+        "ja": "韓国(パンギョ)リージョン"
+      },
+      "endpoint": "https://kr1-rds-postgres.api.nhncloudservice.com"
+    }
+  ],
+  "exclusionDocs": []
+}

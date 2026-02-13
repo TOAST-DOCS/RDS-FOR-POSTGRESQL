@@ -1,0 +1,27 @@
+{
+  "engine": {
+    "lowerCase": "postgresql",
+    "upperCase": "POSTGRESQL",
+    "pascalCase": "PostgreSQL",
+    "sampleDbVersionCode": "POSTGRESQL_V17_6",
+    "sampleDbVersionName": "POSTGRESQL V17.6"
+  },
+  "env": "ngovc",
+  "url": {
+    "cdn": "https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres"
+  },
+  "regions": [
+    {
+      "text": {
+        "ko": "한국(판교) 리전",
+        "en": "Korea (Pangyo) region",
+        "ja": "韓国(パンギョ)リージョン"
+      },
+      "endpoint": "https://kr4-rds-postgres-api.ngovc.com"
+    }
+  ],
+  "exclusionDocs": [
+    "api-guide-v1.0",
+    "release-notes"
+  ]
+}
