@@ -450,7 +450,7 @@ You can easily change various items in DB instance created through the console. 
 
 For high-availability DB instances, we provide a failover restart feature to increase reliability and reduce net time when there is a change to something that requires a restart.
 
-![modify-ha-popup](https://static.toastoven.net/prod_rds/24.11.12/modify-ha-popup-en.png)
+![modify-ha-popup](https://static.toastoven.net/prod_rds_postgres/20260414/modify-ha-popup-en.png)
 
 If you do not use restart with failover, the changes are applied sequentially to the master and candidate master, and then the DB instance is restarted. For more information, see [Manual Failover Items](db-instance/#_7) in High Availability DB Instances.
 

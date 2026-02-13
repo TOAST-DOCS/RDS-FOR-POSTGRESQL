@@ -228,8 +228,8 @@ DB 인스턴스의 **데이터베이스 & 사용자** 탭에서는 DB 엔진에 
 ❶ 수정할 데이터베이스 행의 **수정**을 클릭하면 데이터베이스 정보를 수정할 수 있는 팝업 창이 나타납니다.
 ❷ DDL 사용자를 선택해 소유자로 설정할 수 있습니다.
 ❸ 접속 권한을 부여할 사용자를 선택하면 데이터베이스에 접속할 수 있는 권한이 부여됩니다.
-❹ **수정**을 클릭하여 수정을 요청할 수 있습니다.
-❺ **변경 예정 접근 제어 즉시 적용**을 체크하면 접근 제어 규칙에도 수정 사항이 즉시 적용됩니다.
+❹ **변경 예정 접근 제어 즉시 적용**을 체크하면 접근 제어 규칙에도 수정 사항이 즉시 적용됩니다.
+❺ **수정**을 클릭하여 수정을 요청할 수 있습니다.
 
 #### 데이터베이스 동기화
 
@@ -448,7 +448,7 @@ DB 인스턴스의 **확장 관리** 탭에서는 SUPERUSER 권한이 필요한 
 
 고가용성 DB 인스턴스의 경우 재시작이 필요한 항목의 변경이 있으면 안정성을 높이고 순단 시간을 줄이기 위하여 장애 조치를 이용한 재시작 기능을 제공합니다.
 
-![modify-ha-popup-ko](https://static-station.ngoic.com/v1/AUTH_c8bd5293535a46f8bc6705b349f67ea3/cdn/prod_rds/24.11.12/modify-ha-popup-ko.png)
+![modify-ha-popup](https://static-station.ngoic.com/v1/AUTH_c8bd5293535a46f8bc6705b349f67ea3/cdn/prod_rds_postgres/20260414/modify-ha-popup-ko.png)
 
 장애 조치를 이용한 재시작을 사용하지 않으면 마스터와 예비 마스터에 변경 사항을 순차적으로 적용한 후 DB 인스턴스를 재시작합니다. 자세한 사항은 고가용성 DB 인스턴스의 [수동 장애 조치 항목](db-instance-ngoic/#_7)을 참고합니다.
 
@@ -631,11 +631,11 @@ DB 인스턴스를 강제 재시작하려면 콘솔에서
 
 삭제 보호를 활성화하면 실수로 DB 인스턴스가 삭제되지 않도록 보호할 수 있습니다. 삭제 보호를 비활성화할 때까지 해당 DB 인스턴스를 삭제할 수 없습니다. 삭제 보호 설정을 변경하려면
 
-![db-instance-deletion-protection-ko](https://static-station.ngoic.com/v1/AUTH_c8bd5293535a46f8bc6705b349f67ea3/cdn/prod_rds_postgres/20240813/db-instance-list-deletion-protection-ko.png)
+![db-instance-deletion-protection](https://static-station.ngoic.com/v1/AUTH_c8bd5293535a46f8bc6705b349f67ea3/cdn/prod_rds_postgres/20240813/db-instance-list-deletion-protection-ko.png)
 
 ❶ 삭제 보호 설정을 변경하려는 DB 인스턴스를 선택 후 드롭다운 메뉴에서 **삭제 보호 설정 변경** 메뉴를 클릭하면 팝업 창이 나타납니다.
 
-![deletion-protection-popup-ko](https://static-station.ngoic.com/v1/AUTH_c8bd5293535a46f8bc6705b349f67ea3/cdn/prod_rds_postgres/20240813/db-instance-list-deletion-protection-popup-ko.png)
+![deletion-protection-popup](https://static-station.ngoic.com/v1/AUTH_c8bd5293535a46f8bc6705b349f67ea3/cdn/prod_rds_postgres/20240813/db-instance-list-deletion-protection-popup-ko.png)
 
 ❷ 삭제 보호 설정을 변경한 뒤 **확인**을 클릭합니다.
 
@@ -672,7 +672,7 @@ DB 인스턴스를 강제 재시작하려면 콘솔에서
 
 장애 조치된 마스터를 복구하려면 콘솔에서
 
-![db-instance-ha-failover-repair-ko](https://static-station.ngoic.com/v1/AUTH_c8bd5293535a46f8bc6705b349f67ea3/cdn/prod_rds_postgres/20241210/db-instance-ha-failover-repair-ko.png)
+![db-instance-ha-failover-repair](https://static-station.ngoic.com/v1/AUTH_c8bd5293535a46f8bc6705b349f67ea3/cdn/prod_rds_postgres/20241210/db-instance-ha-failover-repair-ko.png)
 
 ❶ 복구를 원하는 장애 조치된 마스터를 선택 후 드롭다운 메뉴에서 **장애 조치된 마스터 복구** 메뉴를 클릭합니다.
 
@@ -691,7 +691,7 @@ DB 인스턴스를 강제 재시작하려면 콘솔에서
 
 장애 조치된 마스터를 재구축하려면 콘솔에서
 
-![db-instance-ha-failover-rebuild-ko](https://static-station.ngoic.com/v1/AUTH_c8bd5293535a46f8bc6705b349f67ea3/cdn/prod_rds_postgres/20241210/db-instance-ha-failover-rebuild-ko.png)
+![db-instance-ha-failover-rebuild](https://static-station.ngoic.com/v1/AUTH_c8bd5293535a46f8bc6705b349f67ea3/cdn/prod_rds_postgres/20241210/db-instance-ha-failover-rebuild-ko.png)
 
 ❶ 재구축을 원하는 장애 조치된 마스터를 선택 후 드롭다운 메뉴에서 **장애 조치된 마스터 재구축** 메뉴를 클릭합니다.
 
@@ -701,7 +701,7 @@ DB 인스턴스를 강제 재시작하려면 콘솔에서
 
 장애 조치된 마스터를 분리하려면 콘솔에서
 
-![db-instance-ha-failover-split-ko](https://static-station.ngoic.com/v1/AUTH_c8bd5293535a46f8bc6705b349f67ea3/cdn/prod_rds_postgres/20241210/db-instance-ha-failover-split-ko.png)
+![db-instance-ha-failover-split](https://static-station.ngoic.com/v1/AUTH_c8bd5293535a46f8bc6705b349f67ea3/cdn/prod_rds_postgres/20241210/db-instance-ha-failover-split-ko.png)
 
 ❶ 분리를 원하는 장애 조치된 마스터를 선택 후 드롭다운 메뉴에서 **장애 조치된 마스터 분리** 메뉴를 클릭합니다.
 
@@ -732,7 +732,7 @@ DB 인스턴스를 강제 재시작하려면 콘솔에서
 
 예비 마스터에 변경 사항을 먼저 적용한 뒤 그 추이를 관찰하거나, 정확한 시간에 장애 조치를 실행하고자 할 때 콘솔에서 장애 조치 시점을 직접 제어할 수 있습니다. 장애 조치 수동 제어를 선택하면 예비 마스터가 재시작된 후 ❶ 콘솔에 **장애 조치** 버튼이 표시됩니다. 이 버튼을 클릭하면 장애 조치가 실행되며, 최대 5일간 실행을 대기할 수 있습니다. 5일 이내에 장애 조치를 실행하지 않을 경우 해당 작업은 자동으로 취소됩니다.
 
-![db-instance-ha-wait-manual-failover-ko](https://static-station.ngoic.com/v1/AUTH_c8bd5293535a46f8bc6705b349f67ea3/cdn/prod_rds_postgres/20241210/db-instance-ha-wait-manual-failover-ko.png)
+![db-instance-ha-wait-manual-failover](https://static-station.ngoic.com/v1/AUTH_c8bd5293535a46f8bc6705b349f67ea3/cdn/prod_rds_postgres/20241210/db-instance-ha-wait-manual-failover-ko.png)
 
 > [주의]
 > 장애 조치를 대기하는 동안에는 자동 장애 조치가 되지 않습니다.
