@@ -142,6 +142,12 @@
 | DB_INSTANCE_57_00       | DB_INSTANCE       | 확장 변경 사항 적용 시작                       |
 | DB_INSTANCE_57_01       | DB_INSTANCE       | 확장 변경 사항 적용 완료                       |
 | DB_INSTANCE_57_04       | DB_INSTANCE       | 확장 변경 사항 적용 실패                       |
+| DB_INSTANCE_58_00       | DB_INSTANCE       | OS 버전 업그레이드 시작                       |
+| DB_INSTANCE_58_01       | DB_INSTANCE       | OS 버전 업그레이드 완료                       |
+| DB_INSTANCE_58_04       | DB_INSTANCE       | OS 버전 업그레이드 실패                       |
+| DB_INSTANCE_59_00       | DB_INSTANCE       | 스토리지 자동 확장 시작                        |
+| DB_INSTANCE_59_01       | DB_INSTANCE       | 스토리지 자동 확장 완료                        |
+| DB_INSTANCE_59_04       | DB_INSTANCE       | 스토리지 자동 확장 실패                        |
 | DB_SECURITY_GROUP_01_01 | DB_SECURITY_GROUP | DB 보안 그룹 생성                          |
 | DB_SECURITY_GROUP_02_00 | DB_SECURITY_GROUP | DB 보안 그룹 변경 시작                       |
 | DB_SECURITY_GROUP_02_01 | DB_SECURITY_GROUP | DB 보안 그룹 변경 완료                       |
