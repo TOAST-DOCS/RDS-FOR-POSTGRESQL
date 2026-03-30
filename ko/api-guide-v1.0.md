@@ -547,13 +547,13 @@ GET /v1.0/db-instance-groups/{dbInstanceGroupId}/extensions
 | extensions                                          | Body | Array   | 확장 목록                                                                                                                                                                                           |
 | extensions.extensionId                              | Body | UUID    | 확장의 식별자                                                                                                                                                                                         |
 | extensions.extensionName                            | Body | String  | 확장 이름                                                                                                                                                                                           |
-| extensions.extensionStatus                          | Body | ENUM    | 확장 상태<br/>- `AVAILABLE`: 사용 가능<br/>- `NEED_TO_APPLY`: 적용 필요<br/>- `APPLYING`: 적용 중                                                                                                               |
+| extensions.extensionStatus                          | Body | Enum    | 확장 상태<br/>- `AVAILABLE`: 사용 가능<br/>- `NEED_TO_APPLY`: 적용 필요<br/>- `APPLYING`: 적용 중                                                                                                               |
 | extensions.databases                                | Body | Array   | 확장이 설치된 데이터베이스 정보                                                                                                                                                                               |
 | extensions.databases.dbInstanceGroupExtensionId     | Body | UUID    | DB 인스턴스 그룹 내 확장의 식별자                                                                                                                                                                            |
-| extensions.databases.dbInstanceGroupExtensionStatus | Body | ENUM    | DB 인스턴스 그룹 내 확장 상태<br/>- `CREATED`: 생성됨<br/>- `INSTALLED`: 설치됨<br/>- `INSTALLING`: 설치 중<br/>- `INSTALL_ERROR`: 설치 오류<br/>- `DELETED`: 삭제됨<br/>- `DELETING`: 삭제 중<br/>- `DELETE_ERROR`: 삭제 오류 |
+| extensions.databases.dbInstanceGroupExtensionStatus | Body | Enum    | DB 인스턴스 그룹 내 확장 상태<br/>- `CREATED`: 생성됨<br/>- `INSTALLED`: 설치됨<br/>- `INSTALLING`: 설치 중<br/>- `INSTALL_ERROR`: 설치 오류<br/>- `DELETED`: 삭제됨<br/>- `DELETING`: 삭제 중<br/>- `DELETE_ERROR`: 삭제 오류 |
 | extensions.databases.databaseId                     | Body | UUID    | 데이터베이스의 식별자                                                                                                                                                                                     |
 | extensions.databases.databaseName                   | Body | String  | 데이터베이스 이름                                                                                                                                                                                       |
-| extensions.databases.reservedAction                 | Body | ENUM    | 예약 작업<br/>- `NONE`: 없음<br/>- `INSTALL`: 설치 예약(적용 필요)<br/>- `INSTALL_WITH_CASCADE`: 강제 설치 예약(적용 필요)<br/>- `DELETE`: 삭제 예약(적용 필요)<br/>- `DELETE_WITH_CASCADE`: 강제 삭제 예약(적용 필요)                |
+| extensions.databases.reservedAction                 | Body | Enum    | 예약 작업<br/>- `NONE`: 없음<br/>- `INSTALL`: 설치 예약(적용 필요)<br/>- `INSTALL_WITH_CASCADE`: 강제 설치 예약(적용 필요)<br/>- `DELETE`: 삭제 예약(적용 필요)<br/>- `DELETE_WITH_CASCADE`: 강제 삭제 예약(적용 필요)                |
 | extensions.databases.errorReason                    | Body | String  | 오류 원인                                                                                                                                                                                           |
 | isNeedToApply                                       | Body | Boolean | 변경 사항 적용 필요 여부                                                                                                                                                                                  |
 
@@ -1899,7 +1899,7 @@ GET /v1.0/db-instances/{dbInstanceId}/maintenance-info
 | allowAutoMaintenance  | Body | Boolean | 자동 유지보수 허용 여부                                                                                                        |
 | useAutoStorageCleanup | Body | Boolean | 자동 스토리지 정리 사용 여부                                                                                                     |
 | maintWndBgnTime       | Body | String  | 자동 유지보수 시작 시간 <br/>- 예시: `00:00:00`                                                                                  |
-| maintWndDuration      | Body | ENUM    | 유지보수 윈도우 <br/> 예시: `HALF_AN_HOUR`, `ONE_HOUR`, `ONE_HOUR_AND_HALF`, `TWO_HOURS`, `TWO_HOURS_AND_HALF`, `THREE_HOURS` |
+| maintWndDuration      | Body | Enum    | 유지보수 윈도우 <br/> 예시: `HALF_AN_HOUR`, `ONE_HOUR`, `ONE_HOUR_AND_HALF`, `TWO_HOURS`, `TWO_HOURS_AND_HALF`, `THREE_HOURS` |
 | logRetentionPeriod    | Body | Number  | 로그 보관 기간(일)                                                                                                         |
 
 
@@ -3257,6 +3257,7 @@ GET /v1.0/backups
 | createdYmdt          | Body | DateTime | 생성 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                         |
 | updatedYmdt          | Body | DateTime | 수정 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                         |
 | completedYmdt        | Body | DateTime | 완료 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                         |
+| jobId | Body | UUID | 요청한 작업의 식별자 |
 
 <details><summary>예시</summary>
 
@@ -3291,6 +3292,18 @@ GET /v1.0/backups
 | 이름    | 종류   | 형식   | 설명          |
 |-------|------|------|-------------|
 | jobId | Body | UUID | 요청한 작업의 식별자 |
+| backups | Body | Array | 백업 목록 |
+| backups.backupId | Body | UUID | 백업의 식별자 |
+| backups.backupName | Body | String | 백업을 식별할 수 있는 이름 |
+| backups.backupSize | Body | Number | 백업의 크기<br/>- 단위: `바이트` |
+| backups.backupStatus | Body | Enum | 백업의 현재 상태<br/>- `BACKING_UP`: 백업 중인 경우<br/>- `COMPLETED`: 백업이 완료된 경우<br/>- `DELETING`: 백업이 삭제 중인 경우<br/>- `DELETED`: 백업이 삭제된 경우<br/>- `ERROR`: 오류가 발생한 경우 |
+| backups.backupType | Body | Enum | 백업 유형<br/>- `AUTO`: 자동<br/>- `MANUAL`:  수동 |
+| backups.dbInstanceId | Body | UUID | 원본 DB 인스턴스의 식별자 |
+| backups.dbVersion | Body | Enum | DB 버전 정보 |
+| completedYmdt | Body | DateTime | 완료 일시(YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| createdYmdt | Body | DateTime | 생성 일시(YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| totalCounts | Body | Number | 전체 백업 목록 수 |
+| updatedYmdt | Body | DateTime | 수정 일시(YYYY-MM-DDThh:mm:ss.SSSTZD) |
 
 <details><summary>예시</summary>
 
@@ -4881,8 +4894,8 @@ GET /v1.0/notification-groups/{notificationGroupId}/watchdogs
 | watchdogs.watchdogId         | Body | UUID     | 감시 설정의 식별자                                                             |
 | watchdogs.metricName         | Body | Enum     | 감시 대상 성능 지표<br/>- 설정 가능한 성능 지표는 [성능 지표 목록 보기](#성능-지표-목록-보기) 항목을 참고합니다. |
 | watchdogs.comparisonOperator | Body | Enum     | 감시 대상 비교 방법<br/>- `LE`: <=<br/>- `LT`: <<br/>- `GE`: >=<br/>- `GT`: >  |
-| watchdogs.threshold          | Body | Long     | 감시 대상 임곗값                                                              |
-| watchdogs.duration           | Body | Long     | 감시 대상 지속 시간<br/>- 단위: `분`                                              |
+| watchdogs.threshold          | Body | Number   | 감시 대상 임곗값                                                              |
+| watchdogs.duration           | Body | Number   | 감시 대상 지속 시간<br/>- 단위: `분`                                              |
 | watchdogs.createdYmdt        | Body | DateTime | 생성 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                                      |
 
 <details><summary>예시</summary>
