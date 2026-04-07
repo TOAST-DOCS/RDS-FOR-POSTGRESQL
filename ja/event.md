@@ -2,7 +2,7 @@
 
 ## イベント
 
-イベントはRDS for PostgreSQLやユーザーによって発生した重要なイベントを意味します。イベントはイベントタイプ、発生日時、発生元ソースとメッセージで構成されます。イベントはコンソールで照会可能で、イベントの種類と発生するイベントは下記の通りです。
+イベントとは、RDS for PostgreSQLのシステム動作や、ユーザーの操作によって発生する重要な出来事を意味します。イベントは、イベントタイプ、発生日時、発生元ソース、およびメッセージで構成されます。イベントはコンソールで照会でき、イベントのタイプと発生し得るイベントは以下のとおりです。
 
 | イベントコード                 | イベントタイプ           | 説明                                        |
 |-------------------------|-------------------|-------------------------------------------|
@@ -89,8 +89,8 @@
 | DB_INSTANCE_33_01       | DB_INSTANCE       | DBインスタンス強制昇格完了                            |
 | DB_INSTANCE_33_04       | DB_INSTANCE       | DBインスタンス強制昇格失敗                            |
 | DB_INSTANCE_34_00       | DB_INSTANCE       | DBインスタンス複製再構築開始                           |
-| DB_INSTANCE_34_01       | DB_INSTANCE       | DBインスタンス複製再構築開始                           |
-| DB_INSTANCE_34_04       | DB_INSTANCE       | DBインスタンス複製再構築開始                           |
+| DB_INSTANCE_34_01       | DB_INSTANCE       | DBインスタンス複製の再構築完了                           |
+| DB_INSTANCE_34_04       | DB_INSTANCE       | DBインスタンス複製の再構築失敗                           |
 | DB_INSTANCE_35_00       | DB_INSTANCE       | DBインスタンス複製遅延                              |
 | DB_INSTANCE_35_01       | DB_INSTANCE       | DBインスタンス複製遅延終了                            |
 | DB_INSTANCE_36_00       | DB_INSTANCE       | DBインスタンス複製中断                              |
@@ -142,6 +142,12 @@
 | DB_INSTANCE_57_00       | DB_INSTANCE       | 拡張機能変更事項適用開始                              |
 | DB_INSTANCE_57_01       | DB_INSTANCE       | 拡張機能変更事項適用完了                              |
 | DB_INSTANCE_57_04       | DB_INSTANCE       | 拡張機能変更事項適用失敗                              |
+| DB_INSTANCE_58_00       | DB_INSTANCE       | OSバージョンアップグレード開始                        |
+| DB_INSTANCE_58_01       | DB_INSTANCE       | OSバージョンアップグレード完了                        |
+| DB_INSTANCE_58_04       | DB_INSTANCE       | OSバージョンアップグレード失敗                        |
+| DB_INSTANCE_59_00       | DB_INSTANCE       | 自動ストレージ拡張開始                         |
+| DB_INSTANCE_59_01       | DB_INSTANCE       | 自動ストレージ拡張完了                         |
+| DB_INSTANCE_59_04       | DB_INSTANCE       | 自動ストレージ拡張失敗                         |
 | DB_SECURITY_GROUP_01_01 | DB_SECURITY_GROUP | DBセキュリティグループ作成                            |
 | DB_SECURITY_GROUP_02_00 | DB_SECURITY_GROUP | DBセキュリティグループ変更開始                          |
 | DB_SECURITY_GROUP_02_01 | DB_SECURITY_GROUP | DBセキュリティグループ変更完了                          |
