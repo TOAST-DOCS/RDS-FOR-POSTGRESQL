@@ -164,7 +164,7 @@ Event refers to RDS for PostgreSQL or a significant event that is caused by a us
 
 If subscribed to an event, a notification will be received via email and SMS when the event occurs. Notifications are sent to a user of the user group subscribed to the event. Subscription can be subdivided by event type, event code, and event source. In order to temporarily stop the notifications, modify the enabled event subscription. If disabled, notifications are not sent.
 
-![event-subscription](https://static.toastoven.net/prod_rds_postgres/20240813/event-subscription-en.png)
+![event-subscription](https://static-station.ngoic.com/v1/AUTH_c8bd5293535a46f8bc6705b349f67ea3/cdn/prod_rds_postgres/20240813/event-subscription-en.png)
 
 * ❶ Click **Register Event Subscription**and a pop-up window will appear where you can sign up for an event subscription.
 * ❷ Select the type of event you want to subscribe to. The event type changes the event codes you can select.

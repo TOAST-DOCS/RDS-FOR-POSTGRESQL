@@ -164,7 +164,7 @@
 
 イベントを購読すると、イベント発生時に電子メールやSMSで通知を受けることができます。イベント購読に接続されたユーザーグループのユーザーに通知を送信します。イベントタイプ、イベントコード、イベントソースで細分化して購読できます。しばらく通知を中断する場合は、イベント購読を無効に修正します。有効にしない場合、通知を送信しません。
 
-![event-subscription](https://static.toastoven.net/prod_rds_postgres/20240813/event-subscription-ja.png)
+![event-subscription](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20240813/event-subscription-ja.png)
 
 * ❶ **イベント購読登録**を押すと、イベント購読を登録できるポップアップウィンドウが表示されます。
 * ❷購読するイベントの種類を選択します。イベントタイプによって選択できるイベントコードが変更されます。
