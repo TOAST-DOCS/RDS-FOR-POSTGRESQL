@@ -1,5 +1,24 @@
 ## Database > RDS for PostgreSQL > Release Notes
 
+### April 14, 2026
+
+#### Added Features
+
+- Added storage auto-scaling feature
+    - Added a feature to automatically scale storage capacity to prevent service outages caused by insufficient storage capacity.
+- Added OS version upgrade feature
+    - Added a feature to upgrade the OS version of DB instances to the latest version for security patches and improved stability.
+
+#### Feature Updates
+
+- Improved high availability DB instance name input
+    - Improved the feature to allow explicit input of the standby master name so that the master and standby master can be distinguished by name.
+- Added log capacity collection item to storage detail chart
+    - Improved the storage detail chart to allow log capacity to be viewed separately from data capacity.
+- Improved access control rule addition feature
+    - Improved the feature to allow bulk addition by passing the `pg_hba.conf` source as-is.
+
+
 ### February 10, 2026
 
 #### Added Feautures

@@ -354,13 +354,14 @@ The status of access control consists of the following values, which change depe
 
 #### Add Access Control Rules
 
-![db-instance-detail-hba-create](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20241210/db-instance-detail-hba-create-en.png)
+![db-instance-detail-hba-create](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260414/db-instance-detail-hba-create-en.png)
 
-❶ When you click on **+ Create**, add **Access Control Rule** pop-up window appears.
-❷ You can specify the full target of the rule or select a specific database or user.
+❶ When you click on **+ Create**, an **Add Access Control Rule** pop-up window appears.
+❷ If you select **Default** as the input method, you can add rules by specifying a database or user stored in the DB instance.
+❸ You can set the rule target to all targets, or select and specify a particular database or user.
     - When **Custom** is selected, a drop-down menu for selecting the database and user is displayed on the **Database & User** tab.
-❸ Enter the connection address to which the rule applies in CIDR format.
-❹ Select authentication method. The following authentication methods are supported by RDS for PostgreSQL.
+❹ Enter the connection address to which the rule applies in CIDR format.
+❺ Select authentication method. The following authentication methods are supported by RDS for PostgreSQL.
 
 | authentication method         | DB Engine Settings value   | Description                                                                                  |
 |-------------------------------|----------------------------|----------------------------------------------------------------------------------------------|
@@ -368,12 +369,17 @@ The status of access control consists of the following values, which change depe
 | Block connection              | reject                     | Block all connections.                                                                       |
 | password (SCRAM-SHA-256)      | scram-sha-256              | Ensure that SCRAM-SHA-256 is authenticated with the password set on **Database & User** tab. |
 
-❺ Adjust the order in which the rules are applied with the up/down arrow buttons.
+❻ Adjust the order in which the rules are applied with the up/down arrow buttons.
     - Access control rules are applied sequentially from above and the first applied rule takes priority.
     - If the access permission rule registered at the top is applied first, access is allowed even if there is an access blocking rule at the bottom.
     - Conversely, even if there is an access permission rule at the bottom, access is not allowed if the access blocking rule registered at the top is applied first.
-❻ After finish setting, click **Apply Changes** to apply the access control settings to DB instance.
-❼ When applied to DB instance, the status changes to **Applied**.
+❼ After finish setting, click **Apply Changes** to apply the access control settings to DB instance.
+❽ When applied to DB instance, the status changes to **Applied**.
+
+![db-instance-detail-hba-create-by-text](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260414/db-instance-detail-hba-create-by-text-en.png)
+
+❶ If you select **Bulk Add by Rule Source** as the input method, you can bulk add rules by entering the `pg_hba.conf` source as-is.
+❷ You can use the `pg_hba.conf` source as-is, including comments. For more information, see the [PostgreSQL website](https://www.postgresql.org/docs/17/auth-pg-hba-conf.html).
 
 #### Modify Access Control Rules
 
@@ -386,7 +392,7 @@ The status of access control consists of the following values, which change depe
 
 ![db-instance-detail-hba-delete](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20241210/db-instance-detail-hba-delete-en.png)
 
-❶ If you select the user you want to delete and click on **Delete**, the **Delete confirmation** pop-up window appears.
+❶ After selecting the access control rules to delete, click on **Delete**, the **Delete confirmation** pop-up window appears.
 ❷ Deleted rules must apply access control settings to DB instances by clicking on **Apply Changes**.
 
 
@@ -409,7 +415,7 @@ You can get and control the extensions that require SUPERUSER permission from **
 
 ![db-instance-detail-extension-delete](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20250415/db-instance-detail-extension-delete-en.png)
 
-❸ Click **Delete** from the database row to be deleted to display a **Confirm Delete** pop-up window.
+❶ Click **Delete** from the database row to be deleted to display a **Confirm Delete** pop-up window.
 ❷ Check **Force Install** to force deletion of dependent extensions.
 ❸ Click **Delete** to schedule the deletion task.
 ❹ Click **Cancel** to cancel the scheduled task.
@@ -425,12 +431,12 @@ You can get and control the extensions that require SUPERUSER permission from **
 
 ## Modify DB Instance
 
-You can easily change various items in DB instance created through the console. The change items you request are applied to DB instances sequentially. If a restart is required during the application process, apply all changes and restart the DB instance. Items that cannot be changed and that require a restart are as follows.
+You can easily change various items in DB instance created with the console. The change items you request are applied to DB instances sequentially. If a restart is required during the application process, apply all changes and restart the DB instance. Items that cannot be changed and that require a restart are as follows.
 
 | Items                     | Whether able to change or not | Whether need to restart or not                                 |
 |---------------------------|-------------------------------|----------------------------------------------------------------|
 | Availability Zone         | No                            |                                                                |
-| DB version                | Yes                           | Yes                                                              |
+| DB version                | Yes                            |Yes                                                              |
 | DB instance type          | Yes                           | Yes                                                            |
 | Data Storage Types        | No                            |                                                                |
 | Data Storage Sizes        | Yes                           | Yes                                                            |
@@ -445,6 +451,7 @@ You can easily change various items in DB instance created through the console. 
 | Parameter Group           | Yes                           | Determines whether or not the changed parameters are restarted |
 | DB Security Group         | Yes                           | No                                                             |
 | Backup Settings           | Yes                           | No                                                             |
+| Auto Scale Storage      | Yes        | No                     |
 | Database and User Control | Yes                           | No                                                             |
 | Access Control            | Yes                           | No                                                             |
 
@@ -469,10 +476,26 @@ You can use backup to restore data to any point in time. Restore always creates 
 
 ## Secure Capacity
 
-If WAL logs are excessively generated due to rapid load and the data storage is low in capacity, you can delete the WAL logs using the capacity acquisition feature on the console. When you select Free Capacity from the console, a pop-up window appears to select WAL log for the DB instance. Select the WAL log and click **Confirm** to delete all WAL logs created before the selected item. The capacity acquisition feature is a function of temporarily securing capacity. If you continue to run out of capacity, you must scale up your data storage to meet the service load.
+If WAL logs are excessively generated due to rapid load and the data storage is low in capacity, you can delete the WAL logs using the capacity acquisition feature on the console. When you select Free Capacity from the console, a pop-up window appears to select WAL log for the DB instance. Select the WAL log and click **Confirm** to delete all WAL logs created before the selected item. The capacity acquisition feature is to temporarily secure capacity. If you continue to run out of capacity, you must scale up your data storage to meet the service load.
 
 > [Caution]
 > Depending on the deleted WAL log, it may not be restored to a certain point in time.
+
+## Auto Scale Storage
+
+You can automatically scale the data storage size of a DB instance. With auto storage expansion, you can maintain database availability by automatically scaling up when storage capacity runs out.
+
+To use auto scale storage, you must enable **Auto Scale Storage** when creating and modifying DB instances.
+
+When you enable auto scale storage, you can set three options
+* Storage Auto Scale Conditions: Automatically expand storage when storage utilization is above a set value for more than 5 minutes.
+* Storage Auto Scale Max: The maximum size that storage auto-scale can grow to.
+* Storage Auto Scale Cooldown: Set the amount of time after storage auto scale cooldown runs once before the feature is enabled again.
+
+The amount of increase when the auto scale storage feature runs is set to the largest of the following values:
+* 10 GB
+* 10% of storage size
+* Data storage usage growth in the last hour * cooldown (in hours)
 
 ## Apply Parameter Group Changes
 
@@ -756,7 +779,7 @@ Replication on a spare master can be interrupted for a variety of reasons, such 
 
 ## Data Migration
 
-* RDS can be exported to and imported from outside of NHN Cloud RDS using pg_dump
+* RDS can be exported to and imported from outside of NHN Cloud RDS using pg_dump.
 * pg_dump utility is provided by default when you install PostgreSQL.
 
 ### Export using pg_dump
