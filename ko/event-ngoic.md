@@ -2,7 +2,7 @@
 
 ## 이벤트
 
-이벤트는 RDS for PostgreSQL이나 사용자에 의해 발생한 중요한 사건을 의미합니다. 이벤트는 이벤트 유형, 발생 일시, 원본 소스와 메시지로 구성됩니다. 이벤트는 콘솔에서 조회 가능하며, 이벤트의 유형과 발생 가능한 이벤트는 아래와 같습니다.
+이벤트는 RDS for PostgreSQL이나 사용자 행위로 발생하는 중요한 사건을 의미합니다. 이벤트는 이벤트 유형, 발생 일시, 원본 소스와 메시지로 구성됩니다. 이벤트는 콘솔에서 조회할 수 있으며, 이벤트의 유형과 발생 가능한 이벤트는 아래와 같습니다.
 
 | 이벤트 코드                  | 이벤트 유형            | 설명                                   |
 |-------------------------|-------------------|--------------------------------------|
@@ -89,8 +89,8 @@
 | DB_INSTANCE_33_01       | DB_INSTANCE       | DB 인스턴스 강제 승격 완료                     |
 | DB_INSTANCE_33_04       | DB_INSTANCE       | DB 인스턴스 강제 승격 실패                     |
 | DB_INSTANCE_34_00       | DB_INSTANCE       | DB 인스턴스 복제 재구축 시작                    |
-| DB_INSTANCE_34_01       | DB_INSTANCE       | DB 인스턴스 복제 재구축 시작                    |
-| DB_INSTANCE_34_04       | DB_INSTANCE       | DB 인스턴스 복제 재구축 시작                    |
+| DB_INSTANCE_34_01       | DB_INSTANCE       | DB 인스턴스 복제 재구축 완료                    |
+| DB_INSTANCE_34_04       | DB_INSTANCE       | DB 인스턴스 복제 재구축 실패                    |
 | DB_INSTANCE_35_00       | DB_INSTANCE       | DB 인스턴스 복제 지연                        |
 | DB_INSTANCE_35_01       | DB_INSTANCE       | DB 인스턴스 복제 지연 종료                     |
 | DB_INSTANCE_36_00       | DB_INSTANCE       | DB 인스턴스 복제 중단                        |
@@ -142,6 +142,12 @@
 | DB_INSTANCE_57_00       | DB_INSTANCE       | 확장 변경 사항 적용 시작                       |
 | DB_INSTANCE_57_01       | DB_INSTANCE       | 확장 변경 사항 적용 완료                       |
 | DB_INSTANCE_57_04       | DB_INSTANCE       | 확장 변경 사항 적용 실패                       |
+| DB_INSTANCE_58_00       | DB_INSTANCE       | OS 버전 업그레이드 시작                       |
+| DB_INSTANCE_58_01       | DB_INSTANCE       | OS 버전 업그레이드 완료                       |
+| DB_INSTANCE_58_04       | DB_INSTANCE       | OS 버전 업그레이드 실패                       |
+| DB_INSTANCE_59_00       | DB_INSTANCE       | 스토리지 자동 확장 시작                        |
+| DB_INSTANCE_59_01       | DB_INSTANCE       | 스토리지 자동 확장 완료                        |
+| DB_INSTANCE_59_04       | DB_INSTANCE       | 스토리지 자동 확장 실패                        |
 | DB_SECURITY_GROUP_01_01 | DB_SECURITY_GROUP | DB 보안 그룹 생성                          |
 | DB_SECURITY_GROUP_02_00 | DB_SECURITY_GROUP | DB 보안 그룹 변경 시작                       |
 | DB_SECURITY_GROUP_02_01 | DB_SECURITY_GROUP | DB 보안 그룹 변경 완료                       |
@@ -156,9 +162,9 @@
 
 ### 이벤트 구독
 
-이벤트를 구독하면 이벤트 발생 시 이메일 및 SMS로 알림을 받을 수 있습니다. 이벤트 구독에 연결된 사용자 그룹의 사용자들에게 알림을 발송합니다. 이벤트 유형, 이벤트 코드, 이벤트 소스로 세분화하여 구독할 수 있습니다. 잠시 알림을 중단하려면 이벤트 구독의 활성화 여부를 수정합니다. 활성화하지 않으면 알림을 발송하지 않습니다.
+이벤트를 구독하면 이벤트 발생 시 이메일 및 SMS로 알림을 받을 수 있습니다. 이벤트 구독에 연결된 사용자 그룹의 사용자에게 알림을 발송합니다. 이벤트 유형, 이벤트 코드, 이벤트 소스로 세분화하여 구독할 수 있습니다. 잠시 알림을 중단하려면 이벤트 구독의 활성화 여부를 수정합니다. 활성화하지 않으면 알림을 발송하지 않습니다.
 
-![event-subscription](https://static.toastoven.net/prod_rds_postgres/20240813/event-subscription-ko.png)
+![event-subscription](https://static-station.ngoic.com/v1/AUTH_c8bd5293535a46f8bc6705b349f67ea3/cdn/prod_rds_postgres/20240813/event-subscription-ko.png)
 
 * ❶ **이벤트 구독 등록**을 누르면 이벤트 구독을 등록할 수 있는 팝업 창이 나타납니다.
 * ❷ 구독할 이벤트 유형을 선택합니다. 이벤트 유형에 따라 선택할 수 있는 이벤트 코드가 변경됩니다.
