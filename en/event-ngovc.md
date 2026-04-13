@@ -2,7 +2,7 @@
 
 ## Event
 
-Event refers to RDS for PostgreSQL or a significant event that is caused by a user. Event consists of event category , the date and time of occurrence, the source and the message. Event can be viewed on the console, and the category of events and possible events are as follows.
+Event refers to RDS for PostgreSQL or a significant event that is caused by a user's action. Event consists of event category , the date and time of occurrence, the source and the message. Event can be viewed on the console, and the category of events and possible events are as follows:
 
 | Event Code              | Event Category    | Description                                                                   |
 |-------------------------|-------------------|-------------------------------------------------------------------------------|
@@ -89,8 +89,8 @@ Event refers to RDS for PostgreSQL or a significant event that is caused by a us
 | DB_INSTANCE_33_01       | DB_INSTANCE       | DB instance force promotion completed                                         |
 | DB_INSTANCE_33_04       | DB_INSTANCE       | DB instance force promotion failed                                            |
 | DB_INSTANCE_34_00       | DB_INSTANCE       | DB instance replication rebuilding started                                    |
-| DB_INSTANCE_34_01       | DB_INSTANCE       | DB instance replication rebuilding started                                    |
-| DB_INSTANCE_34_04       | DB_INSTANCE       | DB instance replication rebuilding started                                    |
+| DB_INSTANCE_34_01       | DB_INSTANCE       | DB instance replication rebuilding completed                                    |
+| DB_INSTANCE_34_04       | DB_INSTANCE       | DB instance replication rebuilding failed                                    |
 | DB_INSTANCE_35_00       | DB_INSTANCE       | DB instance replication latency                                               |
 | DB_INSTANCE_35_01       | DB_INSTANCE       | End DB instance replication latency                                           |
 | DB_INSTANCE_36_00       | DB_INSTANCE       | Stop DB instance replication                                                  |
@@ -142,6 +142,12 @@ Event refers to RDS for PostgreSQL or a significant event that is caused by a us
 | DB_INSTANCE_57_00       | DB_INSTANCE       | Applying extension changes started                                            |
 | DB_INSTANCE_57_01       | DB_INSTANCE       | Applying extension changes completed                                          |
 | DB_INSTANCE_57_04       | DB_INSTANCE       | Applying extension changes failed                                             |
+| DB_INSTANCE_58_00       | DB_INSTANCE       | OS version upgrade started                       |
+| DB_INSTANCE_58_01       | DB_INSTANCE       | OS version upgrade completed                       |
+| DB_INSTANCE_58_04       | DB_INSTANCE       | OS version upgrade failed                       |
+| DB_INSTANCE_59_00       | DB_INSTANCE       | Auto scale storage started                        |
+| DB_INSTANCE_59_01       | DB_INSTANCE       | Auto scale storage completed                        |
+| DB_INSTANCE_59_04       | DB_INSTANCE       | Auto scale storage failed                        |
 | DB_SECURITY_GROUP_01_01 | DB_SECURITY_GROUP | DB security group created                                                     |
 | DB_SECURITY_GROUP_02_00 | DB_SECURITY_GROUP | Changing DB security group started                                            |
 | DB_SECURITY_GROUP_02_01 | DB_SECURITY_GROUP | Changing DB security group completed                                          |
@@ -156,9 +162,9 @@ Event refers to RDS for PostgreSQL or a significant event that is caused by a us
 
 ### Subscribe to Events
 
-If subscribed to an event, a notification will be received via email and SMS when the event occurs. Notifications are sent to users of the user group subscribed to the event. Subscription can be subdivided by event type, event code, and event source. In order to temporarily stop the notifications, modify the enabled event subscription. If disabled, notifications are not sent.
+If subscribed to an event, a notification will be received via email and SMS when the event occurs. Notifications are sent to a user of the user group subscribed to the event. Subscription can be subdivided by event type, event code, and event source. In order to temporarily stop the notifications, modify the enabled event subscription. If disabled, notifications are not sent.
 
-![event-subscription](https://static.toastoven.net/prod_rds_postgres/20240813/event-subscription-en.png)
+![event-subscription](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20240813/event-subscription-en.png)
 
 * ❶ Click **Register Event Subscription**and a pop-up window will appear where you can sign up for an event subscription.
 * ❷ Select the type of event you want to subscribe to. The event type changes the event codes you can select.
