@@ -1729,7 +1729,7 @@ GET /v1.0/db-instances/{dbInstanceId}/restoration-info
 ### DB 인스턴스 복원하기
 
 ```http
-GET /v1.0/db-instances/{dbInstanceId}/restore
+POST /v1.0/db-instances/{dbInstanceId}/restore
 ```
 
 #### 필요 권한
@@ -3282,26 +3282,6 @@ GET /v1.0/backups
             "completedYmdt": "2023-02-22T00:35:32+09:00"
         }
     ]
-}
-```
-</details>
-
-#### 응답
-
-| 이름    | 종류   | 형식   | 설명          |
-|-------|------|------|-------------|
-| jobId | Body | UUID | 요청한 작업의 식별자 |
-
-<details><summary>예시</summary>
-
-```json
-{
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "jobId": "0ddb042c-5af6-43fb-a914-f4dd0540eb7c"
 }
 ```
 </details>

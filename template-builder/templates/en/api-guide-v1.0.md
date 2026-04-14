@@ -1730,7 +1730,7 @@ GET /v1.0/db-instances/{dbInstanceId}/restoration-info
 ### Restore DB Instance
 
 ```http
-GET /v1.0/db-instances/{dbInstanceId}/restore
+POST /v1.0/db-instances/{dbInstanceId}/restore
 ```
 
 #### Required permissions
@@ -3282,26 +3282,6 @@ This API does not require a request body.
             "completedYmdt": "2023-02-22T00:35:32+09:00"
         }
     ]
-}
-```
-</details>
-
-#### Response
-
-| Name    | Type   | Format   | Description          |
-|-------|------|------|-------------|
-| jobId | Body | UUID | Identifier of requested task |
-
-<details><summary>Example</summary>
-
-```json
-{
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "jobId": "0ddb042c-5af6-43fb-a914-f4dd0540eb7c"
 }
 ```
 </details>

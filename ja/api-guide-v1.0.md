@@ -1729,7 +1729,7 @@ GET /v1.0/db-instances/{dbInstanceId}/restoration-info
 ### DBインスタンスの復元
 
 ```http
-GET /v1.0/db-instances/{dbInstanceId}/restore
+POST /v1.0/db-instances/{dbInstanceId}/restore
 ```
 
 #### 必要権限
@@ -3280,26 +3280,6 @@ GET /v1.0/backups
             "completedYmdt": "2023-02-22T00:35:32+09:00"
         }
     ]
-}
-```
-</details>
-
-#### レスポンス
-
-| 名前   | 種類  | 形式  | 説明         |
-|-------|------|------|-------------|
-| jobId | Body | UUID | リクエストした作業の識別子 |
-
-<details><summary>例</summary>
-
-```json
-{
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "jobId": "0ddb042c-5af6-43fb-a914-f4dd0540eb7c"
 }
 ```
 </details>
