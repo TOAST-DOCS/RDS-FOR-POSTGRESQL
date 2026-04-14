@@ -1729,7 +1729,7 @@ GET /v1.0/db-instances/{dbInstanceId}/restoration-info
 ### DBインスタンスの復元
 
 ```http
-GET /v1.0/db-instances/{dbInstanceId}/restore
+POST /v1.0/db-instances/{dbInstanceId}/restore
 ```
 
 #### 必要権限

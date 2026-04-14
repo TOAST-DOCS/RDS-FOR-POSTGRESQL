@@ -1730,7 +1730,7 @@ GET /v1.0/db-instances/{dbInstanceId}/restoration-info
 ### Restore DB Instance
 
 ```http
-GET /v1.0/db-instances/{dbInstanceId}/restore
+POST /v1.0/db-instances/{dbInstanceId}/restore
 ```
 
 #### Required permissions
