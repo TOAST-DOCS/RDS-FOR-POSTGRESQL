@@ -1729,7 +1729,7 @@ GET /v1.0/db-instances/{dbInstanceId}/restoration-info
 ### DB 인스턴스 복원하기
 
 ```http
-GET /v1.0/db-instances/{dbInstanceId}/restore
+POST /v1.0/db-instances/{dbInstanceId}/restore
 ```
 
 #### 필요 권한
