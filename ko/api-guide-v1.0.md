@@ -3286,26 +3286,6 @@ GET /v1.0/backups
 ```
 </details>
 
-#### 응답
-
-| 이름    | 종류   | 형식   | 설명          |
-|-------|------|------|-------------|
-| jobId | Body | UUID | 요청한 작업의 식별자 |
-
-<details><summary>예시</summary>
-
-```json
-{
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "jobId": "0ddb042c-5af6-43fb-a914-f4dd0540eb7c"
-}
-```
-</details>
-
 ### 오브젝트 스토리지로 백업 내보내기
 
 ```http

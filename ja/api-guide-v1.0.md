@@ -3284,26 +3284,6 @@ GET /v1.0/backups
 ```
 </details>
 
-#### レスポンス
-
-| 名前   | 種類  | 形式  | 説明         |
-|-------|------|------|-------------|
-| jobId | Body | UUID | リクエストした作業の識別子 |
-
-<details><summary>例</summary>
-
-```json
-{
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "jobId": "0ddb042c-5af6-43fb-a914-f4dd0540eb7c"
-}
-```
-</details>
-
 ### オブジェクトストレージにバックアップをエクスポート
 
 ```http
