@@ -44,7 +44,7 @@ When you create a DB instance, you must select the appropriate DB instance type 
 | Type | Description                                                                                                                              |
 |------|------------------------------------------------------------------------------------------------------------------------------------------|
 | m2   | This is a type that balances CPU and memory.                                                                                             |
-| c2   | This is an Instance type with high CPU performance.                                                                                      |
+| c2   | This is an Instance type with high CPU performance.                                      |
 | r2   | It can be used when memory is used more than other resources.                                                                            |
 | x1   | It is a type that supports high-specification CPU and memory. It can be used for services or applications that require high performance. |
 
@@ -61,7 +61,7 @@ Stores the database's data files in data storage. DB instances support two types
 > You cannot change the data storage type of an already created DB instance.
 
 > [Note]
-> To use more than 2TB of data storage, contact NHN Cloud Customer Center.
+> To use more than 2TB of data storage, contact NHN Cloud Customer Support.
 
 The following tasks use the I/O capacity of the data storage, which may degrade the performance of DB instances during the process.
 
@@ -461,6 +461,12 @@ For high-availability DB instances, we provide a failover restart feature to inc
 
 If you do not use restart with failover, the changes are applied sequentially to the master and candidate master, and then the DB instance is restarted. For more information, see [Manual Failover Items](db-instance/#_7) in High Availability DB Instances.
 
+### Database User Control
+
+RDS for PostgreSQL provides management features in the console for easy management of databases and users, but also provides a feature to allow users to control them directly. When direct control is enabled, `CREATEDB` and `CREATEROLE` privileges are granted to all DDL users currently created. The same privileges are granted when modifying the privileges of existing users via DDL or when creating new users.
+
+> [Caution]
+> If the privileges managed by RDS are not granted to a directly created user, the user is represented with **CUSTOM** privileges.
 
 ## Delete DB instance
 
@@ -641,7 +647,7 @@ To restart a DB instance, use console
 
 ## Force Restart DB Instances
 
-If PostgreSQL of a DB instance is not working properly, you can force a restart. For a forced restart, issue a SIGTERM command to PostgreSQL and wait 10 minutes for normal shutdown. After PostgreSQL shuts down successfully in 10 minutes, reboot the virtual machine afterward. If it does not shut down normally in 10 minutes, force a reboot of the virtual machine. If a virtual machine is forced to reboot, some work-in-progress transactions may be lost and the data volume may become corrupted, making it impossible to recover. After a forced restart, the state of the DB instance might not return to the enabled state. Please contact the customer center if such situation occurs.
+If PostgreSQL of a DB instance is not working properly, you can force a restart. For a forced restart, issue a SIGTERM command to PostgreSQL and wait 10 minutes for normal shutdown. After PostgreSQL shuts down successfully in 10 minutes, reboot the virtual machine afterward. If it does not shut down normally in 10 minutes, force a reboot of the virtual machine. If a virtual machine is forced to reboot, some work-in-progress transactions may be lost and the data volume may become corrupted, making it impossible to recover. After a forced restart, the state of the DB instance might not return to the enabled state. Please contact the customer support if such situation occurs.
 
 > [Caution]
 > This feature should be avoided to use, except in urgent and unavoidable circumstances, as data may be lost or data volume may be compromised.
@@ -838,7 +844,7 @@ You can check the detailed schedule of maintenance by putting the mouse pointer 
 #### 2. You have to end the application that is connecting to the DB instance for maintenance targets.
 
 Take appropriate measures to avoid affecting services connected to the DB.
-If you have no choice but to affect the service, please contact NHN Cloud Customer Center and we will guide you with appropriate measures.
+If you have no choice but to affect the service, please contact NHN Cloud Customer Support and we will guide you with appropriate measures.
 
 #### 3. Select the DB instance to be checked, click on Migration button and when a window appears asking for confirmation of the DB instance migration, click on the OK button.
 
@@ -846,7 +852,7 @@ If you have no choice but to affect the service, please contact NHN Cloud Custom
 
 #### 4. Wait for DB instance migration to finish.
 
-If the DB instance status does not change, 'refresh'.
+If the DB instance status does not change, click **Refresh**.
 
 ![db-instance-planned-migration-status]({{url.cdn}}/20241210/db-instance-planned-migration-status-{{lang}}.png)
 
