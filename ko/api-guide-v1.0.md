@@ -88,6 +88,9 @@ GET /v1.0/db-versions
     },
     "dbVersions": [
         {
+            "dbVersionCode": "MYSQL_V5633",
+            "dbMajorVersionCode": "MYSQL_V56",
+            "name": "PostgreSQL V14.6",
             "canCreate": false
         }
     ]
@@ -133,6 +136,9 @@ GET /v1.0/db-flavors
     },
     "dbFlavors": [
         {
+            "dbFlavorId": "289e34e9-cd8a-4baf-82e3-a3d013c5186b",
+            "dbFlavorName": "r2.c2m4",
+            "ram": 4096,
             "vcpus": 2
         }
     ]
@@ -178,6 +184,9 @@ GET /v1.0/project/members
     },
     "projectMembers": [
         {
+            "memberId": "memberId-example",
+            "memberName": "memberName-example",
+            "emailAddress": "emailAddress-example",
             "phoneNumber": "phoneNumber-example"
         }
     ]
@@ -219,6 +228,7 @@ GET /v1.0/project/regions
     },
     "regions": [
         {
+            "regionCode": "KR1",
             "isEnabled": false
         }
     ]
@@ -247,7 +257,7 @@ GET /v1.0/network/subnets
 | 이름 | 종류 | 형식 | 설명 |
 |-----|-----|-----|-----|
 | subnets | Body | Array | 서브넷 정보 |
-| subnets.subnetId | Body | String | 서브넷의 식별자 |
+| subnets.subnetId | Body | UUID | 서브넷의 식별자 |
 | subnets.subnetName | Body | String | 서브넷을 식별할 수 있는 이름 |
 | subnets.subnetCidr | Body | String | 서브넷의 CIDR |
 | subnets.usingGateway | Body | Boolean | 게이트웨이 사용 여부 |
@@ -265,6 +275,10 @@ GET /v1.0/network/subnets
     },
     "subnets": [
         {
+            "subnetId": "550e8400-e29b-41d4-a716-446655440000",
+            "subnetName": "subnetName-example",
+            "subnetCidr": "subnetCidr-example",
+            "usingGateway": false,
             "availableIpCount": 1
         }
     ]
@@ -372,6 +386,7 @@ GET /v1.0/jobs/{jobId}
     "jobStatus": "DELETED",
     "resourceRelations": [
         {
+            "resourceType": "resourceType-example",
             "resourceId": "resourceId-example"
         }
     ],
@@ -420,6 +435,10 @@ GET /v1.0/db-instance-groups
     },
     "dbInstanceGroups": [
         {
+            "dbInstanceGroupId": "dbInstanceGroupId-example",
+            "dbInstanceGroupStatus": "CREATED",
+            "replicationType": "STANDALONE",
+            "createdYmdt": "2023-12-31T15:00:00+09:00",
             "updatedYmdt": "2023-12-31T15:00:00+09:00"
         }
     ]
@@ -474,6 +493,8 @@ GET /v1.0/db-instance-groups/{dbInstanceGroupId}
     "replicationType": "STANDALONE",
     "dbInstances": [
         {
+            "dbInstanceId": "dbInstanceId-example",
+            "dbInstanceType": "MASTER",
             "dbInstanceStatus": "BEFORE_CREATE"
         }
     ],
@@ -530,9 +551,19 @@ GET /v1.0/db-instance-groups/{dbInstanceGroupId}/extensions
     },
     "extensions": [
         {
-            "databases": {
-                "errorReason": "errorReason-example"
-            }
+            "extensionId": "extensionId-example",
+            "extensionName": "extensionName-example",
+            "extensionStatus": "AVAILABLE",
+            "databases": [
+                {
+                    "dbInstanceGroupExtensionId": "dbInstanceGroupExtensionId-example",
+                    "databaseId": "databaseId-example",
+                    "databaseName": "databaseName-example",
+                    "dbInstanceGroupExtensionStatus": "CREATED",
+                    "reservedAction": "NONE",
+                    "errorReason": "errorReason-example"
+                }
+            ]
         }
     ],
     "isNeedToApply": false
@@ -766,6 +797,16 @@ GET /v1.0/db-instances
     },
     "dbInstances": [
         {
+            "dbInstanceId": "dbInstanceId-example",
+            "dbInstanceGroupId": "dbInstanceGroupId-example",
+            "dbInstanceName": "dbInstanceName-example",
+            "description": "description-example",
+            "dbVersion": "ENUM_VALUE",
+            "dbPort": 1,
+            "dbInstanceType": "MASTER",
+            "dbInstanceStatus": "BEFORE_CREATE",
+            "progressStatus": "progressStatus-example",
+            "createdYmdt": "2023-12-31T15:00:00+09:00",
             "updatedYmdt": "2023-12-31T15:00:00+09:00"
         }
     ]
@@ -854,6 +895,7 @@ POST /v1.0/db-instances
         "backupRetryCount": 0,
         "backupSchedules": [
             {
+                "backupWndBgnTime": "backupWndBgnTime-example",
                 "backupWndDuration": "HALF_AN_HOUR"
             }
         ]
@@ -965,6 +1007,7 @@ POST /v1.0/db-instances/restore-from-obs
         "replicationRegion": "KR1",
         "backupSchedules": [
             {
+                "backupWndBgnTime": "backupWndBgnTime-example",
                 "backupWndDuration": "HALF_AN_HOUR"
             }
         ]
@@ -1273,6 +1316,9 @@ GET /v1.0/db-instances/{dbInstanceId}/available-db-versions
     },
     "availableDbVersions": [
         {
+            "dbVersionCode": "MYSQL_V5633",
+            "dbMajorVersionCode": "MYSQL_V56",
+            "name": "PostgreSQL V14.6",
             "canCreate": false
         }
     ]
@@ -1376,6 +1422,7 @@ GET /v1.0/db-instances/{dbInstanceId}/backup-info
     "backupRetryCount": 1,
     "backupSchedules": [
         {
+            "backupWndBgnTime": "backupWndBgnTime-example",
             "backupWndDuration": "HALF_AN_HOUR"
         }
     ]
@@ -1417,6 +1464,7 @@ PUT /v1.0/db-instances/{dbInstanceId}/backup-info
     "backupRetryCount": 0,
     "backupSchedules": [
         {
+            "backupWndBgnTime": "backupWndBgnTime-example",
             "backupWndDuration": "HALF_AN_HOUR"
         }
     ]
@@ -1548,9 +1596,16 @@ GET /v1.0/db-instances/{dbInstanceId}/databases
     },
     "databases": [
         {
-            "schemas": {
-                "schemaName": "schemaName-example"
-            }
+            "databaseId": "databaseId-example",
+            "databaseName": "databaseName-example",
+            "databaseStatus": "STABLE",
+            "createdYmdt": "2023-12-31T15:00:00+09:00",
+            "updatedYmdt": "2023-12-31T15:00:00+09:00",
+            "schemas": [
+                {
+                    "schemaName": "schemaName-example"
+                }
+            ]
         }
     ]
 }
@@ -1742,6 +1797,11 @@ GET /v1.0/db-instances/{dbInstanceId}/db-users
     },
     "dbUsers": [
         {
+            "dbUserId": "dbUserId-example",
+            "dbUserName": "dbUserName-example",
+            "authorityType": "CUSTOM",
+            "dbUserStatus": "STABLE",
+            "createdYmdt": "2023-12-31T15:00:00+09:00",
             "updatedYmdt": "2023-12-31T15:00:00+09:00"
         }
     ]
@@ -2007,6 +2067,26 @@ GET /v1.0/db-instances/{dbInstanceId}/hba-rules
     },
     "hbaRules": [
         {
+            "hbaRuleId": "hbaRuleId-example",
+            "hbaRuleStatus": "CREATED",
+            "databaseApplyType": "ENTIRE",
+            "dbUserApplyTypeCode": "ENTIRE",
+            "databases": [
+                {
+                    "databaseId": "databaseId-example",
+                    "databaseName": "databaseName-example"
+                }
+            ],
+            "dbUsers": [
+                {
+                    "dbUserId": "dbUserId-example",
+                    "dbUserName": "dbUserName-example"
+                }
+            ],
+            "address": "address-example",
+            "authMethod": "TRUST",
+            "reservedAction": "NONE",
+            "order": 1,
             "applicable": false
         }
     ],
@@ -2622,6 +2702,8 @@ GET /v1.0/db-instances/{dbInstanceId}/network-info
     },
     "endPoints": [
         {
+            "domain": "domain-example",
+            "ipAddress": "ipAddress-example",
             "endPointType": "endPointType-example"
         }
     ]
@@ -2891,6 +2973,19 @@ GET /v1.0/db-instances/{dbInstanceId}/restoration-info
     "latestRestorableYmdt": "2023-12-31T15:00:00+09:00",
     "restorableBackups": [
         {
+            "backupId": "backupId-example",
+            "backupName": "backupName-example",
+            "backupStatus": "BACKING_UP",
+            "dbInstanceId": "dbInstanceId-example",
+            "dbInstanceName": "dbInstanceName-example",
+            "dbVersion": "ENUM_VALUE",
+            "backupType": "AUTO",
+            "backupSize": 1,
+            "failoverCount": 1,
+            "walFileName": "walFileName-example",
+            "createdYmdt": "2023-12-31T15:00:00+09:00",
+            "updatedYmdt": "2023-12-31T15:00:00+09:00",
+            "startYmdt": "2023-12-31T15:00:00+09:00",
             "completedYmdt": "2023-12-31T15:00:00+09:00"
         }
     ]
@@ -2975,6 +3070,7 @@ POST /v1.0/db-instances/{dbInstanceId}/restore
         "replicationRegion": "KR1",
         "backupSchedules": [
             {
+                "backupWndBgnTime": "backupWndBgnTime-example",
                 "backupWndDuration": "HALF_AN_HOUR"
             }
         ]
@@ -3244,6 +3340,16 @@ GET /v1.0/backups
     "totalCounts": 1,
     "backups": [
         {
+            "backupId": "backupId-example",
+            "backupName": "backupName-example",
+            "backupStatus": "BACKING_UP",
+            "dbInstanceId": "dbInstanceId-example",
+            "dbVersion": "ENUM_VALUE",
+            "backupType": "AUTO",
+            "backupSize": 1,
+            "startYmdt": "2023-12-31T15:00:00+09:00",
+            "createdYmdt": "2023-12-31T15:00:00+09:00",
+            "updatedYmdt": "2023-12-31T15:00:00+09:00",
             "completedYmdt": "2023-12-31T15:00:00+09:00"
         }
     ]
@@ -3422,6 +3528,7 @@ POST /v1.0/backups/{backupId}/restore
         "backupRetryCount": 0,
         "backupSchedules": [
             {
+                "backupWndBgnTime": "backupWndBgnTime-example",
                 "backupWndDuration": "HALF_AN_HOUR"
             }
         ]
@@ -3503,6 +3610,12 @@ GET /v1.0/db-security-groups
     },
     "dbSecurityGroups": [
         {
+            "dbSecurityGroupId": "dbSecurityGroupId-example",
+            "dbSecurityGroupName": "dbSecurityGroupName-example",
+            "dbSecurityGroupStatus": "CREATED",
+            "description": "description-example",
+            "progressStatus": "NONE",
+            "createdYmdt": "2023-12-31T15:00:00+09:00",
             "updatedYmdt": "2023-12-31T15:00:00+09:00"
         }
     ]
@@ -3545,6 +3658,14 @@ POST /v1.0/db-security-groups
     "description": "description-example",
     "rules": [
         {
+            "direction": "INGRESS",
+            "etherType": "IPV4",
+            "port": {
+                "portType": "ALL",
+                "minPort": 1,
+                "maxPort": 1
+            },
+            "cidr": "cidr-example",
             "description": "description-example"
         }
     ]
@@ -3656,6 +3777,17 @@ GET /v1.0/db-security-groups/{dbSecurityGroupId}
         "progressStatus": "NONE",
         "rules": [
             {
+                "ruleId": "ruleId-example",
+                "description": "description-example",
+                "direction": "INGRESS",
+                "etherType": "IPV4",
+                "port": {
+                    "portType": "ALL",
+                    "minPort": 1,
+                    "maxPort": 1
+                },
+                "cidr": "cidr-example",
+                "createdYmdt": "2023-12-31T15:00:00+09:00",
                 "updatedYmdt": "2023-12-31T15:00:00+09:00"
             }
         ],
@@ -3911,6 +4043,12 @@ GET /v1.0/parameter-groups
     },
     "parameterGroups": [
         {
+            "parameterGroupId": "parameterGroupId-example",
+            "parameterGroupName": "parameterGroupName-example",
+            "description": "description-example",
+            "dbVersion": "ENUM_VALUE",
+            "parameterGroupStatus": "STABLE",
+            "createdYmdt": "2023-12-31T15:00:00+09:00",
             "updatedYmdt": "2023-12-31T15:00:00+09:00"
         }
     ]
@@ -4054,6 +4192,15 @@ GET /v1.0/parameter-groups/{parameterGroupId}
     "parameterGroupStatus": "STABLE",
     "parameters": [
         {
+            "parameterCategory": "parameterCategory-example",
+            "parameterName": "parameterName-example",
+            "value": "value-example",
+            "valueUnit": "valueUnit-example",
+            "defaultValue": "defaultValue-example",
+            "allowedValue": "allowedValue-example",
+            "valueType": "BOOLEAN",
+            "updateType": "VARIABLE",
+            "applyType": "BOTH",
             "expressionAvailable": false
         }
     ],
@@ -4174,6 +4321,7 @@ PUT /v1.0/parameter-groups/{parameterGroupId}/parameters
 {
     "modifiedParameters": [
         {
+            "parameterName": "parameterName-example",
             "value": "value-example"
         }
     ]
@@ -4244,6 +4392,10 @@ GET /v1.0/user-groups
     },
     "userGroups": [
         {
+            "userGroupId": "userGroupId-example",
+            "userGroupName": "userGroupName-example",
+            "userGroupStatus": "CREATED",
+            "createdYmdt": "2023-12-31T15:00:00+09:00",
             "updatedYmdt": "2023-12-31T15:00:00+09:00"
         }
     ]
@@ -4457,6 +4609,13 @@ GET /v1.0/notification-groups
     },
     "notificationGroups": [
         {
+            "notificationGroupId": "notificationGroupId-example",
+            "notificationGroupName": "notificationGroupName-example",
+            "notificationGroupStatus": "CREATED",
+            "notifyEmail": false,
+            "notifySms": false,
+            "isEnabled": false,
+            "createdYmdt": "2023-12-31T15:00:00+09:00",
             "updatedYmdt": "2023-12-31T15:00:00+09:00"
         }
     ]
@@ -4598,11 +4757,13 @@ GET /v1.0/notification-groups/{notificationGroupId}
     "isEnabled": false,
     "dbInstances": [
         {
+            "dbInstanceId": "dbInstanceId-example",
             "dbInstanceName": "dbInstanceName-example"
         }
     ],
     "userGroups": [
         {
+            "userGroupId": "userGroupId-example",
             "userGroupName": "userGroupName-example"
         }
     ],
@@ -4695,6 +4856,11 @@ GET /v1.0/notification-groups/{notificationGroupId}/watchdogs
     },
     "notificationWatchdogs": [
         {
+            "watchdogId": "watchdogId-example",
+            "metricName": "metricName-example",
+            "comparisonOperator": "LE",
+            "threshold": 1,
+            "duration": 1,
             "createdYmdt": "2023-12-31T15:00:00+09:00"
         }
     ]
@@ -4869,6 +5035,7 @@ GET /v1.0/metrics
     },
     "metrics": [
         {
+            "metricName": "metricName-example",
             "unit": "unit-example"
         }
     ]
@@ -4925,6 +5092,7 @@ GET /v1.0/event-codes
     },
     "eventCodes": [
         {
+            "eventCode": "ENUM_VALUE",
             "eventCategoryType": "ALL"
         }
     ]
@@ -4974,6 +5142,16 @@ GET /v1.0/events
     "totalCounts": 1,
     "events": [
         {
+            "eventCategoryType": "ALL",
+            "eventCode": "ENUM_VALUE",
+            "sourceId": "sourceId-example",
+            "sourceName": "sourceName-example",
+            "messages": [
+                {
+                    "langCode": "KO",
+                    "message": "message-example"
+                }
+            ],
             "eventYmdt": "2023-12-31T15:00:00+09:00"
         }
     ]
