@@ -2,7 +2,7 @@
 
 ## DB 인스턴스
 
-DB 인스턴스는 가상 장비와 설치된 PostgreSQL을 아우르는 개념으로, RDS for PostgreSQL에서 제공하는 PostgreSQL의 단위입니다.
+DB 인스턴스는 가상 머신과 설치된 PostgreSQL을 아우르는 개념으로, RDS for PostgreSQL에서 제공하는 PostgreSQL의 단위입니다.
 DB 인스턴스의 운영체제에 직접 접근할 수 없으며, 오직 DB 인스턴스 생성 시 입력한 포트를 통해 데이터베이스에만 접근할 수 있습니다. 사용할 수 있는 포트 범위는 아래와 같은 제약 사항이 있습니다.
 
 * 사용할 수 있는 포트 범위는 5432~45432 사이입니다.
@@ -11,7 +11,7 @@ DB 인스턴스는 고객이 부여하는 이름과 자동으로 부여되는 32
 DB 인스턴스 이름은 아래와 같은 제약 사항이 있습니다.
 
 * DB 인스턴스 이름은 리전별로 고유해야 합니다.
-* DB 인스턴스 이름은 1~100 사이의 영문자, 숫자, 일부 기호(-, _, .)만 사용할 수 있으며, 첫 번째 글자는 영문자만 사용할 수 있습니다.
+* DB 인스턴스 이름은 1~100자 사이의 영문자, 숫자, 일부 기호(-, _, .)만 사용할 수 있으며, 첫 번째 글자는 영문자만 사용할 수 있습니다.
 
 ## DB 인스턴스 생성
 
@@ -44,7 +44,7 @@ DB 인스턴스 생성 시 데이터베이스 워크로드에 따라 알맞은 D
 | 타입 | 설명                                                        |
 |----|-----------------------------------------------------------|
 | m2 | CPU와 메모리를 균형 있게 설정한 타입입니다.                                |
-| c2 | CPU의 성능을 높게 설정한 인스턴스 타입입니다.                               |
+| c2 | CPU 성능을 높게 설정한 타입입니다.                                      |
 | r2 | 다른 자원에 비해 메모리의 사용량이 많은 경우 사용할 수 있습니다.                     |
 | x1 | 고사양의 CPU와 메모리를 지원하는 타입입니다. 높은 성능이 필요한 서비스나 애플리케이션에 사용합니다. |
 
@@ -61,7 +61,7 @@ DB 인스턴스 생성 시 데이터베이스 워크로드에 따라 알맞은 D
 > 이미 생성한 DB 인스턴스의 데이터 스토리지 유형은 변경할 수 없습니다.
 
 > [참고]
-> 데이터 스토리지를 2TB 이상 사용하려면 NHN Cloud 고객 센터로 연락하세요.
+> 데이터 스토리지를 2TB 이상 사용하려면 NHN Cloud 고객지원으로 연락하세요.
 
 아래 작업은 데이터 스토리지의 I/O 용량을 사용하기 때문에 진행되는 동안 DB 인스턴스의 성능이 저하될 수 있습니다.
 
@@ -98,7 +98,7 @@ DB 인스턴스 기본 정보를 설정합니다. 인스턴스 이름, 설명, D
 
 ### 파라미터 그룹
 
-파라미터 그룹은 DB 인스턴스에 설치된 데이터베이스를 설정할 수 있는 파라미터의 집합입니다. DB 인스턴스 생성 시 반드시 하나의 파라미터 그룹을 선택해야 합니다. 파라미터 그룹은 생성 이후에도 자유롭게 변경이 가능합니다. 파라미터 그룹에 대한 자세한 설명은 [파라미터 그룹](parameter-group-ngovc/) 항목을 참고합니다.
+파라미터 그룹은 DB 인스턴스에 설치된 데이터베이스를 설정할 수 있는 파라미터의 집합입니다. DB 인스턴스 생성 시 반드시 하나의 파라미터 그룹을 선택해야 합니다. 파라미터 그룹은 생성 이후에도 자유롭게 변경할 수 있습니다. 파라미터 그룹에 대한 자세한 설명은 [파라미터 그룹](parameter-group-ngovc/) 항목을 참고합니다.
 
 ### DB 보안 그룹
 
@@ -135,7 +135,7 @@ DB 인스턴스 생성 시 기본 알림을 설정할 수 있습니다. 기본 �
 
 콘솔에서 생성된 DB 인스턴스를 확인할 수 있습니다. DB 인스턴스 그룹 단위로 묶어서 보거나, 개별 DB 인스턴스로 볼 수 있습니다.
 
-![db-instance-list](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20240813/db-instance-list-basic-ko.png)
+![db-instance-list](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260609/db-instance-list-basic-ko.png)
 
 ❶ DB 인스턴스 화면 모드를 변경할 수 있습니다.
 ❷ 자물쇠 아이콘을 클릭해 삭제 보호 설정을 변경할 수 있습니다.
@@ -159,7 +159,7 @@ DB 인스턴스의 상태는 아래와 같은 값들로 구성되며, 사용자�
 
 변경할 수 있는 검색 조건은 아래와 같습니다.
 
-![db-instance-list-filter](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20240813/db-instance-list-filter-ko.png)
+![db-instance-list-filter](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260609/db-instance-list-filter-ko.png)
 
 ❶ DB 인스턴스 상태를 필터링 조건으로 검색할 수 있습니다.
 ❷ 가용성 영역을 필터링 조건으로 검색할 수 있습니다.
@@ -168,7 +168,7 @@ DB 인스턴스의 상태는 아래와 같은 값들로 구성되며, 사용자�
 
 DB 인스턴스를 선택하면 상세 정보를 볼 수 있습니다.
 
-![db-instance-detail-basic](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20240813/db-instance-detail-basic-ko.png)
+![db-instance-detail-basic](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260609/db-instance-detail-basic-ko.png)
 
 ❶ 접속 정보의 도메인을 클릭하면 IP 주소를 확인할 수 있는 팝업 창이 나타납니다.
 ❷ DB 보안 그룹을 클릭하면 DB 보안 규칙을 확인할 수 있는 팝업 창이 나타납니다.
@@ -184,14 +184,14 @@ DB 인스턴스 생성 시 내부 도메인을 발급합니다. 내부 도메인
 
 ### 로그
 
-DB 인스턴스의 로그 탭에서는 각종 로그 파일을 보거나 다운로드할 수 있습니다. 로그 파일은 아래와 같이 정해진 설정으로 로테이트 됩니다. 일부 로그 파일은 파라미터 그룹에서 활성화하거나 비활성화할 수 있습니다.
+DB 인스턴스의 로그 탭에서는 각종 로그 파일을 보거나 다운로드할 수 있습니다. 로그 파일은 아래와 같이 정해진 설정으로 로테이트됩니다. 일부 로그 파일은 파라미터 그룹에서 활성화하거나 비활성화할 수 있습니다.
 
 | 항목             | 로테이트 설정   | 변경 여부 | 
 |----------------|-----------|-------|
 | postgresql.log | 100MB 40개 | 고정    |
 | backup.log     | 데일리 10개   | 고정    |
 
-![db-instance-detail-log](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20240813/db-instance-detail-log-ko.png)
+![db-instance-detail-log](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260609/db-instance-detail-log-ko.png)
 
 ❶ **로그 보기**를 클릭하면 로그 파일의 내용을 확인할 수 있는 팝업 창이 나타납니다. 최대 65,535Bytes의 로그를 확인할 수 있습니다.
 ❷ **가져오기**를 클릭하면 DB 인스턴스의 로그 파일을 다운로드할 수 있도록 요청합니다.
@@ -209,7 +209,7 @@ DB 인스턴스의 **데이터베이스 & 사용자** 탭에서는 DB 엔진에 
 
 #### 데이터베이스 생성
 
-![db-instance-detail-db-create](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260210/db-instance-detail-db-create-ko.png)
+![db-instance-detail-db-create](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260609/db-instance-detail-db-create-ko.png)
 
 ❶ **+ 생성**을 클릭하면 데이터베이스의 이름을 입력할 수 있는 팝업 창이 나타납니다.
 ❷ 데이터베이스 이름을 입력한 뒤 **생성**을 클릭하여 데이터베이스를 생성할 수 있습니다.
@@ -223,7 +223,7 @@ DB 인스턴스의 **데이터베이스 & 사용자** 탭에서는 DB 엔진에 
 
 #### 데이터베이스 수정
 
-![db-instance-detail-db-modify](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260210/db-instance-detail-db-modify-ko.png)
+![db-instance-detail-db-modify](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260609/db-instance-detail-db-modify-ko.png)
 
 ❶ 수정할 데이터베이스 행의 **수정**을 클릭하면 데이터베이스 정보를 수정할 수 있는 팝업 창이 나타납니다.
 ❷ DDL 사용자를 선택해 소유자로 설정할 수 있습니다.
@@ -233,21 +233,21 @@ DB 인스턴스의 **데이터베이스 & 사용자** 탭에서는 DB 엔진에 
 
 #### 데이터베이스 동기화
 
-![db-instance-detail-db-sync](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260210/db-instance-detail-db-sync-ko.png)
+![db-instance-detail-db-sync](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260609/db-instance-detail-db-sync-ko.png)
 
 ❶ **동기화**를 클릭하면 **동기화 확인** 팝업 창이 나타납니다.
 ❷ **확인**을 클릭하여 동기화를 요청할 수 있습니다.
 
 #### 데이터베이스 삭제
 
-![db-instance-detail-db-delete](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260210/db-instance-detail-db-delete-ko.png)
+![db-instance-detail-db-delete](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260609/db-instance-detail-db-delete-ko.png)
 
 ❶ 삭제할 데이터베이스를 선택 후 **삭제**를 클릭하면 **삭제 확인** 팝업 창이 나타납니다.
 ❷ **삭제**를 클릭하여 삭제를 요청할 수 있습니다.
 
 #### 스키마 수정
 
-![db-instance-detail-schema-modify](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260210/db-instance-detail-schema-modify-ko.png)
+![db-instance-detail-schema-modify](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260609/db-instance-detail-schema-modify-ko.png)
 
 ❶ 수정할 스키마 행의 **수정**을 클릭하면 스키마 정보를 수정할 수 있는 팝업 창이 나타납니다.
 ❷ DDL 사용자를 선택해 소유자로 설정할 수 있습니다.
@@ -256,7 +256,7 @@ DB 인스턴스의 **데이터베이스 & 사용자** 탭에서는 DB 엔진에 
 
 #### 사용자 생성
 
-![db-instance-detail-user-create](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260210/db-instance-detail-user-create-ko.png)
+![db-instance-detail-user-create](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260609/db-instance-detail-user-create-ko.png)
 
 ❶ **+ 생성**을 클릭하면 **사용자 추가** 팝업 창이 나타납니다.
 ❷ 사용자 ID를 입력합니다.
@@ -288,7 +288,7 @@ DB 인스턴스의 **데이터베이스 & 사용자** 탭에서는 DB 엔진에 
 
 #### 사용자 수정
 
-![db-instance-detail-user-modify](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260210/db-instance-detail-user-modify-ko.png)
+![db-instance-detail-user-modify](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260609/db-instance-detail-user-modify-ko.png)
 
 ❶ 수정할 사용자 행의 **수정**을 클릭하면 사용자 정보를 수정할 수 있는 팝업 창이 나타납니다.
 ❷ 비밀번호를 입력하지 않으면 변경되지 않습니다.
@@ -296,19 +296,19 @@ DB 인스턴스의 **데이터베이스 & 사용자** 탭에서는 DB 엔진에 
 
 #### 사용자 동기화
 
-![db-instance-detail-user-sync](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260210/db-instance-detail-user-sync-ko.png)
+![db-instance-detail-user-sync](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260609/db-instance-detail-user-sync-ko.png)
 
 ❶ **동기화**를 클릭하면 **동기화 확인** 팝업 창이 나타납니다.
 ❷ **확인**을 클릭하여 동기화를 요청할 수 있습니다.
 
 #### 사용자 삭제
 
-![db-instance-detail-user-delete](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260210/db-instance-detail-user-delete-ko.png)
+![db-instance-detail-user-delete](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260609/db-instance-detail-user-delete-ko.png)
 
 ❶ 삭제할 사용자를 선택 후 드롭다운 메뉴를 클릭합니다.
 ❷ **삭제**를 클릭하면 **삭제 확인** 팝업 창이 나타납니다. **확인**을 클릭하여 삭제를 요청할 수 있습니다.
 
-![db-instance-detail-user-delete-with-option](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260210/db-instance-detail-user-delete-with-option-ko.png)
+![db-instance-detail-user-delete-with-option](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260609/db-instance-detail-user-delete-with-option-ko.png)
 
 ❶ 삭제할 사용자가 소유한 객체가 있는 경우 하단에 추가 옵션이 나타납니다. 선택할 수 있는 옵션과 설명은 다음과 같습니다.
 
@@ -332,7 +332,7 @@ DB 인스턴스의 **데이터베이스 & 사용자** 탭에서는 DB 엔진에 
 
 DB 인스턴스의 **접근 제어** 탭에서는 특정 데이터베이스와 사용자에 대한 DB 엔진 접근 규칙을 조회 및 제어할 수 있습니다. 여기에 설정한 규칙은 `pg_hba.conf` 파일에 적용됩니다.
 
-![db-instance-detail-hba](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20240813/db-instance-detail-hba-ko.png)
+![db-instance-detail-hba](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260609/db-instance-detail-hba-ko.png)
 
 ❶ 접근 제어 규칙에 대한 적용 상태를 볼 수 있습니다.
 ❷ 진행 중인 작업이 있으면 스피너가 나타납니다.
@@ -354,7 +354,7 @@ DB 인스턴스의 **접근 제어** 탭에서는 특정 데이터베이스와 �
 
 #### 접근 제어 규칙 추가
 
-![db-instance-detail-hba-create](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260414/db-instance-detail-hba-create-ko.png)
+![db-instance-detail-hba-create](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260609/db-instance-detail-hba-create-ko.png)
 
 ❶ **+ 생성**을 클릭하면 **접근 제어 규칙 추가** 팝업 창이 나타납니다.
 ❷ 입력 방식을 **기본**으로 선택하면 DB 인스턴스에 저장된 데이터베이스나 사용자를 지정하여 규칙을 추가할 수 있습니다.
@@ -376,21 +376,21 @@ DB 인스턴스의 **접근 제어** 탭에서는 특정 데이터베이스와 �
 ❼ 설정을 마친 뒤 **변경 사항 적용**을 클릭해 DB 인스턴스에 접근 제어 설정을 적용합니다.
 ❽ DB 인스턴스에 적용되면 상태가 **적용됨**으로 변경됩니다.
 
-![db-instance-detail-hba-create-by-text](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260414/db-instance-detail-hba-create-by-text-ko.png)
+![db-instance-detail-hba-create-by-text](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260609/db-instance-detail-hba-create-by-text-ko.png)
 
 ❶ 입력 방식을 **규칙 원문으로 대량 추가**로 선택하면 `pg_hba.conf` 원문을 그대로 입력해 규칙을 대량 추가할 수 있습니다.
 ❷ 주석을 포함한 `pg_hba.conf` 원문을 그대로 사용할 수 있으며 자세한 내용은 [PostgreSQL 홈페이지](https://www.postgresql.org/docs/17/auth-pg-hba-conf.html)를 참고하세요.
 
 #### 접근 제어 규칙 수정
 
-![db-instance-detail-hba-modify](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20240813/db-instance-detail-hba-modify-ko.png)
+![db-instance-detail-hba-modify](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260609/db-instance-detail-hba-modify-ko.png)
 
 ❶ 수정할 접근 제어 규칙 행의 **수정**을 클릭하면 기존 정보를 수정할 수 있는 팝업 창이 나타납니다.
 ❷ 수정한 규칙은 **변경 사항 적용**을 클릭해 DB 인스턴스에 접근 제어 설정을 적용해야 합니다.
 
 #### 접근 제어 규칙 삭제
 
-![db-instance-detail-hba-delete](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20240813/db-instance-detail-hba-delete-ko.png)
+![db-instance-detail-hba-delete](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260609/db-instance-detail-hba-delete-ko.png)
 
 ❶ 삭제할 접근 제어 규칙을 선택 후 **삭제**를 클릭하면 **삭제 확인** 팝업 창이 나타납니다.
 ❷ 삭제한 규칙은 **변경 사항 적용**을 클릭해 DB 인스턴스에 접근 제어 설정을 적용해야 합니다.
@@ -402,7 +402,7 @@ DB 인스턴스의 **확장 관리** 탭에서는 SUPERUSER 권한이 필요한 
 
 #### 확장 설치
 
-![db-instance-detail-extension-install](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20250415/db-instance-detail-extension-install-ko.png)
+![db-instance-detail-extension-install](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260609/db-instance-detail-extension-install-ko.png)
 
 ❶ **설치**를 클릭하면 선택한 확장을 설치할 데이터베이스를 선택할 수 있는 팝업 창이 나타납니다.
 ❷ **강제 설치**를 체크하면 의존 관계에 있는 확장들을 강제 설치합니다.
@@ -412,7 +412,7 @@ DB 인스턴스의 **확장 관리** 탭에서는 SUPERUSER 권한이 필요한 
 
 #### 확장 삭제
 
-![db-instance-detail-extension-delete](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20250415/db-instance-detail-extension-delete-ko.png)
+![db-instance-detail-extension-delete](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260609/db-instance-detail-extension-delete-ko.png)
 
 ❶ 삭제할 데이터베이스 행에서 **삭제**를 클릭하면 **삭제 확인** 팝업 창이 나타납니다.
 ❷ **강제 삭제**를 체크하면 의존 관계에 있는 확장들을 강제 삭제합니다.
@@ -422,7 +422,7 @@ DB 인스턴스의 **확장 관리** 탭에서는 SUPERUSER 권한이 필요한 
 
 #### 확장 동기화
 
-![db-instance-detail-extension-sync](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20250415/db-instance-detail-extension-sync-ko.png)
+![db-instance-detail-extension-sync](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260609/db-instance-detail-extension-sync-ko.png)
 
 ❶ **동기화**를 클릭하면 **동기화 확인** 팝업 창이 나타납니다.
 ❷ **확인**을 클릭하여 동기화를 요청할 수 있습니다.
@@ -459,6 +459,12 @@ DB 인스턴스의 **확장 관리** 탭에서는 SUPERUSER 권한이 필요한 
 
 장애 조치를 이용한 재시작을 사용하지 않으면 마스터와 예비 마스터에 변경 사항을 순차적으로 적용한 후 DB 인스턴스를 재시작합니다. 자세한 사항은 고가용성 DB 인스턴스의 [수동 장애 조치 항목](db-instance-ngovc/#_7)을 참고합니다.
 
+### 데이터베이스 사용자 제어
+
+RDS for PostgreSQL에서는 데이터베이스와 사용자를 손쉽게 관리할 수 있도록 콘솔에서 관리 기능을 제공하지만, 사용자가 직접 제어할 수 있도록 설정하는 기능도 제공합니다. 직접 제어를 사용하면 현재 생성된 모든 DDL 사용자에게 `CREATEDB`, `CREATEROLE` 권한을 부여합니다. 기존 사용자의 권한을 DDL로 수정하거나 신규 생성 시에도 동일하게 부여합니다.
+
+> [주의]
+> 직접 생성한 사용자에게 RDS에서 관리하는 권한이 부여되지 않으면 **CUSTOM** 권한으로 표현됩니다.
 
 ## DB 인스턴스 삭제
 
@@ -487,13 +493,13 @@ DB 인스턴스의 데이터 스토리지 크기를 자동으로 확장할 수 �
 
 스토리지 자동 확장을 활성화하면 세 가지 옵션을 설정할 수 있습니다.
 * 스토리지 자동 확장 조건: 스토리지 사용률이 설정한 값 이상으로 5분 이상 지속될 때 자동으로 스토리지를 확장합니다.
-* 스토리지 자동 확장 최대값: 스토리지 자동 확장으로 확장될 수 있는 최대 크기입니다.
-* 스토리지 자동 확장 쿨다운: 스토리지 자동 확장 기능이 한번 실행된 후, 다시 기능이 활성화되기까지의 시간을 설정합니다.
+* 스토리지 자동 확장 최댓값: 스토리지 자동 확장으로 확장될 수 있는 최대 크기입니다.
+* 스토리지 자동 확장 쿨다운: 스토리지 자동 확장 기능이 한 번 실행된 후, 다시 기능이 활성화되기까지의 시간을 설정합니다.
 
 스토리지 자동 확장 기능이 실행될 때의 증가량은 다음 값들 중 가장 큰 값으로 설정됩니다.
 * 10GB
 * 스토리지 크기의 10%
-* 직전 한시간의 데이터 스토리지 사용량 증가분 * 쿨다운(시간으로 환산)
+* 직전 1시간의 데이터 스토리지 사용량 증가분 * 쿨다운(시간으로 환산)
 
 ## 파라미터 그룹 변경 사항 적용
 
@@ -501,19 +507,19 @@ DB 인스턴스에 연결된 파라미터 그룹의 설정이 변경되어도 �
 
 다음 방법 중 하나를 사용하여 DB 인스턴스에 파라미터 그룹의 변경 사항을 적용할 수 있습니다.
 
-![db-instance-list-apply-parameter-group](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20240813/db-instance-list-apply-parameter-group-ko.png)
+![db-instance-list-apply-parameter-group](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260609/db-instance-list-apply-parameter-group-ko.png)
 
 ❶ 대상 DB 인스턴스의 **파라미터**를 클릭하거나
 ❷ 대상 DB 인스턴스를 선택한 후 드롭다운 메뉴에서 **파라미터 그룹 변경 사항 적용** 메뉴를 클릭합니다.
 
 파라미터 그룹에서 재시작을 필요로 하는 파라미터가 변경된 경우 변경 사항을 적용하는 과정에서 DB 인스턴스가 재시작됩니다.
 
-![db-instance-list-apply-parameter-group-popup](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20240813/db-instance-list-apply-parameter-group-popup-ko.png)
+![db-instance-list-apply-parameter-group-popup](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260609/db-instance-list-apply-parameter-group-popup-ko.png)
 
 ❶ **변경 사항 비교**를 클릭해 변경된 파라미터를 확인할 수 있습니다.
 ❷ 변경 사항 확인 후 **확인**을 클릭해 DB 인스턴스에 변경된 파라미터를 적용합니다.
 
-![db-instance-list-apply-parameter-group-compare-popup](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20240813/db-instance-list-apply-parameter-group-compare-popup-ko.png)
+![db-instance-list-apply-parameter-group-compare-popup](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260609/db-instance-list-apply-parameter-group-compare-popup-ko.png)
 
 ## 백업 후 오브젝트 스토리지로 백업 파일 내보내기
 
@@ -546,7 +552,7 @@ RDS for PostgreSQL에서 오브젝트 스토리지로 내보낸 백업 파일을
 
 읽기 복제본을 생성하려면 콘솔에서
 
-![db-instance-list-replica-create](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20240813/db-instance-list-replica-create-ko.png)
+![db-instance-list-replica-create](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260609/db-instance-list-replica-create-ko.png)
 
 ❶ 원본 DB 인스턴스를 선택한 뒤 **읽기 복제본 생성**을 클릭하면 읽기 복제본을 생성하기 위한 페이지로 이동합니다.
 
@@ -611,7 +617,7 @@ RDS for PostgreSQL에서 오브젝트 스토리지로 내보낸 백업 파일을
 
 읽기 복제본 승격 혹은 강제 승격 중에 복제 지연이 해소될 때까지 대기하는 경우 대기 작업을 종료하려면 콘솔에서
 
-![db-instance-list-stop-wait-replication-lag](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20250415/db-instance-list-stop-wait-replication-lag-ko.png)
+![db-instance-list-stop-wait-replication-lag](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260609/db-instance-list-stop-wait-replication-lag-ko.png)
 
 ❶ **복제 지연 대기**를 클릭하면 대기 작업을 종료할 수 있는 팝업 창이 나타납니다.
 ❷ **확인**을 클릭해 대기 작업을 종료합니다.
@@ -629,24 +635,24 @@ RDS for PostgreSQL에서 오브젝트 스토리지로 내보낸 백업 파일을
 
 ## DB 인스턴스 재시작
 
-PostgreSQL을 재시작하고자 할 때 DB 인스턴스를 재시작할 수 있습니다. 재시작 시간을 최소화하기 위해 서비스 부하가 낮은 시간대에 수행하는 것이 좋습니다.
+PostgreSQL을 재시작하려면 DB 인스턴스를 재시작합니다. 재시작 시간을 최소화하기 위해 서비스 부하가 낮은 시간대에 수행하는 것이 좋습니다.
 
 DB 인스턴스를 재시작하려면 콘솔에서
 
-![db-instance-list-restart](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20240813/db-instance-list-restart-ko.png)
+![db-instance-list-restart](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260609/db-instance-list-restart-ko.png)
 
 ❶ 재시작할 DB 인스턴스를 선택한 뒤 드롭다운 메뉴에서 **DB 인스턴스 재시작** 메뉴를 클릭합니다.
 
 ## DB 인스턴스 강제 재시작
 
-DB 인스턴스의 PostgreSQL이 정상 동작하지 않는 경우 강제로 재시작할 수 있습니다. 강제 재시작의 경우 PostgreSQL에 SIGTERM 명령을 내려 정상 종료되기를 10분간 기다립니다. 10분 안에 PostgreSQL이 정상 종료되면 이후 가상 머신을 재부팅합니다. 10분 안에 정상 종료되지 않으면 가상 머신을 강제로 재부팅합니다. 가상 머신이 강제로 재부팅되면 작업 중인 일부 트랜잭션이 유실될 수 있으며, 데이터 볼륨이 손상되어 복구가 불가능해질 수 있습니다. 강제 재시작 이후 DB 인스턴스의 상태가 사용 가능 상태로 돌아오지 않을 수 있습니다. 해당 상황 발생 시 고객 센터로 문의하세요.
+DB 인스턴스의 PostgreSQL이 정상 동작하지 않는 경우 강제로 재시작할 수 있습니다. 강제 재시작의 경우 PostgreSQL에 SIGTERM 명령을 내려 정상 종료되기를 10분간 기다립니다. 10분 안에 PostgreSQL이 정상 종료되면 이후 가상 머신을 재부팅합니다. 10분 안에 정상 종료되지 않으면 가상 머신을 강제로 재부팅합니다. 가상 머신이 강제로 재부팅되면 작업 중인 일부 트랜잭션이 유실될 수 있으며, 데이터 볼륨이 손상되어 복구가 불가능해질 수 있습니다. 강제 재시작 이후 DB 인스턴스의 상태가 사용 가능 상태로 돌아오지 않을 수 있습니다. 해당 상황 발생 시 고객지원으로 문의하세요.
 
 > [주의]
 > 데이터가 유실되거나 데이터 볼륨이 손상될 가능성이 있으므로 해당 기능은 긴급하고 불가피한 상황 이외에는 사용을 지양해야 합니다.
 
 DB 인스턴스를 강제 재시작하려면 콘솔에서
 
-![db-instance-list-force-restart](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20240813/db-instance-list-force-restart-ko.png)
+![db-instance-list-force-restart](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260609/db-instance-list-force-restart-ko.png)
 
 ❶ 강제 재시작을 원하는 DB 인스턴스를 선택 후 드롭다운 메뉴에서 **DB 인스턴스 강제 재시작** 메뉴를 클릭합니다.
 
@@ -654,11 +660,11 @@ DB 인스턴스를 강제 재시작하려면 콘솔에서
 
 삭제 보호를 활성화하면 실수로 DB 인스턴스가 삭제되지 않도록 보호할 수 있습니다. 삭제 보호를 비활성화할 때까지 해당 DB 인스턴스를 삭제할 수 없습니다. 삭제 보호 설정을 변경하려면
 
-![db-instance-deletion-protection](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20240813/db-instance-list-deletion-protection-ko.png)
+![db-instance-deletion-protection](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260609/db-instance-list-deletion-protection-ko.png)
 
 ❶ 삭제 보호 설정을 변경하려는 DB 인스턴스를 선택 후 드롭다운 메뉴에서 **삭제 보호 설정 변경** 메뉴를 클릭하면 팝업 창이 나타납니다.
 
-![deletion-protection-popup](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20240813/db-instance-list-deletion-protection-popup-ko.png)
+![deletion-protection-popup](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260609/db-instance-list-deletion-protection-popup-ko.png)
 
 ❷ 삭제 보호 설정을 변경한 뒤 **확인**을 클릭합니다.
 
@@ -695,7 +701,7 @@ DB 인스턴스를 강제 재시작하려면 콘솔에서
 
 장애 조치된 마스터를 복구하려면 콘솔에서
 
-![db-instance-ha-failover-repair](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20241210/db-instance-ha-failover-repair-ko.png)
+![db-instance-ha-failover-repair](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260609/db-instance-ha-failover-repair-ko.png)
 
 ❶ 복구를 원하는 장애 조치된 마스터를 선택 후 드롭다운 메뉴에서 **장애 조치된 마스터 복구** 메뉴를 클릭합니다.
 
@@ -714,7 +720,7 @@ DB 인스턴스를 강제 재시작하려면 콘솔에서
 
 장애 조치된 마스터를 재구축하려면 콘솔에서
 
-![db-instance-ha-failover-rebuild](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20241210/db-instance-ha-failover-rebuild-ko.png)
+![db-instance-ha-failover-rebuild](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260609/db-instance-ha-failover-rebuild-ko.png)
 
 ❶ 재구축을 원하는 장애 조치된 마스터를 선택 후 드롭다운 메뉴에서 **장애 조치된 마스터 재구축** 메뉴를 클릭합니다.
 
@@ -724,7 +730,7 @@ DB 인스턴스를 강제 재시작하려면 콘솔에서
 
 장애 조치된 마스터를 분리하려면 콘솔에서
 
-![db-instance-ha-failover-split](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20241210/db-instance-ha-failover-split-ko.png)
+![db-instance-ha-failover-split](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260609/db-instance-ha-failover-split-ko.png)
 
 ❶ 분리를 원하는 장애 조치된 마스터를 선택 후 드롭다운 메뉴에서 **장애 조치된 마스터 분리** 메뉴를 클릭합니다.
 
@@ -755,7 +761,7 @@ DB 인스턴스를 강제 재시작하려면 콘솔에서
 
 예비 마스터에 변경 사항을 먼저 적용한 뒤 그 추이를 관찰하거나, 정확한 시간에 장애 조치를 실행하고자 할 때 콘솔에서 장애 조치 시점을 직접 제어할 수 있습니다. 장애 조치 수동 제어를 선택하면 예비 마스터가 재시작된 후 ❶ 콘솔에 **장애 조치** 버튼이 표시됩니다. 이 버튼을 클릭하면 장애 조치가 실행되며, 최대 5일간 실행을 대기할 수 있습니다. 5일 이내에 장애 조치를 실행하지 않을 경우 해당 작업은 자동으로 취소됩니다.
 
-![db-instance-ha-wait-manual-failover](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20241210/db-instance-ha-wait-manual-failover-ko.png)
+![db-instance-ha-wait-manual-failover](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260609/db-instance-ha-wait-manual-failover-ko.png)
 
 > [주의]
 > 장애 조치를 대기하는 동안에는 자동 장애 조치가 되지 않습니다.
@@ -786,7 +792,7 @@ DB 인스턴스를 강제 재시작하려면 콘솔에서
 
 * NHN Cloud RDS의 인스턴스를 준비하여 사용합니다.
 * 내보낼 데이터를 저장하게 될 외부 인스턴스, 또는 로컬 클라이언트가 설치된 컴퓨터의 용량이 충분히 확보되어 있는지 확인합니다.
-* NHN Cloud의 외부로 데이터를 내보내야 할 경우 Floating IP를 생성하여 데이터를 내보낼 RDS 인스턴스에 연결합니다.
+* NHN Cloud의 외부로 데이터를 내보내야 할 경우 플로팅 IP를 생성하여 데이터를 내보낼 RDS 인스턴스에 연결합니다.
 * 아래의 pg_dump 명령어를 통하여 외부로 데이터를 내보냅니다.
 
 #### 파일로 내보낼 경우
@@ -798,7 +804,7 @@ pg_dump -h {DB 인스턴스 외부 도메인 주소} -U {DB 인스턴스 사용�
 #### NHN Cloud RDS 외부의 PostgreSQL 데이터베이스로 내보낼 경우
 
 ```
-pg_dump  -h {DB 인스턴스 외부 도메인 주소} -U {DB 인스턴스 사용자 ID} -p {DB 인스턴스 접속 포트} -d {내보낼 대상 데이터베이스명} | psql -h {외부 PostgreSQL 접속 주소} -U {외부 PostgreSQL 사용자 ID} -p {외부 PostgreSQL 접속 포트} -d {외부 PostgreSQL 데이터베이스명}
+pg_dump -h {DB 인스턴스 외부 도메인 주소} -U {DB 인스턴스 사용자 ID} -p {DB 인스턴스 접속 포트} -d {내보낼 대상 데이터베이스명} | psql -h {외부 PostgreSQL 접속 주소} -U {외부 PostgreSQL 사용자 ID} -p {외부 PostgreSQL 접속 포트} -d {외부 PostgreSQL 데이터베이스명}
 ```
 
 ### pg_dump를 이용하여 가져오기
@@ -812,7 +818,7 @@ pg_dump  -h {DB 인스턴스 외부 도메인 주소} -U {DB 인스턴스 사용
 4. 아래의 명령어를 통하여 외부로부터 데이터를 가져옵니다.
 
 ```
-pg_dump  -h {외부 PostgreSQL 접속 주소} -U {외부 PostgreSQL 사용자 ID} -p {외부 PostgreSQL 접속 포트} -d {외부 PostgreSQL 데이터베이스명} | psql -h {DB 인스턴스 외부 도메인 주소} -U {DB 인스턴스 사용자 ID} -p {DB 인스턴스 접속 포트} -d {DB 인스턴스 데이터베이스명}
+pg_dump -h {외부 PostgreSQL 접속 주소} -U {외부 PostgreSQL 사용자 ID} -p {외부 PostgreSQL 접속 포트} -d {외부 PostgreSQL 데이터베이스명} | psql -h {DB 인스턴스 외부 도메인 주소} -U {DB 인스턴스 사용자 ID} -p {DB 인스턴스 접속 포트} -d {DB 인스턴스 데이터베이스명}
 ```
 
 
@@ -831,26 +837,26 @@ DB 인스턴스 마이그레이션은 NHN Cloud 콘솔에서 시작할 수 있�
 
 이름 옆에 마이그레이션 버튼이 있는 DB 인스턴스가 점검 대상 인스턴스입니다.
 
-![db-instance-planned-migration](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20240813/db-instance-planned-migration-ko.png)
+![db-instance-planned-migration](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260609/db-instance-planned-migration-ko.png)
 
 마이그레이션 버튼 위에 마우스 포인터를 올리면 자세한 점검 일정을 확인할 수 있습니다.
 
-![db-instance-planned-migration-popup](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20240813/db-instance-planned-migration-popup-ko.png)
+![db-instance-planned-migration-popup](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260609/db-instance-planned-migration-popup-ko.png)
 
 #### 2. 점검 대상 DB 인스턴스에 접속 중인 응용 프로그램을 종료해야 합니다.
 
 DB에 연결된 서비스에 영향을 주지 않도록 적절히 조치하세요.
-서비스에 영향을 줄 수밖에 없을 때는 NHN Cloud 고객 센터로 연락주시면 적합한 조치를 안내해 드립니다.
+서비스에 영향을 줄 수밖에 없을 때는 NHN Cloud 고객지원으로 연락하시면 적합한 조치를 안내해 드립니다.
 
 #### 3. 점검 대상 DB 인스턴스를 선택하고 마이그레이션 버튼을 클릭한 후 DB 인스턴스 마이그레이션 확인을 묻는 창이 나타나면 확인 버튼을 클릭합니다.
 
-![db-instance-planned-migration-confirm](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20240813/db-instance-planned-migration-confirm-ko.png)
+![db-instance-planned-migration-confirm](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260609/db-instance-planned-migration-confirm-ko.png)
 
 #### 4. DB 인스턴스 마이그레이션이 끝날 때까지 대기합니다.
 
-DB 인스턴스 상태가 변경되지 않는다면 '새로 고침'하세요.
+DB 인스턴스 상태가 변경되지 않는다면 **새로 고침**을 클릭하세요.
 
-![db-instance-planned-migration-status](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20240813/db-instance-planned-migration-status-ko.png)
+![db-instance-planned-migration-status](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260609/db-instance-planned-migration-status-ko.png)
 
 DB 인스턴스가 마이그레이션되는 동안에는 아무런 조작을 할 수 없습니다.
 DB 인스턴스 마이그레이션이 정상적으로 완료되지 않으면 자동으로 관리자에게 보고되며, NHN Cloud에서 별도로 연락을 드립니다.
