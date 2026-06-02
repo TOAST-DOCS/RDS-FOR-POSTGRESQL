@@ -135,7 +135,7 @@ DB 인스턴스 생성 시 기본 알림을 설정할 수 있습니다. 기본 �
 
 콘솔에서 생성된 DB 인스턴스를 확인할 수 있습니다. DB 인스턴스 그룹 단위로 묶어서 보거나, 개별 DB 인스턴스로 볼 수 있습니다.
 
-![db-instance-list]({{url.cdn}}/20240813/db-instance-list-basic-{{lang}}.png)
+![db-instance-list]({{url.cdn}}/20260609/db-instance-list-basic-{{lang}}.png)
 
 ❶ DB 인스턴스 화면 모드를 변경할 수 있습니다.
 ❷ 자물쇠 아이콘을 클릭해 삭제 보호 설정을 변경할 수 있습니다.
@@ -159,7 +159,7 @@ DB 인스턴스의 상태는 아래와 같은 값들로 구성되며, 사용자�
 
 변경할 수 있는 검색 조건은 아래와 같습니다.
 
-![db-instance-list-filter]({{url.cdn}}/20240813/db-instance-list-filter-{{lang}}.png)
+![db-instance-list-filter]({{url.cdn}}/20260609/db-instance-list-filter-{{lang}}.png)
 
 ❶ DB 인스턴스 상태를 필터링 조건으로 검색할 수 있습니다.
 ❷ 가용성 영역을 필터링 조건으로 검색할 수 있습니다.
@@ -168,7 +168,7 @@ DB 인스턴스의 상태는 아래와 같은 값들로 구성되며, 사용자�
 
 DB 인스턴스를 선택하면 상세 정보를 볼 수 있습니다.
 
-![db-instance-detail-basic]({{url.cdn}}/20240813/db-instance-detail-basic-{{lang}}.png)
+![db-instance-detail-basic]({{url.cdn}}/20260609/db-instance-detail-basic-{{lang}}.png)
 
 ❶ 접속 정보의 도메인을 클릭하면 IP 주소를 확인할 수 있는 팝업 창이 나타납니다.
 ❷ DB 보안 그룹을 클릭하면 DB 보안 규칙을 확인할 수 있는 팝업 창이 나타납니다.
@@ -191,7 +191,7 @@ DB 인스턴스의 로그 탭에서는 각종 로그 파일을 보거나 다운�
 | postgresql.log | 100MB 40개 | 고정    |
 | backup.log     | 데일리 10개   | 고정    |
 
-![db-instance-detail-log]({{url.cdn}}/20240813/db-instance-detail-log-{{lang}}.png)
+![db-instance-detail-log]({{url.cdn}}/20260609/db-instance-detail-log-{{lang}}.png)
 
 ❶ **로그 보기**를 클릭하면 로그 파일의 내용을 확인할 수 있는 팝업 창이 나타납니다. 최대 65,535Bytes의 로그를 확인할 수 있습니다.
 ❷ **가져오기**를 클릭하면 DB 인스턴스의 로그 파일을 다운로드할 수 있도록 요청합니다.
@@ -209,7 +209,7 @@ DB 인스턴스의 **데이터베이스 & 사용자** 탭에서는 DB 엔진에 
 
 #### 데이터베이스 생성
 
-![db-instance-detail-db-create]({{url.cdn}}/20260210/db-instance-detail-db-create-{{lang}}.png)
+![db-instance-detail-db-create]({{url.cdn}}/20260609/db-instance-detail-db-create-{{lang}}.png)
 
 ❶ **+ 생성**을 클릭하면 데이터베이스의 이름을 입력할 수 있는 팝업 창이 나타납니다.
 ❷ 데이터베이스 이름을 입력한 뒤 **생성**을 클릭하여 데이터베이스를 생성할 수 있습니다.
@@ -223,7 +223,7 @@ DB 인스턴스의 **데이터베이스 & 사용자** 탭에서는 DB 엔진에 
 
 #### 데이터베이스 수정
 
-![db-instance-detail-db-modify]({{url.cdn}}/20260210/db-instance-detail-db-modify-{{lang}}.png)
+![db-instance-detail-db-modify]({{url.cdn}}/20260609/db-instance-detail-db-modify-{{lang}}.png)
 
 ❶ 수정할 데이터베이스 행의 **수정**을 클릭하면 데이터베이스 정보를 수정할 수 있는 팝업 창이 나타납니다.
 ❷ DDL 사용자를 선택해 소유자로 설정할 수 있습니다.
@@ -233,21 +233,21 @@ DB 인스턴스의 **데이터베이스 & 사용자** 탭에서는 DB 엔진에 
 
 #### 데이터베이스 동기화
 
-![db-instance-detail-db-sync]({{url.cdn}}/20260210/db-instance-detail-db-sync-{{lang}}.png)
+![db-instance-detail-db-sync]({{url.cdn}}/20260609/db-instance-detail-db-sync-{{lang}}.png)
 
 ❶ **동기화**를 클릭하면 **동기화 확인** 팝업 창이 나타납니다.
 ❷ **확인**을 클릭하여 동기화를 요청할 수 있습니다.
 
 #### 데이터베이스 삭제
 
-![db-instance-detail-db-delete]({{url.cdn}}/20260210/db-instance-detail-db-delete-{{lang}}.png)
+![db-instance-detail-db-delete]({{url.cdn}}/20260609/db-instance-detail-db-delete-{{lang}}.png)
 
 ❶ 삭제할 데이터베이스를 선택 후 **삭제**를 클릭하면 **삭제 확인** 팝업 창이 나타납니다.
 ❷ **삭제**를 클릭하여 삭제를 요청할 수 있습니다.
 
 #### 스키마 수정
 
-![db-instance-detail-schema-modify]({{url.cdn}}/20260210/db-instance-detail-schema-modify-{{lang}}.png)
+![db-instance-detail-schema-modify]({{url.cdn}}/20260609/db-instance-detail-schema-modify-{{lang}}.png)
 
 ❶ 수정할 스키마 행의 **수정**을 클릭하면 스키마 정보를 수정할 수 있는 팝업 창이 나타납니다.
 ❷ DDL 사용자를 선택해 소유자로 설정할 수 있습니다.
@@ -256,7 +256,7 @@ DB 인스턴스의 **데이터베이스 & 사용자** 탭에서는 DB 엔진에 
 
 #### 사용자 생성
 
-![db-instance-detail-user-create]({{url.cdn}}/20260210/db-instance-detail-user-create-{{lang}}.png)
+![db-instance-detail-user-create]({{url.cdn}}/20260609/db-instance-detail-user-create-{{lang}}.png)
 
 ❶ **+ 생성**을 클릭하면 **사용자 추가** 팝업 창이 나타납니다.
 ❷ 사용자 ID를 입력합니다.
@@ -288,7 +288,7 @@ DB 인스턴스의 **데이터베이스 & 사용자** 탭에서는 DB 엔진에 
 
 #### 사용자 수정
 
-![db-instance-detail-user-modify]({{url.cdn}}/20260210/db-instance-detail-user-modify-{{lang}}.png)
+![db-instance-detail-user-modify]({{url.cdn}}/20260609/db-instance-detail-user-modify-{{lang}}.png)
 
 ❶ 수정할 사용자 행의 **수정**을 클릭하면 사용자 정보를 수정할 수 있는 팝업 창이 나타납니다.
 ❷ 비밀번호를 입력하지 않으면 변경되지 않습니다.
@@ -296,19 +296,19 @@ DB 인스턴스의 **데이터베이스 & 사용자** 탭에서는 DB 엔진에 
 
 #### 사용자 동기화
 
-![db-instance-detail-user-sync]({{url.cdn}}/20260210/db-instance-detail-user-sync-{{lang}}.png)
+![db-instance-detail-user-sync]({{url.cdn}}/20260609/db-instance-detail-user-sync-{{lang}}.png)
 
 ❶ **동기화**를 클릭하면 **동기화 확인** 팝업 창이 나타납니다.
 ❷ **확인**을 클릭하여 동기화를 요청할 수 있습니다.
 
 #### 사용자 삭제
 
-![db-instance-detail-user-delete]({{url.cdn}}/20260210/db-instance-detail-user-delete-{{lang}}.png)
+![db-instance-detail-user-delete]({{url.cdn}}/20260609/db-instance-detail-user-delete-{{lang}}.png)
 
 ❶ 삭제할 사용자를 선택 후 드롭다운 메뉴를 클릭합니다.
 ❷ **삭제**를 클릭하면 **삭제 확인** 팝업 창이 나타납니다. **확인**을 클릭하여 삭제를 요청할 수 있습니다.
 
-![db-instance-detail-user-delete-with-option]({{url.cdn}}/20260210/db-instance-detail-user-delete-with-option-{{lang}}.png)
+![db-instance-detail-user-delete-with-option]({{url.cdn}}/20260609/db-instance-detail-user-delete-with-option-{{lang}}.png)
 
 ❶ 삭제할 사용자가 소유한 객체가 있는 경우 하단에 추가 옵션이 나타납니다. 선택할 수 있는 옵션과 설명은 다음과 같습니다.
 
@@ -332,7 +332,7 @@ DB 인스턴스의 **데이터베이스 & 사용자** 탭에서는 DB 엔진에 
 
 DB 인스턴스의 **접근 제어** 탭에서는 특정 데이터베이스와 사용자에 대한 DB 엔진 접근 규칙을 조회 및 제어할 수 있습니다. 여기에 설정한 규칙은 `pg_hba.conf` 파일에 적용됩니다.
 
-![db-instance-detail-hba]({{url.cdn}}/20240813/db-instance-detail-hba-{{lang}}.png)
+![db-instance-detail-hba]({{url.cdn}}/20260609/db-instance-detail-hba-{{lang}}.png)
 
 ❶ 접근 제어 규칙에 대한 적용 상태를 볼 수 있습니다.
 ❷ 진행 중인 작업이 있으면 스피너가 나타납니다.
@@ -354,7 +354,7 @@ DB 인스턴스의 **접근 제어** 탭에서는 특정 데이터베이스와 �
 
 #### 접근 제어 규칙 추가
 
-![db-instance-detail-hba-create]({{url.cdn}}/20260414/db-instance-detail-hba-create-{{lang}}.png)
+![db-instance-detail-hba-create]({{url.cdn}}/20260609/db-instance-detail-hba-create-{{lang}}.png)
 
 ❶ **+ 생성**을 클릭하면 **접근 제어 규칙 추가** 팝업 창이 나타납니다.
 ❷ 입력 방식을 **기본**으로 선택하면 DB 인스턴스에 저장된 데이터베이스나 사용자를 지정하여 규칙을 추가할 수 있습니다.
@@ -376,21 +376,21 @@ DB 인스턴스의 **접근 제어** 탭에서는 특정 데이터베이스와 �
 ❼ 설정을 마친 뒤 **변경 사항 적용**을 클릭해 DB 인스턴스에 접근 제어 설정을 적용합니다.
 ❽ DB 인스턴스에 적용되면 상태가 **적용됨**으로 변경됩니다.
 
-![db-instance-detail-hba-create-by-text]({{url.cdn}}/20260414/db-instance-detail-hba-create-by-text-{{lang}}.png)
+![db-instance-detail-hba-create-by-text]({{url.cdn}}/20260609/db-instance-detail-hba-create-by-text-{{lang}}.png)
 
 ❶ 입력 방식을 **규칙 원문으로 대량 추가**로 선택하면 `pg_hba.conf` 원문을 그대로 입력해 규칙을 대량 추가할 수 있습니다.
 ❷ 주석을 포함한 `pg_hba.conf` 원문을 그대로 사용할 수 있으며 자세한 내용은 [PostgreSQL 홈페이지](https://www.postgresql.org/docs/17/auth-pg-hba-conf.html)를 참고하세요.
 
 #### 접근 제어 규칙 수정
 
-![db-instance-detail-hba-modify]({{url.cdn}}/20240813/db-instance-detail-hba-modify-{{lang}}.png)
+![db-instance-detail-hba-modify]({{url.cdn}}/20260609/db-instance-detail-hba-modify-{{lang}}.png)
 
 ❶ 수정할 접근 제어 규칙 행의 **수정**을 클릭하면 기존 정보를 수정할 수 있는 팝업 창이 나타납니다.
 ❷ 수정한 규칙은 **변경 사항 적용**을 클릭해 DB 인스턴스에 접근 제어 설정을 적용해야 합니다.
 
 #### 접근 제어 규칙 삭제
 
-![db-instance-detail-hba-delete]({{url.cdn}}/20240813/db-instance-detail-hba-delete-{{lang}}.png)
+![db-instance-detail-hba-delete]({{url.cdn}}/20260609/db-instance-detail-hba-delete-{{lang}}.png)
 
 ❶ 삭제할 접근 제어 규칙을 선택 후 **삭제**를 클릭하면 **삭제 확인** 팝업 창이 나타납니다.
 ❷ 삭제한 규칙은 **변경 사항 적용**을 클릭해 DB 인스턴스에 접근 제어 설정을 적용해야 합니다.
@@ -402,7 +402,7 @@ DB 인스턴스의 **확장 관리** 탭에서는 SUPERUSER 권한이 필요한 
 
 #### 확장 설치
 
-![db-instance-detail-extension-install]({{url.cdn}}/20250415/db-instance-detail-extension-install-{{lang}}.png)
+![db-instance-detail-extension-install]({{url.cdn}}/20260609/db-instance-detail-extension-install-{{lang}}.png)
 
 ❶ **설치**를 클릭하면 선택한 확장을 설치할 데이터베이스를 선택할 수 있는 팝업 창이 나타납니다.
 ❷ **강제 설치**를 체크하면 의존 관계에 있는 확장들을 강제 설치합니다.
@@ -412,7 +412,7 @@ DB 인스턴스의 **확장 관리** 탭에서는 SUPERUSER 권한이 필요한 
 
 #### 확장 삭제
 
-![db-instance-detail-extension-delete]({{url.cdn}}/20250415/db-instance-detail-extension-delete-{{lang}}.png)
+![db-instance-detail-extension-delete]({{url.cdn}}/20260609/db-instance-detail-extension-delete-{{lang}}.png)
 
 ❶ 삭제할 데이터베이스 행에서 **삭제**를 클릭하면 **삭제 확인** 팝업 창이 나타납니다.
 ❷ **강제 삭제**를 체크하면 의존 관계에 있는 확장들을 강제 삭제합니다.
@@ -422,7 +422,7 @@ DB 인스턴스의 **확장 관리** 탭에서는 SUPERUSER 권한이 필요한 
 
 #### 확장 동기화
 
-![db-instance-detail-extension-sync]({{url.cdn}}/20250415/db-instance-detail-extension-sync-{{lang}}.png)
+![db-instance-detail-extension-sync]({{url.cdn}}/20260609/db-instance-detail-extension-sync-{{lang}}.png)
 
 ❶ **동기화**를 클릭하면 **동기화 확인** 팝업 창이 나타납니다.
 ❷ **확인**을 클릭하여 동기화를 요청할 수 있습니다.
@@ -507,19 +507,19 @@ DB 인스턴스에 연결된 파라미터 그룹의 설정이 변경되어도 �
 
 다음 방법 중 하나를 사용하여 DB 인스턴스에 파라미터 그룹의 변경 사항을 적용할 수 있습니다.
 
-![db-instance-list-apply-parameter-group]({{url.cdn}}/20240813/db-instance-list-apply-parameter-group-{{lang}}.png)
+![db-instance-list-apply-parameter-group]({{url.cdn}}/20260609/db-instance-list-apply-parameter-group-{{lang}}.png)
 
 ❶ 대상 DB 인스턴스의 **파라미터**를 클릭하거나
 ❷ 대상 DB 인스턴스를 선택한 후 드롭다운 메뉴에서 **파라미터 그룹 변경 사항 적용** 메뉴를 클릭합니다.
 
 파라미터 그룹에서 재시작을 필요로 하는 파라미터가 변경된 경우 변경 사항을 적용하는 과정에서 DB 인스턴스가 재시작됩니다.
 
-![db-instance-list-apply-parameter-group-popup]({{url.cdn}}/20240813/db-instance-list-apply-parameter-group-popup-{{lang}}.png)
+![db-instance-list-apply-parameter-group-popup]({{url.cdn}}/20260609/db-instance-list-apply-parameter-group-popup-{{lang}}.png)
 
 ❶ **변경 사항 비교**를 클릭해 변경된 파라미터를 확인할 수 있습니다.
 ❷ 변경 사항 확인 후 **확인**을 클릭해 DB 인스턴스에 변경된 파라미터를 적용합니다.
 
-![db-instance-list-apply-parameter-group-compare-popup]({{url.cdn}}/20240813/db-instance-list-apply-parameter-group-compare-popup-{{lang}}.png)
+![db-instance-list-apply-parameter-group-compare-popup]({{url.cdn}}/20260609/db-instance-list-apply-parameter-group-compare-popup-{{lang}}.png)
 
 ## 백업 후 오브젝트 스토리지로 백업 파일 내보내기
 
@@ -552,7 +552,7 @@ RDS for PostgreSQL에서 오브젝트 스토리지로 내보낸 백업 파일을
 
 읽기 복제본을 생성하려면 콘솔에서
 
-![db-instance-list-replica-create]({{url.cdn}}/20240813/db-instance-list-replica-create-{{lang}}.png)
+![db-instance-list-replica-create]({{url.cdn}}/20260609/db-instance-list-replica-create-{{lang}}.png)
 
 ❶ 원본 DB 인스턴스를 선택한 뒤 **읽기 복제본 생성**을 클릭하면 읽기 복제본을 생성하기 위한 페이지로 이동합니다.
 
@@ -617,7 +617,7 @@ RDS for PostgreSQL에서 오브젝트 스토리지로 내보낸 백업 파일을
 
 읽기 복제본 승격 혹은 강제 승격 중에 복제 지연이 해소될 때까지 대기하는 경우 대기 작업을 종료하려면 콘솔에서
 
-![db-instance-list-stop-wait-replication-lag]({{url.cdn}}/20250415/db-instance-list-stop-wait-replication-lag-{{lang}}.png)
+![db-instance-list-stop-wait-replication-lag]({{url.cdn}}/20260609/db-instance-list-stop-wait-replication-lag-{{lang}}.png)
 
 ❶ **복제 지연 대기**를 클릭하면 대기 작업을 종료할 수 있는 팝업 창이 나타납니다.
 ❷ **확인**을 클릭해 대기 작업을 종료합니다.
@@ -639,7 +639,7 @@ PostgreSQL을 재시작하려면 DB 인스턴스를 재시작합니다. 재시�
 
 DB 인스턴스를 재시작하려면 콘솔에서
 
-![db-instance-list-restart]({{url.cdn}}/20240813/db-instance-list-restart-{{lang}}.png)
+![db-instance-list-restart]({{url.cdn}}/20260609/db-instance-list-restart-{{lang}}.png)
 
 ❶ 재시작할 DB 인스턴스를 선택한 뒤 드롭다운 메뉴에서 **DB 인스턴스 재시작** 메뉴를 클릭합니다.
 
@@ -652,7 +652,7 @@ DB 인스턴스의 PostgreSQL이 정상 동작하지 않는 경우 강제로 재
 
 DB 인스턴스를 강제 재시작하려면 콘솔에서
 
-![db-instance-list-force-restart]({{url.cdn}}/20240813/db-instance-list-force-restart-{{lang}}.png)
+![db-instance-list-force-restart]({{url.cdn}}/20260609/db-instance-list-force-restart-{{lang}}.png)
 
 ❶ 강제 재시작을 원하는 DB 인스턴스를 선택 후 드롭다운 메뉴에서 **DB 인스턴스 강제 재시작** 메뉴를 클릭합니다.
 
@@ -660,11 +660,11 @@ DB 인스턴스를 강제 재시작하려면 콘솔에서
 
 삭제 보호를 활성화하면 실수로 DB 인스턴스가 삭제되지 않도록 보호할 수 있습니다. 삭제 보호를 비활성화할 때까지 해당 DB 인스턴스를 삭제할 수 없습니다. 삭제 보호 설정을 변경하려면
 
-![db-instance-deletion-protection]({{url.cdn}}/20240813/db-instance-list-deletion-protection-{{lang}}.png)
+![db-instance-deletion-protection]({{url.cdn}}/20260609/db-instance-list-deletion-protection-{{lang}}.png)
 
 ❶ 삭제 보호 설정을 변경하려는 DB 인스턴스를 선택 후 드롭다운 메뉴에서 **삭제 보호 설정 변경** 메뉴를 클릭하면 팝업 창이 나타납니다.
 
-![deletion-protection-popup]({{url.cdn}}/20240813/db-instance-list-deletion-protection-popup-{{lang}}.png)
+![deletion-protection-popup]({{url.cdn}}/20260609/db-instance-list-deletion-protection-popup-{{lang}}.png)
 
 ❷ 삭제 보호 설정을 변경한 뒤 **확인**을 클릭합니다.
 
@@ -701,7 +701,7 @@ DB 인스턴스를 강제 재시작하려면 콘솔에서
 
 장애 조치된 마스터를 복구하려면 콘솔에서
 
-![db-instance-ha-failover-repair]({{url.cdn}}/20241210/db-instance-ha-failover-repair-{{lang}}.png)
+![db-instance-ha-failover-repair]({{url.cdn}}/20260609/db-instance-ha-failover-repair-{{lang}}.png)
 
 ❶ 복구를 원하는 장애 조치된 마스터를 선택 후 드롭다운 메뉴에서 **장애 조치된 마스터 복구** 메뉴를 클릭합니다.
 
@@ -720,7 +720,7 @@ DB 인스턴스를 강제 재시작하려면 콘솔에서
 
 장애 조치된 마스터를 재구축하려면 콘솔에서
 
-![db-instance-ha-failover-rebuild]({{url.cdn}}/20241210/db-instance-ha-failover-rebuild-{{lang}}.png)
+![db-instance-ha-failover-rebuild]({{url.cdn}}/20260609/db-instance-ha-failover-rebuild-{{lang}}.png)
 
 ❶ 재구축을 원하는 장애 조치된 마스터를 선택 후 드롭다운 메뉴에서 **장애 조치된 마스터 재구축** 메뉴를 클릭합니다.
 
@@ -730,7 +730,7 @@ DB 인스턴스를 강제 재시작하려면 콘솔에서
 
 장애 조치된 마스터를 분리하려면 콘솔에서
 
-![db-instance-ha-failover-split]({{url.cdn}}/20241210/db-instance-ha-failover-split-{{lang}}.png)
+![db-instance-ha-failover-split]({{url.cdn}}/20260609/db-instance-ha-failover-split-{{lang}}.png)
 
 ❶ 분리를 원하는 장애 조치된 마스터를 선택 후 드롭다운 메뉴에서 **장애 조치된 마스터 분리** 메뉴를 클릭합니다.
 
@@ -761,7 +761,7 @@ DB 인스턴스를 강제 재시작하려면 콘솔에서
 
 예비 마스터에 변경 사항을 먼저 적용한 뒤 그 추이를 관찰하거나, 정확한 시간에 장애 조치를 실행하고자 할 때 콘솔에서 장애 조치 시점을 직접 제어할 수 있습니다. 장애 조치 수동 제어를 선택하면 예비 마스터가 재시작된 후 ❶ 콘솔에 **장애 조치** 버튼이 표시됩니다. 이 버튼을 클릭하면 장애 조치가 실행되며, 최대 5일간 실행을 대기할 수 있습니다. 5일 이내에 장애 조치를 실행하지 않을 경우 해당 작업은 자동으로 취소됩니다.
 
-![db-instance-ha-wait-manual-failover]({{url.cdn}}/20241210/db-instance-ha-wait-manual-failover-{{lang}}.png)
+![db-instance-ha-wait-manual-failover]({{url.cdn}}/20260609/db-instance-ha-wait-manual-failover-{{lang}}.png)
 
 > [주의]
 > 장애 조치를 대기하는 동안에는 자동 장애 조치가 되지 않습니다.
@@ -837,11 +837,11 @@ DB 인스턴스 마이그레이션은 NHN Cloud 콘솔에서 시작할 수 있�
 
 이름 옆에 마이그레이션 버튼이 있는 DB 인스턴스가 점검 대상 인스턴스입니다.
 
-![db-instance-planned-migration]({{url.cdn}}/20240813/db-instance-planned-migration-{{lang}}.png)
+![db-instance-planned-migration]({{url.cdn}}/20260609/db-instance-planned-migration-{{lang}}.png)
 
 마이그레이션 버튼 위에 마우스 포인터를 올리면 자세한 점검 일정을 확인할 수 있습니다.
 
-![db-instance-planned-migration-popup]({{url.cdn}}/20240813/db-instance-planned-migration-popup-{{lang}}.png)
+![db-instance-planned-migration-popup]({{url.cdn}}/20260609/db-instance-planned-migration-popup-{{lang}}.png)
 
 #### 2. 점검 대상 DB 인스턴스에 접속 중인 응용 프로그램을 종료해야 합니다.
 
@@ -850,13 +850,13 @@ DB에 연결된 서비스에 영향을 주지 않도록 적절히 조치하세�
 
 #### 3. 점검 대상 DB 인스턴스를 선택하고 마이그레이션 버튼을 클릭한 후 DB 인스턴스 마이그레이션 확인을 묻는 창이 나타나면 확인 버튼을 클릭합니다.
 
-![db-instance-planned-migration-confirm]({{url.cdn}}/20240813/db-instance-planned-migration-confirm-{{lang}}.png)
+![db-instance-planned-migration-confirm]({{url.cdn}}/20260609/db-instance-planned-migration-confirm-{{lang}}.png)
 
 #### 4. DB 인스턴스 마이그레이션이 끝날 때까지 대기합니다.
 
 DB 인스턴스 상태가 변경되지 않는다면 **새로 고침**을 클릭하세요.
 
-![db-instance-planned-migration-status]({{url.cdn}}/20240813/db-instance-planned-migration-status-{{lang}}.png)
+![db-instance-planned-migration-status]({{url.cdn}}/20260609/db-instance-planned-migration-status-{{lang}}.png)
 
 DB 인스턴스가 마이그레이션되는 동안에는 아무런 조작을 할 수 없습니다.
 DB 인스턴스 마이그레이션이 정상적으로 완료되지 않으면 자동으로 관리자에게 보고되며, NHN Cloud에서 별도로 연락을 드립니다.
