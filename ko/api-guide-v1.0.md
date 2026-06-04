@@ -132,7 +132,7 @@ GET /v1.0/db-flavors
 | 이름 | 종류 | 형식 | 설명 |
 |-----|-----|-----|-----|
 | dbFlavors | Body | Array | DB 인스턴스 사양 정보 |
-| dbFlavors.dbFlavorId | Body | String | DB 인스턴스 사양의 식별자 |
+| dbFlavors.dbFlavorId | Body | UUID | DB 인스턴스 사양의 식별자 |
 | dbFlavors.dbFlavorName | Body | String | DB 인스턴스 사양명 |
 | dbFlavors.ram | Body | Number | 메모리 용량(MB) |
 | dbFlavors.vcpus | Body | Number | CPU 코어 수 |
@@ -186,7 +186,7 @@ GET /v1.0/project/members
 | 이름 | 종류 | 형식 | 설명 |
 |-----|-----|-----|-----|
 | projectMembers | Body | Array | 프로젝트 멤버 정보 |
-| projectMembers.memberId | Body | String | 프로젝트 멤버의 식별자 |
+| projectMembers.memberId | Body | UUID | 프로젝트 멤버의 식별자 |
 | projectMembers.memberName | Body | String | 프로젝트 멤버의 이름 |
 | projectMembers.emailAddress | Body | String | 프로젝트 멤버의 이메일 주소 |
 | projectMembers.phoneNumber | Body | String | 프로젝트 멤버의 전화번호 |
@@ -203,7 +203,7 @@ GET /v1.0/project/members
     },
     "projectMembers": [
         {
-            "memberId": "memberId-example",
+            "memberId": "550e8400-e29b-41d4-a716-446655440000",
             "memberName": "memberName-example",
             "emailAddress": "emailAddress-example",
             "phoneNumber": "phoneNumber-example"
@@ -407,7 +407,7 @@ GET /v1.0/jobs/{jobId}
 
 | 이름 | 종류 | 형식 | 설명 |
 |-----|-----|-----|-----|
-| jobId | Body | String | 작업의 식별자 |
+| jobId | Body | UUID | 작업의 식별자 |
 | jobStatus | Body | Enum | 작업의 현재 상태<br/>- DELETED<br/>- CANNOT_PROGRESS<br/>- FAILED<br/>- ERROR<br/>- CANCELED<br/>- INTERRUPTED<br/>- COMPLETED<br/>- COMPLETED_WITH_ERROR<br/>- RUNNING<br/>- PREPARING<br/>- READY<br/>- CREATED<br/>- FAIL_TO_READY<br/>- REGISTERED<br/>- FAIL_TO_REGISTER<br/>- WAIT_TO_REGISTER |
 | resourceRelations | Body | Array | 연관 리소스 목록 |
 | resourceRelations.resourceType | Body | String | 연관 리소스 유형 |
@@ -425,7 +425,7 @@ GET /v1.0/jobs/{jobId}
         "resultMessage": "SUCCESS",
         "isSuccessful": true
     },
-    "jobId": "jobId-example",
+    "jobId": "550e8400-e29b-41d4-a716-446655440000",
     "jobStatus": "DELETED",
     "resourceRelations": [
         {
@@ -466,7 +466,7 @@ GET /v1.0/db-instance-groups
 | 이름 | 종류 | 형식 | 설명 |
 |-----|-----|-----|-----|
 | dbInstanceGroups | Body | Array | DB 인스턴스 그룹 정보 |
-| dbInstanceGroups.dbInstanceGroupId | Body | String | DB 인스턴스 그룹의 식별자 |
+| dbInstanceGroups.dbInstanceGroupId | Body | UUID | DB 인스턴스 그룹의 식별자 |
 | dbInstanceGroups.dbInstanceGroupStatus | Body | Enum | DB 인스턴스 그룹의 현재 형태<br/>- CREATED: `생성됨`<br/>- DELETED: `삭제됨` |
 | dbInstanceGroups.replicationType | Body | Enum | DB 인스턴스 그룹의 복제 형태<br/>- STANDALONE: `고가용성 사용 안함`<br/>- HIGH_AVAILABILITY: `고가용성 사용` |
 | dbInstanceGroups.createdYmdt | Body | DateTime | 생성 일시 |
@@ -484,7 +484,7 @@ GET /v1.0/db-instance-groups
     },
     "dbInstanceGroups": [
         {
-            "dbInstanceGroupId": "dbInstanceGroupId-example",
+            "dbInstanceGroupId": "550e8400-e29b-41d4-a716-446655440000",
             "dbInstanceGroupStatus": "CREATED",
             "replicationType": "STANDALONE",
             "createdYmdt": "2023-12-31T15:00:00+09:00",
@@ -523,11 +523,11 @@ GET /v1.0/db-instance-groups/{dbInstanceGroupId}
 
 | 이름 | 종류 | 형식 | 설명 |
 |-----|-----|-----|-----|
-| dbInstanceGroupId | Body | String | DB 인스턴스 그룹의 식별자 |
+| dbInstanceGroupId | Body | UUID | DB 인스턴스 그룹의 식별자 |
 | dbInstanceGroupStatus | Body | Enum | DB 인스턴스 그룹의 현재 상태<br/>- CREATED: `생성됨`<br/>- DELETED: `삭제됨` |
 | replicationType | Body | Enum | DB 인스턴스 그룹의 복제 형태<br/>- STANDALONE: `고가용성 사용 안함`<br/>- HIGH_AVAILABILITY: `고가용성 사용` |
 | dbInstances | Body | Array | DB 인스턴스 그룹에 속한 DB 인스턴스 목록 |
-| dbInstances.dbInstanceId | Body | String | DB 인스턴스의 식별자 |
+| dbInstances.dbInstanceId | Body | UUID | DB 인스턴스의 식별자 |
 | dbInstances.dbInstanceType | Body | Enum | DB 인스턴스의 역할 타입<br/>- MASTER: `마스터`<br/>- FAILED_MASTER: `장애 마스터`<br/>- CANDIDATE_MASTER: `예비 마스터`<br/>- READ_ONLY_SLAVE: `읽기 복제본` |
 | dbInstances.dbInstanceStatus | Body | Enum | DB 인스턴스의 현재 상태<br/>- BEFORE_CREATE: `생성 이전 (회색)`<br/>- AVAILABLE: `사용 가능 (녹색)`<br/>- STORAGE_FULL: `용량 부족 (적색)`<br/>- FAIL_TO_CREATE: `생성 실패 (적색)`<br/>- FAIL_TO_CONNECT: `연결 실패 (적색)`<br/>- REPLICATION_STOP: `복제 중단 (적색)`<br/>- REPLICATION_DELAY: `복제 지연 (황색)`<br/>- FAILOVER: `장애 조치 완료 (적색)`<br/>- SHUTDOWN: `중지 됨 (회색)`<br/>- DELETED: `삭제됨 (회색)` |
 | createdYmdt | Body | DateTime | 생성 일시 |
@@ -543,12 +543,12 @@ GET /v1.0/db-instance-groups/{dbInstanceGroupId}
         "resultMessage": "SUCCESS",
         "isSuccessful": true
     },
-    "dbInstanceGroupId": "dbInstanceGroupId-example",
+    "dbInstanceGroupId": "550e8400-e29b-41d4-a716-446655440000",
     "dbInstanceGroupStatus": "CREATED",
     "replicationType": "STANDALONE",
     "dbInstances": [
         {
-            "dbInstanceId": "dbInstanceId-example",
+            "dbInstanceId": "550e8400-e29b-41d4-a716-446655440000",
             "dbInstanceType": "MASTER",
             "dbInstanceStatus": "BEFORE_CREATE"
         }
@@ -588,12 +588,12 @@ GET /v1.0/db-instance-groups/{dbInstanceGroupId}/extensions
 | 이름 | 종류 | 형식 | 설명 |
 |-----|-----|-----|-----|
 | extensions | Body | Array | 확장 정보 |
-| extensions.extensionId | Body | String | 확장 ID |
+| extensions.extensionId | Body | UUID | 확장 ID |
 | extensions.extensionName | Body | String | 확장 이름 |
 | extensions.extensionStatus | Body | Enum | 확장 상태<br/>- AVAILABLE: `사용 가능`<br/>- NEED_TO_APPLY: `적용 필요`<br/>- APPLYING: `적용 중` |
 | extensions.databases | Body | Array | 데이터베이스 정보 |
-| extensions.databases.dbInstanceGroupExtensionId | Body | String | DB 인스턴스 그룹 확장 ID |
-| extensions.databases.databaseId | Body | String | 데이터베이스 ID |
+| extensions.databases.dbInstanceGroupExtensionId | Body | UUID | DB 인스턴스 그룹 확장 ID |
+| extensions.databases.databaseId | Body | UUID | 데이터베이스 ID |
 | extensions.databases.databaseName | Body | String | 데이터베이스 이름 |
 | extensions.databases.dbInstanceGroupExtensionStatus | Body | Enum | 데이터베이스 확장 설치 상태<br/>- CREATED: `생성 됨`<br/>- INSTALLED: `설치 됨`<br/>- INSTALLING: `설치 중`<br/>- INSTALL_ERROR: `설치 에러`<br/>- DELETED: `삭제 됨`<br/>- DELETING: `삭제 중`<br/>- DELETE_ERROR: `삭제 에러` |
 | extensions.databases.reservedAction | Body | Enum | 예약 작업<br/>- NONE: `없음`<br/>- INSTALL: `설치 예약 (적용 필요)`<br/>- INSTALL_WITH_CASCADE: `강제 설치 예약 (적용 필요)`<br/>- DELETE: `삭제 예약 (적용 필요)`<br/>- DELETE_WITH_CASCADE: `강제 삭제 예약 (적용 필요)` |
@@ -612,13 +612,13 @@ GET /v1.0/db-instance-groups/{dbInstanceGroupId}/extensions
     },
     "extensions": [
         {
-            "extensionId": "extensionId-example",
+            "extensionId": "550e8400-e29b-41d4-a716-446655440000",
             "extensionName": "extensionName-example",
             "extensionStatus": "AVAILABLE",
             "databases": [
                 {
-                    "dbInstanceGroupExtensionId": "dbInstanceGroupExtensionId-example",
-                    "databaseId": "databaseId-example",
+                    "dbInstanceGroupExtensionId": "550e8400-e29b-41d4-a716-446655440000",
+                    "databaseId": "550e8400-e29b-41d4-a716-446655440000",
                     "databaseName": "databaseName-example",
                     "dbInstanceGroupExtensionStatus": "CREATED",
                     "reservedAction": "NONE",
@@ -864,8 +864,8 @@ GET /v1.0/db-instances
 | 이름 | 종류 | 형식 | 설명 |
 |-----|-----|-----|-----|
 | dbInstances | Body | Array | DB 인스턴스 정보 |
-| dbInstances.dbInstanceId | Body | String | DB 인스턴스의 식별자 |
-| dbInstances.dbInstanceGroupId | Body | String | DB 인스턴스 그룹의 식별자 |
+| dbInstances.dbInstanceId | Body | UUID | DB 인스턴스의 식별자 |
+| dbInstances.dbInstanceGroupId | Body | UUID | DB 인스턴스 그룹의 식별자 |
 | dbInstances.dbInstanceName | Body | String | DB 인스턴스를 식별할 수 있는 이름 |
 | dbInstances.description | Body | String | DB 인스턴스에 대한 추가 정보 |
 | dbInstances.dbVersion | Body | Enum | DB 엔진 유형 |
@@ -888,11 +888,11 @@ GET /v1.0/db-instances
     },
     "dbInstances": [
         {
-            "dbInstanceId": "dbInstanceId-example",
-            "dbInstanceGroupId": "dbInstanceGroupId-example",
+            "dbInstanceId": "550e8400-e29b-41d4-a716-446655440000",
+            "dbInstanceGroupId": "550e8400-e29b-41d4-a716-446655440000",
             "dbInstanceName": "dbInstanceName-example",
             "description": "description-example",
-            "dbVersion": "ENUM_VALUE",
+            "dbVersion": "POSTGRESQL_V14_17",
             "dbPort": 1,
             "dbInstanceType": "MASTER",
             "dbInstanceStatus": "BEFORE_CREATE",
@@ -965,7 +965,7 @@ POST /v1.0/db-instances
     "dbInstanceCandidateName": "dbInstanceCandidateName-example",
     "description": "description-example",
     "dbFlavorId": "550e8400-e29b-41d4-a716-446655440000",
-    "dbVersion": "ENUM_VALUE",
+    "dbVersion": "POSTGRESQL_V14_17",
     "dbPort": 1,
     "databaseName": "databaseName-example",
     "dbUserName": "dbUserName-example",
@@ -981,10 +981,10 @@ POST /v1.0/db-instances
     "network": {
         "subnetId": "550e8400-e29b-41d4-a716-446655440000",
         "usePublicAccess": false,
-        "availabilityZone": "ENUM_VALUE"
+        "availabilityZone": "kr-pub-a"
     },
     "storage": {
-        "storageType": "ENUM_VALUE",
+        "storageType": "General SSD",
         "storageSize": 20
     },
     "backup": {
@@ -1090,19 +1090,19 @@ POST /v1.0/db-instances/restore-from-obs
     "description": "description-example",
     "dbFlavorId": "550e8400-e29b-41d4-a716-446655440000",
     "dbPort": 1,
-    "dbVersion": "ENUM_VALUE",
+    "dbVersion": "POSTGRESQL_V14_17",
     "useHighAvailability": false,
     "imageId": "550e8400-e29b-41d4-a716-446655440000",
     "pingInterval": 3,
     "failoverReplWaitingTime": 60,
     "storage": {
-        "storageType": "ENUM_VALUE",
+        "storageType": "General SSD",
         "storageSize": 20
     },
     "network": {
         "subnetId": "550e8400-e29b-41d4-a716-446655440000",
         "usePublicAccess": false,
-        "availabilityZone": "ENUM_VALUE"
+        "availabilityZone": "kr-pub-a"
     },
     "backup": {
         "backupPeriod": 0,
@@ -1227,8 +1227,8 @@ GET /v1.0/db-instances/{dbInstanceId}
 
 | 이름 | 종류 | 형식 | 설명 |
 |-----|-----|-----|-----|
-| dbInstanceId | Body | String | DB 인스턴스의 식별자 |
-| dbInstanceGroupId | Body | String | DB 인스턴스 그룹의 식별자 |
+| dbInstanceId | Body | UUID | DB 인스턴스의 식별자 |
+| dbInstanceGroupId | Body | UUID | DB 인스턴스 그룹의 식별자 |
 | dbInstanceName | Body | String | DB 인스턴스를 식별할 수 있는 이름 |
 | description | Body | String | DB 인스턴스에 대한 추가 정보 |
 | dbVersion | Body | Enum | DB 엔진 유형 |
@@ -1236,8 +1236,8 @@ GET /v1.0/db-instances/{dbInstanceId}
 | dbInstanceType | Body | Enum | DB 인스턴스 역할 타입<br/>- MASTER: `마스터`<br/>- FAILED_MASTER: `장애 마스터`<br/>- CANDIDATE_MASTER: `예비 마스터`<br/>- READ_ONLY_SLAVE: `읽기 복제본` |
 | dbInstanceStatus | Body | Enum | DB 인스턴스의 현재 상태<br/>- BEFORE_CREATE: `생성 이전 (회색)`<br/>- AVAILABLE: `사용 가능 (녹색)`<br/>- STORAGE_FULL: `용량 부족 (적색)`<br/>- FAIL_TO_CREATE: `생성 실패 (적색)`<br/>- FAIL_TO_CONNECT: `연결 실패 (적색)`<br/>- REPLICATION_STOP: `복제 중단 (적색)`<br/>- REPLICATION_DELAY: `복제 지연 (황색)`<br/>- FAILOVER: `장애 조치 완료 (적색)`<br/>- SHUTDOWN: `중지 됨 (회색)`<br/>- DELETED: `삭제됨 (회색)` |
 | progressStatus | Body | String | DB 인스턴스의 현재 진행 상태 |
-| dbFlavorId | Body | String | DB 인스턴스 사양의 식별자 |
-| parameterGroupId | Body | String | DB 인스턴스에 적용된 파라미터 그룹의 식별자 |
+| dbFlavorId | Body | UUID | DB 인스턴스 사양의 식별자 |
+| parameterGroupId | Body | UUID | DB 인스턴스에 적용된 파라미터 그룹의 식별자 |
 | dbSecurityGroupIds | Body | Array | DB 인스턴스에 적용된 DB 보안 그룹의 식별자 목록 |
 | notificationGroupIds | Body | Array | DB 인스턴스에 적용된 알림 그룹의 식별자 목록 |
 | useDeletionProtection | Body | Boolean | DB 인스턴스 삭제 보호 여부 |
@@ -1257,17 +1257,17 @@ GET /v1.0/db-instances/{dbInstanceId}
         "resultMessage": "SUCCESS",
         "isSuccessful": true
     },
-    "dbInstanceId": "dbInstanceId-example",
-    "dbInstanceGroupId": "dbInstanceGroupId-example",
+    "dbInstanceId": "550e8400-e29b-41d4-a716-446655440000",
+    "dbInstanceGroupId": "550e8400-e29b-41d4-a716-446655440000",
     "dbInstanceName": "dbInstanceName-example",
     "description": "description-example",
-    "dbVersion": "ENUM_VALUE",
+    "dbVersion": "POSTGRESQL_V14_17",
     "dbPort": 1,
     "dbInstanceType": "MASTER",
     "dbInstanceStatus": "BEFORE_CREATE",
     "progressStatus": "progressStatus-example",
-    "dbFlavorId": "dbFlavorId-example",
-    "parameterGroupId": "parameterGroupId-example",
+    "dbFlavorId": "550e8400-e29b-41d4-a716-446655440000",
+    "parameterGroupId": "550e8400-e29b-41d4-a716-446655440000",
     "dbSecurityGroupIds": [],
     "notificationGroupIds": [],
     "useDeletionProtection": false,
@@ -1325,7 +1325,7 @@ PUT /v1.0/db-instances/{dbInstanceId}
     "dbPort": 1,
     "dbFlavorId": "550e8400-e29b-41d4-a716-446655440000",
     "parameterGroupId": "550e8400-e29b-41d4-a716-446655440000",
-    "dbVersion": "ENUM_VALUE",
+    "dbVersion": "POSTGRESQL_V14_17",
     "dbSecurityGroupIds": [],
     "executeBackup": false,
     "useOnlineFailover": false,
@@ -1739,7 +1739,7 @@ GET /v1.0/db-instances/{dbInstanceId}/databases
 | 이름 | 종류 | 형식 | 설명 |
 |-----|-----|-----|-----|
 | databases | Body | Array | 데이터베이스 정보 |
-| databases.databaseId | Body | String | 데이터베이스의 식별자 |
+| databases.databaseId | Body | UUID | 데이터베이스의 식별자 |
 | databases.databaseName | Body | String | 데이터베이스 이름 |
 | databases.databaseStatus | Body | Enum | 데이터베이스의 현재 상태<br/>- STABLE: `사용 가능`<br/>- CREATING: `생성 중`<br/>- MODIFYING: `수정 중`<br/>- DELETING: `삭제 중`<br/>- DELETED: `삭제됨`<br/>- SYNCING: `동기화 중` |
 | databases.createdYmdt | Body | DateTime | 생성 일시 |
@@ -1759,7 +1759,7 @@ GET /v1.0/db-instances/{dbInstanceId}/databases
     },
     "databases": [
         {
-            "databaseId": "databaseId-example",
+            "databaseId": "550e8400-e29b-41d4-a716-446655440000",
             "databaseName": "databaseName-example",
             "databaseStatus": "STABLE",
             "createdYmdt": "2023-12-31T15:00:00+09:00",
@@ -1965,7 +1965,7 @@ GET /v1.0/db-instances/{dbInstanceId}/db-users
 | 이름 | 종류 | 형식 | 설명 |
 |-----|-----|-----|-----|
 | dbUsers | Body | Array | DB 사용자 목록 |
-| dbUsers.dbUserId | Body | String | DB 사용자의 식별자 |
+| dbUsers.dbUserId | Body | UUID | DB 사용자의 식별자 |
 | dbUsers.dbUserName | Body | String | DB 사용자 계정 이름 |
 | dbUsers.authorityType | Body | Enum | DB 사용자 권한 타입<br/>- CUSTOM: `커스텀 권한 권한`<br/>- READ: `READ 권한 (읽기 전용 권한)`<br/>- CRUD: `CRUD 권한 (읽기 권한 포함)`<br/>- DDL: `DDL 권한 (CRUD 권한 포함)` |
 | dbUsers.dbUserStatus | Body | Enum | DB 사용자의 현재 상태<br/>- STABLE: `사용 가능`<br/>- CREATING: `생성 중`<br/>- MODIFYING: `수정 중`<br/>- DELETING: `삭제 중`<br/>- DELETED: `삭제됨`<br/>- SYNCING: `동기화 중` |
@@ -1984,7 +1984,7 @@ GET /v1.0/db-instances/{dbInstanceId}/db-users
     },
     "dbUsers": [
         {
-            "dbUserId": "dbUserId-example",
+            "dbUserId": "550e8400-e29b-41d4-a716-446655440000",
             "dbUserName": "dbUserName-example",
             "authorityType": "CUSTOM",
             "dbUserStatus": "STABLE",
@@ -2261,15 +2261,15 @@ GET /v1.0/db-instances/{dbInstanceId}/hba-rules
 | 이름 | 종류 | 형식 | 설명 |
 |-----|-----|-----|-----|
 | hbaRules | Body | Array | 접근 제어 규칙 정보 |
-| hbaRules.hbaRuleId | Body | String | 접근 제어 규칙의 식별자 |
+| hbaRules.hbaRuleId | Body | UUID | 접근 제어 규칙의 식별자 |
 | hbaRules.hbaRuleStatus | Body | Enum | 접근 제어 규칙의 현재 상태<br/>- CREATED: `생성됨`<br/>- APPLIED: `적용됨`<br/>- CREATING: `생성 중`<br/>- MODIFYING: `수정 중`<br/>- DELETING: `삭제 중`<br/>- DELETED: `삭제됨` |
 | hbaRules.databaseApplyType | Body | Enum | DB 데이터베이스 적용 타입<br/>- ENTIRE: `전체`<br/>- USER_CUSTOM: `사용자 지정` |
 | hbaRules.dbUserApplyTypeCode | Body | Enum | DB 사용자 적용 타입<br/>- ENTIRE: `전체`<br/>- USER_CUSTOM: `사용자 지정` |
 | hbaRules.databases | Body | Array | 사용자 지정 데이터베이스 리스트 |
-| hbaRules.databases.databaseId | Body | String | 데이터베이스 ID |
+| hbaRules.databases.databaseId | Body | UUID | 데이터베이스 ID |
 | hbaRules.databases.databaseName | Body | String | 데이터베이스 이름 |
 | hbaRules.dbUsers | Body | Array | 사용자 지정 DB 사용자 리스트 |
-| hbaRules.dbUsers.dbUserId | Body | String | DB 사용자 ID |
+| hbaRules.dbUsers.dbUserId | Body | UUID | DB 사용자 ID |
 | hbaRules.dbUsers.dbUserName | Body | String | DB 사용자 이름 |
 | hbaRules.address | Body | String | 접속 주소 |
 | hbaRules.authMethod | Body | Enum | 인증 방식<br/>- TRUST: `트러스트 (패스워드 불필요)`<br/>- REJECT: `접속 차단`<br/>- SCRAM_SHA_256: `패스워드 (SCRAM-SHA-256)` |
@@ -2290,19 +2290,19 @@ GET /v1.0/db-instances/{dbInstanceId}/hba-rules
     },
     "hbaRules": [
         {
-            "hbaRuleId": "hbaRuleId-example",
+            "hbaRuleId": "550e8400-e29b-41d4-a716-446655440000",
             "hbaRuleStatus": "CREATED",
             "databaseApplyType": "ENTIRE",
             "dbUserApplyTypeCode": "ENTIRE",
             "databases": [
                 {
-                    "databaseId": "databaseId-example",
+                    "databaseId": "550e8400-e29b-41d4-a716-446655440000",
                     "databaseName": "databaseName-example"
                 }
             ],
             "dbUsers": [
                 {
-                    "dbUserId": "dbUserId-example",
+                    "dbUserId": "550e8400-e29b-41d4-a716-446655440000",
                     "dbUserName": "dbUserName-example"
                 }
             ],
@@ -2369,7 +2369,7 @@ POST /v1.0/db-instances/{dbInstanceId}/hba-rules
 
 | 이름 | 종류 | 형식 | 설명 |
 |-----|-----|-----|-----|
-| hbaRuleId | Body | String | 접근 제어 규칙 ID |
+| hbaRuleId | Body | UUID | 접근 제어 규칙 ID |
 
 <details><summary>예시</summary>
 <p>
@@ -2381,7 +2381,7 @@ POST /v1.0/db-instances/{dbInstanceId}/hba-rules
         "resultMessage": "SUCCESS",
         "isSuccessful": true
     },
-    "hbaRuleId": "hbaRuleId-example"
+    "hbaRuleId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -2981,7 +2981,7 @@ GET /v1.0/db-instances/{dbInstanceId}/network-info
 |-----|-----|-----|-----|
 | availabilityZone | Body | Enum | DB 인스턴스를 생성할 가용성 영역 |
 | subnet | Body | Object | 서브넷 정보 |
-| subnet.subnetId | Body | String | 서브넷의 식별자 |
+| subnet.subnetId | Body | UUID | 서브넷의 식별자 |
 | subnet.subnetName | Body | String | 서브넷을 식별할 수 있는 이름 |
 | subnet.subnetCidr | Body | String | 서브넷의 CIDR |
 | subnet.publicAccessible | Body | Boolean | 퍼블릭 접근 가능 여부 |
@@ -3000,9 +3000,9 @@ GET /v1.0/db-instances/{dbInstanceId}/network-info
         "resultMessage": "SUCCESS",
         "isSuccessful": true
     },
-    "availabilityZone": "ENUM_VALUE",
+    "availabilityZone": "kr-pub-a",
     "subnet": {
-        "subnetId": "subnetId-example",
+        "subnetId": "550e8400-e29b-41d4-a716-446655440000",
         "subnetName": "subnetName-example",
         "subnetCidr": "subnetCidr-example",
         "publicAccessible": false
@@ -3172,10 +3172,10 @@ POST /v1.0/db-instances/{dbInstanceId}/replicate
     "useDeletionProtection": false,
     "network": {
         "usePublicAccess": false,
-        "availabilityZone": "ENUM_VALUE"
+        "availabilityZone": "kr-pub-a"
     },
     "storage": {
-        "storageType": "ENUM_VALUE",
+        "storageType": "General SSD",
         "storageSize": 20
     }
 }
@@ -3281,10 +3281,10 @@ GET /v1.0/db-instances/{dbInstanceId}/restoration-info
 | oldestRestorableYmdt | Body | DateTime | 가장 오래된 복원 가능한 시각 |
 | latestRestorableYmdt | Body | DateTime | 가장 최신의 복원 가능한 시각 |
 | restorableBackups | Body | Array | 복원 가능한 백업 목록 |
-| restorableBackups.backupId | Body | String | 백업의 식별자 |
+| restorableBackups.backupId | Body | UUID | 백업의 식별자 |
 | restorableBackups.backupName | Body | String | 백업 이름 |
 | restorableBackups.backupStatus | Body | Enum | 백업 상태<br/>- BACKING_UP: `백업 중 (스피너)`<br/>- VERIFYING: `검증 중 (스피너)`<br/>- COMPLETED: `사용 가능 (녹색 아이콘)`<br/>- DELETING: `삭제 중 (스피너)`<br/>- DELETED: `삭제 됨 (회색 아이콘)`<br/>- ERROR: `에러 (적색 아이콘)` |
-| restorableBackups.dbInstanceId | Body | String | 원본 DB 인스턴스의 식별자 |
+| restorableBackups.dbInstanceId | Body | UUID | 원본 DB 인스턴스의 식별자 |
 | restorableBackups.dbInstanceName | Body | String | 원본 DB 인스턴스의 이름 |
 | restorableBackups.dbVersion | Body | Enum | DB 엔진 유형 |
 | restorableBackups.backupType | Body | Enum | 백업 유형<br/>- AUTO<br/>- MANUAL |
@@ -3310,12 +3310,12 @@ GET /v1.0/db-instances/{dbInstanceId}/restoration-info
     "latestRestorableYmdt": "2023-12-31T15:00:00+09:00",
     "restorableBackups": [
         {
-            "backupId": "backupId-example",
+            "backupId": "550e8400-e29b-41d4-a716-446655440000",
             "backupName": "backupName-example",
             "backupStatus": "BACKING_UP",
-            "dbInstanceId": "dbInstanceId-example",
+            "dbInstanceId": "550e8400-e29b-41d4-a716-446655440000",
             "dbInstanceName": "dbInstanceName-example",
-            "dbVersion": "ENUM_VALUE",
+            "dbVersion": "POSTGRESQL_V14_17",
             "backupType": "AUTO",
             "backupSize": 1,
             "failoverCount": 1,
@@ -3399,13 +3399,13 @@ POST /v1.0/db-instances/{dbInstanceId}/restore
     "pingInterval": 3,
     "failoverReplWaitingTime": 60,
     "storage": {
-        "storageType": "ENUM_VALUE",
+        "storageType": "General SSD",
         "storageSize": 20
     },
     "network": {
         "subnetId": "550e8400-e29b-41d4-a716-446655440000",
         "usePublicAccess": false,
-        "availabilityZone": "ENUM_VALUE"
+        "availabilityZone": "kr-pub-a"
     },
     "backup": {
         "backupPeriod": 0,
@@ -3587,7 +3587,7 @@ GET /v1.0/db-instances/{dbInstanceId}/storage-info
         "resultMessage": "SUCCESS",
         "isSuccessful": true
     },
-    "storageType": "ENUM_VALUE",
+    "storageType": "General SSD",
     "storageSize": 1,
     "storageStatus": "DELETED"
 }
@@ -3688,10 +3688,10 @@ GET /v1.0/backups
 |-----|-----|-----|-----|
 | totalCounts | Body | Number | 전체 백업 목록 수 |
 | backups | Body | Array | 백업 목록 |
-| backups.backupId | Body | String | 백업의 식별자 |
+| backups.backupId | Body | UUID | 백업의 식별자 |
 | backups.backupName | Body | String | 백업을 식별할 수 있는 이름 |
 | backups.backupStatus | Body | Enum | 백업의 현재 상태<br/>- BACKING_UP: `백업 중 (스피너)`<br/>- VERIFYING: `검증 중 (스피너)`<br/>- COMPLETED: `사용 가능 (녹색 아이콘)`<br/>- DELETING: `삭제 중 (스피너)`<br/>- DELETED: `삭제 됨 (회색 아이콘)`<br/>- ERROR: `에러 (적색 아이콘)` |
-| backups.dbInstanceId | Body | String | 원본 DB 인스턴스의 식별자 |
+| backups.dbInstanceId | Body | UUID | 원본 DB 인스턴스의 식별자 |
 | backups.dbVersion | Body | Enum | DB 엔진 버전 |
 | backups.backupType | Body | Enum | 백업 유형<br/>- AUTO<br/>- MANUAL |
 | backups.backupSize | Body | Number | 백업의 크기(Byte) |
@@ -3713,11 +3713,11 @@ GET /v1.0/backups
     "totalCounts": 1,
     "backups": [
         {
-            "backupId": "backupId-example",
+            "backupId": "550e8400-e29b-41d4-a716-446655440000",
             "backupName": "backupName-example",
             "backupStatus": "BACKING_UP",
-            "dbInstanceId": "dbInstanceId-example",
-            "dbVersion": "ENUM_VALUE",
+            "dbInstanceId": "550e8400-e29b-41d4-a716-446655440000",
+            "dbVersion": "POSTGRESQL_V14_17",
             "backupType": "AUTO",
             "backupSize": 1,
             "startYmdt": "2023-12-31T15:00:00+09:00",
@@ -3908,10 +3908,10 @@ POST /v1.0/backups/{backupId}/restore
     "network": {
         "subnetId": "550e8400-e29b-41d4-a716-446655440000",
         "usePublicAccess": false,
-        "availabilityZone": "ENUM_VALUE"
+        "availabilityZone": "kr-pub-a"
     },
     "storage": {
-        "storageType": "ENUM_VALUE",
+        "storageType": "General SSD",
         "storageSize": 20
     },
     "backup": {
@@ -3987,7 +3987,7 @@ GET /v1.0/db-security-groups
 | 이름 | 종류 | 형식 | 설명 |
 |-----|-----|-----|-----|
 | dbSecurityGroups | Body | Array | DB 보안 그룹 목록 |
-| dbSecurityGroups.dbSecurityGroupId | Body | String | DB 보안 그룹의 식별자 |
+| dbSecurityGroups.dbSecurityGroupId | Body | UUID | DB 보안 그룹의 식별자 |
 | dbSecurityGroups.dbSecurityGroupName | Body | String | DB 보안 그룹을 식별할 수 있는 이름 |
 | dbSecurityGroups.dbSecurityGroupStatus | Body | Enum | DB 보안 그룹의 현재 상태<br/>- CREATED: `생성됨`<br/>- DELETED: `삭제됨` |
 | dbSecurityGroups.description | Body | String | DB 보안 그룹에 대한 추가 정보 |
@@ -4007,7 +4007,7 @@ GET /v1.0/db-security-groups
     },
     "dbSecurityGroups": [
         {
-            "dbSecurityGroupId": "dbSecurityGroupId-example",
+            "dbSecurityGroupId": "550e8400-e29b-41d4-a716-446655440000",
             "dbSecurityGroupName": "dbSecurityGroupName-example",
             "dbSecurityGroupStatus": "CREATED",
             "description": "description-example",
@@ -4082,7 +4082,7 @@ POST /v1.0/db-security-groups
 
 | 이름 | 종류 | 형식 | 설명 |
 |-----|-----|-----|-----|
-| dbSecurityGroupId | Body | String | DB 보안 그룹의 식별자 |
+| dbSecurityGroupId | Body | UUID | DB 보안 그룹의 식별자 |
 
 <details><summary>예시</summary>
 <p>
@@ -4094,7 +4094,7 @@ POST /v1.0/db-security-groups
         "resultMessage": "SUCCESS",
         "isSuccessful": true
     },
-    "dbSecurityGroupId": "dbSecurityGroupId-example"
+    "dbSecurityGroupId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -4154,13 +4154,13 @@ GET /v1.0/db-security-groups/{dbSecurityGroupId}
 | 이름 | 종류 | 형식 | 설명 |
 |-----|-----|-----|-----|
 | dbSecurityGroup | Body | Object | DB 보안 그룹 |
-| dbSecurityGroup.dbSecurityGroupId | Body | String | DB 보안 그룹의 식별자 |
+| dbSecurityGroup.dbSecurityGroupId | Body | UUID | DB 보안 그룹의 식별자 |
 | dbSecurityGroup.dbSecurityGroupName | Body | String | DB 보안 그룹을 식별할 수 있는 이름 |
 | dbSecurityGroup.dbSecurityGroupStatus | Body | Enum | DB 보안 그룹의 현재 상태<br/>- CREATED: `생성됨`<br/>- DELETED: `삭제됨` |
 | dbSecurityGroup.description | Body | String | DB 보안 그룹에 대한 추가 정보 |
 | dbSecurityGroup.progressStatus | Body | Enum | DB 보안 그룹의 현재 진행 상태<br/>- NONE: `없음`<br/>- CREATING_RULE: `규칙 생성중`<br/>- UPDATING_RULE: `규칙 수정중`<br/>- DELETING_RULE: `규칙 삭제중`<br/>- APPLYING_DEFAULT_RULE: `기본 규칙 적용중` |
 | dbSecurityGroup.rules | Body | Array | DB 보안 그룹 규칙 목록 |
-| dbSecurityGroup.rules.ruleId | Body | String | DB 보안 그룹 규칙의 식별자 |
+| dbSecurityGroup.rules.ruleId | Body | UUID | DB 보안 그룹 규칙의 식별자 |
 | dbSecurityGroup.rules.description | Body | String | DB 보안 그룹 규칙에 대한 추가 정보 |
 | dbSecurityGroup.rules.direction | Body | Enum | 통신 방향<br/>- INGRESS: `수신`<br/>- EGRESS: `송신` |
 | dbSecurityGroup.rules.etherType | Body | Enum | Ether 타입<br/>- IPV4: `IPv4 형식`<br/>- IPV6: `IPv6 형식` |
@@ -4185,14 +4185,14 @@ GET /v1.0/db-security-groups/{dbSecurityGroupId}
         "isSuccessful": true
     },
     "dbSecurityGroup": {
-        "dbSecurityGroupId": "dbSecurityGroupId-example",
+        "dbSecurityGroupId": "550e8400-e29b-41d4-a716-446655440000",
         "dbSecurityGroupName": "dbSecurityGroupName-example",
         "dbSecurityGroupStatus": "CREATED",
         "description": "description-example",
         "progressStatus": "NONE",
         "rules": [
             {
-                "ruleId": "ruleId-example",
+                "ruleId": "550e8400-e29b-41d4-a716-446655440000",
                 "description": "description-example",
                 "direction": "INGRESS",
                 "etherType": "IPV4",
@@ -4468,7 +4468,7 @@ GET /v1.0/parameter-groups
 | 이름 | 종류 | 형식 | 설명 |
 |-----|-----|-----|-----|
 | parameterGroups | Body | Array | 파라미터 그룹 목록 |
-| parameterGroups.parameterGroupId | Body | String | 파라미터 그룹의 식별자 |
+| parameterGroups.parameterGroupId | Body | UUID | 파라미터 그룹의 식별자 |
 | parameterGroups.parameterGroupName | Body | String | 파라미터 그룹을 식별할 수 있는 이름 |
 | parameterGroups.description | Body | String | 파라미터 그룹에 대한 추가 정보 |
 | parameterGroups.dbVersion | Body | Enum | DB 엔진 버전 |
@@ -4488,10 +4488,10 @@ GET /v1.0/parameter-groups
     },
     "parameterGroups": [
         {
-            "parameterGroupId": "parameterGroupId-example",
+            "parameterGroupId": "550e8400-e29b-41d4-a716-446655440000",
             "parameterGroupName": "parameterGroupName-example",
             "description": "description-example",
-            "dbVersion": "ENUM_VALUE",
+            "dbVersion": "POSTGRESQL_V14_17",
             "parameterGroupStatus": "STABLE",
             "createdYmdt": "2023-12-31T15:00:00+09:00",
             "updatedYmdt": "2023-12-31T15:00:00+09:00"
@@ -4532,7 +4532,7 @@ POST /v1.0/parameter-groups
 {
     "parameterGroupName": "parameterGroupName-example",
     "description": "description-example",
-    "dbVersion": "ENUM_VALUE"
+    "dbVersion": "POSTGRESQL_V14_17"
 }
 ```
 
@@ -4543,7 +4543,7 @@ POST /v1.0/parameter-groups
 
 | 이름 | 종류 | 형식 | 설명 |
 |-----|-----|-----|-----|
-| parameterGroupId | Body | String | 파라미터 그룹의 식별자 |
+| parameterGroupId | Body | UUID | 파라미터 그룹의 식별자 |
 
 <details><summary>예시</summary>
 <p>
@@ -4555,7 +4555,7 @@ POST /v1.0/parameter-groups
         "resultMessage": "SUCCESS",
         "isSuccessful": true
     },
-    "parameterGroupId": "parameterGroupId-example"
+    "parameterGroupId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -4614,7 +4614,7 @@ GET /v1.0/parameter-groups/{parameterGroupId}
 
 | 이름 | 종류 | 형식 | 설명 |
 |-----|-----|-----|-----|
-| parameterGroupId | Body | String | 파라미터 그룹의 식별자 |
+| parameterGroupId | Body | UUID | 파라미터 그룹의 식별자 |
 | parameterGroupName | Body | String | 파라미터 그룹을 식별할 수 있는 이름 |
 | description | Body | String | 파라미터 그룹에 대한 추가 정보 |
 | dbVersion | Body | Enum | DB 엔진 버전 |
@@ -4648,10 +4648,10 @@ GET /v1.0/parameter-groups/{parameterGroupId}
         "resultMessage": "SUCCESS",
         "isSuccessful": true
     },
-    "parameterGroupId": "parameterGroupId-example",
+    "parameterGroupId": "550e8400-e29b-41d4-a716-446655440000",
     "parameterGroupName": "parameterGroupName-example",
     "description": "description-example",
-    "dbVersion": "ENUM_VALUE",
+    "dbVersion": "POSTGRESQL_V14_17",
     "parameterGroupStatus": "STABLE",
     "parameters": [
         {
@@ -4753,7 +4753,7 @@ POST /v1.0/parameter-groups/{parameterGroupId}/copy
 
 | 이름 | 종류 | 형식 | 설명 |
 |-----|-----|-----|-----|
-| parameterGroupId | Body | String | 파라미터 그룹의 식별자 |
+| parameterGroupId | Body | UUID | 파라미터 그룹의 식별자 |
 
 <details><summary>예시</summary>
 <p>
@@ -4765,7 +4765,7 @@ POST /v1.0/parameter-groups/{parameterGroupId}/copy
         "resultMessage": "SUCCESS",
         "isSuccessful": true
     },
-    "parameterGroupId": "parameterGroupId-example"
+    "parameterGroupId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -4867,7 +4867,7 @@ GET /v1.0/user-groups
 | 이름 | 종류 | 형식 | 설명 |
 |-----|-----|-----|-----|
 | userGroups | Body | Array | 사용자 그룹 정보 |
-| userGroups.userGroupId | Body | String | 사용자 그룹의 식별자 |
+| userGroups.userGroupId | Body | UUID | 사용자 그룹의 식별자 |
 | userGroups.userGroupName | Body | String | 사용자 그룹을 식별할 수 있는 이름 |
 | userGroups.userGroupStatus | Body | Enum | 사용자 그룹의 현재 상태<br/>- CREATED<br/>- DELETED |
 | userGroups.createdYmdt | Body | DateTime | 생성 일시 |
@@ -4885,7 +4885,7 @@ GET /v1.0/user-groups
     },
     "userGroups": [
         {
-            "userGroupId": "userGroupId-example",
+            "userGroupId": "550e8400-e29b-41d4-a716-446655440000",
             "userGroupName": "userGroupName-example",
             "userGroupStatus": "CREATED",
             "createdYmdt": "2023-12-31T15:00:00+09:00",
@@ -4938,7 +4938,7 @@ POST /v1.0/user-groups
 
 | 이름 | 종류 | 형식 | 설명 |
 |-----|-----|-----|-----|
-| userGroupId | Body | String | 사용자 그룹의 식별자 |
+| userGroupId | Body | UUID | 사용자 그룹의 식별자 |
 
 <details><summary>예시</summary>
 <p>
@@ -4950,7 +4950,7 @@ POST /v1.0/user-groups
         "resultMessage": "SUCCESS",
         "isSuccessful": true
     },
-    "userGroupId": "userGroupId-example"
+    "userGroupId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -5009,12 +5009,12 @@ GET /v1.0/user-groups/{userGroupId}
 
 | 이름 | 종류 | 형식 | 설명 |
 |-----|-----|-----|-----|
-| userGroupId | Body | String | 사용자 그룹의 식별자 |
+| userGroupId | Body | UUID | 사용자 그룹의 식별자 |
 | userGroupName | Body | String | 사용자 그룹을 식별할 수 있는 이름 |
 | userGroupTypeCode | Body | Enum | 사용자 그룹 종류<br/>- ENTIRE: `전체 프로젝트 멤버`<br/>- INDIVIDUAL_MEMBER: `사용자 지정` |
 | userGroupStatus | Body | Enum | 사용자 그룹의 현재 상태<br/>- CREATED<br/>- DELETED |
 | members | Body | Array | 프로젝트 멤버 목록 |
-| members.memberId | Body | String | 프로젝트 멤버의 식별자 |
+| members.memberId | Body | UUID | 프로젝트 멤버의 식별자 |
 | createdYmdt | Body | DateTime | 생성 일시 |
 | updatedYmdt | Body | DateTime | 수정 일시 |
 
@@ -5028,13 +5028,13 @@ GET /v1.0/user-groups/{userGroupId}
         "resultMessage": "SUCCESS",
         "isSuccessful": true
     },
-    "userGroupId": "userGroupId-example",
+    "userGroupId": "550e8400-e29b-41d4-a716-446655440000",
     "userGroupName": "userGroupName-example",
     "userGroupTypeCode": "ENTIRE",
     "userGroupStatus": "CREATED",
     "members": [
         {
-            "memberId": "memberId-example"
+            "memberId": "550e8400-e29b-41d4-a716-446655440000"
         }
     ],
     "createdYmdt": "2023-12-31T15:00:00+09:00",
@@ -5111,7 +5111,7 @@ GET /v1.0/notification-groups
 | 이름 | 종류 | 형식 | 설명 |
 |-----|-----|-----|-----|
 | notificationGroups | Body | Array |  |
-| notificationGroups.notificationGroupId | Body | String | 알림 그룹의 식별자 |
+| notificationGroups.notificationGroupId | Body | UUID | 알림 그룹의 식별자 |
 | notificationGroups.notificationGroupName | Body | String | 알림 그룹을 식별할 수 있는 이름 |
 | notificationGroups.notificationGroupStatus | Body | Enum | 알림 그룹의 현재 상태<br/>- CREATED: `생성됨`<br/>- DELETED: `삭제됨` |
 | notificationGroups.notifyEmail | Body | Boolean | 이메일 알림 여부 |
@@ -5132,7 +5132,7 @@ GET /v1.0/notification-groups
     },
     "notificationGroups": [
         {
-            "notificationGroupId": "notificationGroupId-example",
+            "notificationGroupId": "550e8400-e29b-41d4-a716-446655440000",
             "notificationGroupName": "notificationGroupName-example",
             "notificationGroupStatus": "CREATED",
             "notifyEmail": false,
@@ -5194,7 +5194,7 @@ POST /v1.0/notification-groups
 
 | 이름 | 종류 | 형식 | 설명 |
 |-----|-----|-----|-----|
-| notificationGroupId | Body | String | 알림 그룹의 식별자 |
+| notificationGroupId | Body | UUID | 알림 그룹의 식별자 |
 
 <details><summary>예시</summary>
 <p>
@@ -5206,7 +5206,7 @@ POST /v1.0/notification-groups
         "resultMessage": "SUCCESS",
         "isSuccessful": true
     },
-    "notificationGroupId": "notificationGroupId-example"
+    "notificationGroupId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -5265,17 +5265,17 @@ GET /v1.0/notification-groups/{notificationGroupId}
 
 | 이름 | 종류 | 형식 | 설명 |
 |-----|-----|-----|-----|
-| notificationGroupId | Body | String | 알림 그룹의 식별자 |
+| notificationGroupId | Body | UUID | 알림 그룹의 식별자 |
 | notificationGroupName | Body | String | 알림 그룹을 식별할 수 있는 이름 |
 | notificationGroupStatus | Body | Enum | 알림 그룹의 현재 상태<br/>- CREATED: `생성됨`<br/>- DELETED: `삭제됨` |
 | notifyEmail | Body | Boolean | 이메일 알림 여부 |
 | notifySms | Body | Boolean | SMS 알림 여부 |
 | isEnabled | Body | Boolean | 활성화 여부 |
 | dbInstances | Body | Array | 감시 대상 DB 인스턴스 목록 |
-| dbInstances.dbInstanceId | Body | String | DB 인스턴스의 식별자 |
+| dbInstances.dbInstanceId | Body | UUID | DB 인스턴스의 식별자 |
 | dbInstances.dbInstanceName | Body | String | DB 인스턴스를 식별할 수 있는 이름 |
 | userGroups | Body | Array | 사용자 그룹 목록 |
-| userGroups.userGroupId | Body | String | 사용자 그룹의 식별자 |
+| userGroups.userGroupId | Body | UUID | 사용자 그룹의 식별자 |
 | userGroups.userGroupName | Body | String | 사용자 그룹을 식별할 수 있는 이름 |
 | createdYmdt | Body | DateTime | 생성 일시 |
 | updatedYmdt | Body | DateTime | 수정 일시 |
@@ -5290,7 +5290,7 @@ GET /v1.0/notification-groups/{notificationGroupId}
         "resultMessage": "SUCCESS",
         "isSuccessful": true
     },
-    "notificationGroupId": "notificationGroupId-example",
+    "notificationGroupId": "550e8400-e29b-41d4-a716-446655440000",
     "notificationGroupName": "notificationGroupName-example",
     "notificationGroupStatus": "CREATED",
     "notifyEmail": false,
@@ -5298,13 +5298,13 @@ GET /v1.0/notification-groups/{notificationGroupId}
     "isEnabled": false,
     "dbInstances": [
         {
-            "dbInstanceId": "dbInstanceId-example",
+            "dbInstanceId": "550e8400-e29b-41d4-a716-446655440000",
             "dbInstanceName": "dbInstanceName-example"
         }
     ],
     "userGroups": [
         {
-            "userGroupId": "userGroupId-example",
+            "userGroupId": "550e8400-e29b-41d4-a716-446655440000",
             "userGroupName": "userGroupName-example"
         }
     ],
@@ -5390,7 +5390,7 @@ GET /v1.0/notification-groups/{notificationGroupId}/watchdogs
 | 이름 | 종류 | 형식 | 설명 |
 |-----|-----|-----|-----|
 | notificationWatchdogs | Body | Array | 감시 설정 정보 |
-| notificationWatchdogs.watchdogId | Body | String | 감시 설정의 식별자 |
+| notificationWatchdogs.watchdogId | Body | UUID | 감시 설정의 식별자 |
 | notificationWatchdogs.metricName | Body | String | 감시 대상 성능 지표 |
 | notificationWatchdogs.comparisonOperator | Body | Enum | 감시 대상 비교 방법<br/>- LE: `<=`<br/>- LT: `<`<br/>- GE: `>=`<br/>- GT: `>` |
 | notificationWatchdogs.threshold | Body | Number | 감시 대상 임곗값 |
@@ -5409,7 +5409,7 @@ GET /v1.0/notification-groups/{notificationGroupId}/watchdogs
     },
     "notificationWatchdogs": [
         {
-            "watchdogId": "watchdogId-example",
+            "watchdogId": "550e8400-e29b-41d4-a716-446655440000",
             "metricName": "metricName-example",
             "comparisonOperator": "LE",
             "threshold": 1,
@@ -5466,7 +5466,7 @@ POST /v1.0/notification-groups/{notificationGroupId}/watchdogs
 
 | 이름 | 종류 | 형식 | 설명 |
 |-----|-----|-----|-----|
-| watchdogId | Body | String | 감시 설정의 식별자 |
+| watchdogId | Body | UUID | 감시 설정의 식별자 |
 
 <details><summary>예시</summary>
 <p>
@@ -5478,7 +5478,7 @@ POST /v1.0/notification-groups/{notificationGroupId}/watchdogs
         "resultMessage": "SUCCESS",
         "isSuccessful": true
     },
-    "watchdogId": "watchdogId-example"
+    "watchdogId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
