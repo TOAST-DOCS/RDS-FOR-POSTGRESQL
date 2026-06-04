@@ -1,6 +1,14 @@
-## Database > RDS for PostgreSQL > API 가이드
+## Database > RDS for PostgreSQL > API v1.0 가이드
 
 ## RDS for PostgreSQL API 공통 정보
+
+### API 엔드포인트
+
+| 리전 | 엔드포인트 |
+|------|----------|
+| 한국(판교) 리전 | https://kr1-rds-postgres.api.nhncloudservice.com |
+| 한국(평촌) 리전 | https://kr2-rds-postgres.api.nhncloudservice.com |
+
 
 ### 인증 및 권한
 
@@ -47,13 +55,6 @@ API 요청 시 인증에 실패하거나 권한이 없을 경우 다음과 같�
 | resultCode | Number | 결과 코드<br/>- 성공: `0`<br/>- 실패: `0`이 아닌 값 |
 | resultMessage | String | 결과 메시지 |
 | isSuccessful | Boolean | 성공 여부 |
-### API 엔드포인트
-
-| 리전 | 엔드포인트 |
-|------|----------|
-| 한국(판교) 리전 | https://kr1-rds-postgres.api.nhncloudservice.com |
-| 한국(평촌) 리전 | https://kr2-rds-postgres.api.nhncloudservice.com |
-
 ## DB 버전
 
 ### DB 버전 목록 보기
