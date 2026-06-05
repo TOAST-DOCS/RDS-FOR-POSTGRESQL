@@ -355,7 +355,10 @@ GET /v1.0/storage-types
         "resultMessage": "SUCCESS",
         "isSuccessful": true
     },
-    "storageTypes": []
+    "storageTypes": [
+        "General SSD",
+        "General HDD"
+    ]
 }
 ```
 
@@ -1268,8 +1271,12 @@ GET /v1.0/db-instances/{dbInstanceId}
     "progressStatus": "progressStatus-example",
     "dbFlavorId": "550e8400-e29b-41d4-a716-446655440000",
     "parameterGroupId": "550e8400-e29b-41d4-a716-446655440000",
-    "dbSecurityGroupIds": [],
-    "notificationGroupIds": [],
+    "dbSecurityGroupIds": [
+        "550e8400-e29b-41d4-a716-446655440000"
+    ],
+    "notificationGroupIds": [
+        "550e8400-e29b-41d4-a716-446655440000"
+    ],
     "useDeletionProtection": false,
     "needToApplyParameterGroup": false,
     "needMigration": false,
