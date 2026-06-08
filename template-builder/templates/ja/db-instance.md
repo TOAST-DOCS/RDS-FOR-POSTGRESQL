@@ -774,14 +774,20 @@ pg_dump -h {rds_instance_floating_ip} -U {db_id} -p {db_port} -d {database_name}
 
 ```
 pg_dump -h {rds_instance_floating_ip} -U {db_id} -p {db_port} -d {database_name} | psql -h {external_db_host} -U {external_db_id} -p {external_db_port} -d {external_database_name}
+```
 
 ### pg_dumpを利用したインポート
 
+1. データをインポートするDBインスタンスを**フローティングIPの使用**を選択して作成します。
+
+2. インポートするDBインスタンスの容量が十分であることを確認します。
+
+3. **データベース & ユーザー**タブで必要なデータベースをあらかじめ作成します。
+ 
 4. 以下のコマンドを使用して、外部からデータをインポートします。
 
 ```
 pg_dump -h {外部PostgreSQL接続アドレス} -U {外部PostgreSQLユーザーID} -p {外部PostgreSQL接続ポート} -d {外部PostgreSQLデータベース名} | psql -h {DBインスタンス外部ドメインアドレス} -U {DBインスタンスユーザーID} -p {DBインスタンス接続ポート} -d {DBインスタンスデータベース名}
-```
 ```
 
 ## 付録
