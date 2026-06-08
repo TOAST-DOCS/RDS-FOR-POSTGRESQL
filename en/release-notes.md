@@ -1,5 +1,31 @@
 ## Database > RDS for PostgreSQL > Release Notes
 
+### June 9, 2026
+
+#### Added Features
+
+- Added direct control feature for databases and users
+    - Enabling the direct control option for databases and users in the master modification screen allows you to directly create or delete databases and users with a DDL account.
+
+#### Feature Updates
+
+- Improved DB instance group list screen
+    - Improved the UI and UX of the DB instance group list screen.
+- Improved DB engine status reflection
+    - Improved the system to immediately reflect the status when the DB engine is stopped.
+- Improved cron schema management after pg_cron extension installation
+    - Improved the system to allow viewing and directly controlling the cron schema created after installing the pg_cron extension from the database list.
+
+#### Bug Fixes
+
+- Fixed an issue where users could not be created with passwords containing special characters
+    - Fixed an issue where users could not be created when the password contained a single quotation mark (').
+- Fixed an issue where Resource Watcher resources were not deleted when the service was deactivated
+    - Fixed an issue where the relevant resources were not deleted from Resource Watcher when the service was deactivated while DB instances remained.
+- Fixed a parameter group comparison error
+    - Fixed an issue where an error occurred when comparing a parameter group with no connected DB instances.
+
+
 ### April 14, 2026
 
 #### Added Features
@@ -29,7 +55,7 @@
     - Implemented access control to restrict database and schema access to authorized users only.
     - Allowed designating DDL-privileged users as database or schema owners.
 - Integrated Resource Watcher service
-    - Enabled DB instance resource monitoring through the Resource Watcher service. 
+    - Enabled DB instance resource monitoring through the Resource Watcher service.
 
 #### Feature Updates
 
@@ -41,7 +67,7 @@
 
 #### Bug Fixes
 
-- Fixed an issue where access control rules were inconsistent in high-availability instances
+- Fixed an issue where access control rules were inconsistent in high-availability DB instances
     - Fixed an issue where access control rules were inconsistent between the master and standby instances.
 - Fixed an issue where non-deletable users were incorrectly displayed as deleted
     - Fixed an issue where users owning objects were incorrectly shown as deleted in the console.
@@ -107,7 +133,7 @@
 - Added the feature to restore to a backup in object storage
     - Added the feature to restore from a backup exported to object storage.
 - Added API Feature
-    - Added the feature to control RDS for PostgreSQL features via APIs.
+    - Allow you to control RDS for PostgreSQL features via APIs.
 
 #### Feature Updates
 
@@ -124,7 +150,7 @@
 - Changed Feature to Free up Capacity
     - Improved the selection of WAL log files from directly selecting them to a backup time base that allows point-in-time restores.
 - Changed the `shared_buffers` parameter
-    - Limit the parameter to a maximum of 50% of the DB instance RAM size, as using an excessively large value can cause problems running the DB engine.
+    - Changed to Limit the parameter to a maximum of 50% of the DB instance RAM size, as using an excessively large value can cause problems running the DB engine.
 
 ### October 15, 2024
 
@@ -139,7 +165,7 @@
 - Added the feature to end replication delay queuing
     - Added the feature to end the wait for replication delays when promoting/forcing a promotion.
 - Added DB extensions
-    - Added pgrouting, bool, hstore, intarray, isn, lo, ltree, and more to be able to install.
+    - Allow you to install pgrouting, bool, hstore, intarray, isn, lo, ltree, and more.
 
 #### Feature Updates
 
@@ -177,7 +203,7 @@
     - Improved usability to allow drag-and-drop rule ordering.
 - Improved to see which parameter items actually change when applying parameter group changes
 - Improved the service activation screen
-    - Modified to auto-refresh on service activation.
+    - Improved to auto-refresh on service activation.
 - Improved the parameter group detail Screen
     - Added the TIMEZONE type and improved the dropdown to search for and enter it.
     - Improved the feature to select units with a dropdown when editing parameters with units.

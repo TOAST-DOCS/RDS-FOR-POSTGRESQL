@@ -27,7 +27,7 @@ The following settings are applied to backup and it applies to both auto and man
 
 If you want to permanently store a database at a specific point in time, you can perform a backup manually from the console. Unlike auto backups, manual backups are not deleted when a DB instance is deleted unless you explicitly delete the backup. To perform a manual backup from the console
 
-![db-instance-detail-backup]({{url.cdn}}/20240813/db-instance-detail-backup-{{lang}}.png)
+![db-instance-detail-backup]({{url.cdn}}/20260609/db-instance-detail-backup-{{lang}}.png)
 
 ❶ After selecting the DB instance to back up, click **Backup**, and **Create Backup** and the pop-up window appears.
     - If you click **Backup** without selecting DB instance, you can select DB instance from the drop-down menu within the **Create Backup** pop-up window.
@@ -77,9 +77,9 @@ All backup files are uploaded to the internal backup storage and saved. For manu
 
 After backing up, you can export the backup file to user object storage.
 
-![db-instance-list-export-obs]({{url.cdn}}/20241210/db-instance-list-export-obs-{{lang}}.png)
+![db-instance-list-export-obs]({{url.cdn}}/20260609/db-instance-list-export-obs-{{lang}}.png)
 
-![db-instance-list-export-obs-modal]({{url.cdn}}/20241210/db-instance-list-export-obs-modal-{{lang}}.png)
+![db-instance-list-export-obs-modal]({{url.cdn}}/20260609/db-instance-list-export-obs-modal-{{lang}}.png)
 
 ❶ After selecting the DB instance to backup, click **Export Backup File to Object Storage After Backup** from the drop-down menu, and a settings pop-up screen will appear.
 ❷ Enter the tenant ID of the object storage where the backup will be stored. The tenant ID can be found in the API endpoint settings.
@@ -92,7 +92,7 @@ After backing up, you can export the backup file to user object storage.
 
 You can export backup files stored in internal backup storage to user object storage.
 
-![db-instance-detail-backup-export]({{url.cdn}}/20241210/db-instance-detail-backup-export-{{lang}}.png)
+![db-instance-detail-backup-export]({{url.cdn}}/20260609/db-instance-detail-backup-export-{{lang}}.png)
 
 ❶ On the Details tab of the source DB instance from which the backup was taken, select the backup file to export and click **Export Backup to Object Storage**, and a pop-up screen will appear to export the backup.
 
@@ -115,7 +115,7 @@ You can use backup to restore data to any point in time. Restoration always crea
 
 You do not need the original DB instance that performed the backup by restoring only the backup file. To restore a backup from the console
 
-![db-instance-detail-backup-restore]({{url.cdn}}/20240813/db-instance-detail-backup-restore-{{lang}}.png)
+![db-instance-detail-backup-restore]({{url.cdn}}/20260609/db-instance-detail-backup-restore-{{lang}}.png)
 
 ❶ Select the backup file you want to restore on the details tab of the dB instance, and then click **Backup Restore** to go to the Restore DB instance screen.
 
@@ -135,7 +135,7 @@ You can use point-in-time restoration to restore to a specific point-in-time or 
 
 To restore a point in time from the console
 
-![db-instance-pitr]({{url.cdn}}/20240813/db-instance-pitr-{{lang}}.png)
+![db-instance-pitr]({{url.cdn}}/20260609/db-instance-pitr-{{lang}}.png)
 
 ❶ Select the DB instance you want to restore to a point in time and click **Point In Time Restore** to go to the page where you can set up a point in time restore.
 
@@ -143,13 +143,9 @@ To restore a point in time from the console
 
 When restoring with Timestamp, perform the restore based on the backup file closest to the selected time point and apply the WAL log to the desired time point.
 
-![db-instance-pitr-01]({{url.cdn}}/20240611/db-instance-pitr-01-{{lang}}.png)
+![db-instance-pitr-timestamp]({{url.cdn}}/20260609/db-instance-pitr-timestamp-{{lang}}.png)
 
-❶ Select a restore method.
-
-![db-instance-pitr-02]({{url.cdn}}/20240611/db-instance-pitr-02-{{lang}}.png)
-
-❷ Select a time to restore. You can restore it to the most recent point in time, or enter the specific point in time that you want.
+❶ Select a time to restore. You can restore it to the most recent point in time, or enter the specific point in time that you want.
 
 
 ### Restore using Backup in Object Storage

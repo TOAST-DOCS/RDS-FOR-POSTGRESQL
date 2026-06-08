@@ -27,7 +27,7 @@ RDS for PostgreSQL에서는 pg_basebackup 도구를 이용하여 데이터베이
 
 특정 시점의 데이터베이스를 영구히 저장하려면 콘솔에서 수동으로 백업을 수행할 수 있습니다. 수동 백업은 자동 백업과 달리 명시적으로 백업을 삭제하지 않는 한 DB 인스턴스가 삭제될 때 같이 삭제되지 않습니다. 콘솔에서 수동 백업을 수행하려면
 
-![db-instance-detail-backup](https://static.toastoven.net/prod_rds_postgres/20240813/db-instance-detail-backup-ko.png)
+![db-instance-detail-backup](https://static.toastoven.net/prod_rds_postgres/20260609/db-instance-detail-backup-ko.png)
 
 ❶ 백업할 DB 인스턴스를 선택한 뒤 **백업**을 클릭하면 **백업 생성** 팝업 창이 나타납니다.
     - DB 인스턴스를 선택하지 않고 **백업**을 클릭하면 **백업 생성** 팝업 창 내 드롭다운 메뉴에서 DB 인스턴스를 선택할 수 있습니다.
@@ -77,9 +77,9 @@ RDS for PostgreSQL에서는 pg_basebackup 도구를 이용하여 데이터베이
 
 백업 후 백업 파일을 사용자 오브젝트 스토리지로 내보낼 수 있습니다.
 
-![db-instance-list-export-obs](https://static.toastoven.net/prod_rds_postgres/20241210/db-instance-list-export-obs-ko.png)
+![db-instance-list-export-obs](https://static.toastoven.net/prod_rds_postgres/20260609/db-instance-list-export-obs-ko.png)
 
-![db-instance-list-export-obs-modal](https://static.toastoven.net/prod_rds_postgres/20241210/db-instance-list-export-obs-modal-ko.png)
+![db-instance-list-export-obs-modal](https://static.toastoven.net/prod_rds_postgres/20260609/db-instance-list-export-obs-modal-ko.png)
 
 ❶ 백업할 DB 인스턴스를 선택한 뒤 드롭다운 메뉴에서 **백업 후 오브젝트 스토리지로 백업 파일 내보내기**를 클릭하면 설정 팝업 화면이 나타납니다.
 ❷ 백업이 저장될 오브젝트 스토리지의 테넌트 ID를 입력합니다. 테넌트 ID는 API 엔드포인트 설정에서 확인할 수 있습니다.
@@ -92,7 +92,7 @@ RDS for PostgreSQL에서는 pg_basebackup 도구를 이용하여 데이터베이
 
 내부 백업 스토리지에 저장된 백업 파일을 사용자 오브젝트 스토리지로 내보낼 수 있습니다.
 
-![db-instance-detail-backup-export](https://static.toastoven.net/prod_rds_postgres/20240813/db-instance-detail-backup-export-ko.png)
+![db-instance-detail-backup-export](https://static.toastoven.net/prod_rds_postgres/20260609/db-instance-detail-backup-export-ko.png)
 
 ❶ 백업을 수행한 원본 DB 인스턴스의 상세 탭에서 내보낼 백업 파일을 선택한 뒤 **오브젝트 스토리지로 백업 내보내기**를 클릭하면 백업을 내보내기 위한 팝업 화면이 나타납니다.
 
@@ -115,7 +115,7 @@ RDS for PostgreSQL에서는 pg_basebackup 도구를 이용하여 데이터베이
 
 백업 파일만으로 복원을 진행해 백업을 수행한 원본 DB 인스턴스가 필요하지 않습니다. 콘솔에서 백업을 복원하려면
 
-![db-instance-detail-backup-restore](https://static.toastoven.net/prod_rds_postgres/20240813/db-instance-detail-backup-restore-ko.png)
+![db-instance-detail-backup-restore](https://static.toastoven.net/prod_rds_postgres/20260609/db-instance-detail-backup-restore-ko.png)
 
 ❶ DB 인스턴스의 상세 탭에서 복원할 백업 파일을 선택한 뒤 **백업 복원**을 클릭하면 DB 인스턴스 복원 화면으로 이동합니다.
 
@@ -135,7 +135,7 @@ RDS for PostgreSQL에서는 pg_basebackup 도구를 이용하여 데이터베이
 
 콘솔에서 시점 복원을 하려면
 
-![db-instance-pitr](https://static.toastoven.net/prod_rds_postgres/20240813/db-instance-pitr-ko.png)
+![db-instance-pitr](https://static.toastoven.net/prod_rds_postgres/20260609/db-instance-pitr-ko.png)
 
 ❶ 시점 복원할 DB 인스턴스를 선택한 뒤 **시점 복원**을 클릭하면 시점 복원을 설정할 수 있는 페이지로 이동합니다.
 
@@ -143,13 +143,9 @@ RDS for PostgreSQL에서는 pg_basebackup 도구를 이용하여 데이터베이
 
 Timestamp를 사용한 복원 시에는 선택한 시점과 가장 가까운 백업 파일을 기준으로 복원을 진행한 뒤, 원하는 시점까지의 WAL 로그를 적용합니다.
 
-![db-instance-pitr-01](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-pitr-01-ko.png)
+![db-instance-pitr-timestamp](https://static.toastoven.net/prod_rds_postgres/20260609/db-instance-pitr-timestamp-ko.png)
 
-❶ 복원 방법을 선택합니다.
-
-![db-instance-pitr-02](https://static.toastoven.net/prod_rds_postgres/20240611/db-instance-pitr-02-ko.png)
-
-❷ 복원 시각을 선택합니다. 가장 최근 시점으로 복원하거나, 원하는 특정 시점을 직접 입력할 수 있습니다.
+❶ 복원 시각을 선택합니다. 가장 최근 시점으로 복원하거나, 원하는 특정 시점을 직접 입력할 수 있습니다.
 
 
 ### 오브젝트 스토리지에 있는 백업을 이용한 복원

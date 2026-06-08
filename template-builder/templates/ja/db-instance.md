@@ -2,7 +2,7 @@
 
 ## DBインスタンス
 
-DBインスタンスは仮想機器とインストールされたPostgreSQLを包含する概念で、RDS for PostgreSQLが提供するPostgreSQLの単位です。
+DBインスタンスは仮想マシンとインストールされたPostgreSQLを包含する概念で、RDS for PostgreSQLが提供するPostgreSQLの単位です。
 DBインスタンスのOSに直接アクセスすることはできず、DBインスタンス作成時に入力したポートを介してデータベースにのみアクセスできます。使用できるポート範囲には下記のような制約があります。
 
 * 使用できるポート範囲は5432～45432の間です。
@@ -11,7 +11,7 @@ DBインスタンスは、顧客が付与する名前と自動的に付与され
 DBインスタンス名は下記のような制約があります。
 
 * DBインスタンス名は、リージョンごとに一意でなければなりません。
-* DBインスタンス名は、1～100文字まで、英数字、数字、一部の記号(-, _, .)しか使用できず、最初の文字は英数字のみ使用できます。
+* DBインスタンス名は、1～100文字の英数字、数字、一部の記号(-, _, .)しか使用できず、最初の文字は英数字のみ使用できます。
 
 ## DBインスタンス作成
 
@@ -60,7 +60,7 @@ DBインスタンスを作成する際、データベースのワークロード
 > 既に作成したDBインスタンスのデータストレージタイプは変更できません。
 
 > [参考]
-> データストレージを2TB以上使用する場合は、NHN Cloudサポートにお問い合わせください。
+> データストレージを2TB以上使用する場合は、NHN Cloud カスタマーサポートにお問い合わせください。
 
 以下の作業は、データストレージのI/O容量を使用するため、進行中にDBインスタンスの性能が低下する可能性があります。
 
@@ -125,7 +125,7 @@ DBインスタンス作成時、基本通知を設定できます。基本通知
 
 コンソールで作成されたDBインスタンスを確認できます。DBインスタンスグループ単位でまとめて見たり、個々のDBインスタンスで見ることができます。
 
-![db-instance-list-basic]({{url.cdn}}/20240813/db-instance-list-basic-{{lang}}.png)
+![db-instance-list-basic]({{url.cdn}}/20260609/db-instance-list-basic-{{lang}}.png)
 
 ❶ DBインスタンス画面モードを変更できます。
 ❷南京錠アイコンをクリックすると、削除保護設定を変更できます。
@@ -149,7 +149,7 @@ DBインスタンスの状態は以下のような値で構成され、ユーザ
 
 変更できる検索条件は次のとおりです。
 
-![db-instance-list-filter]({{url.cdn}}/20240813/db-instance-list-filter-{{lang}}.png)
+![db-instance-list-filter]({{url.cdn}}/20260609/db-instance-list-filter-{{lang}}.png)
 
 ❶ DBインスタンスの状態をフィルタリング条件として検索できます。
 ❷アベイラビリティゾーンをフィルタリング条件として検索できます。
@@ -158,7 +158,7 @@ DBインスタンスの状態は以下のような値で構成され、ユーザ
 
 DBインスタンスを選択すると、詳細情報を確認できます。
 
-![db-instance-detail-basic]({{url.cdn}}/20240813/db-instance-detail-basic-{{lang}}.png)
+![db-instance-detail-basic]({{url.cdn}}/20260609/db-instance-detail-basic-{{lang}}.png)
 
 ❶接続情報のドメインをクリックすると、IPアドレスを確認できるポップアップウィンドウが表示されます。
 ❷ DBセキュリティグループをクリックすると、DBセキュリティルールを確認できるポップアップウィンドウが表示されます。
@@ -181,7 +181,7 @@ DBインスタンスのログタブでは、各種ログファイルの閲覧や
 | postgresql.log | 100MB 40個 | 固定       |
 | backup.log     | 毎日10個     | 固定       |
 
-![db-instance-detail-log]({{url.cdn}}/20240813/db-instance-detail-log-{{lang}}.png)
+![db-instance-detail-log]({{url.cdn}}/20260609/db-instance-detail-log-{{lang}}.png)
 
 ❶ **ログ表示**をクリックすると、ログファイルの内容を確認できるポップアップウィンドウが表示されます。最大65,535Bytesのログを確認できます。
 ❷ **インポート**をクリックすると、DBインスタンスのログファイルをダウンロードできるようにリクエストします。
@@ -197,7 +197,7 @@ DBインスタンスの**データベース＆ユーザー**タブでは、DBエ
 
 #### データベースの作成
 
-![db-instance-detail-db-create]({{url.cdn}}/20260210/db-instance-detail-db-create-{{lang}}.png)
+![db-instance-detail-db-create]({{url.cdn}}/20260609/db-instance-detail-db-create-{{lang}}.png)
 
 ❶ **+ 作成**をクリックすると、データベースの名前を入力できるポップアップウィンドウが表示されます。
 ❷データベース名を入力した後、**作成**をクリックしてデータベースを作成できます。
@@ -211,7 +211,7 @@ DBインスタンスの**データベース＆ユーザー**タブでは、DBエ
 
 #### データベースの修正
 
-![db-instance-detail-db-modify]({{url.cdn}}/20260210/db-instance-detail-db-modify-{{lang}}.png)
+![db-instance-detail-db-modify]({{url.cdn}}/20260609/db-instance-detail-db-modify-{{lang}}.png)
 
 ❶修正するデータベース行の**修正**をクリックすると、データベース情報を修正できるポップアップウィンドウが表示されます。
 ❷ DDLユーザーを選択し、所有者に設定できます。
@@ -221,21 +221,21 @@ DBインスタンスの**データベース＆ユーザー**タブでは、DBエ
 
 #### データベースの同期
 
-![db-instance-detail-db-sync]({{url.cdn}}/20260210/db-instance-detail-db-sync-{{lang}}.png)
+![db-instance-detail-db-sync]({{url.cdn}}/20260609/db-instance-detail-db-sync-{{lang}}.png)
 
 ❶ **同期**をクリックすると、**同期確認**ポップアップウィンドウが表示されます。
 ❷ **確認**をクリックして同期をリクエストできます。
 
 #### データベースの削除
 
-![db-instance-detail-db-delete]({{url.cdn}}/20260210/db-instance-detail-db-delete-{{lang}}.png)
+![db-instance-detail-db-delete]({{url.cdn}}/20260609/db-instance-detail-db-delete-{{lang}}.png)
 
 ❶削除するデータベースを選択し、**削除**をクリックすると、削除確認ポップアップウィンドウが表示されます。
 ❷ **削除**をクリックして削除をリクエストできます。
 
 #### スキーマ修正
 
-![db-instance-detail-schema-modify]({{url.cdn}}/20260210/db-instance-detail-schema-modify-{{lang}}.png)
+![db-instance-detail-schema-modify]({{url.cdn}}/20260609/db-instance-detail-schema-modify-{{lang}}.png)
 
 ❶ 修正するスキーマ行の**修正**をクリックすると、スキーマ情報を修正できるポップアップウィンドウが表示されます。
 ❷ DDLユーザーを選択し、所有者に設定できます。
@@ -244,7 +244,7 @@ DBインスタンスの**データベース＆ユーザー**タブでは、DBエ
 
 #### ユーザーの作成
 
-![db-instance-detail-user-create]({{url.cdn}}/20260210/db-instance-detail-user-create-{{lang}}.png)
+![db-instance-detail-user-create]({{url.cdn}}/20260609/db-instance-detail-user-create-{{lang}}.png)
 
 ❶ **+ 作成**をクリックすると、ユーザー追加ポップアップウィンドウが表示されます。
 ❷ユーザーIDを入力します。
@@ -276,7 +276,7 @@ DBインスタンスの**データベース＆ユーザー**タブでは、DBエ
 
 #### ユーザーの修正
 
-![db-instance-detail-user-modify]({{url.cdn}}/20260210/db-instance-detail-user-modify-{{lang}}.png)
+![db-instance-detail-user-modify]({{url.cdn}}/20260609/db-instance-detail-user-modify-{{lang}}.png)
 
 ❶修正するユーザー行の**修正**をクリックすると、ユーザー情報を修正できるポップアップウィンドウが表示されます。
 ❷パスワードを入力しないと変更されません。
@@ -284,19 +284,19 @@ DBインスタンスの**データベース＆ユーザー**タブでは、DBエ
 
 #### ユーザーの同期
 
-![db-instance-detail-user-sync]({{url.cdn}}/20260210/db-instance-detail-user-sync-{{lang}}.png)
+![db-instance-detail-user-sync]({{url.cdn}}/20260609/db-instance-detail-user-sync-{{lang}}.png)
 
 ❶ **同期**をクリックすると、**同期確認**ポップアップウィンドウが表示されます。
 ❷ **確認**をクリックして同期をリクエストできます。
 
 #### ユーザーの削除
 
-![db-instance-detail-user-delete]({{url.cdn}}/20260210/db-instance-detail-user-delete-{{lang}}.png)
+![db-instance-detail-user-delete]({{url.cdn}}/20260609/db-instance-detail-user-delete-{{lang}}.png)
 
 ❶削除するユーザーを選択し、ドロップダウンメニューをクリックします。
 ❷ **削除**をクリックすると、**削除確認**ポップアップウィンドウが表示されます。**確認**をクリックして削除をリクエストできます。
 
-![db-instance-detail-user-delete-with-option]({{url.cdn}}/20260210/db-instance-detail-user-delete-with-option-{{lang}}.png)
+![db-instance-detail-user-delete-with-option]({{url.cdn}}/20260609/db-instance-detail-user-delete-with-option-{{lang}}.png)
 
 ❶ 削除するユーザーが所有するオブジェクトがある場合、下部に追加オプションが表示されます。選択できるオプションと説明は次の通りです。
 
@@ -321,7 +321,7 @@ DBインスタンスの**データベース＆ユーザー**タブでは、DBエ
 
 DBインスタンスの**アクセス制御**タブでは、特定のデータベースとユーザーに対するDBエンジンのアクセスルールを照会及び制御できます。ここで設定したルールは`pg_hba.conf`ファイルに適用されます。
 
-![db-instance-detail-hba]({{url.cdn}}/20240813/db-instance-detail-hba-{{lang}}.png)
+![db-instance-detail-hba]({{url.cdn}}/20260609/db-instance-detail-hba-{{lang}}.png)
 
 ❶アクセス制御ルールの適用状態を確認できます。
 ❷進行中の作業があれば、スピナーが表示されます。
@@ -342,7 +342,7 @@ DBインスタンスの**アクセス制御**タブでは、特定のデータ�
 
 #### アクセス制御ルールの追加
 
-![db-instance-detail-hba-create]({{url.cdn}}/20260414/db-instance-detail-hba-create-{{lang}}.png)
+![db-instance-detail-hba-create]({{url.cdn}}/20260609/db-instance-detail-hba-create-{{lang}}.png)
 
 ❶ **+ 作成**をクリックすると、**アクセス制御ルールの追加**ポップアップウィンドウが表示されます。
 ❷ 入力方式で**基本**を選択すると、DBインスタンスに保存されたデータベースやユーザーを指定してルールを追加できます。
@@ -363,33 +363,34 @@ DBインスタンスの**アクセス制御**タブでは、特定のデータ�
 ❼ 設定が完了した後、**変更事項の適用**をクリックしてDBインスタンスにアクセス制御設定を適用します。
 ❽ DBインスタンスに適用されると、ステータスが**適用済み**に変更されます。
 
-![db-instance-detail-hba-create-by-text]({{url.cdn}}/20260414/db-instance-detail-hba-create-by-text-{{lang}}.png)
+![db-instance-detail-hba-create-by-text]({{url.cdn}}/20260609/db-instance-detail-hba-create-by-text-{{lang}}.png)
 
 ❶ 入力方式で**ルール原文で一括追加**を選択すると、`pg_hba.conf`の記述をそのまま入力してルールを一括追加できます。
 ❷ コメントを含む`pg_hba.conf`の記述をそのまま使用できます。詳細は[PostgreSQLのホームページ](https://www.postgresql.org/docs/17/auth-pg-hba-conf.html)をご参照ください。
 
 #### アクセス制御ルールの修正
 
-![db-instance-detail-hba-modify]({{url.cdn}}/20240813/db-instance-detail-hba-modify-{{lang}}.png)
+![db-instance-detail-hba-modify]({{url.cdn}}/20260609/db-instance-detail-hba-modify-{{lang}}.png)
 
 ❶修正するアクセス制御ルール行の**修正**をクリックすると、既存の情報を修正できるポップアップウィンドウが表示されます。
 ❷修正したルールは**変更事項の適用**をクリックしてDBインスタンスにアクセス制御設定を適用する必要があります。
 
 #### アクセス制御ルールの削除
 
-![db-instance-detail-hba-delete]({{url.cdn}}/20240813/db-instance-detail-hba-delete-{{lang}}.png)
+![db-instance-detail-hba-delete]({{url.cdn}}/20260609/db-instance-detail-hba-delete-{{lang}}.png)
 
 ❶ 削除するアクセス制御ルールを選択し、**削除**をクリックすると、**削除確認**ポップアップが表示されます。
 ❷ 削除したルールは、**変更の適用**をクリックしてDBインスタンスにアクセス制御設定を適用する必要があります。
 
 <a id="extension"></a>
+
 ### 拡張機能管理
 
 DBインスタンスの**拡張管理**タブでは、SUPERUSER権限が必要な拡張機能を照会及び制御できます。
 
 #### 拡張機能のインストール
 
-![db-instance-detail-extension-install]({{url.cdn}}/20250415/db-instance-detail-extension-install-{{lang}}.png)
+![db-instance-detail-extension-install]({{url.cdn}}/20260609/db-instance-detail-extension-install-{{lang}}.png)
 
 ❶ **インストール**をクリックすると、選択した拡張機能をインストールするデータベースを選択できるポップアップウィンドウが表示されます。
 ❷ **強制インストール**をチェックすると、依存関係にある拡張機能を強制的にインストールします。
@@ -399,7 +400,7 @@ DBインスタンスの**拡張管理**タブでは、SUPERUSER権限が必要�
 
 #### 拡張機能の削除
 
-![db-instance-detail-extension-delete]({{url.cdn}}/20250415/db-instance-detail-extension-delete-{{lang}}.png)
+![db-instance-detail-extension-delete]({{url.cdn}}/20260609/db-instance-detail-extension-delete-{{lang}}.png)
 
 ❶ 削除するデータベースの行で**削除**をクリックすると、**削除確認**ポップアップウィンドウが表示されます。
 ❷ **強制削除**をチェックすると、依存関係にある拡張機能を強制的に削除します。
@@ -409,7 +410,7 @@ DBインスタンスの**拡張管理**タブでは、SUPERUSER権限が必要�
 
 #### 拡張機能の同期
 
-![db-instance-detail-extension-sync]({{url.cdn}}/20250415/db-instance-detail-extension-sync-{{lang}}.png)
+![db-instance-detail-extension-sync]({{url.cdn}}/20260609/db-instance-detail-extension-sync-{{lang}}.png)
 
 ❶ **同期**をクリックすると、**同期確認** ポップアップウィンドウが表示されます。
 ❷ **確認**をクリックして同期をリクエストできます。
@@ -484,19 +485,19 @@ DBインスタンスに接続されたパラメータグループの設定が変
 
 次のいずれかの方法を使用してDBインスタンスにパラメータグループの変更を適用できます。
 
-![db-instance-list-apply-parameter-group]({{url.cdn}}/20240813/db-instance-list-apply-parameter-group-{{lang}}.png)
+![db-instance-list-apply-parameter-group]({{url.cdn}}/20260609/db-instance-list-apply-parameter-group-{{lang}}.png)
 
 ❶対象DBインスタンスの **パラメータ**をクリックするか
 ❷対象DBインスタンスを選択した後、ドロップダウンメニューから**パラメータグループの変更内容を適用**メニューをクリックします。
 
 パラメータグループで再起動を必要とするパラメータが変更された場合、変更内容を適用する過程でDBインスタンスが再起動されます。
 
-![db-instance-list-apply-parameter-group-popup]({{url.cdn}}/20240813/db-instance-list-apply-parameter-group-popup-{{lang}}.png)
+![db-instance-list-apply-parameter-group-popup]({{url.cdn}}/20260609/db-instance-list-apply-parameter-group-popup-{{lang}}.png)
 
 ❶ **変更事項の比較**をクリックして変更されたパラメータを確認できます。
 ❷変更事項を確認した後、**確認**をクリックしてDBインスタンスに変更されたパラメータを適用します。
 
-![db-instance-list-apply-parameter-group-compare-popup]({{url.cdn}}/20240813/db-instance-list-apply-parameter-group-compare-popup-{{lang}}.png)
+![db-instance-list-apply-parameter-group-compare-popup]({{url.cdn}}/20260609/db-instance-list-apply-parameter-group-compare-popup-{{lang}}.png)
 
 ## リードレプリカ
 
@@ -518,7 +519,7 @@ DBインスタンスに接続されたパラメータグループの設定が変
 > リードレプリカの作成過程で必要なデータストレージサイズ分、バックアップストレージの課金が発生する可能性があります。
 > リードレプリカを作成するには、コンソールで
 
-![db-instance-list-replica-create]({{url.cdn}}/20240813/db-instance-list-replica-create-{{lang}}.png)
+![db-instance-list-replica-create]({{url.cdn}}/20260609/db-instance-list-replica-create-{{lang}}.png)
 
 ❶原本DBインスタンスを選択した後、**リードレプリカ作成**をクリッすると、リードレプリカを作成するためのページに移動します。
 
@@ -583,7 +584,7 @@ DBインスタンスに接続されたパラメータグループの設定が変
 
 リードレプリカの昇格または強制昇格中に複製遅延が解消されるまで待機している場合、待機作業を終了するには、コンソールで
 
-![db-instance-list-stop-wait-replication-lag]({{url.cdn}}/20250415/db-instance-list-stop-wait-replication-lag-{{lang}}.png)
+![db-instance-list-stop-wait-replication-lag]({{url.cdn}}/20260609/db-instance-list-stop-wait-replication-lag-{{lang}}.png)
 
 ❶ **複製遅延待機終了**をクリックすると、待機作業を終了することができるポップアップウィンドウが表示されます。
 ❷ **確認**をクリックして待機作業を終了します。
@@ -605,20 +606,20 @@ PostgreSQLを再起動したい時、DBインスタンスを再起動できま�
 
 DBインスタンスの再起動を行うにはコンソールで
 
-![db-instance-list-restart]({{url.cdn}}/20240813/db-instance-list-restart-{{lang}}.png)
+![db-instance-list-restart]({{url.cdn}}/20260609/db-instance-list-restart-{{lang}}.png)
 
 ❶再起動したいDBインスタンスを選択した後、ドロップダウンメニューから**DBインスタンスの再起動**メニューをクリックします。
 
 ## DBインスタンスの強制再起動
 
-DBインスタンスのPostgreSQLが正常に動作しない場合、強制的に再起動できます。強制再起動の場合、PostgreSQLにSIGTERMコマンドを実行して正常終了するのを10分間待ちます。10分以内にPostgreSQLが正常終了したら、仮想マシンを再起動します。10分以内に正常終了しない場合は、仮想マシンを強制的に再起動します。仮想マシンが強制的に再起動されると、作業中の一部のトランザクションが失われる可能性があり、データボリュームが破損して復旧が不可能になる可能性があります。強制再起動後、DBインスタンスの状態が使用可能な状態に戻らない場合があります。このような状況が発生した場合はサポートにお問い合わせください。
+DBインスタンスのPostgreSQLが正常に動作しない場合、強制的に再起動できます。強制再起動の場合、PostgreSQLにSIGTERMコマンドを実行して正常終了するのを10分間待ちます。10分以内にPostgreSQLが正常終了したら、仮想マシンを再起動します。10分以内に正常終了しない場合は、仮想マシンを強制的に再起動します。仮想マシンが強制的に再起動されると、作業中の一部のトランザクションが失われる可能性があり、データボリュームが破損して復旧が不可能になる可能性があります。強制再起動後、DBインスタンスの状態が使用可能な状態に戻らない場合があります。このような状況が発生した場合はカスタマーサポートにお問い合わせください。
 
 > [注意]
 > データが失われたり、データボリュームが破損する可能性があるため、この機能は緊急かつ不可避的な状況以外では使用を控えてください。
 
 DBインスタンスを強制的に再起動するには、コンソールで
 
-![db-instance-list-force-restart]({{url.cdn}}/20240813/db-instance-list-force-restart-{{lang}}.png)
+![db-instance-list-force-restart]({{url.cdn}}/20260609/db-instance-list-force-restart-{{lang}}.png)
 
 ❶再起動するDBインスタンスを選択し、ドロップダウンメニューから**DBインスタンス強制再起動**メニューをクリックします。
 
@@ -626,11 +627,11 @@ DBインスタンスを強制的に再起動するには、コンソールで
 
 削除保護を有効にすると、誤ってDBインスタンスが削除されないように保護できます。削除保護を無効にするまで、該当DBインスタンスを削除できません。削除保護設定を変更するには
 
-![db-instance-deletion-protection]({{url.cdn}}/20240813/db-instance-list-deletion-protection-{{lang}}.png)
+![db-instance-deletion-protection]({{url.cdn}}/20260609/db-instance-list-deletion-protection-{{lang}}.png)
 
 ❶削除保護設定を変更したいDBインスタンスを選択した後、ドロップダウンメニューから**削除保護設定の変更**メニューをクリックすると、ポップアップウィンドウが表示されます。
 
-![deletion-protection-popup]({{url.cdn}}/20240813/db-instance-list-deletion-protection-popup-{{lang}}.png)
+![deletion-protection-popup]({{url.cdn}}/20260609/db-instance-list-deletion-protection-popup-{{lang}}.png)
 
 ❷削除保護設定を変更した後、**確認**をクリックします。
 
@@ -670,7 +671,7 @@ DBインスタンスを強制的に再起動するには、コンソールで
 
 フェイルオーバーが行われたマスターを復旧するにはコンソールで
 
-![db-instance-ha-failover-repair]({{url.cdn}}/20241210/db-instance-ha-failover-repair-{{lang}}.png)
+![db-instance-ha-failover-repair]({{url.cdn}}/20260609/db-instance-ha-failover-repair-{{lang}}.png)
 
 ❶復旧したいフェイルオーバーが行われたマスターを選択し、ドロップダウンメニューから**フェイルオーバーが行われたマスター復旧**メニューをクリックします。
 
@@ -689,7 +690,7 @@ DBインスタンスを強制的に再起動するには、コンソールで
 
 フェイルオーバーが行われたマスターを再構築するには、コンソールで
 
-![db-instance-ha-failover-rebuild]({{url.cdn}}/20241210/db-instance-ha-failover-rebuild-{{lang}}.png)
+![db-instance-ha-failover-rebuild]({{url.cdn}}/20260609/db-instance-ha-failover-rebuild-{{lang}}.png)
 
 ❶再構築したいフェイルオーバーが行われたマスターを選択し、ドロップダウンメニューから**フェイルオーバーが行われたマスター再構築**メニューをクリックします。
 
@@ -699,7 +700,7 @@ DBインスタンスを強制的に再起動するには、コンソールで
 
 フェイルオーバーが行われたマスターを分離するにはコンソールで
 
-![db-instance-ha-failover-split]({{url.cdn}}/20241210/db-instance-ha-failover-split-{{lang}}.png)
+![db-instance-ha-failover-split]({{url.cdn}}/20260609/db-instance-ha-failover-split-{{lang}}.png)
 
 ❶分離したいフェイルオーバーが行われたマスターを選択し、ドロップダウンメニューから*フェイルオーバーが行われたマスター分離**メニューをクリックします。
 
@@ -730,7 +731,7 @@ DBインスタンスを強制的に再起動するには、コンソールで
 
 予備マスターに変更を先に適用した後、その推移を観察したり、正確な時間にフェイルオーバーを実行したい場合、コンソールでフェイルオーバーのタイミングを直接制御できます。フェイルオーバー手動制御を選択すると、予備マスターが再起動された後、❶コンソールに**フェイルオーバー**ボタンが表示されます。このボタンをクリックするとフェイルオーバーが実行され、最大5日間実行を待機できます。5日以内にフェイルオーバーを実行しない場合、その作業は自動的にキャンセルされます。
 
-![db-instance-ha-wait-manual-failover]({{url.cdn}}/20241210/db-instance-ha-wait-manual-failover-{{lang}}.png)
+![db-instance-ha-wait-manual-failover]({{url.cdn}}/20260609/db-instance-ha-wait-manual-failover-{{lang}}.png)
 
 > [注意]
 > フェイルオーバーを待機している間は、自動フェイルオーバーは実行されません。
@@ -760,7 +761,7 @@ DBインスタンスを強制的に再起動するには、コンソールで
 
 * NHN Cloud RDSのインスタンスを準備して使用します。
 * エクスポートするデータを保存する外部インスタンス、またはローカルクライアントがインストールされたコンピュータの容量が十分に確保されていることを確認します。
-* NHN Cloudの外部にデータをエクスポートする場合、Floating IPを作成してデータをエクスポートするRDSインスタンスに接続します。
+* NHN Cloudの外部にデータをエクスポートする場合、フローティングIPを作成してデータをエクスポートするRDSインスタンスに接続します。
 * 下記のpg_dumpコマンドを使って外部にデータをエクスポートします。
 
 #### ファイルでエクスポートする場合
@@ -772,7 +773,21 @@ pg_dump -h {rds_instance_floating_ip} -U {db_id} -p {db_port} -d {database_name}
 #### NHN Cloud RDS外部のPostgreSQLデータベースにエクスポートする場合
 
 ```
-pg_dump  -h {rds_instance_floating_ip} -U {db_id} -p {db_port} -d {database_name} | psql -h {external_db_host} -U {external_db_id} -p {external_db_port} -d {external_database_name}
+pg_dump -h {rds_instance_floating_ip} -U {db_id} -p {db_port} -d {database_name} | psql -h {external_db_host} -U {external_db_id} -p {external_db_port} -d {external_database_name}
+```
+
+### pg_dumpを利用したインポート
+
+1. データをインポートするDBインスタンスを**フローティングIPの使用**を選択して作成します。
+
+2. インポートするDBインスタンスの容量が十分であることを確認します。
+
+3. **データベース & ユーザー**タブで必要なデータベースをあらかじめ作成します。
+ 
+4. 以下のコマンドを使用して、外部からデータをインポートします。
+
+```
+pg_dump -h {外部PostgreSQL接続アドレス} -U {外部PostgreSQLユーザーID} -p {外部PostgreSQL接続ポート} -d {外部PostgreSQLデータベース名} | psql -h {DBインスタンス外部ドメインアドレス} -U {DBインスタンスユーザーID} -p {DBインスタンス接続ポート} -d {DBインスタンスデータベース名}
 ```
 
 ## 付録
@@ -790,26 +805,26 @@ DBインスタンスのマイグレーションは、NHN Cloudコンソールか
 
 名前の横にマイグレーションボタンがあるDBインスタンスが点検対象インスタンスです。
 
-![db-instance-planned-migration]({{url.cdn}}/20240813/db-instance-planned-migration-{{lang}}.png)
+![db-instance-planned-migration]({{url.cdn}}/20260609/db-instance-planned-migration-{{lang}}.png)
 
 マイグレーションボタンの上にマウスポインタを置くと、詳細な点検スケジュールを確認できます。
 
-![db-instance-planned-migration-popup]({{url.cdn}}/20240813/db-instance-planned-migration-popup-{{lang}}.png)
+![db-instance-planned-migration-popup]({{url.cdn}}/20260609/db-instance-planned-migration-popup-{{lang}}.png)
 
 #### 2. 点検対象DBインスタンスに接続しているアプリケーションを終了する必要があります。
 
 DBに接続されているサービスに影響が出ないよう、適切に措置を講じてください。
-サービスに影響を及ぼすことが避けられない場合は、NHN Cloudサポートにご連絡いただければ、適切な対応をご案内いたします。
+サービスに影響を及ぼすことが避けられない場合は、NHN Cloud カスタマーサポートにご連絡いただければ、適切な対応をご案内いたします。
 
 #### 3.点検対象のDBインスタンスを選択し、マイグレーションボタンをクリックした後、DBインスタンスのマイグレーション確認を求めるウィンドウが表示されたら、確認ボタンをクリックします。
 
-![db-instance-planned-migration-confirm]({{url.cdn}}/20240813/db-instance-planned-migration-confirm-{{lang}}.png)
+![db-instance-planned-migration-confirm]({{url.cdn}}/20260609/db-instance-planned-migration-confirm-{{lang}}.png)
 
 #### 4. DBインスタンスのマイグレーションが終わるまで待機します。
 
-DBインスタンスの状態が変更されない場合は、「更新」を行ってください。
+DBインスタンスの状態が変わらない場合は、**更新**をクリックしてください。
 
-![db-instance-planned-migration-status]({{url.cdn}}/20240813/db-instance-planned-migration-status-{{lang}}.png)
+![db-instance-planned-migration-status]({{url.cdn}}/20260609/db-instance-planned-migration-status-{{lang}}.png)
 
 DBインスタンスがマイグレーションされている間は、何の操作もできません。
 DBインスタンスのマイグレーションが正常に完了しない場合、自動的に管理者に報告され、NHN Cloudから別途ご連絡いたします。

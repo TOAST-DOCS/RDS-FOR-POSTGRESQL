@@ -44,7 +44,7 @@ When you create a DB instance, you must select the appropriate DB instance type 
 | Type | Description                                                                                                                              |
 |------|------------------------------------------------------------------------------------------------------------------------------------------|
 | m2   | This is a type that balances CPU and memory.                                                                                             |
-| c2   | This is an Instance type with high CPU performance.                                                                                      |
+| c2   | This is an Instance type with high CPU performance.                                      |
 | r2   | It can be used when memory is used more than other resources.                                                                            |
 | x1   | It is a type that supports high-specification CPU and memory. It can be used for services or applications that require high performance. |
 
@@ -61,7 +61,7 @@ Stores the database's data files in data storage. DB instances support two types
 > You cannot change the data storage type of an already created DB instance.
 
 > [Note]
-> To use more than 2TB of data storage, contact NHN Cloud Customer Center.
+> To use more than 2TB of data storage, contact NHN Cloud Customer Support.
 
 The following tasks use the I/O capacity of the data storage, which may degrade the performance of DB instances during the process.
 
@@ -135,7 +135,7 @@ You can set default notifications when creating a DB instance. Setting default n
 
 You can view the DB instances created from the console. You can view in groups of DB instances, or as individual DB instances.
 
-![db-instance-list-basic]({{url.cdn}}/20241210/db-instance-list-basic-{{lang}}.png)
+![db-instance-list-basic]({{url.cdn}}/20260609/db-instance-list-basic-{{lang}}.png)
 
 ❶ Change the DB instance screen mode.
 ❷ Change the deletion protection settings by clicking the lock icon.
@@ -159,7 +159,7 @@ DB instance's status consists of the following values, which change based on you
 
 The search conditions that can be changed are as follows.
 
-![db-instance-list-filter]({{url.cdn}}/20241210/db-instance-list-filter-{{lang}}.png)
+![db-instance-list-filter]({{url.cdn}}/20260609/db-instance-list-filter-{{lang}}.png)
 
 ❶ Retrieve the status of DB instance by filtering criteria.
 ❷ Retrieve availability zones by filtering criteria.
@@ -168,7 +168,7 @@ The search conditions that can be changed are as follows.
 
 Select DB instance to view details.
 
-![db-instance-detail-basic]({{url.cdn}}/20241210/db-instance-detail-basic-{{lang}}.png)
+![db-instance-detail-basic]({{url.cdn}}/20260609/db-instance-detail-basic-{{lang}}.png)
 
 ❶ When you click on the domain of the connection information, the pop-up window to verify the IP address appears.
 ❷ When you click on the DB security group, a pop-up window appears to verify the DB security rules.
@@ -191,7 +191,7 @@ On the Logs tab of the DB instance, you can view or download various log files. 
 | postgresql.log  | 40 items of 100 MB   | Static                   |
 | backup.log      | Daily 10 items       | Static                   |
 
-![db-instance-detail-log]({{url.cdn}}/20241210/db-instance-detail-log-{{lang}}.png)
+![db-instance-detail-log]({{url.cdn}}/20260609/db-instance-detail-log-{{lang}}.png)
 
 ❶ When you click **View Log**, a pop-up window appears where you can view the contents of the log file. You can check logs up to 65,535 Bytes.
 ❷ Click on **Import** to request that the log files of the DB instance be downloaded.
@@ -209,7 +209,7 @@ On the Logs tab of the DB instance, you can view or download various log files. 
 
 #### Create a database
 
-![db-instance-detail-db-create]({{url.cdn}}/20260210/db-instance-detail-db-create-{{lang}}.png)
+![db-instance-detail-db-create]({{url.cdn}}/20260609/db-instance-detail-db-create-{{lang}}.png)
 
 ❶ When you click on **+ Create**, a pop-up window appears where you can enter the name of the database.
 ❷ You can create the database by entering the database name and clicking **Create**.
@@ -223,7 +223,7 @@ Database names have the following restrictions.
 
 #### Modify Database
 
-![db-instance-detail-db-modify]({{url.cdn}}/20260210/db-instance-detail-db-modify-{{lang}}.png)
+![db-instance-detail-db-modify]({{url.cdn}}/20260609/db-instance-detail-db-modify-{{lang}}.png)
 
 ❶ When you click on **Modify** in the database row you want to modify, a pop-up window appears where you can modify the database information.
 ❷ Designate a DDL user to be the owner.
@@ -233,21 +233,21 @@ Database names have the following restrictions.
 
 #### Synchronize Database
 
-![db-instance-detail-db-sync]({{url.cdn}}/20260210/db-instance-detail-db-sync-{{lang}}.png)
+![db-instance-detail-db-sync]({{url.cdn}}/20260609/db-instance-detail-db-sync-{{lang}}.png)
 
 ❶ After you click **Synchronization**, the **synchronization confirmation** pop-up window appears.
 ❷ You can click **Confirm** to request the synchronization.
 
 #### Delete Database
 
-![db-instance-detail-db-delete]({{url.cdn}}/20260210/db-instance-detail-db-delete-{{lang}}.png)
+![db-instance-detail-db-delete]({{url.cdn}}/20260609/db-instance-detail-db-delete-{{lang}}.png)
 
 ❶ If select the database you want to delete and click on **Delete**, the Delete confirmation pop-up window appears.
 ❷ You can request deletion by clicking on **Delete**.
 
 #### Modify Schema
 
-![db-instance-detail-schema-modify]({{url.cdn}}/20260210/db-instance-detail-schema-modify-{{lang}}.png)
+![db-instance-detail-schema-modify]({{url.cdn}}/20260609/db-instance-detail-schema-modify-{{lang}}.png)
 
 ❶ Click **Modify** on the schema row you wish to modify. A pop-up window will appear where you can update the schema information.
 ❷ Select a DDL user to assign as the owner.
@@ -256,7 +256,7 @@ Database names have the following restrictions.
 
 #### Create a User
 
-![db-instance-detail-user-create]({{url.cdn}}/20260210/db-instance-detail-user-create-{{lang}}.png)
+![db-instance-detail-user-create]({{url.cdn}}/20260609/db-instance-detail-user-create-{{lang}}.png)
 
 ❶ Click on **+ Create** to see the **Add User** pop-up window.
 ❷ Enter user ID.
@@ -288,7 +288,7 @@ Password has the following restrictions.
 
 #### Edit a User
 
-![db-instance-detail-user-modify]({{url.cdn}}/20260210/db-instance-detail-user-modify-{{lang}}.png)
+![db-instance-detail-user-modify]({{url.cdn}}/20260609/db-instance-detail-user-modify-{{lang}}.png)
 
 ❶ When you click on **Modify** in the row of users that you want to edit, a pop-up window appears where you can edit information.
 ❷ If you do not enter a password, it will not be edited.
@@ -296,19 +296,19 @@ Password has the following restrictions.
 
 #### Synchronize User
 
-![db-instance-detail-user-sync]({{url.cdn}}/20260210/db-instance-detail-user-sync-{{lang}}.png)
+![db-instance-detail-user-sync]({{url.cdn}}/20260609/db-instance-detail-user-sync-{{lang}}.png)
 
 ❶ Click **Synchronization** and a **Confirm Synchronization** pop-up window will appear.
 ❷ Click **Confirm** to request synchronization.
 
 #### Delete a User
 
-![db-instance-detail-user-delete]({{url.cdn}}/20260210/db-instance-detail-user-delete-{{lang}}.png)
+![db-instance-detail-user-delete]({{url.cdn}}/20260609/db-instance-detail-user-delete-{{lang}}.png)
 
 ❶ Select the user that you want to delete and click on the drop-down menu.
 ❷ When **Delete** is clicked, **Delete Confirmation** pop-up window appears. You can request deletion by clicking on **Confirm**.
 
-![db-instance-detail-user-delete-with-option]({{url.cdn}}/20260210/db-instance-detail-user-delete-with-option-{{lang}}.png)
+![db-instance-detail-user-delete-with-option]({{url.cdn}}/20260609/db-instance-detail-user-delete-with-option-{{lang}}.png)
 
 ❶ Displays additional options below when deleting a user who owns objects. See the table below for available options and their descriptions:
 
@@ -332,7 +332,7 @@ Password has the following restrictions.
 
 **Access Control** tab of the DB instance allows you to query and control DB Engine access rules for specific databases and users. The rules set here apply to file `pg_hba.conf`.
 
-![db-instance-detail-hba]({{url.cdn}}/20241210/db-instance-detail-hba-{{lang}}.png)
+![db-instance-detail-hba]({{url.cdn}}/20260609/db-instance-detail-hba-{{lang}}.png)
 
 ❶ You can view the application status for access control rules.
 ❷ If there is any work in progress, a spinner will appear.
@@ -354,7 +354,7 @@ The status of access control consists of the following values, which change depe
 
 #### Add Access Control Rules
 
-![db-instance-detail-hba-create]({{url.cdn}}/20260414/db-instance-detail-hba-create-{{lang}}.png)
+![db-instance-detail-hba-create]({{url.cdn}}/20260609/db-instance-detail-hba-create-{{lang}}.png)
 
 ❶ When you click on **+ Create**, an **Add Access Control Rule** pop-up window appears.
 ❷ If you select **Default** as the input method, you can add rules by specifying a database or user stored in the DB instance.
@@ -376,21 +376,21 @@ The status of access control consists of the following values, which change depe
 ❼ After finish setting, click **Apply Changes** to apply the access control settings to DB instance.
 ❽ When applied to DB instance, the status changes to **Applied**.
 
-![db-instance-detail-hba-create-by-text]({{url.cdn}}/20260414/db-instance-detail-hba-create-by-text-{{lang}}.png)
+![db-instance-detail-hba-create-by-text]({{url.cdn}}/20260609/db-instance-detail-hba-create-by-text-{{lang}}.png)
 
 ❶ If you select **Bulk Add by Rule Source** as the input method, you can bulk add rules by entering the `pg_hba.conf` source as-is.
 ❷ You can use the `pg_hba.conf` source as-is, including comments. For more information, see the [PostgreSQL website](https://www.postgresql.org/docs/17/auth-pg-hba-conf.html).
 
 #### Modify Access Control Rules
 
-![db-instance-detail-hba-modify]({{url.cdn}}/20241210/db-instance-detail-hba-modify-{{lang}}.png)
+![db-instance-detail-hba-modify]({{url.cdn}}/20260609/db-instance-detail-hba-modify-{{lang}}.png)
 
 ❶ When click **Modify** in the row of access control rules to modify, a pop-up window appears where you can modify existing information.
 ❷ Modified rules must apply access control settings to DB instances by clicking on **Apply Changes**.
 
 #### Delete Access Control Rules
 
-![db-instance-detail-hba-delete]({{url.cdn}}/20241210/db-instance-detail-hba-delete-{{lang}}.png)
+![db-instance-detail-hba-delete]({{url.cdn}}/20260609/db-instance-detail-hba-delete-{{lang}}.png)
 
 ❶ After selecting the access control rules to delete, click on **Delete**, the **Delete confirmation** pop-up window appears.
 ❷ Deleted rules must apply access control settings to DB instances by clicking on **Apply Changes**.
@@ -403,7 +403,7 @@ You can get and control the extensions that require SUPERUSER permission from **
 
 #### Install Extensions
 
-![db-instance-detail-extension-install]({{url.cdn}}/20250415/db-instance-detail-extension-install-{{lang}}.png)
+![db-instance-detail-extension-install]({{url.cdn}}/20260609/db-instance-detail-extension-install-{{lang}}.png)
 
 ❶ Click **Install** to display a pop-up window that allows you to select the database on which to install the selected extension.
 ❷ Check **Force Install** to force installation of dependent extensions.
@@ -413,7 +413,7 @@ You can get and control the extensions that require SUPERUSER permission from **
 
 #### Delete Extensions
 
-![db-instance-detail-extension-delete]({{url.cdn}}/20250415/db-instance-detail-extension-delete-{{lang}}.png)
+![db-instance-detail-extension-delete]({{url.cdn}}/20260609/db-instance-detail-extension-delete-{{lang}}.png)
 
 ❶ Click **Delete** from the database row to be deleted to display a **Confirm Delete** pop-up window.
 ❷ Check **Force Install** to force deletion of dependent extensions.
@@ -423,7 +423,7 @@ You can get and control the extensions that require SUPERUSER permission from **
 
 #### Synchronize Extensions
 
-![db-instance-detail-extension-sync]({{url.cdn}}/20250415/db-instance-detail-extension-sync-{{lang}}.png)
+![db-instance-detail-extension-sync]({{url.cdn}}/20260609/db-instance-detail-extension-sync-{{lang}}.png)
 
 ❶ If you click **Synchronize**, a **Confirm Synchronization** pop-up window will appear.
 ❷ Click **Confirm** to request synchronization.
@@ -461,6 +461,12 @@ For high-availability DB instances, we provide a failover restart feature to inc
 
 If you do not use restart with failover, the changes are applied sequentially to the master and candidate master, and then the DB instance is restarted. For more information, see [Manual Failover Items](db-instance/#_7) in High Availability DB Instances.
 
+### Database User Control
+
+RDS for PostgreSQL provides management features in the console for easy management of databases and users, but also provides a feature to allow users to control them directly. When direct control is enabled, `CREATEDB` and `CREATEROLE` privileges are granted to all DDL users currently created. The same privileges are granted when modifying the privileges of existing users via DDL or when creating new users.
+
+> [Caution]
+> If the privileges managed by RDS are not granted to a directly created user, the user is represented with **CUSTOM** privileges.
 
 ## Delete DB instance
 
@@ -503,19 +509,19 @@ Even though the settings of the parameter groups connected to the DB instance ch
 
 You can apply changes to a parameter group to a DB instance using one of the following methods.
 
-![db-instance-list-apply-parameter-group]({{url.cdn}}/20241210/db-instance-list-apply-parameter-group-{{lang}}.png)
+![db-instance-list-apply-parameter-group]({{url.cdn}}/20260609/db-instance-list-apply-parameter-group-{{lang}}.png)
 
 ❶ Click **Parameter** for destination DB instance, or
 ❷ Select a destination DB instance and click on **Apply Parameter Group Changes** menu from the drop-down menu.
 
 If the parameters that require restart in the parameter group are changed, such DB instance is restarted in the process of applying the changes.
 
-![db-instance-list-apply-parameter-group-popup]({{url.cdn}}/20241210/db-instance-list-apply-parameter-group-popup-{{lang}}.png)
+![db-instance-list-apply-parameter-group-popup]({{url.cdn}}/20260609/db-instance-list-apply-parameter-group-popup-{{lang}}.png)
 
 ❶ Click **Compare Chnages** to check the changed parameters.
 ❷ Click **Confirm** after checking the changes to apply the changed parameters to DB instances.
 
-![db-instance-list-apply-parameter-group-compare-popup]({{url.cdn}}/20241210/db-instance-list-apply-parameter-group-compare-popup-{{lang}}.png)
+![db-instance-list-apply-parameter-group-compare-popup]({{url.cdn}}/20260609/db-instance-list-apply-parameter-group-compare-popup-{{lang}}.png)
 
 ## Export Backup Files to Object Storage after Backup
 
@@ -548,7 +554,7 @@ Backup storage charges can be incurred for the amount of data storage required f
 
 To create a read replica from the console,
 
-![db-instance-list-replica-create]({{url.cdn}}/20241210/db-instance-list-replica-create-{{lang}}.png)
+![db-instance-list-replica-create]({{url.cdn}}/20260609/db-instance-list-replica-create-{{lang}}.png)
 
 ❶ After selecting the source DB instance, click **Create Read Replica** to go to the page for creating a read replica.
 
@@ -613,7 +619,7 @@ Force promotion based on current point-in-time data on the read replica, regardl
 
 To end the wait operation, when you are waiting for replication delays to resolve during a read replica promotion or force promotion,
 
-![db-instance-list-stop-wait-replication-lag]({{url.cdn}}/20250415/db-instance-list-stop-wait-replication-lag-{{lang}}.png)
+![db-instance-list-stop-wait-replication-lag]({{url.cdn}}/20260609/db-instance-list-stop-wait-replication-lag-{{lang}}.png)
 
 ❶ Click **Replication Waiting** brings up a popup window that allows you to end the waiting task.
 ❷ Click **Confirm** to end the waiting task.
@@ -635,20 +641,20 @@ If you want to restart PostgreSQL, you can restart a DB instance. To minimize re
 
 To restart a DB instance, use console
 
-![db-instance-list-restart]({{url.cdn}}/20241210/db-instance-list-restart-{{lang}}.png)
+![db-instance-list-restart]({{url.cdn}}/20260609/db-instance-list-restart-{{lang}}.png)
 
 ❶ Select DB instance that you want to restart and click **Restart DB Instance** from the drop-down menu.
 
 ## Force Restart DB Instances
 
-If PostgreSQL of a DB instance is not working properly, you can force a restart. For a forced restart, issue a SIGTERM command to PostgreSQL and wait 10 minutes for normal shutdown. After PostgreSQL shuts down successfully in 10 minutes, reboot the virtual machine afterward. If it does not shut down normally in 10 minutes, force a reboot of the virtual machine. If a virtual machine is forced to reboot, some work-in-progress transactions may be lost and the data volume may become corrupted, making it impossible to recover. After a forced restart, the state of the DB instance might not return to the enabled state. Please contact the customer center if such situation occurs.
+If PostgreSQL of a DB instance is not working properly, you can force a restart. For a forced restart, issue a SIGTERM command to PostgreSQL and wait 10 minutes for normal shutdown. After PostgreSQL shuts down successfully in 10 minutes, reboot the virtual machine afterward. If it does not shut down normally in 10 minutes, force a reboot of the virtual machine. If a virtual machine is forced to reboot, some work-in-progress transactions may be lost and the data volume may become corrupted, making it impossible to recover. After a forced restart, the state of the DB instance might not return to the enabled state. Please contact the customer support if such situation occurs.
 
 > [Caution]
 > This feature should be avoided to use, except in urgent and unavoidable circumstances, as data may be lost or data volume may be compromised.
 
 To force a DB instance restart from console
 
-![db-instance-list-force-restart]({{url.cdn}}/20241210/db-instance-list-force-restart-{{lang}}.png)
+![db-instance-list-force-restart]({{url.cdn}}/20260609/db-instance-list-force-restart-{{lang}}.png)
 
 ❶ Select the DB instance that you want to force restart and click on **Force Restart DB Instance** menu from the drop-down menu.
 
@@ -656,11 +662,11 @@ To force a DB instance restart from console
 
 Enabling deletion protection secures DB instances from accidental deletion. You will not be able to delete that DB instance until you disable the feature. To change the deletion protection settings
 
-![db-instance-deletion-protection]({{url.cdn}}/20241210/db-instance-list-deletion-protection-{{lang}}.png)
+![db-instance-deletion-protection]({{url.cdn}}/20260609/db-instance-list-deletion-protection-{{lang}}.png)
 
 ❶ After selecting the DB instance for which you want to change the deletion protection settings, click **Change Deletion Protection Settings** from the drop-down menu, and a pop-up window will appear.
 
-![deletion-protection-popup]({{url.cdn}}/20241210/db-instance-list-deletion-protection-popup-{{lang}}.png)
+![deletion-protection-popup]({{url.cdn}}/20260609/db-instance-list-deletion-protection-popup-{{lang}}.png)
 
 ❷ Click **Confrim** after changing the deletion protection settings.
 
@@ -698,7 +704,7 @@ If the consistency of the data was not broken during the failover process and th
 
 To recover a failed master, run the
 
-![db-instance-ha-failover-repair]({{url.cdn}}/20241210/db-instance-ha-failover-repair-{{lang}}.png)
+![db-instance-ha-failover-repair]({{url.cdn}}/20260609/db-instance-ha-failover-repair-{{lang}}.png)
 
 ❶ Select the failed master you want to recover, and then click the **Recover Failed Master** menu from the drop-down menu.
 
@@ -716,7 +722,7 @@ If no DB instance meets the criteria, the request to rebuild the failed master f
 > For DB instances that are backed up, there might be a drop in storage I/O performance during the rebuilding of the failed master.
 > To rebuild a failed master, in the console, run the
 
-![db-instance-ha-failover-rebuild]({{url.cdn}}/20241210/db-instance-ha-failover-rebuild-{{lang}}.png)
+![db-instance-ha-failover-rebuild]({{url.cdn}}/20260609/db-instance-ha-failover-rebuild-{{lang}}.png)
 
 ❶ Select the failed master you want to rebuild, and then click the **Rebuild Failed Master** menu from the drop-down menu.
 
@@ -726,7 +732,7 @@ If the failed master recovery fails and data correction is required, you can dis
 
 To detach a failed master, go to the Console
 
-![db-instance-ha-failover-split]({{url.cdn}}/20241210/db-instance-ha-failover-split-{{lang}}.png)
+![db-instance-ha-failover-split]({{url.cdn}}/20260609/db-instance-ha-failover-split-{{lang}}.png)
 
 ❶ Select the failed master you want to detach, and then click the **Detach Failed Master** menu from the drop-down menu.
 
@@ -756,7 +762,7 @@ You can proceed with a manual backup immediately after the restart with failover
 
 You can either apply the changes to the spare master first and observe how they evolve, or you can control the timing of the failover directly from the console if you want to execute the failover at a precise time. If you choose to manually control failover, a **failover** button appears in the console ❶ after the spare master restarts. Clicking this button triggers a failover, which can wait up to five days to execute. If you do not run the failover within 5 days, the action is automatically canceled.
 
-![db-instance-ha-wait-manual-failover]({{url.cdn}}/20241210/db-instance-ha-wait-manual-failover-{{lang}}.png)
+![db-instance-ha-wait-manual-failover]({{url.cdn}}/20260609/db-instance-ha-wait-manual-failover-{{lang}}.png)
 
 > [Caution]
 > There is no automatic failover while waiting for failover.
@@ -829,26 +835,26 @@ Navigate to the project that contains the DB instance that you specify to mainte
 
 Those with the migration button next to name are the maintenance targets.
 
-![db-instance-planned-migration]({{url.cdn}}/20241210/db-instance-planned-migration-{{lang}}.png)
+![db-instance-planned-migration]({{url.cdn}}/20260609/db-instance-planned-migration-{{lang}}.png)
 
 You can check the detailed schedule of maintenance by putting the mouse pointer over the migration button.
 
-![db-instance-planned-migration-popup]({{url.cdn}}/20241210/db-instance-planned-migration-popup-{{lang}}.png)
+![db-instance-planned-migration-popup]({{url.cdn}}/20260609/db-instance-planned-migration-popup-{{lang}}.png)
 
 #### 2. You have to end the application that is connecting to the DB instance for maintenance targets.
 
 Take appropriate measures to avoid affecting services connected to the DB.
-If you have no choice but to affect the service, please contact NHN Cloud Customer Center and we will guide you with appropriate measures.
+If you have no choice but to affect the service, please contact NHN Cloud Customer Support and we will guide you with appropriate measures.
 
 #### 3. Select the DB instance to be checked, click on Migration button and when a window appears asking for confirmation of the DB instance migration, click on the OK button.
 
-![db-instance-planned-migration-confirm]({{url.cdn}}/20241210/db-instance-planned-migration-confirm-{{lang}}.png)
+![db-instance-planned-migration-confirm]({{url.cdn}}/20260609/db-instance-planned-migration-confirm-{{lang}}.png)
 
 #### 4. Wait for DB instance migration to finish.
 
-If the DB instance status does not change, 'refresh'.
+If the DB instance status does not change, click **Refresh**.
 
-![db-instance-planned-migration-status]({{url.cdn}}/20241210/db-instance-planned-migration-status-{{lang}}.png)
+![db-instance-planned-migration-status]({{url.cdn}}/20260609/db-instance-planned-migration-status-{{lang}}.png)
 
 No action is allowed while the DB instance is being migrated.
 If DB instance migration does not complete successfully, it will be reported to the administrator automatically, and NHN Cloud will contact you separately.
