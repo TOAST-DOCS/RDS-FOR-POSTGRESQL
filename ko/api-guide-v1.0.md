@@ -1119,7 +1119,7 @@ POST /v1.0/db-instances/restore-from-obs
         ]
     },
     "restore": {
-        "tenantId": "tenantId-example",
+        "tenantId": "0123456789abcdef0123456789abcdef",
         "username": "username-example",
         "password": "password-example",
         "targetContainer": "targetContainer-example",
@@ -1685,7 +1685,7 @@ POST /v1.0/db-instances/{dbInstanceId}/backup-to-object-storage
 
 ```json
 {
-    "tenantId": "tenantId-example",
+    "tenantId": "0123456789abcdef0123456789abcdef",
     "username": "username-example",
     "password": "password-example",
     "targetContainer": "targetContainer-example",
@@ -3814,7 +3814,7 @@ POST /v1.0/backups/{backupId}/export
 
 ```json
 {
-    "tenantId": "tenantId-example",
+    "tenantId": "0123456789abcdef0123456789abcdef",
     "username": "username-example",
     "password": "password-example",
     "targetContainer": "targetContainer-example",
@@ -5724,7 +5724,7 @@ GET /v1.0/events
 | events | Body | Array | 이벤트 목록 |
 | events.eventCategoryType | Body | Enum | 이벤트 카테고리 유형<br/>- ALL: `전체`<br/>- DB_INSTANCE: `DB 인스턴스로 발생한 이벤트`<br/>- DB_SECURITY_GROUP: `DB 보안 그룹으로 발생한 이벤트`<br/>- MONITORING: `모니터링으로 발생한 이벤트`<br/>- JOB: `JOB으로 발생한 이벤트`<br/>- BACKUP: `백업으로 발생한 이벤트`<br/>- TENANT: `테넌트로 발생한 이벤트` |
 | events.eventCode | Body | Enum | 발생한 이벤트의 유형 |
-| events.sourceId | Body | String | 이벤트 소스의 식별자 |
+| events.sourceId | Body | UUID | 이벤트 소스의 식별자 |
 | events.sourceName | Body | String | 이벤트 소스를 식별할 수 있는 이름 |
 | events.messages | Body | Array | 이벤트 메세지 목록 |
 | events.messages.langCode | Body | Enum | 언어 코드<br/>- KO<br/>- EN<br/>- JA<br/>- ZH |
@@ -5746,7 +5746,7 @@ GET /v1.0/events
         {
             "eventCategoryType": "ALL",
             "eventCode": "ENUM_VALUE",
-            "sourceId": "sourceId-example",
+            "sourceId": "550e8400-e29b-41d4-a716-446655440000",
             "sourceName": "sourceName-example",
             "messages": [
                 {
