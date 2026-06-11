@@ -531,7 +531,7 @@ This API does not require a request body.
 | replicationType | Body | Enum | DB instance group replication type<br/>- STANDALONE: `High availability not used`<br/>- HIGH_AVAILABILITY: `High availability used` |
 | dbInstances | Body | Array | List of DB instances belonging to the DB instance group |
 | dbInstances.dbInstanceId | Body | UUID | DB instance identifier |
-| dbInstances.dbInstanceType | Body | Enum | DB instance role type<br/>- MASTER: `Master`<br/>- FAILED_MASTER: `Failed over master`<br/>- CANDIDATE_MASTER: `Candidate master`<br/>- READ_ONLY_SLAVE: `Read replica` |
+| dbInstances.dbInstanceType | Body | Enum | DB instance role type<br/>- MASTER: `Master`<br/>- FAILED_MASTER: `Failed master`<br/>- CANDIDATE_MASTER: `Candidate master`<br/>- READ_ONLY_SLAVE: `Read replica` |
 | dbInstances.dbInstanceStatus | Body | Enum | Current status of the DB instance<br/>- BEFORE_CREATE: `Before creation (gray)`<br/>- AVAILABLE: `Available (green)`<br/>- STORAGE_FULL: `Insufficient storage (red)`<br/>- FAIL_TO_CREATE: `Failed to create (red)`<br/>- FAIL_TO_CONNECT: `Failed to connect (red)`<br/>- REPLICATION_STOP: `Replication stopped (red)`<br/>- REPLICATION_DELAY: `Replication delayed (yellow)`<br/>- FAILOVER: `Failover complete (red)`<br/>- SHUTDOWN: `Stopped (gray)`<br/>- DELETED: `Deleted (gray)` |
 | createdYmdt | Body | DateTime | Created date and time |
 | updatedYmdt | Body | DateTime | Modified date and time |
@@ -872,7 +872,7 @@ This API does not require a request body.
 | dbInstances.description | Body | String | Additional information on DB instances |
 | dbInstances.dbVersion | Body | Enum | DB version information |
 | dbInstances.dbPort | Body | Number | DB port |
-| dbInstances.dbInstanceType | Body | Enum | DB instance role type<br/>- MASTER: `Master`<br/>- FAILED_MASTER: `Failed over master`<br/>- CANDIDATE_MASTER: `Candidate master`<br/>- READ_ONLY_SLAVE: `Read replica` |
+| dbInstances.dbInstanceType | Body | Enum | DB instance role type<br/>- MASTER: `Master`<br/>- FAILED_MASTER: `Failed master`<br/>- CANDIDATE_MASTER: `Candidate master`<br/>- READ_ONLY_SLAVE: `Read replica` |
 | dbInstances.dbInstanceStatus | Body | Enum | DB instance current status<br/>- BEFORE_CREATE: `Before creating (gray)`<br/>- AVAILABLE: `Available (green)`<br/>- STORAGE_FULL: `Insufficient storage (red)`<br/>- FAIL_TO_CREATE: `Failed to create (red)`<br/>- FAIL_TO_CONNECT: `Failed to connect (red)`<br/>- REPLICATION_STOP: `Replication stopped (red)`<br/>- REPLICATION_DELAY: `Replication delayed (yellow)`<br/>- FAILOVER: `Failover complete (red)`<br/>- SHUTDOWN: `Stopped (gray)`<br/>- DELETED: `Deleted (gray)` |
 | dbInstances.progressStatus | Body | String | DB instance current progress status |
 | dbInstances.createdYmdt | Body | DateTime | Created date and time |
@@ -1234,7 +1234,7 @@ This API does not require a request body.
 | description | Body | String | Additional information on DB instances |
 | dbVersion | Body | Enum | DB engine type |
 | dbPort | Body | Number | DB port |
-| dbInstanceType | Body | Enum | DB instance role type<br/>- MASTER: `Master`<br/>- FAILED_MASTER: `Failed over master`<br/>- CANDIDATE_MASTER: `Candidate master`<br/>- READ_ONLY_SLAVE: `Read replica` |
+| dbInstanceType | Body | Enum | DB instance role type<br/>- MASTER: `Master`<br/>- FAILED_MASTER: `Failed master`<br/>- CANDIDATE_MASTER: `Candidate master`<br/>- READ_ONLY_SLAVE: `Read replica` |
 | dbInstanceStatus | Body | Enum | DB instance current status<br/>- BEFORE_CREATE: `Before creation (gray)`<br/>- AVAILABLE: `Available (green)`<br/>- STORAGE_FULL: `Storage full (red)`<br/>- FAIL_TO_CREATE: `Failed to create (red)`<br/>- FAIL_TO_CONNECT: `Failed to connect (red)`<br/>- REPLICATION_STOP: `Replication stopped (red)`<br/>- REPLICATION_DELAY: `Replication delayed (yellow)`<br/>- FAILOVER: `Failover completed (red)`<br/>- SHUTDOWN: `Stopped (gray)`<br/>- DELETED: `Deleted (gray)` |
 | progressStatus | Body | String | Current task status of DB instance |
 | dbFlavorId | Body | UUID | Identifier of DB instance specifications |
@@ -5475,7 +5475,7 @@ POST /v1.0/notification-groups/{notificationGroupId}/watchdogs
 
 ---
 
-### Delete Notification Group
+### Delete Watch Setting
 
 ```http
 DELETE /v1.0/notification-groups/{notificationGroupId}/watchdogs/{watchdogId}
@@ -5485,7 +5485,7 @@ DELETE /v1.0/notification-groups/{notificationGroupId}/watchdogs/{watchdogId}
 
 | Permission Name | Description |
 |-----|-----|
-| RDSforPostgreSQL:NotificationWatchdog.Delete | Delete Notification Group |
+| RDSforPostgreSQL:NotificationWatchdog.Delete | Delete Watch Setting |
 
 #### Request
 

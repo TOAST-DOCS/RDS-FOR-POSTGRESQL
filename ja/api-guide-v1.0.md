@@ -531,7 +531,7 @@ GET /v1.0/db-instance-groups/{dbInstanceGroupId}
 | replicationType | Body | Enum | DBインスタンスグループのレプリケーションタイプ<br/>- STANDALONE: `高可用性を使用しない`<br/>- HIGH_AVAILABILITY: `高可用性を使用する` |
 | dbInstances | Body | Array | DBインスタンスグループに属するDBインスタンスリスト |
 | dbInstances.dbInstanceId | Body | UUID | DBインスタンスの識別子 |
-| dbInstances.dbInstanceType | Body | Enum | DBインスタンスのロールタイプ<br/>- MASTER: `マスター`<br/>- FAILED_MASTER: `フェイルオーバーされたマスター`<br/>- CANDIDATE_MASTER: `予備マスター`<br/>- READ_ONLY_SLAVE: `リードレプリカ` |
+| dbInstances.dbInstanceType | Body | Enum | DBインスタンスのロールタイプ<br/>- MASTER: `マスター`<br/>- FAILED_MASTER: `障害マスター`<br/>- CANDIDATE_MASTER: `予備マスター`<br/>- READ_ONLY_SLAVE: `リードレプリカ` |
 | dbInstances.dbInstanceStatus | Body | Enum | DBインスタンスの現在状態<br/>- BEFORE_CREATE: `作成前(グレー)`<br/>- AVAILABLE: `使用可能(緑)`<br/>- STORAGE_FULL: `容量不足(赤)`<br/>- FAIL_TO_CREATE: `作成失敗(赤)`<br/>- FAIL_TO_CONNECT: `接続失敗(赤)`<br/>- REPLICATION_STOP: `複製中断(赤)`<br/>- REPLICATION_DELAY: `複製遅延(黄)`<br/>- FAILOVER: `フェイルオーバー完了(赤)`<br/>- SHUTDOWN: `停止済み(グレー)`<br/>- DELETED: `削除済み(グレー)` |
 | createdYmdt | Body | DateTime | 作成日時 |
 | updatedYmdt | Body | DateTime | 修正日時 |
@@ -872,7 +872,7 @@ GET /v1.0/db-instances
 | dbInstances.description | Body | String | DBインスタンスの追加情報 |
 | dbInstances.dbVersion | Body | Enum | DBバージョン情報 |
 | dbInstances.dbPort | Body | Number | DBポート |
-| dbInstances.dbInstanceType | Body | Enum | DBインスタンスのロールタイプ<br/>- MASTER: `マスター`<br/>- FAILED_MASTER: `フェイルオーバーされたマスター`<br/>- CANDIDATE_MASTER: `予備マスター`<br/>- READ_ONLY_SLAVE: `リードレプリカ` |
+| dbInstances.dbInstanceType | Body | Enum | DBインスタンスのロールタイプ<br/>- MASTER: `マスター`<br/>- FAILED_MASTER: `障害マスター`<br/>- CANDIDATE_MASTER: `予備マスター`<br/>- READ_ONLY_SLAVE: `リードレプリカ` |
 | dbInstances.dbInstanceStatus | Body | Enum | DBインスタンスの現在状態<br/>- BEFORE_CREATE: `作成前(グレー)`<br/>- AVAILABLE: `使用可能(グリーン)`<br/>- STORAGE_FULL: `容量不足(レッド)`<br/>- FAIL_TO_CREATE: `作成失敗(レッド)`<br/>- FAIL_TO_CONNECT: `接続失敗(レッド)`<br/>- REPLICATION_STOP: `複製中断(レッド)`<br/>- REPLICATION_DELAY: `複製遅延(イエロー)`<br/>- FAILOVER: `フェイルオーバー完了(レッド)`<br/>- SHUTDOWN: `停止済み(グレー)`<br/>- DELETED: `削除済み(グレー)` |
 | dbInstances.progressStatus | Body | String | DBインスタンスの現在進行状態 |
 | dbInstances.createdYmdt | Body | DateTime | 作成日時 |
@@ -1234,7 +1234,7 @@ GET /v1.0/db-instances/{dbInstanceId}
 | description | Body | String | DBインスタンスの追加情報 |
 | dbVersion | Body | Enum | DBエンジンタイプ |
 | dbPort | Body | Number | DBポート |
-| dbInstanceType | Body | Enum | DBインスタンスのロールタイプ<br/>- MASTER: `マスター`<br/>- FAILED_MASTER: `フェイルオーバーされたマスター`<br/>- CANDIDATE_MASTER: `予備マスター`<br/>- READ_ONLY_SLAVE: `リードレプリカ` |
+| dbInstanceType | Body | Enum | DBインスタンスのロールタイプ<br/>- MASTER: `マスター`<br/>- FAILED_MASTER: `障害マスター`<br/>- CANDIDATE_MASTER: `予備マスター`<br/>- READ_ONLY_SLAVE: `リードレプリカ` |
 | dbInstanceStatus | Body | Enum | DBインスタンスの現在状態<br/>- BEFORE_CREATE: `作成以前(グレー)`<br/>- AVAILABLE: `使用可能(緑)`<br/>- STORAGE_FULL: `容量不足(赤)`<br/>- FAIL_TO_CREATE: `作成失敗(赤)`<br/>- FAIL_TO_CONNECT: `接続失敗(赤)`<br/>- REPLICATION_STOP: `複製中断(赤)`<br/>- REPLICATION_DELAY: `複製遅延(黄色)`<br/>- FAILOVER: `フェイルオーバー完了(赤)`<br/>- SHUTDOWN: `停止済み(グレー)`<br/>- DELETED: `削除済み(グレー)` |
 | progressStatus | Body | String | DBインスタンスの現在の作業進行状態 |
 | dbFlavorId | Body | UUID | DBインスタンス仕様の識別子 |
@@ -5475,7 +5475,7 @@ POST /v1.0/notification-groups/{notificationGroupId}/watchdogs
 
 ---
 
-### 通知グループの削除
+### 監視設定の削除
 
 ```http
 DELETE /v1.0/notification-groups/{notificationGroupId}/watchdogs/{watchdogId}
@@ -5485,7 +5485,7 @@ DELETE /v1.0/notification-groups/{notificationGroupId}/watchdogs/{watchdogId}
 
 | 権限名 | 説明 |
 |-----|-----|
-| RDSforPostgreSQL:NotificationWatchdog.Delete | 通知グループの削除 |
+| RDSforPostgreSQL:NotificationWatchdog.Delete | 監視設定の削除 |
 
 #### リクエスト
 
