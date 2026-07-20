@@ -7,6 +7,7 @@
 | 리전        | 엔드포인트                                            |
 |-----------|--------------------------------------------------|
 | 한국(판교) 리전 | https://kr1-rds-postgres.api.nhncloudservice.com |
+| 한국(평촌) 리전 | https://kr2-rds-postgres.api.nhncloudservice.com |
 
 ### 인증 및 권한
 
@@ -58,15 +59,19 @@ API 요청 시 인증에 실패하거나 권한이 없으면 다음과 같은 �
 
 ## DB 버전
 
-| DB 버전             | 생성 가능 여부 |
-|-------------------|----------|
-| POSTGRESQL_V14_6  |          |
-| POSTGRESQL_V14_15 |          |
-| POSTGRESQL_V14_17 | O        |
-| POSTGRESQL_V14_19 | O        |
-| POSTGRESQL_V17_2  |          |
-| POSTGRESQL_V17_4  | O        |
-| POSTGRESQL_V17_6  | O        |
+| DB 버전               | 생성 가능 여부 |
+|---------------------|----------|
+| <strong>17</strong> |          |
+| POSTGRESQL_V17_10   | O        |
+| POSTGRESQL_V17_6    | O        |
+| POSTGRESQL_V17_4    | O        |
+| POSTGRESQL_V17_2    |          |
+| <strong>14</strong> |          |
+| POSTGRESQL_V14_23   | O        |
+| POSTGRESQL_V14_19   | O        |
+| POSTGRESQL_V14_17   | O        |
+| POSTGRESQL_V14_15   |          |
+| POSTGRESQL_V14_6    |          |
 
 * ENUM 유형의 dbVersion 필드에 대해 해당 값을 사용할 수 있습니다.
 * 버전에 따라 생성이 불가능하거나, 복원이 불가능한 경우가 있을 수 있습니다.
@@ -185,11 +190,11 @@ GET /v1.0/project/regions
 
 #### 응답
 
-| 이름                 | 종류   | 형식      | 설명                           |
-|--------------------|------|---------|------------------------------|
-| regions            | Body | Array   | 리전 목록                        |
-| regions.regionCode | Body | Enum    | 리전 코드<br/>- `KR1`: 한국(판교) 리전 |
-| regions.isEnabled  | Body | Boolean | 리전의 활성화 여부                   |
+| 이름                 | 종류   | 형식      | 설명                                                  |
+|--------------------|------|---------|-----------------------------------------------------|
+| regions            | Body | Array   | 리전 목록                                               |
+| regions.regionCode | Body | Enum    | 리전 코드<br/>- `KR1`: 한국(판교) 리전<br/>- `KR2`: 한국(평촌) 리전 |
+| regions.isEnabled  | Body | Boolean | 리전의 활성화 여부                                          |
 
 <details><summary>예시</summary>
 
@@ -203,6 +208,10 @@ GET /v1.0/project/regions
     "regions": [
         {
             "regionCode": "KR1",
+            "isEnabled": true
+        },
+        {
+            "regionCode": "KR2",
             "isEnabled": true
         }
     ]

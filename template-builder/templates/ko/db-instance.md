@@ -28,12 +28,22 @@ NHN Cloud는 물리 하드웨어 문제로 생기는 장애에 대비하기 위�
 
 아래에 명시된 버전을 사용할 수 있습니다.
 
-| 버전               | 비고 |
-|------------------|----|
-| PostgreSQL 14.17 |    |
-| PostgreSQL 14.19 |    |
-| PostgreSQL 17.4  |    |
-| PostgreSQL 17.6  |    |
+| 버전                  | 비고                            |
+|---------------------|-------------------------------|
+| <strong>17</strong> |                               |
+| PostgreSQL 17.10    |                               |
+| PostgreSQL 17.6     |                               |
+| PostgreSQL 17.4     |                               |
+| PostgreSQL 17.2     | 신규로 생성하거나 읽기 복제본을 추가할 수 없습니다. |
+| <strong>14</strong> |                               |
+| PostgreSQL 14.23    |                               |
+| PostgreSQL 14.19    |                               |
+| PostgreSQL 14.17    |                               |
+| PostgreSQL 14.15    | 신규로 생성하거나 읽기 복제본을 추가할 수 없습니다. |
+| PostgreSQL 14.6     | 신규로 생성하거나 읽기 복제본을 추가할 수 없습니다. |
+
+DB 엔진은 생성 이후 콘솔의 수정 기능으로 버전을 업그레이드할 수 있습니다.
+DB 엔진에 관한 자세한 내용은 [DB 엔진](db-engine/)에서 확인할 수 있습니다.
 
 
 ### DB 인스턴스 타입
@@ -209,7 +219,7 @@ DB 인스턴스의 **데이터베이스 & 사용자** 탭에서는 DB 엔진에 
 
 #### 데이터베이스 생성
 
-![db-instance-detail-db-create]({{url.cdn}}/20260609/db-instance-detail-db-create-{{lang}}.png)
+![db-instance-detail-db-create]({{url.cdn}}/20260811/db-instance-detail-db-create-{{lang}}.png)
 
 ❶ **+ 생성**을 클릭하면 데이터베이스의 이름을 입력할 수 있는 팝업 창이 나타납니다.
 ❷ 데이터베이스 이름을 입력한 뒤 **생성**을 클릭하여 데이터베이스를 생성할 수 있습니다.
@@ -223,7 +233,7 @@ DB 인스턴스의 **데이터베이스 & 사용자** 탭에서는 DB 엔진에 
 
 #### 데이터베이스 수정
 
-![db-instance-detail-db-modify]({{url.cdn}}/20260609/db-instance-detail-db-modify-{{lang}}.png)
+![db-instance-detail-db-modify]({{url.cdn}}/20260811/db-instance-detail-db-modify-{{lang}}.png)
 
 ❶ 수정할 데이터베이스 행의 **수정**을 클릭하면 데이터베이스 정보를 수정할 수 있는 팝업 창이 나타납니다.
 ❷ DDL 사용자를 선택해 소유자로 설정할 수 있습니다.
@@ -247,7 +257,7 @@ DB 인스턴스의 **데이터베이스 & 사용자** 탭에서는 DB 엔진에 
 
 #### 스키마 수정
 
-![db-instance-detail-schema-modify]({{url.cdn}}/20260609/db-instance-detail-schema-modify-{{lang}}.png)
+![db-instance-detail-schema-modify]({{url.cdn}}/20260811/db-instance-detail-schema-modify-{{lang}}.png)
 
 ❶ 수정할 스키마 행의 **수정**을 클릭하면 스키마 정보를 수정할 수 있는 팝업 창이 나타납니다.
 ❷ DDL 사용자를 선택해 소유자로 설정할 수 있습니다.
@@ -256,7 +266,7 @@ DB 인스턴스의 **데이터베이스 & 사용자** 탭에서는 DB 엔진에 
 
 #### 사용자 생성
 
-![db-instance-detail-user-create]({{url.cdn}}/20260609/db-instance-detail-user-create-{{lang}}.png)
+![db-instance-detail-user-create]({{url.cdn}}/20260811/db-instance-detail-user-create-{{lang}}.png)
 
 ❶ **+ 생성**을 클릭하면 **사용자 추가** 팝업 창이 나타납니다.
 ❷ 사용자 ID를 입력합니다.
@@ -288,7 +298,7 @@ DB 인스턴스의 **데이터베이스 & 사용자** 탭에서는 DB 엔진에 
 
 #### 사용자 수정
 
-![db-instance-detail-user-modify]({{url.cdn}}/20260609/db-instance-detail-user-modify-{{lang}}.png)
+![db-instance-detail-user-modify]({{url.cdn}}/20260811/db-instance-detail-user-modify-{{lang}}.png)
 
 ❶ 수정할 사용자 행의 **수정**을 클릭하면 사용자 정보를 수정할 수 있는 팝업 창이 나타납니다.
 ❷ 비밀번호를 입력하지 않으면 변경되지 않습니다.
@@ -565,6 +575,13 @@ RDS for PostgreSQL에서 오브젝트 스토리지로 내보낸 백업 파일을
 * DB 엔진
 * 데이터 스토리지 종류
 * 사용자 VPC 서브넷
+
+#### 읽기 복제본 리전
+
+읽기 복제본을 생성할 리전을 선택할 때 리전 피어링을 지원하는 경우 서로 다른 리전에 존재하는 VPC 간 리전 피어링을 연결하면 다른 리전 VPC에 속한 서브넷에 읽기 복제본을 생성할 수 있습니다. 단, 원본 DB 인스턴스의 리전과 다른 리전을 선택하면 복제 지연이 발생할 수 있으며, DB 버전 업그레이드를 지원하지 않습니다.
+
+> [주의]
+> 리전 피어링이 연결되어 있더라도 라우트 설정이 올바르지 않을 경우 읽기 복제본 생성에 실패하거나 복제가 중단될 수 있습니다.
 
 #### 가용성 영역
 
