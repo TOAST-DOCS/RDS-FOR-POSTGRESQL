@@ -85,3 +85,7 @@ ramSizeByte * 6 / 10
 ### `shared_buffers` 파라미터 변경
 
 `shared_buffers` 파라미터의 경우 지나치게 큰 값을 사용하는 경우 DB 엔진 구동에 문제가 발생할 수 있습니다. RDS for PostgreSQL에서는 해당 문제를 방지하기 위해, 파라미터 적용 시점에 DB 인스턴스의 RAM 크기에 따라 최적화(최대 RAM 크기의 50%)를 진행합니다. 
+
+### `archive_mode` 파라미터 변경
+
+`archive_mode` 파라미터는 기존 `on` 값 외에 `always` 값을 선택할 수 있도록 변경되었습니다. `always`로 설정하면 마스터가 아니더라도 아카이브 로그를 저장합니다.
