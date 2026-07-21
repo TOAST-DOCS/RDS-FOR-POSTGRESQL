@@ -1,5255 +1,6117 @@
-## Database > RDS for PostgreSQL > API Guide > API v1.0 Guide
+## RDS for PostgreSQL API Guide
+
+**Database > RDS for PostgreSQL > API v1.0 Guide**
 
 ## Common Information on RDS for PostgreSQL API
 
 ### API Endpoint
 
-| Region                | Endpoint                                         |
-|-----------------------|--------------------------------------------------|
+| Region | Endpoint |
+|------|----------|
 | Korea (Pangyo) region | https://kr1-rds-postgres.api.nhncloudservice.com |
+| Korea (Pyeongchon) region | https://kr2-rds-postgres.api.nhncloudservice.com |
+
 
 ### Authentication and Authorization
 
 RDS for PostgreSQL uses User Access Key tokens for authentication and authorization when making API calls. The User Access Key token is a temporary, Bearer-type access token issued from a User Access Key. For more information on issuing and using User Access Key tokens, please refer to the [User Access Key Token](/nhncloud/en/public-api/user-access-key-token).
 The issued token must be included in the request header along with the Appkey.
 
-| Name                | Type   | Format | Required | Description                                                         |
-|---------------------|--------|--------|----------|---------------------------------------------------------------------|
-| X-TC-APP-KEY        | Header | String | O        | Appkey or project integration appkey for RDS for PostgreSQL service |
-| X-NHN-AUTHORIZATION | Header | String | O        | Bearer type token issued with the Public API                        |
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| X-TC-APP-KEY | Header | String | Y | Appkey or project integration appkey for RDS for PostgreSQL service |
+| X-NHN-AUTHORIZATION | Header | String | Y | Bearer type token issued with the Public API |
 
 Project permissions also limit the APIs that can be called. The `RDS for` `PostgreSQL` `ADMIN` and `RDS for PostgreSQL VIEWER` roles are granted default permissions, as shown below, and you can grant only the permissions you need from the Manage Role Groups menu within the project.
 
 * The `RDS for PostgreSQL ADMIN` role is granted all the permissions required to run the API.
 * The `RDS for PostgreSQL VIEWER` role is granted with the permission to view information only.
-    * Cannot use any features aimed at DB instances or create, modify, or delete any DB instance.
-    * However, you can use features related to notification groups and user groups.
+* Cannot use any features aimed at DB instances or create, modify, or delete any DB instance.
+* However, you can use features related to notification groups and user groups.
 
 If an API request fails to authenticate or is not authorized, the following error occurs.
 
-| resultCode | resultMessage | Description            |
-|------------|---------------|------------------------|
-| 80401      | Unauthorized  | Failed to authenticate |
-| 80403      | Forbidden     | Unauthorized.          |
+| resultCode | resultMessage | Description |
+|------------|---------------|-----|
+| 80401 | Unauthorized | Failed to authenticate |
+| 80403 | Forbidden | Unauthorized. |
 
-### Response Common Information
+### Common Response Information
 
 The API responds with "200 OK" to all API requests. For more information on the response results, see Response Body Header.
 
-#### Response Body
+<details>
+  <summary><strong>Successful Response</strong></summary>
 
 ```json
 {
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    }
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+}
 }
 ```
 
-#### Field
+</details>
 
-| Name          | Data type | Description                              |
-|---------------|-----------|------------------------------------------|
-| resultCode    | Number    | Result code (Success: 0, Other: Failure) |
-| resultMessage | String    | Result message                           |
-| successful    | Boolean   | Successful or not                        |
+<details>
+  <summary><strong>Failure Response</strong></summary>
 
-## DB version
+```json
+{
+"header": {
+        "resultCode": -1,
+        "resultMessage": "FAIL",
+        "isSuccessful": false
+}
+}
+```
 
-| DB version        | Available for creation |
-|-------------------|------------------------|
-| POSTGRESQL_V14_6  |                        |
-| POSTGRESQL_V14_15 |                        |
-| POSTGRESQL_V14_17 | O                      |
-| POSTGRESQL_V14_19 | O                      |
-| POSTGRESQL_V17_2  |                        |
-| POSTGRESQL_V17_4  | O                      |
-| POSTGRESQL_V17_6  | O                      |
+</details>
 
-* You can use that value for dbVersion fields of type ENUM.
-* Depending on the version, there may be some cases where it is not possible to create or restore.
+| Name | Type | Description |
+|-----|-----|-----|
+| resultCode | Number | Result code (Success: 0, Other: Failure) |
+| resultMessage | String | Result message |
+| isSuccessful | Boolean | Successful or not |
+## DB Version
 
 ### View DB Version List
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:DbVersion.List | View DB Version List |
+
+#### Request
 
 ```http
 GET /v1.0/db-versions
 ```
 
-#### Required permissions
-
-| Permission Name                 | Description          |
-|---------------------------------|----------------------|
-| RDSforPostgreSQL:DbVersion.List | View DB Version List |
-
-#### Request
+#### Request Body
 
 This API does not require a request body.
 
 #### Response
 
-| Name                         | Type | Format  | Description                                           |
-|------------------------------|------|---------|-------------------------------------------------------|
-| dbVersions                   | Body | Array   | DB version list                                       |
-| dbVersions.dbVersion         | Body | String  | DB version                                            |
-| dbVersions.dbVersionName     | Body | String  | DB version name                                       |
-| dbVersions.restorableFromObs | Body | Boolean | Restoring backup from object storage available or not |
-
-<details><summary>Example</summary>
+<details>
+  <summary><strong>Example Code</strong></summary>
 
 ```json
 {
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "dbVersions": [
-        {
-            "dbVersion": "POSTGRESQL_V17_6",
-            "dbVersionName": "PostgreSQL V17.6",
-            "restorableFromObs": true
-        }
-    ]
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"dbVersions": [
+{
+            "dbVersionCode": "dbVersionCode-example",
+            "dbMajorVersionCode": "dbMajorVersionCode-example",
+"name": "PostgreSQL V14.6",
+"canCreate": false
+}
+]
 }
 ```
+
 </details>
+
+| Name | Type | Description |
+|-----|-----|-----|
+| dbVersions | Array | DB version information |
+| dbVersions.dbVersionCode | String | DB version code |
+| dbVersions.dbMajorVersionCode | String | DB major version code |
+| dbVersions.name | String | DB version name |
+| dbVersions.canCreate | Boolean | Whether creation is available |
+
+---
 
 ## Specifications of DB Instance
 
 ### List DB Instance Specifications
 
-```http
-GET /v1.0/db-flavors
-```
+#### Required Permission
 
-#### Required permissions
-
-| Permission Name                            | Description               |
-|--------------------------------|------------------|
+| Permission Name | Description |
+|-----|-----|
 | RDSforPostgreSQL:DbFlavor.List | List DB Instance Specifications |
 
 #### Request
 
+```http
+GET /v1.0/db-flavors
+```
+
+#### Request Body
+
 This API does not require a request body.
 
 #### Response
 
-| Name                     | Type   | Format     | Description              |
-|------------------------|------|--------|-----------------|
-| dbFlavors              | Body | Array  | List of DB instance specifications   |
-| dbFlavors.dbFlavorId   | Body | UUID   | Identifier of DB instance specifications |
-| dbFlavors.dbFlavorName | Body | String | Name of DB instance specifications   |
-| dbFlavors.ram          | Body | Number | Memory size (MB)      |
-| dbFlavors.vcpus        | Body | Number | CPU cores        |
-
-<details><summary>Example</summary>
+<details>
+  <summary><strong>Example Code</strong></summary>
 
 ```json
 {
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "dbFlavors": [
-        {
-            "dbFlavorId": "50be6d9c-02d6-4594-a2d4-12010eb65ec0",
-            "dbFlavorName": "m2.c1m2",
-            "ram": 2048,
-            "vcpus": 1
-        }
-    ]
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"dbFlavors": [
+{
+"dbFlavorId": "289e34e9-cd8a-4baf-82e3-a3d013c5186b",
+"dbFlavorName": "r2.c2m4",
+"ram": 4096,
+"vcpus": 2
+}
+]
 }
 ```
+
 </details>
+
+| Name | Type | Description |
+|-----|-----|-----|
+| dbFlavors | Array | List of DB instance specifications |
+| dbFlavors.dbFlavorId | UUID | Identifier of DB instance specifications |
+| dbFlavors.dbFlavorName | String | Name of DB instance specifications |
+| dbFlavors.ram | Number | Memory size (MB) |
+| dbFlavors.vcpus | Number | CPU cores |
+
+---
 
 ## Project Information
 
-### List Regions
+### List Project Members
 
-```http
-GET /v1.0/project/regions
-```
+#### Required Permission
 
-#### Required permissions
-
-| Permission Name                          | Description         |
-|------------------------------|------------|
-| RDSforPostgreSQL:Project.Get | Get project information |
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:Project.Get | List Project Members |
 
 #### Request
-
-This API does not require a request body.
-
-#### Response
-
-| Name                 | Type   | Format      | Description                           |
-|--------------------|------|---------|------------------------------|
-| regions            | Body | Array   | Region list                        |
-| regions.regionCode | Body | Enum    | Region code<br/>`KR1`: Korea (Pangyo) Region |
-| regions.isEnabled  | Body | Boolean | Whether to enable a region                   |
-
-<details><summary>Example</summary>
-
-```json
-{
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "regions": [
-        {
-            "regionCode": "KR1",
-            "isEnabled": true
-        }
-    ]
-}
-```
-</details>
-
-### List Project Members
 
 ```http
 GET /v1.0/project/members
 ```
 
-#### Required permissions
-
-| Permission Name                          | Description         |
-|------------------------------|------------|
-| RDSforPostgreSQL:Project.Get | Get project information |
-
-#### Request
+#### Request Body
 
 This API does not require a request body.
 
 #### Response
 
-| Name                   | Type   | Format     | Description              |
-|----------------------|------|--------|-----------------|
-| members              | Body | Array  | Project member list      |
-| members.memberId     | Body | UUID   | Project member identifier    |
-| members.memberName   | Body | String | Project member name     |
-| members.emailAddress | Body | String | Project member email address |
-| members.phoneNumber  | Body | String | Project member mobile   |
-
-<details><summary>Example</summary>
+<details>
+  <summary><strong>Example Code</strong></summary>
 
 ```json
 {
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "members": [
-        {
-            "memberId": "1b1d3627-507a-49ea-8cb7-c86dfa9caa58",
-            "memberName": "Hong Gildong",
-            "emailAddress": "gildong.hong@nhn.com",
-            "phoneNumber": "+821012345678"
-        }
-    ]
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"projectMembers": [
+{
+"memberId": "550e8400-e29b-41d4-a716-446655440000",
+"memberName": "memberName-example",
+"emailAddress": "user@example.com",
+"phoneNumber": "010-1234-5678"
+}
+]
 }
 ```
+
 </details>
+
+| Name | Type | Description |
+|-----|-----|-----|
+| projectMembers | Array | Project member information |
+| projectMembers.memberId | UUID | Project member identifier |
+| projectMembers.memberName | String | Project member name |
+| projectMembers.emailAddress | String | Project member email address |
+| projectMembers.phoneNumber | String | Project member phone number |
+
+---
+
+### List Regions
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:Project.Get | List Regions |
+
+#### Request
+
+```http
+GET /v1.0/project/regions
+```
+
+#### Request Body
+
+This API does not require a request body.
+
+#### Response
+
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"regions": [
+{
+"regionCode": "KR1",
+"isEnabled": false
+}
+]
+}
+```
+
+</details>
+
+| Name | Type | Description |
+|-----|-----|-----|
+| regions | Array | Region information |
+| regions.regionCode | Enum | Region code<br/>- KR1: `Korea (Pangyo)`<br/>- KR2: `Korea (Pyeongchon)` |
+| regions.isEnabled | Boolean | Whether the region is enabled |
+
+---
 
 ## Network
 
 ### List Subnets
 
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:Network.List | List Subnets |
+
+#### Request
+
 ```http
 GET /v1.0/network/subnets
 ```
 
-#### Required permissions
-
-| Permission Name                           | Description        |
-|-------------------------------|-----------|
-| RDSforPostgreSQL:Network.List | List Subnets |
-
-#### Request
+#### Request Body
 
 This API does not require a request body.
 
 #### Response
 
-| Name                       | Type   | Format      | Description               |
-|--------------------------|------|---------|------------------|
-| subnets                  | Body | Array   | Subnet list           |
-| subnets.subnetId         | Body | UUID    | Subnet identifier         |
-| subnets.subnetName       | Body | String  | Name to identify subnets |
-| subnets.subnetCidr       | Body | String  | CIDR of subnet        |
-| subnets.usingGateway     | Body | Boolean | Whether to use gateway      |
-| subnets.availableIpCount | Body | Number  | Number of available IPs      |
-
 <details>
-<summary>Example</summary>
+  <summary><strong>Example Code</strong></summary>
 
 ```json
 {
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "subnets": [
-        {
-            "subnetId": "1b2a9b23-0725-4b92-8c78-35db66b8ad9f",
-            "subnetName": "Default Network",
-            "subnetCidr": "192.168.0.0/24",
-            "usingGateway": true,
-            "availableIpCount": 240
-        }
-    ]
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"subnets": [
+{
+"subnetId": "550e8400-e29b-41d4-a716-446655440000",
+"subnetName": "subnetName-example",
+"subnetCidr": "192.168.0.0/24",
+"usingGateway": false,
+"availableIpCount": 1
+}
+]
 }
 ```
+
 </details>
+
+| Name | Type | Description |
+|-----|-----|-----|
+| subnets | Array | Subnet object |
+| subnets.subnetId | UUID | Subnet identifier |
+| subnets.subnetName | String | Name to identify subnets |
+| subnets.subnetCidr | String | CIDR of subnet |
+| subnets.usingGateway | Boolean | Whether to use gateway |
+| subnets.availableIpCount | Number | Number of available IPs |
+
+---
 
 ## Storage
 
-### View the list of storage types
+### View the List of Storage Types
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:Storage.List | View the List of Storage Types |
+
+#### Request
 
 ```http
 GET /v1.0/storage-types
 ```
 
-#### Required permissions
-
-| Permission Name                           | Description            |
-|-------------------------------|---------------|
-| RDSforPostgreSQL:Storage.List | View the list of storage types |
-
-#### Request
+#### Request Body
 
 This API does not require a request body.
 
 #### Response
 
-| Name           | Type   | Format    | Description         |
-|--------------|------|-------|------------|
-| storageTypes | Body | Array | List of storage types |
-
-<details><summary>Example</summary>
+<details>
+  <summary><strong>Example Code</strong></summary>
 
 ```json
 {
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "storageTypes": [
-        "General SSD",
-        "General HDD"
-    ]
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"storageTypes": [
+"General SSD",
+"General HDD"
+]
 }
 ```
+
 </details>
+
+| Name | Type | Description |
+|-----|-----|-----|
+| storageTypes | Array | List of storage types |
+
+---
 
 ## Task Information
 
-### List Task Details
+### Task Status
 
-```http
-GET /v3.0/jobs/{jobId}
-```
+| Status | Description |
+|--------------------|----------------------|
+| `PREPARING` | When the task is being prepared |
+| `READY` | When the task is ready |
+| `RUNNING` | When the task is in progress |
+| `COMPLETED` | When the task is complete |
+| `REGISTERED` | When the task is registered |
+| `WAIT_TO_REGISTER` | When the task is waiting to be registered |
+| `INTERRUPTED` | When an interrupt occurred while the task was in progress |
+| `CANCELED` | When the task is canceled |
+| `FAILED` | When the task has failed |
+| `ERROR` | When an error occurred while the task was in progress |
+| `DELETED` | When the task has been deleted |
+| `FAIL_TO_READY` | When the task failed to be ready |
 
-#### Required permissions
+### View Task Details
 
-| Permission Name                      | Description          |
-|--------------------------|-------------|
-| RDSforPostgreSQL:Job.Get | List Task Details |
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:Job.Get | View Task Details |
 
 #### Request
 
-This API does not require a request body.
+```http
+GET /v1.0/jobs/{jobId}
+```
 
-| Name    | Type  | Format   | Required | Description      |
-|-------|-----|------|----|---------|
-| jobId | URL | UUID | O  | Task identifier |
+#### Request Parameters
+
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| jobId | URL | UUID | Y |  |
+
+#### Request Body
+
+This API does not require a request body.
 
 #### Response
 
-| Name                             | Type   | Format       | Description                                                                                                                                                                                                                                                                                                                                                                                                              |
-|--------------------------------|------|----------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| jobId                          | Body | UUID     | Task identifier                                                                                                                                                                                                                                                                                                                                                                                                         |
-| jobStatus                      | Body | Enum     | Current task status<br/>- `PREPARING`: If the task is being prepared<br/>- `READY`: When the task is ready<br/>- `RUNNING`: If the task is in progress<br/>- `COMPLETED`: When the task is complete<br/>- `REGISTERED`: If the task is registered<br/>- `WAIT_TO_REGISTER`: If the job is waiting to be registered<br/>- `INTERRUPTED`: If an interrupt occurred while the operation was in progress.<br/>- `CANCELED`: If the task is canceled<br/>- `FAILED`: If the operation failed<br/>- `ERROR`: If an error occurred while the operation was in progress<br/>- `DELETED`: If the task has been deleted<br/>- `FAIL_TO_READY`: The job failed to be ready. |
-| resourceRelations              | Body | Array    | Relevant resource list                                                                                                                                                                                                                                                                                                                                                                                                       |
-| resourceRelations.resourceType | Body | Enum     | Relevant resource type<br/>- `DB_INSTANCE`: DB instance<br/>- `DB_INSTANCE_GROUP`: DB instance group<br/>- `DB_SECURITY_GROUP`: DB security group<br/>- `PARAMETER_GROUP`: Parameter Group<br/>- `BACKUP`: Backup<br/>- `TENANT`: Tenant                                                                                                                                                                                                                        |
-| resourceRelations.resourceId   | Body | UUID     | Relevant resource identifier                                                                                                                                                                                                                                                                                                                                                                                                     |
-| createdYmdt                    | Body | DateTime | Created date and time (YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                                                                                                                                                                                                                                                                               |
-| updatedYmdt                    | Body | DateTime | Modified date and time (YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                                                                                                                                                                                                                                                                               |
-
-<details><summary>Example</summary>
+<details>
+  <summary><strong>Example Code</strong></summary>
 
 ```json
 {
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "jobId": "0ddb042c-5af6-43fb-a914-f4dd0540eb7c",
-    "jobStatus": "RUNNING",
-    "resourceRelations": [
-        {
-            "resourceType": "DB_INSTANCE",
-            "resourceId": "56b39dcf-65eb-47ec-9d4f-09f160ba2266"
-        }
-    ],
-    "createdYmdt": "2023-02-22T20:47:12+09:00",
-    "updatedYmdt": "2023-02-22T20:49:46+09:00"
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"jobId": "550e8400-e29b-41d4-a716-446655440000",
+"jobStatus": "DELETED",
+"resourceRelations": [
+{
+"resourceType": "resourceType-example",
+"resourceId": "resourceId-example"
+}
+],
+"createdYmdt": "2023-12-31T15:00:00+09:00",
+"updatedYmdt": "2023-12-31T15:00:00+09:00"
 }
 ```
+
 </details>
+
+| Name | Type | Description |
+|-----|-----|-----|
+| jobId | UUID | Task identifier |
+| jobStatus | Enum | Current task status<br/>- DELETED<br/>- CANNOT_PROGRESS<br/>- FAILED<br/>- ERROR<br/>- CANCELED<br/>- INTERRUPTED<br/>- COMPLETED<br/>- COMPLETED_WITH_ERROR<br/>- RUNNING<br/>- PREPARING<br/>- READY<br/>- CREATED<br/>- FAIL_TO_READY<br/>- REGISTERED<br/>- FAIL_TO_REGISTER<br/>- WAIT_TO_REGISTER |
+| resourceRelations | Array | Related resource list |
+| resourceRelations.resourceType | String | Related resource type |
+| resourceRelations.resourceId | String | Related resource identifier |
+| createdYmdt | DateTime | Created date and time |
+| updatedYmdt | DateTime | Modified date and time |
+
+---
 
 ## DB Instance Group
 
-### List DB Instances
+### List DB Instance Groups
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:DbInstanceGroup.List | List DB Instance Groups |
+
+#### Request
 
 ```http
 GET /v1.0/db-instance-groups
 ```
 
-#### Required permissions
-
-| Permission Name                                   | Description               |
-|---------------------------------------|------------------|
-| RDSforPostgreSQL:DbInstanceGroup.List | List DB Instances |
-
-#### Request
+#### Request Body
 
 This API does not require a request body.
 
 #### Response
 
-| Name                                     | Type   | Format       | Description                                                          |
-|----------------------------------------|------|----------|-------------------------------------------------------------|
-| dbInstanceGroups                       | Body | Array    | DB instance groups                                               |
-| dbInstanceGroups.dbInstanceGroupId     | Body | UUID     | DB instance group identifier                                             |
-| dbInstanceGroups.dbInstanceGroupStatus | Body | Enum     | Current status of DB instance groups<br/>- `CREATED: Created`<br/>- `DELETED`: Deleted |
-| dbInstanceGroups.replicationType       | Body | Enum     | DB instance group replication type<br/>- `STANDALONE`: Standalone                    |
-| dbInstanceGroups.createdYmdt           | Body | DateTime | Created date and time (YYYY-MM-DDThh:mm:ss.SSSTZD)                           |
-| dbInstanceGroups.updatedYmdt           | Body | DateTime | Modified date and time (YYYY-MM-DDThh:mm:ss.SSSTZD)                           |
-
-<details><summary>Example</summary>
+<details>
+  <summary><strong>Example Code</strong></summary>
 
 ```json
 {
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "dbInstanceGroups": [
-        {
-            "dbInstanceGroupId": "05de0746-89fd-49c8-94f9-9c5b1df97009",
-            "dbInstanceGroupStatus": "CREATED",
-            "replicationType": "STANDALONE",
-            "createdYmdt": "2023-02-13T17:35:20+09:00",
-            "updatedYmdt": "2023-02-13T17:35:20+09:00"
-        }
-    ]
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"dbInstanceGroups": [
+{
+"dbInstanceGroupId": "550e8400-e29b-41d4-a716-446655440000",
+"dbInstanceGroupStatus": "CREATED",
+"replicationType": "STANDALONE",
+"createdYmdt": "2023-12-31T15:00:00+09:00",
+"updatedYmdt": "2023-12-31T15:00:00+09:00"
+}
+]
 }
 ```
+
 </details>
 
+| Name | Type | Description |
+|-----|-----|-----|
+| dbInstanceGroups | Array | DB instance group information |
+| dbInstanceGroups.dbInstanceGroupId | UUID | DB instance group identifier |
+| dbInstanceGroups.dbInstanceGroupStatus | Enum | Current status of the DB instance group<br/>- CREATED: `Created`<br/>- DELETED: `Deleted` |
+| dbInstanceGroups.replicationType | Enum | DB instance group replication type<br/>- STANDALONE: `High availability not used`<br/>- HIGH_AVAILABILITY: `High availability used` |
+| dbInstanceGroups.createdYmdt | DateTime | Created date and time |
+| dbInstanceGroups.updatedYmdt | DateTime | Modified date and time |
+
+---
 
 ### List DB Instance Group Details
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:DbInstanceGroup.Get | List DB Instance Group Details |
+
+#### Request
 
 ```http
 GET /v1.0/db-instance-groups/{dbInstanceGroupId}
 ```
 
-#### Required permissions
+#### Request Parameters
 
-| Permission Name                                  | Description               |
-|--------------------------------------|------------------|
-| RDSforPostgreSQL:DbInstanceGroup.Get | List DB Instance Group Details |
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| dbInstanceGroupId | URL | UUID | Y |  |
 
-#### Request
+#### Request Body
 
 This API does not require a request body.
 
-| Name                | Type  | Format   | Required | Description              |
-|-------------------|-----|------|----|-----------------|
-| dbInstanceGroupId | URL | UUID | O  | DB instance group identifier |
-
 #### Response
 
-| Name                           | Type   | Format       | Description                                                                                                                                    |
-|------------------------------|------|----------|---------------------------------------------------------------------------------------------------------------------------------------|
-| dbInstanceGroupId            | Body | UUID     | DB instance group identifier                                                                                                                       |
-| dbInstanceGroupStatus        | Body | Enum     | Current status of DB instance groups<br/>- `CREATED: Created`<br/>- `DELETED`: Deleted                                                                           |
-| replicationType              | Body | Enum     | DB instance group replication type<br/>- `STANDALONE`: Standalone<br/>- `HIGH_AVAILABILITY`: High availability                                                              |
-| dbInstances                  | Body | Array    | DB instances belong to DB instance group                                                                                                             |
-| dbInstances.dbInstanceId     | Body | UUID     | DB instance identifier                                                                                                                          |
-| dbInstances.dbInstanceType   | Body | Enum     | DB instance role type<br/>- `MASTER`: Master<br/>- `FAILED_MASTER`: Failed over master<br/>- `CANDIDATE_MASTER`: Candidate master<br/>- `READ_ONLY_SLAVE`: Read replica |
-| dbInstances.dbInstanceStatus | Body | Enum     | DB instance current status                                                                                                                        |
-| createdYmdt                  | Body | DateTime | Created date and time (YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                     |
-| updatedYmdt                  | Body | DateTime | Modified date and time (YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                     |
-
-<details><summary>Example</summary>
+<details>
+  <summary><strong>Example Code</strong></summary>
 
 ```json
 {
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "dbInstanceGroupId": "36617a8e-0df8-4b16-b6ea-6306019e95da",
-    "dbInstanceGroupStatus": "CREATED",
-    "replicationType": "STANDALONE",
-    "dbInstances": [
-        {
-            "dbInstanceId": "6d2db0ef-fe9b-4ed4-97b1-d97fcb4cf1b8",
-            "dbInstanceType": "MASTER",
-            "dbInstanceStatus": "AVAILABLE"
-        }
-    ],
-    "createdYmdt": "2023-03-03T17:38:14+09:00",
-    "updatedYmdt": "2023-03-03T17:38:14+09:00"
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"dbInstanceGroupId": "550e8400-e29b-41d4-a716-446655440000",
+"dbInstanceGroupStatus": "CREATED",
+"replicationType": "STANDALONE",
+"dbInstances": [
+{
+"dbInstanceId": "550e8400-e29b-41d4-a716-446655440000",
+"dbInstanceType": "MASTER",
+"dbInstanceStatus": "BEFORE_CREATE"
+}
+],
+"createdYmdt": "2023-12-31T15:00:00+09:00",
+"updatedYmdt": "2023-12-31T15:00:00+09:00"
 }
 ```
+
 </details>
 
+| Name | Type | Description |
+|-----|-----|-----|
+| dbInstanceGroupId | UUID | DB instance group identifier |
+| dbInstanceGroupStatus | Enum | Current status of the DB instance group<br/>- CREATED: `Created`<br/>- DELETED: `Deleted` |
+| replicationType | Enum | DB instance group replication type<br/>- STANDALONE: `High availability not used`<br/>- HIGH_AVAILABILITY: `High availability used` |
+| dbInstances | Array | List of DB instances belonging to the DB instance group |
+| dbInstances.dbInstanceId | UUID | DB instance identifier |
+| dbInstances.dbInstanceType | Enum | DB instance role type<br/>- MASTER: `Master`<br/>- FAILED_MASTER: `Failed master`<br/>- CANDIDATE_MASTER: `Candidate master`<br/>- READ_ONLY_SLAVE: `Read replica` |
+| dbInstances.dbInstanceStatus | Enum | DB instance current status<br/>- BEFORE_CREATE: `Before creation (gray)`<br/>- AVAILABLE: `Available (green)`<br/>- STORAGE_FULL: `Storage full (red)`<br/>- FAIL_TO_CREATE: `Failed to create (red)`<br/>- FAIL_TO_CONNECT: `Failed to connect (red)`<br/>- REPLICATION_STOP: `Replication stopped (red)`<br/>- REPLICATION_DELAY: `Replication delayed (yellow)`<br/>- FAILOVER: `Failover completed (red)`<br/>- SHUTDOWN: `Stopped (gray)`<br/>- DELETED: `Deleted (gray)` |
+| createdYmdt | DateTime | Created date and time |
+| updatedYmdt | DateTime | Modified date and time |
 
-## DB Instance Group > Manage Extensions
+---
 
 ### View Extension List
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:DbInstanceGroupExtension.List | View Extension List |
+
+#### Request
 
 ```http
 GET /v1.0/db-instance-groups/{dbInstanceGroupId}/extensions
 ```
 
-#### Required Permission
+#### Request Parameters
 
-| Permission name                                            | Description       |
-|------------------------------------------------|----------|
-| RDSforPostgreSQL:DbInstanceGroupExtension.List | View extension lists |
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| dbInstanceGroupId | URL | UUID | Y | DB instance group ID |
 
-#### Request
-
-This API does not require a request body.
-
-| Name                | Type  | Format   | Required | Description              |
-|-------------------|-----|------|----|-----------------|
-| dbInstanceGroupId | URL | UUID | O  | Identifier of DB instance group |
-
-#### Response
-
-| Name                                                  | Type   | Format      | Description                                                                                                                                                                                              |
-|-----------------------------------------------------|------|---------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| extensions                                          | Body | Array   | Extension list                                                                                                                                                                                           |
-| extensions.extensionId                              | Body | UUID    | Identifier of the extension                                                                                                                                                                                         |
-| extensions.extensionName                            | Body | String  | Extension name                                                                                                                                                                                           |
-| extensions.extensionStatus                          | Body | ENUM    | Extension status<br/>- `AVAILABLE`: available<br/>- `NEED_TO_APPLY`: need to apply<br/>- `APPLYING`: applying                                                                                                               |
-| extensions.databases                                | Body | Array   | Database information with installed extensions                                                                                                                                                                               |
-| extensions.databases.dbInstanceGroupExtensionId     | Body | UUID    | Identifier of an extension within a DB instance group                                                                                                                                                                            |
-| extensions.databases.dbInstanceGroupExtensionStatus | Body | ENUM    | Extension status within a DB instance group<br/>- `CREATED`: created<br/>- `INSTALLED`: installed<br/>- `INSTALLING`: installing<br/>- `INSTALL_ERROR`: installation error<br/>- `DELETED`: deleted<br/>- `DELETING`: deleting<br/>- `DELETE_ERROR`: deletion error |
-| extensions.databases.databaseId                     | Body | UUID    | Identifier of the database                                                                                                                                                                                     |
-| extensions.databases.databaseName                   | Body | String  | Database name                                                                                                                                                                                       |
-| extensions.databases.reservedAction                 | Body | ENUM    | Scheduled Task<br/>- `NONE`: none<br/>- `INSTALL`: scheduled installation (need to apply)<br/>- `INSTALL_WITH_CASCADE`: scheduled forced installation (need to apply)<br/>- `DELETE`: scheduled deletion (need to apply)<br/>- `DELETE_WITH_CASCADE`: scheduled forced deletion (need to apply)                |
-| extensions.databases.errorReason                    | Body | String  | Reason for Error                                                                                                                                                                                           |
-| isNeedToApply                                       | Body | Boolean | Whether to apply changes                                                                                                                                                                                  |
-
-<details><summary>Example</summary>
-
-```json
-{
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "extensions": [
-        {
-            "extensionId": "7c9a94b8-86c1-435d-8af2-82a5e9d53fd4",
-            "extensionName": "address_standardizer",
-            "extensionStatus": "AVAILABLE",
-            "databases": [
-                {
-                    "dbInstanceGroupExtensionId": "7c9a94b8-86c1-435d-8af2-82a5e9d53fd4",
-                    "databaseId": "7c9a94b8-86c1-435d-8af2-82a5e9d53fd4",
-                    "databaseName": "database-1",
-                    "dbInstanceGroupExtensionStatus": "INSTALLED",
-                    "reservedAction": "NONE",
-                    "errorReason": null
-                }
-            ]
-        }
-    ],
-    "isNeedToApply": true
-}
-```
-</details>
-
-
-### Install Extensions
-
-```http
-POST /v1.0/db-instance-groups/{dbInstanceGroupId}/extensions/{extensionId}
-```
-
-#### Required Permission
-
-| Permission name                                               | Description    |
-|---------------------------------------------------|-------|
-| RDSforPostgreSQL:DbInstanceGroupExtension.Install | Install extensions |
-
-#### Request
+#### Request Body
 
 This API does not require a request body.
 
-| Name                | Type   | Format      | Required | Description                |
-|-------------------|------|---------|----|-------------------|
-| dbInstanceGroupId | URL  | UUID    | O  | Identifier of DB instance group   |
-| extensionId       | URL  | UUID    | O  | Identifier of the extension           |
-| databaseId        | Body | UUID    | O  | Identifier of the database to be installed |
-| schemaName        | Body | String  | O  | Name of the schema to be installed      |
-| withCascade       | Body | Boolean | X  | Whether to force installation of dependency information    |
-
 #### Response
 
-This API does not return a response body.
-
-<details><summary>Example</summary>
+<details>
+  <summary><strong>Example Code</strong></summary>
 
 ```json
 {
-  "header": {
-    "resultCode": 0,
-    "resultMessage": "SUCCESS",
-    "isSuccessful": true
-  }
-}
-```
-</details>
-
-
-### Delete Extensions (Cancel)
-
-```http
-DELETE /v1.0/db-instance-groups/{dbInstanceGroupId}/extensions/{dbInstanceGroupExtensionId}
-```
-
-#### Required Permission
-
-| Permission name                                              | Description        |
-|--------------------------------------------------|-----------|
-| RDSforPostgreSQL:DbInstanceGroupExtension.Delete | Delete extensions (cancel) |
-
-#### Request
-
-This API does not require a request body.
-
-| Name                         | Type    | Format      | Required | Description                   |
-|----------------------------|-------|---------|----|----------------------|
-| dbInstanceGroupId          | URL   | UUID    | O  | Identifier of DB instance group      |
-| dbInstanceGroupExtensionId | URL   | UUID    | O  | Identifier of the extension within the DB instance group |
-| withCascade                | Query | Boolean | O  | Whether to force installation of dependency information       |
-
-#### Response
-
-This API does not return a response body.
-
-<details><summary>Example</summary>
-
-```json
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"extensions": [
 {
-  "header": {
-    "resultCode": 0,
-    "resultMessage": "SUCCESS",
-    "isSuccessful": true
-  }
+"extensionId": "550e8400-e29b-41d4-a716-446655440000",
+"extensionName": "extensionName-example",
+"extensionStatus": "AVAILABLE",
+"databases": [
+{
+"dbInstanceGroupExtensionId": "550e8400-e29b-41d4-a716-446655440000",
+"databaseId": "550e8400-e29b-41d4-a716-446655440000",
+"databaseName": "databaseName-example",
+"dbInstanceGroupExtensionStatus": "CREATED",
+"reservedAction": "NONE",
+"errorReason": "errorReason-example"
+}
+]
+}
+],
+"isNeedToApply": false
 }
 ```
+
 </details>
 
+| Name | Type | Description |
+|-----|-----|-----|
+| extensions | Array | Extension information |
+| extensions.extensionId | UUID | Extension identifier |
+| extensions.extensionName | String | Extension name |
+| extensions.extensionStatus | Enum | Extension status<br/>- AVAILABLE: `Available`<br/>- NEED_TO_APPLY: `Need to apply`<br/>- APPLYING: `Applying` |
+| extensions.databases | Array | Database information |
+| extensions.databases.dbInstanceGroupExtensionId | UUID | Identifier of the extension within the DB instance group |
+| extensions.databases.databaseId | UUID | Database identifier |
+| extensions.databases.databaseName | String | Database name |
+| extensions.databases.dbInstanceGroupExtensionStatus | Enum | Extension installation status within the database<br/>- CREATED: `Created`<br/>- INSTALLED: `Installed`<br/>- INSTALLING: `Installing`<br/>- INSTALL_ERROR: `Installation error`<br/>- DELETED: `Deleted`<br/>- DELETING: `Deleting`<br/>- DELETE_ERROR: `Deletion error` |
+| extensions.databases.reservedAction | Enum | Scheduled task<br/>- NONE: `None`<br/>- INSTALL: `Scheduled installation (need to apply)`<br/>- INSTALL_WITH_CASCADE: `Scheduled forced installation (need to apply)`<br/>- DELETE: `Scheduled deletion (need to apply)`<br/>- DELETE_WITH_CASCADE: `Scheduled forced deletion (need to apply)` |
+| extensions.databases.errorReason | String | Reason for error |
+| isNeedToApply | Boolean | Whether changes need to be applied |
+
+---
 
 ### Apply Extension Changes
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:DbInstanceGroupExtension.Apply | Apply Extension Changes |
+
+#### Request
 
 ```http
 POST /v1.0/db-instance-groups/{dbInstanceGroupId}/extensions/apply
 ```
 
-#### Required Permission
+#### Request Parameters
 
-| Permission name                                             | Description         |
-|-------------------------------------------------|------------|
-| RDSforPostgreSQL:DbInstanceGroupExtension.Apply | Apply extension changes |
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| dbInstanceGroupId | URL | UUID | Y | DB instance group ID |
 
-#### Request
+#### Request Body
 
 This API does not require a request body.
 
-| Name                         | Type    | Format      | Required | Description                   |
-|----------------------------|-------|---------|----|----------------------|
-| dbInstanceGroupId          | URL   | UUID    | O  | Identifier of DB instance group      |
-
 #### Response
 
-| Name    | Type   | Format   | Description          |
-|-------|------|------|-------------|
-| jobId | Body | UUID | Identifier of the requested task |
-
-<details><summary>Example</summary>
+<details>
+  <summary><strong>Example Code</strong></summary>
 
 ```json
 {
-  "header": {
-    "resultCode": 0,
-    "resultMessage": "SUCCESS",
-    "isSuccessful": true
-  },
-  "jobId": "0ddb042c-5af6-43fb-a914-f4dd0540eb7c"
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
+
 </details>
 
+| Name | Type | Description |
+|-----|-----|-----|
+| jobId | UUID | Identifier of requested task |
+
+---
 
 ### Synchronize Extensions
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:DbInstanceGroupExtension.Sync | Synchronize Extensions |
+
+#### Request
 
 ```http
 POST /v1.0/db-instance-groups/{dbInstanceGroupId}/extensions/sync
 ```
 
-#### Required Permission
+#### Request Parameters
 
-| Permission name                                            | Description     |
-|------------------------------------------------|--------|
-| RDSforPostgreSQL:DbInstanceGroupExtension.Sync | Synchronize Extensions |
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| dbInstanceGroupId | URL | UUID | Y | DB instance group ID |
 
-#### Request
+#### Request Body
 
 This API does not require a request body.
 
-| Name                         | Type    | Format      | Required | Description                   |
-|----------------------------|-------|---------|----|----------------------|
-| dbInstanceGroupId          | URL   | UUID    | O  | Identifier of DB instance group      |
-
 #### Response
 
-| Name    | Type   | Format   | Description          |
-|-------|------|------|-------------|
-| jobId | Body | UUID | Identifier of the requested task |
-
-<details><summary>Example</summary>
+<details>
+  <summary><strong>Example Code</strong></summary>
 
 ```json
 {
-  "header": {
-    "resultCode": 0,
-    "resultMessage": "SUCCESS",
-    "isSuccessful": true
-  },
-  "jobId": "0ddb042c-5af6-43fb-a914-f4dd0540eb7c"
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
+
 </details>
 
+| Name | Type | Description |
+|-----|-----|-----|
+| jobId | UUID | Identifier of requested task |
+
+---
+
+### Delete Extension (Cancel)
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:DbInstanceGroupExtension.Delete | Delete Extension (Cancel) |
+
+#### Request
+
+```http
+DELETE /v1.0/db-instance-groups/{dbInstanceGroupId}/extensions/{dbInstanceGroupExtensionId}
+```
+
+#### Request Parameters
+
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| dbInstanceGroupId | URL | UUID | Y | DB instance group ID |
+| dbInstanceGroupExtensionId | URL | UUID | Y | Identifier of the extension within the DB instance group |
+| withCascade | Query | Boolean | Y | Whether to force deletion |
+
+#### Request Body
+
+This API does not require a request body.
+
+#### Response
+
+This API does not return a response body.
+
+---
+
+### Install Extension
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:DbInstanceGroupExtension.Install | Install Extension |
+
+#### Request
+
+```http
+POST /v1.0/db-instance-groups/{dbInstanceGroupId}/extensions/{extensionId}
+```
+
+#### Request Parameters
+
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| dbInstanceGroupId | URL | UUID | Y | DB instance group ID |
+| extensionId | URL | UUID | Y | Extension identifier |
+
+#### Request Body
+
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+"databaseId": "550e8400-e29b-41d4-a716-446655440000",
+"schemaName": "schemaName-example",
+"withCascade": false
+}
+```
+
+</details>
+
+| Name | Type | Required | Description |
+|-----|-----|-----|-----|
+| databaseId | UUID | Y | Database identifier |
+| schemaName | String | Y | Schema name |
+| withCascade | Boolean | N | Whether to automatically install dependencies<br/>- Default: `false` |
+
+#### Response
+
+This API does not return a response body.
+
+---
 
 ## DB Instance
 
 ### DB Instance Status
 
-| Status                  | Description                          |
-|---------------------|-----------------------------|
-| `AVAILABLE`         | DB instance is available          |
-| `BEFORE_CREATE`     | Before creating a DB instance           |
-| `STORAGE_FULL`      | Insufficient DB instance storage         |
-| `FAIL_TO_CREATE`    | Failed to create DB instance          |
-| `FAIL_TO_CONNECT`   | Failed to connect DB instance          |
-| `REPLICATION_STOP`  | Replication of DB instance is stopped         |
-| `REPLICATION_DELAY` | When replication of a DB instance is delayed       |
-| `FAILOVER`          | When failover of a highly available DB instance is complete |
-| `SHUTDOWN`          | DB instance is stopped             |
-| `DELETED`           | DB instance is deleted             |
+| Status | Description |
+|---------------------|------------------------------|
+| `AVAILABLE` | DB instance is available |
+| `BEFORE_CREATE` | Before creating a DB instance |
+| `STORAGE_FULL` | Insufficient DB instance storage |
+| `FAIL_TO_CREATE` | Failed to create DB instance |
+| `FAIL_TO_CONNECT` | Failed to connect DB instance |
+| `REPLICATION_STOP` | Replication of DB instance is stopped |
+| `FAILOVER` | When failover of a highly available DB instance is complete |
+| `SHUTDOWN` | DB instance is stopped |
+| `DELETED` | DB instance is deleted |
 
 ### DB Instance Progress Status
 
-| Status                              | Description             |
-|---------------------------------|----------------|
-| `APPLYING_DB_INSTANCE_HBA_RULE` | Applying an access control rule  |
-| `APPLYING_PARAMETER_GROUP`      | Parameter group is being applied   |
-| `APPLYING_EXTENSION`            | Applying an extension        |
-| `BACKING_UP`                    | Backing up           |
-| `CANCELING`                     | Canceling           |
-| `CREATING`                      | Creating           |
-| `CREATING_DATABASE`             | Creating a database	   |
-| `CREATING_USER`                 | Creating user	      |
-| `DELETING`                      | Deleting           |
-| `DELETING_DATABASE`             | Deleting a database    |
-| `DELETING_USER`                 | Deleting user       |
-| `EXPORTING_BACKUP`              | Exporting a backup     |
-| `FAILING_OVER`                  | Under failover        |
-| `MIGRATING`                     | Under migration       |
-| `MODIFYING`                     | Under modification           |
-| `OCCUPIED`                      | Occupied           |
-| `PREPARING`                     | In preparation           |
-| `PROMOTING`                     | Promoting           |
-| `PROMOTING_FORCIBLY`            | Force Promoting        |
-| `REBUILDING`                    | Rebuilding          |
-| `REPAIRING`                     | Recovering           |
-| `REPLICATING`                   | Replicating           |
-| `RESTARTING`                    | Restarting          |
-| `RESTARTING_FORCIBLY`           | Force restarting       |
-| `RESTORING`                     | Restoring           |
-| `STARTING`                      | Starting           |
-| `STOPPING`                      | Stopping           |
-| `SYNCING_DATABASE`              | Synchronizing the database   |
-| `SYNCING_USER`                  | Synchronizing user	     |
-| `SYNCING_EXTENSION`             | Synchronizing extensions	      |
-| `UPDATING_USER`                 | Modifying user	      |
-| `UPDATING_DATABASE`             | Modifying the database	   |
-| `WAIT_MANUAL_CONTROL`           | Waiting for manual failover	 |
+| Status | Description |
+|----------------------------|--------------|
+| `APPLYING_PARAMETER_GROUP` | Parameter group is being applied |
+| `BACKING_UP` | Backing up |
+| `CANCELING` | Canceling |
+| `CREATING` | Creating |
+| `CREATING_SCHEMA` | Creating a schema |
+| `CREATING_USER` | Creating user |
+| `DELETING` | Deleting |
+| `DELETING_SCHEMA` | Deleting a schema |
+| `DELETING_USER` | Deleting user |
+| `EXPORTING_BACKUP` | Exporting a backup |
+| `FAILING_OVER` | Under failover |
+| `MIGRATING` | Under migration |
+| `MODIFYING` | Under modification |
+| `PREPARING` | In preparation |
+| `PROMOTING` | Promoting |
+| `REBUILDING` | Rebuilding |
+| `REPAIRING` | Recovering |
+| `REPLICATING` | Replicating |
+| `RESTARTING` | Restarting |
+| `RESTARTING_FORCIBLY` | Force restarting |
+| `RESTORING` | Restoring |
+| `STARTING` | Starting |
+| `STOPPING` | Stopping |
+| `SYNCING_SCHEMA` | Synchronizing the schema |
+| `SYNCING_USER` | Synchronizing user |
+| `UPDATING_USER` | Modifying user |
 
-### List DB instances
+### List DB Instances
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:DbInstance.List | List DB instances |
+
+#### Request
 
 ```http
 GET /v1.0/db-instances
 ```
 
-#### Required permissions
-
-| Permission Name                              | Description            |
-|----------------------------------|---------------|
-| RDSforPostgreSQL:DbInstance.List | List DB instances |
-
-#### Request
+#### Request Body
 
 This API does not require a request body.
 
 #### Response
 
-| Name                            | Type   | Format       | Description                                                                                                                                    |
-|-------------------------------|------|----------|---------------------------------------------------------------------------------------------------------------------------------------|
-| dbInstances                   | Body | Array    | DB instances                                                                                                                            |
-| dbInstances.dbInstanceId      | Body | UUID     | DB instance identifier                                                                                                                          |
-| dbInstances.dbInstanceGroupId | Body | UUID     | DB instance group identifier                                                                                                                       |
-| dbInstances.dbInstanceName    | Body | String   | Name to identify DB instances                                                                                                                  |
-| dbInstances.description       | Body | String   | Additional information on DB instances                                                                                                                     |
-| dbInstances.dbVersion         | Body | Enum     | DB version information                                                                                                                              |
-| dbInstances.dbPort            | Body | Number   | DB port                                                                                                                                 |
-| dbInstances.dbInstanceType    | Body | Enum     | DB instance role type<br/>- `MASTER`: Master<br/>- `FAILED_MASTER`: Failed over master<br/>- `CANDIDATE_MASTER`: Candidate master<br/>- `READ_ONLY_SLAVE`: Read replica |
-| dbInstances.dbInstanceStatus  | Body | Enum     | DB instance current status                                                                                                                        |
-| dbInstances.progressStatus    | Body | Enum     | DB instance current status                                                                                                                     |
-| dbInstances.createdYmdt       | Body | DateTime | Created date and time (YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                     |
-| dbInstances.updatedYmdt       | Body | DateTime | Modified date and time (YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                     |
-
-<details><summary>Example</summary>
+<details>
+  <summary><strong>Example Code</strong></summary>
 
 ```json
 {
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "dbInstances": [
-        {
-            "dbInstanceId": "d067593b-1acc-4ccc-9e8a-cc72d6d79ec3",
-            "dbInstanceGroupId": "51c7d080-ff36-4025-84b1-9d9d0b4fe9e0",
-            "dbInstanceName": "db-instance",
-            "description": null,
-            "dbVersion": "POSTGRESQL_V17_6",
-            "dbPort": 15432,
-            "dbInstanceType": "MASTER",
-            "dbInstanceStatus": "AVAILABLE",
-            "progressStatus": "NONE",
-            "createdYmdt": "2023-01-23T12:03:13+09:00",
-            "updatedYmdt": "2023-02-02T17:20:17+09:00"
-        }
-    ]
-}
-```
-</details>
-
-
-### List DB Instance Details
-
-```http
-GET /v1.0/db-instances/{dbInstanceId}
-```
-
-#### Required permissions
-
-| Permission Name                             | Description            |
-|---------------------------------|---------------|
-| RDSforPostgreSQL:DbInstance.Get | List DB Instance Details |
-
-#### Request
-
-This API does not require a request body.
-
-| Name           | Type  | Format   | Required | Description           |
-|--------------|-----|------|----|--------------|
-| dbInstanceId | URL | UUID | O  | DB instance identifier |
-
-#### Response
-
-| Name                        | Type   | Format       | Description                                                                                                                                    |
-|---------------------------|------|----------|---------------------------------------------------------------------------------------------------------------------------------------|
-| dbInstanceId              | Body | UUID     | DB instance identifier                                                                                                                          |
-| dbInstanceGroupId         | Body | UUID     | DB instance group identifier                                                                                                                       |
-| dbInstanceName            | Body | String   | Name to identify DB instances                                                                                                                  |
-| description               | Body | String   | Additional information on DB instances                                                                                                                     |
-| dbVersion                 | Body | Enum     | DB version information                                                                                                                              |
-| dbPort                    | Body | Number   | DB port                                                                                                                                 |
-| dbInstanceType            | Body | Enum     | DB instance role type<br/>- `MASTER`: Master<br/>- `FAILED_MASTER`: Failed over master<br/>- `CANDIDATE_MASTER`: Candidate master<br/>- `READ_ONLY_SLAVE`: Read replica |
-| dbInstanceStatus          | Body | Enum     | DB instance current status                                                                                                                        |
-| progressStatus            | Body | Enum     | Current task status of DB instance                                                                                                                  |
-| dbFlavorId                | Body | UUID     | Identifier of DB instance specifications                                                                                                                       |
-| parameterGroupId          | Body | UUID     | Parameter group identifier applied to DB instance                                                                                                             |
-| dbSecurityGroupIds        | Body | Array    | DB security group identifiers applied to DB instance                                                                                                         |
-| notificationGroupIds      | Body | Array    | List of identifiers of notification groups applied to the DB instance                                                                                                            |
-| useDeletionProtection     | Body | Boolean  | Whether to protect DB instance against deletion                                                                                                                      |
-| needToApplyParameterGroup | Body | Boolean  | Need to apply the latest parameter group                                                                                                                   |
-| needMigration             | Body | Boolean  | Need to migrate                                                                                                                          |
-| osVersion                 | Body | String   | OS Version                                                                                                                               |
-| createdYmdt               | Body | DateTime | Created date and time (YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                     |
-| updatedYmdt               | Body | DateTime | Modified date and time (YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                     |
-
-<details><summary>Example</summary>
-
-```json
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"dbInstances": [
 {
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "dbInstanceId": "d067593b-1acc-4ccc-9e8a-cc72d6d79ec3",
-    "dbInstanceGroupId": "51c7d080-ff36-4025-84b1-9d9d0b4fe9e0",
-    "dbInstanceName": "db-instance",
-    "description": null,
-    "dbVersion": "POSTGRESQL_V17_6",
-    "dbPort": 15432,
-    "dbInstanceType": "MASTER",
-    "dbInstanceStatus": "AVAILABLE",
-    "progressStatus": "NONE",
-    "dbFlavorId": "e9ed4ef6-78d7-46fa-ace9-32481e97f3b7",
-    "parameterGroupId": "b03e8b13-de27-4d04-a488-ff5689589372",
-    "dbSecurityGroupIds": ["01908c35-d2c9-4852-baf0-17f06ec42c03"],
-    "notificationGroupIds": ["83a62a33-ddbf-4a04-8653-e54463d5b1ac"],
-    "useDeletionProtection": false,
-    "needToApplyParameterGroup": false,
-    "needMigration": false,
-    "createdYmdt": "2022-11-23T12:03:13+09:00",
-    "updatedYmdt": "2022-12-02T17:20:17+09:00"
+"dbInstanceId": "550e8400-e29b-41d4-a716-446655440000",
+"dbInstanceGroupId": "550e8400-e29b-41d4-a716-446655440000",
+"dbInstanceName": "dbInstanceName-example",
+"description": "description-example",
+"dbVersion": "POSTGRESQL_V14_17",
+"dbPort": 1,
+"dbInstanceType": "MASTER",
+"dbInstanceStatus": "BEFORE_CREATE",
+"progressStatus": "progressStatus-example",
+"createdYmdt": "2023-12-31T15:00:00+09:00",
+"updatedYmdt": "2023-12-31T15:00:00+09:00"
+}
+]
 }
 ```
+
 </details>
+
+| Name | Type | Description |
+|-----|-----|-----|
+| dbInstances | Array | DB instances |
+| dbInstances.dbInstanceId | UUID | DB instance identifier |
+| dbInstances.dbInstanceGroupId | UUID | DB instance group identifier |
+| dbInstances.dbInstanceName | String | Name to identify DB instances |
+| dbInstances.description | String | Additional information on DB instances |
+| dbInstances.dbVersion | String | DB engine type |
+| dbInstances.dbPort | Number | DB port |
+| dbInstances.dbInstanceType | Enum | DB instance role type<br/>- MASTER: `Master`<br/>- FAILED_MASTER: `Failed master`<br/>- CANDIDATE_MASTER: `Candidate master`<br/>- READ_ONLY_SLAVE: `Read replica` |
+| dbInstances.dbInstanceStatus | Enum | DB instance current status<br/>- BEFORE_CREATE: `Before creation (gray)`<br/>- AVAILABLE: `Available (green)`<br/>- STORAGE_FULL: `Storage full (red)`<br/>- FAIL_TO_CREATE: `Failed to create (red)`<br/>- FAIL_TO_CONNECT: `Failed to connect (red)`<br/>- REPLICATION_STOP: `Replication stopped (red)`<br/>- REPLICATION_DELAY: `Replication delayed (yellow)`<br/>- FAILOVER: `Failover completed (red)`<br/>- SHUTDOWN: `Stopped (gray)`<br/>- DELETED: `Deleted (gray)` |
+| dbInstances.progressStatus | String | Current task status of DB instance |
+| dbInstances.createdYmdt | DateTime | Created date and time |
+| dbInstances.updatedYmdt | DateTime | Modified date and time |
+
+---
 
 ### Create DB Instance
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:DbInstance.Create | Create DB Instance |
+
+#### Request
 
 ```http
 POST /v1.0/db-instances
 ```
 
-#### Required permissions
+#### Request Body
 
-| Permission Name                                | Description           |
-|------------------------------------|--------------|
-| RDSforPostgreSQL:DbInstance.Create | Create DB Instance |
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+"dbInstanceName": "dbInstanceName-example",
+"dbInstanceCandidateName": "dbInstanceCandidateName-example",
+"description": "description-example",
+"dbFlavorId": "550e8400-e29b-41d4-a716-446655440000",
+"dbVersion": "POSTGRESQL_V14_17",
+"dbPort": 1,
+"databaseName": "databaseName-example",
+"dbUserName": "dbUserName-example",
+"dbPassword": "dbPassword-example",
+"parameterGroupId": "550e8400-e29b-41d4-a716-446655440000",
+"dbSecurityGroupIds": [],
+"userGroupIds": [],
+"useHighAvailability": false,
+"useDefaultNotification": false,
+"useDeletionProtection": false,
+"pingInterval": 1,
+"failoverReplWaitingTime": 1,
+"network": {
+"subnetId": "550e8400-e29b-41d4-a716-446655440000",
+"usePublicAccess": false,
+"availabilityZone": "kr-pub-a"
+},
+"storage": {
+"storageType": "General SSD",
+"storageSize": 20
+},
+"backup": {
+"backupPeriod": 0,
+"backupRetryCount": 0,
+"backupSchedules": [
+{
+"backupWndBgnTime": "00:00:00",
+"backupWndDuration": "HALF_AN_HOUR"
+}
+]
+}
+}
+```
+
+</details>
+
+| Name | Type | Required | Description |
+|-----|-----|-----|-----|
+| dbInstanceName | String | Y | Name to identify DB instances |
+| dbInstanceCandidateName | String | N | Candidate master name to identify the DB instance |
+| description | String | N | Additional information on DB instances |
+| dbFlavorId | UUID | Y | Identifier of DB instance specifications |
+| dbVersion | String | Y | DB engine type |
+| dbPort | Number | Y | DB port<br/>- Minimum value: 5432, Maximum value: 45432 |
+| databaseName | String | Y | Database name |
+| dbUserName | String | Y | DB user account name |
+| dbPassword | String | Y | DB user account password |
+| parameterGroupId | UUID | Y | Parameter group identifier |
+| dbSecurityGroupIds | Array | N | List of DB security group identifiers |
+| userGroupIds | Array | N | List of user group identifiers |
+| useHighAvailability | Boolean | N | Whether to use high availability<br/>- Default: `false` |
+| useDefaultNotification | Boolean | N | Whether to use default notification<br/>- Default: `false` |
+| useDeletionProtection | Boolean | N | Whether to use deletion protection<br/>- Default: `false` |
+| pingInterval | Number | N | Ping interval (seconds)<br/>- Minimum value: `1`<br/>- Maximum value: `600` |
+| failoverReplWaitingTime | Number | N | Failover replication delay waiting time (seconds)<br/>- Minimum value: `-1` |
+| network | Object | Y | Network information objects |
+| network.subnetId | UUID | Y | Subnet identifier |
+| network.usePublicAccess | Boolean | N | Whether external access is available<br/>- Default: `false` |
+| network.availabilityZone | Enum | N | Availability zone where DB instance will be created |
+| storage | Object | Y | Storage information objects |
+| storage.storageType | Enum | Y | Storage type |
+| storage.storageSize | Number | Y | Data storage size (GB)<br/>- Minimum value: `20` |
+| backup | Object | Y | Backup information objects |
+| backup.backupPeriod | Number | Y | Backup retention period (days)<br/>- Minimum value: `0`<br/>- Maximum value: `730` |
+| backup.backupRetryCount | Number | N | Number of backup retries<br/>- Minimum value: `0`<br/>- Maximum value: `10` |
+| backup.backupSchedules | Array | Y | Backup schedule information |
+| backup.backupSchedules.backupWndBgnTime | Time | Y | Backup start time |
+| backup.backupSchedules.backupWndDuration | Enum | Y | Backup duration<br/>- HALF_AN_HOUR: `30 minutes`<br/>- ONE_HOUR: `1 hour`<br/>- ONE_HOUR_AND_HALF: `1.5 hours`<br/>- TWO_HOURS: `2 hours`<br/>- TWO_HOURS_AND_HALF: `2.5 hours`<br/>- THREE_HOURS: `3 hours` |
+
+#### Response
+
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"jobId": "550e8400-e29b-41d4-a716-446655440000"
+}
+```
+
+</details>
+
+| Name | Type | Description |
+|-----|-----|-----|
+| jobId | UUID | Identifier of requested task |
+
+---
+
+### Restore DB Instance from Backup in Object Storage
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:DbInstance.RestoreFromObs | Restore DB Instance from Backup in Object Storage |
 
 #### Request
 
-| Name                                       | Type   | Format      | Required | Description                                                                                                                                                                                                                   |
-|------------------------------------------|------|---------|----|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| dbInstanceName                           | Body | String  | O  | Name to identify DB instances                                                                                                                                                                                                 |
-| description                              | Body | String  | X  | Additional information on DB instances                                                                                                                                                                                                    |
-| dbFlavorId                               | Body | UUID    | O  | Identifier of DB instance specifications                                                                                                                                                                                                      |
-| dbVersion                                | Body | Enum    | O  | DB version information                                                                                                                                                                                                             |
-| dbPort                                   | Body | Number  | O  | DB port<br/>- Minimum value: `0`<br/>- Maximum value: 65535                                                                                                                                                                           |
-| databaseName                             | Body | String  | O  | Name of the new database to create in the DB Engine                                                                                                                                                                                               |
-| dbUserName                               | Body | String  | O  | New user account name to create in DB Engine                                                                                                                                                                                               |
-| dbPassword                               | Body | String  | O  | Password for the new user account to be created in the DB Engine<br/>- Minimum length: `4`<br/>- Maximum length: `16`                                                                                                                                                          |
-| parameterGroupId                         | Body | UUID    | O  | Parameter group identifier                                                                                                                                                                                                         |
-| dbSecurityGroupIds                       | Body | Array   | X  | DB security group identifiers                                                                                                                                                                                                     |
-| useDeletionProtection                    | Body | Boolean | X  | Whether to protect against deletion<br/>Default: `false`                                                                                                                                                                                          |
-| useDefaultNotification                   | Body | Boolean | X  | Whether to use default notification<br/>Default: `false`                                                                                                                                                                                       |
-| useHighAvailability                      | Body | Boolean | X  | Whether to use high availability                                                                                                                                                                                                           |
-| pingInterval                             | Body | Number  | X  | Ping interval (sec) when using high availability<br/>- Minimum value: `1`<br/>- Maximum value: `600`                                                                                                                                                                 |
-| failoverReplWaitingTime                  | Body | Number  | X  | Failover latency when using high availability<br/>- Minimum value: `0`<br/>- If set to -1, it will continue to wait for the replication delay to resolve.                                                                                                                                         |                                                                                                                                                                                                                      | userGroupIds                             | Body | Array   | X  | List of identifiers for user groups that receive default notifications                                                                                                                                                                                             |
-| network                                  | Body | Object  | O  | Network information objects                                                                                                                                                                                                           |
-| network.subnetId                         | Body | UUID    | O  | Subnet identifier                                                                                                                                                                                                             |
-| network.usePublicAccess                  | Body | Boolean | X  | External access is available or not<br/>Default: `false`                                                                                                                                                                                      |
-| network.availabilityZone                 | Body | Enum    | X  | Availability zone where DB instance will be created<br/>- Example: `kr-pub-a`<br/>- Default: `Any availability` zone                                                                                                                                                     |
-| storage                                  | Body | Object  | O  | Storage information objects                                                                                                                                                                                                           |    
-| storage.storageType                      | Body | Enum    | O  | Data storage types<br/>- Example: `General SSD`                                                                                                                                                                                  |
-| storage.storageSize                      | Body | Number  | O  | Block Storage Size (GB)<br/>- Minimum value: `20`<br/>- Maximum value: `2048`                                                                                                                                                                    |
-| backup                                   | Body | Object  | O  | Backup information objects                                                                                                                                                                                                             |
-| backup.backupPeriod                      | Body | Number  | O  | Backup retention period<br/>- Minimum value: `0`<br/>- Maximum value: `730`                                                                                                                                                                          |
-| backup.backupRetryCount                  | Body | Number  | X  | Number of backup retries<br/>Default: `6`<br/>- Minimum value: `0`<br/>- Maximum value: `10`                                                                                                                                                              |
-| backup.backupSchedules                   | Body | Array   | X  | Backup schedules                                                                                                                                                                                                            |
-| backup.backupSchedules.backupWndBgnTime  | Body | String  | O  | Backup Start Time<br/>- Example: `00:00:00`                                                                                                                                                                                        |
-| backup.backupSchedules.backupWndDuration | Body | Enum    | O  | Backup Window<br/>Auto backup is executed within the set duration from the backup start time.<br/>- `HALF_AN_HOUR`: 30 minutes<br/>- `ONE_HOUR`: 1 hour<br/>- `ONE_HOUR_AND_HALF`: 1.5 hour<br/>- `TWO_HOURS`: 2 hour<br/>- `TWO_HOURS_AND_HALF`: 2.5 hour<br/>- `THREE_HOURS`: 3 hour |
+```http
+POST /v1.0/db-instances/restore-from-obs
+```
 
-<details><summary>Example</summary>
+#### Request Body
+
+<details>
+  <summary><strong>Example Code</strong></summary>
 
 ```json
 {
-    "dbInstanceName": "db-instance",
-    "description": "description",
-    "dbFlavorId": "71f69bf9-3c01-4c1a-b135-bb75e93f6268",
-    "dbVersion": "POSTGRESQL_V17_6",
-    "dbPort": 15432,
-    "databaseName": "database",
-    "dbUserName": "db-user",
-    "dbPassword": "password",
-    "parameterGroupId": "488bf4f5-d8f7-459b-ace6-529b606c8570",
-    "dbSecurityGroupIds": [
-        "b0483a3d-e8e2-46f6-9e84-d5e31b0d44f4"
-    ],
-    "userGroupIds": [],
-    "network": {
-        "subnetId": "e721a9dd-dad0-4cf0-a53b-dd654ebfc683",
-        "availabilityZone": "kr-pub-a"
-    },
-    "storage": {
-        "storageType": "General SSD",
-        "storageSize": 20
-    },
-    "backup": {
-        "backupPeriod": 1,
-        "backupSchedules": [
-            {
-                "backupWndBgnTime": "00:00:00",
-                "backupWndDuration": "ONE_HOUR_AND_HALF",
-                "backupRetryExpireTime": "01:30:00"
-            }
-        ]
-    }
+"dbInstanceName": "dbInstanceName",
+"dbInstanceCandidateName": "dbInstanceCandidateName-example",
+"description": "description-example",
+"dbFlavorId": "550e8400-e29b-41d4-a716-446655440000",
+"dbPort": 1,
+"dbVersion": "POSTGRESQL_V14_17",
+"useHighAvailability": false,
+"imageId": "550e8400-e29b-41d4-a716-446655440000",
+"pingInterval": 3,
+"failoverReplWaitingTime": 60,
+"storage": {
+"storageType": "General SSD",
+"storageSize": 20
+},
+"network": {
+"subnetId": "550e8400-e29b-41d4-a716-446655440000",
+"usePublicAccess": false,
+"availabilityZone": "kr-pub-a"
+},
+"backup": {
+"backupPeriod": 0,
+"backupRetryCount": 0,
+"replicationRegion": "KR1",
+"backupSchedules": [
+{
+"backupWndBgnTime": "00:00:00",
+"backupWndDuration": "HALF_AN_HOUR"
+}
+]
+},
+"restore": {
+"tenantId": "0123456789abcdef0123456789abcdef",
+"username": "username-example",
+"password": "password-example",
+"targetContainer": "targetContainer-example",
+"objectPath": "objectPath-example"
+},
+"useDefaultNotification": false,
+"parameterGroupId": "550e8400-e29b-41d4-a716-446655440000",
+"dbSecurityGroupIds": [],
+"userGroupIds": [],
+"useDeletionProtection": false
 }
 ```
+
 </details>
+
+| Name | Type | Required | Description |
+|-----|-----|-----|-----|
+| dbInstanceName | String | N | Name to identify DB instances<br/>- Minimum length: `1`<br/>- Maximum length: `100` |
+| dbInstanceCandidateName | String | N | Candidate master name to identify the DB instance |
+| description | String | N | Additional information on the DB instance<br/>- Maximum length: `100` |
+| dbFlavorId | UUID | Y | Identifier of DB instance specifications |
+| dbPort | Number | N | DB port<br/>- Minimum value: 5432, Maximum value: 45432 |
+| dbVersion | String | Y | DB engine type |
+| useHighAvailability | Boolean | N | Whether to use high availability<br/>- Default: `false` |
+| imageId | UUID | N | Image identifier |
+| pingInterval | Number | N | Ping interval (sec) when using high availability<br/>- Minimum value: `1`<br/>- Maximum value: `600` |
+| failoverReplWaitingTime | Number | N | Failover replication delay waiting time (seconds)<br/>- Minimum value: `-1` |
+| storage | Object | Y | Storage information objects |
+| storage.storageType | Enum | Y | Storage type |
+| storage.storageSize | Number | Y | Data storage size (GB)<br/>- Minimum value: `20` |
+| network | Object | Y | Network information objects |
+| network.subnetId | UUID | Y | Subnet identifier |
+| network.usePublicAccess | Boolean | N | Whether external access is available<br/>- Default: `false` |
+| network.availabilityZone | Enum | N | Availability zone where DB instance will be created |
+| backup | Object | Y | Backup information objects |
+| backup.backupPeriod | Number | Y | Backup retention period (days)<br/>- Minimum value: `0`<br/>- Maximum value: `730` |
+| backup.backupRetryCount | Number | N | Number of backup retries<br/>- Minimum value: `0`<br/>- Maximum value: `10` |
+| backup.replicationRegion | Enum | N | Backup replication region<br/>- KR1: `Korea (Pangyo)`<br/>- KR2: `Korea (Pyeongchon)` |
+| backup.backupSchedules | Array | Y | Backup schedules |
+| backup.backupSchedules.backupWndBgnTime | Time | Y | Backup start time |
+| backup.backupSchedules.backupWndDuration | Enum | Y | Backup duration<br/>- HALF_AN_HOUR: `30 minutes`<br/>- ONE_HOUR: `1 hour`<br/>- ONE_HOUR_AND_HALF: `1.5 hours`<br/>- TWO_HOURS: `2 hours`<br/>- TWO_HOURS_AND_HALF: `2.5 hours`<br/>- THREE_HOURS: `3 hours` |
+| restore | Object | Y | Restoration information object |
+| restore.tenantId | String | Y | Tenant ID of the object storage where the backup is stored |
+| restore.username | String | Y | NHN Cloud account or IAM member ID |
+| restore.password | String | Y | API password for the object storage where the backup is stored |
+| restore.targetContainer | String | Y | Container of the object storage where the backup is stored |
+| restore.objectPath | String | Y | Path of the backup stored in the container |
+| useDefaultNotification | Boolean | N | Whether to use default notification<br/>- Default: `false` |
+| parameterGroupId | UUID | Y | Parameter group identifier |
+| dbSecurityGroupIds | Array | N | List of DB security group identifiers |
+| userGroupIds | Array | N | List of user group identifiers |
+| useDeletionProtection | Boolean | N | Whether to use deletion protection<br/>- Default: `false` |
 
 #### Response
 
-| Name    | Type   | Format   | Description          |
-|-------|------|------|-------------|
-| jobId | Body | UUID | Identifier of requested task |
-
-<details><summary>Example</summary>
+<details>
+  <summary><strong>Example Code</strong></summary>
 
 ```json
 {
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "jobId": "0ddb042c-5af6-43fb-a914-f4dd0540eb7c"
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
+
 </details>
 
-### Modify DB Instance
+| Name | Type | Description |
+|-----|-----|-----|
+| jobId | UUID | Identifier of requested task |
 
-```http
-PUT /v1.0/db-instances/{dbInstanceId}
-```
+---
 
-#### Required permissions
+### Delete DB Instance
 
-| Permission Name                                | Description           |
-|------------------------------------|--------------|
-| RDSforPostgreSQL:DbInstance.Modify | Modify DB Instance |
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:DbInstance.Delete | Delete DB Instance |
 
 #### Request
-
-| Name                 | Type   | Format      | Required | Description                                                                        |
-|--------------------|------|---------|----|---------------------------------------------------------------------------|
-| dbInstanceId       | URL  | UUID    | O  | DB instance identifier                                                              |
-| dbInstanceName     | Body | String  | X  | Name to identify DB instances                                                      |
-| description        | Body | String  | X  | Additional information on DB instances                                                         |
-| dbPort             | Body | Number  | X  | DB port<br/>- Minimum value: `0`<br/>- Maximum value: 65535                                |
-| dbFlavorId         | Body | UUID    | X  | Identifier of DB instance specifications                                                           |
-| parameterGroupId   | Body | UUID    | X  | Parameter group identifier                                                              |
-| dbSecurityGroupIds | Body | Array   | X  | DB security group identifiers                                                          |
-| executeBackup      | Body | Boolean | X  | Whether to execute backup at this time<br/>Default: `false`                                         |
-
-<details><summary>Example</summary>
-
-```json
-{
-    "dbInstanceName": "db-instance2",
-    "description": "description2",
-    "dbPort": 10001,
-    "dbSecurityGroupIds": [],
-    "executeBackup": true
-}
-```
-</details>
-
-#### Response
-
-| Name    | Type   | Format   | Description          |
-|-------|------|------|-------------|
-| jobId | Body | UUID | Identifier of requested task |
-
-<details><summary>Example</summary>
-
-```json
-{
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "jobId": "0ddb042c-5af6-43fb-a914-f4dd0540eb7c"
-}
-```
-</details>
-
-
-### Get high availability information
-
-```http
-GET /v1.0/db-instances/{dbInstanceId}/high-availability
-```
-
-#### Required permissions
-
-| Permission Name                                   | Description         |
-|---------------------------------------|------------|
-| RDSforPostgreSQL:HighAvailability.Get | Get high availability information |
-
-#### Request
-
-| Name                  | Type   | Format      | Required | Description                                                   |
-|---------------------|------|---------|----|------------------------------------------------------|
-| dbInstanceId        | URL  | UUID    | O  | DB instance identifier                                         |
-
-#### Response
-
-| Name                      | Type   | Format      | Description                                                                                                                                                                                                                                                                                                                             |
-|-------------------------|------|---------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| haStatus                | Body | Boolean | High Availability Status<br/>- `CREATED: Created`<br/>- `STABLE`: Normal<br/>- `DISABLE_REPLICATION_DELAY`: Failover stops due to replication delay<br/>- `PAUSING`: Pausing<br/>- `PAUSED`: Paused<br/>- `PAUSED_DUE_TO_TASK`: Paused `due to task`<br/>- `FAILOVER_STARTED`: Failover started<br/>- `FAILOVER_FAILED`: Failover failed<br/>- `FAILOVER_COMPLETED`: Failover complete<br/>- `DELETED`: Deleted |
-| pingInterval            | Body | Number  | Ping interval (sec) when using high availability<br/>- Minimum value: `1`<br/>- Maximum value: `600`                                                                                                                                                                                                                                                                           |
-| failoverReplWaitingTime | Body | Number  | Failover latency when using high availability<br/>- Minimum value: `0`<br/>- If set to -1, it will continue to wait for the replication delay to resolve.                                                                                                                                                                                                                                                   |
-
-<details><summary>Example</summary>
-
-```json
-{
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "useHighAvailability": true,
-    "haStatus": "STABLE",
-    "pingInterval": 3,
-    "failoverReplWaitingTime": 60
-}
-```
-</details>
-
-
-### Modify High Availability
-
-```http
-PUT /v1.0/db-instances/{dbInstanceId}/high-availability
-```
-
-#### Required permissions
-
-| Permission Name                                      | Description        |
-|------------------------------------------|-----------|
-| RDSforPostgreSQL:HighAvailability.Modify | Modify High Availability |
-
-#### Request
-
-| Name                      | Type   | Format      | Required | Description                                                                           |
-|-------------------------|------|---------|----|------------------------------------------------------------------------------|
-| dbInstanceId            | URL  | UUID    | O  | DB instance identifier                                                                 |
-| useHighAvailability     | Body | Boolean | O  | Whether to use high availability                                                                   |
-| pingInterval            | Body | Number  | X  | Ping interval (sec) when using high availability<br/>- Minimum value: `1`<br/>- Maximum value: `600`                         |
-| failoverReplWaitingTime | Body | Number  | X  | Failover latency when using high availability<br/>- Minimum value: `0`<br/>- If set to -1, it will continue to wait for the replication delay to resolve. |
-
-#### Response
-
-| Name    | Type   | Format   | Description          |
-|-------|------|------|-------------|
-| jobId | Body | UUID | Identifier of requested task |
-
-<details><summary>Example</summary>
-
-```json
-{
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "jobId": "0ddb042c-5af6-43fb-a914-f4dd0540eb7c"
-}
-```
-</details>
-
-### Restart High Availability
-
-```http
-POST /v1.0/db-instances/{dbInstanceId}/high-availability/resume
-```
-
-#### Required permissions
-
-| Permission Name                                      | Description           |
-|------------------------------------------|--------------|
-| RDSforPostgreSQL:HighAvailability.Resume | Restart High Availability |
-
-#### Request
-
-This API does not require a request body.
-
-| Name           | Type  | Format   | Required | Description           |
-|--------------|-----|------|----|--------------|
-| dbInstanceId | URL | UUID | O  | DB instance identifier |
-
-#### Response
-
-| Name    | Type   | Format   | Description          |
-|-------|------|------|-------------|
-| jobId | Body | UUID | Identifier of requested task |
-
-<details><summary>Example</summary>
-
-```json
-{
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "jobId": "0ddb042c-5af6-43fb-a914-f4dd0540eb7c"
-}
-```
-</details>
-
-
-### Pause High Availability
-
-```http
-POST /v1.0/db-instances/{dbInstanceId}/high-availability/pause
-```
-
-#### Required permissions
-
-| Permission Name                                     | Description           |
-|-----------------------------------------|--------------|
-| RDSforPostgreSQL:HighAvailability.Pause | Pause High Availability |
-
-#### Request
-
-This API does not require a request body.
-
-| Name           | Type  | Format   | Required | Description           |
-|--------------|-----|------|----|--------------|
-| dbInstanceId | URL | UUID | O  | DB instance identifier |
-
-#### Response
-
-| Name    | Type   | Format   | Description          |
-|-------|------|------|-------------|
-| jobId | Body | UUID | Identifier of requested task |
-
-<details><summary>Example</summary>
-
-```json
-{
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "jobId": "0ddb042c-5af6-43fb-a914-f4dd0540eb7c"
-}
-```
-</details>
-
-
-### Recover High Availability
-
-```http
-POST /v1.0/db-instances/{dbInstanceId}/high-availability/repair
-```
-
-#### Required permissions
-
-| Permission Name                                      | Description        |
-|------------------------------------------|-----------|
-| RDSforPostgreSQL:HighAvailability.Repair | Recover High Availability |
-
-#### Request
-
-This API does not require a request body.
-
-| Name           | Type  | Format   | Required | Description           |
-|--------------|-----|------|----|--------------|
-| dbInstanceId | URL | UUID | O  | DB instance identifier |
-
-#### Response
-
-| Name    | Type   | Format   | Description          |
-|-------|------|------|-------------|
-| jobId | Body | UUID | Identifier of requested task |
-
-<details><summary>Example</summary>
-
-```json
-{
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "jobId": "0ddb042c-5af6-43fb-a914-f4dd0540eb7c"
-}
-```
-</details>
-
-
-### Separate High Availability
-
-```http
-POST /v1.0/db-instances/{dbInstanceId}/high-availability/split
-```
-
-#### Required permissions
-
-| Permission Name                                     | Description        |
-|-----------------------------------------|-----------|
-| RDSforPostgreSQL:HighAvailability.Split | Separate High Availability |
-
-#### Request
-
-This API does not require a request body.
-
-| Name           | Type  | Format   | Required | Description           |
-|--------------|-----|------|----|--------------|
-| dbInstanceId | URL | UUID | O  | DB instance identifier |
-
-#### Response
-
-| Name    | Type   | Format   | Description          |
-|-------|------|------|-------------|
-| jobId | Body | UUID | Identifier of requested task |
-
-<details><summary>Example</summary>
-
-```json
-{
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "jobId": "0ddb042c-5af6-43fb-a914-f4dd0540eb7c"
-}
-```
-</details>
-
-
-### Get DB instance storage information
-
-```http
-GET /v1.0/db-instances/{dbInstanceId}/storage-info
-```
-
-#### Required permissions
-
-| Permission Name                             | Description            |
-|---------------------------------|---------------|
-| RDSforPostgreSQL:DbInstance.Get | List DB Instance Details |
-
-#### Request
-
-This API does not require a request body.
-
-| Name           | Type  | Format   | Required | Description           |
-|--------------|-----|------|----|--------------|
-| dbInstanceId | URL | UUID | O  | DB instance identifier |
-
-#### Response
-
-| Name               | Type   | Format      | Description                                                                                   |
-|------------------|------|---------|--------------------------------------------------------------------------------------|
-| storageType      | Body | Enum    | Data storage types                                                                          |
-| storageSize      | Body | Number  | Block Storage Size (GB)                                                                      |
-| storageStatus    | Body | Enum    | Data Storage Current Status<br/>- `DETACHED`: Detached<br/>- `ATTACHED`: Attached<br/>- `DELETED`: Deleted |
-
-<details><summary>Example</summary>
-
-```json
-{
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "storageType": "General SSD",
-    "storageSize": 20,
-    "storageStatus": "ATTACHED"
-}
-```
-</details>
-
-
-### Modifying DB instance storage information
-
-```http
-PUT /v1.0/db-instances/{dbInstanceId}/storage-info
-```
-
-#### Required permissions
-
-| Permission Name                                | Description           |
-|------------------------------------|--------------|
-| RDSforPostgreSQL:DbInstance.Modify | Modify DB Instance |
-
-#### Request
-
-| Name                | Type   | Format      | Required | Description                                                                        |
-|-------------------|------|---------|----|---------------------------------------------------------------------------|
-| dbInstanceId      | URL  | UUID    | O  | DB instance identifier                                                              |
-| storageSize       | Body | Number  | O  | Block Storage Size (GB)<br/>- Minimum value: Current value<br/>- Maximum value: `2048`                          |
-
-#### Response
-
-| Name    | Type   | Format   | Description          |
-|-------|------|------|-------------|
-| jobId | Body | UUID | Identifier of requested task |
-
-<details><summary>Example</summary>
-
-```json
-{
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "jobId": "0ddb042c-5af6-43fb-a914-f4dd0540eb7c"
-}
-```
-</details>
-
-### Get DB instance network information
-
-```http
-GET /v1.0/db-instances/{dbInstanceId}/network-info
-```
-
-#### Required permissions
-
-| Permission Name                             | Description            |
-|---------------------------------|---------------|
-| RDSforPostgreSQL:DbInstance.Get | List DB Instance Details |
-
-#### Request
-
-This API does not require a request body.
-
-| Name           | Type  | Format   | Required | Description           |
-|--------------|-----|------|----|--------------|
-| dbInstanceId | URL | UUID | O  | DB instance identifier |
-
-#### Response
-
-| Name                      | Type   | Format      | Description                                                                                                                                      |
-|-------------------------|------|---------|-----------------------------------------------------------------------------------------------------------------------------------------|
-| availabilityZone        | Body | Enum    | Availability zone where DB instance will be created                                                                                                                     |
-| subnet                  | Body | Object  | Subnet object                                                                                                                                  |
-| subnet.subnetId         | Body | UUID    | Subnet identifier                                                                                                                                |
-| subnet.subnetName       | Body | UUID    | Name to identify subnets                                                                                                                        |
-| subnet.subnetCidr       | Body | UUID    | CIDR of subnet                                                                                                                               |
-| subnet.publicAccessible | Body | Boolean | External access is available or not                                                                                                                             |
-| endPoints               | Body | Array   | List of access information                                                                                                                                |
-| endPoints.domain        | Body | String  | Domain                                                                                                                                     |
-| endPoints.ipAddress     | Body | String  | IP address                                                                                                                                   |
-| endPoints.endPointType  | Body | Enum    | Types of access information<br>-`EXTERNAL`: External access domain<br>-`INTERNAL`: Internal access domain<br>-`PUBLIC`: (Deprecated) External access domain<br>-`PRIVATE`: (Deprecated) Internal access domain |
-
-<details><summary>Example</summary>
-
-```json
-{
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "availabilityZone": "kr-pub-a",
-    "subnet": {
-        "subnetId": "bd453789-34ae-416c-9f78-05b9e43a46be",
-        "subnetName": "Default Network",
-        "subnetCidr": "192.168.0.0/16",
-        "publicAccessible": true
-    },
-    "endPoints": [
-        {
-            "domain": "ea548a78-d85f-43b4-8ddf-c88d999b9905.internal.kr1.postgres.rds.nhncloudservice.com",
-            "ipAddress": "192.168.0.2",
-            "endPointType": "INTERNAL"
-        }
-    ]
-}
-```
-</details>
-
-### Modifying DB instance network information
-
-```http
-PUT /v1.0/db-instances/{dbInstanceId}/network-info
-```
-
-#### Required permissions
-
-| Permission Name                                | Description           |
-|------------------------------------|--------------|
-| RDSforPostgreSQL:DbInstance.Modify | Modify DB Instance |
-
-#### Request
-
-| Name              | Type   | Format      | Required | Description           |
-|-----------------|------|---------|----|--------------|
-| dbInstanceId    | URL  | UUID    | O  | DB instance identifier |
-| usePublicAccess | Body | Boolean | O  | External access is available or not  |
-
-#### Response
-
-| Name    | Type   | Format   | Description          |
-|-------|------|------|-------------|
-| jobId | Body | UUID | Identifier of requested task |
-
-<details><summary>Example</summary>
-
-```json
-{
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "jobId": "0ddb042c-5af6-43fb-a914-f4dd0540eb7c"
-}
-```
-</details>
-
-### Get DB instance backup information
-
-```http
-GET /v1.0/db-instances/{dbInstanceId}/backup-info
-```
-
-#### Required permissions
-
-| Permission Name                             | Description            |
-|---------------------------------|---------------|
-| RDSforPostgreSQL:DbInstance.Get | List DB Instance Details |
-
-#### Request
-
-This API does not require a request body.
-
-| Name           | Type  | Format   | Required | Description           |
-|--------------|-----|------|----|--------------|
-| dbInstanceId | URL | UUID | O  | DB instance identifier |
-
-#### Response
-
-| Name                                    | Type   | Format     | Description                                                                                                                                                                                                                   |
-|---------------------------------------|------|--------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| backupPeriod                          | Body | Number | Backup retention period                                                                                                                                                                                                          |
-| backupRetryCount                      | Body | Number | Number of backup retries                                                                                                                                                                                                            |
-| backupSchedules                       | Body | Array  | Backup schedules                                                                                                                                                                                                            |
-| backupSchedules.backupWndBgnTime      | Body | String | Backup Start Time                                                                                                                                                                                                             |
-| backupSchedules.backupWndDuration     | Body | Enum   | Backup Window<br/>Auto backup is executed within the set duration from the backup start time.<br/>- `HALF_AN_HOUR`: 30 minutes<br/>- `ONE_HOUR`: 1 hour<br/>- `ONE_HOUR_AND_HALF`: 1.5 hour<br/>- `TWO_HOURS`: 2 hour<br/>- `TWO_HOURS_AND_HALF`: 2.5 hour<br/>- `THREE_HOURS`: 3 hour |
-
-<details><summary>Example</summary>
-
-```json
-{
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "backupPeriod": 1,
-    "backupRetryCount": 0,
-    "backupSchedules": [
-        {
-            "backupWndBgnTime": "00:00:00",
-            "backupWndDuration": "ONE_HOUR_AND_HALF",
-            "backupRetryExpireTime": "01:30:00"
-        }
-    ]
-}
-```
-</details>
-
-### Modifying DB instance backup information
-
-```http
-PUT /v1.0/db-instances/{dbInstanceId}/backup-info
-```
-
-#### Required permissions
-
-| Permission Name                                | Description           |
-|------------------------------------|--------------|
-| RDSforPostgreSQL:DbInstance.Modify | Modify DB Instance |
-
-#### Request
-
-| Name                                    | Type   | Format     | Required | Description                                                                                                                                                                                                                   |
-|---------------------------------------|------|--------|----|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| dbInstanceId                          | URL  | UUID   | O  | DB instance identifier                                                                                                                                                                                                         |
-| backupPeriod                          | Body | Number | X  | Backup retention period<br/>- Minimum value: `0`<br/>- Maximum value: `730`                                                                                                                                                                          |
-| backupRetryCount                      | Body | Number | X  | Number of backup retries<br/>- Minimum value: `0`<br/>- Maximum value: `10`                                                                                                                                                                             |
-| backupSchedules                       | Body | Array  | X  | Backup schedules                                                                                                                                                                                                            |
-| backupSchedules.backupWndBgnTime      | Body | String | O  | Backup Start Time<br/>- Example: `00:00:00`                                                                                                                                                                                        |
-| backupSchedules.backupWndDuration     | Body | Enum   | O  | Backup Window<br/>Auto backup is executed within the set duration from the backup start time.<br/>- `HALF_AN_HOUR`: 30 minutes<br/>- `ONE_HOUR`: 1 hour<br/>- `ONE_HOUR_AND_HALF`: 1.5 hour<br/>- `TWO_HOURS`: 2 hour<br/>- `TWO_HOURS_AND_HALF`: 2.5 hour<br/>- `THREE_HOURS`: 3 hour |
-
-<details><summary>Example</summary>
-
-```json
-{
-    "backupPeriod": 5,
-    "backupSchedules": [
-        {
-            "backupWndBgnTime": "01:00:00",
-            "backupWndDuration": "TWO_HOURS",
-            "backupRetryExpireTime": "03:00:00"
-        }
-    ]
-}
-```
-</details>
-
-#### Response
-
-| Name    | Type   | Format   | Description          |
-|-------|------|------|-------------|
-| jobId | Body | UUID | Identifier of requested task |
-
-<details><summary>Example</summary>
-
-```json
-{
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "jobId": "0ddb042c-5af6-43fb-a914-f4dd0540eb7c"
-}
-```
-</details>
-
-### Get DB instance restore information
-
-```http
-GET /v1.0/db-instances/{dbInstanceId}/restoration-info
-```
-
-#### Required permissions
-
-| Permission Name                             | Description            |
-|---------------------------------|---------------|
-| RDSforPostgreSQL:DbInstance.Get | List DB Instance Details |
-
-#### Request
-
-| Name           | Type  | Format   | Required | Description           |
-|--------------|-----|------|----|--------------|
-| dbInstanceId | URL | UUID | O  | DB instance identifier |
-
-#### Response
-
-| Name                                      | Type   | Format       | Description                                                                                                                                                    |
-|-----------------------------------------|------|----------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
-| oldestRestorableYmdt                    | Body | DateTime | Oldest restoreable time                                                                                                                                      |
-| latestRestorableYmdt                    | Body | DateTime | Most recent restoreable time                                                                                                                                      |
-| restorableBackups                       | Body | Array    | List of restoreable backups                                                                                                                                          |
-| restorableBackups.backup                | Body | Object   | Backup information objects                                                                                                                                              |
-| restorableBackups.backup.backupId       | Body | UUID     | Backup identifier                                                                                                                                               |
-| restorableBackups.backup.backupName     | Body | String   | Backup name                                                                                                                                                 |
-| restorableBackups.backup.backupSize     | Body | Number   | Backup size                                                                                                                                                 |
-| restorableBackups.backup.backupType     | Body | Enum     | Backup type<br/>- `AUTO`: Automatic<br/>`MANUAL: Manual`                                                                                                             |
-| restorableBackups.backup.backupStatus   | Body | Enum     | Backup Status<br/>`BACKING_UP`: Backup in progress<br/>`COMPLETED`: Backup completed<br/>`DELETING`: Backup being deleted<br/>`DELETED`: Backup deleted<br/>`ERROR`: Error occurred |
-| restorableBackups.backup.dbInstanceId   | Body | UUID     | Original DB instance identifier                                                                                                                                       |
-| restorableBackups.backup.dbInstanceName | Body | String   | Original DB instance name                                                                                                                                        |
-| restorableBackups.backup.dbVersion      | Body | String   | DB version information                                                                                                                                              |
-| restorableBackups.backup.failoverCount  | Body | Number   | Number of failovers                                                                                                                                              |
-| restorableBackups.backup.walFileName    | Body | String   | WAL log file name                                                                                                                                          |
-| restorableBackups.backup.createdYmdt    | Body | DateTime | Date and time of backup creation                                                                                                                                              |
-| restorableBackups.backup.updatedYmdt    | Body | DateTime | Date and time of backup renewal                                                                                                                                              |
-| restorableBackups.backup.startYmdt      | Body | DateTime | When backups start                                                                                                                                              |
-| restorableBackups.backup.completedYmdt  | Body | DateTime | Backup completion date                                                                                                                                              |
-
-<details><summary>Example</summary>
-
-```json
-{
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "oldestRestorableYmdt": "2023-07-09T16:33:33+09:00",
-    "latestRestorableYmdt": "2023-07-10T15:44:44+09:00",
-    "restorableBackups": [
-        {
-            "backup": {
-                "backupId": "145d889a-fe08-474f-8f58-bde576ff96a9",
-                "backupName": "example-backup-name",
-                "backupStatus": "COMPLETED",
-                "dbInstanceId": "dba1be25-9429-4589-9716-7fb6daad7cb9",
-                "dbInstanceName": "original-db-instance-name",
-                "dbVersion": "POSTGRESQL_V17_6",
-                "backupType": "MANUAL",
-                "backupSize": 8299904,
-                "walFileName": "000000010000000000000005",
-                "createdYmdt": "2023-07-10T15:44:44+09:00",
-                "updatedYmdt": "2023-07-10T15:46:07+09:00"
-            }
-        }
-    ]
-}
-```
-</details>
-
-### Restore DB Instance
-
-```http
-POST /v1.0/db-instances/{dbInstanceId}/restore
-```
-
-#### Required permissions
-
-| Permission Name                                 | Description           |
-|-------------------------------------|--------------|
-| RDSforPostgreSQL:DbInstance.Restore | Restore DB Instance |
-
-#### Common Request
-
-| Name                                       | Type   | Format      | Required | Description                                                                                                                                                                                                                                                  |
-|------------------------------------------|------|---------|----|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| dbInstanceId                             | URL  | UUID    | O  | DB instance identifier                                                                                                                                                                                                                                        |
-| restore                                  | Body | Object  | O  | Restoration information object                                                                                                                                                                                                                                            |
-| restore.restoreType                      | Body | Enum    | O  | Restoration type<br/>`TIMESTAMP`: A point-in-time restoration type using the time within the restorable time<br/>- `BACKUP`: Restore type using a previously created backup                                                                                                                                                    |
-| dbInstanceName                           | Body | String  | O  | Name to identify DB instances                                                                                                                                                                                                                                |
-| description                              | Body | String  | X  | Additional information on DB instances                                                                                                                                                                                                                                   |
-| dbFlavorId                               | Body | UUID    | O  | Identifier of DB instance specifications                                                                                                                                                                                                                                     |
-| dbPort                                   | Body | Number  | O  | DB port<br/>- Minimum value: `3306`<br/>- Maximum value: `43306`                                                                                                                                                                                                          |
-| parameterGroupId                         | Body | UUID    | O  | Parameter group identifier                                                                                                                                                                                                                                        |
-| dbSecurityGroupIds                       | Body | Array   | X  | DB security group identifiers                                                                                                                                                                                                                                    |
-| userGroupIds                             | Body | Array   | X  | User group identifiers                                                                                                                                                                                                                                      |
-| useDefaultNotification                   | Body | Boolean | X  | Whether to use default notification<br/>Default: `false`                                                                                                                                                                                                                      |
-| useDeletionProtection                    | Body | Boolean | X  | Whether to protect against deletion<br>Default: `false`                                                                                                                                                                                                                            |                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| useHighAvailability                      | Body | Boolean | X  | Whether to use high availability<br/>Default: `false`                                                                                                                                                                                                                       |
-| pingInterval                             | Body | Number  | X  | Ping interval (sec) when using high availability<br/>- Default: `3Minimum` `:` 1<br/>- Maximum value: `600`                                                                                                                                                                                        |
-| failoverReplWaitingTime                  | Body | Number  | X  | Failover latency when using high availability<br/>- Minimum value: `0`<br/>- If set to -1, it will continue to wait for the replication delay to resolve.                                                                                                                                                                        |                                                                                                                                                                                                                      | userGroupIds                             | Body | Array   | X  | List of identifiers for user groups that receive default notifications                                                                                                                                                                                             |
-| network                                  | Body | Object  | O  | Network information objects                                                                                                                                                                                                                                          |
-| network.subnetId                         | Body | UUID    | O  | Subnet identifier                                                                                                                                                                                                                                            |
-| network.usePublicAccess                  | Body | Boolean | X  | External access is available or not<br/>Default: `false`</li></ul>                                                                                                                                                                                                            |
-| network.availabilityZone                 | Body | Enum    | X  | Availability zone where DB instance will be created<br/>- Example: `kr-pub-a`<br/>- Default: `Any availability` zone                                                                                                                                                                                    |
-| storage                                  | Body | Object  | O  | Storage information objects                                                                                                                                                                                                                                          |
-| storage.storageType                      | Body | Enum    | O  | Block Storage Type<br/>- Example: `General SSD`                                                                                                                                                                                                                 |
-| storage.storageSize                      | Body | Number  | O  | Block Storage Size (GB)<br/>- Minimum value: `20`<br/>- Maximum value: `2048`                                                                                                                                                                                                   |
-| backup                                   | Body | Object  | O  | Backup information objects                                                                                                                                                                                                                                            |
-| backup.backupPeriod                      | Body | Number  | O  | Backup retention period<br/>- Minimum value: `0`<br/>- Maximum value: `730`                                                                                                                                                                                                         |
-| backup.backupRetryCount                  | Body | Number  | X  | Number of backup retries<br/>Default: `6`<br/>- Minimum value: `0`<br/>- Maximum value: `10`                                                                                                                                                                                             |
-| backup.backupSchedules                   | Body | Array   | O  | Backup schedules                                                                                                                                                                                                                                           |
-| backup.backupSchedules.backupWndBgnTime  | Body | String  | X  | Backup started time<br/>- Example: `00:00:00`<br/>- Default: Original DB instance value                                                                                                                                                                                               |
-| backup.backupSchedules.backupWndDuration | Body | Enum    | X  | Backup duration<br/>Auto backup proceeds within duration from backup start time.<br/>- `HALF_AN_HOUR`: 30 minutes<br/>- `ONE_HOUR`: 1 hour<br/>- `ONE_HOUR_AND_HALF`: 1.5 hour<br/>- `TWO_HOURS`: 2 hour<br/>- `TWO_HOURS_AND_HALF`: 2.5 hour<br/>- `THREE_HOURS`: 3 hour<br/>- Default: Original DB instance value |
-
-#### Request when restoring a point in time restoration using Timestamp (if restoreType is `TIMESTAMP`)
-
-| Name                  | Type   | Format       | Required | Description                                                                                              |
-|---------------------|------|----------|----|-------------------------------------------------------------------------------------------------|
-| restore.restoreYmdt | Body | DateTime | O  | DB instance restore time. (YYYY-MM-DDThh:mm:ss.SSSTZD)<br>Restoration is possible only before the most recent restorable time, which is queried through restoration information inquiry. |
-
-<details><summary>Example</summary>
-
-```json
-{
-  "dbInstanceName": "db-instance",
-  "description": "description",
-  "dbFlavorId": "71f69bf9-3c01-4c1a-b135-bb75e93f6268",
-  "dbPort": 10000,
-  "dbUserName": "db-user",
-  "dbPassword": "password",
-  "parameterGroupId": "488bf4f5-d8f7-459b-ace6-529b606c8570",
-  "dbSecurityGroupIds": [
-    "b0483a3d-e8e2-46f6-9e84-d5e31b0d44f4"
-  ],
-  "userGroupIds": [],
-  "network": {
-    "subnetId": "3ae7914f-9b42-4729-b125-87417b72cf36"
-  },
-  "storage": {
-    "storageType": "General SSD",
-    "storageSize": 20
-  },
-  "restore": {
-    "restoreType": "TIMESTAMP",
-    "restoreYmdt": "2023-07-10T15:44:44+09:00"
-  },
-  "backup": {
-    "backupPeriod": 1,
-    "backupSchedules": [
-      {
-        "backupWndBgnTime": "00:00:00",
-        "backupWndDuration": "ONE_HOUR_AND_HALF"
-      }
-    ]
-  }
-}
-```
-</details>
-
-#### Response
-
-| Name    | Type   | Format   | Description          |
-|-------|------|------|-------------|
-| jobId | Body | UUID | Identifier of requested task |
-
-<details><summary>Example</summary>
-
-```json
-{
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "jobId": "0ddb042c-5af6-43fb-a914-f4dd0540eb7c"
-}
-```
-</details>
-
-
-### Change DB Instance Deletion Protection Settings
-
-```http
-PUT /v1.0/db-instances/{dbInstanceId}/deletion-protection
-```
-
-#### Required permissions
-
-| Permission Name                                | Description           |
-|------------------------------------|--------------|
-| RDSforPostgreSQL:DbInstance.Modify | Modify DB Instance |
-
-#### Request
-
-| Name                    | Type   | Format      | Required | Description           |
-|-----------------------|------|---------|----|--------------|
-| dbInstanceId          | URL  | UUID    | O  | DB instance identifier |
-| useDeletionProtection | Body | Boolean | O  | Whether to protect against deletion     |
-
-#### Response
-
-This API does not return a response body.
-
-<details><summary>Example</summary>
-
-```json
-{
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    }
-}
-```
-</details>
-
-
-### Get DB instance maintenance information
-
-```http
-GET /v1.0/db-instances/{dbInstanceId}/maintenance-info
-```
-
-#### Required permissions
-
-| Permission Name                                | Description           |
-|------------------------------------|--------------|
-| RDSforPostgreSQL:DbInstance.Get | List DB Instance Details |
-
-#### Request
-
-| Name                    | Type   | Format      | Required | Description           |
-|-----------------------|------|---------|----|--------------|
-| dbInstanceId          | URL  | UUID    | O  | DB instance identifier |
-
-#### Response
-
-| Name                  | Type | Format  | Description                                                                                                                          |
-|-----------------------|------|---------|--------------------------------------------------------------------------------------------------------------------------------------|
-| allowAutoMaintenance  | Body | Boolean | Whether to allow automatic maintenance                                                                                               |
-| useAutoStorageCleanup | Body | Boolean | Whether to enable automatic storage cleanup                                                                                          |
-| maintWndBgnTime       | Body | String  | Automatic maintenance start time <br/>- Example: `00:00:00`                                                                          |
-| maintWndDuration      | Body | ENUM    | Maintenance window <br/> Examples: `half_an_hour`, `one_hour`, `one_hour_and_half`, `two_hours`, `two_hours_and_half`, `three_hours` |
-| logRetentionPeriod    | Body | Number  | Log retention period (days)                                                                                                                          |
-
-<details><summary>Example</summary>
-
-```json
-{
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "allowAutoMaintenance": true,
-    "useAutoStorageCleanup": true,
-    "maintWndBgnTime": "00:00:00",
-    "maintWndDuration": "HALF_AN_HOUR",
-    "logRetentionPeriod": 7
-}
-```
-</details>
-
-
-### Modify DB instance maintenance information
-
-```http
-PUT /v1.0/db-instances/{dbInstanceId}/maintenance-info
-```
-
-#### Required permissions
-
-| Permission Name                                | Description           |
-|------------------------------------|--------------|
-| RDSforPostgreSQL:DbInstance.Modify | Modify DB Instance |
-
-#### Request
-
-| Name                  | Type | Format  | Required | Description                                                                                                                          |
-|-----------------------|------|---------|----------|--------------------------------------------------------------------------------------------------------------------------------------|
-| dbInstanceId          | URL  | UUID    | O        | DB instance identifier                                                                                                               |
-| allowAutoMaintenance  | Body | Boolean | O        | Whether to allow automatic maintenance                                                                                               |
-| useAutoStorageCleanup | Body | Boolean | O        | Whether to enable automatic storage cleanup                                                                                          |
-| maintWndBgnTime       | Body | String  | O        | Automatic maintenance start time <br/>- Example: `00:00:00`                                                                          |
-| maintWndDuration      | Body | ENUM    | O        | Maintenance window <br/> Examples: `half_an_hour`, `one_hour`, `one_hour_and_half`, `two_hours`, `two_hours_and_half`, `three_hours` |
-| logRetentionPeriod    | Body | Number  | X        | Log retention period (days)                                                                                                                          |
-
-<details><summary>Example</summary>
-
-```json
-{
-  "allowAutoMaintenance": true,
-  "useAutoStorageCleanup": true,
-  "logRetentionPeriod": 7
-}
-```
-</details>
-
-#### Response
-
-| Name  | Type | Format | Description                  |
-|-------|------|--------|------------------------------|
-| jobId | Body | UUID   | Identifier of requested task |
-
-<details><summary>Example</summary>
-
-```json
-{
-  "header": {
-    "resultCode": 0,
-    "resultMessage": "SUCCESS",
-    "isSuccessful": true
-  },
-  "jobId": "0ddb042c-5af6-43fb-a914-f4dd0540eb7c"
-}
-```
-</details>
-
-
-### Get selectable DB versions in the current DB instance
-
-```http
-GET /v1.0/db-instances/{dbInstanceId}/available-db-versions
-```
-
-#### Required permissions
-
-| Permission Name                                | Description           |
-|------------------------------------|--------------|
-| RDSforPostgreSQL:DbInstance.Get | List DB Instance Details |
-
-#### Request
-
-| Name                    | Type   | Format      | Required | Description           |
-|-----------------------|------|---------|----|--------------|
-| dbInstanceId          | URL  | UUID    | O  | DB instance identifier |
-
-#### Response
-
-| Name                           | Type   | Format      | Description                    |
-|------------------------------|------|---------|-----------------------|
-| dbVersions                   | Body | Array   | DB version list              |
-| dbVersions.dbVersion         | Body | String  | DB version                 |
-| dbVersions.dbVersionName     | Body | String  | DB version name                |
-| dbVersions.restorableFromObs | Body | Boolean | Restoring backup from object storage available or not |
-
-<details><summary>Example</summary>
-
-```json
-{
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "dbVersions": [
-        {
-            "dbVersion": "POSTGRESQL_V17_6",
-            "dbVersionName": "PostgreSQL V17.6",
-            "restorableFromObs": true
-        }
-    ]
-}
-```
-</details>
-
-
-### Delete DB instance
 
 ```http
 DELETE /v1.0/db-instances/{dbInstanceId}
 ```
 
-#### Required permissions
+#### Request Parameters
 
-| Permission Name                                | Description           |
-|------------------------------------|--------------|
-| RDSforPostgreSQL:DbInstance.Delete | Delete DB instance |
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| dbInstanceId | URL | UUID | Y | DB instance identifier |
 
-#### Request
-
-This API does not require a request body.
-
-| Name           | Type  | Format   | Required | Description           |
-|--------------|-----|------|----|--------------|
-| dbInstanceId | URL | UUID | O  | DB instance identifier |
-
-#### Response
-
-| Name    | Type   | Format   | Description          |
-|-------|------|------|-------------|
-| jobId | Body | UUID | Identifier of requested task |
-
-<details><summary>Example</summary>
-
-```json
-{
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "jobId": "0ddb042c-5af6-43fb-a914-f4dd0540eb7c"
-}
-```
-</details>
-
-### Restart DB Instance
-
-```http
-POST /v1.0/db-instances/{dbInstanceId}/restart
-```
-
-#### Required permissions
-
-| Permission Name                                 | Description            |
-|-------------------------------------|---------------|
-| RDSforPostgreSQL:DbInstance.Restart | Restart DB Instance |
-
-#### Request
-
-| Name                | Type   | Format      | Required | Description                                                                        |
-|-------------------|------|---------|----|---------------------------------------------------------------------------|
-| dbInstanceId      | URL  | UUID    | O  | DB instance identifier                                                              |
-| useOnlineFailover | Body | Boolean | X  | Whether to restart using failover<br/>Available only for DB instance using high availability<br/>Default: `false` |
-| executeBackup     | Body | Boolean | X  | Whether to execute backup at this time<br/>Default: `false`                                         |
-
-<details><summary>Example</summary>
-
-```json
-{
-    "executeBackup": true
-}
-```
-</details>
-
-#### Response
-
-| Name    | Type   | Format   | Description          |
-|-------|------|------|-------------|
-| jobId | Body | UUID | Identifier of requested task |
-
-<details><summary>Example</summary>
-
-```json
-{
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "jobId": "0ddb042c-5af6-43fb-a914-f4dd0540eb7c"
-}
-```
-</details>
-
-### Force Restart DB instance
-
-```http
-POST /v1.0/db-instances/{dbInstanceId}/force-restart
-```
-
-#### Required permissions
-
-| Permission Name                                      | Description               |
-|------------------------------------------|------------------|
-| RDSforPostgreSQL:DbInstance.ForceRestart | Force Restart DB instance |
-
-#### Request
-
-| Name           | Type  | Format   | Required | Description           |
-|--------------|-----|------|----|--------------|
-| dbInstanceId | URL | UUID | O  | DB instance identifier |
-
-#### Response
-
-This API does not return a response body.
-
-<details><summary>Example</summary>
-
-```json
-{
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    }
-}
-```
-</details>
-
-
-### Start DB Instance
-
-```http
-POST /v1.0/db-instances/{dbInstanceId}/start
-```
-
-#### Required permissions
-
-| Permission Name                               | Description           |
-|-----------------------------------|--------------|
-| RDSforPostgreSQL:DbInstance.Start | Start DB Instance |
-
-#### Request
+#### Request Body
 
 This API does not require a request body.
 
-| Name           | Type  | Format   | Required | Description           |
-|--------------|-----|------|----|--------------|
-| dbInstanceId | URL | UUID | O  | DB instance identifier |
-
 #### Response
 
-| Name    | Type   | Format   | Description          |
-|-------|------|------|-------------|
-| jobId | Body | UUID | Identifier of requested task |
-
-<details><summary>Example</summary>
+<details>
+  <summary><strong>Example Code</strong></summary>
 
 ```json
 {
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "jobId": "0ddb042c-5af6-43fb-a914-f4dd0540eb7c"
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
+
 </details>
 
-### Stop DB Instance
+| Name | Type | Description |
+|-----|-----|-----|
+| jobId | UUID | Identifier of requested task |
 
-```http
-POST /v1.0/db-instances/{dbInstanceId}/stop
-```
+---
 
-#### Required permissions
+### List DB Instance Details
 
-| Permission Name                               | Description           |
-|-----------------------------------|--------------|
-| RDSforPostgreSQL:DbInstance.Start | Start DB Instance |
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:DbInstance.Get | List DB Instance Details |
 
 #### Request
+
+```http
+GET /v1.0/db-instances/{dbInstanceId}
+```
+
+#### Request Parameters
+
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| dbInstanceId | URL | UUID | Y | DB instance identifier |
+
+#### Request Body
 
 This API does not require a request body.
 
-| Name           | Type  | Format   | Required | Description           |
-|--------------|-----|------|----|--------------|
-| dbInstanceId | URL | UUID | O  | DB instance identifier |
-
 #### Response
 
-| Name    | Type   | Format   | Description          |
-|-------|------|------|-------------|
-| jobId | Body | UUID | Identifier of requested task |
-
-<details><summary>Example</summary>
+<details>
+  <summary><strong>Example Code</strong></summary>
 
 ```json
 {
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "jobId": "0ddb042c-5af6-43fb-a914-f4dd0540eb7c"
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"dbInstanceId": "550e8400-e29b-41d4-a716-446655440000",
+"dbInstanceGroupId": "550e8400-e29b-41d4-a716-446655440000",
+"dbInstanceName": "dbInstanceName-example",
+"description": "description-example",
+"dbVersion": "POSTGRESQL_V14_17",
+"dbPort": 1,
+"dbInstanceType": "MASTER",
+"dbInstanceStatus": "BEFORE_CREATE",
+"progressStatus": "progressStatus-example",
+"dbFlavorId": "550e8400-e29b-41d4-a716-446655440000",
+"parameterGroupId": "550e8400-e29b-41d4-a716-446655440000",
+"dbSecurityGroupIds": [
+"550e8400-e29b-41d4-a716-446655440000"
+],
+"notificationGroupIds": [
+"550e8400-e29b-41d4-a716-446655440000"
+],
+"useDeletionProtection": false,
+"needToApplyParameterGroup": false,
+"needMigration": false,
+"osVersion": "osVersion-example",
+"createdYmdt": "2023-12-31T15:00:00+09:00",
+"updatedYmdt": "2023-12-31T15:00:00+09:00"
 }
 ```
+
 </details>
 
-### Backup DB Instance
+| Name | Type | Description |
+|-----|-----|-----|
+| dbInstanceId | UUID | DB instance identifier |
+| dbInstanceGroupId | UUID | DB instance group identifier |
+| dbInstanceName | String | Name to identify DB instances |
+| description | String | Additional information on DB instances |
+| dbVersion | String | DB engine type |
+| dbPort | Number | DB port |
+| dbInstanceType | Enum | DB instance role type<br/>- MASTER: `Master`<br/>- FAILED_MASTER: `Failed master`<br/>- CANDIDATE_MASTER: `Candidate master`<br/>- READ_ONLY_SLAVE: `Read replica` |
+| dbInstanceStatus | Enum | DB instance current status<br/>- BEFORE_CREATE: `Before creation (gray)`<br/>- AVAILABLE: `Available (green)`<br/>- STORAGE_FULL: `Storage full (red)`<br/>- FAIL_TO_CREATE: `Failed to create (red)`<br/>- FAIL_TO_CONNECT: `Failed to connect (red)`<br/>- REPLICATION_STOP: `Replication stopped (red)`<br/>- REPLICATION_DELAY: `Replication delayed (yellow)`<br/>- FAILOVER: `Failover completed (red)`<br/>- SHUTDOWN: `Stopped (gray)`<br/>- DELETED: `Deleted (gray)` |
+| progressStatus | String | Current task status of DB instance |
+| dbFlavorId | UUID | Identifier of DB instance specifications |
+| parameterGroupId | UUID | Identifier of the parameter group applied to the DB instance |
+| dbSecurityGroupIds | Array | List of DB security group identifiers applied to the DB instance |
+| notificationGroupIds | Array | List of identifiers of notification groups applied to the DB instance |
+| useDeletionProtection | Boolean | Whether deletion protection is enabled for the DB instance |
+| needToApplyParameterGroup | Boolean | Whether the latest parameter group needs to be applied |
+| needMigration | Boolean | Whether migration is required |
+| osVersion | String | OS version |
+| createdYmdt | DateTime | Created date and time |
+| updatedYmdt | DateTime | Modified date and time |
 
-```http
-POST /v1.0/db-instances/{dbInstanceId}/backup
-```
+---
 
-#### Required permissions
+### Modify DB Instance
 
-| Permission Name                                | Description           |
-|------------------------------------|--------------|
-| RDSforPostgreSQL:DbInstance.Backup | Backup DB Instance |
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:DbInstance.Modify | Modify DB Instance |
 
 #### Request
 
-| Name           | Type   | Format     | Required | Description              |
-|--------------|------|--------|----|-----------------|
-| dbInstanceId | URL  | UUID   | O  | DB instance identifier    |
-| backupName   | Body | String | O  | Name to identify backups |
+```http
+PUT /v1.0/db-instances/{dbInstanceId}
+```
 
-<details><summary>Example</summary>
+#### Request Parameters
+
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| dbInstanceId | URL | UUID | Y | DB instance identifier |
+
+#### Request Body
+
+<details>
+  <summary><strong>Example Code</strong></summary>
 
 ```json
 {
-    "backupName": "backup"
+"dbInstanceName": "dbInstanceName-example",
+"dbInstanceCandidateName": "dbInstanceCandidateName-example",
+"description": "description-example",
+"dbPort": 1,
+"dbFlavorId": "550e8400-e29b-41d4-a716-446655440000",
+"parameterGroupId": "550e8400-e29b-41d4-a716-446655440000",
+"dbVersion": "POSTGRESQL_V14_17",
+"dbSecurityGroupIds": [],
+"executeBackup": false,
+"useOnlineFailover": false,
+"waitReplicationDelay": false,
+"useReadOnly": false
 }
 ```
+
 </details>
+
+| Name | Type | Required | Description |
+|-----|-----|-----|-----|
+| dbInstanceName | String | N | Name to identify DB instances |
+| dbInstanceCandidateName | String | N | Candidate master name to identify the DB instance |
+| description | String | N | Additional information on the DB instance<br/>- Maximum length: `100` |
+| dbPort | Number | N | DB port<br/>- Minimum value: 5432, Maximum value: 45432 |
+| dbFlavorId | UUID | N | Identifier of DB instance specifications |
+| parameterGroupId | UUID | N | Parameter group identifier |
+| dbVersion | String | N | DB engine version code |
+| dbSecurityGroupIds | Array | N | List of DB security group identifiers |
+| executeBackup | Boolean | N | Whether to execute backup at this time<br/>- Default: `false` |
+| useOnlineFailover | Boolean | N | Whether to restart using failover<br/>- Default: `false` |
+| waitReplicationDelay | Boolean | N | Whether to wait for replication delay to resolve<br/>- Default: `false` |
+| useReadOnly | Boolean | N | Whether to block write workloads<br/>- Default: `false` |
 
 #### Response
 
-| Name    | Type   | Format   | Description          |
-|-------|------|------|-------------|
-| jobId | Body | UUID | Identifier of requested task |
-
-<details><summary>Example</summary>
+<details>
+  <summary><strong>Example Code</strong></summary>
 
 ```json
 {
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "jobId": "0ddb042c-5af6-43fb-a914-f4dd0540eb7c"
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
+
 </details>
 
-### Export after Backing up DB Instance
+| Name | Type | Description |
+|-----|-----|-----|
+| jobId | UUID | Identifier of requested task |
 
-```http
-POST /v1.0/db-instances/{dbInstanceId}/backup-to-object-storage
-```
+---
 
-#### Required permissions
+### Apply Latest Parameter Group to DB Instance
 
-| Permission Name                                               | Description                         |
-|---------------------------------------------------|----------------------------|
-| RDSforPostgreSQL:DbInstance.BackupToObjectStorage | Export Backup Files to Object Storage After Backup |
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:DbInstance.Modify | Apply Latest Parameter Group to DB Instance |
 
 #### Request
-
-| Name              | Type   | Format     | Required | Description                          |
-|-----------------|------|--------|----|-----------------------------|
-| dbInstanceId    | URL  | UUID   | O  | DB instance identifier                |
-| tenantId        | Body | String | O  | Tenant ID of object storage to store backup   |
-| username        | Body | String | O  | ID of NHN Cloud Account or IAM Account   |
-| password        | Body | String | O  | API password for object storage where backup is stored |
-| targetContainer | Body | String | O  | Object storage container where backup is stored     |
-| objectPath      | Body | String | O  | Backup path to be stored in container            |
-
-<details><summary>Example</summary>
-
-```json
-{
-    "tenantId": "399631c404744dbbb18ce4fa2dc71a5a",
-    "username": "gildong.hong@nhn.com",
-    "password": "password",
-    "targetContainer": "/container",
-    "objectPath": "/backups/backup_file"
-}
-```
-</details>
-
-#### Response
-
-| Name    | Type   | Format   | Description          |
-|-------|------|------|-------------|
-| jobId | Body | UUID | Identifier of requested task |
-
-<details><summary>Example</summary>
-
-```json
-{
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "jobId": "0ddb042c-5af6-43fb-a914-f4dd0540eb7c"
-}
-```
-</details>
-
-### Applying DB instance latest parameter groups
 
 ```http
 POST /v1.0/db-instances/{dbInstanceId}/apply-recent-parameter-group
 ```
 
-#### Required permissions
+#### Request Parameters
 
-| Permission Name                                | Description           |
-|------------------------------------|--------------|
-| RDSforPostgreSQL:DbInstance.Modify | Modify DB Instance |
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| dbInstanceId | URL | UUID | Y | DB instance identifier |
 
-#### Request
-
-| Name                | Type   | Format      | Required | Description                                                                        |
-|-------------------|------|---------|----|---------------------------------------------------------------------------|
-| dbInstanceId      | URL  | UUID    | O  | DB instance identifier                                                              |
-| executeBackup     | Body | Boolean | X  | Whether to execute backup at this time<br/>Default: `false`                                         |
-
-<details><summary>Example</summary>
-
-```json
-{
-  "executeBackup": true
-}
-```
-</details>
-
-#### Response
-
-| Name    | Type   | Format   | Description          |
-|-------|------|------|-------------|
-| jobId | Body | UUID | Identifier of requested task |
-
-<details><summary>Example</summary>
-
-```json
-{
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "jobId": "0ddb042c-5af6-43fb-a914-f4dd0540eb7c"
-}
-```
-</details>
-
-### Replicate DB Instance
-
-```http
-POST /v1.0/db-instances/{dbInstanceId}/replicate
-```
-
-#### Required permissions
-
-| Permission Name                                   | Description           |
-|---------------------------------------|--------------|
-| RDSforPostgreSQL:DbInstance.Replicate | Replicate DB Instance |
-
-#### Request
-
-| Name                                           | Type   | Format      | Required | Description                                                                                                                                                                                                                                                  |
-|----------------------------------------------|------|---------|----|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| dbInstanceId                                 | URL  | UUID    | O  | DB instance identifier                                                                                                                                                                                                                                        |
-| dbInstanceName                               | Body | String  | O  | Name to identify DB instances                                                                                                                                                                                                                                |
-| description                                  | Body | String  | X  | Additional information on DB instances                                                                                                                                                                                                                                   |
-| dbFlavorId                                   | Body | UUID    | X  | Identifier of DB instance specifications<br/>- Default: Original DB instance value                                                                                                                                                                                                             |
-| dbPort                                       | Body | Number  | X  | DB port<br/>- Default: Original DB instance value<br/>- Minimum value: `0`<br/>- Maximum value: 65535                                                                                                                                                                                  |
-| parameterGroupId                             | Body | UUID    | X  | Parameter group identifier<br/>- Default: Original DB instance value                                                                                                                                                                                                                |
-| dbSecurityGroupIds                           | Body | Array   | X  | DB security group identifiers<br/>- Default: Original DB instance value                                                                                                                                                                                                            |
-| userGroupIds                                 | Body | Array   | X  | User group identifiers                                                                                                                                                                                                                                      |
-| useDefaultNotification                       | Body | Boolean | X  | Whether to use default notification<br/>Default: `false`                                                                                                                                                                                                                      |
-| useDeletionProtection                        | Body | Boolean | X  | Whether to protect against deletion<br/>Default: `false`                                                                                                                                                                                                                         |
-| network                                      | Body | Object  | X  | Network information objects                                                                                                                                                                                                                                          |
-| network.usePublicAccess                      | Body | Boolean | X  | External access is available or not<br/>Default: `false`                                                                                                                                                                                                                      |
-| network.availabilityZone                     | Body | Enum    | X  | Availability zone where DB instance will be created<br/>- Example: `kr-pub-a`<br/>- Default: `Any availability` zone                                                                                                                                                                                    |  
-| storage                                      | Body | Object  | X  | Storage information objects                                                                                                                                                                                                                                          |    
-| storage.storageType                          | Body | Enum    | X  | Data storage types<br>- Example: `General SSD`                                                                                                                                                                                                                  |
-| storage.storageSize                          | Body | Number  | X  | Block Storage Size (GB)<br/>- Default: Original DB instance value<br/>- Minimum value: `20`<br/>- Maximum value: `2048`                                                                                                                                                                           |
-| backup                                       | Body | Object  | X  | Backup information objects                                                                                                                                                                                                                                            |
-| backup.backupPeriod                          | Body | Number  | X  | Backup retention period<br/>- Default: Original DB instance value<br/>- Minimum value: `0`<br/>- Maximum value: `730`                                                                                                                                                                                 |
-| backup.backupRetryCount                      | Body | Number  | X  | Number of backup retries<br/>- Default: Original DB instance value<br/>- Minimum value: `0`<br/>- Maximum value: `10`                                                                                                                                                                                    |
-
-<details><summary>Example</summary>
-
-```json
-{
-    "dbInstanceName": "db-instance-replicate",
-    "description": "description",
-    "dbPort": 15432,
-    "storage": {
-        "storageSize": 100
-    }
-}
-```
-</details>
-
-#### Response
-
-| Name    | Type   | Format   | Description          |
-|-------|------|------|-------------|
-| jobId | Body | UUID | Identifier of requested task |
-
-<details><summary>Example</summary>
-
-```json
-{
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "jobId": "0ddb042c-5af6-43fb-a914-f4dd0540eb7c"
-}
-```
-</details>
-
-### Promote DB Instance
-
-```http
-POST /v1.0/db-instances/{dbInstanceId}/promote
-```
-
-#### Required permissions
-
-| Permission Name                                 | Description           |
-|-------------------------------------|--------------|
-| RDSforPostgreSQL:DbInstance.Promote | Promote DB Instance |
-
-#### Request
+#### Request Body
 
 This API does not require a request body.
 
-| Name           | Type  | Format   | Required | Description           |
-|--------------|-----|------|----|--------------|
-| dbInstanceId | URL | UUID | O  | DB instance identifier |
-
 #### Response
 
-| Name    | Type   | Format   | Description          |
-|-------|------|------|-------------|
-| jobId | Body | UUID | Identifier of requested task |
-
-<details><summary>Example</summary>
+<details>
+  <summary><strong>Example Code</strong></summary>
 
 ```json
 {
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "jobId": "0ddb042c-5af6-43fb-a914-f4dd0540eb7c"
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
+
 </details>
 
+| Name | Type | Description |
+|-----|-----|-----|
+| jobId | UUID | Identifier of requested task |
 
-## DB Instances > Databases
+---
+
+### Get selectable DB versions in the current DB instance
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:DbInstance.Get | Get selectable DB versions in the current DB instance |
+
+#### Request
+
+```http
+GET /v1.0/db-instances/{dbInstanceId}/available-db-versions
+```
+
+#### Request Parameters
+
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| dbInstanceId | URL | UUID | Y | DB instance identifier |
+
+#### Request Body
+
+This API does not require a request body.
+
+#### Response
+
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"availableDbVersions": [
+{
+            "dbVersionCode": "dbVersionCode-example",
+            "dbMajorVersionCode": "dbMajorVersionCode-example",
+"name": "PostgreSQL V14.6",
+"canCreate": false
+}
+]
+}
+```
+
+</details>
+
+| Name | Type | Description |
+|-----|-----|-----|
+| availableDbVersions | Array | DB version information |
+| availableDbVersions.dbVersionCode | String | DB version code |
+| availableDbVersions.dbMajorVersionCode | String | DB major version code |
+| availableDbVersions.name | String | DB version name |
+| availableDbVersions.canCreate | Boolean | Whether creation is available |
+
+---
+
+### Backup DB Instance
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:DbInstance.Backup | Backup DB Instance |
+
+#### Request
+
+```http
+POST /v1.0/db-instances/{dbInstanceId}/backup
+```
+
+#### Request Parameters
+
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| dbInstanceId | URL | UUID | Y | DB instance identifier |
+
+#### Request Body
+
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+"backupName": "backupName-example",
+"backupMethodType": "FULL"
+}
+```
+
+</details>
+
+| Name | Type | Required | Description |
+|-----|-----|-----|-----|
+| backupName | String | Y | Name to identify backups |
+| backupMethodType | Enum | N | Backup method<br/>- FULL<br/>- SNAPSHOT |
+
+#### Response
+
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"jobId": "550e8400-e29b-41d4-a716-446655440000"
+}
+```
+
+</details>
+
+| Name | Type | Description |
+|-----|-----|-----|
+| jobId | UUID | Identifier of requested task |
+
+---
+
+### Get DB Instance Backup Information
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:DbInstance.Get | Get DB Instance Backup Information |
+
+#### Request
+
+```http
+GET /v1.0/db-instances/{dbInstanceId}/backup-info
+```
+
+#### Request Parameters
+
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| dbInstanceId | URL | UUID | Y | DB instance identifier |
+
+#### Request Body
+
+This API does not require a request body.
+
+#### Response
+
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"allowAutoBackup": false,
+"usePeriodicAutoBackup": false,
+"backupPeriod": 1,
+"backupRetryCount": 1,
+"backupSchedules": [
+{
+"backupWndBgnTime": "00:00:00",
+"backupWndDuration": "HALF_AN_HOUR"
+}
+]
+}
+```
+
+</details>
+
+| Name | Type | Description |
+|-----|-----|-----|
+| allowAutoBackup | Boolean | Whether automatic backup is allowed |
+| usePeriodicAutoBackup | Boolean | Whether scheduled automatic backup is used |
+| backupPeriod | Number | Backup retention period (days) |
+| backupRetryCount | Number | Number of backup retries |
+| backupSchedules | Array | Backup schedules |
+| backupSchedules.backupWndBgnTime | Time | Backup start time |
+| backupSchedules.backupWndDuration | Enum | Backup duration<br/>- HALF_AN_HOUR: `30 minutes`<br/>- ONE_HOUR: `1 hour`<br/>- ONE_HOUR_AND_HALF: `1.5 hours`<br/>- TWO_HOURS: `2 hours`<br/>- TWO_HOURS_AND_HALF: `2.5 hours`<br/>- THREE_HOURS: `3 hours` |
+
+---
+
+### Modify DB Instance Backup Information
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:DbInstance.Modify | Modify DB Instance Backup Information |
+
+#### Request
+
+```http
+PUT /v1.0/db-instances/{dbInstanceId}/backup-info
+```
+
+#### Request Parameters
+
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| dbInstanceId | URL | UUID | Y | DB instance identifier |
+
+#### Request Body
+
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+"allowAutoBackup": false,
+"usePeriodicAutoBackup": false,
+"backupPeriod": 0,
+"backupRetryCount": 0,
+"backupSchedules": [
+{
+"backupWndBgnTime": "00:00:00",
+"backupWndDuration": "HALF_AN_HOUR"
+}
+]
+}
+```
+
+</details>
+
+| Name | Type | Required | Description |
+|-----|-----|-----|-----|
+| allowAutoBackup | Boolean | N | Whether automatic backup is allowed |
+| usePeriodicAutoBackup | Boolean | N | Whether scheduled automatic backup is used |
+| backupPeriod | Number | N | Backup retention period (days)<br/>- Minimum value: `0`<br/>- Maximum value: `730` |
+| backupRetryCount | Number | N | Number of backup retries<br/>- Minimum value: `0`<br/>- Maximum value: `10` |
+| backupSchedules | Array | N | Backup schedules |
+| backupSchedules.backupWndBgnTime | Time | Y | Backup start time |
+| backupSchedules.backupWndDuration | Enum | Y | Backup Window<br/>Auto backup is executed within the set duration from the backup start time.<br/>- HALF_AN_HOUR: `30 minutes`<br/>- ONE_HOUR: `1 hour`<br/>- ONE_HOUR_AND_HALF: `1.5 hour`<br/>- TWO_HOURS: `2 hour`<br/>- TWO_HOURS_AND_HALF: `2.5 hour`<br/>- THREE_HOURS: `3 hour` |
+
+#### Response
+
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"jobId": "550e8400-e29b-41d4-a716-446655440000"
+}
+```
+
+</details>
+
+| Name | Type | Description |
+|-----|-----|-----|
+| jobId | UUID | Identifier of requested task |
+
+---
+
+### Export after Backing up DB Instance to Object Storage
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:DbInstance.BackupToObjectStorage | Export after Backing up DB Instance to Object Storage |
+
+#### Request
+
+```http
+POST /v1.0/db-instances/{dbInstanceId}/backup-to-object-storage
+```
+
+#### Request Parameters
+
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| dbInstanceId | URL | UUID | Y | DB instance identifier |
+
+#### Request Body
+
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+"tenantId": "0123456789abcdef0123456789abcdef",
+"username": "username-example",
+"password": "password-example",
+"targetContainer": "targetContainer-example",
+"objectPath": "objectPath-example"
+}
+```
+
+</details>
+
+| Name | Type | Required | Description |
+|-----|-----|-----|-----|
+| tenantId | String | Y | Tenant ID of object storage where backup will be stored<br/>- Minimum length: `32`<br/>- Maximum length: `32` |
+| username | String | Y | NHN Cloud account or IAM member ID |
+| password | String | Y | API password for object storage where backup will be stored |
+| targetContainer | String | Y | Object storage container where backup will be stored |
+| objectPath | String | Y | Path of the backup to be stored in the container |
+
+#### Response
+
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"jobId": "550e8400-e29b-41d4-a716-446655440000"
+}
+```
+
+</details>
+
+| Name | Type | Description |
+|-----|-----|-----|
+| jobId | UUID | Identifier of requested task |
+
+---
 
 ### View the list of databases
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:DbInstanceDatabase.List | View the list of databases |
+
+#### Request
 
 ```http
 GET /v1.0/db-instances/{dbInstanceId}/databases
 ```
 
-#### Required permissions
+#### Request Parameters
 
-| Permission Name                                      | Description                     |
-|------------------------------------------|------------------------|
-| RDSforPostgreSQL:DbInstanceDatabase.List | View a list of databases in a DB instance |
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| dbInstanceId | URL | UUID | Y | DB instance identifier |
 
-#### Request
+#### Request Body
 
 This API does not require a request body.
 
-| Name           | Type  | Format   | Required | Description           |
-|--------------|-----|------|----|--------------|
-| dbInstanceId | URL | UUID | O  | DB instance identifier |
-
 #### Response
 
-| Name                           | Type   | Format       | Description                                                                                                                                                  |
-|------------------------------|------|----------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
-| databases                    | Body | Array    | List of databases                                                                                                                                           |
-| databases.databaseId         | Body | UUID     | Identifiers in the database                                                                                                                                         |
-| databases.databaseName       | Body | String   | Database Name                                                                                                                                           |
-| databases.databaseStatus     | Body | Enum     | Current state of the database<br/>- `STABLE`: Created<br/>(CREATING: Creating,<br/>- `MODIFYING`: Modifying<br/>- `SYNCING`: Synchronizing<br/>DELETING: Deleting,<br/>- `DELETED`: Deleted |
-| databases.createdYmdt        | Body | DateTime | Created date and time (YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                   |
-| databases.updatedYmdt        | Body | DateTime | Modified date and time (YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                   |
-| databases.schemas            | Body | Array    | List of schemas in the database                                                                                                                                     |
-| databases.schemas.schemaName | Body | String   | Schema name                                                                                                                                              |
-
-<details><summary>Example</summary>
+<details>
+  <summary><strong>Example Code</strong></summary>
 
 ```json
 {
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "databases": [
-        {
-            "databaseId": "7c9a94b8-86c1-435d-8af2-82a5e9d53fd4",
-            "databaseName": "database",
-            "databaseStatus": "STABLE",
-            "createdYmdt": "2023-03-20T13:37:45+09:00",
-            "updatedYmdt": "2023-03-20T13:37:45+09:00",
-            "schemas": [
-                {
-                    "schemaName": "rds"
-                }
-            ]
-        }
-    ]
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"databases": [
+{
+"databaseId": "550e8400-e29b-41d4-a716-446655440000",
+"databaseName": "databaseName-example",
+"databaseStatus": "STABLE",
+"createdYmdt": "2023-12-31T15:00:00+09:00",
+"updatedYmdt": "2023-12-31T15:00:00+09:00",
+"schemas": [
+{
+"schemaName": "schemaName-example"
+}
+],
+"errorReason": "errorReason-example"
+}
+]
 }
 ```
+
 </details>
 
+| Name | Type | Description |
+|-----|-----|-----|
+| databases | Array | Database information |
+| databases.databaseId | UUID | Database identifier |
+| databases.databaseName | String | Database name |
+| databases.databaseStatus | Enum | Current state of the database<br/>- STABLE: `Available`<br/>- CREATING: `Creating`<br/>- MODIFYING: `Modifying`<br/>- DELETING: `Deleting`<br/>- DELETED: `Deleted`<br/>- SYNCING: `Synchronizing`<br/>- DELETE_ERROR: `Deletion failed` |
+| databases.createdYmdt | DateTime | Created date and time |
+| databases.updatedYmdt | DateTime | Modified date and time |
+| databases.schemas | Array | Schema information |
+| databases.schemas.schemaName | String | Schema name |
+| databases.errorReason | String | Reason for deletion failure |
+
+---
+
 ### Create a database
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:DbInstanceDatabase.Create | Create a database |
+
+#### Request
 
 ```http
 POST /v1.0/db-instances/{dbInstanceId}/databases
 ```
 
-#### Required permissions
+#### Request Parameters
 
-| Permission Name                                        | Description                    |
-|--------------------------------------------|-----------------------|
-| RDSforPostgreSQL:DbInstanceDatabase.Create | Creating a database within a DB instance |
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| dbInstanceId | URL | UUID | Y | DB instance identifier |
 
-#### Request
+#### Request Body
 
-| Name           | Type   | Format     | Required | Description           |
-|--------------|------|--------|----|--------------|
-| dbInstanceId | URL  | UUID   | O  | DB instance identifier |
-| databaseName | Body | String | O  | Database Name    |
-
-<details><summary>Example</summary>
+<details>
+  <summary><strong>Example Code</strong></summary>
 
 ```json
 {
-    "databaseName": "database"
+"databaseName": "databaseName-example"
 }
 ```
+
 </details>
+
+| Name | Type | Required | Description |
+|-----|-----|-----|-----|
+| databaseName | String | Y | Database name |
 
 #### Response
 
-| Name    | Type   | Format   | Description          |
-|-------|------|------|-------------|
-| jobId | Body | UUID | Identifier of requested task |
-
-<details><summary>Example</summary>
+<details>
+  <summary><strong>Example Code</strong></summary>
 
 ```json
 {
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "jobId": "0ddb042c-5af6-43fb-a914-f4dd0540eb7c"
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
+
 </details>
 
-### Modifying the database
+| Name | Type | Description |
+|-----|-----|-----|
+| jobId | UUID | Identifier of requested task |
 
-```http
-PUT /v1.0/db-instances/{dbInstanceId}/databases/{databaseId}
-```
+---
 
-#### Required permissions
+### Delete a database
 
-| Permission Name                                        | Description                    |
-|--------------------------------------------|-----------------------|
-| RDSforPostgreSQL:DbInstanceDatabase.Modify | Modifying databases within a DB instance |
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:DbInstanceDatabase.Delete | Delete a database |
 
 #### Request
-
-| Name                       | Type   | Format      | Required | Description                                                                                          |
-|--------------------------|------|---------|----|---------------------------------------------------------------------------------------------|
-| dbInstanceId             | URL  | UUID    | O  | DB instance identifier                                                                                |
-| databaseId               | URL  | UUID    | O  | Identifiers in the database                                                                                 |
-| databaseName             | Body | String  | O  | Database Name                                                                                   |
-| applyHbaRulesImmediately | Body | Boolean | X  | Whether to apply associated access control rules immediately<br/>- When you change the database name, any access control rules set under the old database name are reflected with the changed name. |
-
-<details><summary>Example</summary>
-
-```json
-{
-    "databaseName": "database-1"
-}
-```
-</details>
-
-#### Response
-
-| Name    | Type   | Format   | Description          |
-|-------|------|------|-------------|
-| jobId | Body | UUID | Identifier of requested task |
-
-<details><summary>Example</summary>
-
-```json
-{
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "jobId": "0ddb042c-5af6-43fb-a914-f4dd0540eb7c"
-}
-```
-</details>
-
-### Deleting a database
 
 ```http
 DELETE /v1.0/db-instances/{dbInstanceId}/databases/{databaseId}
 ```
 
-#### Required permissions
+#### Request Parameters
 
-| Permission Name                                        | Description                    |
-|--------------------------------------------|-----------------------|
-| RDSforPostgreSQL:DbInstanceDatabase.Delete | Deleting a database within a DB instance |
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| dbInstanceId | URL | UUID | Y | DB instance identifier |
+| databaseId | URL | UUID | Y | Database identifier |
 
-#### Request
+#### Request Body
 
 This API does not require a request body.
 
-| Name           | Type  | Format   | Required | Description           |
-|--------------|-----|------|----|--------------|
-| dbInstanceId | URL | UUID | O  | DB instance identifier |
-| databaseId   | URL | UUID | O  | Identifiers in the database  |
-
 #### Response
 
-| Name    | Type   | Format   | Description          |
-|-------|------|------|-------------|
-| jobId | Body | UUID | Identifier of requested task |
-
-<details><summary>Example</summary>
+<details>
+  <summary><strong>Example Code</strong></summary>
 
 ```json
 {
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "jobId": "0ddb042c-5af6-43fb-a914-f4dd0540eb7c"
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
+
 </details>
 
-## DB Instances > Users
+| Name | Type | Description |
+|-----|-----|-----|
+| jobId | UUID | Identifier of requested task |
+
+---
+
+### Modify a database
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:DbInstanceDatabase.Modify | Modify a database |
+
+#### Request
+
+```http
+PUT /v1.0/db-instances/{dbInstanceId}/databases/{databaseId}
+```
+
+#### Request Parameters
+
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| dbInstanceId | URL | UUID | Y | DB instance identifier |
+| databaseId | URL | UUID | Y | Database identifier |
+
+#### Request Body
+
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+"applyHbaRulesImmediately": false,
+"databaseName": "databaseName-example"
+}
+```
+
+</details>
+
+| Name | Type | Required | Description |
+|-----|-----|-----|-----|
+| applyHbaRulesImmediately | Boolean | N | Whether to apply associated access control rules immediately<br/>- Default: `false` |
+| databaseName | String | Y | Database name |
+
+#### Response
+
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"jobId": "550e8400-e29b-41d4-a716-446655440000"
+}
+```
+
+</details>
+
+| Name | Type | Description |
+|-----|-----|-----|
+| jobId | UUID | Identifier of requested task |
+
+---
 
 ### View the list of users
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:DbInstanceUser.List | View the list of users |
+
+#### Request
 
 ```http
 GET /v1.0/db-instances/{dbInstanceId}/db-users
 ```
 
-#### Required permissions
+#### Request Parameters
 
-| Permission Name                                  | Description                  |
-|--------------------------------------|---------------------|
-| RDSforPostgreSQL:DbInstanceUser.List | Viewing a list of users in a DB instance |
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| dbInstanceId | URL | UUID | Y | DB instance identifier |
 
-#### Request
+#### Request Body
 
 This API does not require a request body.
 
-| Name           | Type  | Format   | Required | Description           |
-|--------------|-----|------|----|--------------|
-| dbInstanceId | URL | UUID | O  | DB instance identifier |
-
 #### Response
 
-| Name                    | Type   | Format       | Description                                                                                                                                                  |
-|-----------------------|------|----------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
-| dbUsers               | Body | Array    | DB users                                                                                                                                           |
-| dbUsers.dbUserId      | Body | UUID     | DB user identifier                                                                                                                                         |
-| dbUsers.dbUserName    | Body | String   | DB user account name                                                                                                                                        |
-| dbUsers.authorityType | Body | Enum     | DB user permission types<br/>- `CRUD`: Permission to execute DML query<br/>- `DDL`: Permission to execute DDL query                                                                           |
-| dbUsers.dbUserStatus  | Body | Enum     | DB user current status<br/>- `STABLE`: Created<br/>(CREATING: Creating,<br/>- `MODIFYING`: Modifying<br/>- `SYNCING`: Synchronizing<br/>DELETING: Deleting,<br/>- `DELETED`: Deleted |
-| dbUsers.createdYmdt   | Body | DateTime | Created date and time (YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                   |
-| dbUsers.updatedYmdt   | Body | DateTime | Modified date and time (YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                   |
-
-<details><summary>Example</summary>
+<details>
+  <summary><strong>Example Code</strong></summary>
 
 ```json
 {
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "databases": [
-        {
-            "databaseId": "7c9a94b8-86c1-435d-8af2-82a5e9d53fd4",
-            "databaseName": "database",
-            "databaseStatus": "STABLE",
-            "createdYmdt": "2023-03-20T13:37:45+09:00"
-        }
-    ]
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"dbUsers": [
+{
+"dbUserId": "550e8400-e29b-41d4-a716-446655440000",
+"dbUserName": "dbUserName-example",
+"authorityType": "CUSTOM",
+"dbUserStatus": "STABLE",
+"createdYmdt": "2023-12-31T15:00:00+09:00",
+"updatedYmdt": "2023-12-31T15:00:00+09:00"
+}
+]
 }
 ```
+
 </details>
 
+| Name | Type | Description |
+|-----|-----|-----|
+| dbUsers | Array | DB user list |
+| dbUsers.dbUserId | UUID | DB user identifier |
+| dbUsers.dbUserName | String | DB user account name |
+| dbUsers.authorityType | Enum | DB user permission types<br/>- CUSTOM: `Custom permission`<br/>- READ: `READ permission (read-only permission)`<br/>- CRUD: `CRUD permission (includes read permission)`<br/>- DDL: `DDL permission (includes CRUD permission)` |
+| dbUsers.dbUserStatus | Enum | DB user current status<br/>- STABLE: `Available`<br/>- CREATING: `Creating`<br/>- MODIFYING: `Modifying`<br/>- DELETING: `Deleting`<br/>- DELETED: `Deleted`<br/>- SYNCING: `Synchronizing`<br/>- DELETE_ERROR: `Deletion failed` |
+| dbUsers.createdYmdt | DateTime | Created date and time |
+| dbUsers.updatedYmdt | DateTime | Modified date and time |
+
+---
+
 ### Create a user
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:DbInstanceUser.Create | Create a user |
+
+#### Request
 
 ```http
 POST /v1.0/db-instances/{dbInstanceId}/db-users
 ```
 
-#### Required permissions
+#### Request Parameters
 
-| Permission Name                                    | Description                 |
-|----------------------------------------|--------------------|
-| RDSforPostgreSQL:DbInstanceUser.Create | Creating a user in a DB instance |
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| dbInstanceId | URL | UUID | Y | DB instance identifier |
 
-#### Request
+#### Request Body
 
-| Name                    | Type   | Format      | Required | Description                                                                        |
-|-----------------------|------|---------|----|---------------------------------------------------------------------------|
-| dbInstanceId          | URL  | UUID    | O  | DB instance identifier                                                              |
-| dbUserName            | Body | String  | O  | DB user account name<br/>- Minimum length: `1`<br/>- Maximum length: `32`                           |
-| dbPassword            | Body | String  | O  | DB user account password<br/>- Minimum length: `1`<br/>- Maximum length: `32`                          |
-| authorityType         | Body | Enum    | O  | DB user permission types<br/>- `CRUD`: Permission to execute DML query<br/>- `DDL`: Permission to execute DDL query |
-| createDefaultHbaRules | Body | Boolean | X  | Whether to create default access control rules                                                         |
-| address               | Body | String  | X  | Connection address to use when creating default access control rules                                                |
-
-<details><summary>Example</summary>
+<details>
+  <summary><strong>Example Code</strong></summary>
 
 ```json
 {
-    "dbUserName": "db-user",
-    "dbPassword": "password",
-    "authorityType": "CRUD"
+"dbUserName": "dbUserName-example",
+"dbPassword": "dbPassword-example",
+"authorityType": "CUSTOM",
+"createDefaultHbaRules": false,
+"address": "address-example"
 }
 ```
+
 </details>
+
+| Name | Type | Required | Description |
+|-----|-----|-----|-----|
+| dbUserName | String | Y | DB user account name |
+| dbPassword | String | Y | DB user account password |
+| authorityType | Enum | Y | DB user permission types<br/>- CUSTOM: `Custom permission`<br/>- READ: `Read permission`<br/>- CRUD: `CRUD permission`<br/>- DDL: `DDL permission` |
+| createDefaultHbaRules | Boolean | N | Whether to create default access control rules<br/>- Default: `false` |
+| address | String | N | Connection address |
 
 #### Response
 
-| Name    | Type   | Format   | Description          |
-|-------|------|------|-------------|
-| jobId | Body | UUID | Identifier of requested task |
-
-<details><summary>Example</summary>
+<details>
+  <summary><strong>Example Code</strong></summary>
 
 ```json
 {
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "jobId": "0ddb042c-5af6-43fb-a914-f4dd0540eb7c"
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
+
 </details>
 
-### Edit a user
+| Name | Type | Description |
+|-----|-----|-----|
+| jobId | UUID | Identifier of requested task |
 
-```http
-PUT /v1.0/db-instances/{dbInstanceId}/db-users/{dbUserId}
-```
+---
 
-#### Required permissions
+### Delete a user
 
-| Permission Name                                    | Description                 |
-|----------------------------------------|--------------------|
-| RDSforPostgreSQL:DbInstanceUser.Modify | Modifying users in a DB instance |
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:DbInstanceUser.Delete | Delete a user |
 
 #### Request
-
-| Name                       | Type   | Format      | Required | Description                                                                                          |
-|--------------------------|------|---------|----|---------------------------------------------------------------------------------------------|
-| dbInstanceId             | URL  | UUID    | O  | DB instance identifier                                                                                |
-| dbUserId                 | URL  | UUID    | O  | DB user identifier                                                                                 |
-| dbUserName               | Body | String  | X  | DB user account name<br/>- Minimum length: `1`<br/>- Maximum length: `32`                                             |
-| dbPassword               | Body | String  | X  | DB user account password<br/>- Minimum length: `1`<br/>- Maximum length: `32`                                            |
-| authorityType            | Body | Enum    | X  | DB user permission types<br/>- `CRUD`: Permission to execute DML query<br/>- `DDL`: Permission to execute DDL query                   |
-| applyHbaRulesImmediately | Body | Boolean | X  | Whether to apply associated access control rules immediately<br/>- When you change a user account name, any access control rules set under the old user account name are reflected with the changed name. |
-
-<details><summary>Example</summary>
-
-```json
-{
-    "dbUserName": "db-user-1",
-    "dbPassword": "new-password"
-}
-```
-</details>
-
-#### Response
-
-| Name    | Type   | Format   | Description          |
-|-------|------|------|-------------|
-| jobId | Body | UUID | Identifier of requested task |
-
-<details><summary>Example</summary>
-
-```json
-{
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "jobId": "0ddb042c-5af6-43fb-a914-f4dd0540eb7c"
-}
-```
-</details>
-
-### Deleting a user
 
 ```http
 DELETE /v1.0/db-instances/{dbInstanceId}/db-users/{dbUserId}
 ```
 
-#### Required permissions
+#### Request Parameters
 
-| Permission Name                                    | Description                 |
-|----------------------------------------|--------------------|
-| RDSforPostgreSQL:DbInstanceUser.Delete | Deleting a user in a DB instance |
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| dbInstanceId | URL | UUID | Y | DB instance identifier |
+| dbUserId | URL | UUID | Y | DB user identifier |
 
-#### Request
+#### Request Body
 
 This API does not require a request body.
 
-| Name           | Type  | Format   | Required | Description           |
-|--------------|-----|------|----|--------------|
-| dbInstanceId | URL | UUID | O  | DB instance identifier |
-| dbUserId     | URL | UUID | O  | DB user identifier  |
-
 #### Response
 
-| Name    | Type   | Format   | Description          |
-|-------|------|------|-------------|
-| jobId | Body | UUID | Identifier of requested task |
-
-<details><summary>Example</summary>
+<details>
+  <summary><strong>Example Code</strong></summary>
 
 ```json
 {
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "jobId": "0ddb042c-5af6-43fb-a914-f4dd0540eb7c"
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
+
 </details>
 
-## DB Instances > Access Control
+| Name | Type | Description |
+|-----|-----|-----|
+| jobId | UUID | Identifier of requested task |
+
+---
+
+### Edit a user
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:DbInstanceUser.Modify | Edit a user |
+
+#### Request
+
+```http
+PUT /v1.0/db-instances/{dbInstanceId}/db-users/{dbUserId}
+```
+
+#### Request Parameters
+
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| dbInstanceId | URL | UUID | Y | DB instance identifier |
+| dbUserId | URL | UUID | Y | DB user identifier |
+
+#### Request Body
+
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+"dbUserName": "dbUserName-example",
+"dbPassword": "dbPassword-example",
+"authorityType": "CUSTOM",
+"applyHbaRulesImmediately": false
+}
+```
+
+</details>
+
+| Name | Type | Required | Description |
+|-----|-----|-----|-----|
+| dbUserName | String | N | DB user account name |
+| dbPassword | String | N | DB user account password |
+| authorityType | Enum | N | DB user permission<br/>- CUSTOM: `Custom permission`<br/>- READ: `Read permission`<br/>- CRUD: `CRUD permission`<br/>- DDL: `DDL permission` |
+| applyHbaRulesImmediately | Boolean | N | Whether to apply access control changes immediately<br/>- Default: `false` |
+
+#### Response
+
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"jobId": "550e8400-e29b-41d4-a716-446655440000"
+}
+```
+
+</details>
+
+| Name | Type | Description |
+|-----|-----|-----|
+| jobId | UUID | Identifier of requested task |
+
+---
+
+### Change DB Instance Deletion Protection Settings
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:DbInstance.Modify | Change DB instance deletion protection settings |
+
+#### Request
+
+```http
+PUT /v1.0/db-instances/{dbInstanceId}/deletion-protection
+```
+
+#### Request Parameters
+
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| dbInstanceId | URL | UUID | Y | DB instance identifier |
+
+#### Request Body
+
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+"useDeletionProtection": false
+}
+```
+
+</details>
+
+| Name | Type | Required | Description |
+|-----|-----|-----|-----|
+| useDeletionProtection | Boolean | Y | Whether to enable deletion protection |
+
+#### Response
+
+This API does not return a response body.
+
+---
+
+### Force Restart DB Instance
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:DbInstance.ForceRestart | Force Restart DB Instance |
+
+#### Request
+
+```http
+POST /v1.0/db-instances/{dbInstanceId}/force-restart
+```
+
+#### Request Parameters
+
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| dbInstanceId | URL | UUID | Y | DB instance identifier |
+
+#### Request Body
+
+This API does not require a request body.
+
+#### Response
+
+This API does not return a response body.
+
+---
 
 ### View a list of access control rules
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:DbInstanceHba.List | View a list of access control rules |
+
+#### Request
 
 ```http
 GET /v1.0/db-instances/{dbInstanceId}/hba-rules
 ```
 
-#### Required permissions
+#### Request Parameters
 
-| Permission Name                                 | Description                       |
-|-------------------------------------|--------------------------|
-| RDSforPostgreSQL:DbInstanceHba.List | View a list of access control rules in a DB instance |
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| dbInstanceId | URL | UUID | Y | DB instance identifier |
 
-#### Request
+#### Request Body
 
 This API does not require a request body.
 
-| Name           | Type  | Format   | Required | Description           |
-|--------------|-----|------|----|--------------|
-| dbInstanceId | URL | UUID | O  | DB instance identifier |
-
 #### Response
 
-| Name                              | Type   | Format      | Description                                                                                                                                                   |
-|---------------------------------|------|---------|------------------------------------------------------------------------------------------------------------------------------------------------------|
-| hbaRules                        | Body | Array   | List of access control rules                                                                                                                                          |
-| hbaRules.hbaRuleId              | Body | UUID    | Identifiers for access control rules                                                                                                                                        |
-| hbaRules.hbaRuleStatus          | Body | Enum    | Current status of access control rules<br/>- `CREATED: Created`<br/>- `APPLIED`: Applied<br/>(CREATING: Creating,<br/>- `MODIFYING`: Modifying<br/>DELETING: Deleting,<br/>- `DELETED`: Deleted |
-| hbaRules.databaseApplyType      | Body | String  | How database rules are applied<br/>- `ENTIRE`: All<br/>- `USER_CUSTOM`: Customize                                                                                       |
-| hbaRules.dbUserApplyType        | Body | Enum    | How DB user rules are applied<br/>- `ENTIRE`: All<br/>- `USER_CUSTOM`: Customize                                                                                       |
-| hbaRules.databases              | Body | Array   | List of custom databases                                                                                                                                     |
-| hbaRules.databases.databaseId   | Body | UUID    | Identifiers for custom databases                                                                                                                                   |
-| hbaRules.databases.databaseName | Body | String  | Custom database name                                                                                                                                     |
-| hbaRules.dbUsers                | Body | Array   | Custom DB user list                                                                                                                                     |
-| hbaRules.dbUsers.dbUserId       | Body | UUID    | Identifier of the custom DB user                                                                                                                                   |
-| hbaRules.dbUsers.dbUserName     | Body | String  | Custom DB user account name                                                                                                                                  |
-| hbaRules.address                | Body | String  | Access Address                                                                                                                                                |
-| hbaRules.authMethod             | Body | Enum    | Authentication Method<br/>- `TRUST`: Trust (no password required)<br/>- `REJECT`: Block access<br/>- `SCRAM_SHA_256`: Password (SCRAM-SHA-256)                                                 |
-| hbaRules.reservedAction         | Body | Enum    | Preliminaries<br/>- `NONE`: None<br/>- `CREATE`: Schedule a creation (requires application)<br/>- `MODIFY`: Schedule a modification (requires application)<br/>- `DELETE`: Schedule a delete (requires enforcement)                                        |
-| hbaRules.order                  | Body | Number  | Application order                                                                                                                                                |
-| hbaRules.applicable             | Body | Boolean | Applicability<br/>- Rules with an inapplicable status are ignored                                                                                                                     |
-| needToApply                     | Body | Boolean | Whether changes need to be made                                                                                                                                       |
-
-<details><summary>Example</summary>
+<details>
+  <summary><strong>Example Code</strong></summary>
 
 ```json
 {
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "hbaRules": [
-        {
-            "hbaRuleId": "7c9a94b8-86c1-435d-8af2-82a5e9d53fd4",
-            "hbaRuleStatus": "APPLIED",
-            "databaseApplyType": "USER_CUSTOM",
-            "dbUserApplyType": "ENTIRE",
-            "databases": [
-                {
-                    "databaseId": "7c9a94b8-86c1-435d-8af2-82a5e9d53fd4",
-                    "databaseName": "database"
-                }
-            ],
-            "dbUsers": [],
-            "address": "0.0.0.0/0",
-            "authMethod": "TRUST",
-            "reservedAction": "NONE",
-            "order": 0,
-            "applicable": true
-        }
-    ]
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"hbaRules": [
+{
+"hbaRuleId": "550e8400-e29b-41d4-a716-446655440000",
+"hbaRuleStatus": "CREATED",
+"databaseApplyType": "ENTIRE",
+"dbUserApplyTypeCode": "ENTIRE",
+"databases": [
+{
+"databaseId": "550e8400-e29b-41d4-a716-446655440000",
+"databaseName": "databaseName-example"
+}
+],
+"dbUsers": [
+{
+"dbUserId": "550e8400-e29b-41d4-a716-446655440000",
+"dbUserName": "dbUserName-example"
+}
+],
+"address": "address-example",
+"authMethod": "TRUST",
+"reservedAction": "NONE",
+"order": 1,
+"applicable": false
+}
+],
+"needToApply": false
 }
 ```
+
 </details>
 
+| Name | Type | Description |
+|-----|-----|-----|
+| hbaRules | Array | List of access control rules |
+| hbaRules.hbaRuleId | UUID | Identifier of the access control rule |
+| hbaRules.hbaRuleStatus | Enum | Current status of the access control rule<br/>- CREATED: `Created`<br/>- APPLIED: `Applied`<br/>- CREATING: `Creating`<br/>- MODIFYING: `Modifying`<br/>- DELETING: `Deleting`<br/>- DELETED: `Deleted` |
+| hbaRules.databaseApplyType | Enum | Database apply type<br/>- ENTIRE: `All`<br/>- USER_CUSTOM: `Customize` |
+| hbaRules.dbUserApplyTypeCode | Enum | DB user apply type<br/>- ENTIRE: `All`<br/>- USER_CUSTOM: `Customize` |
+| hbaRules.databases | Array | List of custom databases |
+| hbaRules.databases.databaseId | UUID | Database identifier |
+| hbaRules.databases.databaseName | String | Database name |
+| hbaRules.dbUsers | Array | Custom DB user list |
+| hbaRules.dbUsers.dbUserId | UUID | DB user identifier |
+| hbaRules.dbUsers.dbUserName | String | DB user account name |
+| hbaRules.address | String | Connection address |
+| hbaRules.authMethod | Enum | Authentication method<br/>- TRUST: `Trust (no password required)`<br/>- REJECT: `Block access`<br/>- SCRAM_SHA_256: `Password (SCRAM-SHA-256)` |
+| hbaRules.reservedAction | Enum | Scheduled task<br/>- NONE: `None`<br/>- CREATE: `Schedule a creation (requires application)`<br/>- MODIFY: `Schedule a modification (requires application)`<br/>- DELETE: `Schedule a deletion (requires application)` |
+| hbaRules.order | Number | Application order |
+| hbaRules.applicable | Boolean | Whether the rule is applicable |
+| needToApply | Boolean | Whether changes need to be applied |
+
+---
+
 ### Add an access control rule
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:DbInstanceHba.Create | Add an access control rule to a DB instance |
+
+#### Request
 
 ```http
 POST /v1.0/db-instances/{dbInstanceId}/hba-rules
 ```
 
-#### Required permissions
+#### Request Parameters
 
-| Permission Name                                   | Description                      |
-|---------------------------------------|-------------------------|
-| RDSforPostgreSQL:DbInstanceHba.Create | Adding access control rules within a DB instance |
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| dbInstanceId | URL | UUID | Y | DB instance identifier |
 
-#### Request
+#### Request Body
 
-| Name                | Type   | Format     | Required | Description                                                                                                   |
-|-------------------|------|--------|----|------------------------------------------------------------------------------------------------------|
-| dbInstanceId      | URL  | UUID   | O  | DB instance identifier                                                                                         |
-| databaseApplyType | Body | String | O  | How database rules are applied<br/>- `ENTIRE`: All<br/>- `USER_CUSTOM`: Customize                                       |
-| dbUserApplyType   | Body | Enum   | O  | How DB user rules are applied<br/>- `ENTIRE`: All<br/>- `USER_CUSTOM`: Customize                                       |
-| databaseIds       | Body | Array  | X  | List of identifiers for a custom database                                                                                |
-| dbUserIds         | Body | Array  | X  | List of identifiers for custom DB users                                                                                |
-| address           | Body | String | O  | Access Address<br/>- Enter in CIDR format, hostname, or domain format                                                             |
-| authMethod        | Body | Enum   | O  | Authentication Method<br/>- `TRUST`: Trust (no password required)<br/>- `REJECT`: Block access<br/>- `SCRAM_SHA_256`: Password (SCRAM-SHA-256) |
-
-<details><summary>Example</summary>
+<details>
+  <summary><strong>Example Code</strong></summary>
 
 ```json
 {
-    "databaseApplyType": "ENTIRE",
-    "dbUserApplyType": "USER_CUSTOM",
-    "databaseIds": [], 
-    "dbUserIds": [
-        "7c9a94b8-86c1-435d-8af2-82a5e9d53fd4"
-    ],
-    "address": "0.0.0.0/0",
-    "authMethod": "TRUST"
+"connectionTypeCode": "HOST",
+"databaseApplyType": "ENTIRE",
+"dbUserApplyType": "ENTIRE",
+"databaseIds": [],
+"dbUserIds": [],
+"address": "address-example",
+"authMethod": "TRUST"
 }
 ```
+
 </details>
+
+| Name | Type | Required | Description |
+|-----|-----|-----|-----|
+| connectionTypeCode | Enum | N | Access control record type<br/>- HOST: `Valid for TCP/IP connections`<br/>- HOST_NO_SSL: `Valid only for connections without SSL encryption` |
+| databaseApplyType | Enum | Y | Database apply type<br/>- ENTIRE: `All`<br/>- USER_CUSTOM: `Customize` |
+| dbUserApplyType | Enum | Y | DB user apply type<br/>- ENTIRE: `All`<br/>- USER_CUSTOM: `Customize` |
+| databaseIds | Array | N | List of database identifiers |
+| dbUserIds | Array | N | List of DB user identifiers |
+| address | String | Y | Connection address |
+| authMethod | Enum | Y | Authentication method<br/>- TRUST: `Trust (no password required)`<br/>- REJECT: `Block access`<br/>- SCRAM_SHA_256: `Password (SCRAM-SHA-256)` |
 
 #### Response
 
-| Name        | Type   | Format   | Description            |
-|-----------|------|------|---------------|
-| hbaRuleId | Body | UUID | Identifiers for access control rules |
-
-<details><summary>Example</summary>
+<details>
+  <summary><strong>Example Code</strong></summary>
 
 ```json
 {
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "hbaRuleId": "0ddb042c-5af6-43fb-a914-f4dd0540eb7c"
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"hbaRuleId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
+
 </details>
 
-### Modify an access control rule
+| Name | Type | Description |
+|-----|-----|-----|
+| hbaRuleId | UUID | Identifier of the access control rule |
 
-```http
-PUT /v1.0/db-instances/{dbInstanceId}/hba-rules/{hbaRuleId}
-```
+---
 
-#### Required permissions
+### Apply access control rules
 
-| Permission Name                                   | Description                      |
-|---------------------------------------|-------------------------|
-| RDSforPostgreSQL:DbInstanceHba.Modify | Modifying access control rules within a DB instance |
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:DbInstance.Modify | Modify DB Instance |
 
 #### Request
-
-| Name                | Type   | Format     | Required | Description                                                                                                   |
-|-------------------|------|--------|----|------------------------------------------------------------------------------------------------------|
-| dbInstanceId      | URL  | UUID   | O  | DB instance identifier                                                                                         |
-| hbaRuleId         | URL  | UUID   | O  | Identifiers for access control rules                                                                                        |
-| databaseApplyType | Body | String | O  | How database rules are applied<br/>- `ENTIRE`: All<br/>- `USER_CUSTOM`: Customize                                       |
-| dbUserApplyType   | Body | Enum   | O  | How DB user rules are applied<br/>- `ENTIRE`: All<br/>- `USER_CUSTOM`: Customize                                       |
-| databaseIds       | Body | Array  | X  | List of identifiers for a custom database                                                                                |
-| dbUserIds         | Body | Array  | X  | List of identifiers for custom DB users                                                                                |
-| address           | Body | String | O  | Access Address<br/>- Enter in CIDR format, hostname, or domain format                                                             |
-| authMethod        | Body | Enum   | O  | Authentication Method<br/>- `TRUST`: Trust (no password required)<br/>- `REJECT`: Block access<br/>- `SCRAM_SHA_256`: Password (SCRAM-SHA-256) |
-
-<details><summary>Example</summary>
-
-```json
-{
-    "databaseApplyType": "ENTIRE",
-    "dbUserApplyType": "ENTIRE",
-    "databaseIds": [], 
-    "dbUserIds": [],
-    "address": "0.0.0.0/0",
-    "authMethod": "REJECT"
-}
-```
-</details>
-
-#### Response
-
-This API does not return a response body.
-
-<details><summary>Example</summary>
-
-```json
-{
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    }
-}
-```
-</details>
-
-### Deleting an access control rule
-
-```http
-DELETE /v1.0/db-instances/{dbInstanceId}/hba-rules/{hbaRuleId}
-```
-
-#### Required permissions
-
-| Permission Name                                   | Description                      |
-|---------------------------------------|-------------------------|
-| RDSforPostgreSQL:DbInstanceHba.Delete | Deleting an access control rule in a DB instance |
-
-#### Request
-
-This API does not require a request body.
-
-| Name           | Type  | Format   | Required | Description            |
-|--------------|-----|------|----|---------------|
-| dbInstanceId | URL | UUID | O  | DB instance identifier  |
-| hbaRuleId    | URL | UUID | O  | Identifiers for access control rules |
-
-#### Response
-
-This API does not return a response body.
-
-<details><summary>Example</summary>
-
-```json
-{
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    }
-}
-```
-</details>
-
-### Reorder access control rules
-
-```http
-PUT /v1.0/db-instances/{dbInstanceId}/hba-rules/orders
-```
-
-#### Required permissions
-
-| Permission Name                                   | Description                      |
-|---------------------------------------|-------------------------|
-| RDSforPostgreSQL:DbInstanceHba.Modify | Modifying access control rules within a DB instance |
-
-#### Request
-
-| Name           | Type  | Format   | Required | Description                                  |
-|--------------|-----|------|----|-------------------------------------|
-| dbInstanceId | URL | UUID | O  | DB instance identifier                        |
-| hbaRuleIds   | URL | Body | O  | List of identifiers for access control rules<br/>- Adjusted in the order you requested |
-
-<details><summary>Example</summary>
-
-```json
-{
-    "hbaRuleIds": [
-        "7c9a94b8-86c1-435d-8af2-82a5e9d53fd4"
-    ]
-}
-```
-</details>
-
-#### Response
-
-This API does not return a response body.
-
-<details><summary>Example</summary>
-
-```json
-{
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    }
-}
-```
-</details>
-
-### Applying access control rules
 
 ```http
 POST /v1.0/db-instances/{dbInstanceId}/hba-rules/apply
 ```
 
-#### Required permissions
+#### Request Parameters
 
-| Permission Name                                   | Description           |
-|---------------------------------------|--------------|
-| RDSforPostgreSQL:DbInstance.Modify    | Modify DB Instance |
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| dbInstanceId | URL | UUID | Y | DB instance identifier |
 
-#### Request
+#### Request Body
 
 This API does not require a request body.
 
-| Name           | Type  | Format   | Required | Description           |
-|--------------|-----|------|----|--------------|
-| dbInstanceId | URL | UUID | O  | DB instance identifier |
-
 #### Response
 
-| Name    | Type   | Format   | Description          |
-|-------|------|------|-------------|
-| jobId | Body | UUID | Identifier of requested task |
-
-<details><summary>Example</summary>
+<details>
+  <summary><strong>Example Code</strong></summary>
 
 ```json
 {
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "jobId": "0ddb042c-5af6-43fb-a914-f4dd0540eb7c"
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
+
 </details>
+
+| Name | Type | Description |
+|-----|-----|-----|
+| jobId | UUID | Identifier of requested task |
+
+---
+
+### Reorder access control rules
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:DbInstanceHba.Modify | Modify access control rules in a DB instance |
+
+#### Request
+
+```http
+PUT /v1.0/db-instances/{dbInstanceId}/hba-rules/orders
+```
+
+#### Request Parameters
+
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| dbInstanceId | URL | UUID | Y | DB instance identifier |
+
+#### Request Body
+
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+"hbaRuleIds": []
+}
+```
+
+</details>
+
+| Name | Type | Required | Description |
+|-----|-----|-----|-----|
+| hbaRuleIds | Array | Y | Sorted list of access control rule identifiers (saved in the order requested) |
+
+#### Response
+
+This API does not return a response body.
+
+---
+
+### Delete an access control rule
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:DbInstanceHba.Delete | Delete an access control rule from a DB instance |
+
+#### Request
+
+```http
+DELETE /v1.0/db-instances/{dbInstanceId}/hba-rules/{hbaRuleId}
+```
+
+#### Request Parameters
+
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| dbInstanceId | URL | UUID | Y | DB instance identifier |
+| hbaRuleId | URL | UUID | Y | Identifier of the access control rule |
+
+#### Request Body
+
+This API does not require a request body.
+
+#### Response
+
+This API does not return a response body.
+
+---
+
+### Modify an access control rule
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:DbInstanceHba.Modify | Modify access control rules in a DB instance |
+
+#### Request
+
+```http
+PUT /v1.0/db-instances/{dbInstanceId}/hba-rules/{hbaRuleId}
+```
+
+#### Request Parameters
+
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| dbInstanceId | URL | UUID | Y | DB instance identifier |
+| hbaRuleId | URL | UUID | Y | Identifier of the access control rule |
+
+#### Request Body
+
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+"connectionTypeCode": "HOST",
+"databaseApplyType": "ENTIRE",
+"dbUserApplyType": "ENTIRE",
+"databaseIds": [],
+"dbUserIds": [],
+"address": "address-example",
+"authMethod": "TRUST"
+}
+```
+
+</details>
+
+| Name | Type | Required | Description |
+|-----|-----|-----|-----|
+| connectionTypeCode | Enum | N | Access control record type<br/>- HOST: `Valid for TCP/IP connections`<br/>- HOST_NO_SSL: `Valid only for connections without SSL encryption` |
+| databaseApplyType | Enum | Y | Database apply type<br/>- ENTIRE: `All`<br/>- USER_CUSTOM: `Customize` |
+| dbUserApplyType | Enum | Y | DB user apply type<br/>- ENTIRE: `All`<br/>- USER_CUSTOM: `Customize` |
+| databaseIds | Array | N | List of database identifiers |
+| dbUserIds | Array | N | List of DB user identifiers |
+| address | String | Y | Connection address |
+| authMethod | Enum | Y | Authentication method<br/>- TRUST: `Trust (no password required)`<br/>- REJECT: `Block access`<br/>- SCRAM_SHA_256: `Password (SCRAM-SHA-256)` |
+
+#### Response
+
+This API does not return a response body.
+
+---
+
+### Get high availability information
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:HighAvailability.Get | Get high availability information |
+
+#### Request
+
+```http
+GET /v1.0/db-instances/{dbInstanceId}/high-availability
+```
+
+#### Request Parameters
+
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| dbInstanceId | URL | UUID | Y | DB instance identifier |
+
+#### Request Body
+
+This API does not require a request body.
+
+#### Response
+
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"haStatus": "CREATED",
+"pingInterval": 1,
+"failoverReplWaitingTime": 1
+}
+```
+
+</details>
+
+| Name | Type | Description |
+|-----|-----|-----|
+| haStatus | Enum | High availability status<br/>- CREATED: `Created`<br/>- STABLE: `Normal`<br/>- PAUSING: `Pausing`<br/>- DISABLE: `Stopped`<br/>- DISABLE_MASTER_IN_REPLICATION: `High availability stopped due to abnormal master replication detected`<br/>- DISABLE_MHA_PROCESS: `High availability process stopped`<br/>- DISABLE_REPLICATION_STOP: `High availability stopped due to replication stop`<br/>- DISABLE_REPLICATION_DELAY: `High availability stopped due to replication delay`<br/>- FAILOVER_STARTED: `Failover started`<br/>- FAILOVER_FAILED: `Failover failed`<br/>- FAILOVER_COMPLETED: `Failover completed`<br/>- DELETED: `Deleted`<br/>- PAUSED: `Paused`<br/>- PAUSED_DUE_TO_TASK: `Paused due to task`<br/>- MASTER_FAILURE_DETECTION: `Master failure detected` |
+| pingInterval | Number | Ping interval (sec) when using high availability |
+| failoverReplWaitingTime | Number | Failover replication delay waiting time (sec) when using high availability |
+
+---
+
+### Modify High Availability
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:HighAvailability.Modify | Modify High Availability |
+
+#### Request
+
+```http
+PUT /v1.0/db-instances/{dbInstanceId}/high-availability
+```
+
+#### Request Parameters
+
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| dbInstanceId | URL | UUID | Y | DB instance identifier |
+
+#### Request Body
+
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+"useHighAvailability": false,
+"pingInterval": 1,
+"failoverReplWaitingTime": 1
+}
+```
+
+</details>
+
+| Name | Type | Required | Description |
+|-----|-----|-----|-----|
+| useHighAvailability | Boolean | Y | Whether to use high availability |
+| pingInterval | Number | N | Ping interval (seconds)<br/>- Minimum value: `1`<br/>- Maximum value: `600` |
+| failoverReplWaitingTime | Number | N | Failover replication delay waiting time (seconds)<br/>- Minimum value: `-1` |
+
+#### Response
+
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"jobId": "550e8400-e29b-41d4-a716-446655440000"
+}
+```
+
+</details>
+
+| Name | Type | Description |
+|-----|-----|-----|
+| jobId | UUID | Identifier of requested task |
+
+---
+
+### Pause High Availability
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:HighAvailability.Pause | Pause High Availability |
+
+#### Request
+
+```http
+POST /v1.0/db-instances/{dbInstanceId}/high-availability/pause
+```
+
+#### Request Parameters
+
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| dbInstanceId | URL | UUID | Y | DB instance identifier |
+
+#### Request Body
+
+This API does not require a request body.
+
+#### Response
+
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"jobId": "550e8400-e29b-41d4-a716-446655440000"
+}
+```
+
+</details>
+
+| Name | Type | Description |
+|-----|-----|-----|
+| jobId | UUID | Identifier of requested task |
+
+---
+
+### Recover High Availability
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:HighAvailability.Repair | Recover High Availability |
+
+#### Request
+
+```http
+POST /v1.0/db-instances/{dbInstanceId}/high-availability/repair
+```
+
+#### Request Parameters
+
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| dbInstanceId | URL | UUID | Y | DB instance identifier |
+
+#### Request Body
+
+This API does not require a request body.
+
+#### Response
+
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"jobId": "550e8400-e29b-41d4-a716-446655440000"
+}
+```
+
+</details>
+
+| Name | Type | Description |
+|-----|-----|-----|
+| jobId | UUID | Identifier of requested task |
+
+---
+
+### Restart High Availability
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:HighAvailability.Resume | Restart High Availability |
+
+#### Request
+
+```http
+POST /v1.0/db-instances/{dbInstanceId}/high-availability/resume
+```
+
+#### Request Parameters
+
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| dbInstanceId | URL | UUID | Y | DB instance identifier |
+
+#### Request Body
+
+This API does not require a request body.
+
+#### Response
+
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"jobId": "550e8400-e29b-41d4-a716-446655440000"
+}
+```
+
+</details>
+
+| Name | Type | Description |
+|-----|-----|-----|
+| jobId | UUID | Identifier of requested task |
+
+---
+
+### Separate High Availability
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:HighAvailability.Split | Separate High Availability |
+
+#### Request
+
+```http
+POST /v1.0/db-instances/{dbInstanceId}/high-availability/split
+```
+
+#### Request Parameters
+
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| dbInstanceId | URL | UUID | Y | DB instance identifier |
+
+#### Request Body
+
+This API does not require a request body.
+
+#### Response
+
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"jobId": "550e8400-e29b-41d4-a716-446655440000"
+}
+```
+
+</details>
+
+| Name | Type | Description |
+|-----|-----|-----|
+| jobId | UUID | Identifier of requested task |
+
+---
+
+### Get DB instance maintenance information
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:DbInstance.Get | Get DB instance maintenance information |
+
+#### Request
+
+```http
+GET /v1.0/db-instances/{dbInstanceId}/maintenance-info
+```
+
+#### Request Parameters
+
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| dbInstanceId | URL | UUID | Y | DB instance identifier |
+
+#### Request Body
+
+This API does not require a request body.
+
+#### Response
+
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"allowAutoMaintenance": false,
+"useAutoStorageCleanup": false,
+"maintWndBgnTime": "00:00:00",
+"maintWndDuration": "HALF_AN_HOUR",
+"logRetentionPeriod": 1
+}
+```
+
+</details>
+
+| Name | Type | Description |
+|-----|-----|-----|
+| allowAutoMaintenance | Boolean | Whether to allow automatic maintenance |
+| useAutoStorageCleanup | Boolean | Whether to enable automatic storage cleanup |
+| maintWndBgnTime | Time | Automatic maintenance start time |
+| maintWndDuration | Enum | Maintenance window<br/>- HALF_AN_HOUR: `30 minutes`<br/>- ONE_HOUR: `1 hour`<br/>- ONE_HOUR_AND_HALF: `1 hour 30 minutes`<br/>- TWO_HOURS: `2 hours`<br/>- TWO_HOURS_AND_HALF: `2 hours 30 minutes`<br/>- THREE_HOURS: `3 hours` |
+| logRetentionPeriod | Number | Log retention period (days) |
+
+---
+
+### Modify DB instance maintenance information
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:DbInstance.Modify | Modify DB instance maintenance information |
+
+#### Request
+
+```http
+PUT /v1.0/db-instances/{dbInstanceId}/maintenance-info
+```
+
+#### Request Parameters
+
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| dbInstanceId | URL | UUID | Y | DB instance identifier |
+
+#### Request Body
+
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+"allowAutoMaintenance": false,
+"useAutoStorageCleanup": false,
+"maintWndBgnTime": "00:00:00",
+"maintWndDuration": "HALF_AN_HOUR",
+"logRetentionPeriod": 1
+}
+```
+
+</details>
+
+| Name | Type | Required | Description |
+|-----|-----|-----|-----|
+| allowAutoMaintenance | Boolean | N | Whether to allow automatic maintenance |
+| useAutoStorageCleanup | Boolean | N | Whether to enable automatic storage cleanup |
+| maintWndBgnTime | Time | N | Automatic maintenance start time |
+| maintWndDuration | Enum | N | Maintenance window<br/>- HALF_AN_HOUR: `30 minutes`<br/>- ONE_HOUR: `1 hour`<br/>- ONE_HOUR_AND_HALF: `1 hour 30 minutes`<br/>- TWO_HOURS: `2 hours`<br/>- TWO_HOURS_AND_HALF: `2 hours 30 minutes`<br/>- THREE_HOURS: `3 hours` |
+| logRetentionPeriod | Number | N | Log retention period (days)<br/>- Minimum: `1`<br/>- Maximum: `30` |
+
+#### Response
+
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"jobId": "550e8400-e29b-41d4-a716-446655440000"
+}
+```
+
+</details>
+
+| Name | Type | Description |
+|-----|-----|-----|
+| jobId | UUID | Identifier of requested task |
+
+---
+
+### Get DB instance network information
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:DbInstance.Get | Get DB instance network information |
+
+#### Request
+
+```http
+GET /v1.0/db-instances/{dbInstanceId}/network-info
+```
+
+#### Request Parameters
+
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| dbInstanceId | URL | UUID | Y | DB instance identifier |
+
+#### Request Body
+
+This API does not require a request body.
+
+#### Response
+
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"availabilityZone": "kr-pub-a",
+"subnet": {
+"subnetId": "550e8400-e29b-41d4-a716-446655440000",
+"subnetName": "subnetName-example",
+"subnetCidr": "192.168.0.0/24",
+"publicAccessible": false
+},
+"endPoints": [
+{
+"domain": "domain-example",
+"ipAddress": "192.168.0.1",
+"endPointType": "https://example.com"
+}
+]
+}
+```
+
+</details>
+
+| Name | Type | Description |
+|-----|-----|-----|
+| availabilityZone | Enum | Availability zone where DB instance will be created |
+| subnet | Object | Subnet object |
+| subnet.subnetId | UUID | Subnet identifier |
+| subnet.subnetName | String | Name to identify subnets |
+| subnet.subnetCidr | String | CIDR of subnet |
+| subnet.publicAccessible | Boolean | External access is available or not |
+| endPoints | Array | List of access information |
+| endPoints.domain | String | Domain |
+| endPoints.ipAddress | String | IP address |
+| endPoints.endPointType | String | Types of access information |
+
+---
+
+### Modify DB instance network information
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:DbInstance.Modify | Modify DB instance network information |
+
+#### Request
+
+```http
+PUT /v1.0/db-instances/{dbInstanceId}/network-info
+```
+
+#### Request Parameters
+
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| dbInstanceId | URL | UUID | Y | DB instance identifier |
+
+#### Request Body
+
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+"usePublicAccess": false
+}
+```
+
+</details>
+
+| Name | Type | Required | Description |
+|-----|-----|-----|-----|
+| usePublicAccess | Boolean | Y | External access is available or not |
+
+#### Response
+
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"jobId": "550e8400-e29b-41d4-a716-446655440000"
+}
+```
+
+</details>
+
+| Name | Type | Description |
+|-----|-----|-----|
+| jobId | UUID | Identifier of requested task |
+
+---
+
+### Promote DB Instance
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:DbInstance.Promote | Promote DB Instance |
+
+#### Request
+
+```http
+POST /v1.0/db-instances/{dbInstanceId}/promote
+```
+
+#### Request Parameters
+
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| dbInstanceId | URL | UUID | Y | DB instance identifier |
+
+#### Request Body
+
+This API does not require a request body.
+
+#### Response
+
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"jobId": "550e8400-e29b-41d4-a716-446655440000"
+}
+```
+
+</details>
+
+| Name | Type | Description |
+|-----|-----|-----|
+| jobId | UUID | Identifier of requested task |
+
+---
+
+### Create Read Replica
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:DbInstance.Replicate | Create read replica |
+
+#### Request
+
+```http
+POST /v1.0/db-instances/{dbInstanceId}/replicate
+```
+
+#### Request Parameters
+
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| dbInstanceId | URL | UUID | Y | DB instance identifier |
+
+#### Request Body
+
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+"dbInstanceName": "dbInstanceName-example",
+"description": "description-example",
+"dbFlavorId": "550e8400-e29b-41d4-a716-446655440000",
+"dbPort": 1,
+"parameterGroupId": "550e8400-e29b-41d4-a716-446655440000",
+"dbSecurityGroupIds": [],
+"userGroupIds": [],
+"useDefaultNotification": false,
+"useDeletionProtection": false,
+"network": {
+"usePublicAccess": false,
+"availabilityZone": "kr-pub-a"
+},
+"storage": {
+"storageType": "General SSD",
+"storageSize": 20
+}
+}
+```
+
+</details>
+
+| Name | Type | Required | Description |
+|-----|-----|-----|-----|
+| dbInstanceName | String | Y | Name to identify DB instances |
+| description | String | N | Additional information on DB instances |
+| dbFlavorId | UUID | N | Identifier of DB instance specifications |
+| dbPort | Number | N | DB port<br/>- Minimum value: 5432, Maximum value: 45432 |
+| parameterGroupId | UUID | N | Parameter group identifier |
+| dbSecurityGroupIds | Array | N | List of DB security group identifiers |
+| userGroupIds | Array | N | List of user group identifiers |
+| useDefaultNotification | Boolean | N | Whether to use default notification<br/>- Default: `false` |
+| useDeletionProtection | Boolean | N | Whether to use deletion protection<br/>- Default: `false` |
+| network | Object | N | Network information objects |
+| network.usePublicAccess | Boolean | N | Whether external access is available<br/>- Default: `false` |
+| network.availabilityZone | Enum | N | Availability zone where DB instance will be created |
+| storage | Object | N | Storage information objects |
+| storage.storageType | Enum | N | Data storage types |
+| storage.storageSize | Number | N | Data storage size (GB)<br/>- Minimum value: `20`<br/>- Maximum value: `2048` |
+
+#### Response
+
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"jobId": "550e8400-e29b-41d4-a716-446655440000"
+}
+```
+
+</details>
+
+| Name | Type | Description |
+|-----|-----|-----|
+| jobId | UUID | Identifier of requested task |
+
+---
+
+### Restart DB Instance
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:DbInstance.Restart | Restart DB Instance |
+
+#### Request
+
+```http
+POST /v1.0/db-instances/{dbInstanceId}/restart
+```
+
+#### Request Parameters
+
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| dbInstanceId | URL | UUID | Y | DB instance identifier |
+
+#### Request Body
+
+This API does not require a request body.
+
+#### Response
+
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"jobId": "550e8400-e29b-41d4-a716-446655440000"
+}
+```
+
+</details>
+
+| Name | Type | Description |
+|-----|-----|-----|
+| jobId | UUID | Identifier of requested task |
+
+---
+
+### Get DB Instance Restore Information
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:DbInstance.Get | Get DB instance restore information |
+
+#### Request
+
+```http
+GET /v1.0/db-instances/{dbInstanceId}/restoration-info
+```
+
+#### Request Parameters
+
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| dbInstanceId | URL | UUID | Y | DB instance identifier |
+
+#### Request Body
+
+This API does not require a request body.
+
+#### Response
+
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"oldestRestorableYmdt": "2023-12-31T15:00:00+09:00",
+"latestRestorableYmdt": "2023-12-31T15:00:00+09:00",
+"restorableBackups": [
+{
+"backupId": "550e8400-e29b-41d4-a716-446655440000",
+"backupName": "backupName-example",
+"backupStatus": "BACKING_UP",
+"dbInstanceId": "550e8400-e29b-41d4-a716-446655440000",
+"dbInstanceName": "dbInstanceName-example",
+"dbVersion": "POSTGRESQL_V14_17",
+"backupType": "AUTO",
+"backupSize": 1,
+"failoverCount": 1,
+"walFileName": "walFileName-example",
+"createdYmdt": "2023-12-31T15:00:00+09:00",
+"updatedYmdt": "2023-12-31T15:00:00+09:00",
+"startYmdt": "2023-12-31T15:00:00+09:00",
+"completedYmdt": "2023-12-31T15:00:00+09:00"
+}
+]
+}
+```
+
+</details>
+
+| Name | Type | Description |
+|-----|-----|-----|
+| oldestRestorableYmdt | DateTime | Oldest restorable time |
+| latestRestorableYmdt | DateTime | Most recent restorable time |
+| restorableBackups | Array | List of restorable backups |
+| restorableBackups.backupId | UUID | Backup identifier |
+| restorableBackups.backupName | String | Backup name |
+| restorableBackups.backupStatus | Enum | Backup status<br/>- BACKING_UP: `Backing up (spinner)`<br/>- VERIFYING: `Verifying (spinner)`<br/>- COMPLETED: `Available (green icon)`<br/>- DELETING: `Deleting (spinner)`<br/>- DELETED: `Deleted (gray icon)`<br/>- ERROR: `Error (red icon)` |
+| restorableBackups.dbInstanceId | UUID | Original DB instance identifier |
+| restorableBackups.dbInstanceName | String | Original DB instance name |
+| restorableBackups.dbVersion | String | DB engine type |
+| restorableBackups.backupType | Enum | Backup type<br/>- AUTO: `Auto Backup`<br/>- MANUAL: `Manual Backup` |
+| restorableBackups.backupSize | Number | Backup size |
+| restorableBackups.failoverCount | Number | Number of failovers |
+| restorableBackups.walFileName | String | WAL file name |
+| restorableBackups.createdYmdt | DateTime | Backup creation date and time |
+| restorableBackups.updatedYmdt | DateTime | Backup update date and time |
+| restorableBackups.startYmdt | DateTime | Backup start date and time |
+| restorableBackups.completedYmdt | DateTime | Backup completion date and time |
+
+---
+
+### Restore DB Instance
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:DbInstance.Restore | Restore DB Instance |
+
+#### Request
+
+```http
+POST /v1.0/db-instances/{dbInstanceId}/restore
+```
+
+#### Request Parameters
+
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| dbInstanceId | URL | UUID | Y | DB instance identifier |
+
+#### Request Body
+
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+"dbInstanceName": "dbInstanceName-example",
+"dbInstanceCandidateName": "dbInstanceCandidateName-example",
+"description": "description-example",
+"dbFlavorId": "550e8400-e29b-41d4-a716-446655440000",
+"dbPort": 1,
+"useHighAvailability": false,
+"imageId": "550e8400-e29b-41d4-a716-446655440000",
+"pingInterval": 3,
+"failoverReplWaitingTime": 60,
+"storage": {
+"storageType": "General SSD",
+"storageSize": 20
+},
+"network": {
+"subnetId": "550e8400-e29b-41d4-a716-446655440000",
+"usePublicAccess": false,
+"availabilityZone": "kr-pub-a"
+},
+"backup": {
+"backupPeriod": 0,
+"backupRetryCount": 0,
+"replicationRegion": "KR1",
+"backupSchedules": [
+{
+"backupWndBgnTime": "00:00:00",
+"backupWndDuration": "HALF_AN_HOUR"
+}
+]
+},
+"restore": {
+"restoreType": "BACKUP",
+"restoreYmdt": "2023-12-31T15:00:00+09:00",
+"backupId": "550e8400-e29b-41d4-a716-446655440000"
+},
+"useDefaultNotification": false,
+"parameterGroupId": "550e8400-e29b-41d4-a716-446655440000",
+"dbSecurityGroupIds": [],
+"userGroupIds": [],
+"useDeletionProtection": false
+}
+```
+
+</details>
+
+| Name | Type | Required | Description |
+|-----|-----|-----|-----|
+| dbInstanceName | String | N | Name to identify DB instances |
+| dbInstanceCandidateName | String | N | Candidate master name to identify the DB instance |
+| description | String | N | Additional information on the DB instance<br/>- Maximum length: `100` |
+| dbFlavorId | UUID | Y | Identifier of DB instance specifications |
+| dbPort | Number | N | DB port<br/>- Minimum value: 5432, Maximum value: 45432 |
+| useHighAvailability | Boolean | N | Whether to use high availability<br/>- Default: `false` |
+| imageId | UUID | N | Image identifier |
+| pingInterval | Number | N | Ping interval (sec) when using high availability<br/>- Minimum value: `1`<br/>- Maximum value: `600` |
+| failoverReplWaitingTime | Number | N | Failover replication delay waiting time (seconds)<br/>- Minimum value: `-1` |
+| storage | Object | Y | Storage information objects |
+| storage.storageType | Enum | Y | Storage type |
+| storage.storageSize | Number | Y | Data storage size (GB)<br/>- Minimum value: `20` |
+| network | Object | Y | Network information objects |
+| network.subnetId | UUID | Y | Subnet identifier |
+| network.usePublicAccess | Boolean | N | Whether external access is available<br/>- Default: `false` |
+| network.availabilityZone | Enum | N | Availability zone where DB instance will be created |
+| backup | Object | Y | Backup information objects |
+| backup.backupPeriod | Number | Y | Backup retention period (days)<br/>- Minimum value: `0`<br/>- Maximum value: `730` |
+| backup.backupRetryCount | Number | N | Number of backup retries<br/>- Minimum value: `0`<br/>- Maximum value: `10` |
+| backup.replicationRegion | Enum | N | Backup replication region<br/>- KR1: `Korea (Pangyo)`<br/>- KR2: `Korea (Pyeongchon)` |
+| backup.backupSchedules | Array | Y | Backup schedules |
+| backup.backupSchedules.backupWndBgnTime | Time | Y | Backup start time |
+| backup.backupSchedules.backupWndDuration | Enum | Y | Backup duration<br/>- HALF_AN_HOUR: `30 minutes`<br/>- ONE_HOUR: `1 hour`<br/>- ONE_HOUR_AND_HALF: `1.5 hours`<br/>- TWO_HOURS: `2 hours`<br/>- TWO_HOURS_AND_HALF: `2.5 hours`<br/>- THREE_HOURS: `3 hours` |
+| restore | Object | Y | Restoration information object |
+| restore.restoreType | Enum | Y | Restoration type<br/>- BACKUP: `Restoration using a previously created backup`<br/>- TIMESTAMP: `Point-in-time recovery using a time within the restorable period` |
+| restore.restoreYmdt | DateTime | N | DB instance restore date and time |
+| restore.backupId | UUID | N | Identifier of the backup to use for restoration |
+| useDefaultNotification | Boolean | N | Whether to use default notification<br/>- Default: `false` |
+| parameterGroupId | UUID | Y | Parameter group identifier |
+| dbSecurityGroupIds | Array | N | List of DB security group identifiers |
+| userGroupIds | Array | N | List of user group identifiers |
+| useDeletionProtection | Boolean | N | Whether to use deletion protection<br/>- Default: `false` |
+
+#### Response
+
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"jobId": "550e8400-e29b-41d4-a716-446655440000"
+}
+```
+
+</details>
+
+| Name | Type | Description |
+|-----|-----|-----|
+| jobId | UUID | Identifier of requested task |
+
+---
+
+### Start DB Instance
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:DbInstance.Start | Start DB Instance |
+
+#### Request
+
+```http
+POST /v1.0/db-instances/{dbInstanceId}/start
+```
+
+#### Request Parameters
+
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| dbInstanceId | URL | UUID | Y | DB instance identifier |
+
+#### Request Body
+
+This API does not require a request body.
+
+#### Response
+
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"jobId": "550e8400-e29b-41d4-a716-446655440000"
+}
+```
+
+</details>
+
+| Name | Type | Description |
+|-----|-----|-----|
+| jobId | UUID | Identifier of requested task |
+
+---
+
+### Stop DB Instance
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:DbInstance.Stop | Stop DB Instance |
+
+#### Request
+
+```http
+POST /v1.0/db-instances/{dbInstanceId}/stop
+```
+
+#### Request Parameters
+
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| dbInstanceId | URL | UUID | Y | DB instance identifier |
+
+#### Request Body
+
+This API does not require a request body.
+
+#### Response
+
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"jobId": "550e8400-e29b-41d4-a716-446655440000"
+}
+```
+
+</details>
+
+| Name | Type | Description |
+|-----|-----|-----|
+| jobId | UUID | Identifier of requested task |
+
+---
+
+### Get DB Instance Storage Information
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:DbInstance.Get | Get DB Instance Storage Information |
+
+#### Request
+
+```http
+GET /v1.0/db-instances/{dbInstanceId}/storage-info
+```
+
+#### Request Parameters
+
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| dbInstanceId | URL | UUID | Y | DB instance identifier |
+
+#### Request Body
+
+This API does not require a request body.
+
+#### Response
+
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"storageType": "General SSD",
+"storageSize": 1,
+"storageStatus": "DELETED"
+}
+```
+
+</details>
+
+| Name | Type | Description |
+|-----|-----|-----|
+| storageType | Enum | Data storage types |
+| storageSize | Number | Data storage size (GB) |
+| storageStatus | Enum | Data storage current status<br/>- DELETED: `Deleted`<br/>- PENDING_DELETION: `Deletion deferred`<br/>- DELETION_RESERVED: `Deletion reserved (pending snapshot cleanup)`<br/>- DETACHED: `Detached`<br/>- ATTACHED: `Attached` |
+
+---
+
+### Modify DB Instance Storage Information
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:DbInstance.Modify | Modify DB Instance Storage Information |
+
+#### Request
+
+```http
+PUT /v1.0/db-instances/{dbInstanceId}/storage-info
+```
+
+#### Request Parameters
+
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| dbInstanceId | URL | UUID | Y | DB instance identifier |
+
+#### Request Body
+
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+"storageSize": 1
+}
+```
+
+</details>
+
+| Name | Type | Required | Description |
+|-----|-----|-----|-----|
+| storageSize | Number | Y | Data storage size (GB)<br/>- Maximum value: `2048` |
+
+#### Response
+
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"jobId": "550e8400-e29b-41d4-a716-446655440000"
+}
+```
+
+</details>
+
+| Name | Type | Description |
+|-----|-----|-----|
+| jobId | UUID | Identifier of requested task |
+
+---
 
 ## Backup
 
+### Backup Status
+
+| Status | Description |
+|--------------|--------------|
+| `BACKING_UP` | Backup in progress |
+| `COMPLETED` | Backup completed |
+| `DELETING` | Backup being deleted |
+| `DELETED` | Backup deleted |
+| `ERROR` | Error occurred |
+
 ### Retrieve Backup List
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:Backup.List | Retrieve Backup List |
+
+#### Request
 
 ```http
 GET /v1.0/backups
 ```
 
-#### Required permissions
-
-| Permission Name                          | Description       |
-|------------------------------|----------|
-| RDSforPostgreSQL:Backup.List | Retrieve Backup List |
-
-#### Request
+#### Request Body
 
 This API does not require a request body.
 
-| Name           | Type    | Format     | Required | Description                                                         |
-|--------------|-------|--------|----|------------------------------------------------------------|
-| page         | Query | Number | O  | Page to retrieve<br/>- Minimum value: `1`                                 |
-| size         | Query | Number | O  | Page size to retrieve<br/>- Minimum value: `1`<br/>- Maximum value: `100`             |
-| backupType   | Query | Enum   | X  | Backup type<br/>- `AUTO`: Automatic<br/>- `MANUAL`:  Manual<br/>- Default value: All |
-| dbInstanceId | Query | UUID   | X  | Original DB instance identifier                                            |
-| dbVersion    | Query | Enum   | X  | DB version information                                                   |
-
 #### Response
 
-| Name                   | Type   | Format       | Description                                                                                                                                                        |
-|----------------------|------|----------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|
-| totalCounts          | Body | Number   | Number of all backup lists                                                                                                                                                |
-| backups              | Body | Array    | Backup list                                                                                                                                                     |
-| backups.backupId     | Body | UUID     | Backup identifier                                                                                                                                                   |
-| backups.backupName   | Body | String   | Name to identify backups                                                                                                                                           |
-| backups.backupStatus | Body | Enum     | Backup current status<br/>`BACKING_UP`: Backup in progress<br/>`COMPLETED`: Backup completed<br/>`DELETING`: Backup being deleted<br/>`DELETED`: Backup deleted<br/>`ERROR`: Error occurred |
-| backups.dbInstanceId | Body | UUID     | Original DB instance identifier                                                                                                                                           |
-| backups.dbVersion    | Body | Enum     | DB version information                                                                                                                                                  |
-| backups.backupType   | Body | Enum     | Backup type<br/>- `AUTO`: Automatic<br/>- `MANUAL`:  Manual                                                                                                                |
-| backups.backupSize   | Body | Number   | Size of the backup<br/>- Unit: `Bytes`                                                                                                                                    |
-| createdYmdt          | Body | DateTime | Created date and time (YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                         |
-| updatedYmdt          | Body | DateTime | Modified date and time (YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                         |
-| completedYmdt        | Body | DateTime | End date and time (YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                         |
-
-<details><summary>Example</summary>
+<details>
+  <summary><strong>Example Code</strong></summary>
 
 ```json
 {
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "totalCounts": 1,
-    "backups": [
-        {
-            "backupId": "0017f136-3e01-4530-94aa-20661afe6632",
-            "backupName": "backup",
-            "backupStatus": "COMPLETED",
-            "dbInstanceId": "142e6ccc-3bfb-4e1e-84f7-38861284fafd",
-            "dbVersion": "POSTGRESQL_V17_6",
-            "backupType": "AUTO",
-            "backupSize": 4996786,
-            "createdYmdt": "2023-02-21T00:35:00+09:00",
-            "updatedYmdt": "2023-02-22T00:35:32+09:00",
-            "completedYmdt": "2023-02-22T00:35:32+09:00"
-        }
-    ]
-}
-```
-</details>
-
-### Export backup to object storage
-
-```http
-POST /v1.0/backups/{backupId}/export
-```
-
-#### Required permissions
-
-| Permission Name                            | Description                 |
-|--------------------------------|--------------------|
-| RDSforPostgreSQL:Backup.Export | Export backup to object storage |
-
-#### Request
-
-| Name              | Type   | Format     | Required | Description                          |
-|-----------------|------|--------|----|-----------------------------|
-| backupId        | URL  | UUID   | O  | Backup identifier                     |
-| tenantId        | Body | String | O  | Tenant ID of object storage to store backup   |
-| username        | Body | String | O  | ID of NHN Cloud Account or IAM Account   |
-| password        | Body | String | O  | API password for object storage where backup is stored |
-| targetContainer | Body | String | O  | Object storage container where backup is stored     |
-| objectPath      | Body | String | O  | Backup path to be stored in container            |
-
-<details><summary>Example</summary>
-
-```json
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"totalCounts": 1,
+"backups": [
 {
-    "tenantId": "399631c404744dbbb18ce4fa2dc71a5a",
-    "username": "gildong.hong@nhn.com",
-    "password": "password",
-    "targetContainer": "/container",
-    "objectPath": "/backups/backup_file"
+"backupId": "550e8400-e29b-41d4-a716-446655440000",
+"backupName": "backupName-example",
+"backupStatus": "BACKING_UP",
+"dbInstanceId": "550e8400-e29b-41d4-a716-446655440000",
+"dbVersion": "POSTGRESQL_V14_17",
+"backupType": "AUTO",
+"backupSize": 1,
+"startYmdt": "2023-12-31T15:00:00+09:00",
+"createdYmdt": "2023-12-31T15:00:00+09:00",
+"updatedYmdt": "2023-12-31T15:00:00+09:00",
+"completedYmdt": "2023-12-31T15:00:00+09:00"
+}
+]
 }
 ```
+
 </details>
 
-#### Response
+| Name | Type | Description |
+|-----|-----|-----|
+| totalCounts | Number | Number of all backup lists |
+| backups | Array | Backup list |
+| backups.backupId | UUID | Backup identifier |
+| backups.backupName | String | Name to identify backups |
+| backups.backupStatus | Enum | Backup current status<br/>- BACKING_UP: `Backup in progress (spinner)`<br/>- VERIFYING: `Verifying (spinner)`<br/>- COMPLETED: `Available (green icon)`<br/>- DELETING: `Deleting (spinner)`<br/>- DELETED: `Deleted (gray icon)`<br/>- ERROR: `Error (red icon)` |
+| backups.dbInstanceId | UUID | Original DB instance identifier |
+| backups.dbVersion | String | DB version information |
+| backups.backupType | Enum | Backup type<br/>- AUTO: `Auto Backup`<br/>- MANUAL: `Manual Backup` |
+| backups.backupSize | Number | Size of the backup (Bytes) |
+| backups.startYmdt | DateTime | Start date and time |
+| backups.createdYmdt | DateTime | Created date and time |
+| backups.updatedYmdt | DateTime | Modified date and time |
+| backups.completedYmdt | DateTime | End date and time |
 
-| Name    | Type   | Format   | Description          |
-|-------|------|------|-------------|
-| jobId | Body | UUID | Identifier of requested task |
-
-<details><summary>Example</summary>
-
-```json
-{
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "jobId": "0ddb042c-5af6-43fb-a914-f4dd0540eb7c"
-}
-```
-</details>
-
-### Restore Backup
-
-```http
-POST /v1.0/backups/{backupId}/restore
-```
-
-#### Required permissions
-
-| Permission Name                             | Description      |
-|---------------------------------|---------|
-| RDSforPostgreSQL:Backup.Restore | Restore Backup |
-
-#### Request
-
-| Name                                       | Type   | Format      | Required | Description                                                                                                                                                                                                                        |
-|------------------------------------------|------|---------|----|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| backupId                                 | URL  | UUID    | O  | Backup identifier                                                                                                                                                                                                                   |
-| dbInstanceName                           | Body | String  | O  | Name to identify DB instances                                                                                                                                                                                                      |
-| description                              | Body | String  | X  | Additional information on DB instances                                                                                                                                                                                                         |
-| dbFlavorId                               | Body | UUID    | O  | Identifier of DB instance specifications                                                                                                                                                                                                           |
-| dbPort                                   | Body | Number  | O  | DB port<br/>- Minimum value: `0`<br/>- Maximum value: 65535                                                                                                                                                                                |
-| parameterGroupId                         | Body | UUID    | O  | Parameter group identifier                                                                                                                                                                                                              |
-| dbSecurityGroupIds                       | Body | Array   | X  | DB security group identifiers                                                                                                                                                                                                          ||network|Body|Object|O|Network information objects|
-| userGroupIds                             | Body | Array   | X  | User group identifiers                                                                                                                                                                                                            |
-| useDefaultNotification                   | Body | Boolean | X  | Whether to use default notification<br/>Default: `false`                                                                                                                                                                                            |
-| useDeletionProtection                    | Body | Boolean | X  | Whether to protect against deletion<br/>Default: `false`                                                                                                                                                                                               | 
-| useHighAvailability                      | Body | Boolean | X  | Whether to use high availability                                                                                                                                                                                                                |
-| pingInterval                             | Body | Number  | X  | Ping interval (sec) when using high availability<br/>- Minimum value: `1`<br/>- Maximum value: `600`                                                                                                                                                                      |
-| failoverReplWaitingTime                  | Body | Number  | X  | Failover latency when using high availability<br/>- Minimum value: `0`<br/>- If set to -1, it will continue to wait for the replication delay to resolve.                                                                                                                                              |                                                                                                                                                                                                                      | userGroupIds                             | Body | Array   | X  | List of identifiers for user groups that receive default notifications                                                                                                                                                                                             |
-| network                                  | Body | Object  | O  | Network information objects                                                                                                                                                                                                                |
-| network.subnetId                         | Body | UUID    | O  | Subnet identifier                                                                                                                                                                                                                  |
-| network.usePublicAccess                  | Body | Boolean | X  | External access is available or not<br/>Default: `false`                                                                                                                                                                                            |
-| network.availabilityZone                 | Body | Enum    | X  | Availability zone where DB instance will be created<br/>- Example: `kr-pub-a`<br/>- Default: `Any availability` zone                                                                                                                                                          |
-| storage                                  | Body | Object  | O  | Storage information objects                                                                                                                                                                                                                |    
-| storage.storageType                      | Body | Enum    | O  | Data storage types<br/>- Example: `General SSD`                                                                                                                                                                                       |
-| storage.storageSize                      | Body | Number  | O  | Data storage size<br/>- Unit: `Gigabytes`<br/>- Minimum value: `20`<br/>- Maximum value: `2048`                                                                                                                                                           |
-| backup                                   | Body | Object  | O  | Backup information objects                                                                                                                                                                                                                  |
-| backup.backupPeriod                      | Body | Number  | O  | Backup retention period<br/>- Minimum value: `0`<br/>- Maximum value: `730`                                                                                                                                                                               |
-| backup.backupRetryCount                  | Body | Number  | X  | Number of backup retries<br/>Default: `6`<br/>- Minimum value: `0`<br/>- Maximum value: `10`                                                                                                                                                                   |
-| backup.backupSchedules                   | Body | Array   | X  | Backup schedules                                                                                                                                                                                                                 |
-| backup.backupSchedules.backupWndBgnTime  | Body | String  | O  | Backup Start Time<br/>- Example: `00:00:00`                                                                                                                                                                                             |
-| backup.backupSchedules.backupWndDuration | Body | Enum    | O  | Backup duration<br/>Auto backup is executed within the set duration from the backup start time.<br/>- `HALF_AN_HOUR`: 30 minutes<br/>- `ONE_HOUR`: 1 hour<br/>- `ONE_HOUR_AND_HALF`: 1.5 hour<br/>- `TWO_HOURS`: 2 hour<br/>- `TWO_HOURS_AND_HALF`: 2.5 hour<br/>- `THREE_HOURS`: 3 hour |
-
-<details><summary>Example</summary>
-
-```json
-
-{
-  "dbInstanceName": "db-instance-restore",
-  "dbFlavorId": "50be6d9c-02d6-4594-a2d4-12010eb65ec0",
-  "dbPort": 15432,
-  "parameterGroupId": "132d383c-38e3-468a-a826-5e9a8fff15d0",
-  "network": {
-    "subnetId": "e721a9dd-dad0-4cf0-a53b-dd654ebfc683"
-  },
-  "storage": {
-    "storageType": "General SSD",
-    "storageSize": 20
-  },
-  "backup": {
-    "backupPeriod": 1,
-    "backupSchedules": [
-      {
-        "backupWndBgnTime": "00:00:00",
-        "backupWndDuration": "HALF_AN_HOUR",
-        "backupRetryExpireTime": "00:30:00"
-      }
-    ]
-  }
-}
-```
-</details>
-
-#### Response
-
-| Name    | Type   | Format   | Description          |
-|-------|------|------|-------------|
-| jobId | Body | UUID | Identifier of requested task |
-
-<details><summary>Example</summary>
-
-```json
-{
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "jobId": "0ddb042c-5af6-43fb-a914-f4dd0540eb7c"
-}
-```
-</details>
+---
 
 ### Delete Backup
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:Backup.Delete | Delete Backup |
+
+#### Request
 
 ```http
 DELETE /v1.0/backups/{backupId}
 ```
 
-#### Required permissions
+#### Request Parameters
 
-| Permission Name                            | Description      |
-|--------------------------------|---------|
-| RDSforPostgreSQL:Backup.Delete | Delete Backup |
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| backupId | URL | UUID | Y | Backup identifier |
 
-#### Request
+#### Request Body
 
 This API does not require a request body.
 
-| Name       | Type  | Format   | Required | Description      |
-|----------|-----|------|----|---------|
-| backupId | URL | UUID | O  | Backup identifier |
-
 #### Response
 
-| Name    | Type   | Format   | Description          |
-|-------|------|------|-------------|
-| jobId | Body | UUID | Identifier of requested task |
-
-<details><summary>Example</summary>
+<details>
+  <summary><strong>Example Code</strong></summary>
 
 ```json
 {
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "jobId": "0ddb042c-5af6-43fb-a914-f4dd0540eb7c"
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
+
 </details>
+
+| Name | Type | Description |
+|-----|-----|-----|
+| jobId | UUID | Identifier of requested task |
+
+---
+
+### Export Backup to Object Storage
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:Backup.Export | Export Backup to Object Storage |
+
+#### Request
+
+```http
+POST /v1.0/backups/{backupId}/export
+```
+
+#### Request Parameters
+
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| backupId | URL | UUID | Y | Backup identifier |
+
+#### Request Body
+
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+"tenantId": "0123456789abcdef0123456789abcdef",
+"username": "username-example",
+"password": "password-example",
+"targetContainer": "targetContainer-example",
+"objectPath": "objectPath-example"
+}
+```
+
+</details>
+
+| Name | Type | Required | Description |
+|-----|-----|-----|-----|
+| tenantId | String | Y | Tenant ID of object storage where backup will be stored<br/>- Minimum length: `32`<br/>- Maximum length: `32` |
+| username | String | Y | NHN Cloud account or IAM member ID |
+| password | String | Y | API password for object storage where backup will be stored |
+| targetContainer | String | Y | Object storage container where backup will be stored |
+| objectPath | String | Y | Path of the backup to be stored in the container |
+
+#### Response
+
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"jobId": "550e8400-e29b-41d4-a716-446655440000"
+}
+```
+
+</details>
+
+| Name | Type | Description |
+|-----|-----|-----|
+| jobId | UUID | Identifier of requested task |
+
+---
+
+### Restore Backup
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:Backup.Restore | Restore Backup |
+
+#### Request
+
+```http
+POST /v1.0/backups/{backupId}/restore
+```
+
+#### Request Parameters
+
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| backupId | URL | UUID | Y | Backup identifier |
+
+#### Request Body
+
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+"dbInstanceName": "dbInstanceName-example",
+"dbInstanceCandidateName": "dbInstanceCandidateName-example",
+"description": "description-example",
+"dbFlavorId": "550e8400-e29b-41d4-a716-446655440000",
+"dbPort": 1,
+"parameterGroupId": "550e8400-e29b-41d4-a716-446655440000",
+"dbSecurityGroupIds": [],
+"userGroupIds": [],
+"useHighAvailability": false,
+"useDefaultNotification": false,
+"useDeletionProtection": false,
+"pingInterval": 1,
+"failoverReplWaitingTime": 1,
+"network": {
+"subnetId": "550e8400-e29b-41d4-a716-446655440000",
+"usePublicAccess": false,
+"availabilityZone": "kr-pub-a"
+},
+"storage": {
+"storageType": "General SSD",
+"storageSize": 20
+},
+"backup": {
+"backupPeriod": 0,
+"backupRetryCount": 0,
+"backupSchedules": [
+{
+"backupWndBgnTime": "00:00:00",
+"backupWndDuration": "HALF_AN_HOUR"
+}
+]
+}
+}
+```
+
+</details>
+
+| Name | Type | Required | Description |
+|-----|-----|-----|-----|
+| dbInstanceName | String | Y | Name to identify DB instances |
+| dbInstanceCandidateName | String | N | Candidate master name to identify the DB instance |
+| description | String | N | Additional information on DB instances |
+| dbFlavorId | UUID | Y | Identifier of DB instance specifications |
+| dbPort | Number | Y | DB port<br/>- Minimum value: 5432, Maximum value: 45432 |
+| parameterGroupId | UUID | Y | Parameter group identifier |
+| dbSecurityGroupIds | Array | N | List of DB security group identifiers |
+| userGroupIds | Array | N | List of user group identifiers |
+| useHighAvailability | Boolean | N | Whether to use high availability<br/>- Default: `false` |
+| useDefaultNotification | Boolean | N | Whether to use default notification<br/>- Default: `false` |
+| useDeletionProtection | Boolean | N | Whether to use deletion protection<br/>- Default: `false` |
+| pingInterval | Number | N | Ping interval (seconds)<br/>- Minimum value: `1`<br/>- Maximum value: `600` |
+| failoverReplWaitingTime | Number | N | Failover replication delay waiting time (seconds)<br/>- Minimum value: `-1` |
+| network | Object | Y | Network information objects |
+| network.subnetId | UUID | Y | Subnet identifier |
+| network.usePublicAccess | Boolean | N | Whether external access is available<br/>- Default: `false` |
+| network.availabilityZone | Enum | N | Availability zone where DB instance will be created |
+| storage | Object | Y | Storage information objects |
+| storage.storageType | Enum | Y | Storage type |
+| storage.storageSize | Number | Y | Data storage size (GB)<br/>- Minimum value: `20` |
+| backup | Object | Y | Backup information objects |
+| backup.backupPeriod | Number | Y | Backup retention period (days)<br/>- Minimum value: `0`<br/>- Maximum value: `730` |
+| backup.backupRetryCount | Number | N | Number of backup retries<br/>- Minimum value: `0`<br/>- Maximum value: `10` |
+| backup.backupSchedules | Array | Y | Backup schedules |
+| backup.backupSchedules.backupWndBgnTime | Time | Y | Backup start time |
+| backup.backupSchedules.backupWndDuration | Enum | Y | Backup duration<br/>- HALF_AN_HOUR: `30 minutes`<br/>- ONE_HOUR: `1 hour`<br/>- ONE_HOUR_AND_HALF: `1.5 hours`<br/>- TWO_HOURS: `2 hours`<br/>- TWO_HOURS_AND_HALF: `2.5 hours`<br/>- THREE_HOURS: `3 hours` |
+
+#### Response
+
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"jobId": "550e8400-e29b-41d4-a716-446655440000"
+}
+```
+
+</details>
+
+| Name | Type | Description |
+|-----|-----|-----|
+| jobId | UUID | Identifier of requested task |
+
+---
 
 ## DB Security Group
 
+### DB Security Group Progress Status
+
+| Status | Description |
+|-----------------|--------------|
+| `NONE` | No work in progress |
+| `CREATING_RULE` | Creating rule policy |
+| `UPDATING_RULE` | Modifying rule policy |
+| `DELETING_RULE` | Deleting rule policy |
+
 ### List DB Security Groups
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:DbSecurityGroup.List | List DB Security Groups |
+
+#### Request
 
 ```http
 GET /v1.0/db-security-groups
 ```
 
-#### Required permissions
-
-| Permission Name                                   | Description             |
-|---------------------------------------|----------------|
-| RDSforPostgreSQL:DbSecurityGroup.List | List DB Security Groups |
-
-#### Request
+#### Request Body
 
 This API does not require a request body.
 
 #### Response
 
-| Name                                     | Type   | Format       | Description                                                                                                                                                                                             |
-|----------------------------------------|------|----------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| dbSecurityGroups                       | Body | Array    | DB security groups                                                                                                                                                                                    |
-| dbSecurityGroups.dbSecurityGroupId     | Body | UUID     | DB security group identifier                                                                                                                                                                                  |
-| dbSecurityGroups.dbSecurityGroupName   | Body | String   | Name to identify DB instances                                                                                                                                                                          |
-| dbSecurityGroups.dbSecurityGroupStatus | Body | Enum     | Current status of DB security groups<br/>- `CREATED: Created`<br/>- `DELETED`: Deleted                                                                                                                                      |
-| dbSecurityGroups.description           | Body | String   | Additional information on DB security group                                                                                                                                                                             |
-| dbSecurityGroups.progressStatus        | Body | Enum     | Current status of DB security group<br/>- `NONE`: No work in progress<br/>- `CREATING_RULE`: Creating rule policy<br/>- `UPDATING_RULE`: Modifying rule policy<br/>- `DELETING_RULE`: Deleting rule policy<br/>- `APPLYING_DEFAULT_RULE`: Applying default rule  |
-| dbSecurityGroups.createdYmdt           | Body | DateTime | Created date and time (YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                                                              |
-| dbSecurityGroups.updatedYmdt           | Body | DateTime | Modified date and time (YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                                                              |
-
-<details><summary>Example</summary>
+<details>
+  <summary><strong>Example Code</strong></summary>
 
 ```json
 {
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "dbSecurityGroups": [
-        {
-            "dbSecurityGroupId": "fe4f2aee-afbb-4c19-a5e9-eb2eab394708",
-            "dbSecurityGroupName": "dbSecurityGroup",
-            "dbSecurityGroupStatus": "CREATED",
-            "description": "description",
-            "progressStatus": "NONE",
-            "createdYmdt": "2023-02-19T19:18:13+09:00",
-            "updatedYmdt": "2022-02-19T19:18:13+09:00"
-        }
-    ]
-}
-```
-</details>
-
-### List DB Security Group Details
-
-```http
-GET /v1.0/db-security-groups/{dbSecurityGroupId}
-```
-
-#### Required permissions
-
-| Permission Name                                  | Description             |
-|--------------------------------------|----------------|
-| RDSforPostgreSQL:DbSecurityGroup.Get | List DB Security Group Details |
-
-#### Request
-
-This API does not require a request body.
-
-| Name                | Type  | Format   | Required | Description            |
-|-------------------|-----|------|----|---------------|
-| dbSecurityGroupId | URL | UUID | O  | DB security group identifier |
-
-#### Response
-
-| Name                    | Type   | Format       | Description                                                                                                                                                                                            |
-|-----------------------|------|----------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| dbSecurityGroupId     | Body | UUID     | DB security group identifier                                                                                                                                                                                 |
-| dbSecurityGroupName   | Body | String   | Name to identify DB instances                                                                                                                                                                         |
-| dbSecurityGroupStatus | Body | Enum     | Current status of DB security groups<br/>- `CREATED: Created`<br/>- `DELETED`: Deleted                                                                                                                                     |
-| description           | Body | String   | Additional information on DB security group                                                                                                                                                                            |
-| progressStatus        | Body | Enum     | Current status of DB security group<br/>- `NONE`: No work in progress<br/>- `CREATING_RULE`: Creating rule policy<br/>- `UPDATING_RULE`: Modifying rule policy<br/>- `DELETING_RULE`: Deleting rule policy<br/>- `APPLYING_DEFAULT_RULE`: Applying default rule |
-| rules                 | Body | Array    | DB security group rules                                                                                                                                                                                |
-| rules.ruleId          | Body | UUID     | DB security group rule identifier                                                                                                                                                                              |
-| rules.description     | Body | String   | Additional information on DB security group rule                                                                                                                                                                         |
-| rules.direction       | Body | Enum     | Communication direction<br/>- `INGRESS`: Inbound<br/>- `EGRESS`: Outbound                                                                                                                                                  |
-| rules.etherType       | Body | Enum     | Ether type<br/>- `IPV4`: IPv4<br/>- `IPV6`: IPv6                                                                                                                                                |
-| rules.port            | Body | Object   | Port object                                                                                                                                                                                         |
-| rules.port.portType   | Body | Enum     | Port type<br/>- `DB_PORT`: Sets to DB instance port value.<br/>- `PORT`: Sets to specified port value.<br/>- `PORT_RANGE`: Sets to specified port range.                                                                            |
-| rules.port.minPort    | Body | Number   | Minimum port range                                                                                                                                                                                      |
-| rules.port.maxPort    | Body | Number   | Maximum port range                                                                                                                                                                                      |
-| rules.cidr            | Body | String   | Remote source for traffic to allow                                                                                                                                                                                |
-| rules.createdYmdt     | Body | DateTime | Created date and time (YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                                                             |
-| rules.updatedYmdt     | Body | DateTime | Modified date and time (YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                                                             |
-| createdYmdt           | Body | DateTime | Created date and time (YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                                                             |
-| updatedYmdt           | Body | DateTime | Modified date and time (YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                                                             |
-
-<details><summary>Example</summary>
-
-```json
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"dbSecurityGroups": [
 {
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "dbSecurityGroup": {
-        "dbSecurityGroupId": "fe4f2aee-afbb-4c19-a5e9-eb2eab394708",
-        "dbSecurityGroupName": "dbSecurityGroup",
-        "dbSecurityGroupStatus": "CREATED",
-        "description": "description",
-        "progressStatus": "NONE",
-        "rules": [
-            {
-                "ruleId": "17c88ef6-95f1-4678-84f9-fee1b22e250d",
-                "description": "description",
-                "direction": "INGRESS",
-                "etherType": "IPV4",
-                "port": {
-                    "portType": "PORT_RANGE",
-                    "minPort": 10000,
-                    "maxPort": 10005
-                },
-                "cidr": "0.0.0.0/0",
-                "createdYmdt": "2023-02-19T19:18:13+09:00",
-                "updatedYmdt": "2023-02-19T19:18:13+09:00"
-            }
-        ],
-        "createdYmdt": "2023-02-19T19:18:13+09:00",
-        "updatedYmdt": "2023-02-19T19:18:13+09:00"
-    }
+"dbSecurityGroupId": "550e8400-e29b-41d4-a716-446655440000",
+"dbSecurityGroupName": "dbSecurityGroupName-example",
+"dbSecurityGroupStatus": "CREATED",
+"description": "description-example",
+"progressStatus": "NONE",
+"createdYmdt": "2023-12-31T15:00:00+09:00",
+"updatedYmdt": "2023-12-31T15:00:00+09:00"
+}
+]
 }
 ```
+
 </details>
+
+| Name | Type | Description |
+|-----|-----|-----|
+| dbSecurityGroups | Array | DB security groups |
+| dbSecurityGroups.dbSecurityGroupId | UUID | DB security group identifier |
+| dbSecurityGroups.dbSecurityGroupName | String | Name to identify the DB security group |
+| dbSecurityGroups.dbSecurityGroupStatus | Enum | Current status of the DB security group<br/>- CREATED: `Created`<br/>- DELETED: `Deleted` |
+| dbSecurityGroups.description | String | Additional information on the DB security group |
+| dbSecurityGroups.progressStatus | Enum | Current progress status of the DB security group<br/>- NONE: `No work in progress`<br/>- CREATING_RULE: `Creating rule policy`<br/>- UPDATING_RULE: `Modifying rule policy`<br/>- DELETING_RULE: `Deleting rule policy`<br/>- APPLYING_DEFAULT_RULE: `Applying default rule` |
+| dbSecurityGroups.createdYmdt | DateTime | Created date and time |
+| dbSecurityGroups.updatedYmdt | DateTime | Modified date and time |
+
+---
 
 ### Create DB Security Group
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:DbSecurityGroup.Create | Create DB Security Group |
+
+#### Request
 
 ```http
 POST /v1.0/db-security-groups
 ```
 
-#### Required permissions
+#### Request Body
 
-| Permission Name                                     | Description            |
-|-----------------------------------------|---------------|
-| RDSforPostgreSQL:DbSecurityGroup.Create | Create DB Security Group |
-
-#### Request
-
-| Name                  | Type   | Format     | Required | Description                                                                                                                                                                                       |
-|---------------------|------|--------|----|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| dbSecurityGroupName | Body | String | O  | Name to identify DB instances                                                                                                                                                                    |
-| description         | Body | String | X  | Additional information on DB security group                                                                                                                                                                       |
-| rules               | Body | Array  | O  | DB security group rules                                                                                                                                                                           |
-| rules.description   | Body | String | X  | Additional information on DB security group rule                                                                                                                                                                    |
-| rules.direction     | Body | Enum   | O  | Communication direction<br/>- `INGRESS`: Inbound<br/>- `EGRESS`: Outbound                                                                                                                                             |
-| rules.etherType     | Body | Enum   | O  | Ether type<br/>- `IPV4`: IPv4<br/>- `IPV6`: IPv6                                                                                                                                           |
-| rules.cidr          | Body | String | O  | Remote source for traffic to allow<br/>- Example: `1.1.1.1/32`                                                                                                                                                    |
-| rules.port          | Body | Object | O  | Port object                                                                                                                                                                                    |
-| rules.port.portType | Body | Enum   | O  | Port type<br/>- `DB_PORT`: Sets to DB instance port value. Values for `minPort` 값과 `maxPort` are not required.<br/>- `PORT`: 지정된 포트값으로 설정됩니다. `minPort`값과 `maxPort`값이 같아야 합니다.<br/>- `PORT_RANGE`: Sets to specified port range. |
-| rules.port.minPort  | Body | Number | X  | Minimum port range<br/>- Minimum value received: 5432<br/>- Transmit minimum: 1                                                                                                                                              |
-| rules.port.maxPort  | Body | Number | X  | Maximum port range<br/>- Maximum received: 45432<br/>- Send maximum: 65535                                                                                                                                         |
-
-<details><summary>Example</summary>
+<details>
+  <summary><strong>Example Code</strong></summary>
 
 ```json
 {
-    "dbSecurityGroupName": "dbSecurityGroup",
-    "description": "description",
-    "rules": [
-        {
-            "direction": "INGRESS",
-            "etherType": "IPV4",
-            "port": {
-                "portType": "PORT_RANGE",
-                "minPort": 10000,
-                "maxPort": 10005
-            },
-            "cidr": "0.0.0.0/0"
-        }
-    ]
+"dbSecurityGroupName": "dbSecurityGroupName-example",
+"description": "description-example",
+"rules": [
+{
+"direction": "INGRESS",
+"etherType": "IPV4",
+"port": {
+"portType": "ALL",
+"minPort": 1,
+"maxPort": 1
+},
+"cidr": "192.168.0.0/24",
+"description": "description-example"
+}
+]
 }
 ```
+
 </details>
+
+| Name | Type | Required | Description |
+|-----|-----|-----|-----|
+| dbSecurityGroupName | String | Y | Name to identify the DB security group |
+| description | String | N | Additional information on the DB security group |
+| rules | Array | Y | DB security group rule information |
+| rules.direction | Enum | Y | Communication direction<br/>- INGRESS: `Inbound`<br/>- EGRESS: `Outbound` |
+| rules.etherType | Enum | Y | Ether type<br/>- IPV4: `IPv4`<br/>- IPV6: `IPv6` |
+| rules.port | Object | Y | Port object |
+| rules.port.portType | Enum | Y | Port type<br/>- ALL: `All port ranges (not used in the user console)`<br/>- PORT: `Specific port`<br/>- DB_PORT: `DB listening port`<br/>- PORT_RANGE: `Port range` |
+| rules.port.minPort | Number | N | Minimum port range<br/>- Minimum value: `1` |
+| rules.port.maxPort | Number | N | Maximum port range<br/>- Maximum value: `65535` |
+| rules.cidr | String | Y | CIDR |
+| rules.description | String | N | Additional information on the DB security group rule |
 
 #### Response
 
-| Name                | Type   | Format   | Description            |
-|-------------------|------|------|---------------|
-| dbSecurityGroupId | Body | UUID | DB security group identifier |
-
-<details><summary>Example</summary>
+<details>
+  <summary><strong>Example Code</strong></summary>
 
 ```json
 {
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "dbSecurityGroupId": "fe4f2aee-afbb-4c19-a5e9-eb2eab394708"
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"dbSecurityGroupId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
+
 </details>
 
-### Modify DB Security Group
+| Name | Type | Description |
+|-----|-----|-----|
+| dbSecurityGroupId | UUID | DB security group identifier |
 
-```http
-PUT /v1.0/db-security-groups/{dbSecurityGroupId}
-```
-
-#### Required permissions
-
-| Permission Name                                     | Description            |
-|-----------------------------------------|---------------|
-| RDSforPostgreSQL:DbSecurityGroup.Modify | Modify DB Security Group |
-
-#### Request
-
-| Name                  | Type   | Format     | Required | Description                    |
-|---------------------|------|--------|----|-----------------------|
-| dbSecurityGroupId   | URL  | UUID   | O  | DB security group identifier         |
-| dbSecurityGroupName | Body | String | X  | Name to identify DB instances |
-| description         | Body | String | X  | Additional information on DB security group    |
-
-<details><summary>Example</summary>
-
-```json
-{
-    "dbSecurityGroupName": "dbSecurityGroup",
-    "description": "description"
-}
-```
-</details>
-
-#### Response
-
-This API does not return a response body.
-
-<details><summary>Example</summary>
-
-```json
-{
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    }
-}
-```
-</details>
+---
 
 ### Delete DB Security Group
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:DbSecurityGroup.Delete | Delete DB Security Group |
+
+#### Request
 
 ```http
 DELETE /v1.0/db-security-groups/{dbSecurityGroupId}
 ```
 
-#### Required permissions
+#### Request Parameters
 
-| Permission Name                                     | Description            |
-|-----------------------------------------|---------------|
-| RDSforPostgreSQL:DbSecurityGroup.Delete | Delete DB Security Group |
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| dbSecurityGroupId | URL | UUID | Y |  |
 
-#### Request
+#### Request Body
 
 This API does not require a request body.
-
-| Name                | Type  | Format   | Required | Description            |
-|-------------------|-----|------|----|---------------|
-| dbSecurityGroupId | URL | UUID | O  | DB security group identifier |
 
 #### Response
 
 This API does not return a response body.
 
-<details><summary>Example</summary>
+---
 
-```json
-{
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    }
-}
-```
-</details>
+### List DB Security Group Details
 
-### Create DB Security Group
+#### Required Permission
 
-```http
-POST /v1.0/db-security-groups/{dbSecurityGroupId}/rules
-```
-
-#### Required permissions
-
-| Permission Name                                         | Description               |
-|---------------------------------------------|------------------|
-| RDSforPostgreSQL:DbSecurityGroupRule.Create | Create DB Security Group |
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:DbSecurityGroup.Get | List DB Security Group Details |
 
 #### Request
 
-| Name                | Type   | Format     | Required | Description                                                                                                                                                                                       |
-|-------------------|------|--------|----|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| dbSecurityGroupId | URL  | UUID   | O  | DB security group identifier                                                                                                                                                                            |
-| description       | Body | String | X  | Additional information on DB security group rule                                                                                                                                                                    |
-| direction         | Body | Enum   | O  | Communication direction<br/>- `INGRESS`: Inbound<br/>- `EGRESS`: Outbound                                                                                                                                             |
-| etherType         | Body | Enum   | O  | Ether type<br/>- `IPV4`: IPv4<br/>- `IPV6`: IPv6                                                                                                                                           |
-| port              | Body | Object | O  | Port object                                                                                                                                                                                    |
-| port.portType     | Body | Enum   | O  | Port type<br/>- `DB_PORT`: Sets to DB instance port value. Values for `minPort` 값과 `maxPort` are not required.<br/>- `PORT`: 지정된 포트값으로 설정됩니다. `minPort`값과 `maxPort`값이 같아야 합니다.<br/>- `PORT_RANGE`: Sets to specified port range. |
-| port.minPort      | Body | Number | X  | Minimum port range<br/>- Minimum value received: 5432<br/>- Transmit minimum: 1                                                                                                                                              |
-| port.maxPort      | Body | Number | X  | Maximum port range<br/>- Maximum received: 45432<br/>- Send maximum: 65535                                                                                                                                         |
-| cidr              | Body | String | O  | Remote source for traffic to allow<br/>- Example: `1.1.1.1/32`                                                                                                                                                    |
-
-<details><summary>Example</summary>
-
-```json
-{
-    "direction": "INGRESS",
-    "etherType": "IPV4",
-    "port": {
-        "portType": "PORT",
-        "minPort": 10000,
-        "maxPort": 10000
-    },
-    "cidr": "0.0.0.0/0"
-}
+```http
+GET /v1.0/db-security-groups/{dbSecurityGroupId}
 ```
-</details>
+
+#### Request Parameters
+
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| dbSecurityGroupId | URL | UUID | Y |  |
+
+#### Request Body
+
+This API does not require a request body.
 
 #### Response
 
-| Name    | Type   | Format   | Description          |
-|-------|------|------|-------------|
-| jobId | Body | UUID | Identifier of requested task |
-
-<details><summary>Example</summary>
+<details>
+  <summary><strong>Example Code</strong></summary>
 
 ```json
 {
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "jobId": "0ddb042c-5af6-43fb-a914-f4dd0540eb7c"
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"dbSecurityGroup": {
+"dbSecurityGroupId": "550e8400-e29b-41d4-a716-446655440000",
+"dbSecurityGroupName": "dbSecurityGroupName-example",
+"dbSecurityGroupStatus": "CREATED",
+"description": "description-example",
+"progressStatus": "NONE",
+"rules": [
+{
+"ruleId": "550e8400-e29b-41d4-a716-446655440000",
+"description": "description-example",
+"direction": "INGRESS",
+"etherType": "IPV4",
+"port": {
+"portType": "ALL",
+"minPort": 1,
+"maxPort": 1
+},
+"cidr": "192.168.0.0/24",
+"createdYmdt": "2023-12-31T15:00:00+09:00",
+"updatedYmdt": "2023-12-31T15:00:00+09:00"
+}
+],
+"createdYmdt": "2023-12-31T15:00:00+09:00",
+"updatedYmdt": "2023-12-31T15:00:00+09:00"
+}
 }
 ```
+
 </details>
 
-### Modify DB Security Group Rule
+| Name | Type | Description |
+|-----|-----|-----|
+| dbSecurityGroup | Object | DB security group |
+| dbSecurityGroup.dbSecurityGroupId | UUID | DB security group identifier |
+| dbSecurityGroup.dbSecurityGroupName | String | Name to identify the DB security group |
+| dbSecurityGroup.dbSecurityGroupStatus | Enum | Current status of the DB security group<br/>- CREATED: `Created`<br/>- DELETED: `Deleted` |
+| dbSecurityGroup.description | String | Additional information on the DB security group |
+| dbSecurityGroup.progressStatus | Enum | Current progress status of the DB security group<br/>- NONE: `No work in progress`<br/>- CREATING_RULE: `Creating rule policy`<br/>- UPDATING_RULE: `Modifying rule policy`<br/>- DELETING_RULE: `Deleting rule policy`<br/>- APPLYING_DEFAULT_RULE: `Applying default rule` |
+| dbSecurityGroup.rules | Array | DB security group rule list |
+| dbSecurityGroup.rules.ruleId | UUID | DB security group rule identifier |
+| dbSecurityGroup.rules.description | String | Additional information on the DB security group rule |
+| dbSecurityGroup.rules.direction | Enum | Communication direction<br/>- INGRESS: `Inbound`<br/>- EGRESS: `Outbound` |
+| dbSecurityGroup.rules.etherType | Enum | Ether type<br/>- IPV4: `IPv4`<br/>- IPV6: `IPv6` |
+| dbSecurityGroup.rules.port | Object | Port object |
+| dbSecurityGroup.rules.port.portType | Enum | Port type<br/>- ALL: `All port ranges (not used in the user console)`<br/>- PORT: `Specific port`<br/>- DB_PORT: `DB listening port`<br/>- PORT_RANGE: `Port range` |
+| dbSecurityGroup.rules.port.minPort | Number | Minimum port range |
+| dbSecurityGroup.rules.port.maxPort | Number | Maximum port range |
+| dbSecurityGroup.rules.cidr | String | CIDR |
+| dbSecurityGroup.rules.createdYmdt | DateTime | Created date and time |
+| dbSecurityGroup.rules.updatedYmdt | DateTime | Modified date and time |
+| dbSecurityGroup.createdYmdt | DateTime | Created date and time |
+| dbSecurityGroup.updatedYmdt | DateTime | Modified date and time |
 
-```http
-PUT /v1.0/db-security-groups/{dbSecurityGroupId}/rules/{ruleId}
-```
+---
 
-#### Required permissions
+### Modify DB Security Group
 
-| Permission Name                                         | Description               |
-|---------------------------------------------|------------------|
-| RDSforPostgreSQL:DbSecurityGroupRule.Modify | Modify DB Security Group Rule |
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:DbSecurityGroup.Modify | Modify DB Security Group |
 
 #### Request
 
-| Name                | Type   | Format     | Required | Description                                                                                                                                                                                       |
-|-------------------|------|--------|----|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| dbSecurityGroupId | URL  | UUID   | O  | DB security group identifier                                                                                                                                                                            |
-| ruleId            | URL  | UUID   | O  | DB security group rule identifier                                                                                                                                                                         |
-| description       | Body | String | X  | Additional information on DB security group rule                                                                                                                                                                    |
-| direction         | Body | Enum   | O  | Communication direction<br/>- `INGRESS`: Inbound<br/>- `EGRESS`: Outbound                                                                                                                                             |
-| etherType         | Body | Enum   | O  | Ether type<br/>- `IPV4`: IPv4<br/>- `IPV6`: IPv6                                                                                                                                           |
-| port              | Body | Object | O  | Port object                                                                                                                                                                                    |
-| port.portType     | Body | Enum   | O  | Port type<br/>- `DB_PORT`: Sets to DB instance port value. Values for `minPort` 값과 `maxPort` are not required.<br/>- `PORT`: 지정된 포트값으로 설정됩니다. `minPort`값과 `maxPort`값이 같아야 합니다.<br/>- `PORT_RANGE`: Sets to specified port range. |
-| port.minPort      | Body | Number | X  | Minimum port range<br/>- Minimum value received: 5432<br/>- Transmit minimum: 1                                                                                                                                              |
-| port.maxPort      | Body | Number | X  | Maximum port range<br/>- Maximum received: 45432<br/>- Send maximum: 65535                                                                                                                                         |
-| cidr              | Body | String | O  | Remote source for traffic to allow<br/>- Example: `1.1.1.1/32`                                                                                                                                                    |
+```http
+PUT /v1.0/db-security-groups/{dbSecurityGroupId}
+```
 
-<details><summary>Example</summary>
+#### Request Parameters
+
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| dbSecurityGroupId | URL | UUID | Y |  |
+
+#### Request Body
+
+<details>
+  <summary><strong>Example Code</strong></summary>
 
 ```json
 {
-    "direction": "INGRESS",
-    "etherType": "IPV4",
-    "port": {
-        "portType": "DB_PORT"
-    },
-    "cidr": "0.0.0.0/0"
+"dbSecurityGroupName": "dbSecurityGroupName-example",
+"description": "description-example"
 }
 ```
+
 </details>
+
+| Name | Type | Required | Description |
+|-----|-----|-----|-----|
+| dbSecurityGroupName | String | Y | Name to identify the DB security group |
+| description | String | N | Additional information on the DB security group |
 
 #### Response
 
-| Name    | Type   | Format   | Description          |
-|-------|------|------|-------------|
-| jobId | Body | UUID | Identifier of requested task |
+This API does not return a response body.
 
-<details><summary>Example</summary>
-
-```json
-{
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "jobId": "0ddb042c-5af6-43fb-a914-f4dd0540eb7c"
-}
-```
-</details>
+---
 
 ### Delete DB Security Group Rule
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:DbSecurityGroupRule.Delete | Delete DB Security Group Rule |
+
+#### Request
 
 ```http
 DELETE /v1.0/db-security-groups/{dbSecurityGroupId}/rules
 ```
 
-#### Required permissions
+#### Request Parameters
 
-| Permission Name                                         | Description               |
-|---------------------------------------------|------------------|
-| RDSforPostgreSQL:DbSecurityGroupRule.Create | Delete DB Security Group Rule |
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| dbSecurityGroupId | URL | UUID | Y |  |
+| ruleIds | Query | String | Y | DB security group rule ID list |
 
-#### Request
+#### Request Body
 
 This API does not require a request body.
 
-| Name                | Type    | Format    | Required | Description                  |
-|-------------------|-------|-------|----|---------------------|
-| dbSecurityGroupId | URL   | UUID  | O  | DB security group identifier       |
-| ruleIds           | Query | Array | O  | DB security group rule identifiers |
-
 #### Response
 
-| Name    | Type   | Format   | Description          |
-|-------|------|------|-------------|
-| jobId | Body | UUID | Identifier of requested task |
-
-<details><summary>Example</summary>
+<details>
+  <summary><strong>Example Code</strong></summary>
 
 ```json
 {
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "jobId": "0ddb042c-5af6-43fb-a914-f4dd0540eb7c"
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
+
 </details>
+
+| Name | Type | Description |
+|-----|-----|-----|
+| jobId | UUID | Identifier of requested task |
+
+---
+
+### Create DB Security Group Rule
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:DbSecurityGroupRule.Create | Create DB Security Group Rule |
+
+#### Request
+
+```http
+POST /v1.0/db-security-groups/{dbSecurityGroupId}/rules
+```
+
+#### Request Parameters
+
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| dbSecurityGroupId | URL | UUID | Y |  |
+
+#### Request Body
+
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+"direction": "INGRESS",
+"etherType": "IPV4",
+"port": {
+"portType": "ALL",
+"minPort": 1,
+"maxPort": 1
+},
+"cidr": "192.168.0.0/24",
+"description": "description-example"
+}
+```
+
+</details>
+
+| Name | Type | Required | Description |
+|-----|-----|-----|-----|
+| direction | Enum | Y | Communication direction<br/>- INGRESS: `Inbound`<br/>- EGRESS: `Outbound` |
+| etherType | Enum | Y | Ether type<br/>- IPV4: `IPv4`<br/>- IPV6: `IPv6` |
+| port | Object | Y | Port information |
+| port.portType | Enum | Y | Port type<br/>- ALL: `All port ranges (not used in the user console)`<br/>- PORT: `Specific port`<br/>- DB_PORT: `DB listening port`<br/>- PORT_RANGE: `Port range` |
+| port.minPort | Number | N | Minimum port range<br/>- Minimum value: `1` |
+| port.maxPort | Number | N | Maximum port range<br/>- Maximum value: `65535` |
+| cidr | String | Y | CIDR |
+| description | String | N | Additional information on the DB security group rule |
+
+#### Response
+
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"jobId": "550e8400-e29b-41d4-a716-446655440000"
+}
+```
+
+</details>
+
+| Name | Type | Description |
+|-----|-----|-----|
+| jobId | UUID | Identifier of requested task |
+
+---
+
+### Modify DB Security Group Rule
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:DbSecurityGroupRule.Modify | Modify DB Security Group Rule |
+
+#### Request
+
+```http
+PUT /v1.0/db-security-groups/{dbSecurityGroupId}/rules/{ruleId}
+```
+
+#### Request Parameters
+
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| dbSecurityGroupId | URL | UUID | Y |  |
+| ruleId | URL | UUID | Y |  |
+
+#### Request Body
+
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+"direction": "INGRESS",
+"etherType": "IPV4",
+"port": {
+"portType": "ALL",
+"minPort": 1,
+"maxPort": 1
+},
+"cidr": "192.168.0.0/24",
+"description": "description-example"
+}
+```
+
+</details>
+
+| Name | Type | Required | Description |
+|-----|-----|-----|-----|
+| direction | Enum | Y | Communication direction<br/>- INGRESS: `Inbound`<br/>- EGRESS: `Outbound` |
+| etherType | Enum | Y | Ether type<br/>- IPV4: `IPv4`<br/>- IPV6: `IPv6` |
+| port | Object | Y | Port information |
+| port.portType | Enum | Y | Port type<br/>- ALL: `All port ranges (not used in the user console)`<br/>- PORT: `Specific port`<br/>- DB_PORT: `DB listening port`<br/>- PORT_RANGE: `Port range` |
+| port.minPort | Number | N | Minimum port range<br/>- Minimum value: `1` |
+| port.maxPort | Number | N | Maximum port range<br/>- Maximum value: `65535` |
+| cidr | String | Y | CIDR |
+| description | String | N | Additional information on the DB security group rule |
+
+#### Response
+
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"jobId": "550e8400-e29b-41d4-a716-446655440000"
+}
+```
+
+</details>
+
+| Name | Type | Description |
+|-----|-----|-----|
+| jobId | UUID | Identifier of requested task |
+
+---
 
 ## Parameter group
 
 ### List Parameter Groups
 
-```http
-GET /v1.0/parameter-groups
-```
+#### Required Permission
 
-#### Required permissions
-
-| Permission Name                                  | Description            |
-|--------------------------------------|---------------|
+| Permission Name | Description |
+|-----|-----|
 | RDSforPostgreSQL:ParameterGroup.List | List Parameter Groups |
 
 #### Request
 
-This API does not require a request body.
-
-| Name        | Type    | Format   | Required | Description       |
-|-----------|-------|------|----|----------|
-| dbVersion | Query | Enum | X  | DB version information |
-
-#### Response
-
-| Name                                   | Type   | Format       | Description                                                                |
-|--------------------------------------|------|----------|-------------------------------------------------------------------|
-| parameterGroups                      | Body | Array    | Parameter groups                                                        |
-| parameterGroups.parameterGroupId     | Body | UUID     | Parameter group identifier                                                      |
-| parameterGroups.parameterGroupName   | Body | String   | Name to identify parameter groups                                              |
-| parameterGroups.parameterGroupStatus | Body | Enum     | Parameter group current status<br/>- `STABLE`: Applied<br/>- `NEED_TO_APPLY`: Need to apply |
-| parameterGroups.description          | Body | String   | Additional information on parameter group                                                 |
-| parameterGroups.dbVersion            | Body | Enum     | DB version information                                                          |
-| parameterGroups.createdYmdt          | Body | DateTime | Created date and time (YYYY-MM-DDThh:mm:ss.SSSTZD)                                 |
-| parameterGroups.updatedYmdt          | Body | DateTime | Modified date and time (YYYY-MM-DDThh:mm:ss.SSSTZD)                                 |
-
-<details><summary>Example</summary>
-
-```json
-{
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "parameterGroups": [
-        {
-            "parameterGroupId": "404e8a89-ca4d-4fca-96c2-1518754d50b7",
-            "parameterGroupName": "parameter-group",
-            "parameterGroupStatus": "STABLE",
-            "description": null,
-            "dbVersion": "POSTGRESQL_V17_6",
-            "createdYmdt": "2023-02-31T15:28:17+09:00",
-            "updatedYmdt": "2023-02-31T15:28:17+09:00"
-        }
-    ]
-}
-```
-</details>
-
-
-### List Parameter Group Details
-
 ```http
-GET /v1.0/parameter-groups/{parameterGroupId}
+GET /v1.0/parameter-groups
 ```
 
-#### Required permissions
-
-| Permission Name                                 | Description            |
-|-------------------------------------|---------------|
-| RDSforPostgreSQL:ParameterGroup.Get | List Parameter Group Details |
-
-#### Request
+#### Request Body
 
 This API does not require a request body.
 
-| Name               | Type  | Format   | Required | Description           |
-|------------------|-----|------|----|--------------|
-| parameterGroupId | URL | UUID | O  | Parameter group identifier |
-
 #### Response
 
-| Name                           | Type   | Format       | Description                                                                                                                                                                                                                                                                                                                                                 |
-|------------------------------|------|----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| parameterGroupId             | Body | UUID     | Parameter group identifier                                                                                                                                                                                                                                                                                                                                       |
-| parameterGroupName           | Body | String   | Name to identify parameter groups                                                                                                                                                                                                                                                                                                                               |
-| description                  | Body | String   | Additional information on parameter group                                                                                                                                                                                                                                                                                                                                  |
-| dbVersion                    | Body | Enum     | DB version information                                                                                                                                                                                                                                                                                                                                           |
-| parameterGroupStatus         | Body | Enum     | Parameter group current status<br/>- `STABLE`: Applied<br/>- `NEED_TO_APPLY`: Need to apply<br/>- `DELETED`: Deleted                                                                                                                                                                                                                                                             |
-| parameters                   | Body | Array    | Parameter list                                                                                                                                                                                                                                                                                                                                            |
-| parameters.parameterCategory | Body | String   | Parameter Categories                                                                                                                                                                                                                                                                                                                                          |
-| parameters.parameterName     | Body | String   | Parameter name                                                                                                                                                                                                                                                                                                                                            |
-| parameters.value             | Body | String   | Current value                                                                                                                                                                                                                                                                                                                                           |
-| parameters.valueUnit         | Body | Enum     | The units of the currently set value<br/>- `B`: Bytes<br/>- `kB`: Kilobyte<br/>- `MB`: Megabytes<br/>- `GB`: Gigabyte<br/>- `TB`: Terabyte<br/>- `us`: Microseconds<br/>- `ms`: milliseconds<br/>- `s`: seconds<br/>- `min`: Minutes<br/>- `h`: hour<br/>- `d`: day                                                                                                                                                        |
-| parameters.defaultValue      | Body | String   | Default value                                                                                                                                                                                                                                                                                                                                                |
-| parameters.allowedValue      | Body | String   | Permitted values                                                                                                                                                                                                                                                                                                                                              |
-| parameters.valueType         | Body | Enum     | Value type<br/>- `BOOLEAN: Boolean` type<br/>- `STRING`: String type<br/>- `NUMERIC`: Integer and floating-point types<br/>- `NUMERIC_WITH_BYTE_UNIT`: Numeric type with byte unit (e.g. 120 KB, 100 MB)<br/>- `NUMERIC_WITH_TIME_UNIT`: Numeric type with time unit (e.g. 120ms, 100s, 1d)<br/>- `ENUMERATED`: Enter one of the values declared in Allowed Values<br/>- `MULTI_ENUMERATED`: Enter multiple of the values declared in Allowed values (separated by commas (,))<br/>- `TIMEZONE`: Timezone type |
-| parameters.updateType        | Body | Enum     | Modification type<br/>- `VARIABLE`: Modifiable any time<br/>- `CONSTANT`: Not modifiable                                                                                                                                                                                                                                                                                         |
-| parameters.applyType         | Body | Enum     | Applied type<br/>- `SESSION`: Apply session<br/>- `FILE`: Apply setting file (restart required)<br/>- `BOTH`: All                                                                                                                                                                                                                                                                       | 
-| createdYmdt                  | Body | DateTime | Created date and time (YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                                                                                                                                                                                                                  |
-| updatedYmdt                  | Body | DateTime | Modified date and time (YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                                                                                                                                                                                                                  |
-| expressionAvailable          | Body | Boolean  | Allow formulas or not                                                                                                                                                                                                                                                                                                                                           |
-
-<details><summary>Example</summary>
+<details>
+  <summary><strong>Example Code</strong></summary>
 
 ```json
 {
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "parameterGroupId": "404e8a89-ca4d-4fca-96c2-1518754d50b7",
-    "parameterGroupName": "parameter-group",
-    "description": null,
-    "dbVersion": "POSTGRESQL_V17_6",
-    "parameterGroupStatus": "STABLE",
-    "parameters": [
-        {
-            "parameterCategory": "Write-Ahead Log / Checkpoints",
-            "parameterName": "checkpoint_timeout",
-            "value": "300s",
-            "defaultValue": "300s",
-            "allowedValue": "30~86400s",
-            "valueType": "NUMERIC_WITH_TIME_UNIT",
-            "updateType": "VARIABLE",
-            "applyType": "BOTH",
-            "expressionAvailable": true
-        }
-    ],
-    "createdYmdt": "2023-03-13T11:02:28+09:00",
-    "updatedYmdt": "2023-03-13T11:02:28+09:00"
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"parameterGroups": [
+{
+"parameterGroupId": "550e8400-e29b-41d4-a716-446655440000",
+"parameterGroupName": "parameterGroupName-example",
+"description": "description-example",
+"dbVersion": "POSTGRESQL_V14_17",
+"parameterGroupStatus": "STABLE",
+"createdYmdt": "2023-12-31T15:00:00+09:00",
+"updatedYmdt": "2023-12-31T15:00:00+09:00"
+}
+]
 }
 ```
+
 </details>
 
+| Name | Type | Description |
+|-----|-----|-----|
+| parameterGroups | Array | Parameter groups |
+| parameterGroups.parameterGroupId | UUID | Parameter group identifier |
+| parameterGroups.parameterGroupName | String | Name to identify parameter groups |
+| parameterGroups.description | String | Additional information on parameter group |
+| parameterGroups.dbVersion | String | DB version information |
+| parameterGroups.parameterGroupStatus | Enum | Parameter group current status<br/>- STABLE: `Applied`<br/>- NEED_TO_APPLY: `Need to apply`<br/>- DELETED: `Deleted` |
+| parameterGroups.createdYmdt | DateTime | Created date and time |
+| parameterGroups.updatedYmdt | DateTime | Modified date and time |
+
+---
 
 ### Create Parameter Group
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:ParameterGroup.Create | Create Parameter Group |
+
+#### Request
 
 ```http
 POST /v1.0/parameter-groups
 ```
 
-#### Required permissions
+#### Request Body
 
-| Permission Name                                    | Description           |
-|----------------------------------------|--------------|
-| RDSforPostgreSQL:ParameterGroup.Create | Create Parameter Group |
-
-#### Request
-
-| Name                 | Type   | Format     | Required | Description                   |
-|--------------------|------|--------|----|----------------------|
-| parameterGroupName | Body | String | O  | Name to identify parameter groups |
-| description        | Body | String | X  | Additional information on parameter group    |
-| dbVersion          | Body | Enum   | O  | DB version information             |
-
-<details><summary>Example</summary>
+<details>
+  <summary><strong>Example Code</strong></summary>
 
 ```json
 {
-    "parameterGroupName": "parameter-group",
-    "description": "description",
-    "dbVersion": "POSTGRESQL_V17_6"
+"parameterGroupName": "parameterGroupName-example",
+"description": "description-example",
+"dbVersion": "POSTGRESQL_V14_17"
 }
 ```
+
 </details>
+
+| Name | Type | Required | Description |
+|-----|-----|-----|-----|
+| parameterGroupName | String | Y | Name to identify parameter groups |
+| description | String | N | Additional information on parameter group |
+| dbVersion | String | Y | DB version information |
 
 #### Response
 
-| Name               | Type   | Format   | Description           |
-|------------------|------|------|--------------|
-| parameterGroupId | Body | UUID | Parameter group identifier |
-
-<details><summary>Example</summary>
+<details>
+  <summary><strong>Example Code</strong></summary>
 
 ```json
 {
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "parameterGroupId": "404e8a89-ca4d-4fca-96c2-1518754d50b7"
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"parameterGroupId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
+
 </details>
 
-### Copy Parameter Group
+| Name | Type | Description |
+|-----|-----|-----|
+| parameterGroupId | UUID | Parameter group identifier |
 
-```http
-POST /v1.0/parameter-groups/{parameterGroupId}/copy
-```
-
-#### Required permissions
-
-| Permission Name                                  | Description           |
-|--------------------------------------|--------------|
-| RDSforPostgreSQL:ParameterGroup.Copy | Copy Parameter Group |
-
-#### Request
-
-| Name                 | Type   | Format     | Required | Description                   |
-|--------------------|------|--------|----|----------------------|
-| parameterGroupId   | URL  | UUID   | O  | Parameter group identifier         |
-| parameterGroupName | Body | String | O  | Name to identify parameter groups |
-| description        | Body | String | X  | Additional information on parameter group    |
-
-<details><summary>Example</summary>
-
-```json
-{
-    "parameterGroupName": "parameter-group-copy",
-    "description": "copy"
-}
-```
-</details>
-
-#### Response
-
-| Name               | Type   | Format   | Description           |
-|------------------|------|------|--------------|
-| parameterGroupId | Body | UUID | Parameter group identifier |
-
-<details><summary>Example</summary>
-
-```json
-{
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "parameterGroupId": "404e8a89-ca4d-4fca-96c2-1518754d50b7"
-}
-```
-</details>
-
-### Modify Parameter Group
-
-```http
-PUT /v1.0/parameter-groups/{parameterGroupId}
-```
-
-#### Required permissions
-
-| Permission Name                                    | Description           |
-|----------------------------------------|--------------|
-| RDSforPostgreSQL:ParameterGroup.Modify | Modify Parameter Group |
-
-#### Request
-
-| Name                 | Type   | Format     | Required | Description                   |
-|--------------------|------|--------|----|----------------------|
-| parameterGroupId   | URL  | UUID   | O  | Parameter group identifier         |
-| parameterGroupName | Body | String | X  | Name to identify parameter groups |
-| description        | Body | String | X  | Additional information on parameter group    |
-
-<details><summary>Example</summary>
-
-```json
-{
-    "parameterGroupName": "parameter-group",
-    "description": "description"
-}
-```
-</details>
-
-#### Response
-
-This API does not return a response body.
-
-<details><summary>Example</summary>
-
-```json
-{
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    }
-}
-```
-</details>
-
-### Modify Parameter
-
-```http
-PUT /v1.0/parameter-groups/{parameterGroupId}/parameters
-```
-
-#### Required permissions
-
-| Permission Name                                    | Description           |
-|----------------------------------------|--------------|
-| RDSforPostgreSQL:ParameterGroup.Modify | Modify Parameter Group |
-
-#### Request
-
-| Name                               | Type   | Format     | Required | Description           |
-|----------------------------------|------|--------|----|--------------|
-| parameterGroupId                 | URL  | UUID   | O  | Parameter group identifier |
-| modifiedParameters               | Body | Array  | O  | Parameters to change  |
-| modifiedParameters.parameterName | Body | UUID   | O  | Parameter name      |
-| modifiedParameters.value         | Body | String | O  | Parameter value to change   |
-
-<details><summary>Example</summary>
-
-```json
-{
-   "modifiedParameters": [
-       {
-           "parameterName": "checkpoint_timeout",
-           "value": "100s"
-       }
-   ]
-}
-```
-</details>
-
-#### Response
-
-This API does not return a response body.
-
-<details><summary>Example</summary>
-
-```json
-{
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    }
-}
-```
-</details>
-
-### Reset Parameter Group
-
-```http
-PUT /v1.0/parameter-groups/{parameterGroupId}/reset
-```
-
-#### Required permissions
-
-| Permission Name                                   | Description            |
-|---------------------------------------|---------------|
-| RDSforPostgreSQL:ParameterGroup.Reset | Reset Parameter Group |
-
-#### Request
-
-| Name               | Type  | Format   | Required | Description           |
-|------------------|-----|------|----|--------------|
-| parameterGroupId | URL | UUID | O  | Parameter group identifier |
-
-#### Response
-
-This API does not return a response body.
-
-<details><summary>Example</summary>
-
-```json
-{
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    }
-}
-```
-</details>
+---
 
 ### Delete Parameter Group
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:ParameterGroup.Delete | Delete Parameter Group |
+
+#### Request
 
 ```http
 DELETE /v1.0/parameter-groups/{parameterGroupId}
 ```
 
-#### Required permissions
+#### Request Parameters
 
-| Permission Name                                    | Description           |
-|----------------------------------------|--------------|
-| RDSforPostgreSQL:ParameterGroup.Delete | Delete Parameter Group |
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| parameterGroupId | URL | UUID | Y | Parameter group identifier |
 
-#### Request
+#### Request Body
 
 This API does not require a request body.
-
-| Name               | Type  | Format   | Required | Description           |
-|------------------|-----|------|----|--------------|
-| parameterGroupId | URL | UUID | O  | Parameter group identifier |
 
 #### Response
 
 This API does not return a response body.
 
-<details><summary>Example</summary>
+---
+
+### List Parameter Group Details
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:ParameterGroup.Get | List Parameter Group Details |
+
+#### Request
+
+```http
+GET /v1.0/parameter-groups/{parameterGroupId}
+```
+
+#### Request Parameters
+
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| parameterGroupId | URL | UUID | Y | Parameter group identifier |
+
+#### Request Body
+
+This API does not require a request body.
+
+#### Response
+
+<details>
+  <summary><strong>Example Code</strong></summary>
 
 ```json
 {
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    }
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"parameterGroupId": "550e8400-e29b-41d4-a716-446655440000",
+"parameterGroupName": "parameterGroupName-example",
+"description": "description-example",
+"dbVersion": "POSTGRESQL_V14_17",
+"parameterGroupStatus": "STABLE",
+"valueUnit": "valueUnit-example",
+{
+"allowedValue": "allowedValue-example",
+"valueType": "BOOLEAN",
+"updateType": "VARIABLE",
+"applyType": "BOTH",
+"expressionAvailable": false
+}
+],
+"createdYmdt": "2023-12-31T15:00:00+09:00",
+"updatedYmdt": "2023-12-31T15:00:00+09:00"
+}
+}
+],
+"createdYmdt": "2023-12-31T15:00:00+09:00",
+"updatedYmdt": "2023-12-31T15:00:00+09:00"
 }
 ```
+
 </details>
+
+| Name | Type | Description |
+|-----|-----|-----|
+| parameterGroupId | UUID | Parameter group identifier |
+| parameterGroupName | String | Name to identify parameter groups |
+| description | String | Additional information on parameter group |
+| dbVersion | String | DB version information |
+| parameterGroupStatus | Enum | Parameter group current status<br/>- STABLE: `Applied`<br/>- NEED_TO_APPLY: `Need to apply`<br/>- DELETED: `Deleted` |
+| parameters | Array | Parameter list |
+| parameters.parameterCategory | String | Parameter category |
+| parameters.parameterName | String | Parameter name |
+| parameters.value | String | Current value |
+| parameters.valueUnit | String | Unit of the current value (byte: B,kB,MB,GB,TB, time: us,ms,s,min,h,d) |
+| parameters.defaultValue | String | Default value |
+| parameters.allowedValue | String | Permitted values |
+| parameters.valueType | Enum | Value type<br/>- BOOLEAN: `Boolean type`<br/> `* ex) on, off, true, false, yes, no, 1, 0`<br/>- STRING: `String type`<br/>- NUMERIC: `Integer and floating-point types`<br/>- NUMERIC_WITH_BYTE_UNIT: `Numeric type with byte unit`<br/> `* ex) 120kB, 100MB`<br/> `* Allowed byte units: B (bytes), kB (kilobytes), MB (megabytes), GB (gigabytes), and TB (terabytes)`<br/>- NUMERIC_WITH_TIME_UNIT: `Numeric type with time unit`<br/> `* ex) 120ms, 100s, 1d`<br/> `* Allowed time units: us (microseconds), ms (milliseconds), s (seconds), min (minutes), h (hours), and d (days)`<br/>- ENUMERATED: `Enter one of the values declared in Allowed Values (separated by commas (,))`<br/>- MULTI_ENUMERATED: `Enter multiple of the values declared in Allowed Values (separated by commas (,))` |
+<p>
+{
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+| parameters.updateType | Enum | Modification type<br/>- VARIABLE: `Modifiable any time`<br/>- CONSTANT: `Not modifiable` |
+| parameters.applyType | Enum | Applied type<br/>- BOTH: `Apply session and setting file`<br/>- SESSION: `Apply session only`<br/>- FILE: `Apply setting file only` |
+| parameters.expressionAvailable | Boolean | Allow formulas or not |
+| createdYmdt | DateTime | Created date and time |
+| updatedYmdt | DateTime | Modified date and time |
+
+---
+
+### Modify Parameter Group
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:ParameterGroup.Modify | Modify Parameter Group |
+
+#### Request
+
+```http
+}
+```
+
+#### Request Parameters
+
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| parameterGroupId | URL | UUID | Y | Parameter group identifier |
+
+#### Request Body
+
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+"parameterGroupName": "parameterGroupName-example",
+"description": "description-example"
+}
+```
+
+</details>
+
+| Name | Type | Required | Description |
+|-----|-----|-----|-----|
+| parameterGroupName | String | N | Name to identify parameter groups |
+| description | String | N | Additional information on parameter group |
+
+#### Response
+
+This API does not return a response body.
+
+---
+
+### Copy Parameter Group
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:ParameterGroup.Copy | Copy Parameter Group |
+
+#### Request
+
+```http
+}
+```
+
+#### Request Parameters
+
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| parameterGroupId | URL | UUID | Y | Parameter group identifier |
+
+#### Request Body
+
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+"parameterGroupName": "parameterGroupName-example",
+"description": "description-example"
+}
+```
+
+</details>
+
+| Name | Type | Required | Description |
+|-----|-----|-----|-----|
+| parameterGroupName | String | Y | Name to identify parameter groups |
+| description | String | N | Additional information on parameter group |
+
+#### Response
+
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"parameterGroupId": "550e8400-e29b-41d4-a716-446655440000"
+}
+```
+
+</details>
+
+| Name | Type | Description |
+|-----|-----|-----|
+| parameterGroupId | UUID | Parameter group identifier |
+
+---
+
+### Modify Parameter
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:ParameterGroup.Modify | Modify Parameter Group |
+
+#### Request
+
+```http
+"parameterName": "parameterName-example",
+```
+
+#### Request Parameters
+
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| parameterGroupId | URL | UUID | Y | Parameter group identifier |
+
+#### Request Body
+
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+]
+{
+"valueType": "BOOLEAN",
+This API does not return a response body.
+}
+]
+}
+```
+
+</details>
+
+| Name | Type | Required | Description |
+|-----|-----|-----|-----|
+| modifiedParameters | Array | Y | Parameters to change |
+| modifiedParameters.parameterName | String | Y | Parameter name |
+| modifiedParameters.value | String | Y | Parameter value to change |
+
+#### Response
+
+This API does not return a response body.
+
+---
+
+### Reset Parameter Group
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:ParameterGroup.Reset | Reset Parameter Group |
+
+#### Request
+
+```http
+This API does not require a request body.
+```
+
+#### Request Parameters
+
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| parameterGroupId | URL | UUID | Y | Parameter group identifier |
+
+#### Request Body
+
+This API does not require a request body.
+
+#### Response
+
+This API does not return a response body.
+
+---
 
 ## User Group
 
 ### List User Groups
 
-```http
-GET /v1.0/user-groups
-```
+#### Required Permission
 
-#### Required permissions
-
-| Permission Name                             | Description           |
-|---------------------------------|--------------|
+| Permission Name | Description |
+|-----|-----|
 | RDSforPostgreSQL:UserGroup.List | List User Groups |
 
 #### Request
 
-This API does not require a request body.
-
-#### Response
-
-| Name                       | Type   | Format       | Description                                                      |
-|--------------------------|------|----------|---------------------------------------------------------|
-| userGroups               | Body | Array    | User Groups                                               |
-| userGroups.userGroupId   | Body | UUID     | User group identifier                                             |
-| userGroups.userGroupName | Body | String   | Name to identify user groups                                     |
-| userGroupStatus          | Body | Enum     | Current status of user groups<br/>- `CREATED: Created`<br/>- `DELETED`: Deleted |
-| userGroups.createdYmdt   | Body | DateTime | Created date and time (YYYY-MM-DDThh:mm:ss.SSSTZD)                       |
-| userGroups.updatedYmdt   | Body | DateTime | Modified date and time (YYYY-MM-DDThh:mm:ss.SSSTZD)                       |
-
-<details><summary>Example</summary>
-
-```json
-{
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "userGroups": [
-        {
-            "userGroupId": "1aac0437-f32d-4923-ad3c-ac61c1cfdfe0",
-            "userGroupName": "dev-team",
-            "userGroupStatus": "CREATED",
-            "createdYmdt": "2023-02-23T10:07:54+09:00",
-            "updatedYmdt": "2023-02-26T01:15:50+09:00"
-        }
-    ]
-}
-```
-</details>
-
-
-### List User Group Details
-
 ```http
-GET /v1.0/user-groups/{userGroupId}
+"resultCode": 0,
 ```
 
-#### Required permissions
-
-| Permission Name                            | Description           |
-|--------------------------------|--------------|
-| RDSforPostgreSQL:UserGroup.Get | List User Group Details |
-
-#### Request
+#### Request Body
 
 This API does not require a request body.
 
-| Name          | Type  | Format   | Required | Description          |
-|-------------|-----|------|----|-------------|
-| userGroupId | URL | UUID | O  | User group identifier |
-
 #### Response
 
-| Name                | Type   | Format       | Description                                                                                                        |
-|-------------------|------|----------|-----------------------------------------------------------------------------------------------------------|
-| userGroupId       | Body | UUID     | User group identifier                                                                                               |
-| userGroupName     | Body | String   | Name to identify user groups                                                                                       |
-| userGroupTypeCode | Body | Enum     | User group type    <br /> `ENTIRE`: User group including all project members <br /> `INDIVIDUAL_MEMBER`: User group including specific project members |
-| userGroupStatus   | Body | Enum     | Current status of user groups<br/>- `CREATED: Created`<br/>- `DELETED`: Deleted                                                   |
-| members           | Body | Array    | Project member list                                                                                                |
-| members.memberId  | Body | UUID     | Project member identifier                                                                                              |
-| createdYmdt       | Body | DateTime | Created date and time (YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                         |
-| updatedYmdt       | Body | DateTime | Modified date and time (YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                         |
-
-<details><summary>Example</summary>
+<details>
+  <summary><strong>Example Code</strong></summary>
 
 ```json
 {
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "userGroupId": "1aac0437-f32d-4923-ad3c-ac61c1cfdfe0",
-    "userGroupName": "dev-team",
-    "userGroupStatus": "CREATED",
-    "userGroupTypeCode": "INDIVIDUAL_MEMBER",
-    "members": [
-        {
-            "memberId": "1321e759-2ef3-4b85-9921-b13e918b24b5"
-        }
-    ],
-    "createdYmdt": "2023-02-23T10:07:54+09:00",
-    "updatedYmdt": "2023-02-26T01:15:50+09:00"
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"createdYmdt": "2023-12-31T15:00:00+09:00",
+{
+}
+]
+}
+"createdYmdt": "2023-12-31T15:00:00+09:00",
+"updatedYmdt": "2023-12-31T15:00:00+09:00"
+}
+]
 }
 ```
+
 </details>
 
+| Name | Type | Description |
+|-----|-----|-----|
+| userGroups | Array | User Groups |
+| userGroups.userGroupId | UUID | User group identifier |
+| userGroups.userGroupName | String | Name to identify user groups |
+| userGroups.userGroupStatus | Enum | Current status of user groups<br/>- CREATED<br/>- DELETED |
+| userGroups.createdYmdt | DateTime | Created date and time |
+| userGroups.updatedYmdt | DateTime | Modified date and time |
+
+---
 
 ### Create User Group
 
-```http
-POST /v1.0/user-groups
-```
+#### Required Permission
 
-#### Required permissions
-
-| Permission Name                               | Description          |
-|-----------------------------------|-------------|
+| Permission Name | Description |
+|-----|-----|
 | RDSforPostgreSQL:UserGroup.Create | Create User Group |
 
 #### Request
 
-| Name            | Type   | Format      | Required | Description                                                              |
-|---------------|------|---------|----|-----------------------------------------------------------------|
-| userGroupName | Body | String  | O  | Name to identify user groups                                             |
-| memberIds     | Body | Array   | O  | Project member identifiers     <br /> Ignored when `selectAllYN` is true |
-| selectAllYN   | Body | Boolean | X  | All project members or not <br /> If true, the group is set for all members              |
-
-<details><summary>Example</summary>
-
-```json
-{
-    "userGroupName": "dev-team",
-    "memberIds": ["1321e759-2ef3-4b85-9921-b13e918b24b5"]
-}
-```
-
-```json
-{
-    "userGroupName": "dev-team",
-    "selectAllYN":true
-}
-```
-</details>
-
-#### Response
-
-| Name          | Type   | Format   | Description          |
-|-------------|------|------|-------------|
-| userGroupId | Body | UUID | User group identifier |
-
-
-### Modify User Group
-
 ```http
-PUT /v1.0/user-groups/{userGroupId}
+"selectAllYN": false
 ```
 
-#### Required permissions
+#### Request Body
 
-| Permission Name                               | Description          |
-|-----------------------------------|-------------|
-| RDSforPostgreSQL:UserGroup.Modify | Modify User Group |
-
-#### Request
-
-| Name            | Type   | Format      | Required | Description                                                 |
-|---------------|------|---------|----|----------------------------------------------------|
-| userGroupId   | URL  | UUID    | O  | User group identifier                                        |
-| userGroupName | Body | String  | X  | Name to identify user groups                                |
-| memberIds     | Body | Array   | X  | Project member identifiers                                    |
-| selectAllYN   | Body | Boolean | X  | All project members or not <br /> If true, the group is set for all members |
-
-<details><summary>Example</summary>
+<details>
+  <summary><strong>Example Code</strong></summary>
 
 ```json
 {
-    "userGroupName": "dev-team",
-    "memberIds": ["1321e759-2ef3-4b85-9921-b13e918b24b5","f9064b09-2b15-442e-a4b0-3a5a2754555e"]
+]
+{
+"header": {
 }
 ```
+
 </details>
+
+| Name | Type | Required | Description |
+|-----|-----|-----|-----|
+| userGroupName | String | Y | Name to identify user groups |
+| memberIds | Array | Y | List of project member identifiers |
+| selectAllYN | Boolean | Y | All project members or not<br/>- Default: `false` |
 
 #### Response
 
-This API does not return a response body.
-
-<details><summary>Example</summary>
+<details>
+  <summary><strong>Example Code</strong></summary>
 
 ```json
 {
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    }
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+This API does not require a request body.
 }
 ```
+
 </details>
+
+| Name | Type | Description |
+|-----|-----|-----|
+| userGroupId | UUID | User group identifier |
+
+---
 
 ### Delete User Group
 
-```http
-DELETE /v1.0/user-groups/{userGroupId}
-```
+#### Required Permission
 
-#### Required permissions
-
-| Permission Name                               | Description          |
-|-----------------------------------|-------------|
+| Permission Name | Description |
+|-----|-----|
 | RDSforPostgreSQL:UserGroup.Delete | Delete User Group |
 
 #### Request
 
-| Name          | Type  | Format   | Required | Description          |
-|-------------|-----|------|----|-------------|
-| userGroupId | URL | UUID | O  | User group identifier |
+```http
+This API does not require a request body.
+```
+
+#### Request Parameters
+
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| userGroupId | URL | UUID | Y | User group identifier |
+
+#### Request Body
+
+This API does not require a request body.
 
 #### Response
 
 This API does not return a response body.
 
-<details><summary>Example</summary>
+---
+
+### List User Group Details
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:UserGroup.Get | List User Group Details |
+
+#### Request
+
+```http
+"resultCode": 0,
+```
+
+#### Request Parameters
+
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| userGroupId | URL | UUID | Y | User group identifier |
+
+#### Request Body
+
+This API does not require a request body.
+
+#### Response
+
+<details>
+  <summary><strong>Example Code</strong></summary>
 
 ```json
 {
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    }
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+}
+]
+}
+}
+"createdYmdt": "2023-12-31T15:00:00+09:00",
+{
+}
+}
+],
+"createdYmdt": "2023-12-31T15:00:00+09:00",
+"updatedYmdt": "2023-12-31T15:00:00+09:00"
 }
 ```
+
 </details>
 
-## Notification Group
+| Name | Type | Description |
+|-----|-----|-----|
+| userGroupId | UUID | User group identifier |
+| userGroupName | String | Name to identify user groups |
+| userGroupTypeCode | Enum | User group type<br/>- ENTIRE: `All project members`<br/>- INDIVIDUAL_MEMBER: `Custom` |
+| userGroupStatus | Enum | Current status of user groups<br/>- CREATED<br/>- DELETED |
+| members | Array | Project member list |
+| members.memberId | UUID | Project member identifier |
+| createdYmdt | DateTime | Created date and time |
+| updatedYmdt | DateTime | Modified date and time |
+
+---
+
+### Modify User Group
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:UserGroup.Modify | Modify User Group |
+
+#### Request
+
+```http
+"selectAllYN": false
+```
+
+#### Request Parameters
+
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| userGroupId | URL | UUID | Y | User group identifier |
+
+#### Request Body
+
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+]
+{
+"header": {
+}
+```
+
+</details>
+
+| Name | Type | Required | Description |
+|-----|-----|-----|-----|
+| userGroupName | String | N | Name to identify user groups |
+| memberIds | Array | N | List of project member identifiers |
+| selectAllYN | Boolean | Y | All project members or not<br/>- Default: `false` |
+
+#### Response
+
+This API does not return a response body.
+
+---
+
+## Notification Groups
 
 ### List Notification Groups
 
-```http
-GET /v1.0/notification-groups
-```
+#### Required Permission
 
-#### Required permissions
-
-| Permission Name                                     | Description          |
-|-----------------------------------------|-------------|
+| Permission Name | Description |
+|-----|-----|
 | RDSforPostgreSQL:NotificationGroup.List | List Notification Groups |
 
 #### Request
 
-This API does not require a request body.
-
-#### Response
-
-| Name                                         | Type   | Format       | Description                                                     |
-|--------------------------------------------|------|----------|--------------------------------------------------------|
-| notificationGroups                         | Body | Array    | Notification Groups                                               |
-| notificationGroups.notificationGroupId     | Body | UUID     | Notification group identifier                                             |
-| notificationGroups.notificationGroupName   | Body | String   | Name to identify notification groups                                     |
-| notificationGroups.notificationGroupStatus | Body | Enum     | Current status of notification groups<br/>- `CREATED: Created`<br/>- `DELETED`: Deleted |
-| notificationGroups.notifyEmail             | Body | Boolean  | Whether to be notified by email                                              |
-| notificationGroups.notifySms               | Body | Boolean  | Whether to be notified by SMS                                              |
-| notificationGroups.isEnabled               | Body | Boolean  | Indicates whether the flavor is enabled                                                 |
-| notificationGroups.createdYmdt             | Body | DateTime | Created date and time (YYYY-MM-DDThh:mm:ss.SSSTZD)                      |
-| notificationGroups.updatedYmdt             | Body | DateTime | Modified date and time (YYYY-MM-DDThh:mm:ss.SSSTZD)                      |
-
-<details><summary>Example</summary>
-
-```json
-{
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "notificationGroups": [
-        {
-            "notificationGroupId": "b3901f17-9971-4d1e-8a81-8448cf533dc7",
-            "notificationGroupName": "dev-team-noti",
-            "notifyEmail": true,
-            "notifySms": false,
-            "isEnabled": true,
-            "createdYmdt": "2023-02-20T13:34:13+09:00",
-            "updatedYmdt": "2023-02-20T13:34:13+09:00"
-        }
-    ]
-}
-```
-</details>
-
-
-### List Notification Groups
-
 ```http
-GET /v1.0/notification-groups/{notificationGroupId}
+"resultCode": 0,
 ```
 
-#### Required permissions
-
-| Permission Name                                    | Description          |
-|----------------------------------------|-------------|
-| RDSforPostgreSQL:NotificationGroup.Get | List Notification Groups |
-
-#### Request
+#### Request Body
 
 This API does not require a request body.
 
-| Name                  | Type  | Format   | Required | Description         |
-|---------------------|-----|------|----|------------|
-| notificationGroupId | URL | UUID | O  | Notification group identifier |
-
 #### Response
 
-| Name                         | Type   | Format       | Description                                                     |
-|----------------------------|------|----------|--------------------------------------------------------|
-| notificationGroupId        | Body | UUID     | Notification group identifier                                             |
-| notificationGroupName      | Body | String   | Name to identify notification groups                                     |
-| notificationGroupStatus    | Body | Enum     | Current status of notification groups<br/>- `CREATED: Created`<br/>- `DELETED`: Deleted |
-| notifyEmail                | Body | Boolean  | Whether to be notified by email                                              |
-| notifySms                  | Body | Boolean  | Whether to be notified by SMS                                              |
-| isEnabled                  | Body | Boolean  | Indicates whether the flavor is enabled                                                 |
-| dbInstances                | Body | Array    | DB Instances to monitor                                       |
-| dbInstances.dbInstanceId   | Body | UUID     | DB instance identifier                                           |
-| dbInstances.dbInstanceName | Body | String   | Name to identify DB instances                                   |
-| userGroups                 | Body | Array    | User Groups                                              |
-| userGroups.userGroupId     | Body | UUID     | User group identifier                                            |
-| userGroups.userGroupName   | Body | String   | Name to identify user groups                                    |
-| createdYmdt                | Body | DateTime | Created date and time (YYYY-MM-DDThh:mm:ss.SSSTZD)                      |
-| updatedYmdt                | Body | DateTime | Modified date and time (YYYY-MM-DDThh:mm:ss.SSSTZD)                      |
-
-<details><summary>Example</summary>
+<details>
+  <summary><strong>Example Code</strong></summary>
 
 ```json
 {
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "notificationGroupId": "b3901f17-9971-4d1e-8a81-8448cf533dc7",
-    "notificationGroupName": "dev-team-noti",
-    "notifyEmail": true,
-    "notifySms": false,
-    "isEnabled": true,
-    "dbInstances": [
-        {
-            "dbInstanceId": "ed5cb985-526f-4c54-9ae0-40288593de65",
-            "dbInstanceName": "database"
-        }
-    ],
-    "userGroups": [
-        {
-            "userGroupId": "1aac0437-f32d-4923-ad3c-ac61c1cfdfe0",
-            "userGroupName": "dev-team"
-        }
-    ],
-    "createdYmdt": "2023-02-20T13:34:13+09:00",
-    "updatedYmdt": "2023-02-20T13:34:13+09:00"
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"notifyEmail": false,
+{
+"isEnabled": false,
+"createdYmdt": "2023-12-31T15:00:00+09:00",
+"updatedYmdt": "2023-12-31T15:00:00+09:00"
+}
+]
+}
+"createdYmdt": "2023-12-31T15:00:00+09:00",
+"updatedYmdt": "2023-12-31T15:00:00+09:00"
+}
+]
 }
 ```
+
 </details>
 
+| Name | Type | Description |
+|-----|-----|-----|
+| notificationGroups | Array |  |
+| notificationGroups.notificationGroupId | UUID | Notification group identifier |
+| notificationGroups.notificationGroupName | String | Name to identify notification groups |
+| notificationGroups.notificationGroupStatus | Enum | Current status of notification groups<br/>- CREATED: `Created`<br/>- DELETED: `Deleted` |
+| notificationGroups.notifyEmail | Boolean | Whether to be notified by email |
+| notificationGroups.notifySms | Boolean | Whether to be notified by SMS |
+| notificationGroups.isEnabled | Boolean | Whether it is enabled |
+| notificationGroups.createdYmdt | DateTime | Created date and time |
+| notificationGroups.updatedYmdt | DateTime | Modified date and time |
+
+---
 
 ### Create Notification Group
 
-```http
-POST /v1.0/notification-groups
-```
+#### Required Permission
 
-#### Required permissions
-
-| Permission Name                                       | Description         |
-|-------------------------------------------|------------|
+| Permission Name | Description |
+|-----|-----|
 | RDSforPostgreSQL:NotificationGroup.Create | Create Notification Group |
 
 #### Request
 
-| Name                    | Type   | Format      | Required | Description                          |
-|-----------------------|------|---------|----|-----------------------------|
-| notificationGroupName | Body | String  | O  | Name to identify notification groups          |
-| notifyEmail           | Body | Boolean | X  | Whether to be notified by email<br/>Default: `true` |
-| notifySms             | Body | Boolean | X  | Whether to be notified by SMS<br/>Default: `true` |
-| isEnabled             | Body | Boolean | X  | Indicates whether the flavor is enabled<br/>Default: `true`    |
-| dbInstanceIds         | Body | Array   | X  | DB instance identifiers to monitor       |
-| userGroupIds          | Body | Array   | X  | User group identifiers              |
+```http
+"notifySms": true,
+```
 
-<details><summary>Example</summary>
+#### Request Body
+
+<details>
+  <summary><strong>Example Code</strong></summary>
 
 ```json
 {
-    "notificationGroupName": "dev-team-noti",
-    "notifyEmail": false,
-    "isEnable": true,
-    "dbInstanceIds": ["ed5cb985-526f-4c54-9ae0-40288593de65"],
-    "userGroupIds": ["1aac0437-f32d-4923-ad3c-ac61c1cfdfe0"]
+"createdYmdt": "2023-12-31T15:00:00+09:00",
+}
+</p>
+<p>
+{
+"header": {
 }
 ```
+
 </details>
+
+| Name | Type | Required | Description |
+|-----|-----|-----|-----|
+| notificationGroupName | String | Y | Name to identify notification groups |
+| notifyEmail | Boolean | N | Whether to be notified by email<br/>- Default: `true` |
+| notifySms | Boolean | N | Whether to be notified by SMS<br/>- Default: `true` |
+| isEnabled | Boolean | N | Whether it is enabled<br/>- Default: `true` |
+| dbInstanceIds | Array | Y | List of identifiers of DB instances to monitor |
+| userGroupIds | Array | Y | List of user group identifiers |
 
 #### Response
 
-| Name                  | Type   | Format   | Description         |
-|---------------------|------|------|------------|
-| notificationGroupId | Body | UUID | Notification group identifier |
+<details>
+  <summary><strong>Example Code</strong></summary>
 
+```json
+{
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+This API does not require a request body.
+}
+```
+
+</details>
+
+| Name | Type | Description |
+|-----|-----|-----|
+| notificationGroupId | UUID | Notification group identifier |
+
+---
+
+### Delete Watch Setting
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:NotificationGroup.Delete | Delete Watch Setting |
+
+#### Request
+
+```http
+This API does not require a request body.
+```
+
+#### Request Parameters
+
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| notificationGroupId | URL | UUID | Y | Notification group identifier |
+
+#### Request Body
+
+This API does not require a request body.
+
+#### Response
+
+This API does not return a response body.
+
+---
+
+### View Notification Group Details
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:NotificationGroup.Get | View Notification Group Details |
+
+#### Request
+
+```http
+"resultCode": 0,
+```
+
+#### Request Parameters
+
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| notificationGroupId | URL | UUID | Y | Notification group identifier |
+
+#### Request Body
+
+This API does not require a request body.
+
+#### Response
+
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"isEnabled": false,
+"createdYmdt": "2023-12-31T15:00:00+09:00",
+"updatedYmdt": "2023-12-31T15:00:00+09:00"
+}
+]
+}
+"dbInstances": [
+{
+"dbInstanceId": "550e8400-e29b-41d4-a716-446655440000",
+"userGroupId": "550e8400-e29b-41d4-a716-446655440000",
+}
+],
+"createdYmdt": "2023-12-31T15:00:00+09:00",
+{
+}
+}
+}
+],
+"createdYmdt": "2023-12-31T15:00:00+09:00",
+"updatedYmdt": "2023-12-31T15:00:00+09:00"
+}
+```
+
+</details>
+
+| Name | Type | Description |
+|-----|-----|-----|
+| notificationGroupId | UUID | Notification group identifier |
+| notificationGroupName | String | Name to identify notification groups |
+| notificationGroupStatus | Enum | Current status of notification groups<br/>- CREATED: `Created`<br/>- DELETED: `Deleted` |
+| notifyEmail | Boolean | Whether to be notified by email |
+| notifySms | Boolean | Whether to be notified by SMS |
+| isEnabled | Boolean | Whether it is enabled |
+| dbInstances | Array | List of DB instances to monitor |
+| dbInstances.dbInstanceId | UUID | DB instance identifier |
+| dbInstances.dbInstanceName | String | Name to identify DB instances |
+| userGroups | Array | List of user groups |
+| userGroups.userGroupId | UUID | User group identifier |
+| userGroups.userGroupName | String | Name to identify user groups |
+| createdYmdt | DateTime | Created date and time |
+| updatedYmdt | DateTime | Modified date and time |
+
+---
 
 ### Modify Notification Group
 
-```http
-PUT /v1.0/notification-groups/{notificationGroupId}
-```
+#### Required Permission
 
-#### Required permissions
-
-| Permission Name                                       | Description         |
-|-------------------------------------------|------------|
+| Permission Name | Description |
+|-----|-----|
 | RDSforPostgreSQL:NotificationGroup.Modify | Modify Notification Group |
 
 #### Request
 
-| Name                    | Type   | Format      | Required | Description                    |
-|-----------------------|------|---------|----|-----------------------|
-| notificationGroupId   | URL  | UUID    | O  | Notification group identifier            |
-| notificationGroupName | Body | String  | X  | Name to identify notification groups    |
-| notifyEmail           | Body | Boolean | X  | Whether to be notified by email             |
-| notifySms             | Body | Boolean | X  | Whether to be notified by SMS             |
-| isEnabled             | Body | Boolean | X  | Indicates whether the flavor is enabled                |
-| dbInstanceIds         | Body | Array   | X  | DB instance identifiers to monitor |
-| userGroupIds          | Body | Array   | X  | User group identifiers        |
+```http
+"notifySms": false,
+```
 
-<details><summary>Example</summary>
+#### Request Parameters
+
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| notificationGroupId | URL | UUID | Y | Notification group identifier |
+
+#### Request Body
+
+<details>
+  <summary><strong>Example Code</strong></summary>
 
 ```json
 {
-    "notifyEmail": true,
-    "dbInstanceIds": ["ed5cb985-526f-4c54-9ae0-40288593de65", "d51b7da0-682f-47ff-b588-b739f6adc740"]
+"createdYmdt": "2023-12-31T15:00:00+09:00",
+}
+]
+}
+{
+"header": {
 }
 ```
+
 </details>
+
+| Name | Type | Required | Description |
+|-----|-----|-----|-----|
+| notificationGroupName | String | N | Name to identify notification groups |
+| notifyEmail | Boolean | N | Whether to be notified by email<br/>- Default: `false` |
+| notifySms | Boolean | N | Whether to be notified by SMS<br/>- Default: `false` |
+| isEnabled | Boolean | N | Whether it is enabled<br/>- Default: `false` |
+| dbInstanceIds | Array | Y | List of identifiers of DB instances to monitor |
+| userGroupIds | Array | Y | List of user group identifiers |
 
 #### Response
 
 This API does not return a response body.
 
-<details><summary>Example</summary>
+---
 
-```json
-{
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    }
-}
-```
-</details>
+### List Watch Settings
 
-### Delete Notification Group
+#### Required Permission
 
-```http
-DELETE /v1.0/notification-groups/{notificationGroupId}
-```
-
-#### Required permissions
-
-| Permission Name                                       | Description         |
-|-------------------------------------------|------------|
-| RDSforPostgreSQL:NotificationGroup.Delete | Delete Notification Group |
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:NotificationWatchdog.List | List Watch Settings |
 
 #### Request
 
-This API does not require a request body.
-
-| Name                  | Type  | Format   | Required | Description         |
-|---------------------|-----|------|----|------------|
-| notificationGroupId | URL | UUID | O  | Notification group identifier |
-
-#### Response
-
-This API does not return a response body.
-
-<details><summary>Example</summary>
-
-```json
-{
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    }
-}
-```
-</details>
-
-### View the list of watch settings
-
 ```http
-GET /v1.0/notification-groups/{notificationGroupId}/watchdogs
+"resultCode": 0,
 ```
 
-#### Required permissions
+#### Request Parameters
 
-| Permission Name                                        | Description          |
-|--------------------------------------------|-------------|
-| RDSforPostgreSQL:NotificationWatchdog.List | View the list of watch settings |
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| notificationGroupId | URL | UUID | Y | Notification group identifier |
 
-#### Request
+#### Request Body
 
 This API does not require a request body.
 
 #### Response
 
-| Name                           | Type   | Format       | Description                                                                     |
-|------------------------------|------|----------|------------------------------------------------------------------------|
-| notificationGroupId          | URL  | UUID     | Notification group identifier                                                             | Notification group identifier                                                            |
-| watchdogs                    | Body | Array    | List of watch settings                                                               |
-| watchdogs.watchdogId         | Body | UUID     | Identifier of the watch setting                                                             |
-| watchdogs.metricName         | Body | Enum     | Performance metrics to watch<br/>- For the performance metrics you can set, see [Viewing the performance metrics list](#성능-지표-목록-보기). |
-| watchdogs.comparisonOperator | Body | Enum     | How to compare watchlists<br/>- `LE`: <=<br/>- `LT`: <<br/>- `GE`: >=<br/>- `GT`: >  |
-| watchdogs.threshold          | Body | Long     | Thresholds to watch                                                              |
-| watchdogs.duration           | Body | Long     | Watchlist duration<br/>- Unit: `minutes`                                              |
-| watchdogs.createdYmdt        | Body | DateTime | Created date and time (YYYY-MM-DDThh:mm:ss.SSSTZD)                                      |
-
-<details><summary>Example</summary>
+<details>
+  <summary><strong>Example Code</strong></summary>
 
 ```json
 {
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "watchdogs": [
-        {
-            "watchdogId": "b3901f17-9971-4d1e-8a81-8448cf533dc7",
-            "metricName": "DATABASE_STATUS",
-            "comparisonOperator": "LE",
-            "threshold": 0,
-            "duration": 5,
-            "createdYmdt": "2023-02-20T13:34:13+09:00",
-            "updatedYmdt": "2023-02-20T13:34:13+09:00"
-        }
-    ]
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"threshold": 1,
+{
+"createdYmdt": "2023-12-31T15:00:00+09:00"
+}
+]
+}
+</p>
+---
+}
+]
 }
 ```
+
 </details>
 
-### Create a watch setting
+| Name | Type | Description |
+|-----|-----|-----|
+| notificationWatchdogs | Array | Watch setting information |
+| notificationWatchdogs.watchdogId | UUID | Watch setting identifier |
+| notificationWatchdogs.metricName | String | Performance metrics to watch |
+| notificationWatchdogs.comparisonOperator | Enum | Comparison method for watch target<br/>- LE: `<=`<br/>- LT: `<`<br/>- GE: `>=`<br/>- GT: `>` |
+| notificationWatchdogs.threshold | Number | Threshold for watch target |
+| notificationWatchdogs.duration | Number | Duration for watch target |
+| notificationWatchdogs.createdYmdt | DateTime | Created date and time |
 
-```http
-POST /v1.0/notification-groups/{notificationGroupId}/watchdogs
-```
+---
 
-#### Required permissions
+### Create Watch Setting
 
-| Permission Name                                          | Description         |
-|----------------------------------------------|------------|
-| RDSforPostgreSQL:NotificationWatchdog.Create | Create a watch setting |
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:NotificationWatchdog.Create | Create Watch Setting |
 
 #### Request
 
-| Name                  | Type   | Format   | Required | Description                                                                     |
-|---------------------|------|------|----|------------------------------------------------------------------------|
-| notificationGroupId | URL  | UUID | O  | Notification group identifier                                                             |
-| metricName          | Body | Enum | O  | Performance metrics to watch<br/>- For the performance metrics you can set, see [Viewing the performance metrics list](#성능-지표-목록-보기). |
-| comparisonOperator  | Body | Enum | O  | How to compare watchlists<br/>- `LE`: <=<br/>- `LT`: <<br/>- `GE`: >=<br/>- `GT`: >  |
-| threshold           | Body | Long | O  | Thresholds to watch                                                              |
-| duration            | Body | Long | O  | Watchlist duration<br/>- Unit: `minutes`                                              |
+```http
+"threshold": 0,
+```
 
-<details><summary>Example</summary>
+#### Request Parameters
+
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| notificationGroupId | URL | UUID | Y | Notification group identifier |
+
+#### Request Body
+
+<details>
+  <summary><strong>Example Code</strong></summary>
 
 ```json
 {
-    "metricName": "DATABASE_STATUS",
-    "comparisonOperator": "LE",
-    "threshold": 0,
-    "duration": 5
+}
+]
+{
+"header": {
 }
 ```
+
 </details>
+
+| Name | Type | Required | Description |
+|-----|-----|-----|-----|
+| metricName | String | Y | Performance metrics to watch |
+| comparisonOperator | Enum | Y | Comparison method for watch target<br/>- LE: `<=`<br/>- LT: `<`<br/>- GE: `>=`<br/>- GT: `>` |
+| threshold | Number | Y | Threshold for watch target<br/>- Minimum value: `0` |
+| duration | Number | Y | Duration for watch target (minutes)<br/>- Minimum value: `0` |
 
 #### Response
 
-| Name         | Type   | Format   | Description         |
-|------------|------|------|------------|
-| watchdogId | Body | UUID | Identifier of the watch setting |
-
-
-### Modify watch settings
-
-```http
-PUT /v1.0/notification-groups/{notificationGroupId}/watchdogs/{watchdogId}
-```
-
-#### Required permissions
-
-| Permission Name                                          | Description         |
-|----------------------------------------------|------------|
-| RDSforPostgreSQL:NotificationWatchdog.Modify | Modify watch settings |
-
-#### Request
-
-| Name                  | Type   | Format   | Required | Description                                                                     |
-|---------------------|------|------|----|------------------------------------------------------------------------|
-| notificationGroupId | URL  | UUID | O  | Notification group identifier                                                             |
-| watchdogId          | URL  | UUID | O  | Identifier of the watch setting                                                             |
-| metricName          | Body | Enum | O  | Performance metrics to watch<br/>- For the performance metrics you can set, see [Viewing the performance metrics list](#성능-지표-목록-보기). |
-| comparisonOperator  | Body | Enum | O  | How to compare watchlists<br/>- `LE`: <=<br/>- `LT`: <<br/>- `GE`: >=<br/>- `GT`: >  |
-| threshold           | Body | Long | O  | Thresholds to watch                                                              |
-| duration            | Body | Long | O  | Watchlist duration<br/>- Unit: `minutes`                                              |
-
-<details><summary>Example</summary>
+<details>
+  <summary><strong>Example Code</strong></summary>
 
 ```json
 {
-    "metricName": "DATABASE_STATUS",
-    "comparisonOperator": "LE",
-    "threshold": 0,
-    "duration": 10
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+This API does not require a request body.
 }
 ```
+
 </details>
 
-#### Response
+| Name | Type | Description |
+|-----|-----|-----|
+| watchdogId | UUID | Watch setting identifier |
 
-This API does not return a response body.
+---
 
-<details><summary>Example</summary>
+### Delete Watch Setting
 
-```json
-{
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    }
-}
-```
-</details>
+#### Required Permission
 
-### Deleting a watch setting
-
-```http
-DELETE /v1.0/notification-groups/{notificationGroupId}/watchdogs/{watchdogId}
-```
-
-#### Required permissions
-
-| Permission Name                                          | Description         |
-|----------------------------------------------|------------|
-| RDSforPostgreSQL:NotificationWatchdog.Delete | Deleting a watch setting |
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:NotificationWatchdog.Delete | Delete Watch Setting |
 
 #### Request
+
+```http
+<p>
+```
+
+#### Request Parameters
+
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| notificationGroupId | URL | UUID | Y | Notification group identifier |
+| watchdogId | URL | UUID | Y | Watch setting identifier |
+
+#### Request Body
 
 This API does not require a request body.
 
-| Name                  | Type  | Format   | Required | Description         |
-|---------------------|-----|------|----|------------|
-| notificationGroupId | URL | UUID | O  | Notification group identifier |
-| watchdogId          | URL | UUID | O  | Identifier of the watch setting |
+#### Response
+
+This API does not return a response body.
+
+---
+
+### Modify Watch Setting
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:NotificationWatchdog.Modify | Modify Watch Setting |
+
+#### Request
+
+```http
+"threshold": 0,
+```
+
+#### Request Parameters
+
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| notificationGroupId | URL | UUID | Y | Notification group identifier |
+| watchdogId | URL | UUID | Y | Watch setting identifier |
+
+#### Request Body
+
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+}
+]
+{
+"header": {
+}
+```
+
+</details>
+
+| Name | Type | Required | Description |
+|-----|-----|-----|-----|
+| metricName | String | Y | Performance metrics to watch |
+| comparisonOperator | Enum | Y | Comparison method for watch target<br/>- LE: `<=`<br/>- LT: `<`<br/>- GE: `>=`<br/>- GT: `>` |
+| threshold | Number | Y | Threshold for watch target<br/>- Minimum value: `0` |
+| duration | Number | Y | Duration for watch target (minutes)<br/>- Minimum value: `0` |
 
 #### Response
 
 This API does not return a response body.
 
-<details><summary>Example</summary>
-
-```json
-{
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    }
-}
-```
-</details>
+---
 
 ## Monitoring
 
-### View a list of performance metrics
+### View stats
 
-```http
-GET /v1.0/metrics
-```
+#### Required Permission
 
-#### Required permissions
-
-| Permission Name                          | Description       |
-|------------------------------|----------|
+| Permission Name | Description |
+|-----|-----|
 | RDSforPostgreSQL:Metric.List | View stats |
 
 #### Request
+
+```http
+This API does not require a request body.
+```
+
+#### Request Body
 
 This API does not require a request body.
 
 #### Response
 
-| Name                 | Type   | Format     | Description       |
-|--------------------|------|--------|----------|
-| metrics            | Body | Array  | List of performance metrics |
-| metrics.metricName | Body | Enum   | Performance metric types |
-| metrics.unit       | Body | String | Measure unit   |
+This API does not return a response body.
 
-<details><summary>Example</summary>
+---
 
-```json
-{
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "metrics": [
-        {
-            "metricName": "CPU_USAGE",
-            "unit": "%"
-        }
-    ]
-}
-```
-</details>
+### View a list of performance metrics
 
-### View stats
+#### Required Permission
 
-```http
-GET /v1.0/metric-statistics
-```
-
-#### Required permissions
-
-| Permission Name                          | Description       |
-|------------------------------|----------|
-| RDSforPostgreSQL:Metric.List | View stats |
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:Metric.List | View a list of performance metrics |
 
 #### Request
 
-| Name           | Type    | Format       | Required | Description                                                        |
-|--------------|-------|----------|----|-----------------------------------------------------------|
-| dbInstanceId | Query | UUID     | O  | DB instance identifier                                              |
-| metricNames  | Query | Array    | O  | List of performance metrics to look up<br/>- Minimum length: `1`                             |
-| from         | Query | Datetime | O  | Start date and time (YYYY-MM-DDThh:mm:ss.SSSTZD)                         |
-| to           | Query | Datetime | O  | End date and time (YYYY-MM-DDThh:mm:ss.SSSTZD)                         |
-| interval     | Query | Number   | X  | View interval<br/>- Unit: `minutes`<br/>- Default: Automatically selects the appropriate value based on start/end dates |
+```http
+"resultCode": 0,
+```
+
+#### Request Body
+
+This API does not require a request body.
 
 #### Response
 
-| Name                                | Type   | Format        | Description       |
-|-----------------------------------|------|-----------|----------|
-| metricStatistics                  | Body | Array     | Statistics information list |
-| metricStatistics.metricName       | Body | Enum      | Performance metric types |
-| metricStatistics.unit             | Body | String    | Measure unit   |
-| metricStatistics.values           | Body | Array     | Measure values   |
-| metricStatistics.values.timestamp | Body | Timestamp | Measure time    |
-| metricStatistics.values.value     | Body | Object    | Measure value      |
-
-<details><summary>Example</summary>
+<details>
+  <summary><strong>Example Code</strong></summary>
 
 ```json
 {
-    "metricStatistics": [
-        {
-            "metricName": "DATABASE_STATUS",
-            "unit": "",
-            "values": [
-                [
-                    1679298540,
-                    "1"
-                ],
-                [
-                    1679298600,
-                    "1"
-                ],
-                [
-                    1679298660,
-                    "1"
-                ]
-            ]
-        }
-    ]
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+]
+{
+}
+---
+}
+]
 }
 ```
+
 </details>
+
+| Name | Type | Description |
+|-----|-----|-----|
+| metrics | Array | List of performance metrics |
+| metrics.metricName | String | Performance metric types |
+| metrics.unit | String | Measure unit |
+
+---
 
 ## Event
 
-### View the list of events
+### Event category
 
-```
-GET /v1.0/events
-```
+"header": {
 
-#### Required permissions
+| Event category | Description |
+|-------------|---------|
+| ALL | All |
+| BACKUP | Backup |
+| DB_INSTANCE | DB instance |
+| JOB | Job |
+| TENANT | Tenant |
+| MONITORING | Monitoring |
 
-| Permission Name                         | Description        |
-|-----------------------------|-----------|
-| RDSforPostgreSQL:Event.List | View the list of events |
+### List subscribable event codes
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:Event.List | List subscribable event codes |
 
 #### Request
-
-This API does not require a request body.
-
-| Name                | Type    | Format       | Required | Description                                                                                                                                                                               |
-|-------------------|-------|----------|----|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| page              | Query | Number   | O  | Page to retrieve<br/>- Minimum value: `1`                                                                                                                                                       |
-| size              | Query | Number   | O  | Page size to retrieve<br/>- Minimum value: `1`<br/>- Maximum value: `100`                                                                                                                                   |
-| from              | Query | Datetime | O  | Start date and time (YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                                                |
-| to                | Query | Datetime | O  | End date and time (YYYY-MM-DDThh:mm:ss.SSSTZD)                                                                                                                                                |
-| eventCategoryType | Query | Enum     | O  | Event category types to query<br/>ALL: All<br/>- `BACKUP`: Backup<br/>- `DB_INSTANCE`: DB instance<br/>- `DB_SECURITY_GROUP`: DB security group<br/>- `JOB: Job`<br/>- `TENANT`: Tenant<br/>- `MONITORING`: Monitoring |
-| sourceId          | Query | String   | X  | Event target resource identifier                                                                                                                                                             |
-| keyword           | Query | String   | X  | String keyword in event message                                                                                                                                                             |
-
-#### Response
-
-| Name                       | Type   | Format       | Description                                                 |
-|--------------------------|------|----------|----------------------------------------------------|
-| totalCounts              | Body | Number   | Total number of events                                        |
-| events                   | Body | Array    | Events                                             |
-| events.eventCategoryType | Body | Enum     | Event category type                                        |
-| events.eventCode         | Body | Enum     | Occurred event type<br/>- See [Events](event/) for a detailed description. |
-| events.sourceId          | Body | String   | Event source identifier                                        |
-| events.sourceName        | Body | String   | Name to identify event sources                                |
-| events.messages          | Body | Array    | Event messages                                         |
-| events.messages.langCode | Body | String   | Language code                                              |
-| events.messages.message  | Body | String   | Event Message                                            |
-| events.eventYmdt         | Body | DateTime | Event occurred date and time (YYYY-MM-DDThh:mm:ss.SSSTZD)              |
-
-<details><summary>Example</summary>
-
-```json
-{
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "totalCounts": 28,
-    "events": [
-        {
-            "eventCategoryType": "INSTANCE",
-            "eventCode": "INSTC_02_01",
-            "sourceId": "76f00947-356e-4a20-8922-428368cc45ed",
-            "sourceName": "db-instance",
-            "messages": [
-                {
-                    "langCode": "EN",
-                    "message": "DB instance started"
-                },
-                {
-                    "langCode": "JA",
-                    "message": "DBインスタンスの起動"
-                },
-                {
-                    "langCode": "KO",
-                    "message": "DB 인스턴스 시작"
-                },
-                {
-                    "langCode": "ZH",
-                    "message": "DB instance started"
-                }
-            ],
-            "eventYmdt": "2023-03-20T16:31:59+09:00"
-        }
-    ]
-}
-```
-</details>
-
-
-### List Subscribable Event Codes
 
 ```http
-GET /v1.0/event-codes
+"resultCode": 0,
 ```
 
-#### Required permissions
-
-| Permission Name                         | Description        |
-|-----------------------------|-----------|
-| RDSforPostgreSQL:Event.List | View the list of events |
-
-#### Request
+#### Request Body
 
 This API does not require a request body.
 
 #### Response
 
-| Name                           | Type   | Format    | Description          |
-|------------------------------|------|-------|-------------|
-| eventCodes                   | Body | Array | Event Codes   |
-| eventCodes.eventCode         | Body | Enum  | Event Code      |
-| eventCodes.eventCategoryType | Body | Enum  | Event category type |
-
-<details><summary>Example</summary>
+<details>
+  <summary><strong>Example Code</strong></summary>
 
 ```json
 {
-    "header": {
-        "resultCode": 0,
-        "resultMessage": "SUCCESS",
-        "isSuccessful": true
-    },
-    "eventCodes": [
-        {
-            "eventCode": "DB_INSTANCE_02_01",
-            "eventCategoryType": "DB_INSTANCE"
-        }
-    ]
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+]
+{
+</p>
+---
+}
+]
 }
 ```
+
 </details>
+
+| Name | Type | Description |
+|-----|-----|-----|
+| eventCodes | Array | Event codes |
+| eventCodes.eventCode | Enum | Event code |
+| eventCodes.eventCategoryType | Enum | Event category type<br/>- ALL: `All`<br/>- DB_INSTANCE: `Events generated from DB instance`<br/>- DB_SECURITY_GROUP: `Events generated from DB security group`<br/>- MONITORING: `Events generated from monitoring`<br/>- JOB: `Events generated from JOB`<br/>- BACKUP: `Events generated from backup`<br/>- TENANT: `Events generated from tenant` |
+
+---
+
+### View the list of events
+
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:Event.List | View the list of events |
+
+#### Request
+
+```http
+"resultCode": 0,
+```
+
+#### Request Body
+
+This API does not require a request body.
+
+#### Response
+
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+"header": {
+"resultCode": 0,
+"resultMessage": "SUCCESS",
+"isSuccessful": true
+},
+"totalCounts": 1,
+"sourceName": "sourceName-example",
+{
+{
+</p>
+"message": "message-example"
+}
+],
+{
+}
+]
+}
+],
+---
+}
+]
+}
+```
+
+</details>
+
+| Name | Type | Description |
+|-----|-----|-----|
+| totalCounts | Number | Total number of events |
+| events | Array | Events |
+| events.eventCategoryType | Enum | Event category type<br/>- ALL: `All`<br/>- DB_INSTANCE: `Events generated from DB instance`<br/>- DB_SECURITY_GROUP: `Events generated from DB security group`<br/>- MONITORING: `Events generated from monitoring`<br/>- JOB: `Events generated from JOB`<br/>- BACKUP: `Events generated from backup`<br/>- TENANT: `Events generated from tenant` |
+| events.eventCode | Enum | Occurred event type |
+| events.sourceId | UUID | Event source identifier |
+| events.sourceName | String | Name to identify event sources |
+| events.messages | Array | Event messages |
+| events.messages.langCode | Enum | Language code<br/>- KO<br/>- EN<br/>- JA<br/>- ZH |
+| events.messages.message | String | Event message |
+| events.eventYmdt | DateTime | Event occurred date and time |
+
+---
