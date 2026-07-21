@@ -219,7 +219,7 @@ DB 인스턴스의 **데이터베이스 & 사용자** 탭에서는 DB 엔진에 
 
 #### 데이터베이스 생성
 
-![db-instance-detail-db-create]({{url.cdn}}/20260811/db-instance-detail-db-create-{{lang}}.png)
+![db-instance-detail-db-create](../static/images/20260811/db-instance-detail-db-create-ko.png)
 
 ❶ **+ 생성**을 클릭하면 데이터베이스의 이름을 입력할 수 있는 팝업 창이 나타납니다.
 ❷ 데이터베이스 이름을 입력한 뒤 **생성**을 클릭하여 데이터베이스를 생성할 수 있습니다.
@@ -233,7 +233,7 @@ DB 인스턴스의 **데이터베이스 & 사용자** 탭에서는 DB 엔진에 
 
 #### 데이터베이스 수정
 
-![db-instance-detail-db-modify]({{url.cdn}}/20260811/db-instance-detail-db-modify-{{lang}}.png)
+![db-instance-detail-db-modify](../static/images/20260811/db-instance-detail-db-modify-ko.png)
 
 ❶ 수정할 데이터베이스 행의 **수정**을 클릭하면 데이터베이스 정보를 수정할 수 있는 팝업 창이 나타납니다.
 ❷ DDL 사용자를 선택해 소유자로 설정할 수 있습니다.
@@ -257,7 +257,7 @@ DB 인스턴스의 **데이터베이스 & 사용자** 탭에서는 DB 엔진에 
 
 #### 스키마 수정
 
-![db-instance-detail-schema-modify]({{url.cdn}}/20260811/db-instance-detail-schema-modify-{{lang}}.png)
+![db-instance-detail-schema-modify](../static/images/20260811/db-instance-detail-schema-modify-ko.png)
 
 ❶ 수정할 스키마 행의 **수정**을 클릭하면 스키마 정보를 수정할 수 있는 팝업 창이 나타납니다.
 ❷ DDL 사용자를 선택해 소유자로 설정할 수 있습니다.
@@ -266,7 +266,7 @@ DB 인스턴스의 **데이터베이스 & 사용자** 탭에서는 DB 엔진에 
 
 #### 사용자 생성
 
-![db-instance-detail-user-create]({{url.cdn}}/20260811/db-instance-detail-user-create-{{lang}}.png)
+![db-instance-detail-user-create](../static/images/20260811/db-instance-detail-user-create-ko.png)
 
 ❶ **+ 생성**을 클릭하면 **사용자 추가** 팝업 창이 나타납니다.
 ❷ 사용자 ID를 입력합니다.
@@ -298,7 +298,7 @@ DB 인스턴스의 **데이터베이스 & 사용자** 탭에서는 DB 엔진에 
 
 #### 사용자 수정
 
-![db-instance-detail-user-modify]({{url.cdn}}/20260811/db-instance-detail-user-modify-{{lang}}.png)
+![db-instance-detail-user-modify](../static/images/20260811/db-instance-detail-user-modify-ko.png)
 
 ❶ 수정할 사용자 행의 **수정**을 클릭하면 사용자 정보를 수정할 수 있는 팝업 창이 나타납니다.
 ❷ 비밀번호를 입력하지 않으면 변경되지 않습니다.
