@@ -1,12 +1,18 @@
-## Database > RDS for PostgreSQL > Release Notes
+<!-- pre-align:aligned sig=d337a4d9879f -->
 
-### June 9, 2026
+<a id="database-rds-for-postgresql-release-notes"></a>
+## Database > RDS for PostgreSQL > Release Notes { #database-rds-for-postgresql-release-notes }
 
+<a id="june-9-2026"></a>
+### June 9, 2026 { #june-9-2026 }
+
+<a id="june-9-2026-added-features"></a>
 #### Added Features
 
 - Added direct control feature for databases and users
     - Enabling the direct control option for databases and users in the master modification screen allows you to directly create or delete databases and users with a DDL account.
 
+<a id="june-9-2026-feature-updates"></a>
 #### Feature Updates
 
 - Improved DB instance group list screen
@@ -16,6 +22,7 @@
 - Improved cron schema management after pg_cron extension installation
     - Improved the system to allow viewing and directly controlling the cron schema created after installing the pg_cron extension from the database list.
 
+<a id="june-9-2026-bug-fixes"></a>
 #### Bug Fixes
 
 - Fixed an issue where users could not be created with passwords containing special characters
@@ -26,8 +33,10 @@
     - Fixed an issue where an error occurred when comparing a parameter group with no connected DB instances.
 
 
-### April 14, 2026
+<a id="april-14-2026"></a>
+### April 14, 2026 { #april-14-2026 }
 
+<a id="april-14-2026-added-features"></a>
 #### Added Features
 
 - Added storage auto-scaling feature
@@ -35,6 +44,7 @@
 - Added OS version upgrade feature
     - Added a feature to upgrade the OS version of DB instances to the latest version for security patches and improved stability.
 
+<a id="april-14-2026-feature-updates"></a>
 #### Feature Updates
 
 - Improved high availability DB instance name input
@@ -45,8 +55,10 @@
     - Improved the feature to allow bulk addition by passing the `pg_hba.conf` source as-is.
 
 
-### February 10, 2026
+<a id="february-10-2026"></a>
+### February 10, 2026 { #february-10-2026 }
 
+<a id="february-10-2026-added-feautures"></a>
 #### Added Feautures
 
 - Added DB extensions
@@ -57,6 +69,7 @@
 - Integrated Resource Watcher service
     - Enabled DB instance resource monitoring through the Resource Watcher service.
 
+<a id="february-10-2026-feature-updates"></a>
 #### Feature Updates
 
 - Improved Point-in-Time Recovery (PITR) information retrieval
@@ -65,6 +78,7 @@
     - Added a new READ-only privilege.
     - Relaxed DDL constraints to enable creating, modifying, or deleting DDL-privileged users.
 
+<a id="february-10-2026-bug-fixes"></a>
 #### Bug Fixes
 
 - Fixed an issue where access control rules were inconsistent in high-availability DB instances
@@ -73,20 +87,25 @@
     - Fixed an issue where users owning objects were incorrectly shown as deleted in the console.
     - Improved user deletion by adding options to handle owned objects, ensuring successful removal.
 
-### October 28, 2025
+<a id="october-28-2025"></a>
+### October 28, 2025 { #october-28-2025 }
 
+<a id="october-28-2025-added-features"></a>
 #### Added Features
 
 - Added new DB engine version
     - Added PostgreSQL 14.19, 17.6 versions.
 
+<a id="october-28-2025-bug-fixes"></a>
 #### Bug Fixes
 
 - Fixed an issue for exposure capacity within free-up capacity modal
     - Fixed an issue that the capacity exposed within the free-up capacity modal is less than the actual capacity secured.
 
-### April 15, 2025
+<a id="april-15-2025"></a>
+### April 15, 2025 { #april-15-2025 }
 
+<a id="april-15-2025-added-features"></a>
 #### Added Features
 
 - Added new DB engine version
@@ -97,14 +116,17 @@
 - Added the log retention period to the maintenance setting
     - Added the feature to delete the PostgreSQL logs that have exceeded their retention period when using the automatic storage cleanup feature.
 
+<a id="april-15-2025-feature-updates"></a>
 #### Feature Updates
 
 - Restrict new DB engine creation
     - A security vulnerability has been detected in version PostgreSQL 14.15, 17.2, so upgrading to the latest version is [recommended](https://www.postgresql.org/support/security/CVE-2025-1094/).
     - It is only allowed in limited cases, such as when changing an existing DB instance to high availability or restoring from a backup.
 
-### Feb 11, 2025
+<a id="feb-11-2025"></a>
+### Feb 11, 2025 { #feb-11-2025 }
 
+<a id="feb-11-2025-added-features"></a>
 #### Added Features
 
 - Added a new DB engine version
@@ -112,14 +134,17 @@
 - Added a feature to upgrade DB engine version
     - You can upgrade the DB Engine version from an existing version to the recently added version.
 
+<a id="feb-11-2025-features-updates"></a>
 #### Features Updates
 
 - Added DB engine creation limit
     - A security vulnerability has been discovered in PostgreSQL version 14.6 and an upgrade to a newer version is [recommended](https://www.postgresql.org/about/news/postgresql-171-165-159-1414-1317-and-1221-released-2955/).
     - DB engine creation is allowed for changing an existing DB instance to high availability or restoring with a backup.
 
-### December 10, 2024
+<a id="december-10-2024"></a>
+### December 10, 2024 { #december-10-2024 }
 
+<a id="december-10-2024-added-features"></a>
 #### Added Features
 
 - Added High Availability
@@ -135,6 +160,7 @@
 - Added API Feature
     - Allow you to control RDS for PostgreSQL features via APIs.
 
+<a id="december-10-2024-feature-updates"></a>
 #### Feature Updates
 
 - Changed the DB Instance > **Backup** tab name
@@ -152,8 +178,10 @@
 - Changed the `shared_buffers` parameter
     - Changed to Limit the parameter to a maximum of 50% of the DB instance RAM size, as using an excessively large value can cause problems running the DB engine.
 
-### October 15, 2024
+<a id="october-15-2024"></a>
+### October 15, 2024 { #october-15-2024 }
 
+<a id="october-15-2024-added-features"></a>
 #### Added Features
 
 - Added auto backup settings
@@ -167,6 +195,7 @@
 - Added DB extensions
     - Allow you to install pgrouting, bool, hstore, intarray, isn, lo, ltree, and more.
 
+<a id="october-15-2024-feature-updates"></a>
 #### Feature Updates
 
 - Improved event subscription search
@@ -174,6 +203,7 @@
 - Improved the feature to enter the shared_preload_libraries parameter
     - Improved the way shared_preload_libraries values are entered to a multi-select drop-down list format.
 
+<a id="october-15-2024-bug-fixes"></a>
 #### Bug fixes
 
 - Fix default notification creation errors
@@ -185,8 +215,10 @@
     - Changed the parameter to be inapplicable if the value on the master is set to be greater than the read replica.
     - Changed the parameter to be inapplicable if the value of the read replica is set to less than the master.
 
-### August 13, 2024
+<a id="august-13-2024"></a>
+### August 13, 2024 { #august-13-2024 }
 
+<a id="august-13-2024-added-features"></a>
 #### Added Features
 
 - Added DB instance deletion protection feature
@@ -196,6 +228,7 @@
 - Added the Subscribe to Events feature
     - Notifications sent when certain events occur.
 
+<a id="august-13-2024-feature-updates"></a>
 #### Feature Updates
 
 - Improved the access control feature
@@ -208,8 +241,10 @@
     - Added the TIMEZONE type and improved the dropdown to search for and enter it.
     - Improved the feature to select units with a dropdown when editing parameters with units.
 
-### June 11, 2024
+<a id="june-11-2024"></a>
+### June 11, 2024 { #june-11-2024 }
 
+<a id="june-11-2024-release-of-a-new-service"></a>
 #### Release of a New Service
 
 - Relational Database Service (RDS) is a service that provides relational databases in cloud environments.

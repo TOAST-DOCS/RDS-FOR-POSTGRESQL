@@ -1,10 +1,15 @@
-## Database > RDS for PostgreSQL > DB 엔진
+<!-- pre-align:aligned sig=bfc3a2b239b5 -->
 
-## DB 엔진
+<a id="database-rds-for-postgresql-db-engine"></a>
+## Database > RDS for PostgreSQL > DB 엔진 { #database-rds-for-postgresql-db-engine }
+
+<a id="db-engine"></a>
+## DB 엔진 { #db-engine }
 PostgreSQL에서 버전 번호는 버전 = `X.Y`로 구성됩니다. NHN Cloud의 RDS for PostgreSQL에서는 `X`의 경우 메이저 버전을, `Y`는 마이너 버전을 나타냅니다.
 
 
-### RDS에서 제공하는 DB 엔진 버전
+<a id="db-engine-version-provided-by-rds"></a>
+### RDS에서 제공하는 DB 엔진 버전 { #db-engine-version-provided-by-rds }
 
 아래에 명시된 버전을 사용할 수 있습니다.
 
@@ -21,7 +26,8 @@ PostgreSQL에서 버전 번호는 버전 = `X.Y`로 구성됩니다. NHN Cloud�
 - [ 주의 ] PostgreSQL 14.6, 14.15, 17.2 버전의 경우 최신 버전으로의 업그레이드가 [권고](https://www.postgresql.org/support/security/CVE-2025-1094/)됩니다.
     
     
-### 버전 업그레이드 수행하기
+<a id="perform-version-upgrades"></a>
+### 버전 업그레이드 수행하기 { #perform-version-upgrades }
 
 버전 업그레이드는 순차적으로 진행되며, 메이저 버전 업그레이드와 마이너 버전 업그레이드 각각의 특성에 따라 서로 다른 순서로 진행될 수 있습니다. 
 
@@ -29,12 +35,14 @@ PostgreSQL에서 버전 번호는 버전 = `X.Y`로 구성됩니다. NHN Cloud�
 
 버전 업그레이드 진행 전 데이터 손실 방지를 위해 백업 수행을 권장합니다.
 
+<a id="perform-version-upgrades-major-version-upgrade"></a>
 #### 메이저 버전 업그레이드
 
 메이저 버전 업그레이드는 버전 번호의 첫 번째 자리를 변경하는 것을 의미합니다. 예를 들어, 14.6에서 17.2으로 업그레이드하는 것이 메이저 버전 업그레이드입니다. 
 
 RDS for PostgreSQL에서는 메이저 버전 업그레이드는 마스터에서만 실행이 가능하며, 실행한 경우 DB 인스턴스 그룹 내 모든 DB 인스턴스에 대해 버전 업그레이드를 진행합니다.
 
+<a id="perform-version-upgrades-major-version-upgrade-order"></a>
 #### 메이저 버전 업그레이드 순서
 
 사용자는 마스터 DB 인스턴스 수정을 통해 메이저 버전 업그레이드를 진행할 수 있습니다. 
@@ -60,12 +68,14 @@ RDS for PostgreSQL에서는 메이저 버전 업그레이드는 마스터에서�
 
 
 
-### 마이너 버전 업그레이드
+<a id="miner-version-upgrade"></a>
+### 마이너 버전 업그레이드 { #miner-version-upgrade }
 
 마이너 버전 업그레이드는 버전 번호의 두 번째 자리를 변경하는 것을 의미합니다. 예를 들어, 14.6에서 14.15로 업그레이드하는 것이 마이너 버전 업그레이드입니다.
 
 RDS for PostgreSQL에서는 마이너 버전 업그레이드는 마스터뿐만 아니라 슬레이브에서도 실행이 가능하며, 실행한 경우 실행한 대상 DB 인스턴스에 대해 버전 업그레이드를 진행합니다. (고가용성 구성이 완료된 마스터의 경우 예비 마스터도 함께 진행됩니다.)
 
+<a id="miner-version-upgrade-minor-version-upgrade-order"></a>
 #### 마이너 버전 업그레이드 순서
 
 - 마스터에 대해 버전 업그레이드를 시도하는 경우 예비 마스터가 존재한다면 함께 버전 업그레이드를 진행합니다. 

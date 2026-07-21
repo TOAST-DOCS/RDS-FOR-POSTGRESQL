@@ -1,6 +1,10 @@
-## Database > RDS for PostgreSQL > Event
+<!-- pre-align:aligned sig=a6332d48b331 -->
 
-## Event
+<a id="database-rds-for-postgresql-event"></a>
+## Database > RDS for PostgreSQL > Event { #database-rds-for-postgresql-event }
+
+<a id="event"></a>
+## Event { #event }
 
 Event refers to RDS for PostgreSQL or a significant event that is caused by a user's action. Event consists of event category , the date and time of occurrence, the source and the message. Event can be viewed on the console, and the category of events and possible events are as follows:
 
@@ -160,7 +164,8 @@ Event refers to RDS for PostgreSQL or a significant event that is caused by a us
 | TENANT_05_04            | TENANT            | Limit read replica creation                                                   |
 | JOB_01_04               | JOB               | Job execution failed                                                          |
 
-### Subscribe to Events
+<a id="subscribe-to-events"></a>
+### Subscribe to Events { #subscribe-to-events }
 
 If subscribed to an event, a notification will be received via email and SMS when the event occurs. Notifications are sent to a user of the user group subscribed to the event. Subscription can be subdivided by event type, event code, and event source. In order to temporarily stop the notifications, modify the enabled event subscription. If disabled, notifications are not sent.
 

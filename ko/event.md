@@ -1,6 +1,10 @@
-## Database > RDS for PostgreSQL > 이벤트
+<!-- pre-align:aligned sig=a6332d48b331 -->
 
-## 이벤트
+<a id="database-rds-for-postgresql-event"></a>
+## Database > RDS for PostgreSQL > 이벤트 { #database-rds-for-postgresql-event }
+
+<a id="event"></a>
+## 이벤트 { #event }
 
 이벤트는 RDS for PostgreSQL이나 사용자 행위로 발생하는 중요한 사건을 의미합니다. 이벤트는 이벤트 유형, 발생 일시, 원본 소스와 메시지로 구성됩니다. 이벤트는 콘솔에서 조회할 수 있으며, 이벤트의 유형과 발생 가능한 이벤트는 아래와 같습니다.
 
@@ -160,7 +164,8 @@
 | TENANT_05_04            | TENANT            | 읽기 복제본 생성 제한                         |
 | JOB_01_04               | JOB               | Job 실행 실패                            |
 
-### 이벤트 구독
+<a id="subscribe-to-events"></a>
+### 이벤트 구독 { #subscribe-to-events }
 
 이벤트를 구독하면 이벤트 발생 시 이메일 및 SMS로 알림을 받을 수 있습니다. 이벤트 구독에 연결된 사용자 그룹의 사용자에게 알림을 발송합니다. 이벤트 유형, 이벤트 코드, 이벤트 소스로 세분화하여 구독할 수 있습니다. 잠시 알림을 중단하려면 이벤트 구독의 활성화 여부를 수정합니다. 활성화하지 않으면 알림을 발송하지 않습니다.
 

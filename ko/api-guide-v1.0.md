@@ -1,14 +1,20 @@
-## Database > RDS for PostgreSQL > API 가이드 > API v1.0 가이드
+<!-- pre-align:aligned sig=6103ac3fb6eb -->
 
-## RDS for PostgreSQL API 공통 정보
+<a id="database-rds-for-postgresql-api-guide-api-v10-guide"></a>
+## Database > RDS for PostgreSQL > API 가이드 > API v1.0 가이드 { #database-rds-for-postgresql-api-guide-api-v10-guide }
 
-### API 엔드포인트
+<a id="common-information-on-rds-for-postgresql-api"></a>
+## RDS for PostgreSQL API 공통 정보 { #common-information-on-rds-for-postgresql-api }
+
+<a id="api-endpoint"></a>
+### API 엔드포인트 { #api-endpoint }
 
 | 리전        | 엔드포인트                                            |
 |-----------|--------------------------------------------------|
 | 한국(판교) 리전 | https://kr1-rds-postgres.api.nhncloudservice.com |
 
-### 인증 및 권한
+<a id="authentication-and-authorization"></a>
+### 인증 및 권한 { #authentication-and-authorization }
 
 RDS for PostgreSQL은 API 호출 시 인증/인가를 위해 User Access Key 토큰을 사용합니다. User Access Key 토큰은 User Access Key를 기반으로 발급되는 Bearer 타입의 일시적 액세스 토큰입니다. User Access Key 토큰 발급 및 사용에 대한 자세한 내용은 [User Access Key 토큰](/nhncloud/ko/public-api/user-access-key-token)을 참고하세요.
 발급 받은 토큰은 Appkey와 함께 요청 Header에 포함해야 합니다.
@@ -32,10 +38,12 @@ API 요청 시 인증에 실패하거나 권한이 없으면 다음과 같은 �
 | 80401      | Unauthorized  | 인증에 실패했습니다. |
 | 80403      | Forbidden     | 권한이 없습니다.   |
 
-### 응답 공통 정보
+<a id="response-common-information"></a>
+### 응답 공통 정보 { #response-common-information }
 
 모든 API 요청에 `200 OK`로 응답합니다. 자세한 응답 결과는 응답 본문의 헤더를 참고합니다.
 
+<a id="response-common-information-response-body"></a>
 #### 응답 본문
 
 ```json
@@ -48,6 +56,7 @@ API 요청 시 인증에 실패하거나 권한이 없으면 다음과 같은 �
 }
 ```
 
+<a id="response-common-information-field"></a>
 #### 필드
 
 | 이름            | 자료형     | 설명                    |
@@ -56,7 +65,8 @@ API 요청 시 인증에 실패하거나 권한이 없으면 다음과 같은 �
 | resultMessage | String  | 결과 메시지                |
 | successful    | Boolean | 성공 여부                 |
 
-## DB 버전
+<a id="db-version"></a>
+## DB 버전 { #db-version }
 
 | DB 버전             | 생성 가능 여부 |
 |-------------------|----------|
@@ -71,22 +81,26 @@ API 요청 시 인증에 실패하거나 권한이 없으면 다음과 같은 �
 * ENUM 유형의 dbVersion 필드에 대해 해당 값을 사용할 수 있습니다.
 * 버전에 따라 생성이 불가능하거나, 복원이 불가능한 경우가 있을 수 있습니다.
 
-### DB 버전 목록 보기
+<a id="view-db-version-list"></a>
+### DB 버전 목록 보기 { #view-db-version-list }
 
 ```http
 GET /v1.0/db-versions
 ```
 
+<a id="view-db-version-list-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                             | 설명          |
 |---------------------------------|-------------|
 | RDSforPostgreSQL:DbVersion.List | DB 버전 목록 보기 |
 
+<a id="view-db-version-list-request"></a>
 #### 요청
 
 이 API는 요청 본문을 요구하지 않습니다.
 
+<a id="view-db-version-list-response"></a>
 #### 응답
 
 | 이름                           | 종류   | 형식      | 설명                    |
@@ -116,24 +130,29 @@ GET /v1.0/db-versions
 ```
 </details>
 
-## DB 인스턴스 사양
+<a id="specifications-of-db-instance"></a>
+## DB 인스턴스 사양 { #specifications-of-db-instance }
 
-### DB 인스턴스 사양 목록 보기
+<a id="list-db-instance-specifications"></a>
+### DB 인스턴스 사양 목록 보기 { #list-db-instance-specifications }
 
 ```http
 GET /v1.0/db-flavors
 ```
 
+<a id="list-db-instance-specifications-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                            | 설명               |
 |--------------------------------|------------------|
 | RDSforPostgreSQL:DbFlavor.List | DB 인스턴스 사양 목록 보기 |
 
+<a id="list-db-instance-specifications-request"></a>
 #### 요청
 
 이 API는 요청 본문을 요구하지 않습니다.
 
+<a id="list-db-instance-specifications-response"></a>
 #### 응답
 
 | 이름                     | 종류   | 형식     | 설명              |
@@ -165,24 +184,29 @@ GET /v1.0/db-flavors
 ```
 </details>
 
-## 프로젝트 정보
+<a id="project-information"></a>
+## 프로젝트 정보 { #project-information }
 
-### 리전 목록 보기
+<a id="list-regions"></a>
+### 리전 목록 보기 { #list-regions }
 
 ```http
 GET /v1.0/project/regions
 ```
 
+<a id="list-regions-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                          | 설명         |
 |------------------------------|------------|
 | RDSforPostgreSQL:Project.Get | 프로젝트 정보 조회 |
 
+<a id="list-regions-request"></a>
 #### 요청
 
 이 API는 요청 본문을 요구하지 않습니다.
 
+<a id="list-regions-response"></a>
 #### 응답
 
 | 이름                 | 종류   | 형식      | 설명                           |
@@ -210,22 +234,26 @@ GET /v1.0/project/regions
 ```
 </details>
 
-### 프로젝트 멤버 목록 보기
+<a id="list-project-members"></a>
+### 프로젝트 멤버 목록 보기 { #list-project-members }
 
 ```http
 GET /v1.0/project/members
 ```
 
+<a id="list-project-members-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                          | 설명         |
 |------------------------------|------------|
 | RDSforPostgreSQL:Project.Get | 프로젝트 정보 조회 |
 
+<a id="list-project-members-request"></a>
 #### 요청
 
 이 API는 요청 본문을 요구하지 않습니다.
 
+<a id="list-project-members-response"></a>
 #### 응답
 
 | 이름                   | 종류   | 형식     | 설명              |
@@ -257,24 +285,29 @@ GET /v1.0/project/members
 ```
 </details>
 
-## 네트워크
+<a id="network"></a>
+## 네트워크 { #network }
 
-### 서브넷 목록 보기
+<a id="list-subnets"></a>
+### 서브넷 목록 보기 { #list-subnets }
 
 ```http
 GET /v1.0/network/subnets
 ```
 
+<a id="list-subnets-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                           | 설명        |
 |-------------------------------|-----------|
 | RDSforPostgreSQL:Network.List | 서브넷 목록 보기 |
 
+<a id="list-subnets-request"></a>
 #### 요청
 
 이 API는 요청 본문을 요구하지 않습니다.
 
+<a id="list-subnets-response"></a>
 #### 응답
 
 | 이름                       | 종류   | 형식      | 설명               |
@@ -309,24 +342,29 @@ GET /v1.0/network/subnets
 ```
 </details>
 
-## 스토리지
+<a id="storage"></a>
+## 스토리지 { #storage }
 
-### 스토리지 유형 목록 보기
+<a id="view-the-list-of-storage-types"></a>
+### 스토리지 유형 목록 보기 { #view-the-list-of-storage-types }
 
 ```http
 GET /v1.0/storage-types
 ```
 
+<a id="view-the-list-of-storage-types-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                           | 설명            |
 |-------------------------------|---------------|
 | RDSforPostgreSQL:Storage.List | 스토리지 유형 목록 보기 |
 
+<a id="view-the-list-of-storage-types-request"></a>
 #### 요청
 
 이 API는 요청 본문을 요구하지 않습니다.
 
+<a id="view-the-list-of-storage-types-response"></a>
 #### 응답
 
 | 이름           | 종류   | 형식    | 설명         |
@@ -350,20 +388,24 @@ GET /v1.0/storage-types
 ```
 </details>
 
-## 작업 정보
+<a id="task-information"></a>
+## 작업 정보 { #task-information }
 
-### 작업 정보 상세 보기
+<a id="list-task-details"></a>
+### 작업 정보 상세 보기 { #list-task-details }
 
 ```http
 GET /v1.0/jobs/{jobId}
 ```
 
+<a id="list-task-details-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                      | 설명          |
 |--------------------------|-------------|
 | RDSforPostgreSQL:Job.Get | 작업 정보 상세 보기 |
 
+<a id="list-task-details-request"></a>
 #### 요청
 
 이 API는 요청 본문을 요구하지 않습니다.
@@ -372,6 +414,7 @@ GET /v1.0/jobs/{jobId}
 |-------|-----|------|----|---------|
 | jobId | URL | UUID | O  | 작업의 식별자 |
 
+<a id="list-task-details-response"></a>
 #### 응답
 
 | 이름                             | 종류   | 형식       | 설명                                                                                                                                                                                                                                                                                                                                                                                                              |
@@ -407,24 +450,29 @@ GET /v1.0/jobs/{jobId}
 ```
 </details>
 
-## DB 인스턴스 그룹
+<a id="db-instance-group"></a>
+## DB 인스턴스 그룹 { #db-instance-group }
 
-### DB 인스턴스 그룹 목록 보기
+<a id="list-db-instances"></a>
+### DB 인스턴스 그룹 목록 보기 { #list-db-instances }
 
 ```http
 GET /v1.0/db-instance-groups
 ```
 
+<a id="list-db-instances-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                                   | 설명               |
 |---------------------------------------|------------------|
 | RDSforPostgreSQL:DbInstanceGroup.List | DB 인스턴스 그룹 목록 보기 |
 
+<a id="list-db-instances-request"></a>
 #### 요청
 
 이 API는 요청 본문을 요구하지 않습니다.
 
+<a id="list-db-instances-response"></a>
 #### 응답
 
 | 이름                                     | 종류   | 형식       | 설명                                                          |
@@ -459,18 +507,21 @@ GET /v1.0/db-instance-groups
 </details>
 
 
-### DB 인스턴스 그룹 상세 보기
+<a id="list-db-instance-group-details"></a>
+### DB 인스턴스 그룹 상세 보기 { #list-db-instance-group-details }
 
 ```http
 GET /v1.0/db-instance-groups/{dbInstanceGroupId}
 ```
 
+<a id="list-db-instance-group-details-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                                  | 설명               |
 |--------------------------------------|------------------|
 | RDSforPostgreSQL:DbInstanceGroup.Get | DB 인스턴스 그룹 상세 보기 |
 
+<a id="list-db-instance-group-details-request"></a>
 #### 요청
 
 이 API는 요청 본문을 요구하지 않습니다.
@@ -479,6 +530,7 @@ GET /v1.0/db-instance-groups/{dbInstanceGroupId}
 |-------------------|-----|------|----|-----------------|
 | dbInstanceGroupId | URL | UUID | O  | DB 인스턴스 그룹의 식별자 |
 
+<a id="list-db-instance-group-details-response"></a>
 #### 응답
 
 | 이름                           | 종류   | 형식       | 설명                                                                                                                                    |
@@ -518,20 +570,24 @@ GET /v1.0/db-instance-groups/{dbInstanceGroupId}
 ```
 </details>
 
-## DB 인스턴스 그룹 > 확장 관리
+<a id="db-instance-group-manage-extensions"></a>
+## DB 인스턴스 그룹 > 확장 관리 { #db-instance-group-manage-extensions }
 
-### 확장 목록 보기
+<a id="view-extension-list"></a>
+### 확장 목록 보기 { #view-extension-list }
 
 ```http
 GET /v1.0/db-instance-groups/{dbInstanceGroupId}/extensions
 ```
 
+<a id="view-extension-list-required-permission"></a>
 #### 필요 권한
 
 | 권한명                                            | 설명       |
 |------------------------------------------------|----------|
 | RDSforPostgreSQL:DbInstanceGroupExtension.List | 확장 목록 조회 |
 
+<a id="view-extension-list-request"></a>
 #### 요청
 
 이 API는 요청 본문을 요구하지 않습니다.
@@ -540,6 +596,7 @@ GET /v1.0/db-instance-groups/{dbInstanceGroupId}/extensions
 |-------------------|-----|------|----|-----------------|
 | dbInstanceGroupId | URL | UUID | O  | DB 인스턴스 그룹의 식별자 |
 
+<a id="view-extension-list-response"></a>
 #### 응답
 
 | 이름                                                  | 종류   | 형식      | 설명                                                                                                                                                                                              |
@@ -589,18 +646,21 @@ GET /v1.0/db-instance-groups/{dbInstanceGroupId}/extensions
 </details>
 
 
-### 확장 설치
+<a id="install-extensions"></a>
+### 확장 설치 { #install-extensions }
 
 ```http
 POST /v1.0/db-instance-groups/{dbInstanceGroupId}/extensions/{extensionId}
 ```
 
+<a id="install-extensions-required-permission"></a>
 #### 필요 권한
 
 | 권한명                                               | 설명    |
 |---------------------------------------------------|-------|
 | RDSforPostgreSQL:DbInstanceGroupExtension.Install | 확장 설치 |
 
+<a id="install-extensions-request"></a>
 #### 요청
 
 이 API는 요청 본문을 요구하지 않습니다.
@@ -613,6 +673,7 @@ POST /v1.0/db-instance-groups/{dbInstanceGroupId}/extensions/{extensionId}
 | schemaName        | Body | String  | O  | 설치 대상 스키마 이름      |
 | withCascade       | Body | Boolean | X  | 의존 정보 강제 설치 여부    |
 
+<a id="install-extensions-response"></a>
 #### 응답
 
 이 API는 응답 본문을 반환하지 않습니다.
@@ -631,18 +692,21 @@ POST /v1.0/db-instance-groups/{dbInstanceGroupId}/extensions/{extensionId}
 </details>
 
 
-### 확장 삭제(취소)
+<a id="delete-extensions-cancel"></a>
+### 확장 삭제(취소) { #delete-extensions-cancel }
 
 ```http
 DELETE /v1.0/db-instance-groups/{dbInstanceGroupId}/extensions/{dbInstanceGroupExtensionId}
 ```
 
+<a id="delete-extensions-cancel-required-permission"></a>
 #### 필요 권한
 
 | 권한명                                              | 설명        |
 |--------------------------------------------------|-----------|
 | RDSforPostgreSQL:DbInstanceGroupExtension.Delete | 확장 삭제(취소) |
 
+<a id="delete-extensions-cancel-request"></a>
 #### 요청
 
 이 API는 요청 본문을 요구하지 않습니다.
@@ -653,6 +717,7 @@ DELETE /v1.0/db-instance-groups/{dbInstanceGroupId}/extensions/{dbInstanceGroupE
 | dbInstanceGroupExtensionId | URL   | UUID    | O  | DB 인스턴스 그룹 내 확장의 식별자 |
 | withCascade                | Query | Boolean | O  | 의존 정보 강제 삭제 여부       |
 
+<a id="delete-extensions-cancel-response"></a>
 #### 응답
 
 이 API는 응답 본문을 반환하지 않습니다.
@@ -671,18 +736,21 @@ DELETE /v1.0/db-instance-groups/{dbInstanceGroupId}/extensions/{dbInstanceGroupE
 </details>
 
 
-### 확장 변경 사항 적용
+<a id="apply-extension-changes"></a>
+### 확장 변경 사항 적용 { #apply-extension-changes }
 
 ```http
 POST /v1.0/db-instance-groups/{dbInstanceGroupId}/extensions/apply
 ```
 
+<a id="apply-extension-changes-required-permission"></a>
 #### 필요 권한
 
 | 권한명                                             | 설명         |
 |-------------------------------------------------|------------|
 | RDSforPostgreSQL:DbInstanceGroupExtension.Apply | 확장 변경 사항 적용 |
 
+<a id="apply-extension-changes-request"></a>
 #### 요청
 
 이 API는 요청 본문을 요구하지 않습니다.
@@ -691,6 +759,7 @@ POST /v1.0/db-instance-groups/{dbInstanceGroupId}/extensions/apply
 |----------------------------|-------|---------|----|----------------------|
 | dbInstanceGroupId          | URL   | UUID    | O  | DB 인스턴스 그룹의 식별자      |
 
+<a id="apply-extension-changes-response"></a>
 #### 응답
 
 | 이름    | 종류   | 형식   | 설명          |
@@ -712,18 +781,21 @@ POST /v1.0/db-instance-groups/{dbInstanceGroupId}/extensions/apply
 </details>
 
 
-### 확장 동기화
+<a id="synchronize-extensions"></a>
+### 확장 동기화 { #synchronize-extensions }
 
 ```http
 POST /v1.0/db-instance-groups/{dbInstanceGroupId}/extensions/sync
 ```
 
+<a id="synchronize-extensions-required-permission"></a>
 #### 필요 권한
 
 | 권한명                                            | 설명     |
 |------------------------------------------------|--------|
 | RDSforPostgreSQL:DbInstanceGroupExtension.Sync | 확장 동기화 |
 
+<a id="synchronize-extensions-request"></a>
 #### 요청
 
 이 API는 요청 본문을 요구하지 않습니다.
@@ -732,6 +804,7 @@ POST /v1.0/db-instance-groups/{dbInstanceGroupId}/extensions/sync
 |----------------------------|-------|---------|----|----------------------|
 | dbInstanceGroupId          | URL   | UUID    | O  | DB 인스턴스 그룹의 식별자      |
 
+<a id="synchronize-extensions-response"></a>
 #### 응답
 
 | 이름    | 종류   | 형식   | 설명          |
@@ -753,9 +826,11 @@ POST /v1.0/db-instance-groups/{dbInstanceGroupId}/extensions/sync
 </details>
 
 
-## DB 인스턴스
+<a id="db-instance"></a>
+## DB 인스턴스 { #db-instance }
 
-### DB 인스턴스 상태
+<a id="db-instance-status"></a>
+### DB 인스턴스 상태 { #db-instance-status }
 
 | 상태                  | 설명                          |
 |---------------------|-----------------------------|
@@ -770,7 +845,8 @@ POST /v1.0/db-instance-groups/{dbInstanceGroupId}/extensions/sync
 | `SHUTDOWN`          | DB 인스턴스가 중지된 경우             |
 | `DELETED`           | DB 인스턴스가 삭제된 경우             |
 
-### DB 인스턴스 진행 상태
+<a id="db-instance-progress-status"></a>
+### DB 인스턴스 진행 상태 { #db-instance-progress-status }
 
 | 상태                              | 설명             |
 |---------------------------------|----------------|
@@ -808,22 +884,26 @@ POST /v1.0/db-instance-groups/{dbInstanceGroupId}/extensions/sync
 | `UPDATING_DATABASE`             | 데이터베이스 수정 중	   |
 | `WAIT_MANUAL_CONTROL`           | 수동 장애 조치 대기 중	 |
 
-### DB 인스턴스 목록 보기
+<a id="db-instance-list-db-instances"></a>
+### DB 인스턴스 목록 보기 { #db-instance-list-db-instances }
 
 ```http
 GET /v1.0/db-instances
 ```
 
+<a id="db-instance-list-db-instances-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                              | 설명            |
 |----------------------------------|---------------|
 | RDSforPostgreSQL:DbInstance.List | DB 인스턴스 목록 보기 |
 
+<a id="db-instance-list-db-instances-request"></a>
 #### 요청
 
 이 API는 요청 본문을 요구하지 않습니다.
 
+<a id="db-instance-list-db-instances-response"></a>
 #### 응답
 
 | 이름                            | 종류   | 형식       | 설명                                                                                                                                    |
@@ -870,18 +950,21 @@ GET /v1.0/db-instances
 </details>
 
 
-### DB 인스턴스 상세 보기
+<a id="list-db-instance-details"></a>
+### DB 인스턴스 상세 보기 { #list-db-instance-details }
 
 ```http
 GET /v1.0/db-instances/{dbInstanceId}
 ```
 
+<a id="list-db-instance-details-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                             | 설명            |
 |---------------------------------|---------------|
 | RDSforPostgreSQL:DbInstance.Get | DB 인스턴스 상세 보기 |
 
+<a id="list-db-instance-details-request"></a>
 #### 요청
 
 이 API는 요청 본문을 요구하지 않습니다.
@@ -890,6 +973,7 @@ GET /v1.0/db-instances/{dbInstanceId}
 |--------------|-----|------|----|--------------|
 | dbInstanceId | URL | UUID | O  | DB 인스턴스의 식별자 |
 
+<a id="list-db-instance-details-response"></a>
 #### 응답
 
 | 이름                        | 종류   | 형식       | 설명                                                                                                                                    |
@@ -945,18 +1029,21 @@ GET /v1.0/db-instances/{dbInstanceId}
 ```
 </details>
 
-### DB 인스턴스 생성하기
+<a id="create-db-instance"></a>
+### DB 인스턴스 생성하기 { #create-db-instance }
 
 ```http
 POST /v1.0/db-instances
 ```
 
+<a id="create-db-instance-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                                | 설명           |
 |------------------------------------|--------------|
 | RDSforPostgreSQL:DbInstance.Create | DB 인스턴스 생성하기 |
 
+<a id="create-db-instance-request"></a>
 #### 요청
 
 | 이름                                       | 종류   | 형식      | 필수 | 설명                                                                                                                                                                                                                   |
@@ -1029,6 +1116,7 @@ POST /v1.0/db-instances
 ```
 </details>
 
+<a id="create-db-instance-response"></a>
 #### 응답
 
 | 이름    | 종류   | 형식   | 설명          |
@@ -1049,18 +1137,21 @@ POST /v1.0/db-instances
 ```
 </details>
 
-### DB 인스턴스 수정하기
+<a id="modify-db-instance"></a>
+### DB 인스턴스 수정하기 { #modify-db-instance }
 
 ```http
 PUT /v1.0/db-instances/{dbInstanceId}
 ```
 
+<a id="modify-db-instance-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                                | 설명           |
 |------------------------------------|--------------|
 | RDSforPostgreSQL:DbInstance.Modify | DB 인스턴스 수정하기 |
 
+<a id="modify-db-instance-request"></a>
 #### 요청
 
 | 이름                 | 종류   | 형식      | 필수 | 설명                                                                        |
@@ -1087,6 +1178,7 @@ PUT /v1.0/db-instances/{dbInstanceId}
 ```
 </details>
 
+<a id="modify-db-instance-response"></a>
 #### 응답
 
 | 이름    | 종류   | 형식   | 설명          |
@@ -1108,24 +1200,28 @@ PUT /v1.0/db-instances/{dbInstanceId}
 </details>
 
 
-### 고가용성 정보 조회
+<a id="get-high-availability-information"></a>
+### 고가용성 정보 조회 { #get-high-availability-information }
 
 ```http
 GET /v1.0/db-instances/{dbInstanceId}/high-availability
 ```
 
+<a id="get-high-availability-information-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                                   | 설명         |
 |---------------------------------------|------------|
 | RDSforPostgreSQL:HighAvailability.Get | 고가용성 정보 조회 |
 
+<a id="get-high-availability-information-request"></a>
 #### 요청
 
 | 이름                  | 종류   | 형식      | 필수 | 설명                                                   |
 |---------------------|------|---------|----|------------------------------------------------------|
 | dbInstanceId        | URL  | UUID    | O  | DB 인스턴스의 식별자                                         |
 
+<a id="get-high-availability-information-response"></a>
 #### 응답
 
 | 이름                      | 종류   | 형식      | 설명                                                                                                                                                                                                                                                                                                                             |
@@ -1152,18 +1248,21 @@ GET /v1.0/db-instances/{dbInstanceId}/high-availability
 </details>
 
 
-### 고가용성 수정하기
+<a id="modify-high-availability"></a>
+### 고가용성 수정하기 { #modify-high-availability }
 
 ```http
 PUT /v1.0/db-instances/{dbInstanceId}/high-availability
 ```
 
+<a id="modify-high-availability-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                                      | 설명        |
 |------------------------------------------|-----------|
 | RDSforPostgreSQL:HighAvailability.Modify | 고가용성 수정하기 |
 
+<a id="modify-high-availability-request"></a>
 #### 요청
 
 | 이름                      | 종류   | 형식      | 필수 | 설명                                                                           |
@@ -1173,6 +1272,7 @@ PUT /v1.0/db-instances/{dbInstanceId}/high-availability
 | pingInterval            | Body | Number  | X  | 고가용성 사용 시 Ping 간격(초)<br/>- 최솟값: `1`<br/>- 최댓값: `600`                         |
 | failoverReplWaitingTime | Body | Number  | X  | 고가용성 사용 시 장애 조치 대기 시간<br/>- 최솟값: `-1`<br/>- -1로 설정 시, 복제 지연 해소까지 계속해서 대기합니다. |
 
+<a id="modify-high-availability-response"></a>
 #### 응답
 
 | 이름    | 종류   | 형식   | 설명          |
@@ -1193,18 +1293,21 @@ PUT /v1.0/db-instances/{dbInstanceId}/high-availability
 ```
 </details>
 
-### 고가용성 다시 시작하기
+<a id="restart-high-availability"></a>
+### 고가용성 다시 시작하기 { #restart-high-availability }
 
 ```http
 POST /v1.0/db-instances/{dbInstanceId}/high-availability/resume
 ```
 
+<a id="restart-high-availability-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                                      | 설명           |
 |------------------------------------------|--------------|
 | RDSforPostgreSQL:HighAvailability.Resume | 고가용성 다시 시작하기 |
 
+<a id="restart-high-availability-request"></a>
 #### 요청
 
 이 API는 요청 본문을 요구하지 않습니다.
@@ -1213,6 +1316,7 @@ POST /v1.0/db-instances/{dbInstanceId}/high-availability/resume
 |--------------|-----|------|----|--------------|
 | dbInstanceId | URL | UUID | O  | DB 인스턴스의 식별자 |
 
+<a id="restart-high-availability-response"></a>
 #### 응답
 
 | 이름    | 종류   | 형식   | 설명          |
@@ -1234,18 +1338,21 @@ POST /v1.0/db-instances/{dbInstanceId}/high-availability/resume
 </details>
 
 
-### 고가용성 일시 중지하기
+<a id="pause-high-availability"></a>
+### 고가용성 일시 중지하기 { #pause-high-availability }
 
 ```http
 POST /v1.0/db-instances/{dbInstanceId}/high-availability/pause
 ```
 
+<a id="pause-high-availability-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                                     | 설명           |
 |-----------------------------------------|--------------|
 | RDSforPostgreSQL:HighAvailability.Pause | 고가용성 일시 중지하기 |
 
+<a id="pause-high-availability-request"></a>
 #### 요청
 
 이 API는 요청 본문을 요구하지 않습니다.
@@ -1254,6 +1361,7 @@ POST /v1.0/db-instances/{dbInstanceId}/high-availability/pause
 |--------------|-----|------|----|--------------|
 | dbInstanceId | URL | UUID | O  | DB 인스턴스의 식별자 |
 
+<a id="pause-high-availability-response"></a>
 #### 응답
 
 | 이름    | 종류   | 형식   | 설명          |
@@ -1275,18 +1383,21 @@ POST /v1.0/db-instances/{dbInstanceId}/high-availability/pause
 </details>
 
 
-### 고가용성 복구하기
+<a id="recover-high-availability"></a>
+### 고가용성 복구하기 { #recover-high-availability }
 
 ```http
 POST /v1.0/db-instances/{dbInstanceId}/high-availability/repair
 ```
 
+<a id="recover-high-availability-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                                      | 설명        |
 |------------------------------------------|-----------|
 | RDSforPostgreSQL:HighAvailability.Repair | 고가용성 복구하기 |
 
+<a id="recover-high-availability-request"></a>
 #### 요청
 
 이 API는 요청 본문을 요구하지 않습니다.
@@ -1295,6 +1406,7 @@ POST /v1.0/db-instances/{dbInstanceId}/high-availability/repair
 |--------------|-----|------|----|--------------|
 | dbInstanceId | URL | UUID | O  | DB 인스턴스의 식별자 |
 
+<a id="recover-high-availability-response"></a>
 #### 응답
 
 | 이름    | 종류   | 형식   | 설명          |
@@ -1316,18 +1428,21 @@ POST /v1.0/db-instances/{dbInstanceId}/high-availability/repair
 </details>
 
 
-### 고가용성 분리하기
+<a id="separate-high-availability"></a>
+### 고가용성 분리하기 { #separate-high-availability }
 
 ```http
 POST /v1.0/db-instances/{dbInstanceId}/high-availability/split
 ```
 
+<a id="separate-high-availability-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                                     | 설명        |
 |-----------------------------------------|-----------|
 | RDSforPostgreSQL:HighAvailability.Split | 고가용성 분리하기 |
 
+<a id="separate-high-availability-request"></a>
 #### 요청
 
 이 API는 요청 본문을 요구하지 않습니다.
@@ -1336,6 +1451,7 @@ POST /v1.0/db-instances/{dbInstanceId}/high-availability/split
 |--------------|-----|------|----|--------------|
 | dbInstanceId | URL | UUID | O  | DB 인스턴스의 식별자 |
 
+<a id="separate-high-availability-response"></a>
 #### 응답
 
 | 이름    | 종류   | 형식   | 설명          |
@@ -1357,18 +1473,21 @@ POST /v1.0/db-instances/{dbInstanceId}/high-availability/split
 </details>
 
 
-### DB 인스턴스 스토리지 정보 조회
+<a id="get-db-instance-storage-information"></a>
+### DB 인스턴스 스토리지 정보 조회 { #get-db-instance-storage-information }
 
 ```http
 GET /v1.0/db-instances/{dbInstanceId}/storage-info
 ```
 
+<a id="get-db-instance-storage-information-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                             | 설명            |
 |---------------------------------|---------------|
 | RDSforPostgreSQL:DbInstance.Get | DB 인스턴스 상세 보기 |
 
+<a id="get-db-instance-storage-information-request"></a>
 #### 요청
 
 이 API는 요청 본문을 요구하지 않습니다.
@@ -1377,6 +1496,7 @@ GET /v1.0/db-instances/{dbInstanceId}/storage-info
 |--------------|-----|------|----|--------------|
 | dbInstanceId | URL | UUID | O  | DB 인스턴스의 식별자 |
 
+<a id="get-db-instance-storage-information-response"></a>
 #### 응답
 
 | 이름               | 종류   | 형식      | 설명                                                                                   |
@@ -1402,18 +1522,21 @@ GET /v1.0/db-instances/{dbInstanceId}/storage-info
 </details>
 
 
-### DB 인스턴스 스토리지 정보 수정하기
+<a id="modifying-db-instance-storage-information"></a>
+### DB 인스턴스 스토리지 정보 수정하기 { #modifying-db-instance-storage-information }
 
 ```http
 PUT /v1.0/db-instances/{dbInstanceId}/storage-info
 ```
 
+<a id="modifying-db-instance-storage-information-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                                | 설명           |
 |------------------------------------|--------------|
 | RDSforPostgreSQL:DbInstance.Modify | DB 인스턴스 수정하기 |
 
+<a id="modifying-db-instance-storage-information-request"></a>
 #### 요청
 
 | 이름                | 종류   | 형식      | 필수 | 설명                                                                        |
@@ -1421,6 +1544,7 @@ PUT /v1.0/db-instances/{dbInstanceId}/storage-info
 | dbInstanceId      | URL  | UUID    | O  | DB 인스턴스의 식별자                                                              |
 | storageSize       | Body | Number  | O  | 데이터 스토리지 크기(GB)<br/>- 최솟값: 현재값<br/>- 최댓값: `2048`                          |
 
+<a id="modifying-db-instance-storage-information-response"></a>
 #### 응답
 
 | 이름    | 종류   | 형식   | 설명          |
@@ -1441,18 +1565,21 @@ PUT /v1.0/db-instances/{dbInstanceId}/storage-info
 ```
 </details>
 
-### DB 인스턴스 네트워크 정보 조회
+<a id="get-db-instance-network-information"></a>
+### DB 인스턴스 네트워크 정보 조회 { #get-db-instance-network-information }
 
 ```http
 GET /v1.0/db-instances/{dbInstanceId}/network-info
 ```
 
+<a id="get-db-instance-network-information-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                             | 설명            |
 |---------------------------------|---------------|
 | RDSforPostgreSQL:DbInstance.Get | DB 인스턴스 상세 보기 |
 
+<a id="get-db-instance-network-information-request"></a>
 #### 요청
 
 이 API는 요청 본문을 요구하지 않습니다.
@@ -1461,6 +1588,7 @@ GET /v1.0/db-instances/{dbInstanceId}/network-info
 |--------------|-----|------|----|--------------|
 | dbInstanceId | URL | UUID | O  | DB 인스턴스의 식별자 |
 
+<a id="get-db-instance-network-information-response"></a>
 #### 응답
 
 | 이름                      | 종류   | 형식      | 설명                                                                                                                                      |
@@ -1503,18 +1631,21 @@ GET /v1.0/db-instances/{dbInstanceId}/network-info
 ```
 </details>
 
-### DB 인스턴스 네트워크 정보 수정하기
+<a id="modifying-db-instance-network-information"></a>
+### DB 인스턴스 네트워크 정보 수정하기 { #modifying-db-instance-network-information }
 
 ```http
 PUT /v1.0/db-instances/{dbInstanceId}/network-info
 ```
 
+<a id="modifying-db-instance-network-information-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                                | 설명           |
 |------------------------------------|--------------|
 | RDSforPostgreSQL:DbInstance.Modify | DB 인스턴스 수정하기 |
 
+<a id="modifying-db-instance-network-information-request"></a>
 #### 요청
 
 | 이름              | 종류   | 형식      | 필수 | 설명           |
@@ -1522,6 +1653,7 @@ PUT /v1.0/db-instances/{dbInstanceId}/network-info
 | dbInstanceId    | URL  | UUID    | O  | DB 인스턴스의 식별자 |
 | usePublicAccess | Body | Boolean | O  | 외부 접속 가능 여부  |
 
+<a id="modifying-db-instance-network-information-response"></a>
 #### 응답
 
 | 이름    | 종류   | 형식   | 설명          |
@@ -1542,18 +1674,21 @@ PUT /v1.0/db-instances/{dbInstanceId}/network-info
 ```
 </details>
 
-### DB 인스턴스 백업 정보 조회
+<a id="get-db-instance-backup-information"></a>
+### DB 인스턴스 백업 정보 조회 { #get-db-instance-backup-information }
 
 ```http
 GET /v1.0/db-instances/{dbInstanceId}/backup-info
 ```
 
+<a id="get-db-instance-backup-information-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                             | 설명            |
 |---------------------------------|---------------|
 | RDSforPostgreSQL:DbInstance.Get | DB 인스턴스 상세 보기 |
 
+<a id="get-db-instance-backup-information-request"></a>
 #### 요청
 
 이 API는 요청 본문을 요구하지 않습니다.
@@ -1562,6 +1697,7 @@ GET /v1.0/db-instances/{dbInstanceId}/backup-info
 |--------------|-----|------|----|--------------|
 | dbInstanceId | URL | UUID | O  | DB 인스턴스의 식별자 |
 
+<a id="get-db-instance-backup-information-response"></a>
 #### 응답
 
 | 이름                                    | 종류   | 형식     | 설명                                                                                                                                                                                                                   |
@@ -1594,18 +1730,21 @@ GET /v1.0/db-instances/{dbInstanceId}/backup-info
 ```
 </details>
 
-### DB 인스턴스 백업 정보 수정하기
+<a id="modifying-db-instance-backup-information"></a>
+### DB 인스턴스 백업 정보 수정하기 { #modifying-db-instance-backup-information }
 
 ```http
 PUT /v1.0/db-instances/{dbInstanceId}/backup-info
 ```
 
+<a id="modifying-db-instance-backup-information-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                                | 설명           |
 |------------------------------------|--------------|
 | RDSforPostgreSQL:DbInstance.Modify | DB 인스턴스 수정하기 |
 
+<a id="modifying-db-instance-backup-information-request"></a>
 #### 요청
 
 | 이름                                    | 종류   | 형식     | 필수 | 설명                                                                                                                                                                                                                   |
@@ -1633,6 +1772,7 @@ PUT /v1.0/db-instances/{dbInstanceId}/backup-info
 ```
 </details>
 
+<a id="modifying-db-instance-backup-information-response"></a>
 #### 응답
 
 | 이름    | 종류   | 형식   | 설명          |
@@ -1653,24 +1793,28 @@ PUT /v1.0/db-instances/{dbInstanceId}/backup-info
 ```
 </details>
 
-### DB 인스턴스 복원 정보 조회
+<a id="get-db-instance-restore-information"></a>
+### DB 인스턴스 복원 정보 조회 { #get-db-instance-restore-information }
 
 ```http
 GET /v1.0/db-instances/{dbInstanceId}/restoration-info
 ```
 
+<a id="get-db-instance-restore-information-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                             | 설명            |
 |---------------------------------|---------------|
 | RDSforPostgreSQL:DbInstance.Get | DB 인스턴스 상세 보기 |
 
+<a id="get-db-instance-restore-information-request"></a>
 #### 요청
 
 | 이름           | 종류  | 형식   | 필수 | 설명           |
 |--------------|-----|------|----|--------------|
 | dbInstanceId | URL | UUID | O  | DB 인스턴스의 식별자 |
 
+<a id="get-db-instance-restore-information-response"></a>
 #### 응답
 
 | 이름                                      | 종류   | 형식       | 설명                                                                                                                                                    |
@@ -1726,18 +1870,21 @@ GET /v1.0/db-instances/{dbInstanceId}/restoration-info
 ```
 </details>
 
-### DB 인스턴스 복원하기
+<a id="restore-db-instance"></a>
+### DB 인스턴스 복원하기 { #restore-db-instance }
 
 ```http
 POST /v1.0/db-instances/{dbInstanceId}/restore
 ```
 
+<a id="restore-db-instance-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                                 | 설명           |
 |-------------------------------------|--------------|
 | RDSforPostgreSQL:DbInstance.Restore | DB 인스턴스 복원하기 |
 
+<a id="restore-db-instance-common-request"></a>
 #### 공통 요청
 
 | 이름                                       | 종류   | 형식      | 필수 | 설명                                                                                                                                                                                                                                                  |
@@ -1771,6 +1918,7 @@ POST /v1.0/db-instances/{dbInstanceId}/restore
 | backup.backupSchedules.backupWndBgnTime  | Body | String  | X  | 백업 시작 시각<br/>- 예시: `00:00:00`<br/>- 기본값: 원본 DB 인스턴스 값                                                                                                                                                                                               |
 | backup.backupSchedules.backupWndDuration | Body | Enum    | X  | 백업 Duration<br/>백업 시작 시각부터 Duration 안에 자동 백업이 실행됩니다.<br/>- `HALF_AN_HOUR`: 30분<br/>- `ONE_HOUR`: 1시간<br/>- `ONE_HOUR_AND_HALF`: 1시간 30분<br/>- `TWO_HOURS`: 2시간<br/>- `TWO_HOURS_AND_HALF`: 2시간 30분<br/>- `THREE_HOURS`: 3시간<br/>- 기본값: 원본 DB 인스턴스 값 |
 
+<a id="restore-db-instance-request-when-restoring-a-point-in-time-restoration-using-timestamp-if-restoretype-is-timestamp"></a>
 #### Timestamp를 이용한 시점 복원 시 요청(restoreType이 `TIMESTAMP`인 경우)
 
 | 이름                  | 종류   | 형식       | 필수 | 설명                                                                                              |
@@ -1816,6 +1964,7 @@ POST /v1.0/db-instances/{dbInstanceId}/restore
 ```
 </details>
 
+<a id="restore-db-instance-response"></a>
 #### 응답
 
 | 이름    | 종류   | 형식   | 설명          |
@@ -1837,18 +1986,21 @@ POST /v1.0/db-instances/{dbInstanceId}/restore
 </details>
 
 
-### DB 인스턴스 삭제 보호 설정 변경하기
+<a id="change-db-instance-deletion-protection-settings"></a>
+### DB 인스턴스 삭제 보호 설정 변경하기 { #change-db-instance-deletion-protection-settings }
 
 ```http
 PUT /v1.0/db-instances/{dbInstanceId}/deletion-protection
 ```
 
+<a id="change-db-instance-deletion-protection-settings-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                                | 설명           |
 |------------------------------------|--------------|
 | RDSforPostgreSQL:DbInstance.Modify | DB 인스턴스 수정하기 |
 
+<a id="change-db-instance-deletion-protection-settings-request"></a>
 #### 요청
 
 | 이름                    | 종류   | 형식      | 필수 | 설명           |
@@ -1856,6 +2008,7 @@ PUT /v1.0/db-instances/{dbInstanceId}/deletion-protection
 | dbInstanceId          | URL  | UUID    | O  | DB 인스턴스의 식별자 |
 | useDeletionProtection | Body | Boolean | O  | 삭제 보호 여부     |
 
+<a id="change-db-instance-deletion-protection-settings-response"></a>
 #### 응답
 
 이 API는 응답 본문을 반환하지 않습니다.
@@ -1874,24 +2027,28 @@ PUT /v1.0/db-instances/{dbInstanceId}/deletion-protection
 </details>
 
 
-### DB 인스턴스 유지보수 정보 조회
+<a id="get-db-instance-maintenance-information"></a>
+### DB 인스턴스 유지보수 정보 조회 { #get-db-instance-maintenance-information }
 
 ```http
 GET /v1.0/db-instances/{dbInstanceId}/maintenance-info
 ```
 
+<a id="get-db-instance-maintenance-information-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                             | 설명            |
 |---------------------------------|---------------|
 | RDSforPostgreSQL:DbInstance.Get | DB 인스턴스 상세 보기 |
 
+<a id="get-db-instance-maintenance-information-request"></a>
 #### 요청
 
 | 이름                    | 종류   | 형식      | 필수 | 설명           |
 |-----------------------|------|---------|----|--------------|
 | dbInstanceId          | URL  | UUID    | O  | DB 인스턴스의 식별자 |
 
+<a id="get-db-instance-maintenance-information-response"></a>
 #### 응답
 
 | 이름                    | 종류   | 형식      | 설명                                                                                                                   |
@@ -1922,18 +2079,21 @@ GET /v1.0/db-instances/{dbInstanceId}/maintenance-info
 </details>
 
 
-### DB 인스턴스 유지보수 정보 수정
+<a id="modify-db-instance-maintenance-information"></a>
+### DB 인스턴스 유지보수 정보 수정 { #modify-db-instance-maintenance-information }
 
 ```http
 PUT /v1.0/db-instances/{dbInstanceId}/maintenance-info
 ```
 
+<a id="modify-db-instance-maintenance-information-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                                | 설명           |
 |------------------------------------|--------------|
 | RDSforPostgreSQL:DbInstance.Modify | DB 인스턴스 수정하기 |
 
+<a id="modify-db-instance-maintenance-information-request"></a>
 #### 요청
 
 | 이름                    | 종류   | 형식      | 필수 | 설명                                                                                                                   |
@@ -1956,6 +2116,7 @@ PUT /v1.0/db-instances/{dbInstanceId}/maintenance-info
 ```
 </details>
 
+<a id="modify-db-instance-maintenance-information-response"></a>
 #### 응답
 
 | 이름    | 종류   | 형식   | 설명          |
@@ -1977,24 +2138,28 @@ PUT /v1.0/db-instances/{dbInstanceId}/maintenance-info
 </details>
 
 
-### 현 DB 인스턴스에서 선택 가능한 DB 버전 조회
+<a id="get-selectable-db-versions-in-the-current-db-instance"></a>
+### 현 DB 인스턴스에서 선택 가능한 DB 버전 조회 { #get-selectable-db-versions-in-the-current-db-instance }
 
 ```http
 GET /v1.0/db-instances/{dbInstanceId}/available-db-versions
 ```
 
+<a id="get-selectable-db-versions-in-the-current-db-instance-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                                | 설명           |
 |------------------------------------|--------------|
 | RDSforPostgreSQL:DbInstance.Get | DB 인스턴스 상세 보기 |
 
+<a id="get-selectable-db-versions-in-the-current-db-instance-request"></a>
 #### 요청
 
 | 이름                    | 종류   | 형식      | 필수 | 설명           |
 |-----------------------|------|---------|----|--------------|
 | dbInstanceId          | URL  | UUID    | O  | DB 인스턴스의 식별자 |
 
+<a id="get-selectable-db-versions-in-the-current-db-instance-response"></a>
 #### 응답
 
 | 이름                           | 종류   | 형식      | 설명                    |
@@ -2025,18 +2190,21 @@ GET /v1.0/db-instances/{dbInstanceId}/available-db-versions
 </details>
 
 
-### DB 인스턴스 삭제하기
+<a id="delete-db-instance"></a>
+### DB 인스턴스 삭제하기 { #delete-db-instance }
 
 ```http
 DELETE /v1.0/db-instances/{dbInstanceId}
 ```
 
+<a id="delete-db-instance-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                                | 설명           |
 |------------------------------------|--------------|
 | RDSforPostgreSQL:DbInstance.Delete | DB 인스턴스 삭제하기 |
 
+<a id="delete-db-instance-request"></a>
 #### 요청
 
 이 API는 요청 본문을 요구하지 않습니다.
@@ -2045,6 +2213,7 @@ DELETE /v1.0/db-instances/{dbInstanceId}
 |--------------|-----|------|----|--------------|
 | dbInstanceId | URL | UUID | O  | DB 인스턴스의 식별자 |
 
+<a id="delete-db-instance-response"></a>
 #### 응답
 
 | 이름    | 종류   | 형식   | 설명          |
@@ -2065,18 +2234,21 @@ DELETE /v1.0/db-instances/{dbInstanceId}
 ```
 </details>
 
-### DB 인스턴스 재시작하기
+<a id="restart-db-instance"></a>
+### DB 인스턴스 재시작하기 { #restart-db-instance }
 
 ```http
 POST /v1.0/db-instances/{dbInstanceId}/restart
 ```
 
+<a id="restart-db-instance-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                                 | 설명            |
 |-------------------------------------|---------------|
 | RDSforPostgreSQL:DbInstance.Restart | DB 인스턴스 재시작하기 |
 
+<a id="restart-db-instance-request"></a>
 #### 요청
 
 | 이름                | 종류   | 형식      | 필수 | 설명                                                                        |
@@ -2094,6 +2266,7 @@ POST /v1.0/db-instances/{dbInstanceId}/restart
 ```
 </details>
 
+<a id="restart-db-instance-response"></a>
 #### 응답
 
 | 이름    | 종류   | 형식   | 설명          |
@@ -2114,24 +2287,28 @@ POST /v1.0/db-instances/{dbInstanceId}/restart
 ```
 </details>
 
-### DB 인스턴스 강제 재시작하기
+<a id="force-restart-db-instance"></a>
+### DB 인스턴스 강제 재시작하기 { #force-restart-db-instance }
 
 ```http
 POST /v1.0/db-instances/{dbInstanceId}/force-restart
 ```
 
+<a id="force-restart-db-instance-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                                      | 설명               |
 |------------------------------------------|------------------|
 | RDSforPostgreSQL:DbInstance.ForceRestart | DB 인스턴스 강제 재시작하기 |
 
+<a id="force-restart-db-instance-request"></a>
 #### 요청
 
 | 이름           | 종류  | 형식   | 필수 | 설명           |
 |--------------|-----|------|----|--------------|
 | dbInstanceId | URL | UUID | O  | DB 인스턴스의 식별자 |
 
+<a id="force-restart-db-instance-response"></a>
 #### 응답
 
 이 API는 응답 본문을 반환하지 않습니다.
@@ -2150,18 +2327,21 @@ POST /v1.0/db-instances/{dbInstanceId}/force-restart
 </details>
 
 
-### DB 인스턴스 시작하기
+<a id="start-db-instance"></a>
+### DB 인스턴스 시작하기 { #start-db-instance }
 
 ```http
 POST /v1.0/db-instances/{dbInstanceId}/start
 ```
 
+<a id="start-db-instance-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                               | 설명           |
 |-----------------------------------|--------------|
 | RDSforPostgreSQL:DbInstance.Start | DB 인스턴스 시작하기 |
 
+<a id="start-db-instance-request"></a>
 #### 요청
 
 이 API는 요청 본문을 요구하지 않습니다.
@@ -2170,6 +2350,7 @@ POST /v1.0/db-instances/{dbInstanceId}/start
 |--------------|-----|------|----|--------------|
 | dbInstanceId | URL | UUID | O  | DB 인스턴스의 식별자 |
 
+<a id="start-db-instance-response"></a>
 #### 응답
 
 | 이름    | 종류   | 형식   | 설명          |
@@ -2190,18 +2371,21 @@ POST /v1.0/db-instances/{dbInstanceId}/start
 ```
 </details>
 
-### DB 인스턴스 정지하기
+<a id="stop-db-instance"></a>
+### DB 인스턴스 정지하기 { #stop-db-instance }
 
 ```http
 POST /v1.0/db-instances/{dbInstanceId}/stop
 ```
 
+<a id="stop-db-instance-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                              | 설명           |
 |----------------------------------|--------------|
 | RDSforPostgreSQL:DbInstance.Stop | DB 인스턴스 정지하기 |
 
+<a id="stop-db-instance-request"></a>
 #### 요청
 
 이 API는 요청 본문을 요구하지 않습니다.
@@ -2210,6 +2394,7 @@ POST /v1.0/db-instances/{dbInstanceId}/stop
 |--------------|-----|------|----|--------------|
 | dbInstanceId | URL | UUID | O  | DB 인스턴스의 식별자 |
 
+<a id="stop-db-instance-response"></a>
 #### 응답
 
 | 이름    | 종류   | 형식   | 설명          |
@@ -2230,18 +2415,21 @@ POST /v1.0/db-instances/{dbInstanceId}/stop
 ```
 </details>
 
-### DB 인스턴스 백업하기
+<a id="backup-db-instance"></a>
+### DB 인스턴스 백업하기 { #backup-db-instance }
 
 ```http
 POST /v1.0/db-instances/{dbInstanceId}/backup
 ```
 
+<a id="backup-db-instance-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                                | 설명           |
 |------------------------------------|--------------|
 | RDSforPostgreSQL:DbInstance.Backup | DB 인스턴스 백업하기 |
 
+<a id="backup-db-instance-request"></a>
 #### 요청
 
 | 이름           | 종류   | 형식     | 필수 | 설명              |
@@ -2258,6 +2446,7 @@ POST /v1.0/db-instances/{dbInstanceId}/backup
 ```
 </details>
 
+<a id="backup-db-instance-response"></a>
 #### 응답
 
 | 이름    | 종류   | 형식   | 설명          |
@@ -2278,18 +2467,21 @@ POST /v1.0/db-instances/{dbInstanceId}/backup
 ```
 </details>
 
-### DB 인스턴스 백업 후 내보내기
+<a id="export-after-backing-up-db-instance"></a>
+### DB 인스턴스 백업 후 내보내기 { #export-after-backing-up-db-instance }
 
 ```http
 POST /v1.0/db-instances/{dbInstanceId}/backup-to-object-storage
 ```
 
+<a id="export-after-backing-up-db-instance-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                                               | 설명                         |
 |---------------------------------------------------|----------------------------|
 | RDSforPostgreSQL:DbInstance.BackupToObjectStorage | 백업 후 백업 파일 오브젝트 스토리지로 내보내기 |
 
+<a id="export-after-backing-up-db-instance-request"></a>
 #### 요청
 
 | 이름              | 종류   | 형식     | 필수 | 설명                          |
@@ -2314,6 +2506,7 @@ POST /v1.0/db-instances/{dbInstanceId}/backup-to-object-storage
 ```
 </details>
 
+<a id="export-after-backing-up-db-instance-response"></a>
 #### 응답
 
 | 이름    | 종류   | 형식   | 설명          |
@@ -2334,18 +2527,21 @@ POST /v1.0/db-instances/{dbInstanceId}/backup-to-object-storage
 ```
 </details>
 
-### DB 인스턴스 최신 파라미터 그룹 적용하기
+<a id="applying-db-instance-latest-parameter-groups"></a>
+### DB 인스턴스 최신 파라미터 그룹 적용하기 { #applying-db-instance-latest-parameter-groups }
 
 ```http
 POST /v1.0/db-instances/{dbInstanceId}/apply-recent-parameter-group
 ```
 
+<a id="applying-db-instance-latest-parameter-groups-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                                | 설명           |
 |------------------------------------|--------------|
 | RDSforPostgreSQL:DbInstance.Modify | DB 인스턴스 수정하기 |
 
+<a id="applying-db-instance-latest-parameter-groups-request"></a>
 #### 요청
 
 | 이름                | 종류   | 형식      | 필수 | 설명                                                                        |
@@ -2362,6 +2558,7 @@ POST /v1.0/db-instances/{dbInstanceId}/apply-recent-parameter-group
 ```
 </details>
 
+<a id="applying-db-instance-latest-parameter-groups-response"></a>
 #### 응답
 
 | 이름    | 종류   | 형식   | 설명          |
@@ -2382,18 +2579,21 @@ POST /v1.0/db-instances/{dbInstanceId}/apply-recent-parameter-group
 ```
 </details>
 
-### DB 인스턴스 복제하기
+<a id="replicate-db-instance"></a>
+### DB 인스턴스 복제하기 { #replicate-db-instance }
 
 ```http
 POST /v1.0/db-instances/{dbInstanceId}/replicate
 ```
 
+<a id="replicate-db-instance-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                                   | 설명           |
 |---------------------------------------|--------------|
 | RDSforPostgreSQL:DbInstance.Replicate | DB 인스턴스 복제하기 |
 
+<a id="replicate-db-instance-request"></a>
 #### 요청
 
 | 이름                                           | 종류   | 형식      | 필수 | 설명                                                                                                                                                                                                                                                  |
@@ -2432,6 +2632,7 @@ POST /v1.0/db-instances/{dbInstanceId}/replicate
 ```
 </details>
 
+<a id="replicate-db-instance-response"></a>
 #### 응답
 
 | 이름    | 종류   | 형식   | 설명          |
@@ -2452,18 +2653,21 @@ POST /v1.0/db-instances/{dbInstanceId}/replicate
 ```
 </details>
 
-### DB 인스턴스 승격하기
+<a id="promote-db-instance"></a>
+### DB 인스턴스 승격하기 { #promote-db-instance }
 
 ```http
 POST /v1.0/db-instances/{dbInstanceId}/promote
 ```
 
+<a id="promote-db-instance-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                                 | 설명           |
 |-------------------------------------|--------------|
 | RDSforPostgreSQL:DbInstance.Promote | DB 인스턴스 승격하기 |
 
+<a id="promote-db-instance-request"></a>
 #### 요청
 
 이 API는 요청 본문을 요구하지 않습니다.
@@ -2472,6 +2676,7 @@ POST /v1.0/db-instances/{dbInstanceId}/promote
 |--------------|-----|------|----|--------------|
 | dbInstanceId | URL | UUID | O  | DB 인스턴스의 식별자 |
 
+<a id="promote-db-instance-response"></a>
 #### 응답
 
 | 이름    | 종류   | 형식   | 설명          |
@@ -2493,20 +2698,24 @@ POST /v1.0/db-instances/{dbInstanceId}/promote
 </details>
 
 
-## DB 인스턴스 > 데이터베이스
+<a id="db-instances-databases"></a>
+## DB 인스턴스 > 데이터베이스 { #db-instances-databases }
 
-### 데이터베이스 목록 보기
+<a id="view-the-list-of-databases"></a>
+### 데이터베이스 목록 보기 { #view-the-list-of-databases }
 
 ```http
 GET /v1.0/db-instances/{dbInstanceId}/databases
 ```
 
+<a id="view-the-list-of-databases-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                                      | 설명                     |
 |------------------------------------------|------------------------|
 | RDSforPostgreSQL:DbInstanceDatabase.List | DB 인스턴스 내 데이터베이스 목록 보기 |
 
+<a id="view-the-list-of-databases-request"></a>
 #### 요청
 
 이 API는 요청 본문을 요구하지 않습니다.
@@ -2515,6 +2724,7 @@ GET /v1.0/db-instances/{dbInstanceId}/databases
 |--------------|-----|------|----|--------------|
 | dbInstanceId | URL | UUID | O  | DB 인스턴스의 식별자 |
 
+<a id="view-the-list-of-databases-response"></a>
 #### 응답
 
 | 이름                           | 종류   | 형식       | 설명                                                                                                                                                  |
@@ -2555,18 +2765,21 @@ GET /v1.0/db-instances/{dbInstanceId}/databases
 ```
 </details>
 
-### 데이터베이스 생성하기
+<a id="create-a-database"></a>
+### 데이터베이스 생성하기 { #create-a-database }
 
 ```http
 POST /v1.0/db-instances/{dbInstanceId}/databases
 ```
 
+<a id="create-a-database-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                                        | 설명                    |
 |--------------------------------------------|-----------------------|
 | RDSforPostgreSQL:DbInstanceDatabase.Create | DB 인스턴스 내 데이터베이스 생성하기 |
 
+<a id="create-a-database-request"></a>
 #### 요청
 
 | 이름           | 종류   | 형식     | 필수 | 설명           |
@@ -2583,6 +2796,7 @@ POST /v1.0/db-instances/{dbInstanceId}/databases
 ```
 </details>
 
+<a id="create-a-database-response"></a>
 #### 응답
 
 | 이름    | 종류   | 형식   | 설명          |
@@ -2603,18 +2817,21 @@ POST /v1.0/db-instances/{dbInstanceId}/databases
 ```
 </details>
 
-### 데이터베이스 수정하기
+<a id="modifying-the-database"></a>
+### 데이터베이스 수정하기 { #modifying-the-database }
 
 ```http
 PUT /v1.0/db-instances/{dbInstanceId}/databases/{databaseId}
 ```
 
+<a id="modifying-the-database-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                                        | 설명                    |
 |--------------------------------------------|-----------------------|
 | RDSforPostgreSQL:DbInstanceDatabase.Modify | DB 인스턴스 내 데이터베이스 수정하기 |
 
+<a id="modifying-the-database-request"></a>
 #### 요청
 
 | 이름                       | 종류   | 형식      | 필수 | 설명                                                                                          |
@@ -2633,6 +2850,7 @@ PUT /v1.0/db-instances/{dbInstanceId}/databases/{databaseId}
 ```
 </details>
 
+<a id="modifying-the-database-response"></a>
 #### 응답
 
 | 이름    | 종류   | 형식   | 설명          |
@@ -2653,18 +2871,21 @@ PUT /v1.0/db-instances/{dbInstanceId}/databases/{databaseId}
 ```
 </details>
 
-### 데이터베이스 삭제하기
+<a id="deleting-a-database"></a>
+### 데이터베이스 삭제하기 { #deleting-a-database }
 
 ```http
 DELETE /v1.0/db-instances/{dbInstanceId}/databases/{databaseId}
 ```
 
+<a id="deleting-a-database-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                                        | 설명                    |
 |--------------------------------------------|-----------------------|
 | RDSforPostgreSQL:DbInstanceDatabase.Delete | DB 인스턴스 내 데이터베이스 삭제하기 |
 
+<a id="deleting-a-database-request"></a>
 #### 요청
 
 이 API는 요청 본문을 요구하지 않습니다.
@@ -2674,6 +2895,7 @@ DELETE /v1.0/db-instances/{dbInstanceId}/databases/{databaseId}
 | dbInstanceId | URL | UUID | O  | DB 인스턴스의 식별자 |
 | databaseId   | URL | UUID | O  | 데이터베이스의 식별자  |
 
+<a id="deleting-a-database-response"></a>
 #### 응답
 
 | 이름    | 종류   | 형식   | 설명          |
@@ -2694,20 +2916,24 @@ DELETE /v1.0/db-instances/{dbInstanceId}/databases/{databaseId}
 ```
 </details>
 
-## DB 인스턴스 > 사용자
+<a id="db-instances-users"></a>
+## DB 인스턴스 > 사용자 { #db-instances-users }
 
-### 사용자 목록 보기
+<a id="view-the-list-of-users"></a>
+### 사용자 목록 보기 { #view-the-list-of-users }
 
 ```http
 GET /v1.0/db-instances/{dbInstanceId}/db-users
 ```
 
+<a id="view-the-list-of-users-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                                  | 설명                  |
 |--------------------------------------|---------------------|
 | RDSforPostgreSQL:DbInstanceUser.List | DB 인스턴스 내 사용자 목록 보기 |
 
+<a id="view-the-list-of-users-request"></a>
 #### 요청
 
 이 API는 요청 본문을 요구하지 않습니다.
@@ -2716,6 +2942,7 @@ GET /v1.0/db-instances/{dbInstanceId}/db-users
 |--------------|-----|------|----|--------------|
 | dbInstanceId | URL | UUID | O  | DB 인스턴스의 식별자 |
 
+<a id="view-the-list-of-users-response"></a>
 #### 응답
 
 | 이름                    | 종류   | 형식       | 설명                                                                                                                                                  |
@@ -2749,18 +2976,21 @@ GET /v1.0/db-instances/{dbInstanceId}/db-users
 ```
 </details>
 
-### 사용자 생성하기
+<a id="create-a-user"></a>
+### 사용자 생성하기 { #create-a-user }
 
 ```http
 POST /v1.0/db-instances/{dbInstanceId}/db-users
 ```
 
+<a id="create-a-user-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                                    | 설명                 |
 |----------------------------------------|--------------------|
 | RDSforPostgreSQL:DbInstanceUser.Create | DB 인스턴스 내 사용자 생성하기 |
 
+<a id="create-a-user-request"></a>
 #### 요청
 
 | 이름                    | 종류   | 형식      | 필수 | 설명                                                                        |
@@ -2783,6 +3013,7 @@ POST /v1.0/db-instances/{dbInstanceId}/db-users
 ```
 </details>
 
+<a id="create-a-user-response"></a>
 #### 응답
 
 | 이름    | 종류   | 형식   | 설명          |
@@ -2803,18 +3034,21 @@ POST /v1.0/db-instances/{dbInstanceId}/db-users
 ```
 </details>
 
-### 사용자 수정하기
+<a id="edit-a-user"></a>
+### 사용자 수정하기 { #edit-a-user }
 
 ```http
 PUT /v1.0/db-instances/{dbInstanceId}/db-users/{dbUserId}
 ```
 
+<a id="edit-a-user-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                                    | 설명                 |
 |----------------------------------------|--------------------|
 | RDSforPostgreSQL:DbInstanceUser.Modify | DB 인스턴스 내 사용자 수정하기 |
 
+<a id="edit-a-user-request"></a>
 #### 요청
 
 | 이름                       | 종류   | 형식      | 필수 | 설명                                                                                          |
@@ -2836,6 +3070,7 @@ PUT /v1.0/db-instances/{dbInstanceId}/db-users/{dbUserId}
 ```
 </details>
 
+<a id="edit-a-user-response"></a>
 #### 응답
 
 | 이름    | 종류   | 형식   | 설명          |
@@ -2856,18 +3091,21 @@ PUT /v1.0/db-instances/{dbInstanceId}/db-users/{dbUserId}
 ```
 </details>
 
-### 사용자 삭제하기
+<a id="deleting-a-user"></a>
+### 사용자 삭제하기 { #deleting-a-user }
 
 ```http
 DELETE /v1.0/db-instances/{dbInstanceId}/db-users/{dbUserId}
 ```
 
+<a id="deleting-a-user-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                                    | 설명                 |
 |----------------------------------------|--------------------|
 | RDSforPostgreSQL:DbInstanceUser.Delete | DB 인스턴스 내 사용자 삭제하기 |
 
+<a id="deleting-a-user-request"></a>
 #### 요청
 
 이 API는 요청 본문을 요구하지 않습니다.
@@ -2877,6 +3115,7 @@ DELETE /v1.0/db-instances/{dbInstanceId}/db-users/{dbUserId}
 | dbInstanceId | URL | UUID | O  | DB 인스턴스의 식별자 |
 | dbUserId     | URL | UUID | O  | DB 사용자의 식별자  |
 
+<a id="deleting-a-user-response"></a>
 #### 응답
 
 | 이름    | 종류   | 형식   | 설명          |
@@ -2897,20 +3136,24 @@ DELETE /v1.0/db-instances/{dbInstanceId}/db-users/{dbUserId}
 ```
 </details>
 
-## DB 인스턴스 > 접근 제어
+<a id="db-instances-access-control"></a>
+## DB 인스턴스 > 접근 제어 { #db-instances-access-control }
 
-### 접근 제어 규칙 목록 보기
+<a id="view-a-list-of-access-control-rules"></a>
+### 접근 제어 규칙 목록 보기 { #view-a-list-of-access-control-rules }
 
 ```http
 GET /v1.0/db-instances/{dbInstanceId}/hba-rules
 ```
 
+<a id="view-a-list-of-access-control-rules-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                                 | 설명                       |
 |-------------------------------------|--------------------------|
 | RDSforPostgreSQL:DbInstanceHba.List | DB 인스턴스 내 접근 제어 규칙 목록 보기 |
 
+<a id="view-a-list-of-access-control-rules-request"></a>
 #### 요청
 
 이 API는 요청 본문을 요구하지 않습니다.
@@ -2919,6 +3162,7 @@ GET /v1.0/db-instances/{dbInstanceId}/hba-rules
 |--------------|-----|------|----|--------------|
 | dbInstanceId | URL | UUID | O  | DB 인스턴스의 식별자 |
 
+<a id="view-a-list-of-access-control-rules-response"></a>
 #### 응답
 
 | 이름                              | 종류   | 형식      | 설명                                                                                                                                                   |
@@ -2974,18 +3218,21 @@ GET /v1.0/db-instances/{dbInstanceId}/hba-rules
 ```
 </details>
 
-### 접근 제어 규칙 추가하기
+<a id="add-an-access-control-rule"></a>
+### 접근 제어 규칙 추가하기 { #add-an-access-control-rule }
 
 ```http
 POST /v1.0/db-instances/{dbInstanceId}/hba-rules
 ```
 
+<a id="add-an-access-control-rule-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                                   | 설명                      |
 |---------------------------------------|-------------------------|
 | RDSforPostgreSQL:DbInstanceHba.Create | DB 인스턴스 내 접근 제어 규칙 추가하기 |
 
+<a id="add-an-access-control-rule-request"></a>
 #### 요청
 
 | 이름                | 종류   | 형식     | 필수 | 설명                                                                                                   |
@@ -3014,6 +3261,7 @@ POST /v1.0/db-instances/{dbInstanceId}/hba-rules
 ```
 </details>
 
+<a id="add-an-access-control-rule-response"></a>
 #### 응답
 
 | 이름        | 종류   | 형식   | 설명            |
@@ -3034,18 +3282,21 @@ POST /v1.0/db-instances/{dbInstanceId}/hba-rules
 ```
 </details>
 
-### 접근 제어 규칙 수정하기
+<a id="modify-an-access-control-rule"></a>
+### 접근 제어 규칙 수정하기 { #modify-an-access-control-rule }
 
 ```http
 PUT /v1.0/db-instances/{dbInstanceId}/hba-rules/{hbaRuleId}
 ```
 
+<a id="modify-an-access-control-rule-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                                   | 설명                      |
 |---------------------------------------|-------------------------|
 | RDSforPostgreSQL:DbInstanceHba.Modify | DB 인스턴스 내 접근 제어 규칙 수정하기 |
 
+<a id="modify-an-access-control-rule-request"></a>
 #### 요청
 
 | 이름                | 종류   | 형식     | 필수 | 설명                                                                                                   |
@@ -3073,6 +3324,7 @@ PUT /v1.0/db-instances/{dbInstanceId}/hba-rules/{hbaRuleId}
 ```
 </details>
 
+<a id="modify-an-access-control-rule-response"></a>
 #### 응답
 
 이 API는 응답 본문을 반환하지 않습니다.
@@ -3090,18 +3342,21 @@ PUT /v1.0/db-instances/{dbInstanceId}/hba-rules/{hbaRuleId}
 ```
 </details>
 
-### 접근 제어 규칙 삭제하기
+<a id="deleting-an-access-control-rule"></a>
+### 접근 제어 규칙 삭제하기 { #deleting-an-access-control-rule }
 
 ```http
 DELETE /v1.0/db-instances/{dbInstanceId}/hba-rules/{hbaRuleId}
 ```
 
+<a id="deleting-an-access-control-rule-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                                   | 설명                      |
 |---------------------------------------|-------------------------|
 | RDSforPostgreSQL:DbInstanceHba.Delete | DB 인스턴스 내 접근 제어 규칙 삭제하기 |
 
+<a id="deleting-an-access-control-rule-request"></a>
 #### 요청
 
 이 API는 요청 본문을 요구하지 않습니다.
@@ -3111,6 +3366,7 @@ DELETE /v1.0/db-instances/{dbInstanceId}/hba-rules/{hbaRuleId}
 | dbInstanceId | URL | UUID | O  | DB 인스턴스의 식별자  |
 | hbaRuleId    | URL | UUID | O  | 접근 제어 규칙의 식별자 |
 
+<a id="deleting-an-access-control-rule-response"></a>
 #### 응답
 
 이 API는 응답 본문을 반환하지 않습니다.
@@ -3128,18 +3384,21 @@ DELETE /v1.0/db-instances/{dbInstanceId}/hba-rules/{hbaRuleId}
 ```
 </details>
 
-### 접근 제어 규칙 순서 조정
+<a id="reorder-access-control-rules"></a>
+### 접근 제어 규칙 순서 조정 { #reorder-access-control-rules }
 
 ```http
 PUT /v1.0/db-instances/{dbInstanceId}/hba-rules/orders
 ```
 
+<a id="reorder-access-control-rules-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                                   | 설명                      |
 |---------------------------------------|-------------------------|
 | RDSforPostgreSQL:DbInstanceHba.Modify | DB 인스턴스 내 접근 제어 규칙 수정하기 |
 
+<a id="reorder-access-control-rules-request"></a>
 #### 요청
 
 | 이름           | 종류  | 형식   | 필수 | 설명                                  |
@@ -3158,6 +3417,7 @@ PUT /v1.0/db-instances/{dbInstanceId}/hba-rules/orders
 ```
 </details>
 
+<a id="reorder-access-control-rules-response"></a>
 #### 응답
 
 이 API는 응답 본문을 반환하지 않습니다.
@@ -3175,18 +3435,21 @@ PUT /v1.0/db-instances/{dbInstanceId}/hba-rules/orders
 ```
 </details>
 
-### 접근제어 규칙 적용하기
+<a id="applying-access-control-rules"></a>
+### 접근제어 규칙 적용하기 { #applying-access-control-rules }
 
 ```http
 POST /v1.0/db-instances/{dbInstanceId}/hba-rules/apply
 ```
 
+<a id="applying-access-control-rules-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                                   | 설명           |
 |---------------------------------------|--------------|
 | RDSforPostgreSQL:DbInstance.Modify    | DB 인스턴스 수정하기 |
 
+<a id="applying-access-control-rules-request"></a>
 #### 요청
 
 이 API는 요청 본문을 요구하지 않습니다.
@@ -3195,6 +3458,7 @@ POST /v1.0/db-instances/{dbInstanceId}/hba-rules/apply
 |--------------|-----|------|----|--------------|
 | dbInstanceId | URL | UUID | O  | DB 인스턴스의 식별자 |
 
+<a id="applying-access-control-rules-response"></a>
 #### 응답
 
 | 이름    | 종류   | 형식   | 설명          |
@@ -3215,20 +3479,24 @@ POST /v1.0/db-instances/{dbInstanceId}/hba-rules/apply
 ```
 </details>
 
-## 백업
+<a id="backup"></a>
+## 백업 { #backup }
 
-### 백업 목록 조회
+<a id="retrieve-backup-list"></a>
+### 백업 목록 조회 { #retrieve-backup-list }
 
 ```http
 GET /v1.0/backups
 ```
 
+<a id="retrieve-backup-list-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                          | 설명       |
 |------------------------------|----------|
 | RDSforPostgreSQL:Backup.List | 백업 목록 조회 |
 
+<a id="retrieve-backup-list-request"></a>
 #### 요청
 
 이 API는 요청 본문을 요구하지 않습니다.
@@ -3241,6 +3509,7 @@ GET /v1.0/backups
 | dbInstanceId | Query | UUID   | X  | 원본 DB 인스턴스의 식별자                                            |
 | dbVersion    | Query | Enum   | X  | DB 버전 정보                                                   |
 
+<a id="retrieve-backup-list-response"></a>
 #### 응답
 
 | 이름                   | 종류   | 형식       | 설명                                                                                                                                                        |
@@ -3286,18 +3555,21 @@ GET /v1.0/backups
 ```
 </details>
 
-### 오브젝트 스토리지로 백업 내보내기
+<a id="export-backup-to-object-storage"></a>
+### 오브젝트 스토리지로 백업 내보내기 { #export-backup-to-object-storage }
 
 ```http
 POST /v1.0/backups/{backupId}/export
 ```
 
+<a id="export-backup-to-object-storage-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                            | 설명                 |
 |--------------------------------|--------------------|
 | RDSforPostgreSQL:Backup.Export | 오브젝트 스토리지로 백업 내보내기 |
 
+<a id="export-backup-to-object-storage-request"></a>
 #### 요청
 
 | 이름              | 종류   | 형식     | 필수 | 설명                          |
@@ -3322,6 +3594,7 @@ POST /v1.0/backups/{backupId}/export
 ```
 </details>
 
+<a id="export-backup-to-object-storage-response"></a>
 #### 응답
 
 | 이름    | 종류   | 형식   | 설명          |
@@ -3342,18 +3615,21 @@ POST /v1.0/backups/{backupId}/export
 ```
 </details>
 
-### 백업 복원하기
+<a id="restore-backup"></a>
+### 백업 복원하기 { #restore-backup }
 
 ```http
 POST /v1.0/backups/{backupId}/restore
 ```
 
+<a id="restore-backup-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                             | 설명      |
 |---------------------------------|---------|
 | RDSforPostgreSQL:Backup.Restore | 백업 복원하기 |
 
+<a id="restore-backup-request"></a>
 #### 요청
 
 | 이름                                       | 종류   | 형식      | 필수 | 설명                                                                                                                                                                                                                        |
@@ -3415,6 +3691,7 @@ POST /v1.0/backups/{backupId}/restore
 ```
 </details>
 
+<a id="restore-backup-response"></a>
 #### 응답
 
 | 이름    | 종류   | 형식   | 설명          |
@@ -3435,18 +3712,21 @@ POST /v1.0/backups/{backupId}/restore
 ```
 </details>
 
-### 백업 삭제하기
+<a id="delete-backup"></a>
+### 백업 삭제하기 { #delete-backup }
 
 ```http
 DELETE /v1.0/backups/{backupId}
 ```
 
+<a id="delete-backup-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                            | 설명      |
 |--------------------------------|---------|
 | RDSforPostgreSQL:Backup.Delete | 백업 삭제하기 |
 
+<a id="delete-backup-request"></a>
 #### 요청
 
 이 API는 요청 본문을 요구하지 않습니다.
@@ -3455,6 +3735,7 @@ DELETE /v1.0/backups/{backupId}
 |----------|-----|------|----|---------|
 | backupId | URL | UUID | O  | 백업의 식별자 |
 
+<a id="delete-backup-response"></a>
 #### 응답
 
 | 이름    | 종류   | 형식   | 설명          |
@@ -3475,24 +3756,29 @@ DELETE /v1.0/backups/{backupId}
 ```
 </details>
 
-## DB 보안 그룹
+<a id="db-security-group"></a>
+## DB 보안 그룹 { #db-security-group }
 
-### DB 보안 그룹 목록 보기
+<a id="list-db-security-groups"></a>
+### DB 보안 그룹 목록 보기 { #list-db-security-groups }
 
 ```http
 GET /v1.0/db-security-groups
 ```
 
+<a id="list-db-security-groups-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                                   | 설명             |
 |---------------------------------------|----------------|
 | RDSforPostgreSQL:DbSecurityGroup.List | DB 보안 그룹 목록 보기 |
 
+<a id="list-db-security-groups-request"></a>
 #### 요청
 
 이 API는 요청 본문을 요구하지 않습니다.
 
+<a id="list-db-security-groups-response"></a>
 #### 응답
 
 | 이름                                     | 종류   | 형식       | 설명                                                                                                                                                                                             |
@@ -3530,18 +3816,21 @@ GET /v1.0/db-security-groups
 ```
 </details>
 
-### DB 보안 그룹 상세 보기
+<a id="list-db-security-group-details"></a>
+### DB 보안 그룹 상세 보기 { #list-db-security-group-details }
 
 ```http
 GET /v1.0/db-security-groups/{dbSecurityGroupId}
 ```
 
+<a id="list-db-security-group-details-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                                  | 설명             |
 |--------------------------------------|----------------|
 | RDSforPostgreSQL:DbSecurityGroup.Get | DB 보안 그룹 상세 보기 |
 
+<a id="list-db-security-group-details-request"></a>
 #### 요청
 
 이 API는 요청 본문을 요구하지 않습니다.
@@ -3550,6 +3839,7 @@ GET /v1.0/db-security-groups/{dbSecurityGroupId}
 |-------------------|-----|------|----|---------------|
 | dbSecurityGroupId | URL | UUID | O  | DB 보안 그룹의 식별자 |
 
+<a id="list-db-security-group-details-response"></a>
 #### 응답
 
 | 이름                    | 종류   | 형식       | 설명                                                                                                                                                                                            |
@@ -3612,18 +3902,21 @@ GET /v1.0/db-security-groups/{dbSecurityGroupId}
 ```
 </details>
 
-### DB 보안 그룹 생성하기
+<a id="create-db-security-group"></a>
+### DB 보안 그룹 생성하기 { #create-db-security-group }
 
 ```http
 POST /v1.0/db-security-groups
 ```
 
+<a id="create-db-security-group-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                                     | 설명            |
 |-----------------------------------------|---------------|
 | RDSforPostgreSQL:DbSecurityGroup.Create | DB 보안 그룹 생성하기 |
 
+<a id="create-db-security-group-request"></a>
 #### 요청
 
 | 이름                  | 종류   | 형식     | 필수 | 설명                                                                                                                                                                                       |
@@ -3662,6 +3955,7 @@ POST /v1.0/db-security-groups
 ```
 </details>
 
+<a id="create-db-security-group-response"></a>
 #### 응답
 
 | 이름                | 종류   | 형식   | 설명            |
@@ -3682,18 +3976,21 @@ POST /v1.0/db-security-groups
 ```
 </details>
 
-### DB 보안 그룹 수정하기
+<a id="modify-db-security-group"></a>
+### DB 보안 그룹 수정하기 { #modify-db-security-group }
 
 ```http
 PUT /v1.0/db-security-groups/{dbSecurityGroupId}
 ```
 
+<a id="modify-db-security-group-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                                     | 설명            |
 |-----------------------------------------|---------------|
 | RDSforPostgreSQL:DbSecurityGroup.Modify | DB 보안 그룹 수정하기 |
 
+<a id="modify-db-security-group-request"></a>
 #### 요청
 
 | 이름                  | 종류   | 형식     | 필수 | 설명                    |
@@ -3712,6 +4009,7 @@ PUT /v1.0/db-security-groups/{dbSecurityGroupId}
 ```
 </details>
 
+<a id="modify-db-security-group-response"></a>
 #### 응답
 
 이 API는 응답 본문을 반환하지 않습니다.
@@ -3729,18 +4027,21 @@ PUT /v1.0/db-security-groups/{dbSecurityGroupId}
 ```
 </details>
 
-### DB 보안 그룹 삭제하기
+<a id="delete-db-security-group"></a>
+### DB 보안 그룹 삭제하기 { #delete-db-security-group }
 
 ```http
 DELETE /v1.0/db-security-groups/{dbSecurityGroupId}
 ```
 
+<a id="delete-db-security-group-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                                     | 설명            |
 |-----------------------------------------|---------------|
 | RDSforPostgreSQL:DbSecurityGroup.Delete | DB 보안 그룹 삭제하기 |
 
+<a id="delete-db-security-group-request"></a>
 #### 요청
 
 이 API는 요청 본문을 요구하지 않습니다.
@@ -3749,6 +4050,7 @@ DELETE /v1.0/db-security-groups/{dbSecurityGroupId}
 |-------------------|-----|------|----|---------------|
 | dbSecurityGroupId | URL | UUID | O  | DB 보안 그룹의 식별자 |
 
+<a id="delete-db-security-group-response"></a>
 #### 응답
 
 이 API는 응답 본문을 반환하지 않습니다.
@@ -3766,18 +4068,21 @@ DELETE /v1.0/db-security-groups/{dbSecurityGroupId}
 ```
 </details>
 
-### DB 보안 그룹 규칙 생성하기
+<a id="db-security-group-create-db-security-group"></a>
+### DB 보안 그룹 규칙 생성하기 { #db-security-group-create-db-security-group }
 
 ```http
 POST /v1.0/db-security-groups/{dbSecurityGroupId}/rules
 ```
 
+<a id="db-security-group-create-db-security-group-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                                         | 설명               |
 |---------------------------------------------|------------------|
 | RDSforPostgreSQL:DbSecurityGroupRule.Create | DB 보안 그룹 규칙 생성하기 |
 
+<a id="db-security-group-create-db-security-group-request"></a>
 #### 요청
 
 | 이름                | 종류   | 형식     | 필수 | 설명                                                                                                                                                                                       |
@@ -3808,6 +4113,7 @@ POST /v1.0/db-security-groups/{dbSecurityGroupId}/rules
 ```
 </details>
 
+<a id="db-security-group-create-db-security-group-response"></a>
 #### 응답
 
 | 이름    | 종류   | 형식   | 설명          |
@@ -3828,18 +4134,21 @@ POST /v1.0/db-security-groups/{dbSecurityGroupId}/rules
 ```
 </details>
 
-### DB 보안 그룹 규칙 수정하기
+<a id="modify-db-security-group-rule"></a>
+### DB 보안 그룹 규칙 수정하기 { #modify-db-security-group-rule }
 
 ```http
 PUT /v1.0/db-security-groups/{dbSecurityGroupId}/rules/{ruleId}
 ```
 
+<a id="modify-db-security-group-rule-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                                         | 설명               |
 |---------------------------------------------|------------------|
 | RDSforPostgreSQL:DbSecurityGroupRule.Modify | DB 보안 그룹 규칙 수정하기 |
 
+<a id="modify-db-security-group-rule-request"></a>
 #### 요청
 
 | 이름                | 종류   | 형식     | 필수 | 설명                                                                                                                                                                                       |
@@ -3869,6 +4178,7 @@ PUT /v1.0/db-security-groups/{dbSecurityGroupId}/rules/{ruleId}
 ```
 </details>
 
+<a id="modify-db-security-group-rule-response"></a>
 #### 응답
 
 | 이름    | 종류   | 형식   | 설명          |
@@ -3889,18 +4199,21 @@ PUT /v1.0/db-security-groups/{dbSecurityGroupId}/rules/{ruleId}
 ```
 </details>
 
-### DB 보안 그룹 규칙 삭제하기
+<a id="delete-db-security-group-rule"></a>
+### DB 보안 그룹 규칙 삭제하기 { #delete-db-security-group-rule }
 
 ```http
 DELETE /v1.0/db-security-groups/{dbSecurityGroupId}/rules
 ```
 
+<a id="delete-db-security-group-rule-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                                         | 설명               |
 |---------------------------------------------|------------------|
 | RDSforPostgreSQL:DbSecurityGroupRule.Create | DB 보안 그룹 규칙 삭제하기 |
 
+<a id="delete-db-security-group-rule-request"></a>
 #### 요청
 
 이 API는 요청 본문을 요구하지 않습니다.
@@ -3910,6 +4223,7 @@ DELETE /v1.0/db-security-groups/{dbSecurityGroupId}/rules
 | dbSecurityGroupId | URL   | UUID  | O  | DB 보안 그룹의 식별자       |
 | ruleIds           | Query | Array | O  | DB 보안 그룹 규칙의 식별자 목록 |
 
+<a id="delete-db-security-group-rule-response"></a>
 #### 응답
 
 | 이름    | 종류   | 형식   | 설명          |
@@ -3930,20 +4244,24 @@ DELETE /v1.0/db-security-groups/{dbSecurityGroupId}/rules
 ```
 </details>
 
-## 파라미터 그룹
+<a id="parameter-group"></a>
+## 파라미터 그룹 { #parameter-group }
 
-### 파라미터 그룹 목록 보기
+<a id="list-parameter-groups"></a>
+### 파라미터 그룹 목록 보기 { #list-parameter-groups }
 
 ```http
 GET /v1.0/parameter-groups
 ```
 
+<a id="list-parameter-groups-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                                  | 설명            |
 |--------------------------------------|---------------|
 | RDSforPostgreSQL:ParameterGroup.List | 파라미터 그룹 목록 보기 |
 
+<a id="list-parameter-groups-request"></a>
 #### 요청
 
 이 API는 요청 본문을 요구하지 않습니다.
@@ -3952,6 +4270,7 @@ GET /v1.0/parameter-groups
 |-----------|-------|------|----|----------|
 | dbVersion | Query | Enum | X  | DB 버전 정보 |
 
+<a id="list-parameter-groups-response"></a>
 #### 응답
 
 | 이름                                   | 종류   | 형식       | 설명                                                                |
@@ -3990,18 +4309,21 @@ GET /v1.0/parameter-groups
 </details>
 
 
-### 파라미터 그룹 상세 보기
+<a id="list-parameter-group-details"></a>
+### 파라미터 그룹 상세 보기 { #list-parameter-group-details }
 
 ```http
 GET /v1.0/parameter-groups/{parameterGroupId}
 ```
 
+<a id="list-parameter-group-details-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                                 | 설명            |
 |-------------------------------------|---------------|
 | RDSforPostgreSQL:ParameterGroup.Get | 파라미터 그룹 상세 보기 |
 
+<a id="list-parameter-group-details-request"></a>
 #### 요청
 
 이 API는 요청 본문을 요구하지 않습니다.
@@ -4010,6 +4332,7 @@ GET /v1.0/parameter-groups/{parameterGroupId}
 |------------------|-----|------|----|--------------|
 | parameterGroupId | URL | UUID | O  | 파라미터 그룹의 식별자 |
 
+<a id="list-parameter-group-details-response"></a>
 #### 응답
 
 | 이름                           | 종류   | 형식       | 설명                                                                                                                                                                                                                                                                                                                                                 |
@@ -4067,18 +4390,21 @@ GET /v1.0/parameter-groups/{parameterGroupId}
 </details>
 
 
-### 파라미터 그룹 생성하기
+<a id="create-parameter-group"></a>
+### 파라미터 그룹 생성하기 { #create-parameter-group }
 
 ```http
 POST /v1.0/parameter-groups
 ```
 
+<a id="create-parameter-group-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                                    | 설명           |
 |----------------------------------------|--------------|
 | RDSforPostgreSQL:ParameterGroup.Create | 파라미터 그룹 생성하기 |
 
+<a id="create-parameter-group-request"></a>
 #### 요청
 
 | 이름                 | 종류   | 형식     | 필수 | 설명                   |
@@ -4098,6 +4424,7 @@ POST /v1.0/parameter-groups
 ```
 </details>
 
+<a id="create-parameter-group-response"></a>
 #### 응답
 
 | 이름               | 종류   | 형식   | 설명           |
@@ -4118,18 +4445,21 @@ POST /v1.0/parameter-groups
 ```
 </details>
 
-### 파라미터 그룹 복사하기
+<a id="copy-parameter-group"></a>
+### 파라미터 그룹 복사하기 { #copy-parameter-group }
 
 ```http
 POST /v1.0/parameter-groups/{parameterGroupId}/copy
 ```
 
+<a id="copy-parameter-group-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                                  | 설명           |
 |--------------------------------------|--------------|
 | RDSforPostgreSQL:ParameterGroup.Copy | 파라미터 그룹 복사하기 |
 
+<a id="copy-parameter-group-request"></a>
 #### 요청
 
 | 이름                 | 종류   | 형식     | 필수 | 설명                   |
@@ -4148,6 +4478,7 @@ POST /v1.0/parameter-groups/{parameterGroupId}/copy
 ```
 </details>
 
+<a id="copy-parameter-group-response"></a>
 #### 응답
 
 | 이름               | 종류   | 형식   | 설명           |
@@ -4168,18 +4499,21 @@ POST /v1.0/parameter-groups/{parameterGroupId}/copy
 ```
 </details>
 
-### 파라미터 그룹 수정하기
+<a id="modify-parameter-group"></a>
+### 파라미터 그룹 수정하기 { #modify-parameter-group }
 
 ```http
 PUT /v1.0/parameter-groups/{parameterGroupId}
 ```
 
+<a id="modify-parameter-group-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                                    | 설명           |
 |----------------------------------------|--------------|
 | RDSforPostgreSQL:ParameterGroup.Modify | 파라미터 그룹 수정하기 |
 
+<a id="modify-parameter-group-request"></a>
 #### 요청
 
 | 이름                 | 종류   | 형식     | 필수 | 설명                   |
@@ -4198,6 +4532,7 @@ PUT /v1.0/parameter-groups/{parameterGroupId}
 ```
 </details>
 
+<a id="modify-parameter-group-response"></a>
 #### 응답
 
 이 API는 응답 본문을 반환하지 않습니다.
@@ -4215,18 +4550,21 @@ PUT /v1.0/parameter-groups/{parameterGroupId}
 ```
 </details>
 
-### 파라미터 수정하기
+<a id="modify-parameter"></a>
+### 파라미터 수정하기 { #modify-parameter }
 
 ```http
 PUT /v1.0/parameter-groups/{parameterGroupId}/parameters
 ```
 
+<a id="modify-parameter-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                                    | 설명           |
 |----------------------------------------|--------------|
 | RDSforPostgreSQL:ParameterGroup.Modify | 파라미터 그룹 수정하기 |
 
+<a id="modify-parameter-request"></a>
 #### 요청
 
 | 이름                               | 종류   | 형식     | 필수 | 설명           |
@@ -4250,6 +4588,7 @@ PUT /v1.0/parameter-groups/{parameterGroupId}/parameters
 ```
 </details>
 
+<a id="modify-parameter-response"></a>
 #### 응답
 
 이 API는 응답 본문을 반환하지 않습니다.
@@ -4267,24 +4606,28 @@ PUT /v1.0/parameter-groups/{parameterGroupId}/parameters
 ```
 </details>
 
-### 파라미터 그룹 재설정하기
+<a id="reset-parameter-group"></a>
+### 파라미터 그룹 재설정하기 { #reset-parameter-group }
 
 ```http
 PUT /v1.0/parameter-groups/{parameterGroupId}/reset
 ```
 
+<a id="reset-parameter-group-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                                   | 설명            |
 |---------------------------------------|---------------|
 | RDSforPostgreSQL:ParameterGroup.Reset | 파라미터 그룹 재설정하기 |
 
+<a id="reset-parameter-group-request"></a>
 #### 요청
 
 | 이름               | 종류  | 형식   | 필수 | 설명           |
 |------------------|-----|------|----|--------------|
 | parameterGroupId | URL | UUID | O  | 파라미터 그룹의 식별자 |
 
+<a id="reset-parameter-group-response"></a>
 #### 응답
 
 이 API는 응답 본문을 반환하지 않습니다.
@@ -4302,18 +4645,21 @@ PUT /v1.0/parameter-groups/{parameterGroupId}/reset
 ```
 </details>
 
-### 파라미터 그룹 삭제하기
+<a id="delete-parameter-group"></a>
+### 파라미터 그룹 삭제하기 { #delete-parameter-group }
 
 ```http
 DELETE /v1.0/parameter-groups/{parameterGroupId}
 ```
 
+<a id="delete-parameter-group-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                                    | 설명           |
 |----------------------------------------|--------------|
 | RDSforPostgreSQL:ParameterGroup.Delete | 파라미터 그룹 삭제하기 |
 
+<a id="delete-parameter-group-request"></a>
 #### 요청
 
 이 API는 요청 본문을 요구하지 않습니다.
@@ -4322,6 +4668,7 @@ DELETE /v1.0/parameter-groups/{parameterGroupId}
 |------------------|-----|------|----|--------------|
 | parameterGroupId | URL | UUID | O  | 파라미터 그룹의 식별자 |
 
+<a id="delete-parameter-group-response"></a>
 #### 응답
 
 이 API는 응답 본문을 반환하지 않습니다.
@@ -4339,24 +4686,29 @@ DELETE /v1.0/parameter-groups/{parameterGroupId}
 ```
 </details>
 
-## 사용자 그룹
+<a id="user-group"></a>
+## 사용자 그룹 { #user-group }
 
-### 사용자 그룹 목록 보기
+<a id="list-user-groups"></a>
+### 사용자 그룹 목록 보기 { #list-user-groups }
 
 ```http
 GET /v1.0/user-groups
 ```
 
+<a id="list-user-groups-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                             | 설명           |
 |---------------------------------|--------------|
 | RDSforPostgreSQL:UserGroup.List | 사용자 그룹 목록 보기 |
 
+<a id="list-user-groups-request"></a>
 #### 요청
 
 이 API는 요청 본문을 요구하지 않습니다.
 
+<a id="list-user-groups-response"></a>
 #### 응답
 
 | 이름                       | 종류   | 형식       | 설명                                                      |
@@ -4391,18 +4743,21 @@ GET /v1.0/user-groups
 </details>
 
 
-### 사용자 그룹 상세 보기
+<a id="list-user-group-details"></a>
+### 사용자 그룹 상세 보기 { #list-user-group-details }
 
 ```http
 GET /v1.0/user-groups/{userGroupId}
 ```
 
+<a id="list-user-group-details-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                            | 설명           |
 |--------------------------------|--------------|
 | RDSforPostgreSQL:UserGroup.Get | 사용자 그룹 상세 보기 |
 
+<a id="list-user-group-details-request"></a>
 #### 요청
 
 이 API는 요청 본문을 요구하지 않습니다.
@@ -4411,6 +4766,7 @@ GET /v1.0/user-groups/{userGroupId}
 |-------------|-----|------|----|-------------|
 | userGroupId | URL | UUID | O  | 사용자 그룹의 식별자 |
 
+<a id="list-user-group-details-response"></a>
 #### 응답
 
 | 이름                | 종류   | 형식       | 설명                                                                                                        |
@@ -4449,18 +4805,21 @@ GET /v1.0/user-groups/{userGroupId}
 </details>
 
 
-### 사용자 그룹 생성하기
+<a id="create-user-group"></a>
+### 사용자 그룹 생성하기 { #create-user-group }
 
 ```http
 POST /v1.0/user-groups
 ```
 
+<a id="create-user-group-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                               | 설명          |
 |-----------------------------------|-------------|
 | RDSforPostgreSQL:UserGroup.Create | 사용자 그룹 생성하기 |
 
+<a id="create-user-group-request"></a>
 #### 요청
 
 | 이름            | 종류   | 형식      | 필수 | 설명                                                              |
@@ -4486,6 +4845,7 @@ POST /v1.0/user-groups
 ```
 </details>
 
+<a id="create-user-group-response"></a>
 #### 응답
 
 | 이름          | 종류   | 형식   | 설명          |
@@ -4493,18 +4853,21 @@ POST /v1.0/user-groups
 | userGroupId | Body | UUID | 사용자 그룹의 식별자 |
 
 
-### 사용자 그룹 수정하기
+<a id="modify-user-group"></a>
+### 사용자 그룹 수정하기 { #modify-user-group }
 
 ```http
 PUT /v1.0/user-groups/{userGroupId}
 ```
 
+<a id="modify-user-group-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                               | 설명          |
 |-----------------------------------|-------------|
 | RDSforPostgreSQL:UserGroup.Modify | 사용자 그룹 수정하기 |
 
+<a id="modify-user-group-request"></a>
 #### 요청
 
 | 이름            | 종류   | 형식      | 필수 | 설명                                                 |
@@ -4524,6 +4887,7 @@ PUT /v1.0/user-groups/{userGroupId}
 ```
 </details>
 
+<a id="modify-user-group-response"></a>
 #### 응답
 
 이 API는 응답 본문을 반환하지 않습니다.
@@ -4541,24 +4905,28 @@ PUT /v1.0/user-groups/{userGroupId}
 ```
 </details>
 
-### 사용자 그룹 삭제하기
+<a id="delete-user-group"></a>
+### 사용자 그룹 삭제하기 { #delete-user-group }
 
 ```http
 DELETE /v1.0/user-groups/{userGroupId}
 ```
 
+<a id="delete-user-group-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                               | 설명          |
 |-----------------------------------|-------------|
 | RDSforPostgreSQL:UserGroup.Delete | 사용자 그룹 삭제하기 |
 
+<a id="delete-user-group-request"></a>
 #### 요청
 
 | 이름          | 종류  | 형식   | 필수 | 설명          |
 |-------------|-----|------|----|-------------|
 | userGroupId | URL | UUID | O  | 사용자 그룹의 식별자 |
 
+<a id="delete-user-group-response"></a>
 #### 응답
 
 이 API는 응답 본문을 반환하지 않습니다.
@@ -4576,24 +4944,29 @@ DELETE /v1.0/user-groups/{userGroupId}
 ```
 </details>
 
-## 알림 그룹
+<a id="notification-group"></a>
+## 알림 그룹 { #notification-group }
 
-### 알림 그룹 목록 보기
+<a id="list-notification-groups"></a>
+### 알림 그룹 목록 보기 { #list-notification-groups }
 
 ```http
 GET /v1.0/notification-groups
 ```
 
+<a id="list-notification-groups-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                                     | 설명          |
 |-----------------------------------------|-------------|
 | RDSforPostgreSQL:NotificationGroup.List | 알림 그룹 목록 보기 |
 
+<a id="list-notification-groups-request"></a>
 #### 요청
 
 이 API는 요청 본문을 요구하지 않습니다.
 
+<a id="list-notification-groups-response"></a>
 #### 응답
 
 | 이름                                         | 종류   | 형식       | 설명                                                     |
@@ -4633,18 +5006,21 @@ GET /v1.0/notification-groups
 </details>
 
 
-### 알림 그룹 상세 보기
+<a id="notification-group-list-notification-groups"></a>
+### 알림 그룹 상세 보기 { #notification-group-list-notification-groups }
 
 ```http
 GET /v1.0/notification-groups/{notificationGroupId}
 ```
 
+<a id="notification-group-list-notification-groups-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                                    | 설명          |
 |----------------------------------------|-------------|
 | RDSforPostgreSQL:NotificationGroup.Get | 알림 그룹 상세 보기 |
 
+<a id="notification-group-list-notification-groups-request"></a>
 #### 요청
 
 이 API는 요청 본문을 요구하지 않습니다.
@@ -4653,6 +5029,7 @@ GET /v1.0/notification-groups/{notificationGroupId}
 |---------------------|-----|------|----|------------|
 | notificationGroupId | URL | UUID | O  | 알림 그룹의 식별자 |
 
+<a id="notification-group-list-notification-groups-response"></a>
 #### 응답
 
 | 이름                         | 종류   | 형식       | 설명                                                     |
@@ -4705,18 +5082,21 @@ GET /v1.0/notification-groups/{notificationGroupId}
 </details>
 
 
-### 알림 그룹 생성하기
+<a id="create-notification-group"></a>
+### 알림 그룹 생성하기 { #create-notification-group }
 
 ```http
 POST /v1.0/notification-groups
 ```
 
+<a id="create-notification-group-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                                       | 설명         |
 |-------------------------------------------|------------|
 | RDSforPostgreSQL:NotificationGroup.Create | 알림 그룹 생성하기 |
 
+<a id="create-notification-group-request"></a>
 #### 요청
 
 | 이름                    | 종류   | 형식      | 필수 | 설명                          |
@@ -4741,6 +5121,7 @@ POST /v1.0/notification-groups
 ```
 </details>
 
+<a id="create-notification-group-response"></a>
 #### 응답
 
 | 이름                  | 종류   | 형식   | 설명         |
@@ -4748,18 +5129,21 @@ POST /v1.0/notification-groups
 | notificationGroupId | Body | UUID | 알림 그룹의 식별자 |
 
 
-### 알림 그룹 수정하기
+<a id="modify-notification-group"></a>
+### 알림 그룹 수정하기 { #modify-notification-group }
 
 ```http
 PUT /v1.0/notification-groups/{notificationGroupId}
 ```
 
+<a id="modify-notification-group-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                                       | 설명         |
 |-------------------------------------------|------------|
 | RDSforPostgreSQL:NotificationGroup.Modify | 알림 그룹 수정하기 |
 
+<a id="modify-notification-group-request"></a>
 #### 요청
 
 | 이름                    | 종류   | 형식      | 필수 | 설명                    |
@@ -4782,6 +5166,7 @@ PUT /v1.0/notification-groups/{notificationGroupId}
 ```
 </details>
 
+<a id="modify-notification-group-response"></a>
 #### 응답
 
 이 API는 응답 본문을 반환하지 않습니다.
@@ -4799,18 +5184,21 @@ PUT /v1.0/notification-groups/{notificationGroupId}
 ```
 </details>
 
-### 알림 그룹 삭제하기
+<a id="delete-notification-group"></a>
+### 알림 그룹 삭제하기 { #delete-notification-group }
 
 ```http
 DELETE /v1.0/notification-groups/{notificationGroupId}
 ```
 
+<a id="delete-notification-group-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                                       | 설명         |
 |-------------------------------------------|------------|
 | RDSforPostgreSQL:NotificationGroup.Delete | 알림 그룹 삭제하기 |
 
+<a id="delete-notification-group-request"></a>
 #### 요청
 
 이 API는 요청 본문을 요구하지 않습니다.
@@ -4819,6 +5207,7 @@ DELETE /v1.0/notification-groups/{notificationGroupId}
 |---------------------|-----|------|----|------------|
 | notificationGroupId | URL | UUID | O  | 알림 그룹의 식별자 |
 
+<a id="delete-notification-group-response"></a>
 #### 응답
 
 이 API는 응답 본문을 반환하지 않습니다.
@@ -4836,22 +5225,26 @@ DELETE /v1.0/notification-groups/{notificationGroupId}
 ```
 </details>
 
-### 감시 설정 목록 보기
+<a id="view-the-list-of-watch-settings"></a>
+### 감시 설정 목록 보기 { #view-the-list-of-watch-settings }
 
 ```http
 GET /v1.0/notification-groups/{notificationGroupId}/watchdogs
 ```
 
+<a id="view-the-list-of-watch-settings-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                                        | 설명          |
 |--------------------------------------------|-------------|
 | RDSforPostgreSQL:NotificationWatchdog.List | 감시 설정 목록 보기 |
 
+<a id="view-the-list-of-watch-settings-request"></a>
 #### 요청
 
 이 API는 요청 본문을 요구하지 않습니다.
 
+<a id="view-the-list-of-watch-settings-response"></a>
 #### 응답
 
 | 이름                           | 종류   | 형식       | 설명                                                                     |
@@ -4889,18 +5282,21 @@ GET /v1.0/notification-groups/{notificationGroupId}/watchdogs
 ```
 </details>
 
-### 감시 설정 생성하기
+<a id="create-a-watch-setting"></a>
+### 감시 설정 생성하기 { #create-a-watch-setting }
 
 ```http
 POST /v1.0/notification-groups/{notificationGroupId}/watchdogs
 ```
 
+<a id="create-a-watch-setting-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                                          | 설명         |
 |----------------------------------------------|------------|
 | RDSforPostgreSQL:NotificationWatchdog.Create | 감시 설정 생성하기 |
 
+<a id="create-a-watch-setting-request"></a>
 #### 요청
 
 | 이름                  | 종류   | 형식   | 필수 | 설명                                                                     |
@@ -4923,6 +5319,7 @@ POST /v1.0/notification-groups/{notificationGroupId}/watchdogs
 ```
 </details>
 
+<a id="create-a-watch-setting-response"></a>
 #### 응답
 
 | 이름         | 종류   | 형식   | 설명         |
@@ -4930,18 +5327,21 @@ POST /v1.0/notification-groups/{notificationGroupId}/watchdogs
 | watchdogId | Body | UUID | 감시 설정의 식별자 |
 
 
-### 감시 설정 수정하기
+<a id="modify-watch-settings"></a>
+### 감시 설정 수정하기 { #modify-watch-settings }
 
 ```http
 PUT /v1.0/notification-groups/{notificationGroupId}/watchdogs/{watchdogId}
 ```
 
+<a id="modify-watch-settings-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                                          | 설명         |
 |----------------------------------------------|------------|
 | RDSforPostgreSQL:NotificationWatchdog.Modify | 감시 설정 수정하기 |
 
+<a id="modify-watch-settings-request"></a>
 #### 요청
 
 | 이름                  | 종류   | 형식   | 필수 | 설명                                                                     |
@@ -4965,6 +5365,7 @@ PUT /v1.0/notification-groups/{notificationGroupId}/watchdogs/{watchdogId}
 ```
 </details>
 
+<a id="modify-watch-settings-response"></a>
 #### 응답
 
 이 API는 응답 본문을 반환하지 않습니다.
@@ -4982,18 +5383,21 @@ PUT /v1.0/notification-groups/{notificationGroupId}/watchdogs/{watchdogId}
 ```
 </details>
 
-### 감시 설정 삭제하기
+<a id="deleting-a-watch-setting"></a>
+### 감시 설정 삭제하기 { #deleting-a-watch-setting }
 
 ```http
 DELETE /v1.0/notification-groups/{notificationGroupId}/watchdogs/{watchdogId}
 ```
 
+<a id="deleting-a-watch-setting-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                                          | 설명         |
 |----------------------------------------------|------------|
 | RDSforPostgreSQL:NotificationWatchdog.Delete | 감시 설정 삭제하기 |
 
+<a id="deleting-a-watch-setting-request"></a>
 #### 요청
 
 이 API는 요청 본문을 요구하지 않습니다.
@@ -5003,6 +5407,7 @@ DELETE /v1.0/notification-groups/{notificationGroupId}/watchdogs/{watchdogId}
 | notificationGroupId | URL | UUID | O  | 알림 그룹의 식별자 |
 | watchdogId          | URL | UUID | O  | 감시 설정의 식별자 |
 
+<a id="deleting-a-watch-setting-response"></a>
 #### 응답
 
 이 API는 응답 본문을 반환하지 않습니다.
@@ -5020,24 +5425,29 @@ DELETE /v1.0/notification-groups/{notificationGroupId}/watchdogs/{watchdogId}
 ```
 </details>
 
-## 모니터링
+<a id="monitoring"></a>
+## 모니터링 { #monitoring }
 
-### 성능 지표 목록 보기
+<a id="view-a-list-of-performance-metrics"></a>
+### 성능 지표 목록 보기 { #view-a-list-of-performance-metrics }
 
 ```http
 GET /v1.0/metrics
 ```
 
+<a id="view-a-list-of-performance-metrics-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                          | 설명       |
 |------------------------------|----------|
 | RDSforPostgreSQL:Metric.List | 통계 정보 조회 |
 
+<a id="view-a-list-of-performance-metrics-request"></a>
 #### 요청
 
 이 API는 요청 본문을 요구하지 않습니다.
 
+<a id="view-a-list-of-performance-metrics-response"></a>
 #### 응답
 
 | 이름                 | 종류   | 형식     | 설명       |
@@ -5065,18 +5475,21 @@ GET /v1.0/metrics
 ```
 </details>
 
-### 통계 정보 조회
+<a id="view-stats"></a>
+### 통계 정보 조회 { #view-stats }
 
 ```http
 GET /v1.0/metric-statistics
 ```
 
+<a id="view-stats-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                          | 설명       |
 |------------------------------|----------|
 | RDSforPostgreSQL:Metric.List | 통계 정보 조회 |
 
+<a id="view-stats-request"></a>
 #### 요청
 
 | 이름           | 종류    | 형식       | 필수 | 설명                                                        |
@@ -5087,6 +5500,7 @@ GET /v1.0/metric-statistics
 | to           | Query | Datetime | O  | 종료 일시(YYYY-MM-DDThh:mm:ss.SSSTZD)                         |
 | interval     | Query | Number   | X  | 조회 간격<br/>- 단위: `분`<br/>- 기본값: 시작/종료 일시에 따라 적절한 값을 자동 선택함 |
 
+<a id="view-stats-response"></a>
 #### 응답
 
 | 이름                                | 종류   | 형식        | 설명       |
@@ -5126,20 +5540,24 @@ GET /v1.0/metric-statistics
 ```
 </details>
 
-## 이벤트
+<a id="event"></a>
+## 이벤트 { #event }
 
-### 이벤트 목록 보기
+<a id="view-the-list-of-events"></a>
+### 이벤트 목록 보기 { #view-the-list-of-events }
 
 ```
 GET /v1.0/events
 ```
 
+<a id="view-the-list-of-events-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                         | 설명        |
 |-----------------------------|-----------|
 | RDSforPostgreSQL:Event.List | 이벤트 목록 보기 |
 
+<a id="view-the-list-of-events-request"></a>
 #### 요청
 
 이 API는 요청 본문을 요구하지 않습니다.
@@ -5154,6 +5572,7 @@ GET /v1.0/events
 | sourceId          | Query | String   | X  | 이벤트가 발생한 대상 리소스의 식별자                                                                                                                                                             |
 | keyword           | Query | String   | X  | 이벤트 메시지에 포함된 문자열 검색어                                                                                                                                                             |
 
+<a id="view-the-list-of-events-response"></a>
 #### 응답
 
 | 이름                       | 종류   | 형식       | 설명                                                 |
@@ -5211,22 +5630,26 @@ GET /v1.0/events
 </details>
 
 
-### 구독 가능한 이벤트 코드 목록 보기
+<a id="list-subscribable-event-codes"></a>
+### 구독 가능한 이벤트 코드 목록 보기 { #list-subscribable-event-codes }
 
 ```http
 GET /v1.0/event-codes
 ```
 
+<a id="list-subscribable-event-codes-required-permissions"></a>
 #### 필요 권한
 
 | 권한명                         | 설명        |
 |-----------------------------|-----------|
 | RDSforPostgreSQL:Event.List | 이벤트 목록 보기 |
 
+<a id="list-subscribable-event-codes-request"></a>
 #### 요청
 
 이 API는 요청 본문을 요구하지 않습니다.
 
+<a id="list-subscribable-event-codes-response"></a>
 #### 응답
 
 | 이름                           | 종류   | 형식    | 설명          |
