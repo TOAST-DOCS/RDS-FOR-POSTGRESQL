@@ -1,9 +1,14 @@
-## Database > RDS for PostgreSQL > DB Extensions
+<!-- pre-align:aligned sig=0f665c3fcbd5 -->
 
-## DB Extensions
+<a id="database-rds-for-postgresql-db-extensions"></a>
+## Database > RDS for PostgreSQL > DB Extensions { #database-rds-for-postgresql-db-extensions }
+
+<a id="db-extensions"></a>
+## DB Extensions { #db-extensions }
 You can extend functionality by installing pre-built extensions into PostgreSQL. The following extensions are supported by RDS for PostgreSQL on NHN Cloud.
 
-### PostgreSQL Built-in Features
+<a id="postgresql-built-in-features"></a>
+### PostgreSQL Built-in Features { #postgresql-built-in-features }
 
 The `auto_explain` extension can be applied to the entire session by adding it to the `shared_preload_libraries` parameter in the parameter group. For the remaining extensions, if you need SUPERUSER permission, you can control it by referring to the [Extension Management](db-instance/#extension) item or install the required extensions with the [CREATE EXTENSION](https://www.postgresql.org/docs/17/sql-createextension.html) syntax.
 
@@ -27,7 +32,8 @@ The `auto_explain` extension can be applied to the entire session by adding it t
 | postgres_fdw       | 1.0                   | 1.0                   | O         |                            | https://www.postgresql.org/docs/17/postgres-fdw.html     |
 | tablefunc          | 1.0                   | 1.0                   |           |                            | https://www.postgresql.org/docs/17/tablefunc.html        |
 
-### RDS Additional Features
+<a id="rds-additional-features"></a>
+### RDS Additional Features { #rds-additional-features }
 
 Installing the additional offered extensions requires a DB engine restart, if necessary, after adding the setting to the shared_preload_libraries parameter in the parameter group.
 
