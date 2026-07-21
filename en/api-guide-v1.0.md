@@ -1567,7 +1567,8 @@ POST /v1.0/db-instances/{dbInstanceId}/backup
 
 ```json
 {
-"backupName": "backupName-example"
+"backupName": "backupName-example",
+"backupMethodType": "FULL"
 }
 ```
 
@@ -1576,6 +1577,7 @@ POST /v1.0/db-instances/{dbInstanceId}/backup
 | Name | Type | Required | Description |
 |-----|-----|-----|-----|
 | backupName | String | Y | Name to identify backups |
+| backupMethodType | Enum | N | Backup method<br/>- FULL<br/>- SNAPSHOT |
 
 #### Response
 
@@ -3539,7 +3541,7 @@ This API does not require a request body.
 | restorableBackups.dbInstanceId | UUID | Original DB instance identifier |
 | restorableBackups.dbInstanceName | String | Original DB instance name |
 | restorableBackups.dbVersion | String | DB engine type |
-| restorableBackups.backupType | Enum | Backup type<br/>- AUTO<br/>- MANUAL |
+| restorableBackups.backupType | Enum | Backup type<br/>- AUTO: `Auto Backup`<br/>- MANUAL: `Manual Backup` |
 | restorableBackups.backupSize | Number | Backup size |
 | restorableBackups.failoverCount | Number | Number of failovers |
 | restorableBackups.walFileName | String | WAL file name |
@@ -3961,7 +3963,7 @@ This API does not require a request body.
 | backups.backupStatus | Enum | Backup current status<br/>- BACKING_UP: `Backup in progress (spinner)`<br/>- VERIFYING: `Verifying (spinner)`<br/>- COMPLETED: `Available (green icon)`<br/>- DELETING: `Deleting (spinner)`<br/>- DELETED: `Deleted (gray icon)`<br/>- ERROR: `Error (red icon)` |
 | backups.dbInstanceId | UUID | Original DB instance identifier |
 | backups.dbVersion | String | DB version information |
-| backups.backupType | Enum | Backup type<br/>- AUTO<br/>- MANUAL |
+| backups.backupType | Enum | Backup type<br/>- AUTO: `Auto Backup`<br/>- MANUAL: `Manual Backup` |
 | backups.backupSize | Number | Size of the backup (Bytes) |
 | backups.startYmdt | DateTime | Start date and time |
 | backups.createdYmdt | DateTime | Created date and time |

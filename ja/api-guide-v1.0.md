@@ -1567,7 +1567,8 @@ POST /v1.0/db-instances/{dbInstanceId}/backup
 
 ```json
 {
-"backupName": "backupName-example"
+"backupName": "backupName-example",
+"backupMethodType": "FULL"
 }
 ```
 
@@ -1576,6 +1577,7 @@ POST /v1.0/db-instances/{dbInstanceId}/backup
 | 名前 | タイプ | 必須 | 説明 |
 |-----|-----|-----|-----|
 | backupName | String | Y | バックアップを識別できる名前 |
+| backupMethodType | Enum | N | バックアップ方式<br/>- FULL<br/>- SNAPSHOT |
 
 #### レスポンス
 
@@ -3539,7 +3541,7 @@ GET /v1.0/db-instances/{dbInstanceId}/restoration-info
 | restorableBackups.dbInstanceId | UUID | 原本DBインスタンスの識別子 |
 | restorableBackups.dbInstanceName | String | 原本DBインスタンス名 |
 | restorableBackups.dbVersion | String | DBエンジンタイプ |
-| restorableBackups.backupType | Enum | バックアップタイプ<br/>- AUTO<br/>- MANUAL |
+| restorableBackups.backupType | Enum | バックアップタイプ<br/>- AUTO: `自動バックアップ`<br/>- MANUAL: `手動バックアップ` |
 | restorableBackups.backupSize | Number | バックアップサイズ |
 | restorableBackups.failoverCount | Number | フェイルオーバー回数 |
 | restorableBackups.walFileName | String | WALファイル名 |
@@ -3961,7 +3963,7 @@ GET /v1.0/backups
 | backups.backupStatus | Enum | バックアップの現在状態<br/>- BACKING_UP: `バックアップ中(スピナー)`<br/>- VERIFYING: `検証中(スピナー)`<br/>- COMPLETED: `使用可能(緑アイコン)`<br/>- DELETING: `削除中(スピナー)`<br/>- DELETED: `削除済み(グレーアイコン)`<br/>- ERROR: `エラー(赤アイコン)` |
 | backups.dbInstanceId | UUID | 原本DBインスタンスの識別子 |
 | backups.dbVersion | String | DBバージョン情報 |
-| backups.backupType | Enum | バックアップタイプ<br/>- AUTO<br/>- MANUAL |
+| backups.backupType | Enum | バックアップタイプ<br/>- AUTO: `自動バックアップ`<br/>- MANUAL: `手動バックアップ` |
 | backups.backupSize | Number | バックアップのサイズ(バイト) |
 | backups.startYmdt | DateTime | 開始日時 |
 | backups.createdYmdt | DateTime | 作成日時 |
