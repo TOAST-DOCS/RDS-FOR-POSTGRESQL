@@ -1180,7 +1180,7 @@ POST /v1.0/db-instances/restore-from-obs
 | backup.backupSchedules.backupWndDuration | Enum | Y | Backup duration<br/>- HALF_AN_HOUR: `30 minutes`<br/>- ONE_HOUR: `1 hour`<br/>- ONE_HOUR_AND_HALF: `1.5 hours`<br/>- TWO_HOURS: `2 hours`<br/>- TWO_HOURS_AND_HALF: `2.5 hours`<br/>- THREE_HOURS: `3 hours` |
 | restore | Object | Y | Restoration information object |
 | restore.tenantId | String | Y | Tenant ID of the object storage where the backup is stored |
-| restore.username | String | Y | NHN Cloud account or IAM member ID |
+| restore.username | String | Y | NHN Cloud account or IAM account ID |
 | restore.password | String | Y | API password for the object storage where the backup is stored |
 | restore.targetContainer | String | Y | Container of the object storage where the backup is stored |
 | restore.objectPath | String | Y | Path of the backup stored in the container |
@@ -1782,7 +1782,7 @@ POST /v1.0/db-instances/{dbInstanceId}/backup-to-object-storage
 | Name | Type | Required | Description |
 |-----|-----|-----|-----|
 | tenantId | String | Y | Tenant ID of object storage where backup will be stored<br/>- Minimum length: `32`<br/>- Maximum length: `32` |
-| username | String | Y | NHN Cloud account or IAM member ID |
+| username | String | Y | NHN Cloud account or IAM account ID |
 | password | String | Y | API password for object storage where backup will be stored |
 | targetContainer | String | Y | Object storage container where backup will be stored |
 | objectPath | String | Y | Path of the backup to be stored in the container |
@@ -4060,7 +4060,7 @@ POST /v1.0/backups/{backupId}/export
 | Name | Type | Required | Description |
 |-----|-----|-----|-----|
 | tenantId | String | Y | Tenant ID of object storage where backup will be stored<br/>- Minimum length: `32`<br/>- Maximum length: `32` |
-| username | String | Y | NHN Cloud account or IAM member ID |
+| username | String | Y | NHN Cloud account or IAM account ID |
 | password | String | Y | API password for object storage where backup will be stored |
 | targetContainer | String | Y | Object storage container where backup will be stored |
 | objectPath | String | Y | Path of the backup to be stored in the container |
