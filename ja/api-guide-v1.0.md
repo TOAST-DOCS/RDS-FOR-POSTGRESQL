@@ -1180,7 +1180,7 @@ POST /v1.0/db-instances/restore-from-obs
 | backup.backupSchedules.backupWndDuration | Enum | Y | バックアップDuration<br/>- HALF_AN_HOUR: `30分`<br/>- ONE_HOUR: `1時間`<br/>- ONE_HOUR_AND_HALF: `1時間30分`<br/>- TWO_HOURS: `2時間`<br/>- TWO_HOURS_AND_HALF: `2時間30分`<br/>- THREE_HOURS: `3時間` |
 | restore | Object | Y | 復元情報オブジェクト |
 | restore.tenantId | String | Y | バックアップが保存されているオブジェクトストレージのテナントID |
-| restore.username | String | Y | NHN CloudアカウントまたはIAMメンバーID |
+| restore.username | String | Y | NHN CloudアカウントまたはIAMアカウントID |
 | restore.password | String | Y | バックアップが保存されているオブジェクトストレージのAPIパスワード |
 | restore.targetContainer | String | Y | バックアップが保存されているオブジェクトストレージのコンテナ |
 | restore.objectPath | String | Y | コンテナに保存されているバックアップのパス |
@@ -1782,7 +1782,7 @@ POST /v1.0/db-instances/{dbInstanceId}/backup-to-object-storage
 | 名前 | タイプ | 必須 | 説明 |
 |-----|-----|-----|-----|
 | tenantId | String | Y | バックアップが保存されるオブジェクトストレージのテナントID<br/>- 最小長: `32`<br/>- 最大長: `32` |
-| username | String | Y | NHN CloudアカウントまたはIAMメンバーID |
+| username | String | Y | NHN CloudアカウントまたはIAMアカウントID |
 | password | String | Y | バックアップが保存されるオブジェクトストレージのAPIパスワード |
 | targetContainer | String | Y | バックアップが保存されるオブジェクトストレージのコンテナ |
 | objectPath | String | Y | コンテナに保存されるバックアップのパス |
@@ -4060,7 +4060,7 @@ POST /v1.0/backups/{backupId}/export
 | 名前 | タイプ | 必須 | 説明 |
 |-----|-----|-----|-----|
 | tenantId | String | Y | バックアップが保存されるオブジェクトストレージのテナントID<br/>- 最小長: `32`<br/>- 最大長: `32` |
-| username | String | Y | NHN CloudアカウントまたはIAMメンバーID |
+| username | String | Y | NHN CloudアカウントまたはIAMアカウントID |
 | password | String | Y | バックアップが保存されるオブジェクトストレージのAPIパスワード |
 | targetContainer | String | Y | バックアップが保存されるオブジェクトストレージのコンテナ |
 | objectPath | String | Y | コンテナに保存されるバックアップのパス |
