@@ -122,9 +122,9 @@
 | DB_INSTANCE_47_04       | DB_INSTANCE       | フェイルオーバー完了したDBインスタンスを一般DBインスタンスに変更失敗      |
 | DB_INSTANCE_48_01       | DB_INSTANCE       | 高可用性正常化                                   |
 | DB_INSTANCE_49_01       | DB_INSTANCE       | 高可用性中断                                    |
-| DB_INSTANCE_50_00       | DB_INSTANCE       | 予備マスター再構築開始                               |
-| DB_INSTANCE_50_01       | DB_INSTANCE       | 予備マスター再構築完了                               |
-| DB_INSTANCE_50_04       | DB_INSTANCE       | 予備マスター再構築失敗                               |
+| DB_INSTANCE_50_00       | DB_INSTANCE       | Standby再構築開始                               |
+| DB_INSTANCE_50_01       | DB_INSTANCE       | Standby再構築完了                               |
+| DB_INSTANCE_50_04       | DB_INSTANCE       | Standby再構築失敗                               |
 | DB_INSTANCE_51_01       | DB_INSTANCE       | DBインスタンスバックアップ失敗(既知の原因)                   |
 | DB_INSTANCE_52_00       | DB_INSTANCE       | DBインスタンスバックアップ後、バックアップファイルエクスポート開始        |
 | DB_INSTANCE_52_01       | DB_INSTANCE       | DBインスタンスバックアップ後、バックアップファイルエクスポート完了        |
@@ -157,7 +157,7 @@
 | TENANT_02_04            | TENANT            | RAM容量制限                                   |
 | TENANT_03_04            | TENANT            | 個別ボリュームサイズ制限                              |
 | TENANT_04_04            | TENANT            | プロジェクト全体のボリュームサイズ制限                       |
-| TENANT_05_04            | TENANT            | リードレプリカ作成制限                               |
+| TENANT_05_04            | TENANT            | Read Replica作成制限                               |
 | JOB_01_04               | JOB               | Job実行失敗                                   |
 
 ### イベント購読

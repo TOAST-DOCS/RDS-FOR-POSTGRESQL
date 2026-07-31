@@ -80,7 +80,7 @@ You can change the parameters by selecting a parameter group from the console an
 
 ### Change the `max_connections` Parameter
 
-When changing the `max_connections` value with read replicas added, there is an issue with the order of application. If you only change the value on the master, you cannot apply it to a value larger than the read replica, because the value on the master must be set to a smaller value than the read replica. For the same reason, if you only change the value on the read replica, you cannot apply it to a value smaller than the master. It is recommended to apply it globally on a DB instance group basis if necessary. 
+When changing the `max_connections` value with Read Replicas added, there is an issue with the order of application. If you only change the value on the Primary, you cannot apply it to a value larger than the Read Replica, because the value on the Primary must be set to a smaller value than the Read Replica. For the same reason, if you only change the value on the Read Replica, you cannot apply it to a value smaller than the Primary. It is recommended to apply it globally on a DB instance group basis if necessary. 
 
 ### Change the `shared_buffers` Parameter
 

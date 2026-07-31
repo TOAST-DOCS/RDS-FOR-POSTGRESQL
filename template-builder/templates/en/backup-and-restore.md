@@ -71,6 +71,28 @@ Auto backup name is given in the format of `{DB instance name} yyyy-MM-dd-HH-mm`
 
 All backup files are uploaded to the internal backup storage and saved. For manual backups, they are permanently stored until they are deleted separately and backup storage charges are incurred depending on the backup capacity. Auto backups are stored for the retention period you set, and you are charged for the portion of the total size of the auto backup file that exceeds the storage size of your DB instance. You cannot directly access the internal backup storage where the backup files are stored.
 
+## Snapshot Backup
+
+With the existing backup method, the backup application runs on the DB instance, so performance degradation could occur during a backup. **Storage snapshot backup**, on the other hand, uses Cinder storage snapshots to perform backups, and is available only for a Primary or a DB instance whose `archive_mode` parameter is set to always.
+Because data validation and file conversion are performed on a shared backup server after the snapshot is created, the performance of the DB instance is not affected during the backup.
+
+**Key Features**
+* Performance maintained: The performance of the DB instance is maintained at 100% even while a backup is running.
+* Improved reliability: A separate validation process guarantees the reliability of the backup data.
+* High availability paused: High availability may be paused at the moment the snapshot is created to ensure data consistency.
+
+### Pricing
+
+Unlike the existing backup, snapshot backup is billed separately for the resources used to perform the backup.
+
+| Category        | Existing backup method                                     | Snapshot backup method                              |
+|-----------------|------------------------------------------------------------|-----------------------------------------------------|
+| Billing method  | Included in the DB instance usage fee (no separate billing) | Backup-dedicated resource costs are billed separately |
+| Billing target  | OBS upload cost (separate)                                  | Shared backup server + volume + snapshot + OBS      |
+
+* Shared backup server fee: The usage fee for the shared backup server used to validate and convert backup data.
+    * Even though shared resources are used, each customer is charged for the time they actually used.
+
 ### Export Backup
 
 #### Export Files While Executing Backup
