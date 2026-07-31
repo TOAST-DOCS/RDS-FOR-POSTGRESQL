@@ -820,41 +820,35 @@ pg_dump -h {DB instance external domain address} -U {DB instance user ID} -p {DB
 pg_dump -h {external PostgreSQL connection address} -U {external PostgreSQL user ID} -p {external PostgreSQL connection port} -d {external PostgreSQL database name} | psql -h {DB instance external domain address} -U {DB instance user ID} -p {DB instance connection port} -d {DB instance database name}
 ```
 
-## Delete Registry Account
+## Appendix
 
-### Delete Registry Account 1. DB Instance Migration Guide for Hypervisor maintenance
+### Appendix 1. DB Instance Migration Guide for Hypervisor Maintenance
 
-NHN Cloud periodically updates the hypervisor software of DB instances to improve security and reliability.
-DB instances running on the hypervisor being checked for maintenance must be migrated to the hypervisor being checked for maintenance.
+NHN Cloud periodically updates the hypervisor software of the DB instance to improve security and stability.
+DB instances running on a hypervisor that requires maintenance must be migrated to the hypervisor where maintenance has been completed.
 
-DB instance migration can be initiated from NHN Cloud console.
+You can start migrating DB instances from the NHN Cloud console.
+When you select a specific DB instance according to the parameter and migrate it, if the associated DB instance (e.g., Read Replica instance) is also an inspection target, it proceeds with the migration together.
 Follow the guide below to use the migration feature on the console.
-Navigate to the project that contains the DB instance that you specify to maintenance check.
+Navigate to the project where the specified DB instance to be checked.
 
-#### 1. Check the DB instance that you want to do maintenance check.
+#### 1. Check the DB instance that requires maintenance.
 
-Those with the migration button next to name are the maintenance targets.
+Check the DB instances subject to maintenance in the list on the **DB Instance** tab. You can check for hypervisor migration tasks by clicking **Required** in the **Maintenance** menu, or by visiting the **Maintenance** tab in the **DB Instance Details**.
+Click **View** on the hypervisor migration maintenance task to view detailed information about the hypervisor migration.
 
-![db-instance-planned-migration]({{url.cdn}}/20260609/db-instance-planned-migration-{{lang}}.png)
-
-You can check the detailed schedule of maintenance by putting the mouse pointer over the migration button.
-
-![db-instance-planned-migration-popup]({{url.cdn}}/20260609/db-instance-planned-migration-popup-{{lang}}.png)
-
-#### 2. You have to end the application that is connecting to the DB instance for maintenance targets.
+#### 2. Make sure you close any running applications on the DB instance.
 
 Take appropriate measures to avoid affecting services connected to the DB.
-If you have no choice but to affect the service, please contact NHN Cloud Customer Support and we will guide you with appropriate measures.
+If it is inevitable to affect the service, please contact NHN Cloud Customer Support, and we will guide you on appropriate measures.
 
-#### 3. Select the DB instance to be checked, click on Migration button and when a window appears asking for confirmation of the DB instance migration, click on the OK button.
+#### 3. You can apply migration to DB instances targeted for maintenance.
 
-![db-instance-planned-migration-confirm]({{url.cdn}}/20260609/db-instance-planned-migration-confirm-{{lang}}.png)
+Select the DB instance to migrate, and then click **Apply Immediately** to perform the hypervisor migration right away.
+Click **Apply in the Next Maintenance Duration** to schedule the hypervisor migration for your preferred maintenance duration.
 
-#### 4. Wait for DB instance migration to finish.
+#### 4. Wait for the DB instance migration to finish.
 
-If the DB instance status does not change, click **Refresh**.
-
-![db-instance-planned-migration-status]({{url.cdn}}/20260609/db-instance-planned-migration-status-{{lang}}.png)
-
-No action is allowed while the DB instance is being migrated.
-If DB instance migration does not complete successfully, it will be reported to the administrator automatically, and NHN Cloud will contact you separately.
+If the DB instance state does not change, do 'refresh'.
+No operations can be performed on the DB instance while migration is in progress.
+If the DB instance migration is not completed normally, it is automatically reported to the administrator, and NHN Cloud will contact you.
