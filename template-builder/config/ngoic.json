@@ -21,7 +21,6 @@
     }
   ],
   "exclusionDocs": [
-    "api-guide-v1.0",
     "release-notes"
   ]
 }

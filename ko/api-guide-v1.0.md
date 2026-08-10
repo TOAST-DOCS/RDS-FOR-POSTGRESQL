@@ -15,19 +15,19 @@
 ### 인증 및 권한
 
 RDS for PostgreSQL은(는) API 호출 시 인증/인가를 위해 User Access Key 토큰을 사용합니다. User Access Key 토큰은 User Access Key를 기반으로 발급되는 Bearer 타입의 일시적 액세스 토큰입니다. User Access Key 토큰 발급 및 사용에 대한 자세한 내용은 [User Access Key 토큰](/nhncloud/ko/public-api/user-access-key-token)을 참고하세요.
-발급 받은 토큰은 Appkey와 함께 요청 헤더에 포함해야 합니다.
+발급받은 토큰은 Appkey와 함께 요청 헤더에 포함해야 합니다.
 
 | 이름 | 구분 | 타입 | 필수 | 설명 |
 |-----|-----|-----|-----|-----|
 | X-TC-APP-KEY | Header | String | Y | RDS for PostgreSQL 서비스의 Appkey 또는 프로젝트 통합 Appkey |
-| X-NHN-AUTHORIZATION | Header | String | Y | Public API로 발급 받은 Bearer 유형 토큰 |
+| X-NHN-AUTHORIZATION | Header | String | Y | Public API로 발급받은 Bearer 유형 토큰 |
 
-또한 프로젝트 권한에 따라 호출할 수 있는 API가 제한됩니다. `RDS for PostgreSQL ADMIN`, `RDS for PostgreSQL VIEWER` 역할에는 아래처럼 기본 권한이 부여돼 있고 프로젝트 내 역할 그룹 관리 메뉴에서 필요한 권한만 부여할 수 있습니다.
+또한 프로젝트 권한에 따라 호출할 수 있는 API가 제한됩니다. `RDS for PostgreSQL ADMIN`, `RDS for PostgreSQL VIEWER` 역할에는 다음과 같이 기본 권한이 부여되어 있으며, 프로젝트 내 역할 그룹 관리 메뉴에서 필요한 권한만 부여할 수 있습니다.
 
-* `RDS for PostgreSQL ADMIN` 역할은 API 실행에 필요한 모든 권한이 부여됩니다.
-* `RDS for PostgreSQL VIEWER` 역할은 정보를 조회하는 권한만 부여됩니다.
+* `RDS for PostgreSQL ADMIN` 역할에는 API 실행에 필요한 모든 권한이 부여됩니다.
+* `RDS for PostgreSQL VIEWER` 역할에는 정보를 조회하는 권한만 부여됩니다.
     * DB 인스턴스를 생성, 수정, 삭제하거나, DB 인스턴스를 대상으로 하는 어떠한 기능도 사용할 수 없습니다.
-    * 단, 알림 그룹과 사용자 그룹 관련된 기능은 사용할 수 있습니다.
+    * 단, 알림 그룹과 사용자 그룹 관련 기능은 사용할 수 있습니다.
 
 API 요청 시 인증에 실패하거나 권한이 없을 경우 다음과 같은 오류가 발생합니다.
 
@@ -38,7 +38,7 @@ API 요청 시 인증에 실패하거나 권한이 없을 경우 다음과 같�
 
 ### 응답 공통 정보
 
-모든 API 요청에 '200 OK'로 응답합니다. 자세한 응답 결과는 응답 본문의 헤더를 참고합니다.
+모든 API 요청에 '200 OK'로 응답합니다. 자세한 응답 결과는 응답 본문의 헤더를 참고하세요.
 
 <details>
   <summary><strong>성공 응답</strong></summary>
@@ -592,7 +592,7 @@ GET /v1.0/db-instance-groups/{dbInstanceGroupId}
 | replicationType | Enum | DB 인스턴스 그룹의 복제 형태<br/>- STANDALONE: `고가용성 사용 안함`<br/>- HIGH_AVAILABILITY: `고가용성 사용` |
 | dbInstances | Array | DB 인스턴스 그룹에 속한 DB 인스턴스 목록 |
 | dbInstances.dbInstanceId | UUID | DB 인스턴스의 식별자 |
-| dbInstances.dbInstanceType | Enum | DB 인스턴스의 역할 타입<br/>- MASTER: `마스터`<br/>- FAILED_MASTER: `장애 마스터`<br/>- CANDIDATE_MASTER: `예비 마스터`<br/>- READ_ONLY_SLAVE: `읽기 복제본` |
+| dbInstances.dbInstanceType | Enum | DB 인스턴스의 역할 유형<br/>- MASTER: `마스터`<br/>- FAILED_MASTER: `장애 마스터`<br/>- CANDIDATE_MASTER: `예비 마스터`<br/>- READ_ONLY_SLAVE: `읽기 복제본` |
 | dbInstances.dbInstanceStatus | Enum | DB 인스턴스의 현재 상태<br/>- BEFORE_CREATE: `생성 이전(회색)`<br/>- AVAILABLE: `사용 가능(녹색)`<br/>- STORAGE_FULL: `용량 부족(적색)`<br/>- FAIL_TO_CREATE: `생성 실패(적색)`<br/>- FAIL_TO_CONNECT: `연결 실패(적색)`<br/>- REPLICATION_STOP: `복제 중단(적색)`<br/>- REPLICATION_DELAY: `복제 지연(황색)`<br/>- FAILOVER: `장애 조치 완료(적색)`<br/>- SHUTDOWN: `중지됨(회색)`<br/>- DELETED: `삭제됨(회색)` |
 | createdYmdt | DateTime | 생성 일시 |
 | updatedYmdt | DateTime | 수정 일시 |
@@ -957,7 +957,7 @@ GET /v1.0/db-instances
 | dbInstances.description | String | DB 인스턴스에 대한 추가 정보 |
 | dbInstances.dbVersion | String | DB 엔진 유형 |
 | dbInstances.dbPort | Number | DB 포트 |
-| dbInstances.dbInstanceType | Enum | DB 인스턴스 역할 타입<br/>- MASTER: `마스터`<br/>- FAILED_MASTER: `장애 마스터`<br/>- CANDIDATE_MASTER: `예비 마스터`<br/>- READ_ONLY_SLAVE: `읽기 복제본` |
+| dbInstances.dbInstanceType | Enum | DB 인스턴스 역할 유형<br/>- MASTER: `마스터`<br/>- FAILED_MASTER: `장애 마스터`<br/>- CANDIDATE_MASTER: `예비 마스터`<br/>- READ_ONLY_SLAVE: `읽기 복제본` |
 | dbInstances.dbInstanceStatus | Enum | DB 인스턴스의 현재 상태<br/>- BEFORE_CREATE: `생성 이전(회색)`<br/>- AVAILABLE: `사용 가능(녹색)`<br/>- STORAGE_FULL: `용량 부족(적색)`<br/>- FAIL_TO_CREATE: `생성 실패(적색)`<br/>- FAIL_TO_CONNECT: `연결 실패(적색)`<br/>- REPLICATION_STOP: `복제 중단(적색)`<br/>- REPLICATION_DELAY: `복제 지연(황색)`<br/>- FAILOVER: `장애 조치 완료(적색)`<br/>- SHUTDOWN: `중지됨(회색)`<br/>- DELETED: `삭제됨(회색)` |
 | dbInstances.progressStatus | String | DB 인스턴스의 현재 진행 상태 |
 | dbInstances.createdYmdt | DateTime | 생성 일시 |
@@ -1057,8 +1057,8 @@ POST /v1.0/db-instances
 | backup.backupPeriod | Number | Y | 백업 보관 기간(일)<br/>- 최솟값: `0`<br/>- 최댓값: `730` |
 | backup.backupRetryCount | Number | N | 백업 재시도 횟수<br/>- 최솟값: `0`<br/>- 최댓값: `10` |
 | backup.backupSchedules | Array | Y | 백업 스케줄 정보 |
-| backup.backupSchedules.backupWndBgnTime | Time | Y | 백업 시작 시각 |
-| backup.backupSchedules.backupWndDuration | Enum | Y | 백업 Duration<br/>- HALF_AN_HOUR: `30분`<br/>- ONE_HOUR: `1시간`<br/>- ONE_HOUR_AND_HALF: `1시간 30분`<br/>- TWO_HOURS: `2시간`<br/>- TWO_HOURS_AND_HALF: `2시간 30분`<br/>- THREE_HOURS: `3시간` |
+| backup.backupSchedules.backupWndBgnTime | Time | Y | 백업 시작 시간 |
+| backup.backupSchedules.backupWndDuration | Enum | Y | 백업 윈도우<br/>- HALF_AN_HOUR: `30분`<br/>- ONE_HOUR: `1시간`<br/>- ONE_HOUR_AND_HALF: `1시간 30분`<br/>- TWO_HOURS: `2시간`<br/>- TWO_HOURS_AND_HALF: `2시간 30분`<br/>- THREE_HOURS: `3시간` |
 
 #### 응답
 
@@ -1176,8 +1176,8 @@ POST /v1.0/db-instances/restore-from-obs
 | backup.backupRetryCount | Number | N | 백업 재시도 횟수<br/>- 최솟값: `0`<br/>- 최댓값: `10` |
 | backup.replicationRegion | Enum | N | 백업 복제 리전<br/>- KR1: `한국(판교)`<br/>- KR2: `한국(평촌)` |
 | backup.backupSchedules | Array | Y | 백업 스케줄 목록 |
-| backup.backupSchedules.backupWndBgnTime | Time | Y | 백업 시작 시각 |
-| backup.backupSchedules.backupWndDuration | Enum | Y | 백업 Duration<br/>- HALF_AN_HOUR: `30분`<br/>- ONE_HOUR: `1시간`<br/>- ONE_HOUR_AND_HALF: `1시간 30분`<br/>- TWO_HOURS: `2시간`<br/>- TWO_HOURS_AND_HALF: `2시간 30분`<br/>- THREE_HOURS: `3시간` |
+| backup.backupSchedules.backupWndBgnTime | Time | Y | 백업 시작 시간 |
+| backup.backupSchedules.backupWndDuration | Enum | Y | 백업 윈도우<br/>- HALF_AN_HOUR: `30분`<br/>- ONE_HOUR: `1시간`<br/>- ONE_HOUR_AND_HALF: `1시간 30분`<br/>- TWO_HOURS: `2시간`<br/>- TWO_HOURS_AND_HALF: `2시간 30분`<br/>- THREE_HOURS: `3시간` |
 | restore | Object | Y | 복원 정보 객체 |
 | restore.tenantId | String | Y | 백업이 저장된 오브젝트 스토리지의 테넌트 ID |
 | restore.username | String | Y | NHN Cloud 계정 또는 IAM 계정 ID |
@@ -1334,7 +1334,7 @@ GET /v1.0/db-instances/{dbInstanceId}
 | description | String | DB 인스턴스에 대한 추가 정보 |
 | dbVersion | String | DB 엔진 유형 |
 | dbPort | Number | DB 포트 |
-| dbInstanceType | Enum | DB 인스턴스 역할 타입<br/>- MASTER: `마스터`<br/>- FAILED_MASTER: `장애 마스터`<br/>- CANDIDATE_MASTER: `예비 마스터`<br/>- READ_ONLY_SLAVE: `읽기 복제본` |
+| dbInstanceType | Enum | DB 인스턴스 역할 유형<br/>- MASTER: `마스터`<br/>- FAILED_MASTER: `장애 마스터`<br/>- CANDIDATE_MASTER: `예비 마스터`<br/>- READ_ONLY_SLAVE: `읽기 복제본` |
 | dbInstanceStatus | Enum | DB 인스턴스의 현재 상태<br/>- BEFORE_CREATE: `생성 이전(회색)`<br/>- AVAILABLE: `사용 가능(녹색)`<br/>- STORAGE_FULL: `용량 부족(적색)`<br/>- FAIL_TO_CREATE: `생성 실패(적색)`<br/>- FAIL_TO_CONNECT: `연결 실패(적색)`<br/>- REPLICATION_STOP: `복제 중단(적색)`<br/>- REPLICATION_DELAY: `복제 지연(황색)`<br/>- FAILOVER: `장애 조치 완료(적색)`<br/>- SHUTDOWN: `중지됨(회색)`<br/>- DELETED: `삭제됨(회색)` |
 | progressStatus | String | DB 인스턴스의 현재 진행 상태 |
 | dbFlavorId | UUID | DB 인스턴스 사양의 식별자 |
@@ -1404,7 +1404,7 @@ PUT /v1.0/db-instances/{dbInstanceId}
 | parameterGroupId | UUID | N | 파라미터 그룹의 식별자 |
 | dbVersion | String | N | DB 엔진 버전 코드 |
 | dbSecurityGroupIds | Array | N | DB 보안 그룹의 식별자 목록 |
-| executeBackup | Boolean | N | 현재 시점 백업 진행 여부<br/>- 기본값: `false` |
+| executeBackup | Boolean | N | 현재 시점 백업 수행 여부<br/>- 기본값: `false` |
 | useOnlineFailover | Boolean | N | 장애 조치를 이용한 재시작 여부<br/>- 기본값: `false` |
 | waitReplicationDelay | Boolean | N | 복제 지연 해소 대기<br/>- 기본값: `false` |
 | useReadOnly | Boolean | N | 쓰기 부하 차단<br/>- 기본값: `false` |
@@ -1661,8 +1661,8 @@ GET /v1.0/db-instances/{dbInstanceId}/backup-info
 | backupPeriod | Number | 백업 보관 기간(일) |
 | backupRetryCount | Number | 백업 재시도 횟수 |
 | backupSchedules | Array | 백업 스케줄 목록 |
-| backupSchedules.backupWndBgnTime | Time | 백업 시작 시각 |
-| backupSchedules.backupWndDuration | Enum | 백업 Duration<br/>- HALF_AN_HOUR: `30분`<br/>- ONE_HOUR: `1시간`<br/>- ONE_HOUR_AND_HALF: `1시간 30분`<br/>- TWO_HOURS: `2시간`<br/>- TWO_HOURS_AND_HALF: `2시간 30분`<br/>- THREE_HOURS: `3시간` |
+| backupSchedules.backupWndBgnTime | Time | 백업 시작 시간 |
+| backupSchedules.backupWndDuration | Enum | 백업 윈도우<br/>- HALF_AN_HOUR: `30분`<br/>- ONE_HOUR: `1시간`<br/>- ONE_HOUR_AND_HALF: `1시간 30분`<br/>- TWO_HOURS: `2시간`<br/>- TWO_HOURS_AND_HALF: `2시간 30분`<br/>- THREE_HOURS: `3시간` |
 
 ---
 
@@ -1715,7 +1715,7 @@ PUT /v1.0/db-instances/{dbInstanceId}/backup-info
 | backupPeriod | Number | N | 백업 보관 기간(일)<br/>- 최솟값: `0`<br/>- 최댓값: `730` |
 | backupRetryCount | Number | N | 백업 재시도 횟수<br/>- 최솟값: `0`<br/>- 최댓값: `10` |
 | backupSchedules | Array | N | 백업 스케줄 목록 |
-| backupSchedules.backupWndBgnTime | Time | Y | 백업 시작 시각 |
+| backupSchedules.backupWndBgnTime | Time | Y | 백업 시작 시간 |
 | backupSchedules.backupWndDuration | Enum | Y | 백업 윈도우<br/>- HALF_AN_HOUR: `30분`<br/>- ONE_HOUR: `1시간`<br/>- ONE_HOUR_AND_HALF: `1시간 30분`<br/>- TWO_HOURS: `2시간`<br/>- TWO_HOURS_AND_HALF: `2시간 30분`<br/>- THREE_HOURS: `3시간` |
 
 #### 응답
@@ -2466,13 +2466,13 @@ GET /v1.0/db-instances/{dbInstanceId}/hba-rules
 
 ---
 
-### DB 인스턴스 접근제어 규칙 추가
+### DB 인스턴스 접근 제어 규칙 추가
 
 #### 필요 권한
 
 | 권한명 | 설명 |
 |-----|-----|
-| RDSforPostgreSQL:DbInstanceHba.Create | DB 인스턴스 접근제어 규칙 추가 |
+| RDSforPostgreSQL:DbInstanceHba.Create | DB 인스턴스 접근 제어 규칙 추가 |
 
 #### 요청
 
@@ -2539,13 +2539,13 @@ POST /v1.0/db-instances/{dbInstanceId}/hba-rules
 
 ---
 
-### DB 인스턴스 접근제어 규칙 적용
+### DB 인스턴스 접근 제어 규칙 적용
 
 #### 필요 권한
 
 | 권한명 | 설명 |
 |-----|-----|
-| RDSforPostgreSQL:DbInstance.Modify | DB 인스턴스 접근제어 규칙 적용 |
+| RDSforPostgreSQL:DbInstance.Modify | DB 인스턴스 접근 제어 규칙 적용 |
 
 #### 요청
 
@@ -2587,13 +2587,13 @@ POST /v1.0/db-instances/{dbInstanceId}/hba-rules/apply
 
 ---
 
-### DB 인스턴스 접근제어 규칙 순서 조정
+### DB 인스턴스 접근 제어 규칙 순서 조정
 
 #### 필요 권한
 
 | 권한명 | 설명 |
 |-----|-----|
-| RDSforPostgreSQL:DbInstanceHba.Modify | DB 인스턴스 접근제어 규칙 순서 조정 |
+| RDSforPostgreSQL:DbInstanceHba.Modify | DB 인스턴스 접근 제어 규칙 순서 조정 |
 
 #### 요청
 
@@ -2630,13 +2630,13 @@ PUT /v1.0/db-instances/{dbInstanceId}/hba-rules/orders
 
 ---
 
-### DB 인스턴스 접근제어 설정 삭제
+### DB 인스턴스 접근 제어 설정 삭제
 
 #### 필요 권한
 
 | 권한명 | 설명 |
 |-----|-----|
-| RDSforPostgreSQL:DbInstanceHba.Delete | DB 인스턴스 접근제어 설정 삭제 |
+| RDSforPostgreSQL:DbInstanceHba.Delete | DB 인스턴스 접근 제어 설정 삭제 |
 
 #### 요청
 
@@ -2649,7 +2649,7 @@ DELETE /v1.0/db-instances/{dbInstanceId}/hba-rules/{hbaRuleId}
 | 이름 | 구분 | 타입 | 필수 | 설명 |
 |-----|-----|-----|-----|-----|
 | dbInstanceId | URL | UUID | Y | DB 인스턴스의 식별자 |
-| hbaRuleId | URL | UUID | Y | 접근제어 규칙의 식별자 |
+| hbaRuleId | URL | UUID | Y | 접근 제어 규칙의 식별자 |
 
 #### 요청 본문
 
@@ -2661,13 +2661,13 @@ DELETE /v1.0/db-instances/{dbInstanceId}/hba-rules/{hbaRuleId}
 
 ---
 
-### DB 인스턴스 접근제어 규칙 수정
+### DB 인스턴스 접근 제어 규칙 수정
 
 #### 필요 권한
 
 | 권한명 | 설명 |
 |-----|-----|
-| RDSforPostgreSQL:DbInstanceHba.Modify | DB 인스턴스 접근제어 규칙 수정 |
+| RDSforPostgreSQL:DbInstanceHba.Modify | DB 인스턴스 접근 제어 규칙 수정 |
 
 #### 요청
 
@@ -2680,7 +2680,7 @@ PUT /v1.0/db-instances/{dbInstanceId}/hba-rules/{hbaRuleId}
 | 이름 | 구분 | 타입 | 필수 | 설명 |
 |-----|-----|-----|-----|-----|
 | dbInstanceId | URL | UUID | Y | DB 인스턴스의 식별자 |
-| hbaRuleId | URL | UUID | Y | 접근제어 규칙의 식별자 |
+| hbaRuleId | URL | UUID | Y | 접근 제어 규칙의 식별자 |
 
 #### 요청 본문
 
@@ -3026,13 +3026,13 @@ POST /v1.0/db-instances/{dbInstanceId}/high-availability/split
 
 ---
 
-### DB 인스턴스 유지보수 정보 조회
+### DB 인스턴스 유지 보수 정보 조회
 
 #### 필요 권한
 
 | 권한명 | 설명 |
 |-----|-----|
-| RDSforPostgreSQL:DbInstance.Get | DB 인스턴스 유지보수 정보 조회 |
+| RDSforPostgreSQL:DbInstance.Get | DB 인스턴스 유지 보수 정보 조회 |
 
 #### 요청
 
@@ -3074,21 +3074,21 @@ GET /v1.0/db-instances/{dbInstanceId}/maintenance-info
 
 | 이름 | 타입 | 설명 |
 |-----|-----|-----|
-| allowAutoMaintenance | Boolean | 자동 유지보수 허용 여부 |
+| allowAutoMaintenance | Boolean | 자동 유지 보수 허용 여부 |
 | useAutoStorageCleanup | Boolean | 자동 스토리지 정리 사용 여부 |
-| maintWndBgnTime | Time | 자동 유지보수 시작 시간 |
-| maintWndDuration | Enum | 유지보수 윈도우<br/>- HALF_AN_HOUR: `30분`<br/>- ONE_HOUR: `1시간`<br/>- ONE_HOUR_AND_HALF: `1시간 30분`<br/>- TWO_HOURS: `2시간`<br/>- TWO_HOURS_AND_HALF: `2시간 30분`<br/>- THREE_HOURS: `3시간` |
+| maintWndBgnTime | Time | 자동 유지 보수 시작 시간 |
+| maintWndDuration | Enum | 유지 보수 윈도우<br/>- HALF_AN_HOUR: `30분`<br/>- ONE_HOUR: `1시간`<br/>- ONE_HOUR_AND_HALF: `1시간 30분`<br/>- TWO_HOURS: `2시간`<br/>- TWO_HOURS_AND_HALF: `2시간 30분`<br/>- THREE_HOURS: `3시간` |
 | logRetentionPeriod | Number | 로그 보관 기간 (일) |
 
 ---
 
-### DB 인스턴스 유지보수 정보 수정
+### DB 인스턴스 유지 보수 정보 수정하기
 
 #### 필요 권한
 
 | 권한명 | 설명 |
 |-----|-----|
-| RDSforPostgreSQL:DbInstance.Modify | DB 인스턴스 유지보수 정보 수정 |
+| RDSforPostgreSQL:DbInstance.Modify | DB 인스턴스 유지 보수 정보 수정하기 |
 
 #### 요청
 
@@ -3121,10 +3121,10 @@ PUT /v1.0/db-instances/{dbInstanceId}/maintenance-info
 
 | 이름 | 타입 | 필수 | 설명 |
 |-----|-----|-----|-----|
-| allowAutoMaintenance | Boolean | N | 자동 유지보수 허용 여부 |
+| allowAutoMaintenance | Boolean | N | 자동 유지 보수 허용 여부 |
 | useAutoStorageCleanup | Boolean | N | 자동 스토리지 정리 사용 여부 |
-| maintWndBgnTime | Time | N | 자동 유지보수 시작 시간 |
-| maintWndDuration | Enum | N | 유지보수 윈도우<br/>- HALF_AN_HOUR: `30분`<br/>- ONE_HOUR: `1시간`<br/>- ONE_HOUR_AND_HALF: `1시간 30분`<br/>- TWO_HOURS: `2시간`<br/>- TWO_HOURS_AND_HALF: `2시간 30분`<br/>- THREE_HOURS: `3시간` |
+| maintWndBgnTime | Time | N | 자동 유지 보수 시작 시간 |
+| maintWndDuration | Enum | N | 유지 보수 윈도우<br/>- HALF_AN_HOUR: `30분`<br/>- ONE_HOUR: `1시간`<br/>- ONE_HOUR_AND_HALF: `1시간 30분`<br/>- TWO_HOURS: `2시간`<br/>- TWO_HOURS_AND_HALF: `2시간 30분`<br/>- THREE_HOURS: `3시간` |
 | logRetentionPeriod | Number | N | 로그 보관 기간 (일)<br/>- 최솟값: `1`<br/>- 최댓값: `30` |
 
 #### 응답
@@ -3394,7 +3394,7 @@ POST /v1.0/db-instances/{dbInstanceId}/replicate
 | network.usePublicAccess | Boolean | N | 외부 접속 가능 여부<br/>- 기본값: `false` |
 | network.availabilityZone | Enum | N | DB 인스턴스를 생성할 가용성 영역 |
 | storage | Object | N | 스토리지 정보 객체 |
-| storage.storageType | Enum | N | 데이터 스토리지 타입 |
+| storage.storageType | Enum | N | 데이터 스토리지 유형 |
 | storage.storageSize | Number | N | 데이터 스토리지 크기(GB)<br/>- 최솟값: `20`<br/>- 최댓값: `2048` |
 
 #### 응답
@@ -3532,8 +3532,8 @@ GET /v1.0/db-instances/{dbInstanceId}/restoration-info
 
 | 이름 | 타입 | 설명 |
 |-----|-----|-----|
-| oldestRestorableYmdt | DateTime | 가장 오래된 복원 가능한 시각 |
-| latestRestorableYmdt | DateTime | 가장 최신의 복원 가능한 시각 |
+| oldestRestorableYmdt | DateTime | 복원 가능한 가장 이른 시각 |
+| latestRestorableYmdt | DateTime | 복원 가능한 가장 최근 시각 |
 | restorableBackups | Array | 복원 가능한 백업 목록 |
 | restorableBackups.backupId | UUID | 백업의 식별자 |
 | restorableBackups.backupName | String | 백업 이름 |
@@ -3646,10 +3646,10 @@ POST /v1.0/db-instances/{dbInstanceId}/restore
 | backup.backupRetryCount | Number | N | 백업 재시도 횟수<br/>- 최솟값: `0`<br/>- 최댓값: `10` |
 | backup.replicationRegion | Enum | N | 백업 복제 리전<br/>- KR1: `한국(판교)`<br/>- KR2: `한국(평촌)` |
 | backup.backupSchedules | Array | Y | 백업 스케줄 목록 |
-| backup.backupSchedules.backupWndBgnTime | Time | Y | 백업 시작 시각 |
-| backup.backupSchedules.backupWndDuration | Enum | Y | 백업 Duration<br/>- HALF_AN_HOUR: `30분`<br/>- ONE_HOUR: `1시간`<br/>- ONE_HOUR_AND_HALF: `1시간 30분`<br/>- TWO_HOURS: `2시간`<br/>- TWO_HOURS_AND_HALF: `2시간 30분`<br/>- THREE_HOURS: `3시간` |
+| backup.backupSchedules.backupWndBgnTime | Time | Y | 백업 시작 시간 |
+| backup.backupSchedules.backupWndDuration | Enum | Y | 백업 윈도우<br/>- HALF_AN_HOUR: `30분`<br/>- ONE_HOUR: `1시간`<br/>- ONE_HOUR_AND_HALF: `1시간 30분`<br/>- TWO_HOURS: `2시간`<br/>- TWO_HOURS_AND_HALF: `2시간 30분`<br/>- THREE_HOURS: `3시간` |
 | restore | Object | Y | 복원 정보 객체 |
-| restore.restoreType | Enum | Y | 복원 타입<br/>- BACKUP: `기존에 생성한 백업을 이용한 복원`<br/>- TIMESTAMP: `복원 가능한 시간 이내의 시간을 이용한 시점 복원` |
+| restore.restoreType | Enum | Y | 복원 유형<br/>- BACKUP: `기존에 생성한 백업을 이용한 복원`<br/>- TIMESTAMP: `복원 가능한 시간 이내의 시간을 이용한 시점 복원` |
 | restore.restoreYmdt | DateTime | N | DB 인스턴스 복원 일시 |
 | restore.backupId | UUID | N | 복원에 사용할 백업의 식별자 |
 | useDefaultNotification | Boolean | N | 기본 알림 사용 여부<br/>- 기본값: `false` |
@@ -3824,7 +3824,7 @@ GET /v1.0/db-instances/{dbInstanceId}/storage-info
 
 | 이름 | 타입 | 설명 |
 |-----|-----|-----|
-| storageType | Enum | 데이터 스토리지 타입 |
+| storageType | Enum | 데이터 스토리지 유형 |
 | storageSize | Number | 데이터 스토리지 크기(GB) |
 | storageStatus | Enum | 데이터 스토리지의 현재 상태<br/>- DELETED: `삭제됨`<br/>- PENDING_DELETION: `삭제 유예됨`<br/>- DELETION_RESERVED: `삭제 예약됨(스냅숏 정리 대기)`<br/>- DETACHED: `해제됨`<br/>- ATTACHED: `할당됨` |
 
@@ -3964,7 +3964,7 @@ GET /v1.0/backups
 | backups.dbInstanceId | UUID | 원본 DB 인스턴스의 식별자 |
 | backups.dbVersion | String | DB 엔진 버전 |
 | backups.backupType | Enum | 백업 유형<br/>- AUTO: `자동 백업`<br/>- MANUAL: `수동 백업` |
-| backups.backupSize | Number | 백업의 크기(Byte) |
+| backups.backupSize | Number | 백업 크기(Byte) |
 | backups.startYmdt | DateTime | 시작 일시 |
 | backups.createdYmdt | DateTime | 생성 일시 |
 | backups.updatedYmdt | DateTime | 수정 일시 |
@@ -4180,7 +4180,7 @@ POST /v1.0/backups/{backupId}/restore
 | backup.backupRetryCount | Number | N | 백업 재시도 횟수<br/>- 최솟값: `0`<br/>- 최댓값: `10` |
 | backup.backupSchedules | Array | Y | 백업 스케줄 목록 |
 | backup.backupSchedules.backupWndBgnTime | Time | Y | 백업 시작 시간 |
-| backup.backupSchedules.backupWndDuration | Enum | Y | 백업 Duration<br/>- HALF_AN_HOUR: `30분`<br/>- ONE_HOUR: `1시간`<br/>- ONE_HOUR_AND_HALF: `1시간 30분`<br/>- TWO_HOURS: `2시간`<br/>- TWO_HOURS_AND_HALF: `2시간 30분`<br/>- THREE_HOURS: `3시간` |
+| backup.backupSchedules.backupWndDuration | Enum | Y | 백업 윈도우<br/>- HALF_AN_HOUR: `30분`<br/>- ONE_HOUR: `1시간`<br/>- ONE_HOUR_AND_HALF: `1시간 30분`<br/>- TWO_HOURS: `2시간`<br/>- TWO_HOURS_AND_HALF: `2시간 30분`<br/>- THREE_HOURS: `3시간` |
 
 #### 응답
 
@@ -4326,8 +4326,8 @@ POST /v1.0/db-security-groups
 | rules.etherType | Enum | Y | Ether 타입<br/>- IPV4: `IPv4 형식`<br/>- IPV6: `IPv6 형식` |
 | rules.port | Object | Y | 포트 객체 |
 | rules.port.portType | Enum | Y | 포트 타입<br/>- ALL: `포트 범위 전체(사용자 콘솔에서는 사용하지 않음)`<br/>- PORT: `특정 포트`<br/>- DB_PORT: `DB 수신 포트`<br/>- PORT_RANGE: `포트 범위` |
-| rules.port.minPort | Number | N | 최소 포트 범위<br/>- 최솟값: `1` |
-| rules.port.maxPort | Number | N | 최대 포트 범위<br/>- 최댓값: `65535` |
+| rules.port.minPort | Number | N | 포트 범위 최솟값<br/>- 최솟값: `1` |
+| rules.port.maxPort | Number | N | 포트 범위 최댓값<br/>- 최댓값: `65535` |
 | rules.cidr | String | Y | CIDR |
 | rules.description | String | N | 보안 그룹 규칙에 대한 추가 정보 |
 
@@ -4466,8 +4466,8 @@ GET /v1.0/db-security-groups/{dbSecurityGroupId}
 | dbSecurityGroup.rules.etherType | Enum | Ether 타입<br/>- IPV4: `IPv4 형식`<br/>- IPV6: `IPv6 형식` |
 | dbSecurityGroup.rules.port | Object | 포트 객체 |
 | dbSecurityGroup.rules.port.portType | Enum | 포트 타입<br/>- ALL: `포트 범위 전체(사용자 콘솔에서는 사용하지 않음)`<br/>- PORT: `특정 포트`<br/>- DB_PORT: `DB 수신 포트`<br/>- PORT_RANGE: `포트 범위` |
-| dbSecurityGroup.rules.port.minPort | Number | 최소 포트 범위 |
-| dbSecurityGroup.rules.port.maxPort | Number | 최대 포트 범위 |
+| dbSecurityGroup.rules.port.minPort | Number | 포트 범위 최솟값 |
+| dbSecurityGroup.rules.port.maxPort | Number | 포트 범위 최댓값 |
 | dbSecurityGroup.rules.cidr | String | CIDR |
 | dbSecurityGroup.rules.createdYmdt | DateTime | 생성 일시 |
 | dbSecurityGroup.rules.updatedYmdt | DateTime | 수정 일시 |
@@ -4617,8 +4617,8 @@ POST /v1.0/db-security-groups/{dbSecurityGroupId}/rules
 | etherType | Enum | Y | Ether 타입<br/>- IPV4: `IPv4 형식`<br/>- IPV6: `IPv6 형식` |
 | port | Object | Y | 포트 정보 |
 | port.portType | Enum | Y | 포트 타입<br/>- ALL: `포트 범위 전체(사용자 콘솔에서는 사용하지 않음)`<br/>- PORT: `특정 포트`<br/>- DB_PORT: `DB 수신 포트`<br/>- PORT_RANGE: `포트 범위` |
-| port.minPort | Number | N | 최소 포트 범위<br/>- 최솟값: `1` |
-| port.maxPort | Number | N | 최대 포트 범위<br/>- 최댓값: `65535` |
+| port.minPort | Number | N | 포트 범위 최솟값<br/>- 최솟값: `1` |
+| port.maxPort | Number | N | 포트 범위 최댓값<br/>- 최댓값: `65535` |
 | cidr | String | Y | CIDR |
 | description | String | N | DB 보안 그룹 규칙에 대한 추가 정보 |
 
@@ -4694,8 +4694,8 @@ PUT /v1.0/db-security-groups/{dbSecurityGroupId}/rules/{ruleId}
 | etherType | Enum | Y | Ether 타입<br/>- IPV4: `IPv4 형식`<br/>- IPV6: `IPv6 형식` |
 | port | Object | Y | 포트 정보 |
 | port.portType | Enum | Y | 포트 타입<br/>- ALL: `포트 범위 전체(사용자 콘솔에서는 사용하지 않음)`<br/>- PORT: `특정 포트`<br/>- DB_PORT: `DB 수신 포트`<br/>- PORT_RANGE: `포트 범위` |
-| port.minPort | Number | N | 최소 포트 범위<br/>- 최솟값: `1` |
-| port.maxPort | Number | N | 최대 포트 범위<br/>- 최댓값: `65535` |
+| port.minPort | Number | N | 포트 범위 최솟값<br/>- 최솟값: `1` |
+| port.maxPort | Number | N | 포트 범위 최댓값<br/>- 최댓값: `65535` |
 | cidr | String | Y | CIDR |
 | description | String | N | DB 보안 그룹 규칙에 대한 추가 정보 |
 
@@ -4954,7 +4954,7 @@ GET /v1.0/parameter-groups/{parameterGroupId}
  * ex) 120kB, 100MB
  * 허용된 바이트 단위: B (bytes), kB (kilobytes), MB (megabytes), GB (gigabytes), and TB (terabytes)`<br/>- NUMERIC_WITH_TIME_UNIT: `단위가 있는 숫자
  * ex) 120ms, 100s, 1d
- * 허용된 시간 단위: us (microseconds), ms (milliseconds), s (seconds), min (minutes), h (hours), and d (days)`<br/>- ENUMERATED: `allowed_value에 선언된 값 중 한 개 선택(콤마(,)로 구분됨)`<br/>- MULTI_ENUMERATED: `allowed_value에 선언된 값 중 여러개 선택(콤마(,)로 구분됨)` |
+ * 허용된 시간 단위: us (microseconds), ms (milliseconds), s (seconds), min (minutes), h (hours), and d (days)`<br/>- ENUMERATED: `allowed_value에 선언된 값 중 한 개 선택(쉼표(,)로 구분)`<br/>- MULTI_ENUMERATED: `allowed_value에 선언된 값 중 여러개 선택(쉼표(,)로 구분)` |
 | parameters.updateType | Enum | 수정 타입<br/>- VARIABLE: `동적, 언제든 수정 가능`<br/>- CONSTANT: `수정 불가능` |
 | parameters.applyType | Enum | 적용 타입<br/>- BOTH: `세션, 파일 모두 적용`<br/>- SESSION: `세션에만 적용`<br/>- FILE: `파일에만 적용` |
 | parameters.expressionAvailable | Boolean | 수식 허용 여부 |
@@ -5241,7 +5241,7 @@ POST /v1.0/user-groups
 |-----|-----|-----|-----|
 | userGroupName | String | Y | 사용자 그룹을 식별할 수 있는 이름 |
 | memberIds | Array | Y | 프로젝트 멤버의 식별자 목록 |
-| selectAllYN | Boolean | Y | 프로젝트 멤버 전체 유무<br/>- 기본값: `false` |
+| selectAllYN | Boolean | Y | 프로젝트 멤버 전체 선택 여부<br/>- 기본값: `false` |
 
 #### 응답
 
@@ -5401,7 +5401,7 @@ PUT /v1.0/user-groups/{userGroupId}
 |-----|-----|-----|-----|
 | userGroupName | String | N | 사용자 그룹을 식별할 수 있는 이름 |
 | memberIds | Array | N | 프로젝트 멤버의 식별자 목록 |
-| selectAllYN | Boolean | Y | 프로젝트 멤버 전체 유무<br/>- 기본값: `false` |
+| selectAllYN | Boolean | Y | 프로젝트 멤버 전체 선택 여부<br/>- 기본값: `false` |
 
 #### 응답
 
@@ -5743,7 +5743,8 @@ GET /v1.0/notification-groups/{notificationGroupId}/watchdogs
             "comparisonOperator": "LE",
             "threshold": 1,
             "duration": 1,
-            "createdYmdt": "2023-12-31T15:00:00+09:00"
+            "createdYmdt": "2023-12-31T15:00:00+09:00",
+            "updatedYmdt": "2023-12-31T15:00:00+09:00"
         }
     ]
 }
@@ -5760,6 +5761,7 @@ GET /v1.0/notification-groups/{notificationGroupId}/watchdogs
 | notificationWatchdogs.threshold | Number | 감시 대상 임곗값 |
 | notificationWatchdogs.duration | Number | 감시 대상 지속 시간 |
 | notificationWatchdogs.createdYmdt | DateTime | 생성 일시 |
+| notificationWatchdogs.updatedYmdt | DateTime | 수정 일시 |
 
 ---
 
@@ -5927,13 +5929,65 @@ PUT /v1.0/notification-groups/{notificationGroupId}/watchdogs/{watchdogId}
 GET /v1.0/metric-statistics
 ```
 
+#### 요청 파라미터
+
+| 이름 | 구분 | 타입 | 필수 | 설명 |
+|-----|-----|-----|-----|-----|
+| dbInstanceId | Query | UUID | Y | DB 인스턴스의 식별자 |
+| metricNames | Query | Array | Y | 조회할 성능 지표 목록<br/>- 최소 크기: `1` |
+| from | Query | Datetime | Y | 시작 일시(YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| to | Query | Datetime | Y | 종료 일시(YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| interval | Query | Number | N | 조회 간격<br/>- 단위: 분<br/>- 기본값: 시작/종료 일시에 따라 적절한 값을 자동으로 선택합니다 |
+
 #### 요청 본문
 
 이 API는 요청 본문을 요구하지 않습니다.
 
 #### 응답
 
-이 API는 응답 본문을 반환하지 않습니다.
+<details>
+  <summary><strong>예시 코드</strong></summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "metricStatistics": [
+        {
+            "metricName": "DATABASE_STATUS",
+            "unit": "",
+            "values": [
+                [
+                    1679298540,
+                    "1"
+                ],
+                [
+                    1679298600,
+                    "1"
+                ],
+                [
+                    1679298660,
+                    "1"
+                ]
+            ]
+        }
+    ]
+}
+```
+
+</details>
+
+| 이름 | 타입 | 설명 |
+|-----|-----|-----|
+| metricStatistics | Array | 통계 정보 목록 |
+| metricStatistics.metricName | Enum | 성능 지표 유형 |
+| metricStatistics.unit | String | 측정값 단위 |
+| metricStatistics.values | Array | 측정값 목록 |
+| metricStatistics.values.timestamp | Timestamp | 측정 시간 |
+| metricStatistics.values.value | Object | 측정값 |
 
 ---
 
