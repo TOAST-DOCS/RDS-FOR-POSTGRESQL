@@ -18,9 +18,9 @@ RDS for PostgreSQL uses User Access Key tokens for authentication and authorizat
 The issued token must be included in the request header along with the Appkey.
 
 | Name | Category | Type | Required | Description |
-|-----|-----|-----|-----|-----|
-| X-TC-APP-KEY | Header | String | Y | Appkey or project integration appkey for RDS for PostgreSQL service |
-| X-NHN-AUTHORIZATION | Header | String | Y | Bearer type token issued with the Public API |
+|-----|-----|-----|------|-----|
+| X-TC-APP-KEY | Header | String | Y    | Appkey or project integration appkey for RDS for PostgreSQL service |
+| X-NHN-AUTHORIZATION | Header | String | Y    | Bearer type token issued with the Public API |
 
 Project permissions also limit the APIs that can be called. The `RDS for` `PostgreSQL` `ADMIN` and `RDS for PostgreSQL VIEWER` roles are granted default permissions, as shown below, and you can grant only the permissions you need from the Manage Role Groups menu within the project.
 
@@ -29,7 +29,7 @@ Project permissions also limit the APIs that can be called. The `RDS for` `Postg
 * Cannot use any features aimed at DB instances or create, modify, or delete any DB instance.
 * However, you can use features related to notification groups and user groups.
 
-If an API request fails to authenticate or is not authorized, the following error occurs.
+If an API request fails to authenticate or is not authorized, the following error occurs:
 
 | resultCode | resultMessage | Description |
 |------------|---------------|-----|
@@ -75,7 +75,25 @@ The API responds with "200 OK" to all API requests. For more information on the 
 | resultCode | Number | Result code (Success: 0, Other: Failure) |
 | resultMessage | String | Result message |
 | isSuccessful | Boolean | Successful or not |
+
 ## DB Version
+
+### Supported DB Engine Versions
+
+| DB Engine Version | Available for Creation | Restorable from Object Storage |
+|------------|----------|------------------|
+| POSTGRESQL_V14_6 | N | Y |
+| POSTGRESQL_V14_15 | N | Y |
+| POSTGRESQL_V14_17 | Y | Y |
+| POSTGRESQL_V14_19 | Y | Y |
+| POSTGRESQL_V14_23 | Y | Y |
+| POSTGRESQL_V17_2 | N | Y |
+| POSTGRESQL_V17_4 | Y | Y |
+| POSTGRESQL_V17_6 | Y | Y |
+| POSTGRESQL_V17_10 | Y | Y |
+
+* You can use the above values for the `dbVersion` field, which is of the Enum type.
+* Depending on the version, creation or restoration may not be available.
 
 ### View DB Version List
 
@@ -83,7 +101,7 @@ The API responds with "200 OK" to all API requests. For more information on the 
 
 | Permission Name | Description |
 |-----|-----|
-| RDSforPostgreSQL:DbVersion.List | View DB Version List |
+| RDSforPostgreSQL:DbVersion.List | View DB version engine list |
 
 #### Request
 
@@ -102,19 +120,18 @@ This API does not require a request body.
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"dbVersions": [
-{
-            "dbVersionCode": "dbVersionCode-example",
-            "dbMajorVersionCode": "dbMajorVersionCode-example",
-"name": "PostgreSQL V14.6",
-"canCreate": false
-}
-]
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "dbVersions": [
+        {
+            "dbVersion": "POSTGRESQL_V17_10",
+            "dbVersionName": "PostgreSQL V17.10",
+            "restorableFromObs": true
+        }
+    ]
 }
 ```
 
@@ -123,10 +140,9 @@ This API does not require a request body.
 | Name | Type | Description |
 |-----|-----|-----|
 | dbVersions | Array | DB version information |
-| dbVersions.dbVersionCode | String | DB version code |
-| dbVersions.dbMajorVersionCode | String | DB major version code |
-| dbVersions.name | String | DB version name |
-| dbVersions.canCreate | Boolean | Whether creation is available |
+| dbVersions.dbVersion | Enum | DB engine version |
+| dbVersions.dbVersionName | String | DB engine version name |
+| dbVersions.restorableFromObs | Boolean | Whether restoration from Object Storage is available |
 
 ---
 
@@ -220,7 +236,7 @@ This API does not require a request body.
 "projectMembers": [
 {
 "memberId": "550e8400-e29b-41d4-a716-446655440000",
-"memberName": "memberName-example",
+"memberName": "홍길동",
 "emailAddress": "user@example.com",
 "phoneNumber": "010-1234-5678"
 }
@@ -284,7 +300,7 @@ This API does not require a request body.
 | Name | Type | Description |
 |-----|-----|-----|
 | regions | Array | Region information |
-| regions.regionCode | Enum | Region code<br/>- KR1: `Korea (Pangyo)`<br/>- KR2: `Korea (Pyeongchon)` |
+| regions.regionCode | Enum | Region code<br/>- `KR1`: Korea (Pangyo)<br/>- `KR2`: Korea (Pyeongchon) |
 | regions.isEnabled | Boolean | Whether the region is enabled |
 
 ---
@@ -316,20 +332,20 @@ This API does not require a request body.
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"subnets": [
-{
-"subnetId": "550e8400-e29b-41d4-a716-446655440000",
-"subnetName": "subnetName-example",
-"subnetCidr": "192.168.0.0/24",
-"usingGateway": false,
-"availableIpCount": 1
-}
-]
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "subnets": [
+        {
+            "subnetId": "550e8400-e29b-41d4-a716-446655440000",
+            "subnetName": "Default Network",
+            "subnetCidr": "192.168.0.0/24",
+            "usingGateway": false,
+            "availableIpCount": 240
+        }
+    ]
 }
 ```
 
@@ -443,22 +459,22 @@ This API does not require a request body.
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000",
-"jobStatus": "DELETED",
-"resourceRelations": [
-{
-"resourceType": "resourceType-example",
-"resourceId": "resourceId-example"
-}
-],
-"createdYmdt": "2023-12-31T15:00:00+09:00",
-"updatedYmdt": "2023-12-31T15:00:00+09:00"
-}
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000",
+    "jobStatus": "COMPLETED",
+    "resourceRelations": [
+        {
+            "resourceType": "DB_INSTANCE",
+            "resourceId": "550e8400-e29b-41d4-a716-446655440000"
+        }
+    ],
+    "createdYmdt": "2023-12-31T15:00:00+09:00",
+    "updatedYmdt": "2023-12-31T15:00:00+09:00"
+}              
 ```
 
 </details>
@@ -466,12 +482,12 @@ This API does not require a request body.
 | Name | Type | Description |
 |-----|-----|-----|
 | jobId | UUID | Task identifier |
-| jobStatus | Enum | Current task status<br/>- DELETED<br/>- CANNOT_PROGRESS<br/>- FAILED<br/>- ERROR<br/>- CANCELED<br/>- INTERRUPTED<br/>- COMPLETED<br/>- COMPLETED_WITH_ERROR<br/>- RUNNING<br/>- PREPARING<br/>- READY<br/>- CREATED<br/>- FAIL_TO_READY<br/>- REGISTERED<br/>- FAIL_TO_REGISTER<br/>- WAIT_TO_REGISTER |
+| jobStatus | Enum | Current status of the job<br/>- `PREPARING`: When the job is being prepared<br/>- `READY`: When the job is ready<br/>- `RUNNING`: When the job is running<br/>- `COMPLETED`: When the job is complete<br/>- `REGISTERED`: When the job is registered<br/>- `WAIT_TO_REGISTER`: When the job is waiting to be registered<br/>- `INTERRUPTED`: When an interrupt occurs while the job is in progress<br/>- `CANCELED`: When the job is canceled<br/>- `FAILED`: When the job fails<br/>- `ERROR`: When an error occurs while the job is in progress<br/>- `DELETED`: When the job is deleted<br/>- `FAIL_TO_READY`: When job preparation fails |
 | resourceRelations | Array | Related resource list |
-| resourceRelations.resourceType | String | Related resource type |
-| resourceRelations.resourceId | String | Related resource identifier |
-| createdYmdt | DateTime | Created date and time |
-| updatedYmdt | DateTime | Modified date and time |
+| resourceRelations.resourceType | Enum | Related resource type<br/>- `DB_INSTANCE`: DB instance<br/>- `DB_INSTANCE_GROUP`: DB instance group<br/>- `DB_SECURITY_GROUP`: DB security group<br/>- `PARAMETER_GROUP`: Parameter group<br/>- `BACKUP`: Backup<br/>- `TENANT`: Tenant |
+| resourceRelations.resourceId | UUID | Identifier of the related resource |
+| createdYmdt | DateTime | Creation date and time (YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| updatedYmdt | DateTime | Modified date and time (YYYY-MM-DDThh:mm:ss.SSSTZD) |
 
 ---
 
@@ -525,10 +541,10 @@ This API does not require a request body.
 |-----|-----|-----|
 | dbInstanceGroups | Array | DB instance group information |
 | dbInstanceGroups.dbInstanceGroupId | UUID | DB instance group identifier |
-| dbInstanceGroups.dbInstanceGroupStatus | Enum | Current status of the DB instance group<br/>- CREATED: `Created`<br/>- DELETED: `Deleted` |
-| dbInstanceGroups.replicationType | Enum | DB instance group replication type<br/>- STANDALONE: `High availability not used`<br/>- HIGH_AVAILABILITY: `High availability used` |
-| dbInstanceGroups.createdYmdt | DateTime | Created date and time |
-| dbInstanceGroups.updatedYmdt | DateTime | Modified date and time |
+| dbInstanceGroups.dbInstanceGroupStatus | Enum | Current status of the DB instance group<br/>- `CREATED`: Created<br/>- `DELETED`: Deleted |
+| dbInstanceGroups.replicationType | Enum | DB instance group replication type<br/>- `STANDALONE`: High availability not used<br/>- `HIGH_AVAILABILITY`: High availability used |
+| dbInstanceGroups.createdYmdt | DateTime | Created date and time (YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| dbInstanceGroups.updatedYmdt | DateTime | Modified date and time (YYYY-MM-DDThh:mm:ss.SSSTZD) |
 
 ---
 
@@ -575,7 +591,7 @@ This API does not require a request body.
 {
 "dbInstanceId": "550e8400-e29b-41d4-a716-446655440000",
 "dbInstanceType": "MASTER",
-"dbInstanceStatus": "BEFORE_CREATE"
+"dbInstanceStatus": "AVAILABLE"
 }
 ],
 "createdYmdt": "2023-12-31T15:00:00+09:00",
@@ -588,14 +604,14 @@ This API does not require a request body.
 | Name | Type | Description |
 |-----|-----|-----|
 | dbInstanceGroupId | UUID | DB instance group identifier |
-| dbInstanceGroupStatus | Enum | Current status of the DB instance group<br/>- CREATED: `Created`<br/>- DELETED: `Deleted` |
-| replicationType | Enum | DB instance group replication type<br/>- STANDALONE: `High availability not used`<br/>- HIGH_AVAILABILITY: `High availability used` |
+| dbInstanceGroupStatus | Enum | Current status of the DB instance group<br/>- `CREATED`: Created<br/>- `DELETED`: Deleted |
+| replicationType | Enum | DB instance group replication type<br/>- `STANDALONE`: High availability not used<br/>- `HIGH_AVAILABILITY`: High availability used |
 | dbInstances | Array | List of DB instances belonging to the DB instance group |
 | dbInstances.dbInstanceId | UUID | DB instance identifier |
-| dbInstances.dbInstanceType | Enum | DB instance role type<br/>- MASTER: `Master`<br/>- FAILED_MASTER: `Failed master`<br/>- CANDIDATE_MASTER: `Candidate master`<br/>- READ_ONLY_SLAVE: `Read replica` |
-| dbInstances.dbInstanceStatus | Enum | DB instance current status<br/>- BEFORE_CREATE: `Before creation (gray)`<br/>- AVAILABLE: `Available (green)`<br/>- STORAGE_FULL: `Storage full (red)`<br/>- FAIL_TO_CREATE: `Failed to create (red)`<br/>- FAIL_TO_CONNECT: `Failed to connect (red)`<br/>- REPLICATION_STOP: `Replication stopped (red)`<br/>- REPLICATION_DELAY: `Replication delayed (yellow)`<br/>- FAILOVER: `Failover completed (red)`<br/>- SHUTDOWN: `Stopped (gray)`<br/>- DELETED: `Deleted (gray)` |
-| createdYmdt | DateTime | Created date and time |
-| updatedYmdt | DateTime | Modified date and time |
+| dbInstances.dbInstanceType | Enum | DB instance role type<br/>- `MASTER`: Master<br/>- `FAILED_MASTER`: Failed master<br/>- `CANDIDATE_MASTER`: Candidate master<br/>- `READ_ONLY_SLAVE`: Read replica |
+| dbInstances.dbInstanceStatus | Enum | DB instance current status |
+| createdYmdt | DateTime | Created date and time (YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| updatedYmdt | DateTime | Modified date and time (YYYY-MM-DDThh:mm:ss.SSSTZD) |
 
 ---
 
@@ -617,7 +633,7 @@ GET /v1.0/db-instance-groups/{dbInstanceGroupId}/extensions
 
 | Name | Category | Type | Required | Description |
 |-----|-----|-----|-----|-----|
-| dbInstanceGroupId | URL | UUID | Y | DB instance group ID |
+| dbInstanceGroupId | URL | UUID | Y | DB instance group identifier |
 
 #### Request Body
 
@@ -638,13 +654,13 @@ This API does not require a request body.
 "extensions": [
 {
 "extensionId": "550e8400-e29b-41d4-a716-446655440000",
-"extensionName": "extensionName-example",
+"extensionName": "address_standardizer",
 "extensionStatus": "AVAILABLE",
 "databases": [
 {
 "dbInstanceGroupExtensionId": "550e8400-e29b-41d4-a716-446655440000",
 "databaseId": "550e8400-e29b-41d4-a716-446655440000",
-"databaseName": "databaseName-example",
+"databaseName": "database-1",
 "dbInstanceGroupExtensionStatus": "CREATED",
 "reservedAction": "NONE",
 "errorReason": "errorReason-example"
@@ -660,16 +676,16 @@ This API does not require a request body.
 
 | Name | Type | Description |
 |-----|-----|-----|
-| extensions | Array | Extension information |
+| extensions | Array | Extension list |
 | extensions.extensionId | UUID | Extension identifier |
 | extensions.extensionName | String | Extension name |
-| extensions.extensionStatus | Enum | Extension status<br/>- AVAILABLE: `Available`<br/>- NEED_TO_APPLY: `Need to apply`<br/>- APPLYING: `Applying` |
-| extensions.databases | Array | Database information |
+| extensions.extensionStatus | Enum | Extension status<br/>- `AVAILABLE`: Available<br/>- `NEED_TO_APPLY`: Need to apply<br/>- `APPLYING`: Applying |
+| extensions.databases | Array | Database information with the extention installed |
 | extensions.databases.dbInstanceGroupExtensionId | UUID | Identifier of the extension within the DB instance group |
 | extensions.databases.databaseId | UUID | Database identifier |
 | extensions.databases.databaseName | String | Database name |
-| extensions.databases.dbInstanceGroupExtensionStatus | Enum | Extension installation status within the database<br/>- CREATED: `Created`<br/>- INSTALLED: `Installed`<br/>- INSTALLING: `Installing`<br/>- INSTALL_ERROR: `Installation error`<br/>- DELETED: `Deleted`<br/>- DELETING: `Deleting`<br/>- DELETE_ERROR: `Deletion error` |
-| extensions.databases.reservedAction | Enum | Scheduled task<br/>- NONE: `None`<br/>- INSTALL: `Scheduled installation (need to apply)`<br/>- INSTALL_WITH_CASCADE: `Scheduled forced installation (need to apply)`<br/>- DELETE: `Scheduled deletion (need to apply)`<br/>- DELETE_WITH_CASCADE: `Scheduled forced deletion (need to apply)` |
+| extensions.databases.dbInstanceGroupExtensionStatus | Enum | Extension status within the DB instance group<br/>- `CREATED`: Created<br/>- `INSTALLED`: Installed<br/>- `INSTALLING`: Installing<br/>- `INSTALL_ERROR`: Installation error<br/>- `DELETED`: Deleted<br/>- `DELETING`: Deleting<br/>- `DELETE_ERROR`: Deletion error |
+| extensions.databases.reservedAction | Enum | Scheduled task<br/>- `NONE`: None<br/>- `INSTALL`: `Scheduled installation` (need to apply)<br/>- `INSTALL_WITH_CASCADE`: Scheduled forced installation (need to apply)<br/>- `DELETE`: Scheduled deletion (need to apply)<br/>- `DELETE_WITH_CASCADE`: Scheduled forced deletion (need to apply) |
 | extensions.databases.errorReason | String | Reason for error |
 | isNeedToApply | Boolean | Whether changes need to be applied |
 
@@ -693,7 +709,7 @@ POST /v1.0/db-instance-groups/{dbInstanceGroupId}/extensions/apply
 
 | Name | Category | Type | Required | Description |
 |-----|-----|-----|-----|-----|
-| dbInstanceGroupId | URL | UUID | Y | DB instance group ID |
+| dbInstanceGroupId | URL | UUID | Y | DB instance group identifier |
 
 #### Request Body
 
@@ -741,7 +757,7 @@ POST /v1.0/db-instance-groups/{dbInstanceGroupId}/extensions/sync
 
 | Name | Category | Type | Required | Description |
 |-----|-----|-----|-----|-----|
-| dbInstanceGroupId | URL | UUID | Y | DB instance group ID |
+| dbInstanceGroupId | URL | UUID | Y | DB instance group identifier |
 
 #### Request Body
 
@@ -789,9 +805,9 @@ DELETE /v1.0/db-instance-groups/{dbInstanceGroupId}/extensions/{dbInstanceGroupE
 
 | Name | Category | Type | Required | Description |
 |-----|-----|-----|-----|-----|
-| dbInstanceGroupId | URL | UUID | Y | DB instance group ID |
+| dbInstanceGroupId | URL | UUID | Y | DB instance group identifier |
 | dbInstanceGroupExtensionId | URL | UUID | Y | Identifier of the extension within the DB instance group |
-| withCascade | Query | Boolean | Y | Whether to force deletion |
+| withCascade | Query | Boolean | Y | Whether to force to delete dependency information |
 
 #### Request Body
 
@@ -821,7 +837,7 @@ POST /v1.0/db-instance-groups/{dbInstanceGroupId}/extensions/{extensionId}
 
 | Name | Category | Type | Required | Description |
 |-----|-----|-----|-----|-----|
-| dbInstanceGroupId | URL | UUID | Y | DB instance group ID |
+| dbInstanceGroupId | URL | UUID | Y | DB instance group identifier |
 | extensionId | URL | UUID | Y | Extension identifier |
 
 #### Request Body
@@ -832,7 +848,7 @@ POST /v1.0/db-instance-groups/{dbInstanceGroupId}/extensions/{extensionId}
 ```json
 {
 "databaseId": "550e8400-e29b-41d4-a716-446655440000",
-"schemaName": "schemaName-example",
+"schemaName": "rds",
 "withCascade": false
 }
 ```
@@ -841,9 +857,9 @@ POST /v1.0/db-instance-groups/{dbInstanceGroupId}/extensions/{extensionId}
 
 | Name | Type | Required | Description |
 |-----|-----|-----|-----|
-| databaseId | UUID | Y | Database identifier |
-| schemaName | String | Y | Schema name |
-| withCascade | Boolean | N | Whether to automatically install dependencies<br/>- Default: `false` |
+| databaseId | UUID | Y | Database identifier for installation target |
+| schemaName | String | Y | Schema name for installation target |
+| withCascade | Boolean | N | Whether to install dependency information<br/>- Default: `false` |
 
 #### Response
 
@@ -863,6 +879,7 @@ This API does not return a response body.
 | `FAIL_TO_CREATE` | Failed to create DB instance |
 | `FAIL_TO_CONNECT` | Failed to connect DB instance |
 | `REPLICATION_STOP` | Replication of DB instance is stopped |
+| `REPLICATION_DELAY` | Replication of DB instance is delayed           |
 | `FAILOVER` | When failover of a highly available DB instance is complete |
 | `SHUTDOWN` | DB instance is stopped |
 | `DELETED` | DB instance is deleted |
@@ -871,32 +888,42 @@ This API does not return a response body.
 
 | Status | Description |
 |----------------------------|--------------|
-| `APPLYING_PARAMETER_GROUP` | Parameter group is being applied |
-| `BACKING_UP` | Backing up |
-| `CANCELING` | Canceling |
-| `CREATING` | Creating |
-| `CREATING_SCHEMA` | Creating a schema |
-| `CREATING_USER` | Creating user |
-| `DELETING` | Deleting |
-| `DELETING_SCHEMA` | Deleting a schema |
-| `DELETING_USER` | Deleting user |
-| `EXPORTING_BACKUP` | Exporting a backup |
-| `FAILING_OVER` | Under failover |
-| `MIGRATING` | Under migration |
-| `MODIFYING` | Under modification |
-| `PREPARING` | In preparation |
-| `PROMOTING` | Promoting |
-| `REBUILDING` | Rebuilding |
-| `REPAIRING` | Recovering |
-| `REPLICATING` | Replicating |
-| `RESTARTING` | Restarting |
-| `RESTARTING_FORCIBLY` | Force restarting |
-| `RESTORING` | Restoring |
-| `STARTING` | Starting |
-| `STOPPING` | Stopping |
-| `SYNCING_SCHEMA` | Synchronizing the schema |
-| `SYNCING_USER` | Synchronizing user |
-| `UPDATING_USER` | Modifying user |
+|-----------------------------------|------------------------|
+|-----------------------------------|------------------------|
+| `APPLYING_DB_INSTANCE_HBA_RULE`   | Applying access control rule |
+| `APPLYING_EXTENSION`              | Applying extension     |
+| `APPLYING_PARAMETER_GROUP`        | Applying parameter group |
+| `BACKING_UP`                      | Backing up              |
+| `CANCELING`                       | Canceling               |
+| `CREATING`                        | Creating                |
+| `CREATING_DATABASE`               | Creating database       |
+| `CREATING_USER`                   | Creating user           |
+| `DELETING`                        | Deleting                |
+| `DELETING_DATABASE`               | Deleting database       |
+| `DELETING_USER`                   | Deleting user           |
+| `EXPORTING_BACKUP`                | Exporting backup        |
+| `FAILING_OVER`                    | Failing over            |
+| `MIGRATING`                       | Migrating               |
+| `MODIFYING`                       | Modifying               |
+| `OCCUPIED`                        | Occupied                |
+| `PREPARING`                       | Preparing               |
+| `PROMOTING`                       | Promoting               |
+| `PROMOTING_FORCIBLY`              | Forcibly promoting      |
+| `REBUILDING`                      | Rebuilding               |
+| `REPAIRING`                       | Repairing                |
+| `REPLICATING`                     | Replicating              |
+| `RESTARTING`                      | Restarting               |
+| `RESTARTING_FORCIBLY`             | Forcibly restarting      |
+| `RESTORING`                       | Restoring                |
+| `STARTING`                        | Starting                 |
+| `STOPPING`                        | Stopping                 |
+| `SYNCING_DATABASE`                | Syncing database         |
+| `SYNCING_EXTENSION`               | Syncing extension        |
+| `SYNCING_USER`                    | Syncing user             |
+| `UPDATING_DATABASE`               | Updating database        |
+| `UPDATING_SCHEMA`                 | Updating schema          |
+| `UPDATING_USER`                   | Updating user            |
+| `WAIT_MANUAL_CONTROL`             | Waiting for manual failover |
 
 ### List DB Instances
 
@@ -934,11 +961,11 @@ This API does not require a request body.
 "dbInstanceGroupId": "550e8400-e29b-41d4-a716-446655440000",
 "dbInstanceName": "dbInstanceName-example",
 "description": "description-example",
-"dbVersion": "POSTGRESQL_V14_17",
-"dbPort": 1,
+"dbVersion": "POSTGRESQL_V17_10",
+"dbPort": 15432,
 "dbInstanceType": "MASTER",
-"dbInstanceStatus": "BEFORE_CREATE",
-"progressStatus": "progressStatus-example",
+"dbInstanceStatus": "AVAILABLE",
+"progressStatus": "NONE",
 "createdYmdt": "2023-12-31T15:00:00+09:00",
 "updatedYmdt": "2023-12-31T15:00:00+09:00"
 }
@@ -955,13 +982,13 @@ This API does not require a request body.
 | dbInstances.dbInstanceGroupId | UUID | DB instance group identifier |
 | dbInstances.dbInstanceName | String | Name to identify DB instances |
 | dbInstances.description | String | Additional information on DB instances |
-| dbInstances.dbVersion | String | DB engine type |
+| dbInstances.dbVersion | Enum | DB engine version |
 | dbInstances.dbPort | Number | DB port |
-| dbInstances.dbInstanceType | Enum | DB instance role type<br/>- MASTER: `Master`<br/>- FAILED_MASTER: `Failed master`<br/>- CANDIDATE_MASTER: `Candidate master`<br/>- READ_ONLY_SLAVE: `Read replica` |
-| dbInstances.dbInstanceStatus | Enum | DB instance current status<br/>- BEFORE_CREATE: `Before creation (gray)`<br/>- AVAILABLE: `Available (green)`<br/>- STORAGE_FULL: `Storage full (red)`<br/>- FAIL_TO_CREATE: `Failed to create (red)`<br/>- FAIL_TO_CONNECT: `Failed to connect (red)`<br/>- REPLICATION_STOP: `Replication stopped (red)`<br/>- REPLICATION_DELAY: `Replication delayed (yellow)`<br/>- FAILOVER: `Failover completed (red)`<br/>- SHUTDOWN: `Stopped (gray)`<br/>- DELETED: `Deleted (gray)` |
-| dbInstances.progressStatus | String | Current task status of DB instance |
-| dbInstances.createdYmdt | DateTime | Created date and time |
-| dbInstances.updatedYmdt | DateTime | Modified date and time |
+| dbInstances.dbInstanceType | Enum | DB instance role type<br/>- `MASTER`: Master<br/>- `FAILED_MASTER`: Failed master<br/>- `CANDIDATE_MASTER`: Candidate master<br/>- `READ_ONLY_SLAVE`: Read replica |
+| dbInstances.dbInstanceStatus | Enum | DB instance current status |
+| dbInstances.progressStatus | Enum | Current task status of DB instance |
+| dbInstances.createdYmdt | DateTime | Created date and time (YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| dbInstances.updatedYmdt | DateTime | Modified date and time (YYYY-MM-DDThh:mm:ss.SSSTZD) |
 
 ---
 
@@ -990,9 +1017,9 @@ POST /v1.0/db-instances
 "dbInstanceCandidateName": "dbInstanceCandidateName-example",
 "description": "description-example",
 "dbFlavorId": "550e8400-e29b-41d4-a716-446655440000",
-"dbVersion": "POSTGRESQL_V14_17",
-"dbPort": 1,
-"databaseName": "databaseName-example",
+"dbVersion": "POSTGRESQL_V17_10",
+"dbPort": 15432,
+"databaseName": "database-1",
 "dbUserName": "dbUserName-example",
 "dbPassword": "dbPassword-example",
 "parameterGroupId": "550e8400-e29b-41d4-a716-446655440000",
@@ -1015,6 +1042,7 @@ POST /v1.0/db-instances
 "backup": {
 "backupPeriod": 0,
 "backupRetryCount": 0,
+"periodicAutoBackupStrategyTypeCode": "DAILY_FULL",
 "backupSchedules": [
 {
 "backupWndBgnTime": "00:00:00",
@@ -1033,7 +1061,7 @@ POST /v1.0/db-instances
 | dbInstanceCandidateName | String | N | Candidate master name to identify the DB instance |
 | description | String | N | Additional information on DB instances |
 | dbFlavorId | UUID | Y | Identifier of DB instance specifications |
-| dbVersion | String | Y | DB engine type |
+| dbVersion | Enum | Y | DB engine version |
 | dbPort | Number | Y | DB port<br/>- Minimum value: 5432, Maximum value: 45432 |
 | databaseName | String | Y | Database name |
 | dbUserName | String | Y | DB user account name |
@@ -1045,7 +1073,7 @@ POST /v1.0/db-instances
 | useDefaultNotification | Boolean | N | Whether to use default notification<br/>- Default: `false` |
 | useDeletionProtection | Boolean | N | Whether to use deletion protection<br/>- Default: `false` |
 | pingInterval | Number | N | Ping interval (seconds)<br/>- Minimum value: `1`<br/>- Maximum value: `600` |
-| failoverReplWaitingTime | Number | N | Failover replication delay waiting time (seconds)<br/>- Minimum value: `-1` |
+| failoverReplWaitingTime | Number | N | Failover wait time when high availability is used<br/>- If set to `-1`, waits continuously until the replication lag is resolved.<br/>- Minimum value: `-1` |
 | network | Object | Y | Network information objects |
 | network.subnetId | UUID | Y | Subnet identifier |
 | network.usePublicAccess | Boolean | N | Whether external access is available<br/>- Default: `false` |
@@ -1055,10 +1083,10 @@ POST /v1.0/db-instances
 | storage.storageSize | Number | Y | Data storage size (GB)<br/>- Minimum value: `20` |
 | backup | Object | Y | Backup information objects |
 | backup.backupPeriod | Number | Y | Backup retention period (days)<br/>- Minimum value: `0`<br/>- Maximum value: `730` |
-| backup.backupRetryCount | Number | N | Number of backup retries<br/>- Minimum value: `0`<br/>- Maximum value: `10` |
+| backup.periodicAutoBackupStrategyTypeCode | Enum | N | Periodic automatic backup strategy code (DAILY_FULL/SNAPSHOT)<br/>- Default value: `DAILY_FULL`<br/>- `SNAPSHOT`: Daily snapshot backup<br/>- `DAILY_FULL`: Daily full backup |
 | backup.backupSchedules | Array | Y | Backup schedule information |
 | backup.backupSchedules.backupWndBgnTime | Time | Y | Backup start time |
-| backup.backupSchedules.backupWndDuration | Enum | Y | Backup duration<br/>- HALF_AN_HOUR: `30 minutes`<br/>- ONE_HOUR: `1 hour`<br/>- ONE_HOUR_AND_HALF: `1.5 hours`<br/>- TWO_HOURS: `2 hours`<br/>- TWO_HOURS_AND_HALF: `2.5 hours`<br/>- THREE_HOURS: `3 hours` |
+| backup.backupSchedules.backupWndDuration | Enum | Y | Backup window<br/>- `HALF_AN_HOUR`: 30 minutes<br/>- `ONE_HOUR`: 1 hour<br/>- `ONE_HOUR_AND_HALF`: 1 hour 30 minutes<br/>- `TWO_HOURS`: 2 hours<br/>- `TWO_HOURS_AND_HALF`: 2 hours 30 minutes<br/>- `THREE_HOURS`: 3 hours |
 
 #### Response
 
@@ -1109,8 +1137,8 @@ POST /v1.0/db-instances/restore-from-obs
 "dbInstanceCandidateName": "dbInstanceCandidateName-example",
 "description": "description-example",
 "dbFlavorId": "550e8400-e29b-41d4-a716-446655440000",
-"dbPort": 1,
-"dbVersion": "POSTGRESQL_V14_17",
+"dbPort": 15432,
+"dbVersion": "POSTGRESQL_V17_10",
 "useHighAvailability": false,
 "imageId": "550e8400-e29b-41d4-a716-446655440000",
 "pingInterval": 3,
@@ -1127,6 +1155,7 @@ POST /v1.0/db-instances/restore-from-obs
 "backup": {
 "backupPeriod": 0,
 "backupRetryCount": 0,
+"periodicAutoBackupStrategyTypeCode": "DAILY_FULL",
 "replicationRegion": "KR1",
 "backupSchedules": [
 {
@@ -1159,11 +1188,11 @@ POST /v1.0/db-instances/restore-from-obs
 | description | String | N | Additional information on the DB instance<br/>- Maximum length: `100` |
 | dbFlavorId | UUID | Y | Identifier of DB instance specifications |
 | dbPort | Number | N | DB port<br/>- Minimum value: 5432, Maximum value: 45432 |
-| dbVersion | String | Y | DB engine type |
+| dbVersion | Enum | Y | DB engine version |
 | useHighAvailability | Boolean | N | Whether to use high availability<br/>- Default: `false` |
 | imageId | UUID | N | Image identifier |
 | pingInterval | Number | N | Ping interval (sec) when using high availability<br/>- Minimum value: `1`<br/>- Maximum value: `600` |
-| failoverReplWaitingTime | Number | N | Failover replication delay waiting time (seconds)<br/>- Minimum value: `-1` |
+| failoverReplWaitingTime | Number | N | Failover wait time when high availability is used<br/>- If set to `-1`, waits continuously until the replication lag is resolved.<br/>- Minimum value: `-1` |
 | storage | Object | Y | Storage information objects |
 | storage.storageType | Enum | Y | Storage type |
 | storage.storageSize | Number | Y | Data storage size (GB)<br/>- Minimum value: `20` |
@@ -1173,11 +1202,12 @@ POST /v1.0/db-instances/restore-from-obs
 | network.availabilityZone | Enum | N | Availability zone where DB instance will be created |
 | backup | Object | Y | Backup information objects |
 | backup.backupPeriod | Number | Y | Backup retention period (days)<br/>- Minimum value: `0`<br/>- Maximum value: `730` |
+| backup.periodicAutoBackupStrategyTypeCode | Enum | N | Periodic automatic backup strategy code (DAILY_FULL/SNAPSHOT)<br/>- Default value: `DAILY_FULL`<br/>- `SNAPSHOT`: Daily snapshot backup<br/>- `DAILY_FULL`: Daily full backup |
 | backup.backupRetryCount | Number | N | Number of backup retries<br/>- Minimum value: `0`<br/>- Maximum value: `10` |
-| backup.replicationRegion | Enum | N | Backup replication region<br/>- KR1: `Korea (Pangyo)`<br/>- KR2: `Korea (Pyeongchon)` |
-| backup.backupSchedules | Array | Y | Backup schedules |
+| backup.periodicAutoBackupStrategyTypeCode | Enum | N | Periodic automatic backup strategy code (DAILY_FULL/SNAPSHOT)<br/>- Default value: `DAILY_FULL`<br/>- `SNAPSHOT`: Daily snapshot backup<br/>- `DAILY_FULL`: Daily full backup |
+| backup.backupSchedules | Array | Y | Backup schedule information |
 | backup.backupSchedules.backupWndBgnTime | Time | Y | Backup start time |
-| backup.backupSchedules.backupWndDuration | Enum | Y | Backup duration<br/>- HALF_AN_HOUR: `30 minutes`<br/>- ONE_HOUR: `1 hour`<br/>- ONE_HOUR_AND_HALF: `1.5 hours`<br/>- TWO_HOURS: `2 hours`<br/>- TWO_HOURS_AND_HALF: `2.5 hours`<br/>- THREE_HOURS: `3 hours` |
+| backup.backupSchedules.backupWndDuration | Enum | Y | Backup window<br/>- `HALF_AN_HOUR`: 30 minutes<br/>- `ONE_HOUR`: 1 hour<br/>- `ONE_HOUR_AND_HALF`: 1 hour 30 minutes<br/>- `TWO_HOURS`: 2 hours<br/>- `TWO_HOURS_AND_HALF`: 2 hours 30 minutes<br/>- `THREE_HOURS`: 3 hours |
 | restore | Object | Y | Restoration information object |
 | restore.tenantId | String | Y | Tenant ID of the object storage where the backup is stored |
 | restore.username | String | Y | NHN Cloud account or IAM account ID |
@@ -1302,11 +1332,11 @@ This API does not require a request body.
 "dbInstanceGroupId": "550e8400-e29b-41d4-a716-446655440000",
 "dbInstanceName": "dbInstanceName-example",
 "description": "description-example",
-"dbVersion": "POSTGRESQL_V14_17",
-"dbPort": 1,
+"dbVersion": "POSTGRESQL_V17_10",
+"dbPort": 15432,
 "dbInstanceType": "MASTER",
-"dbInstanceStatus": "BEFORE_CREATE",
-"progressStatus": "progressStatus-example",
+"dbInstanceStatus": "AVAILABLE",
+"progressStatus": "NONE",
 "dbFlavorId": "550e8400-e29b-41d4-a716-446655440000",
 "parameterGroupId": "550e8400-e29b-41d4-a716-446655440000",
 "dbSecurityGroupIds": [
@@ -1318,7 +1348,7 @@ This API does not require a request body.
 "useDeletionProtection": false,
 "needToApplyParameterGroup": false,
 "needMigration": false,
-"osVersion": "osVersion-example",
+"osVersion": "Ubuntu Server 24.04 LTS",
 "createdYmdt": "2023-12-31T15:00:00+09:00",
 "updatedYmdt": "2023-12-31T15:00:00+09:00"
 }
@@ -1332,11 +1362,11 @@ This API does not require a request body.
 | dbInstanceGroupId | UUID | DB instance group identifier |
 | dbInstanceName | String | Name to identify DB instances |
 | description | String | Additional information on DB instances |
-| dbVersion | String | DB engine type |
+| dbVersion | Enum | DB engine version |
 | dbPort | Number | DB port |
-| dbInstanceType | Enum | DB instance role type<br/>- MASTER: `Master`<br/>- FAILED_MASTER: `Failed master`<br/>- CANDIDATE_MASTER: `Candidate master`<br/>- READ_ONLY_SLAVE: `Read replica` |
-| dbInstanceStatus | Enum | DB instance current status<br/>- BEFORE_CREATE: `Before creation (gray)`<br/>- AVAILABLE: `Available (green)`<br/>- STORAGE_FULL: `Storage full (red)`<br/>- FAIL_TO_CREATE: `Failed to create (red)`<br/>- FAIL_TO_CONNECT: `Failed to connect (red)`<br/>- REPLICATION_STOP: `Replication stopped (red)`<br/>- REPLICATION_DELAY: `Replication delayed (yellow)`<br/>- FAILOVER: `Failover completed (red)`<br/>- SHUTDOWN: `Stopped (gray)`<br/>- DELETED: `Deleted (gray)` |
-| progressStatus | String | Current task status of DB instance |
+| dbInstanceType | Enum | DB instance role type<br/>- `MASTER`: Master<br/>- `FAILED_MASTER`: Failed master<br/>- `CANDIDATE_MASTER`: Candidate master<br/>- `READ_ONLY_SLAVE`: Read replica |
+| dbInstanceStatus | Enum | DB instance current status |
+| progressStatus | Enum | Current task status of DB instance |
 | dbFlavorId | UUID | Identifier of DB instance specifications |
 | parameterGroupId | UUID | Identifier of the parameter group applied to the DB instance |
 | dbSecurityGroupIds | Array | List of DB security group identifiers applied to the DB instance |
@@ -1345,8 +1375,8 @@ This API does not require a request body.
 | needToApplyParameterGroup | Boolean | Whether the latest parameter group needs to be applied |
 | needMigration | Boolean | Whether migration is required |
 | osVersion | String | OS version |
-| createdYmdt | DateTime | Created date and time |
-| updatedYmdt | DateTime | Modified date and time |
+| createdYmdt | DateTime | Created date and time (YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| updatedYmdt | DateTime | Modified date and time (YYYY-MM-DDThh:mm:ss.SSSTZD) |
 
 ---
 
@@ -1380,10 +1410,10 @@ PUT /v1.0/db-instances/{dbInstanceId}
 "dbInstanceName": "dbInstanceName-example",
 "dbInstanceCandidateName": "dbInstanceCandidateName-example",
 "description": "description-example",
-"dbPort": 1,
+"dbPort": 15432,
 "dbFlavorId": "550e8400-e29b-41d4-a716-446655440000",
 "parameterGroupId": "550e8400-e29b-41d4-a716-446655440000",
-"dbVersion": "POSTGRESQL_V14_17",
+"dbVersion": "POSTGRESQL_V17_10",
 "dbSecurityGroupIds": [],
 "executeBackup": false,
 "useOnlineFailover": false,
@@ -1402,9 +1432,9 @@ PUT /v1.0/db-instances/{dbInstanceId}
 | dbPort | Number | N | DB port<br/>- Minimum value: 5432, Maximum value: 45432 |
 | dbFlavorId | UUID | N | Identifier of DB instance specifications |
 | parameterGroupId | UUID | N | Parameter group identifier |
-| dbVersion | String | N | DB engine version code |
+| dbVersion | Enum | N | DB engine version |
 | dbSecurityGroupIds | Array | N | List of DB security group identifiers |
-| executeBackup | Boolean | N | Whether to execute backup at this time<br/>- Default: `false` |
+| executeBackup | Boolean | N | Whether to perform backup at this time<br/>- Default: `false` |
 | useOnlineFailover | Boolean | N | Whether to restart using failover<br/>- Default: `false` |
 | waitReplicationDelay | Boolean | N | Whether to wait for replication delay to resolve<br/>- Default: `false` |
 | useReadOnly | Boolean | N | Whether to block write workloads<br/>- Default: `false` |
@@ -1481,13 +1511,13 @@ This API does not require a request body.
 
 ---
 
-### Get selectable DB versions in the current DB instance
+### Get selectable DB engine versions in the current DB instance
 
 #### Required Permission
 
 | Permission Name | Description |
 |-----|-----|
-| RDSforPostgreSQL:DbInstance.Get | Get selectable DB versions in the current DB instance |
+| RDSforPostgreSQL:DbInstance.Get | Get selectable DB engine versions in the current DB instance |
 
 #### Request
 
@@ -1519,12 +1549,11 @@ This API does not require a request body.
 },
 "availableDbVersions": [
 {
-            "dbVersionCode": "dbVersionCode-example",
-            "dbMajorVersionCode": "dbMajorVersionCode-example",
-"name": "PostgreSQL V14.6",
-"canCreate": false
-}
-]
+            "dbVersion": "POSTGRESQL_V17_10",
+            "dbVersionName": "PostgreSQL V17.10",
+            "restorableFromObs": true
+        }
+    ]
 }
 ```
 
@@ -1534,9 +1563,9 @@ This API does not require a request body.
 |-----|-----|-----|
 | availableDbVersions | Array | DB version information |
 | availableDbVersions.dbVersionCode | String | DB version code |
-| availableDbVersions.dbMajorVersionCode | String | DB major version code |
-| availableDbVersions.name | String | DB version name |
-| availableDbVersions.canCreate | Boolean | Whether creation is available |
+| availableDbVersions.dbVersion | Enum | DB engine version |
+| availableDbVersions.dbVersionName | String | DB engine version name |
+| availableDbVersions.restorableFromObs | Boolean | Whether restoration from Object Storage is available |
 
 ---
 
@@ -1577,7 +1606,7 @@ POST /v1.0/db-instances/{dbInstanceId}/backup
 | Name | Type | Required | Description |
 |-----|-----|-----|-----|
 | backupName | String | Y | Name to identify backups |
-| backupMethodType | Enum | N | Backup method<br/>- FULL<br/>- SNAPSHOT |
+| backupMethodType | Enum | N | Backup method<br/>- `FULL`<br/>- `SNAPSHOT` |
 
 #### Response
 
@@ -1641,6 +1670,7 @@ This API does not require a request body.
 },
 "allowAutoBackup": false,
 "usePeriodicAutoBackup": false,
+"periodicAutoBackupStrategyTypeCode": "SNAPSHOT",
 "backupPeriod": 1,
 "backupRetryCount": 1,
 "backupSchedules": [
@@ -1661,8 +1691,8 @@ This API does not require a request body.
 | backupPeriod | Number | Backup retention period (days) |
 | backupRetryCount | Number | Number of backup retries |
 | backupSchedules | Array | Backup schedules |
-| backupSchedules.backupWndBgnTime | Time | Backup start time |
-| backupSchedules.backupWndDuration | Enum | Backup duration<br/>- HALF_AN_HOUR: `30 minutes`<br/>- ONE_HOUR: `1 hour`<br/>- ONE_HOUR_AND_HALF: `1.5 hours`<br/>- TWO_HOURS: `2 hours`<br/>- TWO_HOURS_AND_HALF: `2.5 hours`<br/>- THREE_HOURS: `3 hours` |
+| backup.backupSchedules.backupWndBgnTime | Time | Y | Backup start time |
+| backup.backupSchedules.backupWndDuration | Enum | Y | Backup window<br/>- `HALF_AN_HOUR`: 30 minutes<br/>- `ONE_HOUR`: 1 hour<br/>- `ONE_HOUR_AND_HALF`: 1 hour 30 minutes<br/>- `TWO_HOURS`: 2 hours<br/>- `TWO_HOURS_AND_HALF`: 2 hours 30 minutes<br/>- `THREE_HOURS`: 3 hours |
 
 ---
 
@@ -1695,6 +1725,7 @@ PUT /v1.0/db-instances/{dbInstanceId}/backup-info
 {
 "allowAutoBackup": false,
 "usePeriodicAutoBackup": false,
+"periodicAutoBackupStrategyTypeCode": "SNAPSHOT",
 "backupPeriod": 0,
 "backupRetryCount": 0,
 "backupSchedules": [
@@ -1712,11 +1743,12 @@ PUT /v1.0/db-instances/{dbInstanceId}/backup-info
 |-----|-----|-----|-----|
 | allowAutoBackup | Boolean | N | Whether automatic backup is allowed |
 | usePeriodicAutoBackup | Boolean | N | Whether scheduled automatic backup is used |
+| backup.periodicAutoBackupStrategyTypeCode | Enum | N | Periodic automatic backup strategy code (DAILY_FULL/SNAPSHOT)<br/>- Default value: `DAILY_FULL`<br/>- `SNAPSHOT`: Daily snapshot backup<br/>- `DAILY_FULL`: Daily full backup |
 | backupPeriod | Number | N | Backup retention period (days)<br/>- Minimum value: `0`<br/>- Maximum value: `730` |
 | backupRetryCount | Number | N | Number of backup retries<br/>- Minimum value: `0`<br/>- Maximum value: `10` |
 | backupSchedules | Array | N | Backup schedules |
-| backupSchedules.backupWndBgnTime | Time | Y | Backup start time |
-| backupSchedules.backupWndDuration | Enum | Y | Backup Window<br/>Auto backup is executed within the set duration from the backup start time.<br/>- HALF_AN_HOUR: `30 minutes`<br/>- ONE_HOUR: `1 hour`<br/>- ONE_HOUR_AND_HALF: `1.5 hour`<br/>- TWO_HOURS: `2 hour`<br/>- TWO_HOURS_AND_HALF: `2.5 hour`<br/>- THREE_HOURS: `3 hour` |
+| backup.backupSchedules.backupWndBgnTime | Time | Y | Backup start time |
+| backup.backupSchedules.backupWndDuration | Enum | Y | Backup window<br/>- `HALF_AN_HOUR`: 30 minutes<br/>- `ONE_HOUR`: 1 hour<br/>- `ONE_HOUR_AND_HALF`: 1 hour 30 minutes<br/>- `TWO_HOURS`: 2 hours<br/>- `TWO_HOURS_AND_HALF`: 2 hours 30 minutes<br/>- `THREE_HOURS`: 3 hours |
 
 #### Response
 
@@ -1770,7 +1802,7 @@ POST /v1.0/db-instances/{dbInstanceId}/backup-to-object-storage
 ```json
 {
 "tenantId": "0123456789abcdef0123456789abcdef",
-"username": "username-example",
+"username": "example@nhncloud.com or example",
 "password": "password-example",
 "targetContainer": "targetContainer-example",
 "objectPath": "objectPath-example"
@@ -1850,18 +1882,17 @@ This API does not require a request body.
 "databases": [
 {
 "databaseId": "550e8400-e29b-41d4-a716-446655440000",
-"databaseName": "databaseName-example",
+"databaseName": "database-1",
 "databaseStatus": "STABLE",
 "createdYmdt": "2023-12-31T15:00:00+09:00",
 "updatedYmdt": "2023-12-31T15:00:00+09:00",
 "schemas": [
 {
-"schemaName": "schemaName-example"
-}
-],
-"errorReason": "errorReason-example"
-}
-]
+"schemaName": "rds"
+                }
+            ]
+        }
+    ]
 }
 ```
 
@@ -1872,12 +1903,11 @@ This API does not require a request body.
 | databases | Array | Database information |
 | databases.databaseId | UUID | Database identifier |
 | databases.databaseName | String | Database name |
-| databases.databaseStatus | Enum | Current state of the database<br/>- STABLE: `Available`<br/>- CREATING: `Creating`<br/>- MODIFYING: `Modifying`<br/>- DELETING: `Deleting`<br/>- DELETED: `Deleted`<br/>- SYNCING: `Synchronizing`<br/>- DELETE_ERROR: `Deletion failed` |
-| databases.createdYmdt | DateTime | Created date and time |
-| databases.updatedYmdt | DateTime | Modified date and time |
+| databases.databaseStatus | Enum | Current state of the database<br/>- `STABLE`: Available<br/>- `CREATING`: Creating<br/>- `MODIFYING`: Modifying<br/>- `DELETING`: Deleting<br/>- `DELETED`: Deleted<br/>- `SYNCING`: Synchronizing<br/>- `DELETE_ERROR`: Deletion failed |
+| databases.createdYmdt | DateTime | Created date and time (YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| databases.updatedYmdt | DateTime | Modified date and time (YYYY-MM-DDThh:mm:ss.SSSTZD) |
 | databases.schemas | Array | Schema information |
 | databases.schemas.schemaName | String | Schema name |
-| databases.errorReason | String | Reason for deletion failure |
 
 ---
 
@@ -1908,7 +1938,7 @@ POST /v1.0/db-instances/{dbInstanceId}/databases
 
 ```json
 {
-"databaseName": "databaseName-example"
+"databaseName": "database-1"
 }
 ```
 
@@ -2020,7 +2050,7 @@ PUT /v1.0/db-instances/{dbInstanceId}/databases/{databaseId}
 ```json
 {
 "applyHbaRulesImmediately": false,
-"databaseName": "databaseName-example"
+"databaseName": "database-1"
 }
 ```
 
@@ -2111,10 +2141,10 @@ This API does not require a request body.
 | dbUsers | Array | DB user list |
 | dbUsers.dbUserId | UUID | DB user identifier |
 | dbUsers.dbUserName | String | DB user account name |
-| dbUsers.authorityType | Enum | DB user permission types<br/>- CUSTOM: `Custom permission`<br/>- READ: `READ permission (read-only permission)`<br/>- CRUD: `CRUD permission (includes read permission)`<br/>- DDL: `DDL permission (includes CRUD permission)` |
-| dbUsers.dbUserStatus | Enum | DB user current status<br/>- STABLE: `Available`<br/>- CREATING: `Creating`<br/>- MODIFYING: `Modifying`<br/>- DELETING: `Deleting`<br/>- DELETED: `Deleted`<br/>- SYNCING: `Synchronizing`<br/>- DELETE_ERROR: `Deletion failed` |
-| dbUsers.createdYmdt | DateTime | Created date and time |
-| dbUsers.updatedYmdt | DateTime | Modified date and time |
+| dbUsers.authorityType | Enum | DB user permission types<br/>- `CUSTOM`: Custom permission<br/>- `READ`: READ permission (read-only permission)<br/>- `CRUD`: CRUD permission (includes read permission)<br/>- `DDL`: DDL permission (includes CRUD permission) |
+| dbUsers.dbUserStatus | Enum | DB user current status<br/>- `STABLE`: Available<br/>- `CREATING`: Creating<br/>- `MODIFYING`: Modifying<br/>- `DELETING`: Deleting<br/>- `DELETED`: Deleted<br/>- `SYNCING`: Synchronizing<br/>- `DELETE_ERROR`: Deletion failed |
+| dbUsers.createdYmdt | DateTime | Created date and time (YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| dbUsers.updatedYmdt | DateTime | Modified date and time (YYYY-MM-DDThh:mm:ss.SSSTZD) |
 
 ---
 
@@ -2149,7 +2179,7 @@ POST /v1.0/db-instances/{dbInstanceId}/db-users
 "dbPassword": "dbPassword-example",
 "authorityType": "CUSTOM",
 "createDefaultHbaRules": false,
-"address": "address-example"
+"address": "192.168.0.10/32"
 }
 ```
 
@@ -2159,7 +2189,7 @@ POST /v1.0/db-instances/{dbInstanceId}/db-users
 |-----|-----|-----|-----|
 | dbUserName | String | Y | DB user account name |
 | dbPassword | String | Y | DB user account password |
-| authorityType | Enum | Y | DB user permission types<br/>- CUSTOM: `Custom permission`<br/>- READ: `Read permission`<br/>- CRUD: `CRUD permission`<br/>- DDL: `DDL permission` |
+| authorityType | Enum | Y | DB user permission types<br/>- `CUSTOM`: Custom permission<br/>- `READ`: Read permission<br/>- `CRUD`: CRUD permission<br/>- `DDL`: DDL permission |
 | createDefaultHbaRules | Boolean | N | Whether to create default access control rules<br/>- Default: `false` |
 | address | String | N | Connection address |
 
@@ -2277,7 +2307,7 @@ PUT /v1.0/db-instances/{dbInstanceId}/db-users/{dbUserId}
 |-----|-----|-----|-----|
 | dbUserName | String | N | DB user account name |
 | dbPassword | String | N | DB user account password |
-| authorityType | Enum | N | DB user permission<br/>- CUSTOM: `Custom permission`<br/>- READ: `Read permission`<br/>- CRUD: `CRUD permission`<br/>- DDL: `DDL permission` |
+| authorityType | Enum | N | DB user permission<br/>- `CUSTOM`: Custom permission<br/>- `READ`: Read permission<br/>- `CRUD`: CRUD permission<br/>- `DDL`: DDL permission |
 | applyHbaRulesImmediately | Boolean | N | Whether to apply access control changes immediately<br/>- Default: `false` |
 
 #### Response
@@ -2431,7 +2461,7 @@ This API does not require a request body.
 "dbUserName": "dbUserName-example"
 }
 ],
-"address": "address-example",
+"address": "192.168.0.10/32",
 "authMethod": "TRUST",
 "reservedAction": "NONE",
 "order": 1,
@@ -2448,31 +2478,31 @@ This API does not require a request body.
 |-----|-----|-----|
 | hbaRules | Array | List of access control rules |
 | hbaRules.hbaRuleId | UUID | Identifier of the access control rule |
-| hbaRules.hbaRuleStatus | Enum | Current status of the access control rule<br/>- CREATED: `Created`<br/>- APPLIED: `Applied`<br/>- CREATING: `Creating`<br/>- MODIFYING: `Modifying`<br/>- DELETING: `Deleting`<br/>- DELETED: `Deleted` |
-| hbaRules.databaseApplyType | Enum | Database apply type<br/>- ENTIRE: `All`<br/>- USER_CUSTOM: `Customize` |
-| hbaRules.dbUserApplyTypeCode | Enum | DB user apply type<br/>- ENTIRE: `All`<br/>- USER_CUSTOM: `Customize` |
+| hbaRules.hbaRuleStatus | Enum | Current status of the access control rule<br/>- `CREATED`: Created<br/>- `APPLIED`: Applied<br/>- `CREATING`: Creating<br/>- `MODIFYING`: Modifying<br/>- `DELETING`: Deleting<br/>- `DELETED`: Deleted |
+| hbaRules.databaseApplyType | Enum | Database rule application method<br/>- `ENTIRE`: All<br/>- `USER_CUSTOM`: Custom |
+| hbaRules.dbUserApplyTypeCode | Enum | DB user rule application method<br/>- `ENTIRE`: All<br/>- `USER_CUSTOM`: Custom |
 | hbaRules.databases | Array | List of custom databases |
-| hbaRules.databases.databaseId | UUID | Database identifier |
-| hbaRules.databases.databaseName | String | Database name |
-| hbaRules.dbUsers | Array | Custom DB user list |
-| hbaRules.dbUsers.dbUserId | UUID | DB user identifier |
-| hbaRules.dbUsers.dbUserName | String | DB user account name |
-| hbaRules.address | String | Connection address |
-| hbaRules.authMethod | Enum | Authentication method<br/>- TRUST: `Trust (no password required)`<br/>- REJECT: `Block access`<br/>- SCRAM_SHA_256: `Password (SCRAM-SHA-256)` |
-| hbaRules.reservedAction | Enum | Scheduled task<br/>- NONE: `None`<br/>- CREATE: `Schedule a creation (requires application)`<br/>- MODIFY: `Schedule a modification (requires application)`<br/>- DELETE: `Schedule a deletion (requires application)` |
+| hbaRules.databases.databaseId | UUID | Identifier of the custom database |
+| hbaRules.databases.databaseName | String | Name of the custom database |
+| hbaRules.dbUsers | Array | List of custom DB users |
+| hbaRules.dbUsers.dbUserId | UUID | Identifier of the custom DB user |
+| hbaRules.dbUsers.dbUserName | String | Account name of the custom DB user |
+| hbaRules.address | String | Connection address<br/>- Enter in CIDR, hostname, or domain format |
+| hbaRules.authMethod | Enum | Authentication method<br/>- `TRUST`: Trust (no password required)<br/>- `REJECT`: Block connection<br/>- `SCRAM_SHA_256`: Password (SCRAM-SHA-256) |
+| hbaRules.reservedAction | Enum | Reserved action<br/>- `NONE`: None<br/>- `CREATE`: Creation reserved (application required)<br/>- `MODIFY`: Modification reserved (application required)<br/>- `DELETE`: Deletion reserved (application required) |
 | hbaRules.order | Number | Application order |
-| hbaRules.applicable | Boolean | Whether the rule is applicable |
+| hbaRules.applicable | Boolean | Whether the rule is applicable<br/>- Rules that cannot be applied are ignored |
 | needToApply | Boolean | Whether changes need to be applied |
 
 ---
 
-### Add an access control rule
+### Add Access Control Rules
 
 #### Required Permission
 
 | Permission Name | Description |
 |-----|-----|
-| RDSforPostgreSQL:DbInstanceHba.Create | Add an access control rule to a DB instance |
+| RDSforPostgreSQL:DbInstanceHba.Create | Add access control rules |
 
 #### Request
 
@@ -2498,7 +2528,7 @@ POST /v1.0/db-instances/{dbInstanceId}/hba-rules
 "dbUserApplyType": "ENTIRE",
 "databaseIds": [],
 "dbUserIds": [],
-"address": "address-example",
+"address": "192.168.0.10/32",
 "authMethod": "TRUST"
 }
 ```
@@ -2507,13 +2537,13 @@ POST /v1.0/db-instances/{dbInstanceId}/hba-rules
 
 | Name | Type | Required | Description |
 |-----|-----|-----|-----|
-| connectionTypeCode | Enum | N | Access control record type<br/>- HOST: `Valid for TCP/IP connections`<br/>- HOST_NO_SSL: `Valid only for connections without SSL encryption` |
-| databaseApplyType | Enum | Y | Database apply type<br/>- ENTIRE: `All`<br/>- USER_CUSTOM: `Customize` |
-| dbUserApplyType | Enum | Y | DB user apply type<br/>- ENTIRE: `All`<br/>- USER_CUSTOM: `Customize` |
-| databaseIds | Array | N | List of database identifiers |
-| dbUserIds | Array | N | List of DB user identifiers |
-| address | String | Y | Connection address |
-| authMethod | Enum | Y | Authentication method<br/>- TRUST: `Trust (no password required)`<br/>- REJECT: `Block access`<br/>- SCRAM_SHA_256: `Password (SCRAM-SHA-256)` |
+| connectionTypeCode | Enum | N | Access control record type<br/>- `HOST`: Valid for connections over TCP/IP<br/>- `HOST_NO_SSL`: Valid only for connections that do not use SSL encryption |
+| databaseApplyType | Enum | Y | Database rule application method<br/>- `ENTIRE`: All<br/>- `USER_CUSTOM`: Custom |
+| dbUserApplyType | Enum | Y | DB user rule application method<br/>- `ENTIRE`: All<br/>- `USER_CUSTOM`: Custom |
+| databaseIds | Array | N | List of identifiers of the custom databases |
+| dbUserIds | Array | N | List of identifiers of the custom DB users |
+| address | String | Y | Connection address<br/>- Enter in CIDR, hostname, or domain format |
+| authMethod | Enum | Y | Authentication method<br/>- `TRUST`: Trust (no password required)<br/>- `REJECT`: Block connection<br/>- `SCRAM_SHA_256`: Password (SCRAM-SHA-256) |
 
 #### Response
 
@@ -2539,13 +2569,13 @@ POST /v1.0/db-instances/{dbInstanceId}/hba-rules
 
 ---
 
-### Apply access control rules
+### Apply Access Control Rules
 
 #### Required Permission
 
 | Permission Name | Description |
 |-----|-----|
-| RDSforPostgreSQL:DbInstance.Modify | Modify DB Instance |
+| RDSforPostgreSQL:DbInstance.Modify | Apply access control rules |
 
 #### Request
 
@@ -2587,13 +2617,13 @@ This API does not require a request body.
 
 ---
 
-### Reorder access control rules
+### Reorder Access Control Rules
 
 #### Required Permission
 
 | Permission Name | Description |
 |-----|-----|
-| RDSforPostgreSQL:DbInstanceHba.Modify | Modify access control rules in a DB instance |
+| RDSforPostgreSQL:DbInstanceHba.Modify | Reorder access control rules |
 
 #### Request
 
@@ -2630,13 +2660,13 @@ This API does not return a response body.
 
 ---
 
-### Delete an access control rule
+### Delete Access Control Rules
 
 #### Required Permission
 
 | Permission Name | Description |
 |-----|-----|
-| RDSforPostgreSQL:DbInstanceHba.Delete | Delete an access control rule from a DB instance |
+| RDSforPostgreSQL:DbInstanceHba.Delete | Delete access control rules |
 
 #### Request
 
@@ -2661,13 +2691,13 @@ This API does not return a response body.
 
 ---
 
-### Modify an access control rule
+### Modify Access Control Rules
 
 #### Required Permission
 
 | Permission Name | Description |
 |-----|-----|
-| RDSforPostgreSQL:DbInstanceHba.Modify | Modify access control rules in a DB instance |
+| RDSforPostgreSQL:DbInstanceHba.Modify | Modify access control rules |
 
 #### Request
 
@@ -2694,7 +2724,7 @@ PUT /v1.0/db-instances/{dbInstanceId}/hba-rules/{hbaRuleId}
 "dbUserApplyType": "ENTIRE",
 "databaseIds": [],
 "dbUserIds": [],
-"address": "address-example",
+"address": "192.168.0.10/32",
 "authMethod": "TRUST"
 }
 ```
@@ -2703,13 +2733,13 @@ PUT /v1.0/db-instances/{dbInstanceId}/hba-rules/{hbaRuleId}
 
 | Name | Type | Required | Description |
 |-----|-----|-----|-----|
-| connectionTypeCode | Enum | N | Access control record type<br/>- HOST: `Valid for TCP/IP connections`<br/>- HOST_NO_SSL: `Valid only for connections without SSL encryption` |
-| databaseApplyType | Enum | Y | Database apply type<br/>- ENTIRE: `All`<br/>- USER_CUSTOM: `Customize` |
-| dbUserApplyType | Enum | Y | DB user apply type<br/>- ENTIRE: `All`<br/>- USER_CUSTOM: `Customize` |
-| databaseIds | Array | N | List of database identifiers |
-| dbUserIds | Array | N | List of DB user identifiers |
-| address | String | Y | Connection address |
-| authMethod | Enum | Y | Authentication method<br/>- TRUST: `Trust (no password required)`<br/>- REJECT: `Block access`<br/>- SCRAM_SHA_256: `Password (SCRAM-SHA-256)` |
+| connectionTypeCode | Enum | N | Access control record type<br/>- `HOST`: Valid for connections over TCP/IP<br/>- `HOST_NO_SSL`: Valid only for connections that do not use SSL encryption |
+| databaseApplyType | Enum | Y | Database rule application method<br/>- `ENTIRE`: All<br/>- `USER_CUSTOM`: Custom |
+| dbUserApplyType | Enum | Y | DB user rule application method<br/>- `ENTIRE`: All<br/>- `USER_CUSTOM`: Custom |
+| databaseIds | Array | N | List of identifiers of the custom databases |
+| dbUserIds | Array | N | List of identifiers of the custom DB users |
+| address | String | Y | Connection address<br/>- Enter in CIDR, hostname, or domain format |
+| authMethod | Enum | Y | Authentication method<br/>- `TRUST`: Trust (no password required)<br/>- `REJECT`: Block connection<br/>- `SCRAM_SHA_256`: Password (SCRAM-SHA-256) |
 
 #### Response
 
@@ -2763,9 +2793,9 @@ This API does not require a request body.
 
 | Name | Type | Description |
 |-----|-----|-----|
-| haStatus | Enum | High availability status<br/>- CREATED: `Created`<br/>- STABLE: `Normal`<br/>- PAUSING: `Pausing`<br/>- DISABLE: `Stopped`<br/>- DISABLE_MASTER_IN_REPLICATION: `High availability stopped due to abnormal master replication detected`<br/>- DISABLE_MHA_PROCESS: `High availability process stopped`<br/>- DISABLE_REPLICATION_STOP: `High availability stopped due to replication stop`<br/>- DISABLE_REPLICATION_DELAY: `High availability stopped due to replication delay`<br/>- FAILOVER_STARTED: `Failover started`<br/>- FAILOVER_FAILED: `Failover failed`<br/>- FAILOVER_COMPLETED: `Failover completed`<br/>- DELETED: `Deleted`<br/>- PAUSED: `Paused`<br/>- PAUSED_DUE_TO_TASK: `Paused due to task`<br/>- MASTER_FAILURE_DETECTION: `Master failure detected` |
-| pingInterval | Number | Ping interval (sec) when using high availability |
-| failoverReplWaitingTime | Number | Failover replication delay waiting time (sec) when using high availability |
+| haStatus | Enum | High availability status<br/>- `CREATED`: Created<br/>- `STABLE`: Stable<br/>- `PAUSING`: Pausing<br/>- `PAUSED`: Paused<br/>- `PAUSED_DUE_TO_TASK`: Paused due to task<br/>- `DISABLE_REPLICATION_DELAY`: Failover disabled due to replication lag<br/>- `FAILOVER_STARTED`: Failover started<br/>- `FAILOVER_FAILED`: Failover failed<br/>- `FAILOVER_COMPLETED`: Failover completed<br/>- `DELETED`: Deleted |
+| pingInterval | Number | Ping interval (seconds)<br/>- Minimum value: `1`<br/>- Maximum value: `600` |
+| failoverReplWaitingTime | Number | Failover wait time when high availability is used<br/>- If set to `-1`, waits continuously until the replication lag is resolved.<br/>- Minimum value: `-1` |
 
 ---
 
@@ -2808,7 +2838,7 @@ PUT /v1.0/db-instances/{dbInstanceId}/high-availability
 |-----|-----|-----|-----|
 | useHighAvailability | Boolean | Y | Whether to use high availability |
 | pingInterval | Number | N | Ping interval (seconds)<br/>- Minimum value: `1`<br/>- Maximum value: `600` |
-| failoverReplWaitingTime | Number | N | Failover replication delay waiting time (seconds)<br/>- Minimum value: `-1` |
+| failoverReplWaitingTime | Number | N | Failover wait time when high availability is used<br/>- If set to `-1`, waits continuously until the replication lag is resolved.<br/>- Minimum value: `-1` |
 
 #### Response
 
@@ -3077,7 +3107,7 @@ This API does not require a request body.
 | allowAutoMaintenance | Boolean | Whether to allow automatic maintenance |
 | useAutoStorageCleanup | Boolean | Whether to enable automatic storage cleanup |
 | maintWndBgnTime | Time | Automatic maintenance start time |
-| maintWndDuration | Enum | Maintenance window<br/>- HALF_AN_HOUR: `30 minutes`<br/>- ONE_HOUR: `1 hour`<br/>- ONE_HOUR_AND_HALF: `1 hour 30 minutes`<br/>- TWO_HOURS: `2 hours`<br/>- TWO_HOURS_AND_HALF: `2 hours 30 minutes`<br/>- THREE_HOURS: `3 hours` |
+| maintWndDuration | Enum | Maintenance window<br/>- `HALF_AN_HOUR`: 30 minutes<br/>- `ONE_HOUR`: 1 hour<br/>- `ONE_HOUR_AND_HALF`: 1 hour 30 minutes<br/>- `TWO_HOURS`: 2 hours<br/>- `TWO_HOURS_AND_HALF`: 2 hours 30 minutes<br/>- `THREE_HOURS`: 3 hours |
 | logRetentionPeriod | Number | Log retention period (days) |
 
 ---
@@ -3124,7 +3154,7 @@ PUT /v1.0/db-instances/{dbInstanceId}/maintenance-info
 | allowAutoMaintenance | Boolean | N | Whether to allow automatic maintenance |
 | useAutoStorageCleanup | Boolean | N | Whether to enable automatic storage cleanup |
 | maintWndBgnTime | Time | N | Automatic maintenance start time |
-| maintWndDuration | Enum | N | Maintenance window<br/>- HALF_AN_HOUR: `30 minutes`<br/>- ONE_HOUR: `1 hour`<br/>- ONE_HOUR_AND_HALF: `1 hour 30 minutes`<br/>- TWO_HOURS: `2 hours`<br/>- TWO_HOURS_AND_HALF: `2 hours 30 minutes`<br/>- THREE_HOURS: `3 hours` |
+| maintWndDuration | Enum | N | Maintenance window<br/>- `HALF_AN_HOUR`: 30 minutes<br/>- `ONE_HOUR`: 1 hour<br/>- `ONE_HOUR_AND_HALF`: 1 hour 30 minutes<br/>- `TWO_HOURS`: 2 hours<br/>- `TWO_HOURS_AND_HALF`: 2 hours 30 minutes<br/>- `THREE_HOURS`: 3 hours |
 | logRetentionPeriod | Number | N | Log retention period (days)<br/>- Minimum: `1`<br/>- Maximum: `30` |
 
 #### Response
@@ -3190,15 +3220,15 @@ This API does not require a request body.
 "availabilityZone": "kr-pub-a",
 "subnet": {
 "subnetId": "550e8400-e29b-41d4-a716-446655440000",
-"subnetName": "subnetName-example",
+"subnetName": "Default Network",
 "subnetCidr": "192.168.0.0/24",
 "publicAccessible": false
 },
 "endPoints": [
 {
-"domain": "domain-example",
+"domain": "ea548a78-d85f-43b4-8ddf-c88d999b9905.internal.kr1.postgres.rds.nhncloudservice.com",
 "ipAddress": "192.168.0.1",
-"endPointType": "https://example.com"
+"endPointType": "INTERNAL"
 }
 ]
 }
@@ -3217,7 +3247,7 @@ This API does not require a request body.
 | endPoints | Array | List of access information |
 | endPoints.domain | String | Domain |
 | endPoints.ipAddress | String | IP address |
-| endPoints.endPointType | String | Types of access information |
+| endPoints.endPointType | Enum | Connection information type<br/>- `EXTERNAL`: External connection domain<br/>- `INTERNAL`: Internal connection domain<br/>- `PUBLIC`: (Deprecated) External connection domain<br/>- `PRIVATE`: (Deprecated) Internal connection domain |
 
 ---
 
@@ -3360,7 +3390,7 @@ POST /v1.0/db-instances/{dbInstanceId}/replicate
 "dbInstanceName": "dbInstanceName-example",
 "description": "description-example",
 "dbFlavorId": "550e8400-e29b-41d4-a716-446655440000",
-"dbPort": 1,
+"dbPort": 15432,
 "parameterGroupId": "550e8400-e29b-41d4-a716-446655440000",
 "dbSecurityGroupIds": [],
 "userGroupIds": [],
@@ -3514,11 +3544,11 @@ This API does not require a request body.
 "backupStatus": "BACKING_UP",
 "dbInstanceId": "550e8400-e29b-41d4-a716-446655440000",
 "dbInstanceName": "dbInstanceName-example",
-"dbVersion": "POSTGRESQL_V14_17",
+"dbVersion": "POSTGRESQL_V17_10",
 "backupType": "AUTO",
 "backupSize": 1,
 "failoverCount": 1,
-"walFileName": "walFileName-example",
+"walFileName": "000000010000000000000005",
 "createdYmdt": "2023-12-31T15:00:00+09:00",
 "updatedYmdt": "2023-12-31T15:00:00+09:00",
 "startYmdt": "2023-12-31T15:00:00+09:00",
@@ -3537,18 +3567,18 @@ This API does not require a request body.
 | restorableBackups | Array | List of restorable backups |
 | restorableBackups.backupId | UUID | Backup identifier |
 | restorableBackups.backupName | String | Backup name |
-| restorableBackups.backupStatus | Enum | Backup status<br/>- BACKING_UP: `Backing up (spinner)`<br/>- VERIFYING: `Verifying (spinner)`<br/>- COMPLETED: `Available (green icon)`<br/>- DELETING: `Deleting (spinner)`<br/>- DELETED: `Deleted (gray icon)`<br/>- ERROR: `Error (red icon)` |
+| restorableBackups.backupStatus | Enum | Backup status<br/>- `BACKING_UP`: When the backup is in progress<br/>- `COMPLETED`: When the backup is complete<br/>- `DELETING`: When the backup is being deleted<br/>- `DELETED`: When the backup has been deleted<br/>- `ERROR`: When an error occurs |
 | restorableBackups.dbInstanceId | UUID | Original DB instance identifier |
 | restorableBackups.dbInstanceName | String | Original DB instance name |
-| restorableBackups.dbVersion | String | DB engine type |
-| restorableBackups.backupType | Enum | Backup type<br/>- AUTO: `Auto Backup`<br/>- MANUAL: `Manual Backup` |
-| restorableBackups.backupSize | Number | Backup size |
+| restorableBackups.dbVersion | Enum | DB engine version |
+| restorableBackups.backupType | Enum | Backup type<br/>- `AUTO`: Auto Backup<br/>- `MANUAL`: Manual Backup |
+| restorableBackups.backupSize | Number | Backup size<br/>- Unit: `BYTE` |
 | restorableBackups.failoverCount | Number | Number of failovers |
 | restorableBackups.walFileName | String | WAL file name |
-| restorableBackups.createdYmdt | DateTime | Backup creation date and time |
-| restorableBackups.updatedYmdt | DateTime | Backup update date and time |
-| restorableBackups.startYmdt | DateTime | Backup start date and time |
-| restorableBackups.completedYmdt | DateTime | Backup completion date and time |
+| restorableBackups.createdYmdt | DateTime | Backup creation date and time (YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| restorableBackups.updatedYmdt | DateTime | Backup update date and time (YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| restorableBackups.startYmdt | DateTime | Backup start date and time (YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| restorableBackups.completedYmdt | DateTime | Backup completion date and time (YYYY-MM-DDThh:mm:ss.SSSTZD) |
 
 ---
 
@@ -3583,7 +3613,7 @@ POST /v1.0/db-instances/{dbInstanceId}/restore
 "dbInstanceCandidateName": "dbInstanceCandidateName-example",
 "description": "description-example",
 "dbFlavorId": "550e8400-e29b-41d4-a716-446655440000",
-"dbPort": 1,
+"dbPort": 15432,
 "useHighAvailability": false,
 "imageId": "550e8400-e29b-41d4-a716-446655440000",
 "pingInterval": 3,
@@ -3599,6 +3629,7 @@ POST /v1.0/db-instances/{dbInstanceId}/restore
 },
 "backup": {
 "backupPeriod": 0,
+"periodicAutoBackupStrategyTypeCode": "DAILY_FULL",
 "backupRetryCount": 0,
 "replicationRegion": "KR1",
 "backupSchedules": [
@@ -3609,9 +3640,7 @@ POST /v1.0/db-instances/{dbInstanceId}/restore
 ]
 },
 "restore": {
-"restoreType": "BACKUP",
-"restoreYmdt": "2023-12-31T15:00:00+09:00",
-"backupId": "550e8400-e29b-41d4-a716-446655440000"
+"restoreType": "BACKUP"
 },
 "useDefaultNotification": false,
 "parameterGroupId": "550e8400-e29b-41d4-a716-446655440000",
@@ -3633,7 +3662,7 @@ POST /v1.0/db-instances/{dbInstanceId}/restore
 | useHighAvailability | Boolean | N | Whether to use high availability<br/>- Default: `false` |
 | imageId | UUID | N | Image identifier |
 | pingInterval | Number | N | Ping interval (sec) when using high availability<br/>- Minimum value: `1`<br/>- Maximum value: `600` |
-| failoverReplWaitingTime | Number | N | Failover replication delay waiting time (seconds)<br/>- Minimum value: `-1` |
+| failoverReplWaitingTime | Number | N | Failover wait time when high availability is used<br/>- If set to `-1`, waits continuously until the replication lag is resolved.<br/>- Minimum value: `-1` |
 | storage | Object | Y | Storage information objects |
 | storage.storageType | Enum | Y | Storage type |
 | storage.storageSize | Number | Y | Data storage size (GB)<br/>- Minimum value: `20` |
@@ -3643,20 +3672,28 @@ POST /v1.0/db-instances/{dbInstanceId}/restore
 | network.availabilityZone | Enum | N | Availability zone where DB instance will be created |
 | backup | Object | Y | Backup information objects |
 | backup.backupPeriod | Number | Y | Backup retention period (days)<br/>- Minimum value: `0`<br/>- Maximum value: `730` |
+| backup.periodicAutoBackupStrategyTypeCode | Enum | N | Periodic automatic backup strategy code (DAILY_FULL/SNAPSHOT)<br/>- Default value: `DAILY_FULL`<br/>- `SNAPSHOT`: Daily snapshot backup<br/>- `DAILY_FULL`: Daily full backup |
 | backup.backupRetryCount | Number | N | Number of backup retries<br/>- Minimum value: `0`<br/>- Maximum value: `10` |
-| backup.replicationRegion | Enum | N | Backup replication region<br/>- KR1: `Korea (Pangyo)`<br/>- KR2: `Korea (Pyeongchon)` |
+| backup.replicationRegion | Enum | N | Backup replication region<br/>- `KR1`: Korea (Pangyo)<br/>- `KR2`: Korea (Pyeongchon) |
 | backup.backupSchedules | Array | Y | Backup schedules |
 | backup.backupSchedules.backupWndBgnTime | Time | Y | Backup start time |
-| backup.backupSchedules.backupWndDuration | Enum | Y | Backup duration<br/>- HALF_AN_HOUR: `30 minutes`<br/>- ONE_HOUR: `1 hour`<br/>- ONE_HOUR_AND_HALF: `1.5 hours`<br/>- TWO_HOURS: `2 hours`<br/>- TWO_HOURS_AND_HALF: `2.5 hours`<br/>- THREE_HOURS: `3 hours` |
+| backup.backupSchedules.backupWndDuration | Enum | Y | Backup duration<br/>- `HALF_AN_HOUR`: 30 minutes<br/>- `ONE_HOUR`: 1 hour<br/>- `ONE_HOUR_AND_HALF`: 1.5 hours<br/>- `TWO_HOURS`: 2 hours<br/>- `TWO_HOURS_AND_HALF`: 2.5 hours<br/>- `THREE_HOURS`: 3 hours |
 | restore | Object | Y | Restoration information object |
-| restore.restoreType | Enum | Y | Restoration type<br/>- BACKUP: `Restoration using a previously created backup`<br/>- TIMESTAMP: `Point-in-time recovery using a time within the restorable period` |
-| restore.restoreYmdt | DateTime | N | DB instance restore date and time |
-| restore.backupId | UUID | N | Identifier of the backup to use for restoration |
+| restore.restoreType | Enum | Y | Restore type<br/>- `BACKUP`: Restore using a previously created backup<br/>- `TIMESTAMP`: Point-in-time restore using a time within the restorable time range |
 | useDefaultNotification | Boolean | N | Whether to use default notification<br/>- Default: `false` |
 | parameterGroupId | UUID | Y | Parameter group identifier |
 | dbSecurityGroupIds | Array | N | List of DB security group identifiers |
 | userGroupIds | Array | N | List of user group identifiers |
 | useDeletionProtection | Boolean | N | Whether to use deletion protection<br/>- Default: `false` |
+
+#### Request for point-in-time restore using a timestamp (when restoreType is `TIMESTAMP`)
+| Name | Type | Required | Description |
+|-----|-----|-----|-----|
+| restore.restoreYmdt | DateTime | Y | DB instance restore time (YYYY-MM-DDThh:mm:ss.SSSTZD)<br/>- Restoration is only possible to a time before the most recent restorable time retrieved from the restore information query. |
+#### Request for restore using a backup (when restoreType is `BACKUP`)
+| Name | Type | Required | Description |
+|-----|-----|-----|-----|
+| restore.backupId | UUID | Y | Identifier of the backup to use for the restore |
 
 #### Response
 
@@ -3826,7 +3863,7 @@ This API does not require a request body.
 |-----|-----|-----|
 | storageType | Enum | Data storage types |
 | storageSize | Number | Data storage size (GB) |
-| storageStatus | Enum | Data storage current status<br/>- DELETED: `Deleted`<br/>- PENDING_DELETION: `Deletion deferred`<br/>- DELETION_RESERVED: `Deletion reserved (pending snapshot cleanup)`<br/>- DETACHED: `Detached`<br/>- ATTACHED: `Attached` |
+| storageStatus | Enum | Data storage current status<br/>- `DELETED`: Deleted<br/>- `PENDING_DELETION`: Deletion deferred<br/>- `DELETION_RESERVED`: Deletion reserved (pending snapshot cleanup)<br/>- `DETACHED`: Detached<br/>- `ATTACHED`: Attached |
 
 ---
 
@@ -3917,6 +3954,15 @@ PUT /v1.0/db-instances/{dbInstanceId}/storage-info
 GET /v1.0/backups
 ```
 
+#### Request Parameters
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| page | Query | Number | Y | Page of the list to retrieve<br/>- Minimum value: `1` |
+| size | Query | Number | Y | Page size of the list to retrieve<br/>- Minimum value: `1`<br/>- Maximum value: `100` |
+| backupType | Query | Enum | N | Backup type<br/>- `AUTO`: Automatic backup<br/>- `MANUAL`: Manual backup |
+| dbInstanceId | Query | String | N | Identifier of the source DB instance |
+| dbVersion | Query | Enum | N | DB engine version |
+
 #### Request Body
 
 This API does not require a request body.
@@ -3940,7 +3986,7 @@ This API does not require a request body.
 "backupName": "backupName-example",
 "backupStatus": "BACKING_UP",
 "dbInstanceId": "550e8400-e29b-41d4-a716-446655440000",
-"dbVersion": "POSTGRESQL_V14_17",
+"dbVersion": "POSTGRESQL_V17_10",
 "backupType": "AUTO",
 "backupSize": 1,
 "startYmdt": "2023-12-31T15:00:00+09:00",
@@ -3960,15 +4006,15 @@ This API does not require a request body.
 | backups | Array | Backup list |
 | backups.backupId | UUID | Backup identifier |
 | backups.backupName | String | Name to identify backups |
-| backups.backupStatus | Enum | Backup current status<br/>- BACKING_UP: `Backup in progress (spinner)`<br/>- VERIFYING: `Verifying (spinner)`<br/>- COMPLETED: `Available (green icon)`<br/>- DELETING: `Deleting (spinner)`<br/>- DELETED: `Deleted (gray icon)`<br/>- ERROR: `Error (red icon)` |
+| backups.backupStatus | Enum | Backup current status<br/>- `BACKING_UP`: Backup in progress<br/>- `COMPLETED`: Backup is completed<br/>- `DELETING`: Deleting<br/>- `DELETED`: Deleted<br/>- `ERROR`: Error occurred |
 | backups.dbInstanceId | UUID | Original DB instance identifier |
-| backups.dbVersion | String | DB version information |
-| backups.backupType | Enum | Backup type<br/>- AUTO: `Auto Backup`<br/>- MANUAL: `Manual Backup` |
-| backups.backupSize | Number | Size of the backup (Bytes) |
-| backups.startYmdt | DateTime | Start date and time |
-| backups.createdYmdt | DateTime | Created date and time |
-| backups.updatedYmdt | DateTime | Modified date and time |
-| backups.completedYmdt | DateTime | End date and time |
+| backups.dbVersion | Enum | DB engine version |
+| backups.backupType | Enum | Backup type<br/>- `AUTO`: Auto Backup<br/>- `MANUAL`: Manual Backup |
+| backups.backupSize | Number | Size of the backup<br/>- Unit: `BYTE` |
+| backups.startYmdt | DateTime | Start date and time (YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| backups.createdYmdt | DateTime | Created date and time (YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| backups.updatedYmdt | DateTime | Modified date and time (YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| backups.completedYmdt | DateTime | End date and time (YYYY-MM-DDThh:mm:ss.SSSTZD) |
 
 ---
 
@@ -4048,7 +4094,7 @@ POST /v1.0/backups/{backupId}/export
 ```json
 {
 "tenantId": "0123456789abcdef0123456789abcdef",
-"username": "username-example",
+"username": "example@nhncloud.com or example",
 "password": "password-example",
 "targetContainer": "targetContainer-example",
 "objectPath": "objectPath-example"
@@ -4120,7 +4166,7 @@ POST /v1.0/backups/{backupId}/restore
 "dbInstanceCandidateName": "dbInstanceCandidateName-example",
 "description": "description-example",
 "dbFlavorId": "550e8400-e29b-41d4-a716-446655440000",
-"dbPort": 1,
+"dbPort": 15432,
 "parameterGroupId": "550e8400-e29b-41d4-a716-446655440000",
 "dbSecurityGroupIds": [],
 "userGroupIds": [],
@@ -4140,6 +4186,7 @@ POST /v1.0/backups/{backupId}/restore
 },
 "backup": {
 "backupPeriod": 0,
+"periodicAutoBackupStrategyTypeCode": "DAILY_FULL",
 "backupRetryCount": 0,
 "backupSchedules": [
 {
@@ -4167,7 +4214,7 @@ POST /v1.0/backups/{backupId}/restore
 | useDefaultNotification | Boolean | N | Whether to use default notification<br/>- Default: `false` |
 | useDeletionProtection | Boolean | N | Whether to use deletion protection<br/>- Default: `false` |
 | pingInterval | Number | N | Ping interval (seconds)<br/>- Minimum value: `1`<br/>- Maximum value: `600` |
-| failoverReplWaitingTime | Number | N | Failover replication delay waiting time (seconds)<br/>- Minimum value: `-1` |
+| failoverReplWaitingTime | Number | N | Failover wait time when high availability is used<br/>- If set to `-1`, waits continuously until the replication lag is resolved.<br/>- Minimum value: `-1` |
 | network | Object | Y | Network information objects |
 | network.subnetId | UUID | Y | Subnet identifier |
 | network.usePublicAccess | Boolean | N | Whether external access is available<br/>- Default: `false` |
@@ -4177,10 +4224,11 @@ POST /v1.0/backups/{backupId}/restore
 | storage.storageSize | Number | Y | Data storage size (GB)<br/>- Minimum value: `20` |
 | backup | Object | Y | Backup information objects |
 | backup.backupPeriod | Number | Y | Backup retention period (days)<br/>- Minimum value: `0`<br/>- Maximum value: `730` |
+| backup.periodicAutoBackupStrategyTypeCode | Enum | N | Periodic automatic backup strategy code (DAILY_FULL/SNAPSHOT)<br/>- Default value: `DAILY_FULL`<br/>- `SNAPSHOT`: Daily snapshot backup<br/>- `DAILY_FULL`: Daily full backup |
 | backup.backupRetryCount | Number | N | Number of backup retries<br/>- Minimum value: `0`<br/>- Maximum value: `10` |
 | backup.backupSchedules | Array | Y | Backup schedules |
 | backup.backupSchedules.backupWndBgnTime | Time | Y | Backup start time |
-| backup.backupSchedules.backupWndDuration | Enum | Y | Backup duration<br/>- HALF_AN_HOUR: `30 minutes`<br/>- ONE_HOUR: `1 hour`<br/>- ONE_HOUR_AND_HALF: `1.5 hours`<br/>- TWO_HOURS: `2 hours`<br/>- TWO_HOURS_AND_HALF: `2.5 hours`<br/>- THREE_HOURS: `3 hours` |
+| backup.backupSchedules.backupWndDuration | Enum | Y | Backup window<br/>- `HALF_AN_HOUR`: 30 minutes<br/>- `ONE_HOUR`: 1 hour<br/>- `ONE_HOUR_AND_HALF`: 1.5 hours<br/>- `TWO_HOURS`: 2 hours<br/>- `TWO_HOURS_AND_HALF`: 2.5 hours<br/>- `THREE_HOURS`: 3 hours |
 
 #### Response
 
@@ -4268,11 +4316,11 @@ This API does not require a request body.
 | dbSecurityGroups | Array | DB security groups |
 | dbSecurityGroups.dbSecurityGroupId | UUID | DB security group identifier |
 | dbSecurityGroups.dbSecurityGroupName | String | Name to identify the DB security group |
-| dbSecurityGroups.dbSecurityGroupStatus | Enum | Current status of the DB security group<br/>- CREATED: `Created`<br/>- DELETED: `Deleted` |
+| dbSecurityGroups.dbSecurityGroupStatus | Enum | Current status of the DB security group<br/>- `CREATED`: Created<br/>- `DELETED`: Deleted |
 | dbSecurityGroups.description | String | Additional information on the DB security group |
-| dbSecurityGroups.progressStatus | Enum | Current progress status of the DB security group<br/>- NONE: `No work in progress`<br/>- CREATING_RULE: `Creating rule policy`<br/>- UPDATING_RULE: `Modifying rule policy`<br/>- DELETING_RULE: `Deleting rule policy`<br/>- APPLYING_DEFAULT_RULE: `Applying default rule` |
-| dbSecurityGroups.createdYmdt | DateTime | Created date and time |
-| dbSecurityGroups.updatedYmdt | DateTime | Modified date and time |
+| dbSecurityGroups.progressStatus | Enum | Current progress status of the DB security group<br/>- `NONE`: No work in progress<br/>- `CREATING_RULE`: Creating rule policy<br/>- `UPDATING_RULE`: Modifying rule policy<br/>- `DELETING_RULE`: Deleting rule policy<br/>- `APPLYING_DEFAULT_RULE`: Applying default rule |
+| dbSecurityGroups.createdYmdt | DateTime | Created date and time (YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| dbSecurityGroups.updatedYmdt | DateTime | Modified date and time (YYYY-MM-DDThh:mm:ss.SSSTZD) |
 
 ---
 
@@ -4322,10 +4370,10 @@ POST /v1.0/db-security-groups
 | dbSecurityGroupName | String | Y | Name to identify the DB security group |
 | description | String | N | Additional information on the DB security group |
 | rules | Array | Y | DB security group rule information |
-| rules.direction | Enum | Y | Communication direction<br/>- INGRESS: `Inbound`<br/>- EGRESS: `Outbound` |
-| rules.etherType | Enum | Y | Ether type<br/>- IPV4: `IPv4`<br/>- IPV6: `IPv6` |
+| rules.direction | Enum | Y | Communication direction<br/>- `INGRESS`: Inbound<br/>- `EGRESS`: Outbound |
+| rules.etherType | Enum | Y | Ether type<br/>- `IPV4`: IPv4<br/>- `IPV6`: IPv6 |
 | rules.port | Object | Y | Port object |
-| rules.port.portType | Enum | Y | Port type<br/>- ALL: `All port ranges (not used in the user console)`<br/>- PORT: `Specific port`<br/>- DB_PORT: `DB listening port`<br/>- PORT_RANGE: `Port range` |
+| rules.port.portType | Enum | Y | Port type<br/>- `ALL`: All port ranges (not used in the user console)<br/>- `PORT`: Specific port<br/>- `DB_PORT`: DB listening port<br/>- `PORT_RANGE`: Port range |
 | rules.port.minPort | Number | N | Minimum port range<br/>- Minimum value: `1` |
 | rules.port.maxPort | Number | N | Maximum port range<br/>- Maximum value: `65535` |
 | rules.cidr | String | Y | CIDR |
@@ -4456,23 +4504,23 @@ This API does not require a request body.
 | dbSecurityGroup | Object | DB security group |
 | dbSecurityGroup.dbSecurityGroupId | UUID | DB security group identifier |
 | dbSecurityGroup.dbSecurityGroupName | String | Name to identify the DB security group |
-| dbSecurityGroup.dbSecurityGroupStatus | Enum | Current status of the DB security group<br/>- CREATED: `Created`<br/>- DELETED: `Deleted` |
+| dbSecurityGroup.dbSecurityGroupStatus | Enum | Current status of the DB security group<br/>- `CREATED`: Created<br/>- `DELETED`: Deleted |
 | dbSecurityGroup.description | String | Additional information on the DB security group |
-| dbSecurityGroup.progressStatus | Enum | Current progress status of the DB security group<br/>- NONE: `No work in progress`<br/>- CREATING_RULE: `Creating rule policy`<br/>- UPDATING_RULE: `Modifying rule policy`<br/>- DELETING_RULE: `Deleting rule policy`<br/>- APPLYING_DEFAULT_RULE: `Applying default rule` |
+| dbSecurityGroup.progressStatus | Enum | Current progress status of the DB security group<br/>- `NONE`: No work in progress<br/>- `CREATING_RULE`: Creating rule policy<br/>- `UPDATING_RULE`: Modifying rule policy<br/>- `DELETING_RULE`: Deleting rule policy<br/>- `APPLYING_DEFAULT_RULE`: Applying default rule |
 | dbSecurityGroup.rules | Array | DB security group rule list |
 | dbSecurityGroup.rules.ruleId | UUID | DB security group rule identifier |
 | dbSecurityGroup.rules.description | String | Additional information on the DB security group rule |
-| dbSecurityGroup.rules.direction | Enum | Communication direction<br/>- INGRESS: `Inbound`<br/>- EGRESS: `Outbound` |
-| dbSecurityGroup.rules.etherType | Enum | Ether type<br/>- IPV4: `IPv4`<br/>- IPV6: `IPv6` |
+| dbSecurityGroup.rules.direction | Enum | Communication direction<br/>- `INGRESS`: Inbound<br/>- `EGRESS`: Outbound |
+| dbSecurityGroup.rules.etherType | Enum | Ether type<br/>- `IPV4`: IPv4<br/>- `IPV6`: IPv6 |
 | dbSecurityGroup.rules.port | Object | Port object |
-| dbSecurityGroup.rules.port.portType | Enum | Port type<br/>- ALL: `All port ranges (not used in the user console)`<br/>- PORT: `Specific port`<br/>- DB_PORT: `DB listening port`<br/>- PORT_RANGE: `Port range` |
+| dbSecurityGroup.rules.port.portType | Enum | Port type<br/>- `ALL`: All port ranges (not used in the user console)<br/>- `PORT`: Specific port<br/>- `DB_PORT`: DB listening port<br/>- `PORT_RANGE`: Port range |
 | dbSecurityGroup.rules.port.minPort | Number | Minimum port range |
 | dbSecurityGroup.rules.port.maxPort | Number | Maximum port range |
 | dbSecurityGroup.rules.cidr | String | CIDR |
-| dbSecurityGroup.rules.createdYmdt | DateTime | Created date and time |
-| dbSecurityGroup.rules.updatedYmdt | DateTime | Modified date and time |
-| dbSecurityGroup.createdYmdt | DateTime | Created date and time |
-| dbSecurityGroup.updatedYmdt | DateTime | Modified date and time |
+| dbSecurityGroup.rules.createdYmdt | DateTime | Created date and time (YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| dbSecurityGroup.rules.updatedYmdt | DateTime | Modified date and time (YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| dbSecurityGroup.createdYmdt | DateTime | Created date and time (YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| dbSecurityGroup.updatedYmdt | DateTime | Modified date and time (YYYY-MM-DDThh:mm:ss.SSSTZD) |
 
 ---
 
@@ -4613,10 +4661,10 @@ POST /v1.0/db-security-groups/{dbSecurityGroupId}/rules
 
 | Name | Type | Required | Description |
 |-----|-----|-----|-----|
-| direction | Enum | Y | Communication direction<br/>- INGRESS: `Inbound`<br/>- EGRESS: `Outbound` |
-| etherType | Enum | Y | Ether type<br/>- IPV4: `IPv4`<br/>- IPV6: `IPv6` |
+| direction | Enum | Y | Communication direction<br/>- `INGRESS`: Inbound<br/>- `EGRESS`: Outbound |
+| etherType | Enum | Y | Ether type<br/>- `IPV4`: IPv4<br/>- `IPV6`: IPv6 |
 | port | Object | Y | Port information |
-| port.portType | Enum | Y | Port type<br/>- ALL: `All port ranges (not used in the user console)`<br/>- PORT: `Specific port`<br/>- DB_PORT: `DB listening port`<br/>- PORT_RANGE: `Port range` |
+| port.portType | Enum | Y | Port type<br/>- `ALL`: All port ranges (not used in the user console)<br/>- `PORT`: Specific port<br/>- `DB_PORT`: DB listening port<br/>- `PORT_RANGE`: Port range |
 | port.minPort | Number | N | Minimum port range<br/>- Minimum value: `1` |
 | port.maxPort | Number | N | Maximum port range<br/>- Maximum value: `65535` |
 | cidr | String | Y | CIDR |
@@ -4690,10 +4738,10 @@ PUT /v1.0/db-security-groups/{dbSecurityGroupId}/rules/{ruleId}
 
 | Name | Type | Required | Description |
 |-----|-----|-----|-----|
-| direction | Enum | Y | Communication direction<br/>- INGRESS: `Inbound`<br/>- EGRESS: `Outbound` |
-| etherType | Enum | Y | Ether type<br/>- IPV4: `IPv4`<br/>- IPV6: `IPv6` |
+| direction | Enum | Y | Communication direction<br/>- `INGRESS`: Inbound<br/>- `EGRESS`: Outbound |
+| etherType | Enum | Y | Ether type<br/>- `IPV4`: IPv4<br/>- `IPV6`: IPv6 |
 | port | Object | Y | Port information |
-| port.portType | Enum | Y | Port type<br/>- ALL: `All port ranges (not used in the user console)`<br/>- PORT: `Specific port`<br/>- DB_PORT: `DB listening port`<br/>- PORT_RANGE: `Port range` |
+| port.portType | Enum | Y | Port type<br/>- `ALL`: All port ranges (not used in the user console)<br/>- `PORT`: Specific port<br/>- `DB_PORT`: DB listening port<br/>- `PORT_RANGE`: Port range |
 | port.minPort | Number | N | Minimum port range<br/>- Minimum value: `1` |
 | port.maxPort | Number | N | Maximum port range<br/>- Maximum value: `65535` |
 | cidr | String | Y | CIDR |
@@ -4739,6 +4787,12 @@ PUT /v1.0/db-security-groups/{dbSecurityGroupId}/rules/{ruleId}
 GET /v1.0/parameter-groups
 ```
 
+#### Request Parameter
+
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| dbVersion | Query | Enum | N | DB engine version |
+
 #### Request Body
 
 This API does not require a request body.
@@ -4760,7 +4814,7 @@ This API does not require a request body.
 "parameterGroupId": "550e8400-e29b-41d4-a716-446655440000",
 "parameterGroupName": "parameterGroupName-example",
 "description": "description-example",
-"dbVersion": "POSTGRESQL_V14_17",
+"dbVersion": "POSTGRESQL_V17_10",
 "parameterGroupStatus": "STABLE",
 "createdYmdt": "2023-12-31T15:00:00+09:00",
 "updatedYmdt": "2023-12-31T15:00:00+09:00"
@@ -4778,9 +4832,9 @@ This API does not require a request body.
 | parameterGroups.parameterGroupName | String | Name to identify parameter groups |
 | parameterGroups.description | String | Additional information on parameter group |
 | parameterGroups.dbVersion | String | DB version information |
-| parameterGroups.parameterGroupStatus | Enum | Parameter group current status<br/>- STABLE: `Applied`<br/>- NEED_TO_APPLY: `Need to apply`<br/>- DELETED: `Deleted` |
-| parameterGroups.createdYmdt | DateTime | Created date and time |
-| parameterGroups.updatedYmdt | DateTime | Modified date and time |
+| parameterGroups.parameterGroupStatus | Enum | Parameter group current status<br/>- `STABLE`: Applied<br/>- `NEED_TO_APPLY`: Need to apply<br/>- `DELETED`: Deleted |
+| parameterGroups.createdYmdt | DateTime | Created date and time (YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| parameterGroups.updatedYmdt | DateTime | Modified date and time (YYYY-MM-DDThh:mm:ss.SSSTZD) |
 
 ---
 
@@ -4817,7 +4871,7 @@ POST /v1.0/parameter-groups
 |-----|-----|-----|-----|
 | parameterGroupName | String | Y | Name to identify parameter groups |
 | description | String | N | Additional information on parameter group |
-| dbVersion | String | Y | DB version information |
+| dbVersion | Enum | Y | DB engine version |
 
 #### Response
 
@@ -4912,15 +4966,20 @@ This API does not require a request body.
 "parameterGroupId": "550e8400-e29b-41d4-a716-446655440000",
 "parameterGroupName": "parameterGroupName-example",
 "description": "description-example",
-"dbVersion": "POSTGRESQL_V14_17",
+"dbVersion": "POSTGRESQL_V17_10",
 "parameterGroupStatus": "STABLE",
-"valueUnit": "valueUnit-example",
+"parameters": [
 {
-"allowedValue": "allowedValue-example",
-"valueType": "BOOLEAN",
+"parameterCategory": "Write-Ahead Log / Checkpoints",
+"parameterName": "checkpoint_timeout",
+"value": "300s",
+"valueUnit": "s",
+"defaultValue": "300s",
+"allowedValue": "30~86400s",
+"valueType": "NUMERIC_WITH_TIME_UNIT",
 "updateType": "VARIABLE",
 "applyType": "BOTH",
-"expressionAvailable": false
+"expressionAvailable": true
 }
 ],
 "createdYmdt": "2023-12-31T15:00:00+09:00",
@@ -4941,25 +5000,20 @@ This API does not require a request body.
 | parameterGroupName | String | Name to identify parameter groups |
 | description | String | Additional information on parameter group |
 | dbVersion | String | DB version information |
-| parameterGroupStatus | Enum | Parameter group current status<br/>- STABLE: `Applied`<br/>- NEED_TO_APPLY: `Need to apply`<br/>- DELETED: `Deleted` |
+| parameterGroupStatus | Enum | Parameter group current status<br/>- `STABLE`: Applied<br/>- `NEED_TO_APPLY`: Need to apply<br/>- `DELETED`: Deleted |
 | parameters | Array | Parameter list |
 | parameters.parameterCategory | String | Parameter category |
 | parameters.parameterName | String | Parameter name |
 | parameters.value | String | Current value |
-| parameters.valueUnit | String | Unit of the current value (byte: B,kB,MB,GB,TB, time: us,ms,s,min,h,d) |
+| parameters.valueUnit | Enum | Unit of the currently configured value<br/>- `B`: Byte<br/>- `kB`: Kilobyte<br/>- `MB`: Megabyte<br/>- `GB`: Gigabyte<br/>- `TB`: Terabyte<br/>- `us`: Microsecond<br/>- `ms`: Millisecond<br/>- `s`: Second<br/>- `min`: Minute<br/>- `h`: Hour<br/>- `d`: Day |
 | parameters.defaultValue | String | Default value |
 | parameters.allowedValue | String | Permitted values |
-| parameters.valueType | Enum | Value type<br/>- BOOLEAN: `Boolean type`<br/> `* ex) on, off, true, false, yes, no, 1, 0`<br/>- STRING: `String type`<br/>- NUMERIC: `Integer and floating-point types`<br/>- NUMERIC_WITH_BYTE_UNIT: `Numeric type with byte unit`<br/> `* ex) 120kB, 100MB`<br/> `* Allowed byte units: B (bytes), kB (kilobytes), MB (megabytes), GB (gigabytes), and TB (terabytes)`<br/>- NUMERIC_WITH_TIME_UNIT: `Numeric type with time unit`<br/> `* ex) 120ms, 100s, 1d`<br/> `* Allowed time units: us (microseconds), ms (milliseconds), s (seconds), min (minutes), h (hours), and d (days)`<br/>- ENUMERATED: `Enter one of the values declared in Allowed Values (separated by commas (,))`<br/>- MULTI_ENUMERATED: `Enter multiple of the values declared in Allowed Values (separated by commas (,))` |
-<p>
-{
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-| parameters.updateType | Enum | Modification type<br/>- VARIABLE: `Modifiable any time`<br/>- CONSTANT: `Not modifiable` |
-| parameters.applyType | Enum | Applied type<br/>- BOTH: `Apply session and setting file`<br/>- SESSION: `Apply session only`<br/>- FILE: `Apply setting file only` |
+| parameters.valueType | Enum | Value type<br/>- `BOOLEAN`: Boolean type (e.g., on, off, true, false, yes, no, 1, 0)<br/>- `STRING`: String type<br/>- `NUMERIC`: Integer and floating-point type<br/>- `NUMERIC_WITH_BYTE_UNIT`: Numeric type in byte units (e.g., 120kB, 100MB)<br/>- `NUMERIC_WITH_TIME_UNIT`: Numeric type in time units (e.g., 120ms, 100s, 1d)<br/>- `ENUMERATED`: Enter one of the values declared in the allowed values<br/>- `MULTI_ENUMERATED`: Enter multiple values declared in the allowed values (separated by commas (,)) |
+| parameters.updateType | Enum | Update type<br/>- `VARIABLE`: Dynamic, can be modified at any time<br/>- `CONSTANT`: Cannot be modified |
+| parameters.applyType | Enum | Application type<br/>- `BOTH`: Applies to both session and file<br/>- `SESSION`: Applies only to session<br/>- `FILE`: Applies only to file |
 | parameters.expressionAvailable | Boolean | Allow formulas or not |
-| createdYmdt | DateTime | Created date and time |
-| updatedYmdt | DateTime | Modified date and time |
+| createdYmdt | DateTime | Created date and time (YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| updatedYmdt | DateTime | Modified date and time (YYYY-MM-DDThh:mm:ss.SSSTZD) |
 
 ---
 
@@ -5098,13 +5152,14 @@ This API does not return a response body.
 
 ```json
 {
-]
-{
-"valueType": "BOOLEAN",
-This API does not return a response body.
+    "modifiedParameters": [
+        {
+            "parameterName": "checkpoint_timeout",
+            "value": "100s"
+        }
+    ]
 }
-]
-}
+```
 ```
 
 </details>
@@ -5202,9 +5257,9 @@ This API does not require a request body.
 | userGroups | Array | User Groups |
 | userGroups.userGroupId | UUID | User group identifier |
 | userGroups.userGroupName | String | Name to identify user groups |
-| userGroups.userGroupStatus | Enum | Current status of user groups<br/>- CREATED<br/>- DELETED |
-| userGroups.createdYmdt | DateTime | Created date and time |
-| userGroups.updatedYmdt | DateTime | Modified date and time |
+| userGroups.userGroupStatus | Enum | Current status of user groups<br/>- `CREATED`<br/>- `DELETED` |
+| userGroups.createdYmdt | DateTime | Created date and time (YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| userGroups.updatedYmdt | DateTime | Modified date and time (YYYY-MM-DDThh:mm:ss.SSSTZD) |
 
 ---
 
@@ -5353,12 +5408,12 @@ This API does not require a request body.
 |-----|-----|-----|
 | userGroupId | UUID | User group identifier |
 | userGroupName | String | Name to identify user groups |
-| userGroupTypeCode | Enum | User group type<br/>- ENTIRE: `All project members`<br/>- INDIVIDUAL_MEMBER: `Custom` |
-| userGroupStatus | Enum | Current status of user groups<br/>- CREATED<br/>- DELETED |
+| userGroupTypeCode | Enum | User group type<br/>- `ENTIRE`: All project members<br/>- `INDIVIDUAL_MEMBER`: Custom |
+| userGroupStatus | Enum | Current status of user groups<br/>- `CREATED`<br/>- `DELETED` |
 | members | Array | Project member list |
 | members.memberId | UUID | Project member identifier |
-| createdYmdt | DateTime | Created date and time |
-| updatedYmdt | DateTime | Modified date and time |
+| createdYmdt | DateTime | Created date and time (YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| updatedYmdt | DateTime | Modified date and time (YYYY-MM-DDThh:mm:ss.SSSTZD) |
 
 ---
 
@@ -5463,12 +5518,12 @@ This API does not require a request body.
 | notificationGroups | Array |  |
 | notificationGroups.notificationGroupId | UUID | Notification group identifier |
 | notificationGroups.notificationGroupName | String | Name to identify notification groups |
-| notificationGroups.notificationGroupStatus | Enum | Current status of notification groups<br/>- CREATED: `Created`<br/>- DELETED: `Deleted` |
+| notificationGroups.notificationGroupStatus | Enum | Current status of notification groups<br/>- `CREATED`: Created<br/>- `DELETED`: Deleted |
 | notificationGroups.notifyEmail | Boolean | Whether to be notified by email |
 | notificationGroups.notifySms | Boolean | Whether to be notified by SMS |
 | notificationGroups.isEnabled | Boolean | Whether it is enabled |
-| notificationGroups.createdYmdt | DateTime | Created date and time |
-| notificationGroups.updatedYmdt | DateTime | Modified date and time |
+| notificationGroups.createdYmdt | DateTime | Created date and time (YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| notificationGroups.updatedYmdt | DateTime | Modified date and time (YYYY-MM-DDThh:mm:ss.SSSTZD) |
 
 ---
 
@@ -5632,7 +5687,7 @@ This API does not require a request body.
 |-----|-----|-----|
 | notificationGroupId | UUID | Notification group identifier |
 | notificationGroupName | String | Name to identify notification groups |
-| notificationGroupStatus | Enum | Current status of notification groups<br/>- CREATED: `Created`<br/>- DELETED: `Deleted` |
+| notificationGroupStatus | Enum | Current status of notification groups<br/>- `CREATED`: Created<br/>- `DELETED`: Deleted |
 | notifyEmail | Boolean | Whether to be notified by email |
 | notifySms | Boolean | Whether to be notified by SMS |
 | isEnabled | Boolean | Whether it is enabled |
@@ -5642,8 +5697,8 @@ This API does not require a request body.
 | userGroups | Array | List of user groups |
 | userGroups.userGroupId | UUID | User group identifier |
 | userGroups.userGroupName | String | Name to identify user groups |
-| createdYmdt | DateTime | Created date and time |
-| updatedYmdt | DateTime | Modified date and time |
+| createdYmdt | DateTime | Created date and time (YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| updatedYmdt | DateTime | Modified date and time (YYYY-MM-DDThh:mm:ss.SSSTZD) |
 
 ---
 
@@ -5731,21 +5786,21 @@ This API does not require a request body.
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"threshold": 1,
-{
-"createdYmdt": "2023-12-31T15:00:00+09:00"
-}
-]
-}
-</p>
----
-}
-]
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "notificationWatchdogs": [
+        {
+            "watchdogId": "550e8400-e29b-41d4-a716-446655440000",
+            "metricName": "CPU_USAGE",
+            "comparisonOperator": "LE",
+            "threshold": 1,
+            "duration": 1,
+            "createdYmdt": "2023-12-31T15:00:00+09:00"
+        }
+    ]
 }
 ```
 
@@ -5755,11 +5810,11 @@ This API does not require a request body.
 |-----|-----|-----|
 | notificationWatchdogs | Array | Watch setting information |
 | notificationWatchdogs.watchdogId | UUID | Watch setting identifier |
-| notificationWatchdogs.metricName | String | Performance metrics to watch |
-| notificationWatchdogs.comparisonOperator | Enum | Comparison method for watch target<br/>- LE: `<=`<br/>- LT: `<`<br/>- GE: `>=`<br/>- GT: `>` |
+| notificationWatchdogs.metricName | Enum | Performance metrics to watch |
+| notificationWatchdogs.comparisonOperator | Enum | Comparison method for watch target<br/>- `LE`: <=<br/>- `LT`: <<br/>- `GE`: >=<br/>- `GT`: > |
 | notificationWatchdogs.threshold | Number | Threshold for watch target |
-| notificationWatchdogs.duration | Number | Duration for watch target |
-| notificationWatchdogs.createdYmdt | DateTime | Created date and time |
+| notificationWatchdogs.duration | Number | Duration for watch target (min) |
+| notificationWatchdogs.createdYmdt | DateTime | Created date and time (YYYY-MM-DDThh:mm:ss.SSSTZD) |
 
 ---
 
@@ -5790,10 +5845,10 @@ This API does not require a request body.
 
 ```json
 {
-}
-]
-{
-"header": {
+    "metricName": "CPU_USAGE",
+    "comparisonOperator": "LE",
+    "threshold": 0,
+    "duration": 0
 }
 ```
 
@@ -5801,8 +5856,8 @@ This API does not require a request body.
 
 | Name | Type | Required | Description |
 |-----|-----|-----|-----|
-| metricName | String | Y | Performance metrics to watch |
-| comparisonOperator | Enum | Y | Comparison method for watch target<br/>- LE: `<=`<br/>- LT: `<`<br/>- GE: `>=`<br/>- GT: `>` |
+| metricName | Enum | Y | Performance metrics to watch |
+| comparisonOperator | Enum | Y | Comparison method for watch target<br/>- `LE`: <=<br/>- `LT`: <<br/>- `GE`: >=<br/>- `GT`: > |
 | threshold | Number | Y | Threshold for watch target<br/>- Minimum value: `0` |
 | duration | Number | Y | Duration for watch target (minutes)<br/>- Minimum value: `0` |
 
@@ -5889,10 +5944,10 @@ This API does not return a response body.
 
 ```json
 {
-}
-]
-{
-"header": {
+    "metricName": "CPU_USAGE",
+    "comparisonOperator": "LE",
+    "threshold": 0,
+    "duration": 0
 }
 ```
 
@@ -5900,8 +5955,8 @@ This API does not return a response body.
 
 | Name | Type | Required | Description |
 |-----|-----|-----|-----|
-| metricName | String | Y | Performance metrics to watch |
-| comparisonOperator | Enum | Y | Comparison method for watch target<br/>- LE: `<=`<br/>- LT: `<`<br/>- GE: `>=`<br/>- GT: `>` |
+| metricName | Enum | Y | Performance metrics to watch |
+| comparisonOperator | Enum | Y | Comparison method for watch target<br/>- `LE`: <=<br/>- `LT`: <<br/>- `GE`: >=<br/>- `GT`: > |
 | threshold | Number | Y | Threshold for watch target<br/>- Minimum value: `0` |
 | duration | Number | Y | Duration for watch target (minutes)<br/>- Minimum value: `0` |
 
@@ -5927,13 +5982,53 @@ This API does not return a response body.
 This API does not require a request body.
 ```
 
+#### Request Parameters
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| dbInstanceId | Query | UUID | Y | Identifier of the DB instance |
+| metricNames | Query | Array | Y | List of performance metrics to retrieve |
+| from | Query | DateTime | Y | Start date and time (YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| to | Query | DateTime | Y | End date and time (YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| interval | Query | Number | N | Query interval<br/>- Unit: `Minute`<br/>- Default value: An appropriate value is automatically selected based on the start/end date and time |
+
 #### Request Body
 
 This API does not require a request body.
 
 #### Response
 
-This API does not return a response body.
+<details>
+  <summary><strong>Example Code</strong></summary>
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "metricStatistics": [
+        {
+            "metricName": "CPU_USAGE",
+            "unit": "%",
+            "values": [
+                {
+                    "timestamp": 1679298540,
+                    "value": "7.5%"
+                }
+            ]
+        }
+    ]
+}
+```
+</details>
+| Name | Type | Description |
+|-----|-----|-----|
+| metricStatistics | Array | List of statistics |
+| metricStatistics.metricName | Enum | Performance metric type |
+| metricStatistics.unit | String | Unit of the measured value |
+| metricStatistics.values | Array | List of measured values |
+| metricStatistics.values.timestamp | Timestamp | Time of measurement |
+| metricStatistics.values.value | String | Measured value |
 
 ---
 
@@ -5962,17 +6057,19 @@ This API does not require a request body.
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-]
-{
-}
----
-}
-]
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "metrics": [
+        {
+            "metricName": "metricName-example",
+            "unit": "unit-example"
+            "metricName": "CPU_USAGE",
+            "unit": "%"
+        }
+    ]
 }
 ```
 
@@ -5981,7 +6078,7 @@ This API does not require a request body.
 | Name | Type | Description |
 |-----|-----|-----|
 | metrics | Array | List of performance metrics |
-| metrics.metricName | String | Performance metric types |
+| metrics.metricName | Enum | Performance metric types |
 | metrics.unit | String | Measure unit |
 
 ---
@@ -6026,17 +6123,17 @@ This API does not require a request body.
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-]
-{
-</p>
----
-}
-]
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "eventCodes": [
+        {
+            "eventCode": "DB_INSTANCE_02_01",
+            "eventCategoryType": "ALL"
+        }
+    ]
 }
 ```
 
@@ -6046,7 +6143,7 @@ This API does not require a request body.
 |-----|-----|-----|
 | eventCodes | Array | Event codes |
 | eventCodes.eventCode | Enum | Event code |
-| eventCodes.eventCategoryType | Enum | Event category type<br/>- ALL: `All`<br/>- DB_INSTANCE: `Events generated from DB instance`<br/>- DB_SECURITY_GROUP: `Events generated from DB security group`<br/>- MONITORING: `Events generated from monitoring`<br/>- JOB: `Events generated from JOB`<br/>- BACKUP: `Events generated from backup`<br/>- TENANT: `Events generated from tenant` |
+| eventCodes.eventCategoryType | Enum | Event category type<br/>- `ALL`: All<br/>- `DB_INSTANCE`: Events generated from DB instance<br/>- `DB_SECURITY_GROUP`: Events generated from DB security group<br/>- `MONITORING`: Events generated from monitoring<br/>- `JOB`: Events generated from JOB<br/>- `BACKUP`: Events generated from backup<br/>- `TENANT`: Events generated from tenant |
 
 ---
 
@@ -6064,6 +6161,17 @@ This API does not require a request body.
 "resultCode": 0,
 ```
 
+#### Request Parameters
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| page | Query | Number | Y | Page of the list to retrieve<br/>- Minimum value: `1` |
+| size | Query | Number | Y | Page size of the list to retrieve<br/>- Minimum value: `1`<br/>- Maximum value: `100` |
+| from | Query | DateTime | Y | Start date and time (YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| to | Query | DateTime | Y | End date and time (YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| eventCategoryType | Query | Enum | Y | Event category type to retrieve<br/>- `ALL`: All<br/>- `DB_INSTANCE`: Events that occurred on the DB instance<br/>- `DB_SECURITY_GROUP`: Events that occurred on the DB security group<br/>- `MONITORING`: Events that occurred from monitoring<br/>- `JOB`: Events that occurred from a job<br/>- `BACKUP`: Events that occurred from a backup<br/>- `TENANT`: Events that occurred on the tenant |
+| sourceId | Query | UUID | N | Identifier of the target resource where the event occurred |
+| keyword | Query | String | N | Search string included in the event message |
+
 #### Request Body
 
 This API does not require a request body.
@@ -6075,27 +6183,27 @@ This API does not require a request body.
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"totalCounts": 1,
-"sourceName": "sourceName-example",
-{
-{
-</p>
-"message": "message-example"
-}
-],
-{
-}
-]
-}
-],
----
-}
-]
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "totalCounts": 1,
+    "events": [
+        {
+            "eventCategoryType": "ALL",
+            "eventCode": "DB_INSTANCE_02_01",
+            "sourceId": "550e8400-e29b-41d4-a716-446655440000",
+            "sourceName": "sourceName-example",
+            "messages": [
+                {
+                    "langCode": "KO",
+                    "message": "DB 인스턴스 시작"
+                }
+            ],
+            "eventYmdt": "2023-12-31T15:00:00+09:00"
+        }
+    ]
 }
 ```
 
@@ -6105,12 +6213,12 @@ This API does not require a request body.
 |-----|-----|-----|
 | totalCounts | Number | Total number of events |
 | events | Array | Events |
-| events.eventCategoryType | Enum | Event category type<br/>- ALL: `All`<br/>- DB_INSTANCE: `Events generated from DB instance`<br/>- DB_SECURITY_GROUP: `Events generated from DB security group`<br/>- MONITORING: `Events generated from monitoring`<br/>- JOB: `Events generated from JOB`<br/>- BACKUP: `Events generated from backup`<br/>- TENANT: `Events generated from tenant` |
+| events.eventCategoryType | Enum | Event category type<br/>- `ALL`: All<br/>- `DB_INSTANCE`: Events generated from DB instance<br/>- `DB_SECURITY_GROUP`: Events generated from DB security group<br/>- `MONITORING`: Events generated from monitoring<br/>- `JOB`: Events generated from JOB<br/>- `BACKUP`: Events generated from backup<br/>- `TENANT`: Events generated from tenant |
 | events.eventCode | Enum | Occurred event type |
 | events.sourceId | UUID | Event source identifier |
 | events.sourceName | String | Name to identify event sources |
 | events.messages | Array | Event messages |
-| events.messages.langCode | Enum | Language code<br/>- KO<br/>- EN<br/>- JA<br/>- ZH |
+| events.messages.langCode | Enum | Language code<br/>- `KO`<br/>- `EN`<br/>- `JA`<br/>- `ZH` |
 | events.messages.message | String | Event message |
 | events.eventYmdt | DateTime | Event occurred date and time |
 
