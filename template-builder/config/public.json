@@ -20,5 +20,6 @@
       "endpoint": "https://kr1-rds-postgres.api.nhncloudservice.com"
     }
   ],
-  "exclusionDocs": []
+  "exclusionDocs": [
+  ]
 }
