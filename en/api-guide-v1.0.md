@@ -95,13 +95,13 @@ The API responds with "200 OK" to all API requests. For more information on the 
 * You can use the above values for the `dbVersion` field, which is of the Enum type.
 * Depending on the version, creation or restoration may not be available.
 
-### View DB Version List
+### View DB Engine Version List
 
 #### Required Permission
 
 | Permission Name | Description |
 |-----|-----|
-| RDSforPostgreSQL:DbVersion.List | View DB version engine list |
+| RDSforPostgreSQL:DbVersion.List | View DB engine version list |
 
 #### Request
 
