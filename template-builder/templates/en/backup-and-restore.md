@@ -7,14 +7,18 @@ You can prepare a database of DB instances to restore in case of a failure. You 
 RDS for PostgreSQL uses the pg_basebackup tool to back up databases. To restore to a backup of an external PostgreSQL or to a backup of RDS for PostgreSQL, you must use the same version of pg_basebackup used by RDS for PostgreSQL. pg_basebackup version according to the DB engine version is as follows.
 
 | PostgreSQL version | pg_basebackup version |
-|--------------------|-----------------------|
-| 14.6               | 14.6                  |
-| 14.15              | 14.15                 |
-| 14.17              | 14.17                 |
-| 14.19              | 14.19                 |
-| 17.2               | 17.2                  |
-| 17.4               | 17.4                  |
-| 17.6               | 17.6                  |
+|---------------------|------------------|
+| <strong>17</strong> |                  |
+| 17.10               | 17.10            |
+| 17.6                | 17.6             |
+| 17.4                | 17.4             |
+| 17.2                | 17.2             |
+| <strong>14</strong> |                  |
+| 14.23               | 14.23            |
+| 14.19               | 14.19            |
+| 14.17               | 14.17            |
+| 14.15               | 14.15            |
+| 14.6                | 14.6             |
 
 * For more information about installing pg_basebackup, refer to the PostgreSQL website.
   * https://www.postgresql.org/docs/17/app-pgbasebackup.html
@@ -42,25 +46,25 @@ Or, on the **Backup** tab,
 
 ❶ Click **+ Create Backup** and the **Create Backup** pop-up window will appear.
 ❷ Select the DB instance on which to perform the backup.
-❸ You can enter a name for the backup and click **Create** to request backup creation.
+❸ Enter a name for the backup and click **Create** to request backup creation.
 
 ### Auto Backup
 
 Even when performing manual backups, auto backups can be performed if necessary for restore jobs or depending on the auto backup schedule. If you set the backup retention period for DB instance to 1 day or longer, auto backups are activated, and backups are performed at the specified time. auto backups have the same life cycle as DB instances. When a DB instance is deleted, all archived auto backups are deleted. The settings that Auto Backup supports are as follows.
 
-![backup-config]({{url.cdn}}/20240611/backup-config-{{lang}}.png)
+![backup-config]({{url.cdn}}/20241210/backup-config-{{lang}}.png)
 
-**Backup Retention Period**
+**Auto Backup Retention Period (days)**
 
 * Set how long the backup is stored in storage. It can be archived for up to 730 days, and if the backup retention period changes, auto backup files that are out of retention period are immediately deleted.
 
-**Backup Retry Count**
+**Number of Automatic Backup Retries**
 
-* You can set it to retry if an auto backup fails for DML query load or for a variety of reasons. You can retry up to 10 times. If the number of retries remains, you may not want to retry depending on the setting of the auto backup run time.
+* You can set it to retry if an auto backup fails for DML query load or for various reasons. You can retry up to 10 times. If the number of retries remains, you may not want to retry depending on the setting of the auto backup run time.
 
 **Backup Execution Time**
 
-* You can set the point of time the backup runs automatically. It consists of backup start time and backup window. Backup execution times can be set multiple times without overlapping. Perform backup at some point in the backup window based on the backup start time. The backup window is not related to the total running time of the backup. The time it takes to back up is proportional to the size of the database and depends on the service load. If the backup fails, if it does not exceed the backup window, try the backup again based on the number of backup retries.
+* You can set the point of time the backup runs automatically. It consists of backup start time and backup window. Backup execution times can be set multiple times without overlapping. Perform backup at random point in the backup window based on the backup start time. The backup window is not related to the total running time of the backup. The time it takes to back up is proportional to the size of the database and depends on the service load. If the backup fails, if it does not exceed the backup window, try the backup again based on the number of backup retries.
 
 Auto backup name is given in the format of `{DB instance name} yyyy-MM-dd-HH-mm`.
 
@@ -103,6 +107,21 @@ You can export backup files stored in internal backup storage to user object sto
 > [Note]
 > For manual backup, you cannot export a backup if the original DB instance from which the backup was taken has been deleted.
 
+## Snapshot Backup
+With the existing backup method, the backup application runs on the DB instance, which can cause performance degradation during backup. In contrast, **storage snapshot backup** performs backups using Cinder storage snapshots, limited to master DB instances or DB instances where the `archive_mode` parameter is set to `always`.
+After the snapshot is created, data validation and file conversion are performed on a shared backup server, so DB instance performance is not affected during backup.
+**Key Features**
+* Maintained performance: DB instance performance is maintained at 100% during backup.
+* Improved reliability: A separate validation process ensures the reliability of the backup data.
+* Temporary pause of high availability: The high availability feature may be temporarily paused at the time the snapshot is created to ensure data consistency.
+### Pricing
+Unlike the existing backup method, snapshot backup separately charges for the cost of the resources used to perform the backup.
+| Category | Existing Backup Method | Snapshot Backup Method |
+|-------|-----------------------------|---------------------------|
+| Billing Method | Included in the DB instance usage fee (no separate charge) | Separate charge for backup-dedicated resource costs |
+| Billing Target | Object Storage upload cost (separate) | Shared backup server + volume + snapshot + Object Storage |
+* Shared backup server fee: This is the usage fee for the shared backup server used to validate and convert backup data.
+    * Even though shared resources are used, billing is based only on the time each customer actually uses.
 
 ## Restore
 
@@ -113,11 +132,11 @@ You can use backup to restore data to any point in time. Restoration always crea
 
 ### Backup Restore
 
-You do not need the original DB instance that performed the backup by restoring only the backup file. To restore a backup from the console
+You do not need the original DB instance that performed the backup by restoring only the backup file. To restore a backup from the console:
 
 ![db-instance-detail-backup-restore]({{url.cdn}}/20260609/db-instance-detail-backup-restore-{{lang}}.png)
 
-❶ Select the backup file you want to restore on the details tab of the dB instance, and then click **Backup Restore** to go to the Restore DB instance screen.
+❶ Select the backup file you want to restore on the **Backup** tab, and then click **Backup Restore** to go to the Restore DB instance screen.
 
 Or
 
@@ -130,7 +149,7 @@ Or
 You can use point-in-time restoration to restore to a specific point-in-time or specific LSN in the WAL log. To restore a point in time, you need a backup file and a WAL log from the time you performed the backup to the time you want to restore it. WAL logs are stored in the storage of the original DB instance where the backup takes place. Short WAL log retention periods allow more storage capacity, but recovery to the desired point in time can be challenging. For the case listed below, you might not be able to restore to the desired point in time because you do not have the WAL log required for point in time restoration.
 
 * If you delete the WAL log of the original DB instance for capacity
-* WAL logs are automatically deleted by PostgreSQL depending on the WAL log retention period (up to 7 days)
+* WAL logs are deleted automatically by PostgreSQL depending on the WAL log retention period (up to 7 days)
 * WAL logs are corrupted or deleted for a variety of other reasons
 
 To restore a point in time from the console
@@ -141,12 +160,11 @@ To restore a point in time from the console
 
 #### Restore with Timestamp
 
-When restoring with Timestamp, perform the restore based on the backup file closest to the selected time point and apply the WAL log to the desired time point.
+When restoring with Timestamp, restore it based on the backup file closest to the selected time point and apply the WAL log to the desired time point.
 
 ![db-instance-pitr-timestamp]({{url.cdn}}/20260609/db-instance-pitr-timestamp-{{lang}}.png)
 
 ❶ Select a time to restore. You can restore it to the most recent point in time, or enter the specific point in time that you want.
-
 
 ### Restore using Backup in Object Storage
 
@@ -154,7 +172,7 @@ You can create a DB instance using a backup file exported from RDS for PostgreSQ
 
 (1) See [Export Backup File](backup-and-restore/#_5) to export a backup of RDS for PostgreSQL to object storage.
 
-(2) Access the console of the project you want to restore, and on the DB Instances tab, click the Restore from backup in Object Storage button.
+(2) Access the console of the project you want to restore, and on the **DB Instance** tab, click the Restore from backup in Object Storage button.
 
 ![backup-obs-restore]({{url.cdn}}/20241210/backup-obs-restore-{{lang}}.png)
 
