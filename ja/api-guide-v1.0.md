@@ -1,3 +1,5 @@
+<!-- pre-align:aligned sig=d58a9ac7e400 -->
+
 <a id="rds-for-postgresql-api"></a>
 ## RDS for PostgreSQL API ガイド { #rds-for-postgresql-api }
 
