@@ -24,13 +24,13 @@ pg_basebackup 설치 방법은 [PostgreSQL 홈페이지](https://www.postgresql.
 
 백업 시 적용되는 설정 항목은 다음과 같으며, 자동 백업과 수동 백업에 모두 적용됩니다.
 
-![backup-config](https://static.toastoven.net/prod_rds_postgres/20241210/backup-config-ko.png)
+![backup-config](../static/images/20241210/backup-config-ko.png)
 
 ### 수동 백업
 
 특정 시점의 데이터베이스를 영구히 저장하려면 콘솔에서 수동으로 백업을 수행할 수 있습니다. 수동 백업은 자동 백업과 달리 명시적으로 백업을 삭제하지 않는 한 DB 인스턴스가 삭제될 때 같이 삭제되지 않습니다. 콘솔에서 수동 백업을 수행하려면
 
-![db-instance-detail-backup](https://static.toastoven.net/prod_rds_postgres/20260609/db-instance-detail-backup-ko.png)
+![db-instance-detail-backup](../static/images/20260609/db-instance-detail-backup-ko.png)
 
 ❶ 백업할 DB 인스턴스를 선택한 뒤 **백업**을 클릭하면 **백업 생성** 팝업 창이 나타납니다.
     - DB 인스턴스를 선택하지 않고 **백업**을 클릭하면 **백업 생성** 팝업 창 내 드롭다운 메뉴에서 DB 인스턴스를 선택할 수 있습니다.
@@ -41,7 +41,7 @@ pg_basebackup 설치 방법은 [PostgreSQL 홈페이지](https://www.postgresql.
 
 또는 **백업** 탭에서
 
-![backup-create](https://static.toastoven.net/prod_rds_postgres/20241210/backup-create-ko.png)
+![backup-create](../static/images/20241210/backup-create-ko.png)
 
 ❶ **+ 백업 생성**을 클릭하면 **백업 생성** 팝업 창이 나타납니다.
 ❷ 백업을 수행할 DB 인스턴스를 선택합니다.
@@ -51,7 +51,7 @@ pg_basebackup 설치 방법은 [PostgreSQL 홈페이지](https://www.postgresql.
 
 수동으로 백업하는 경우 외에도 복원 작업에 필요한 경우나 자동 백업 스케줄 설정에 따라 자동 백업이 수행될 수 있습니다. DB 인스턴스의 백업 보관 기간을 1일 이상으로 설정하면 자동 백업이 활성화되며, 지정된 시간에 백업이 수행됩니다. 자동 백업은 DB 인스턴스와 생명 주기가 동일합니다. DB 인스턴스가 삭제되면 보관된 자동 백업은 모두 삭제됩니다. 자동 백업에서 지원하는 설정 항목은 다음과 같습니다.
 
-![backup-config](https://static.toastoven.net/prod_rds_postgres/20241210/backup-config-ko.png)
+![backup-config](../static/images/20241210/backup-config-ko.png)
 
 **자동 백업 보관 기간(일)**
 
@@ -80,9 +80,9 @@ pg_basebackup 설치 방법은 [PostgreSQL 홈페이지](https://www.postgresql.
 
 백업 후 백업 파일을 사용자 오브젝트 스토리지로 내보낼 수 있습니다.
 
-![db-instance-list-export-obs](https://static.toastoven.net/prod_rds_postgres/20260609/db-instance-list-export-obs-ko.png)
+![db-instance-list-export-obs](../static/images/20260609/db-instance-list-export-obs-ko.png)
 
-![db-instance-list-export-obs-modal](https://static.toastoven.net/prod_rds_postgres/20260609/db-instance-list-export-obs-modal-ko.png)
+![db-instance-list-export-obs-modal](../static/images/20260609/db-instance-list-export-obs-modal-ko.png)
 
 ❶ 백업할 DB 인스턴스를 선택한 뒤 드롭다운 메뉴에서 **백업 후 오브젝트 스토리지로 백업 파일 내보내기**를 클릭하면 설정 팝업 화면이 나타납니다.
 ❷ 백업이 저장될 오브젝트 스토리지의 테넌트 ID를 입력합니다. 테넌트 ID는 API 엔드포인트 설정에서 확인할 수 있습니다.
@@ -95,11 +95,11 @@ pg_basebackup 설치 방법은 [PostgreSQL 홈페이지](https://www.postgresql.
 
 내부 백업 스토리지에 저장된 백업 파일을 사용자 오브젝트 스토리지로 내보낼 수 있습니다.
 
-![db-instance-detail-backup-export](https://static.toastoven.net/prod_rds_postgres/20260609/db-instance-detail-backup-export-ko.png)
+![db-instance-detail-backup-export](../static/images/20260609/db-instance-detail-backup-export-ko.png)
 
 ❶ 백업을 수행한 원본 DB 인스턴스의 상세 탭에서 내보낼 백업 파일을 선택한 뒤 **오브젝트 스토리지로 백업 내보내기**를 클릭하면 백업 내보내기 팝업 화면이 나타납니다.
 
-![backup-export](https://static.toastoven.net/prod_rds_postgres/20241210/backup-export-ko.png)
+![backup-export](../static/images/20241210/backup-export-ko.png)
 
 ❷ 또는 **백업** 탭에서 내보낼 백업 파일을 선택한 뒤 **오브젝트 스토리지로 백업 내보내기**를 클릭합니다.
 
@@ -139,13 +139,13 @@ pg_basebackup 설치 방법은 [PostgreSQL 홈페이지](https://www.postgresql.
 
 백업 파일만으로 복원하므로 백업을 수행한 원본 DB 인스턴스가 필요하지 않습니다. 콘솔에서 백업을 복원하려면
 
-![db-instance-detail-backup-restore](https://static.toastoven.net/prod_rds_postgres/20260609/db-instance-detail-backup-restore-ko.png)
+![db-instance-detail-backup-restore](../static/images/20260609/db-instance-detail-backup-restore-ko.png)
 
 ❶ DB 인스턴스의 상세 탭에서 복원할 백업 파일을 선택한 뒤 **백업 복원**을 클릭하면 DB 인스턴스 복원 화면으로 이동합니다.
 
 또는
 
-![backup-restore](https://static.toastoven.net/prod_rds_postgres/20241210/backup-restore-ko.png)
+![backup-restore](../static/images/20241210/backup-restore-ko.png)
 
 ❶ **백업** 탭에서 복원할 백업 파일을 선택한 뒤 **백업 복원**을 클릭합니다.
 
@@ -159,7 +159,7 @@ pg_basebackup 설치 방법은 [PostgreSQL 홈페이지](https://www.postgresql.
 
 콘솔에서 시점 복원을 하려면
 
-![db-instance-pitr](https://static.toastoven.net/prod_rds_postgres/20260609/db-instance-pitr-ko.png)
+![db-instance-pitr](../static/images/20260609/db-instance-pitr-ko.png)
 
 ❶ 시점 복원할 DB 인스턴스를 선택한 뒤 **시점 복원**을 클릭하면 시점 복원을 설정할 수 있는 페이지로 이동합니다.
 
@@ -167,7 +167,7 @@ pg_basebackup 설치 방법은 [PostgreSQL 홈페이지](https://www.postgresql.
 
 Timestamp를 사용한 복원 시에는 선택한 시점과 가장 가까운 백업 파일을 기준으로 복원한 뒤, 원하는 시점까지의 WAL 로그를 적용합니다.
 
-![db-instance-pitr-timestamp](https://static.toastoven.net/prod_rds_postgres/20260609/db-instance-pitr-timestamp-ko.png)
+![db-instance-pitr-timestamp](../static/images/20260609/db-instance-pitr-timestamp-ko.png)
 
 ❶ 복원 시간을 선택합니다. 가장 최근 시점으로 복원하거나, 원하는 특정 시점을 직접 입력할 수 있습니다.
 
@@ -179,7 +179,7 @@ RDS for PostgreSQL에서 오브젝트 스토리지로 내보낸 백업 파일을
 
 (2) 복원할 프로젝트의 콘솔에 접속한 뒤 **DB 인스턴스** 탭에서 **오브젝트 스토리지에 있는 백업으로 복원** 버튼을 클릭합니다.
 
-![backup-obs-restore](https://static.toastoven.net/prod_rds_postgres/20241210/backup-obs-restore-ko.png)
+![backup-obs-restore](../static/images/20241210/backup-obs-restore-ko.png)
 
 ❶ 백업이 저장된 오브젝트 스토리지의 테넌트 ID를 입력합니다. 테넌트 ID는 API 엔드포인트 설정에서 확인할 수 있습니다.
 ❷ 백업이 저장된 오브젝트 스토리지의 NHN Cloud 계정 또는 IAM 계정을 입력합니다.

@@ -135,7 +135,7 @@ DBインスタンスの作成時にデフォルトのアラートを設定でき
 
 コンソールで作成されたDBインスタンスを確認できます。DBインスタンスグループ単位でまとめて見たり、個々のDBインスタンスで見ることができます。
 
-![db-instance-list-basic](https://static.toastoven.net/prod_rds_postgres/20260609/db-instance-list-basic-ja.png)
+![db-instance-list-basic](../static/images/20260609/db-instance-list-basic-ja.png)
 
 ❶ DBインスタンス画面モードを変更できます。
 ❷南京錠アイコンをクリックすると、削除保護設定を変更できます。
@@ -159,7 +159,7 @@ DBインスタンスの状態は以下のような値で構成され、ユーザ
 
 変更できる検索条件は次のとおりです。
 
-![db-instance-list-filter](https://static.toastoven.net/prod_rds_postgres/20260609/db-instance-list-filter-ja.png)
+![db-instance-list-filter](../static/images/20260609/db-instance-list-filter-ja.png)
 
 ❶ DBインスタンスの状態をフィルタリング条件として検索できます。
 ❷アベイラビリティゾーンをフィルタリング条件として検索できます。
@@ -168,7 +168,7 @@ DBインスタンスの状態は以下のような値で構成され、ユーザ
 
 DBインスタンスを選択すると、詳細情報を確認できます。
 
-![db-instance-detail-basic](https://static.toastoven.net/prod_rds_postgres/20260609/db-instance-detail-basic-ja.png)
+![db-instance-detail-basic](../static/images/20260609/db-instance-detail-basic-ja.png)
 
 ❶接続情報のドメインをクリックすると、IPアドレスを確認できるポップアップウィンドウが表示されます。
 ❷ DBセキュリティグループをクリックすると、DBセキュリティルールを確認できるポップアップウィンドウが表示されます。
@@ -191,7 +191,7 @@ DBインスタンスの**ログ**タブでは、各種ログファイルの閲�
 | postgresql.log | 100MB 40個 | 固定       |
 | backup.log     | 毎日10個     | 固定       |
 
-![db-instance-detail-log](https://static.toastoven.net/prod_rds_postgres/20260609/db-instance-detail-log-ja.png)
+![db-instance-detail-log](../static/images/20260609/db-instance-detail-log-ja.png)
 
 ❶ **ログ表示**をクリックすると、ログファイルの内容を確認できるポップアップウィンドウが表示されます。最大65,535Bytesのログを確認できます。
 ❷ **インポート**をクリックすると、DBインスタンスのログファイルをダウンロードできるようにリクエストします。
@@ -207,7 +207,7 @@ DBインスタンスの**データベース＆ユーザー**タブでは、DBエ
 
 #### データベースの作成
 
-![db-instance-detail-db-create](https://static.toastoven.net/prod_rds_postgres/20260811/db-instance-detail-db-create-ja.png)
+![db-instance-detail-db-create](../static/images/20260811/db-instance-detail-db-create-ja.png)
 
 ❶ **+ 作成**をクリックすると、データベースの名前を入力できるポップアップウィンドウが表示されます。
 ❷データベース名を入力した後、**作成**をクリックしてデータベースを作成できます。
@@ -221,7 +221,7 @@ DBインスタンスの**データベース＆ユーザー**タブでは、DBエ
 
 #### データベースの修正
 
-![db-instance-detail-db-modify](https://static.toastoven.net/prod_rds_postgres/20260811/db-instance-detail-db-modify-ja.png)
+![db-instance-detail-db-modify](../static/images/20260811/db-instance-detail-db-modify-ja.png)
 
 ❶修正するデータベース行の**修正**をクリックすると、データベース情報を修正できるポップアップウィンドウが表示されます。
 ❷ DDLユーザーを選択し、所有者に設定できます。
@@ -231,21 +231,21 @@ DBインスタンスの**データベース＆ユーザー**タブでは、DBエ
 
 #### データベースの同期
 
-![db-instance-detail-db-sync](https://static.toastoven.net/prod_rds_postgres/20260609/db-instance-detail-db-sync-ja.png)
+![db-instance-detail-db-sync](../static/images/20260609/db-instance-detail-db-sync-ja.png)
 
 ❶ **同期**をクリックすると、**同期確認**ポップアップウィンドウが表示されます。
 ❷ **確認**をクリックして同期をリクエストできます。
 
 #### データベースの削除
 
-![db-instance-detail-db-delete](https://static.toastoven.net/prod_rds_postgres/20260609/db-instance-detail-db-delete-ja.png)
+![db-instance-detail-db-delete](../static/images/20260609/db-instance-detail-db-delete-ja.png)
 
 ❶削除するデータベースを選択し、**削除**をクリックすると、削除確認ポップアップウィンドウが表示されます。
 ❷ **削除**をクリックして削除をリクエストできます。
 
 #### スキーマ修正
 
-![db-instance-detail-schema-modify](https://static.toastoven.net/prod_rds_postgres/20260811/db-instance-detail-schema-modify-ja.png)
+![db-instance-detail-schema-modify](../static/images/20260811/db-instance-detail-schema-modify-ja.png)
 
 ❶ 修正するスキーマ行の**修正**をクリックすると、スキーマ情報を修正できるポップアップウィンドウが表示されます。
 ❷ DDLユーザーを選択し、所有者に設定できます。
@@ -254,7 +254,7 @@ DBインスタンスの**データベース＆ユーザー**タブでは、DBエ
 
 #### ユーザーの作成
 
-![db-instance-detail-user-create](https://static.toastoven.net/prod_rds_postgres/20260811/db-instance-detail-user-create-ja.png)
+![db-instance-detail-user-create](../static/images/20260811/db-instance-detail-user-create-ja.png)
 
 ❶ **+ 作成**をクリックすると、ユーザー追加ポップアップウィンドウが表示されます。
 ❷ユーザーIDを入力します。
@@ -286,7 +286,7 @@ DBインスタンスの**データベース＆ユーザー**タブでは、DBエ
 
 #### ユーザーの修正
 
-![db-instance-detail-user-modify](https://static.toastoven.net/prod_rds_postgres/20260811/db-instance-detail-user-modify-ja.png)
+![db-instance-detail-user-modify](../static/images/20260811/db-instance-detail-user-modify-ja.png)
 
 ❶修正するユーザー行の**修正**をクリックすると、ユーザー情報を修正できるポップアップウィンドウが表示されます。
 ❷パスワードを入力しないと変更されません。
@@ -294,19 +294,19 @@ DBインスタンスの**データベース＆ユーザー**タブでは、DBエ
 
 #### ユーザーの同期
 
-![db-instance-detail-user-sync](https://static.toastoven.net/prod_rds_postgres/20260609/db-instance-detail-user-sync-ja.png)
+![db-instance-detail-user-sync](../static/images/20260609/db-instance-detail-user-sync-ja.png)
 
 ❶ **同期**をクリックすると、**同期確認**ポップアップウィンドウが表示されます。
 ❷ **確認**をクリックして同期をリクエストできます。
 
 #### ユーザーの削除
 
-![db-instance-detail-user-delete](https://static.toastoven.net/prod_rds_postgres/20260609/db-instance-detail-user-delete-ja.png)
+![db-instance-detail-user-delete](../static/images/20260609/db-instance-detail-user-delete-ja.png)
 
 ❶削除するユーザーを選択し、ドロップダウンメニューをクリックします。
 ❷ **削除**をクリックすると、**削除確認**ポップアップウィンドウが表示されます。**確認**をクリックして削除をリクエストできます。
 
-![db-instance-detail-user-delete-with-option](https://static.toastoven.net/prod_rds_postgres/20260609/db-instance-detail-user-delete-with-option-ja.png)
+![db-instance-detail-user-delete-with-option](../static/images/20260609/db-instance-detail-user-delete-with-option-ja.png)
 
 ❶ 削除するユーザーが所有するオブジェクトがある場合、下部に追加オプションが表示されます。選択できるオプションと説明は次の通りです。
 
@@ -331,7 +331,7 @@ DBインスタンスの**データベース＆ユーザー**タブでは、DBエ
 
 DBインスタンスの**アクセス制御**タブでは、特定のデータベースとユーザーに対するDBエンジンのアクセスルールを照会及び制御できます。ここで設定したルールは`pg_hba.conf`ファイルに適用されます。
 
-![db-instance-detail-hba](https://static.toastoven.net/prod_rds_postgres/20260609/db-instance-detail-hba-ja.png)
+![db-instance-detail-hba](../static/images/20260609/db-instance-detail-hba-ja.png)
 
 ❶アクセス制御ルールの適用状態を確認できます。
 ❷進行中の作業があれば、スピナーが表示されます。
@@ -352,7 +352,7 @@ DBインスタンスの**アクセス制御**タブでは、特定のデータ�
 
 #### アクセス制御ルールの追加
 
-![db-instance-detail-hba-create](https://static.toastoven.net/prod_rds_postgres/20260609/db-instance-detail-hba-create-ja.png)
+![db-instance-detail-hba-create](../static/images/20260609/db-instance-detail-hba-create-ja.png)
 
 ❶ **+ 作成**をクリックすると、**アクセス制御ルールの追加**ポップアップウィンドウが表示されます。
 ❷ 入力方式で**基本**を選択すると、DBインスタンスに保存されたデータベースやユーザーを指定してルールを追加できます。
@@ -373,21 +373,21 @@ DBインスタンスの**アクセス制御**タブでは、特定のデータ�
 ❼ 設定が完了した後、**変更事項の適用**をクリックしてDBインスタンスにアクセス制御設定を適用します。
 ❽ DBインスタンスに適用されると、ステータスが**適用済み**に変更されます。
 
-![db-instance-detail-hba-create-by-text](https://static.toastoven.net/prod_rds_postgres/20260609/db-instance-detail-hba-create-by-text-ja.png)
+![db-instance-detail-hba-create-by-text](../static/images/20260609/db-instance-detail-hba-create-by-text-ja.png)
 
 ❶ 入力方式で**ルール原文で一括追加**を選択すると、`pg_hba.conf`の記述をそのまま入力してルールを一括追加できます。
 ❷ コメントを含む`pg_hba.conf`の記述をそのまま使用できます。詳細は[PostgreSQLのホームページ](https://www.postgresql.org/docs/17/auth-pg-hba-conf.html)をご参照ください。
 
 #### アクセス制御ルールの修正
 
-![db-instance-detail-hba-modify](https://static.toastoven.net/prod_rds_postgres/20260609/db-instance-detail-hba-modify-ja.png)
+![db-instance-detail-hba-modify](../static/images/20260609/db-instance-detail-hba-modify-ja.png)
 
 ❶修正するアクセス制御ルール行の**修正**をクリックすると、既存の情報を修正できるポップアップウィンドウが表示されます。
 ❷修正したルールは**変更事項の適用**をクリックしてDBインスタンスにアクセス制御設定を適用する必要があります。
 
 #### アクセス制御ルールの削除
 
-![db-instance-detail-hba-delete](https://static.toastoven.net/prod_rds_postgres/20260609/db-instance-detail-hba-delete-ja.png)
+![db-instance-detail-hba-delete](../static/images/20260609/db-instance-detail-hba-delete-ja.png)
 
 ❶ 削除するアクセス制御ルールを選択し、**削除**をクリックすると、**削除確認**ポップアップが表示されます。
 ❷ 削除したルールは、**変更の適用**をクリックしてDBインスタンスにアクセス制御設定を適用する必要があります。
@@ -400,7 +400,7 @@ DBインスタンスの**拡張管理**タブでは、SUPERUSER権限が必要�
 
 #### 拡張機能のインストール
 
-![db-instance-detail-extension-install](https://static.toastoven.net/prod_rds_postgres/20260609/db-instance-detail-extension-install-ja.png)
+![db-instance-detail-extension-install](../static/images/20260609/db-instance-detail-extension-install-ja.png)
 
 ❶ **インストール**をクリックすると、選択した拡張機能をインストールするデータベースを選択できるポップアップウィンドウが表示されます。
 ❷ **強制インストール**をチェックすると、依存関係にある拡張機能を強制的にインストールします。
@@ -410,7 +410,7 @@ DBインスタンスの**拡張管理**タブでは、SUPERUSER権限が必要�
 
 #### 拡張機能の削除
 
-![db-instance-detail-extension-delete](https://static.toastoven.net/prod_rds_postgres/20260609/db-instance-detail-extension-delete-ja.png)
+![db-instance-detail-extension-delete](../static/images/20260609/db-instance-detail-extension-delete-ja.png)
 
 ❶ 削除するデータベースの行で**削除**をクリックすると、**削除確認**ポップアップウィンドウが表示されます。
 ❷ **強制削除**をチェックすると、依存関係にある拡張機能を強制的に削除します。
@@ -420,7 +420,7 @@ DBインスタンスの**拡張管理**タブでは、SUPERUSER権限が必要�
 
 #### 拡張機能の同期
 
-![db-instance-detail-extension-sync](https://static.toastoven.net/prod_rds_postgres/20260609/db-instance-detail-extension-sync-ja.png)
+![db-instance-detail-extension-sync](../static/images/20260609/db-instance-detail-extension-sync-ja.png)
 
 ❶ **同期**をクリックすると、**同期確認** ポップアップウィンドウが表示されます。
 ❷ **確認**をクリックして同期をリクエストできます。
@@ -450,7 +450,7 @@ DBインスタンスの**拡張管理**タブでは、SUPERUSER権限が必要�
 
 高可用性DBインスタンスは    、再起動が必要な項目の変更があると、安定性を高めてダウンタイムを短縮するために障害調査を利用した再起動機能を提供します。
 
-![modify-ha-popup](https://static.toastoven.net/prod_rds_postgres/20260414/modify-ha-popup-ja.png)
+![modify-ha-popup](../static/images/20260414/modify-ha-popup-ja.png)
 
 障害調査を利用した再起動を使用しない場合、マスターと予備マスターに変更事項を順次適用した後、DBインスタンスを再起動します。詳細は、高可用性DBインスタンスの[手動フェイルオーバー](db-instance/#_7)の項目を参照してください。
 
@@ -495,19 +495,19 @@ DBインスタンスに接続されたパラメータグループの設定が変
 
 次のいずれかの方法を使用してDBインスタンスにパラメータグループの変更を適用できます。
 
-![db-instance-list-apply-parameter-group](https://static.toastoven.net/prod_rds_postgres/20260609/db-instance-list-apply-parameter-group-ja.png)
+![db-instance-list-apply-parameter-group](../static/images/20260609/db-instance-list-apply-parameter-group-ja.png)
 
 ❶対象DBインスタンスの **パラメータ**をクリックするか
 ❷対象DBインスタンスを選択した後、ドロップダウンメニューから**パラメータグループの変更内容を適用**メニューをクリックします。
 
 パラメータグループで再起動が必要なパラメータが変更された場合、変更内容を適用する過程でDBインスタンスが再起動されます。
 
-![db-instance-list-apply-parameter-group-popup](https://static.toastoven.net/prod_rds_postgres/20260609/db-instance-list-apply-parameter-group-popup-ja.png)
+![db-instance-list-apply-parameter-group-popup](../static/images/20260609/db-instance-list-apply-parameter-group-popup-ja.png)
 
 ❶ **変更事項の比較**をクリックして変更されたパラメータを確認できます。
 ❷変更事項を確認した後、**確認**をクリックしてDBインスタンスに変更されたパラメータを適用します。
 
-![db-instance-list-apply-parameter-group-compare-popup](https://static.toastoven.net/prod_rds_postgres/20260609/db-instance-list-apply-parameter-group-compare-popup-ja.png)
+![db-instance-list-apply-parameter-group-compare-popup](../static/images/20260609/db-instance-list-apply-parameter-group-compare-popup-ja.png)
 
 ## リードレプリカ
 
@@ -529,7 +529,7 @@ DBインスタンスに接続されたパラメータグループの設定が変
 > リードレプリカの作成過程で必要なデータストレージサイズ分、バックアップストレージの課金が発生する可能性があります。
 > リードレプリカを作成するには、コンソールで
 
-![db-instance-list-replica-create](https://static.toastoven.net/prod_rds_postgres/20260609/db-instance-list-replica-create-ja.png)
+![db-instance-list-replica-create](../static/images/20260609/db-instance-list-replica-create-ja.png)
 
 ❶原本DBインスタンスを選択した後、**リードレプリカ作成**をクリッすると、リードレプリカを作成するためのページに移動します。
 
@@ -601,7 +601,7 @@ DBインスタンスに接続されたパラメータグループの設定が変
 
 リードレプリカの昇格または強制昇格中に複製遅延が解消されるまで待機している場合、待機作業を終了するには、コンソールで
 
-![db-instance-list-stop-wait-replication-lag](https://static.toastoven.net/prod_rds_postgres/20260609/db-instance-list-stop-wait-replication-lag-ja.png)
+![db-instance-list-stop-wait-replication-lag](../static/images/20260609/db-instance-list-stop-wait-replication-lag-ja.png)
 
 ❶ **複製遅延待機終了**をクリックすると、待機作業を終了することができるポップアップウィンドウが表示されます。
 ❷ **確認**をクリックして待機作業を終了します。
@@ -623,7 +623,7 @@ PostgreSQLを再起動したい時、DBインスタンスを再起動できま�
 
 DBインスタンスの再起動を行うにはコンソールで
 
-![db-instance-list-restart](https://static.toastoven.net/prod_rds_postgres/20260609/db-instance-list-restart-ja.png)
+![db-instance-list-restart](../static/images/20260609/db-instance-list-restart-ja.png)
 
 ❶再起動したいDBインスタンスを選択した後、ドロップダウンメニューから**DBインスタンスの再起動**メニューをクリックします。
 
@@ -636,7 +636,7 @@ DBインスタンスのPostgreSQLが正常に動作しない場合、強制的�
 
 DBインスタンスを強制的に再起動するには、コンソールで
 
-![db-instance-list-force-restart](https://static.toastoven.net/prod_rds_postgres/20260609/db-instance-list-force-restart-ja.png)
+![db-instance-list-force-restart](../static/images/20260609/db-instance-list-force-restart-ja.png)
 
 ❶再起動するDBインスタンスを選択し、ドロップダウンメニューから**DBインスタンス強制再起動**メニューをクリックします。
 
@@ -644,11 +644,11 @@ DBインスタンスを強制的に再起動するには、コンソールで
 
 削除保護を有効にすると、誤ってDBインスタンスが削除されないように保護できます。削除保護を無効にするまで、該当DBインスタンスを削除できません。削除保護設定を変更するには
 
-![db-instance-deletion-protection](https://static.toastoven.net/prod_rds_postgres/20260609/db-instance-list-deletion-protection-ja.png)
+![db-instance-deletion-protection](../static/images/20260609/db-instance-list-deletion-protection-ja.png)
 
 ❶削除保護設定を変更したいDBインスタンスを選択した後、ドロップダウンメニューから**削除保護設定の変更**メニューをクリックすると、ポップアップウィンドウが表示されます。
 
-![deletion-protection-popup](https://static.toastoven.net/prod_rds_postgres/20260609/db-instance-list-deletion-protection-popup-ja.png)
+![deletion-protection-popup](../static/images/20260609/db-instance-list-deletion-protection-popup-ja.png)
 
 ❷削除保護設定を変更した後、**確認**をクリックします。
 
@@ -688,7 +688,7 @@ DBインスタンスを強制的に再起動するには、コンソールで
 
 フェイルオーバーが行われたマスターを復旧するにはコンソールで
 
-![db-instance-ha-failover-repair](https://static.toastoven.net/prod_rds_postgres/20260609/db-instance-ha-failover-repair-ja.png)
+![db-instance-ha-failover-repair](../static/images/20260609/db-instance-ha-failover-repair-ja.png)
 
 ❶復旧したいフェイルオーバーが行われたマスターを選択し、ドロップダウンメニューから**フェイルオーバーが行われたマスター復旧**メニューをクリックします。
 
@@ -707,7 +707,7 @@ DBインスタンスを強制的に再起動するには、コンソールで
 
 フェイルオーバーが行われたマスターを再構築するには、コンソールで
 
-![db-instance-ha-failover-rebuild](https://static.toastoven.net/prod_rds_postgres/20260609/db-instance-ha-failover-rebuild-ja.png)
+![db-instance-ha-failover-rebuild](../static/images/20260609/db-instance-ha-failover-rebuild-ja.png)
 
 ❶再構築したいフェイルオーバーが行われたマスターを選択し、ドロップダウンメニューから**フェイルオーバーが行われたマスター再構築**メニューをクリックします。
 
@@ -717,7 +717,7 @@ DBインスタンスを強制的に再起動するには、コンソールで
 
 フェイルオーバーが行われたマスターを分離するにはコンソールで
 
-![db-instance-ha-failover-split](https://static.toastoven.net/prod_rds_postgres/20260609/db-instance-ha-failover-split-ja.png)
+![db-instance-ha-failover-split](../static/images/20260609/db-instance-ha-failover-split-ja.png)
 
 ❶分離したいフェイルオーバーが行われたマスターを選択し、ドロップダウンメニューから*フェイルオーバーが行われたマスター分離**メニューをクリックします。
 
@@ -748,7 +748,7 @@ DBインスタンスを強制的に再起動するには、コンソールで
 
 予備マスターに変更を先に適用した後、その推移を観察したり、正確な時間にフェイルオーバーを実行したい場合、コンソールでフェイルオーバーのタイミングを直接制御できます。フェイルオーバー手動制御を選択すると、予備マスターが再起動された後、❶コンソールに**フェイルオーバー**ボタンが表示されます。このボタンをクリックするとフェイルオーバーが実行され、最大5日間実行を待機できます。5日以内にフェイルオーバーを実行しない場合、その作業は自動的にキャンセルされます。
 
-![db-instance-ha-wait-manual-failover](https://static.toastoven.net/prod_rds_postgres/20260609/db-instance-ha-wait-manual-failover-ja.png)
+![db-instance-ha-wait-manual-failover](../static/images/20260609/db-instance-ha-wait-manual-failover-ja.png)
 
 > [注意]
 > フェイルオーバーを待機している間は、自動フェイルオーバーは実行されません。
@@ -822,11 +822,11 @@ DBインスタンスのマイグレーションは、NHN Cloudコンソールか
 
 名前の横に**マイグレーション**があるDBインスタンスが点検対象インスタンスです。
 
-![db-instance-planned-migration](https://static.toastoven.net/prod_rds_postgres/20260609/db-instance-planned-migration-ja.png)
+![db-instance-planned-migration](../static/images/20260609/db-instance-planned-migration-ja.png)
 
 **マイグレーション**の上にマウスポインタを置くと、詳細な点検スケジュールを確認できます。
 
-![db-instance-planned-migration-popup](https://static.toastoven.net/prod_rds_postgres/20260609/db-instance-planned-migration-popup-ja.png)
+![db-instance-planned-migration-popup](../static/images/20260609/db-instance-planned-migration-popup-ja.png)
 
 #### 2. 点検対象DBインスタンスに接続しているアプリケーションの終了
 
@@ -837,13 +837,13 @@ DBに接続されているサービスに影響が出ないよう、適切に措
 
 点検対象のDBインスタンスを選択し、**マイグレーション**をクリックした後、DBインスタンスのマイグレーション確認を求めるウィンドウが表示されたら、**確認**をクリックします。
 
-![db-instance-planned-migration-confirm](https://static.toastoven.net/prod_rds_postgres/20260609/db-instance-planned-migration-confirm-ja.png)
+![db-instance-planned-migration-confirm](../static/images/20260609/db-instance-planned-migration-confirm-ja.png)
 
 #### 4. DBインスタンスマイグレーション完了待機
 
 DBインスタンスの状態が変わらない場合は、**更新**をクリックしてください。
 
-![db-instance-planned-migration-status](https://static.toastoven.net/prod_rds_postgres/20260609/db-instance-planned-migration-status-ja.png)
+![db-instance-planned-migration-status](../static/images/20260609/db-instance-planned-migration-status-ja.png)
 
 DBインスタンスがマイグレーションされている間は、何の操作もできません。
 DBインスタンスのマイグレーションが正常に完了しない場合、自動的に管理者に報告され、NHN Cloudから別途ご連絡いたします。

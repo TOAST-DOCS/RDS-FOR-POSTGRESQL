@@ -12,7 +12,7 @@
 
 レイアウトを利用してチャートのサイズと位置を表示できます。サービス起動時に`基本システム指標`と`基本PostgreSQL指標`がデフォルトのレイアウトとして提供されます。デフォルトのレイアウトは変更または削除することはできません。また、チャートの追加や変更、削除を行うこともできません。チャートでデフォルトのレイアウトに含まれていない情報を見たい場合は、新しいレイアウトを作成してチャートを追加できます。
 
-![server-dashboard-layout](https://static.toastoven.net/prod_rds_postgres/20240813/server-dashboard-layout-ja.png)
+![server-dashboard-layout](../static/images/20240813/server-dashboard-layout-ja.png)
 
 ❶ **レイアウト管理**を押すと、レイアウトを管理するポップアップウィンドウが表示されます。
 ❷ **+ レイアウトの作成**を押すと、レイアウトを作成できます。
@@ -22,7 +22,7 @@
 
 ### レイアウトにチャートを追加
 
-![server-dashboard-chart-add](https://static.toastoven.net/prod_rds_postgres/20240813/server-dashboard-chart-add-ja.png)
+![server-dashboard-chart-add](../static/images/20240813/server-dashboard-chart-add-ja.png)
 
 ❶レイアウトを選択します。
 ❷ **+チャート追加**を押すと、チャートを追加できるポップアップウィンドウが表示されます。
@@ -32,7 +32,7 @@
 
 ### レイアウトのチャート変更及び削除
 
-![server-dashboard-chart-manage](https://static.toastoven.net/prod_rds_postgres/20240813/server-dashboard-chart-manage-ja.png)
+![server-dashboard-chart-manage](../static/images/20240813/server-dashboard-chart-manage-ja.png)
 
 ❶チャートの上部領域をクリックした後、ドラッグ＆ドロップして位置を移動できます。
 ❷チャートの右下の領域をドラッグ＆ドロップして、チャートのサイズを変更できます。
@@ -72,7 +72,7 @@ DBインスタンスの各種性能指標をチャート形式で閲覧できま
 
 ### サーバーグループの作成
 
-![server-dashboard-group-add](https://static.toastoven.net/prod_rds_postgres/20240813/server-dashboard-group-add-ja.png)
+![server-dashboard-group-add](../static/images/20240813/server-dashboard-group-add-ja.png)
 
 ❶ **+グループ追加**をクリックすると、グループを作成できるポップアップウィンドウが表示されます。
 ❷サーバーグループに追加するDBインスタンスを選択します。
@@ -81,11 +81,11 @@ DBインスタンスの各種性能指標をチャート形式で閲覧できま
 
 サーバーダッシュボード左側のサーバーリストにDBインスタンスとサーバーグループが一緒に表示されます。
 
-![server-dashboard-group-manage](https://static.toastoven.net/prod_rds_postgres/20240611/server-dashboard-group-manage-ja.png)
+![server-dashboard-group-manage](../static/images/20240611/server-dashboard-group-manage-ja.png)
 
-❶ **+**, **-**を押してサーバーグループを展開したり、閉じたりすることができます。
+❶ **+**, **-** を押してサーバーグループを展開したり、閉じたりすることができます。
 ❷サーバーグループに属するDBインスタンスをクリックすると、チャートに表示される色を変更できる色選択ポップアップが表示されます。
 
-![server-dashboard-group-menu](https://static.toastoven.net/prod_rds_postgres/20240611/server-dashboard-group-menu-ja.png)
+![server-dashboard-group-menu](../static/images/20240611/server-dashboard-group-menu-ja.png)
 
-❶ **：**サーバーリストの各項目の右側に表示されるメニューアイコンをクリックすると、サーバーグループを変更または削除できます。
+❶ **：** サーバーリストの各項目の右側に表示されるメニューアイコンをクリックすると、サーバーグループを変更または削除できます。

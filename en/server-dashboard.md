@@ -12,7 +12,7 @@ You can visualize performance metrics in chart form on the server dashboard. Cha
 
 You can use the layout to indicate the size and location of the chart. When activated, `Basic System Metrics` and `Basic PostgreSQL Metrics ` are provided as default layouts. You cannot change or delete the default layout. Additionally, you cannot add charts, change or delete added charts. To view information in a chart that is not included in the main layout, you can add a chart by creating a new layout.
 
-![server-dashboard-layout](https://static.toastoven.net/prod_rds_postgres/20240813/server-dashboard-layout-en.png)
+![server-dashboard-layout](../static/images/20240813/server-dashboard-layout-en.png)
 
 ❶ click **Manage Layout** to display a pop-up window to manage the layout.
 ❷ You can create a layout by clicking on **+ Create Layout**.
@@ -22,7 +22,7 @@ You can use the layout to indicate the size and location of the chart. When acti
 
 ### Add Charts to Layout
 
-![server-dashboard-chart-add](https://static.toastoven.net/prod_rds_postgres/20240813/server-dashboard-chart-add-en.png)
+![server-dashboard-chart-add](../static/images/20240813/server-dashboard-chart-add-en.png)
 
 ❶ Select the desired layout.
 ❷ Click **+ Add Chart** to display a pop-up window where you can add charts.
@@ -32,7 +32,7 @@ You can use the layout to indicate the size and location of the chart. When acti
 
 ### Change and delete charts in the layout
 
-![server-dashboard-chart-manage](https://static.toastoven.net/prod_rds_postgres/20240813/server-dashboard-chart-manage-en.png)
+![server-dashboard-chart-manage](../static/images/20240813/server-dashboard-chart-manage-en.png)
 
 ❶ Click and drag and drop the top area of the chart to move the location.
 ❷ You can change the size of the chart by dragging and dropping the lower right area of the chart.
@@ -72,7 +72,7 @@ Server groups allow you to view performance metrics for multiple DB instances in
 
 ### Create a Server Group
 
-![server-dashboard-group-add](https://static.toastoven.net/prod_rds_postgres/20240813/server-dashboard-group-add-en.png)
+![server-dashboard-group-add](../static/images/20240813/server-dashboard-group-add-en.png)
 
 ❶ When you click **+ Add Group** a pop-up window appears where you can create a group.
 ❷ Select DB instance to add to the server group.
@@ -81,11 +81,11 @@ Server groups allow you to view performance metrics for multiple DB instances in
 
 DB instances and server groups appear together in the list of servers to the left of the server dashboard.
 
-![server-dashboard-group-manage](https://static.toastoven.net/prod_rds_postgres/20240611/server-dashboard-group-manage-en.png)
+![server-dashboard-group-manage](../static/images/20240611/server-dashboard-group-manage-en.png)
 
 ❶ Click **+** or **-** to expand or close the server group.
 ❷ When you click a DB instance that belongs to a server group, Select Color pop-up appears where you can change the color that appears in the chart.
 
-![server-dashboard-group-menu](https://static.toastoven.net/prod_rds_postgres/20240611/server-dashboard-group-menu-en.png)
+![server-dashboard-group-menu](../static/images/20240611/server-dashboard-group-menu-en.png)
 
-❶ You can change or delete a server group by clicking on the menu icon that appears to the right of each item in the \*\*:** list of servers.
+❶ You can change or delete a server group by clicking on the menu icon that appears to the right of each item in the **:** list of servers.
