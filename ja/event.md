@@ -1,6 +1,10 @@
-## Database > RDS for PostgreSQL > イベント
+<!-- pre-align:aligned sig=a6332d48b331 -->
 
-## イベント
+<a id="database-rds-for-postgresql-event"></a>
+## Database > RDS for PostgreSQL > イベント { #database-rds-for-postgresql-event }
+
+<a id="event"></a>
+## イベント { #event }
 
 イベントとは、RDS for PostgreSQLのシステム動作や、ユーザーの操作によって発生する重要な出来事を意味します。イベントは、イベントタイプ、発生日時、発生元ソース、およびメッセージで構成されます。イベントはコンソールで照会でき、イベントのタイプと発生し得るイベントは以下のとおりです。
 
@@ -160,7 +164,8 @@
 | TENANT_05_04            | TENANT            | リードレプリカ作成制限                               |
 | JOB_01_04               | JOB               | Job実行失敗                                   |
 
-### イベント購読
+<a id="subscribe-to-events"></a>
+### イベント購読 { #subscribe-to-events }
 
 イベントを購読すると、イベント発生時に電子メールやSMSで通知を受けることができます。イベント購読に接続されたユーザーグループのユーザーに通知を送信します。イベントタイプ、イベントコード、イベントソースで細分化して購読できます。しばらく通知を中断する場合は、イベント購読を無効に修正します。有効にしない場合、通知を送信しません。
 

@@ -1,9 +1,14 @@
-## Database > RDS for PostgreSQL > DB 엔진
+<!-- pre-align:aligned sig=56dd0b1a76a6 -->
 
-## DB 엔진
+<a id="database-rds-for-postgresql-db-engine"></a>
+## Database > RDS for PostgreSQL > DB 엔진 { #database-rds-for-postgresql-db-engine }
+
+<a id="db-engine"></a>
+## DB 엔진 { #db-engine }
 PostgreSQL의 버전 번호는 `X.Y` 형식으로 구성됩니다. NHN Cloud의 RDS for PostgreSQL에서 `X`는 메이저 버전, `Y`는 마이너 버전을 나타냅니다.
 
-### RDS에서 제공하는 DB 엔진 버전
+<a id="db-engine-version-provided-by-rds"></a>
+### RDS에서 제공하는 DB 엔진 버전 { #db-engine-version-provided-by-rds }
 
 다음 버전을 사용할 수 있습니다.
 
@@ -23,18 +28,21 @@ PostgreSQL의 버전 번호는 `X.Y` 형식으로 구성됩니다. NHN Cloud의 
 
 > [주의] PostgreSQL 14.6, 14.15, 17.2 버전은 최신 버전으로 업그레이드할 것을 [권장](https://www.postgresql.org/support/security/CVE-2025-1094/)합니다.
 
-### 버전 업그레이드 수행하기
+<a id="perform-version-upgrades"></a>
+### 버전 업그레이드 수행하기 { #perform-version-upgrades }
 
 버전 업그레이드는 순차적으로 수행되며, 메이저 버전 업그레이드와 마이너 버전 업그레이드 각각의 특성에 따라 서로 다른 순서로 수행될 수 있습니다.
 
 버전 업그레이드 전에 데이터 손실을 방지하기 위해 백업할 것을 권장합니다.
 
+<a id="perform-version-upgrades-major-version-upgrade"></a>
 #### 메이저 버전 업그레이드
 
 메이저 버전 업그레이드는 버전 번호의 첫 번째 자리를 변경하는 것입니다. 예를 들어 14.6에서 17.2로 업그레이드하는 것이 메이저 버전 업그레이드입니다.
 
 RDS for PostgreSQL에서 메이저 버전 업그레이드는 마스터에서만 실행할 수 있으며, 실행하면 DB 인스턴스 그룹 내 모든 DB 인스턴스의 버전을 업그레이드합니다.
 
+<a id="perform-version-upgrades-major-version-upgrade-order"></a>
 #### 메이저 버전 업그레이드 순서
 
 마스터 DB 인스턴스를 수정해 메이저 버전 업그레이드를 수행할 수 있습니다.
@@ -59,12 +67,14 @@ RDS for PostgreSQL에서 메이저 버전 업그레이드는 마스터에서만 
 
 > [주의] DB 인스턴스 그룹 내 버전 업그레이드가 성공한 DB 인스턴스와 실패한 DB 인스턴스가 함께 존재할 수 있습니다. 실패한 DB 인스턴스는 복제 관계가 중단되며, 재구축 작업으로 복구를 시도할 수 있습니다.
 
+<a id="perform-version-upgrades-miner-version-upgrade"></a>
 #### 마이너 버전 업그레이드
 
 마이너 버전 업그레이드는 버전 번호의 두 번째 자리를 변경하는 것입니다. 예를 들어 14.6에서 14.15로 업그레이드하는 것이 마이너 버전 업그레이드입니다.
 
 RDS for PostgreSQL에서 마이너 버전 업그레이드는 마스터뿐만 아니라 읽기 복제본에서도 실행할 수 있으며, 실행하면 실행한 대상 DB 인스턴스에 대해 버전 업그레이드를 진행합니다. 고가용성 구성이 완료된 마스터는 예비 마스터도 함께 업그레이드합니다.
 
+<a id="perform-version-upgrades-minor-version-upgrade-order"></a>
 #### 마이너 버전 업그레이드 순서
 
 - 마스터의 버전 업그레이드를 시도할 때 예비 마스터가 존재하면 함께 버전 업그레이드를 진행합니다.

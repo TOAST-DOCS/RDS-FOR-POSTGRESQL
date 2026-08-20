@@ -1,9 +1,14 @@
-## Database > RDS for PostgreSQL > DBエンジン
+<!-- pre-align:aligned sig=56dd0b1a76a6 -->
 
-## DBエンジン
+<a id="database-rds-for-postgresql-db-engine"></a>
+## Database > RDS for PostgreSQL > DBエンジン { #database-rds-for-postgresql-db-engine }
+
+<a id="db-engine"></a>
+## DBエンジン { #db-engine }
 PostgreSQLのバージョン番号は `X.Y` 形式で構成されます。NHN CloudのRDS for PostgreSQLで `X` はメジャーバージョン、 `Y` はマイナーバージョンを表します。
 
-### RDSが提供するDBエンジンのバージョン
+<a id="db-engine-version-provided-by-rds"></a>
+### RDSが提供するDBエンジンのバージョン { #db-engine-version-provided-by-rds }
 
 下記のバージョンを使用できます。
 
@@ -24,18 +29,21 @@ PostgreSQLのバージョン番号は `X.Y` 形式で構成されます。NHN Cl
 
 > [注意] PostgreSQL 14.6, 14.15, 17.2バージョンの場合最新バージョンへのアップグレードが[勧告](https://www.postgresql.org/support/security/CVE-2025-1094/)されます。
 
-### バージョンアップグレードを実行する
+<a id="perform-version-upgrades"></a>
+### バージョンアップグレードを実行する { #perform-version-upgrades }
 
 バージョンアップグレードは順次行われ、メジャーバージョンアップグレードとマイナーバージョンアップグレードのそれぞれの特性によって異なる順序で行われることがあります。
 
 バージョンアップグレードを行う前に、データ損失防止のため、バックアップを行うことを推奨します。
 
+<a id="perform-version-upgrades-major-version-upgrade"></a>
 #### メジャーバージョンアップグレード
 
 メジャーバージョンアップグレードは、バージョン番号の最初の桁を変更することを意味します。例えば、14.6から17.2にアップグレードすることがメジャーバージョンアップグレードです。
 
 RDS for PostgreSQLでは、メジャーバージョンアップグレードはマスターでのみ実行可能で、実行した場合、DBインスタンスグループ内のすべてのDBインスタンスに対してバージョンアップグレードを行います。
 
+<a id="perform-version-upgrades-major-version-upgrade-order"></a>
 #### メジャーバージョンアップグレードの順序
 
 マスターDBインスタンスを修正してメジャーバージョンアップグレードを実行できます。
@@ -58,12 +66,14 @@ RDS for PostgreSQLでは、メジャーバージョンアップグレードは�
         - バージョンアップグレード中に失敗した場合、複製中断状態で維持され、再構築作業を通じて復旧を試みることができます。
 > [注意] DBインスタンスグループ内でバージョンアップグレードに成功したDBインスタンスと失敗したDBインスタンスが共存することがあります。失敗したDBインスタンスの場合、複製関係が中断され、再構築作業を通じて復旧を試みることができます。
 
+<a id="perform-version-upgrades-miner-version-upgrade"></a>
 #### マイナーバージョンアップグレード
 
 マイナーバージョンアップグレードは、バージョン番号の2桁目を変更することを意味します。例えば、14.6から14.15にアップグレードすることがマイナーバージョンアップグレードです。
 
 RDS for PostgreSQLでは、マイナーバージョンアップグレードはマスターだけでなく、リードレプリカでも実行可能で、実行した場合、対象のDBインスタンスに対してバージョンアップグレードが行われます。(HA構成が完了したマスターの場合、スタンバイマスターも一緒に行われます)。
 
+<a id="perform-version-upgrades-minor-version-upgrade-order"></a>
 #### マイナーバージョンアップグレード順序
 
 - マスターに対してバージョンアップグレードを試みる際、予備マスターが存在する場合、一緒にバージョンアップグレードを進めます。

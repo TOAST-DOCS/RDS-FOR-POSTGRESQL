@@ -1,6 +1,10 @@
-## Database > RDS for PostgreSQL > 서버 대시보드
+<!-- pre-align:aligned sig=b981bf1b80d7 -->
 
-## 서버 대시보드
+<a id="database-rds-for-postgresql-server-dashboard"></a>
+## Database > RDS for PostgreSQL > 서버 대시보드 { #database-rds-for-postgresql-server-dashboard }
+
+<a id="server-dashboard"></a>
+## 서버 대시보드 { #server-dashboard }
 
 서버 대시보드에서 성능 지표를 차트 형태로 시각화해 볼 수 있습니다. 차트는 미리 설정된 레이아웃에 따라 배치됩니다. 지표는 1분에 한 번씩 수집되며 최대 1년간 보관됩니다. 집계 단위별 보관 기간은 아래와 같습니다.
 
@@ -8,7 +12,8 @@
 |-------|-------|
 | 1분    | 1년    |
 
-## 레이아웃
+<a id="layout"></a>
+## 레이아웃 { #layout }
 
 레이아웃을 이용해 차트의 크기와 위치를 나타낼 수 있습니다. 서비스 활성화 시 `기본 시스템 지표`와 `기본 PostgreSQL 지표`를 기본 레이아웃으로 제공합니다. 기본 레이아웃은 변경하거나 삭제할 수 없습니다. 또한 차트를 추가하거나, 추가된 차트를 변경 또는 삭제할 수 없습니다. 차트에서 기본 레이아웃에 포함되지 않은 정보를 보려면 새 레이아웃을 만들어 차트를 추가할 수 있습니다.
 
@@ -20,7 +25,8 @@
 ❸ 버튼을 클릭하면 추가된 레이아웃을 변경할 수 있습니다.
 ❹ 버튼을 클릭하면 추가된 레이아웃을 삭제할 수 있습니다.
 
-### 레이아웃에 차트 추가
+<a id="add-charts-to-layout"></a>
+### 레이아웃에 차트 추가 { #add-charts-to-layout }
 
 ![server-dashboard-chart-add](../static/images/20240813/server-dashboard-chart-add-ko.png)
 
@@ -30,7 +36,8 @@
 ❹ 지표 이름을 클릭하면 왼쪽 미리 보기 영역에 차트가 나타납니다.
 ❺ **추가**를 클릭하면 선택된 차트가 모두 추가됩니다.
 
-### 레이아웃의 차트 변경 및 삭제
+<a id="change-and-delete-charts-in-the-layout"></a>
+### 레이아웃의 차트 변경 및 삭제 { #change-and-delete-charts-in-the-layout }
 
 ![server-dashboard-chart-manage](../static/images/20240813/server-dashboard-chart-manage-ko.png)
 
@@ -38,7 +45,8 @@
 ❷ 차트의 오른쪽 하단 영역을 드래그 앤 드롭하여 차트의 크기를 변경할 수 있습니다.
 ❸ 차트의 오른쪽 상단 **x**를 클릭하면 레이아웃에서 차트가 삭제됩니다.
 
-## 차트
+<a id="chart"></a>
+## 차트 { #chart }
 
 DB 인스턴스의 각종 성능 지표를 차트 형태로 볼 수 있습니다. 성능 지표마다 각기 다른 형태의 차트로 구성되어 있습니다. 기본적인 시스템 지표 이외에 PostgreSQL에서 제공하는 각종 성능 지표를 차트로 제공하고 있습니다. 차트별로 확인할 수 있는 지표는 아래와 같습니다.
 
@@ -66,18 +74,21 @@ DB 인스턴스의 각종 성능 지표를 차트 형태로 볼 수 있습니다
 | 복제 지연(초)                   | seconds                                                                                                                    |                                        |
 | 복제 지연(바이트)                 | bytes                                                                                                                      |                                        |
 
-## 서버 그룹
+<a id="server-group"></a>
+## 서버 그룹 { #server-group }
 
 서버 그룹을 이용하면 하나의 차트에서 여러 DB 인스턴스의 성능 지표를 확인할 수 있습니다. 서버 그룹에 속한 DB 인스턴스별로 성능 지표가 하나의 차트에 나타납니다. 여러 개의 성능 지표로 이루어진 차트는 서버 그룹에서는 모두 개별 성능 지표로 변경됩니다.
 
-### 서버 그룹 생성
+<a id="create-a-server-group"></a>
+### 서버 그룹 생성 { #create-a-server-group }
 
 ![server-dashboard-group-add](../static/images/20240813/server-dashboard-group-add-ko.png)
 
 ❶ **+ 그룹 추가**를 클릭하면 그룹을 생성할 수 있는 팝업 창이 나타납니다.
 ❷ 서버 그룹에 추가할 DB 인스턴스를 선택합니다.
 
-### 서버 그룹 설정
+<a id="set-a-server-group"></a>
+### 서버 그룹 설정 { #set-a-server-group }
 
 서버 대시보드 왼쪽의 서버 목록에 DB 인스턴스와 서버 그룹이 함께 나타납니다.
 

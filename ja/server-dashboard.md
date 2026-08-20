@@ -1,6 +1,10 @@
-## Database > RDS for PostgreSQL > サーバーダッシュボード
+<!-- pre-align:aligned sig=b981bf1b80d7 -->
 
-## サーバーダッシュボード
+<a id="database-rds-for-postgresql-server-dashboard"></a>
+## Database > RDS for PostgreSQL > サーバーダッシュボード { #database-rds-for-postgresql-server-dashboard }
+
+<a id="server-dashboard"></a>
+## サーバーダッシュボード { #server-dashboard }
 
 サーバーダッシュボードで性能指標をチャート形式で視覚化できます。チャートはあらかじめ設定されたレイアウトに従って配置されます。指標は1分に1回収集され、最大1年間保存されます。集計単位別の保管期間は以下の通りです。
 
@@ -8,7 +12,8 @@
 |-------|-------|
 | 1分  | 1年  |
 
-## レイアウト
+<a id="layout"></a>
+## レイアウト { #layout }
 
 レイアウトを利用してチャートのサイズと位置を表示できます。サービス起動時に`基本システム指標`と`基本PostgreSQL指標`がデフォルトのレイアウトとして提供されます。デフォルトのレイアウトは変更または削除することはできません。また、チャートの追加や変更、削除を行うこともできません。チャートでデフォルトのレイアウトに含まれていない情報を見たい場合は、新しいレイアウトを作成してチャートを追加できます。
 
@@ -20,7 +25,8 @@
 ❸ボタンをクリックすると、追加したレイアウトを変更できます。
 ❹ボタンをクリックすると、追加したレイアウトを削除できます。
 
-### レイアウトにチャートを追加
+<a id="add-charts-to-layout"></a>
+### レイアウトにチャートを追加 { #add-charts-to-layout }
 
 ![server-dashboard-chart-add](../static/images/20240813/server-dashboard-chart-add-ja.png)
 
@@ -30,7 +36,8 @@
 ❹指標名をクリックすると、左側のプレビューエリアにチャートが表示されます。
 ❺ **追加**をクリックすると、選択したチャートがすべて追加されます。
 
-### レイアウトのチャート変更及び削除
+<a id="change-and-delete-charts-in-the-layout"></a>
+### レイアウトのチャート変更及び削除 { #change-and-delete-charts-in-the-layout }
 
 ![server-dashboard-chart-manage](../static/images/20240813/server-dashboard-chart-manage-ja.png)
 
@@ -38,7 +45,8 @@
 ❷チャートの右下の領域をドラッグ＆ドロップして、チャートのサイズを変更できます。
 ❸チャートの右上の**x**をクリックすると、レイアウトからチャートが削除されます。
 
-## チャート
+<a id="chart"></a>
+## チャート { #chart }
 
 DBインスタンスの各種性能指標をチャート形式で閲覧できます。性能指標ごとにそれぞれ違う形のチャートで構成されています。基本的なシステム指標以外にPostgreSQLが提供する各種性能指標をチャートで提供しています。チャート別に確認できる指標は下記の通りです。
 
@@ -66,18 +74,21 @@ DBインスタンスの各種性能指標をチャート形式で閲覧できま
 | 複製遅延(秒)                    | seconds                                                                                                                    |                                    |
 | 複製遅延(バイト)                  | bytes                                                                                                                      |                                    |
 
-## サーバーグループ
+<a id="server-group"></a>
+## サーバーグループ { #server-group }
 
 サーバーグループを利用すれば、一つのチャートで複数のDBインスタンスの性能指標を確認できます。サーバーグループに属するDBインスタンスごとに性能指標が一つのチャートに表示されます。複数の性能指標で構成されたチャートは、サーバーグループでは全て個別性能指標に変更されます。
 
-### サーバーグループの作成
+<a id="create-a-server-group"></a>
+### サーバーグループの作成 { #create-a-server-group }
 
 ![server-dashboard-group-add](../static/images/20240813/server-dashboard-group-add-ja.png)
 
 ❶ **+グループ追加**をクリックすると、グループを作成できるポップアップウィンドウが表示されます。
 ❷サーバーグループに追加するDBインスタンスを選択します。
 
-### サーバーグループの設定
+<a id="set-a-server-group"></a>
+### サーバーグループの設定 { #set-a-server-group }
 
 サーバーダッシュボード左側のサーバーリストにDBインスタンスとサーバーグループが一緒に表示されます。
 
