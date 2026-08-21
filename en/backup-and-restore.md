@@ -187,7 +187,7 @@ When restoring with Timestamp, restore it based on the backup file closest to th
 
 You can create a DB instance using a backup file exported from RDS for PostgreSQL to object storage.
 
-(1) See [Export Backup File](backup-and-restore/#export-backup-files) to export a backup of RDS for PostgreSQL to object storage.
+(1) See [Export Backup File](#export-backup-files) to export a backup of RDS for PostgreSQL to object storage.
 
 (2) Access the console of the project you want to restore, and on the **DB Instance** tab, click the Restore from backup in Object Storage button.
 

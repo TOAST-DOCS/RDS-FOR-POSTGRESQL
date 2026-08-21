@@ -92,7 +92,7 @@ The following tasks use the I/O capacity of the data storage, which may degrade 
 <a id="high-avilability"></a>
 ### High Avilability { #high-avilability }
 
-High availability DB instances increase availability and data durability, and provide a fault-tolerant database. High availability DB instances consist of a master, a candidate master, and are created in different availability zones. A candidate master is a DB instance that is prepared for failure and is not normally available. For highly available DB instances, backups are performed on the candidate master to avoid performance degradation due to backups. You can see the various features provided by the High Availability DB Instance in [High Availability DB Instance](db-instance/#high-availability-db-instance).
+High availability DB instances increase availability and data durability, and provide a fault-tolerant database. High availability DB instances consist of a master, a candidate master, and are created in different availability zones. A candidate master is a DB instance that is prepared for failure and is not normally available. For highly available DB instances, backups are performed on the candidate master to avoid performance degradation due to backups. You can see the various features provided by the High Availability DB Instance in [High Availability DB Instance](#high-availability-db-instance).
 
 <a id="information"></a>
 ### Information { #information }
@@ -506,7 +506,7 @@ For high-availability DB instances, we provide a failover restart feature to inc
 
 ![modify-ha-popup](../static/images/20260414/modify-ha-popup-en.png)
 
-If you do not use restart with failover, the changes are applied sequentially to the master and candidate master, and then the DB instance is restarted. For more information, see [Manual Failover Items](db-instance/#manual-failover) in High Availability DB Instances.
+If you do not use restart with failover, the changes are applied sequentially to the master and candidate master, and then the DB instance is restarted. For more information, see [Manual Failover Items](#manual-failover) in High Availability DB Instances.
 
 <a id="database-user-control"></a>
 ### Database User Control { #database-user-control }

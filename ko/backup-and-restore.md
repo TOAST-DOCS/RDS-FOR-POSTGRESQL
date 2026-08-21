@@ -192,7 +192,7 @@ Timestamp를 사용한 복원 시에는 선택한 시점과 가장 가까운 백
 
 RDS for PostgreSQL에서 오브젝트 스토리지로 내보낸 백업 파일을 이용하여 DB 인스턴스를 생성할 수 있습니다.
 
-(1) [백업 파일 내보내기](backup-and-restore/#export-backup-files) 항목을 참고하여 RDS for PostgreSQL의 백업을 오브젝트 스토리지로 내보냅니다.
+(1) [백업 파일 내보내기](#export-backup-files) 항목을 참고하여 RDS for PostgreSQL의 백업을 오브젝트 스토리지로 내보냅니다.
 
 (2) 복원할 프로젝트의 콘솔에 접속한 뒤 **DB 인스턴스** 탭에서 **오브젝트 스토리지에 있는 백업으로 복원** 버튼을 클릭합니다.
 
