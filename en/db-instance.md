@@ -636,7 +636,7 @@ When selecting a region in which to create a read replica, if region peering is 
 <a id="create-read-replica-availability-zone"></a>
 #### Availability Zone
 
-Select the availability zone for the read replica. For a detailed description, see [Availability](#Availabilty) zones.
+Select the availability zone for the read replica. For a detailed description, see [Availability Zone](#availability-zone).
 
 <a id="create-read-replica-db-instance-type"></a>
 #### DB Instance Type
