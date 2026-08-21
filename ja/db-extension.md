@@ -1,9 +1,14 @@
-## Database > RDS for PostgreSQL > DB拡張機能
+<!-- pre-align:aligned sig=0f665c3fcbd5 -->
 
-## DB拡張機能
+<a id="database-rds-for-postgresql-db-extensions"></a>
+## Database > RDS for PostgreSQL > DB拡張機能 { #database-rds-for-postgresql-db-extensions }
+
+<a id="db-extensions"></a>
+## DB拡張機能 { #db-extensions }
 あらかじめビルドされた拡張機能をPostgreSQLにインストールして機能を拡張することができます。NHN CloudのRDS for PostgreSQLでサポートする拡張機能は次のとおりです。
 
-### PostgreSQL基本提供機能
+<a id="postgresql-built-in-features"></a>
+### PostgreSQL基本提供機能 { #postgresql-built-in-features }
 
 `auto_explain`拡張はパラメータグループの`shared_preload_libraries`パラメータに追加して、セッション全体に適用できます。残りの拡張機能はSUPERUSER権限が必要な場合、[拡張管理](db-instance/#extension)項目を参考にして制御したり、[CREATE EXTENSION](https://www.postgresql.org/docs/17/sql-createextension.html)構文で必要な拡張機能をインストールできます。
 
@@ -27,7 +32,8 @@
 | postgres_fdw       | 1.0                 | 1.0                 | O           |              | https://www.postgresql.org/docs/17/postgres-fdw.html     |
 | tablefunc          | 1.0                 | 1.0                 |             |              | https://www.postgresql.org/docs/17/tablefunc.html        |
 
-### RDS追加提供機能
+<a id="rds-additional-features"></a>
+### RDS追加提供機能 { #rds-additional-features }
 
 追加提供される拡張機能をインストールするには、必要に応じてパラメータグループの`shared_preload_libraries`パラメータに設定を追加した後、DBエンジン再起動が必要です。
 

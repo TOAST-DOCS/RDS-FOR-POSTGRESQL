@@ -1,8 +1,12 @@
-## Database > RDS for PostgreSQL > 개요
+<!-- pre-align:aligned sig=3fd5cf534dc3 -->
+
+<a id="database-rds-for-postgresql-overview"></a>
+## Database > RDS for PostgreSQL > 개요 { #database-rds-for-postgresql-overview }
 
 RDS for PostgreSQL은 PostgreSQL 데이터베이스를 클라우드 환경에서 사용할 수 있는 서비스입니다. 손쉽게 PostgreSQL이 설치된 가상 장비를 사용할 수 있습니다.
 
-## 주요 기능
+<a id="main-features"></a>
+## 주요 기능 { #main-features }
 
 * 손쉽게 원하는 사양 및 볼륨 크기로 PostgreSQL 데이터베이스를 사용할 수 있습니다.
 * RDS for PostgreSQL은 원하는 시각에 자동 또는 수동으로 백업을 수행할 수 있으며, 생성된 백업을 이용해 데이터베이스를 복원할 수 있습니다

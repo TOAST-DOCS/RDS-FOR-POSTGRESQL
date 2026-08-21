@@ -1,9 +1,14 @@
-## Database > RDS for PostgreSQL > DB Engine
+<!-- pre-align:aligned sig=56dd0b1a76a6 -->
 
-## DB Engine
+<a id="database-rds-for-postgresql-db-engine"></a>
+## Database > RDS for PostgreSQL > DB Engine { #database-rds-for-postgresql-db-engine }
+
+<a id="db-engine"></a>
+## DB Engine { #db-engine }
 In PostgreSQL, the version number consists of version = `X.Y`. In NHN Cloud's RDS for PostgreSQL, `X` represents the major version, and `Y` represents the minor version.
 
-### DB Engine Version Provided by RDS
+<a id="db-engine-version-provided-by-rds"></a>
+### DB Engine Version Provided by RDS { #db-engine-version-provided-by-rds }
 
 You can use the following versions.
 
@@ -24,7 +29,8 @@ You can use the following versions.
 - [Note] For PostgreSQL version 14.6, 14.15, and 17.2, upgrades to the latest version are [recommended](https://www.postgresql.org/support/security/CVE-2025-1094/).
     
     
-### Perform Version Upgrades
+<a id="perform-version-upgrades"></a>
+### Perform Version Upgrades { #perform-version-upgrades }
 
 Version upgrades proceed in sequence, and may proceed in a different order depending on the characteristics of each major version upgrade and minor version upgrade. 
 
@@ -32,12 +38,14 @@ Version upgrades proceed in sequence, and may proceed in a different order depen
 
 It is recommended to perform a backup to prevent data loss before the version upgrade proceeds.
 
+<a id="perform-version-upgrades-major-version-upgrade"></a>
 #### Major Version Upgrade
 
 A major version upgrade means changing the first place of the version number. For example, upgrading from 14.6 to 17.2 is a major version upgrade. 
 
 In RDS for PostgreSQL, the major version upgrade can only be executed on the master, and if executed, the version upgrade is carried out for all the DB instances within the DB instance group.
 
+<a id="perform-version-upgrades-major-version-upgrade-order"></a>
 #### Major Version Upgrade Order
 
 You can proceed to upgrade the major version through master DB instance modifications. The order of execution is as follows:
@@ -63,12 +71,14 @@ You can proceed to upgrade the major version through master DB instance modifica
 
 
 
+<a id="perform-version-upgrades-miner-version-upgrade"></a>
 #### Miner Version Upgrade
 
 A minor version upgrade means changing the second place of the version number. For example, upgrading from 14.6 to 14.15 is a minor version upgrade.
 
 In RDS for PostgreSQL, minor version upgrades can be performed on read replicas as well as masters, and if performed, the version upgrade will be performed on the target DB instance. For high availability masters, version upgrade will also proceed for the candidate master.
 
+<a id="perform-version-upgrades-minor-version-upgrade-order"></a>
 #### Minor Version Upgrade Order
 
 - If you're trying to upgrade a version for a master, if there's a candidate master, you go through the version upgrade together.

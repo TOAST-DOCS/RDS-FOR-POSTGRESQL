@@ -1,13 +1,18 @@
-## Database > RDS for PostgreSQL > Notification
+<!-- pre-align:aligned sig=6fb22cdc634d -->
 
-## User Group
+<a id="database-rds-for-postgresql-notification"></a>
+## Database > RDS for PostgreSQL > Notification { #database-rds-for-postgresql-notification }
+
+<a id="user-group"></a>
+## User Group { #user-group }
 
 You can manage users who receive notifications as groups. Notification target must be registered as a project member. If a user in a user group is removed as a project member, they won't receive notifications, even if they belong to the user group.
 
 > [Caution]
 > If you don't have mobile phone information because you haven't completed identity verification, you can't receive SMS notifications.
 
-### Create a User Group
+<a id="create-a-user-group"></a>
+### Create a User Group { #create-a-user-group }
 
 ![user-group-create](../static/images/20240813/user-group-create-en.png)
 
@@ -28,11 +33,13 @@ User group names have the following restrictions.
 ❺ You can select a notification target to delete and click **Delete** to exclude it from the notification target.
 ❻ Click **Confirm** to add a user group.
 
-## Notification Group
+<a id="notification-group"></a>
+## Notification Group { #notification-group }
 
 You can receive notifications about performance metrics through the notification group. In the notification group, specify the monitored instance and the user group to receive the notification. Set the thresholds and conditions for the performance metrics that will be notified through monitoring settings. When the set metrics meet the criteria of the monitoring settings, it sends a notification to the connected user group. Send notifications by SMS or mail, depending on the notification type set in the notification group.
 
-### Create Notification Group
+<a id="create-notification-group"></a>
+### Create Notification Group { #create-notification-group }
 
 ![notification-group.png](../static/images/20240813/notification-group-en.png)
 
@@ -48,11 +55,13 @@ Notification group names have the following restrictions.
 ❺ Select the DB instance to be monitored.
 ❻ Select the user group to receive notifications.
 
-## Monitoring Settings
+<a id="monitoring-settings"></a>
+## Monitoring Settings { #monitoring-settings }
 
 Monitoring settings consist of monitoring items, comparison methods, thresholds, and duration. Compare the monitoring item's performance metrics value with the threshold to determine if the condition is met. Send a notification if the condition is met continuously for more than a duration. For example, if CPU utilization threshold is at least 90% and the duration is at least 5 minutes, it sends notifications to users defined in the user group when the CPU utilization of the DB instance associated with that notification group is at least 90% and lasts at least 5 minutes. Even if the CPU utilization is over 90%, no notification will send if it falls below 90 percent within 5 minutes.
 
-### Monitoring Settings items
+<a id="monitoring-settings-items"></a>
+### Monitoring Settings items { #monitoring-settings-items }
 
 Performance metrics that can be monitored are as follows.
 
@@ -99,7 +108,8 @@ Performance metrics that can be monitored are as follows.
 | Replication Latency(Second)  | seconds                                |
 | Replication Latency(Byte)    | MB                                     |
 
-### Add Monitoring Setting
+<a id="add-monitoring-setting"></a>
+### Add Monitoring Setting { #add-monitoring-setting }
 
 ![notification-group-watchdog](../static/images/20240813/notification-group-watchdog-en.png)
 
@@ -107,7 +117,8 @@ Performance metrics that can be monitored are as follows.
 ❷ Click **+ Add Monitoring Setting** to add new monitoring settings.
 ❸ Enter items to be monitored, comparison method, threshold, and duration and Click **Add**.
 
-### Modify and delete Monitoring Setting
+<a id="modify-and-delete-monitoring-setting"></a>
+### Modify and delete Monitoring Setting { #modify-and-delete-monitoring-setting }
 
 ❹ Click the button to modify Monitoring settings added.
 ❹ Click the button to delete Monitoring settings added.
