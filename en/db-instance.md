@@ -92,7 +92,7 @@ The following tasks use the I/O capacity of the data storage, which may degrade 
 <a id="high-avilability"></a>
 ### High Avilability { #high-avilability }
 
-High availability DB instances increase availability and data durability, and provide a fault-tolerant database. High availability DB instances consist of a master, a candidate master, and are created in different availability zones. A candidate master is a DB instance that is prepared for failure and is not normally available. For highly available DB instances, backups are performed on the candidate master to avoid performance degradation due to backups. You can see the various features provided by the High Availability DB Instance in [High Availability DB Instance](db-instance/#_1).
+High availability DB instances increase availability and data durability, and provide a fault-tolerant database. High availability DB instances consist of a master, a candidate master, and are created in different availability zones. A candidate master is a DB instance that is prepared for failure and is not normally available. For highly available DB instances, backups are performed on the candidate master to avoid performance degradation due to backups. You can see the various features provided by the High Availability DB Instance in [High Availability DB Instance](db-instance/#high-availability-db-instance).
 
 <a id="information"></a>
 ### Information { #information }
@@ -506,7 +506,7 @@ For high-availability DB instances, we provide a failover restart feature to inc
 
 ![modify-ha-popup](../static/images/20260414/modify-ha-popup-en.png)
 
-If you do not use restart with failover, the changes are applied sequentially to the master and candidate master, and then the DB instance is restarted. For more information, see [Manual Failover Items](db-instance/#_7) in High Availability DB Instances.
+If you do not use restart with failover, the changes are applied sequentially to the master and candidate master, and then the DB instance is restarted. For more information, see [Manual Failover Items](db-instance/#manual-failover) in High Availability DB Instances.
 
 <a id="database-user-control"></a>
 ### Database User Control { #database-user-control }
@@ -524,12 +524,12 @@ You can delete DB instances that are no longer in use. When you delete a master,
 <a id="backup-2"></a>
 ## Backup { #backup-2 }
 
-You can prepare a database of DB instances to recover in case of a failure. You can perform backups from the console whenever you need to or you can set to perform periodical back up. See [Backup](backup-and-restore/#_1) for more information.
+You can prepare a database of DB instances to recover in case of a failure. You can perform backups from the console whenever you need to or you can set to perform periodical back up. See [Backup](backup-and-restore/#backup) for more information.
 
 <a id="restoration"></a>
 ## Restoration { #restoration }
 
-You can use backup to restore data to any point in time. Restore always creates a new DB instance and cannot be restored to an existing DB instance. See [Backup](backup-and-restore/#_6) for more information.
+You can use backup to restore data to any point in time. Restore always creates a new DB instance and cannot be restored to an existing DB instance. See [Backup](backup-and-restore/#restore) for more information.
 
 <a id="secure-capacity"></a>
 ## Secure Capacity { #secure-capacity }
@@ -580,12 +580,12 @@ If the parameters that require restart in the parameter group are changed, such 
 <a id="export-backup-files-to-object-storage-after-backup"></a>
 ## Export Backup Files to Object Storage after Backup { #export-backup-files-to-object-storage-after-backup }
 
-After backing up, you can export the backup file to user object storage in NHN Cloud. For details, see [Export Backup Files](backup-and-restore/#_5).
+After backing up, you can export the backup file to user object storage in NHN Cloud. For details, see [Export Backup Files](backup-and-restore/#export-backup-files).
 
 <a id="restore-using-backup-in-object-storage"></a>
 ## Restore Using Backup in Object Storage { #restore-using-backup-in-object-storage }
 
-You can restore to a DB instance using a backup file exported from RDS for PostgreSQL to object storage. For more information, see [Restore using Backup in Object Storage](backup-and-restore/#_7).
+You can restore to a DB instance using a backup file exported from RDS for PostgreSQL to object storage. For more information, see [Restore using Backup in Object Storage](backup-and-restore/#restore-using-backup-in-object-storage).
 
 
 <a id="read-replica"></a>

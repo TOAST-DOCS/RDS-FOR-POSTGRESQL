@@ -93,7 +93,7 @@ DB 인스턴스 생성 시 데이터베이스 워크로드에 따라 알맞은 D
 <a id="high-avilability"></a>
 ### 고가용성 { #high-avilability }
 
-고가용성 DB 인스턴스는 가용성과 데이터 내구성을 증가시키고, 장애 허용이 가능한 데이터베이스를 제공합니다. 고가용성 DB 인스턴스는 마스터, 예비 마스터로 구성되며 서로 다른 가용성 영역에 생성됩니다. 예비 마스터는 장애에 대비한 DB 인스턴스로 평소에는 사용할 수 없습니다. 고가용성 DB 인스턴스는 예비 마스터에서 백업이 수행되기 때문에 백업으로 인한 성능 저하를 회피할 수 있습니다. 고가용성 DB 인스턴스가 제공하는 여러 기능은 [고가용성 DB 인스턴스](db-instance/#_1)에서 확인할 수 있습니다.
+고가용성 DB 인스턴스는 가용성과 데이터 내구성을 증가시키고, 장애 허용이 가능한 데이터베이스를 제공합니다. 고가용성 DB 인스턴스는 마스터, 예비 마스터로 구성되며 서로 다른 가용성 영역에 생성됩니다. 예비 마스터는 장애에 대비한 DB 인스턴스로 평소에는 사용할 수 없습니다. 고가용성 DB 인스턴스는 예비 마스터에서 백업이 수행되기 때문에 백업으로 인한 성능 저하를 회피할 수 있습니다. 고가용성 DB 인스턴스가 제공하는 여러 기능은 [고가용성 DB 인스턴스](db-instance/#high-availability-db-instance)에서 확인할 수 있습니다.
 
 <a id="information"></a>
 ### 정보 { #information }
@@ -505,7 +505,7 @@ DB 인스턴스의 **확장 관리** 탭에서는 SUPERUSER 권한이 필요한 
 
 ![modify-ha-popup](../static/images/20260414/modify-ha-popup-ko.png)
 
-장애 조치를 이용한 재시작을 사용하지 않으면 마스터와 예비 마스터에 변경 사항을 순차적으로 적용한 후 DB 인스턴스를 재시작합니다. 자세한 사항은 고가용성 DB 인스턴스의 [수동 장애 조치 항목](db-instance/#_7)을 참고합니다.
+장애 조치를 이용한 재시작을 사용하지 않으면 마스터와 예비 마스터에 변경 사항을 순차적으로 적용한 후 DB 인스턴스를 재시작합니다. 자세한 사항은 고가용성 DB 인스턴스의 [수동 장애 조치 항목](db-instance/#manual-failover)을 참고합니다.
 
 <a id="database-user-control"></a>
 ### 데이터베이스 사용자 제어 { #database-user-control }
@@ -523,12 +523,12 @@ RDS for PostgreSQL에서는 데이터베이스와 사용자를 손쉽게 관리�
 <a id="backup-2"></a>
 ## 백업 { #backup-2 }
 
-장애 상황에 대비하여 DB 인스턴스의 데이터베이스를 복구할 수 있도록 미리 준비할 수 있습니다. 필요할 때마다 콘솔에서 백업을 수행하거나, 주기적으로 백업이 수행되도록 설정할 수 있습니다. 자세한 사항은 [백업](backup-and-restore/#_1) 항목을 참고합니다.
+장애 상황에 대비하여 DB 인스턴스의 데이터베이스를 복구할 수 있도록 미리 준비할 수 있습니다. 필요할 때마다 콘솔에서 백업을 수행하거나, 주기적으로 백업이 수행되도록 설정할 수 있습니다. 자세한 사항은 [백업](backup-and-restore/#backup) 항목을 참고합니다.
 
 <a id="restoration"></a>
 ## 복원 { #restoration }
 
-백업을 이용하여 원하는 시점으로 데이터를 복원할 수 있습니다. 복원 시 항상 새로운 DB 인스턴스가 생성되며, 기존 DB 인스턴스에 복원할 수 없습니다. 자세한 사항은 [복원](backup-and-restore/#_6) 항목을 참고합니다.
+백업을 이용하여 원하는 시점으로 데이터를 복원할 수 있습니다. 복원 시 항상 새로운 DB 인스턴스가 생성되며, 기존 DB 인스턴스에 복원할 수 없습니다. 자세한 사항은 [복원](backup-and-restore/#restore) 항목을 참고합니다.
 
 <a id="secure-capacity"></a>
 ## 용량 확보 { #secure-capacity }
@@ -579,12 +579,12 @@ DB 인스턴스에 연결된 파라미터 그룹의 설정이 변경되어도 �
 <a id="export-backup-files-to-object-storage-after-backup"></a>
 ## 백업 후 오브젝트 스토리지로 백업 파일 내보내기 { #export-backup-files-to-object-storage-after-backup }
 
-백업 후 백업 파일을 NHN Cloud의 사용자 오브젝트 스토리지로 내보낼 수 있습니다. 자세한 사항은 [백업 파일 내보내기](backup-and-restore/#_5) 항목을 참고합니다.
+백업 후 백업 파일을 NHN Cloud의 사용자 오브젝트 스토리지로 내보낼 수 있습니다. 자세한 사항은 [백업 파일 내보내기](backup-and-restore/#export-backup-files) 항목을 참고합니다.
 
 <a id="restore-using-backup-in-object-storage"></a>
 ## 오브젝트 스토리지에 있는 백업으로 복원 { #restore-using-backup-in-object-storage }
 
-RDS for PostgreSQL에서 오브젝트 스토리지로 내보낸 백업 파일을 사용해 DB 인스턴스로 복원할 수 있습니다. 자세한 사항은 [오브젝트 스토리지에 있는 백업을 이용한 복원](backup-and-restore/#_7) 항목을 참고합니다.
+RDS for PostgreSQL에서 오브젝트 스토리지로 내보낸 백업 파일을 사용해 DB 인스턴스로 복원할 수 있습니다. 자세한 사항은 [오브젝트 스토리지에 있는 백업을 이용한 복원](backup-and-restore/#restore-using-backup-in-object-storage) 항목을 참고합니다.
 
 
 <a id="read-replica"></a>
@@ -637,7 +637,7 @@ RDS for PostgreSQL에서 오브젝트 스토리지로 내보낸 백업 파일을
 <a id="create-read-replica-availability-zone"></a>
 #### 가용성 영역
 
-읽기 복제본의 가용성 영역을 선택합니다. 자세한 설명은 [가용성 영역](#가용성-영역) 항목을 참고합니다.
+읽기 복제본의 가용성 영역을 선택합니다. 자세한 설명은 [가용성 영역](#availability-zone) 항목을 참고합니다.
 
 <a id="create-read-replica-db-instance-type"></a>
 #### DB 인스턴스 타입
@@ -652,7 +652,7 @@ RDS for PostgreSQL에서 오브젝트 스토리지로 내보낸 백업 파일을
 <a id="create-read-replica-floating-ip"></a>
 #### 플로팅 IP
 
-읽기 복제본의 플로팅 IP 사용 여부를 선택합니다. 자세한 설명은 [플로팅 IP](#플로팅-ip) 항목을 참고합니다.
+읽기 복제본의 플로팅 IP 사용 여부를 선택합니다. 자세한 설명은 [플로팅 IP](#floating-ip) 항목을 참고합니다.
 
 <a id="create-read-replica-parameter-group"></a>
 #### 파라미터 그룹
@@ -672,12 +672,12 @@ RDS for PostgreSQL에서 오브젝트 스토리지로 내보낸 백업 파일을
 <a id="create-read-replica-default-notifications"></a>
 #### 기본 알림
 
-기본 알림 사용 여부를 선택합니다. 자세한 설명은 [기본 알림](#기본-알림) 항목을 참고합니다.
+기본 알림 사용 여부를 선택합니다. 자세한 설명은 [기본 알림](#default-notification) 항목을 참고합니다.
 
 <a id="create-read-replica-deletion-protection"></a>
 #### 삭제 보호
 
-삭제 보호 사용 여부를 선택합니다. 자세한 설명은 [삭제 보호](#삭제-보호-설정-변경) 항목을 참고합니다.
+삭제 보호 사용 여부를 선택합니다. 자세한 설명은 [삭제 보호](#change-deletion-protection-settings) 항목을 참고합니다.
 
 <a id="promote-read-replica"></a>
 ### 읽기 복제본 승격 { #promote-read-replica }
@@ -710,7 +710,7 @@ RDS for PostgreSQL에서 오브젝트 스토리지로 내보낸 백업 파일을
 <a id="rebuild-read-replica"></a>
 ### 읽기 복제본의 재구축 { #rebuild-read-replica }
 
-읽기 복제본의 복제 문제를 해결할 수 없는 경우 재구축으로 정상 상태로 복원할 수 있습니다. 이 과정에서 읽기 복제본의 모든 데이터베이스를 삭제하고, 마스터 데이터베이스를 기반으로 새롭게 재구축합니다. 재구축하는 동안 읽기 복제본은 사용할 수 없습니다. 읽기 복제본을 재구축하려면 복제 그룹에 속한 DB 인스턴스에서 생성된 백업 파일이 필요합니다. 백업 파일이 없는 경우 동작 및 주의 사항은 [읽기 복제본 생성](#읽기-복제본-생성) 항목을 참고합니다.
+읽기 복제본의 복제 문제를 해결할 수 없는 경우 재구축으로 정상 상태로 복원할 수 있습니다. 이 과정에서 읽기 복제본의 모든 데이터베이스를 삭제하고, 마스터 데이터베이스를 기반으로 새롭게 재구축합니다. 재구축하는 동안 읽기 복제본은 사용할 수 없습니다. 읽기 복제본을 재구축하려면 복제 그룹에 속한 DB 인스턴스에서 생성된 백업 파일이 필요합니다. 백업 파일이 없는 경우 동작 및 주의 사항은 [읽기 복제본 생성](#create-read-replica) 항목을 참고합니다.
 
 > [참고]
 > 재구축 후에도 접속 정보(도메인, IP)는 변경되지 않습니다.

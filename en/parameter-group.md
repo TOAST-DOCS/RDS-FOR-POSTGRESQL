@@ -90,7 +90,7 @@ ramSizeByte * 6 / 10
 <a id="change-parameters"></a>
 ### Change Parameters { #change-parameters }
 
-You can change the parameters by selecting a parameter group from the console and clicking on **Edit Parameter**. Parameters that cannot be changed are shown as plain text and parameters that can be changed are shown as text input fields that can be changed. If you click **Preview Changes** on Edit screen, you will see a separate pop-up window where you can check the changed parameters and if you click **Reset** you can revert to before making the changes. All values changed in edit mode must be clicked on **Save Changes** to be reflected in the parameter group. For reflection of DB instances of changed parameter groups, see [Apply Parameter Group](#_5).
+You can change the parameters by selecting a parameter group from the console and clicking on **Edit Parameter**. Parameters that cannot be changed are shown as plain text and parameters that can be changed are shown as text input fields that can be changed. If you click **Preview Changes** on Edit screen, you will see a separate pop-up window where you can check the changed parameters and if you click **Reset** you can revert to before making the changes. All values changed in edit mode must be clicked on **Save Changes** to be reflected in the parameter group. For reflection of DB instances of changed parameter groups, see [Apply Parameter Group](#apply-a-parameter-group).
 
 <a id="change-parameters-change-the-maxconnections-parameter"></a>
 #### Change the `max_connections` Parameter
