@@ -885,7 +885,7 @@ DBインスタンスを強制的に再起動するには、コンソールで
 pg_dump -h {rds_instance_floating_ip} -U {db_id} -p {db_port} -d {database_name} -f {local_path_and_file_name}
 ```
 
-<a id="export-using-pgdump-export-to-postgresql-database-outside-nhn-cloud-rds"></a>
+<a id="export-to-external-postgresql"></a>
 #### NHN Cloud RDS外部のPostgreSQLデータベースにエクスポートする場合
 
 ```
@@ -910,8 +910,8 @@ pg_dump -h {外部PostgreSQL接続アドレス} -U {外部PostgreSQLユーザー
 <a id="appendix"></a>
 ## 付録 { #appendix }
 
-<a id="appendix-1-guide-for-db-instance-migration-for-hypervisor-maintenance"></a>
-### 付録1. ハイパーバイザー点検のためのDBインスタンスマイグレーションガイド { #appendix-1-guide-for-db-instance-migration-for-hypervisor-maintenance }
+<a id="appendix-1"></a>
+### 付録1. ハイパーバイザー点検のためのDBインスタンスマイグレーションガイド { #appendix-1 }
 
 NHN Cloudは定期的にDBインスタンスのハイパーバイザーソフトウェアをアップデートし、セキュリティと安定性を向上させています。
 点検対象ハイパーバイザーで稼働中のDBインスタンスは、マイグレーションを通じて点検が完了したハイパーバイザーに移動する必要があります。
@@ -920,7 +920,7 @@ DBインスタンスのマイグレーションは、NHN Cloudコンソールか
 下記のガイドに従って、コンソールにあるマイグレーション機能をご利用ください。
 点検対象に指定されたDBインスタンスがあるプロジェクトに移動します。
 
-<a id="appendix-1-guide-for-db-instance-migration-for-hypervisor-maintenance-check-the-db-instance-for-maintenance"></a>
+<a id="appendix-1-1"></a>
 #### 1. 点検対象DBインスタンスの確認
 
 名前の横に**マイグレーション**があるDBインスタンスが点検対象インスタンスです。
@@ -931,20 +931,20 @@ DBインスタンスのマイグレーションは、NHN Cloudコンソールか
 
 ![db-instance-planned-migration-popup](../static/images/20260609/db-instance-planned-migration-popup-ja.png)
 
-<a id="appendix-1-guide-for-db-instance-migration-for-hypervisor-maintenance-stop-applications-connected-to-the-db-instance-that-requires-maintenance"></a>
+<a id="appendix-1-2"></a>
 #### 2. 点検対象DBインスタンスに接続しているアプリケーションの終了
 
 DBに接続されているサービスに影響が出ないよう、適切に措置を講じてください。
 サービスに影響を及ぼすことが避けられない場合は、NHN Cloud カスタマーサポートにご連絡いただければ、適切な対応をご案内いたします。
 
-<a id="appendix-1-guide-for-db-instance-migration-for-hypervisor-maintenance-perform-migration"></a>
+<a id="appendix-1-3"></a>
 #### 3. マイグレーションの実行
 
 点検対象のDBインスタンスを選択し、**マイグレーション**をクリックした後、DBインスタンスのマイグレーション確認を求めるウィンドウが表示されたら、**確認**をクリックします。
 
 ![db-instance-planned-migration-confirm](../static/images/20260609/db-instance-planned-migration-confirm-ja.png)
 
-<a id="appendix-1-guide-for-db-instance-migration-for-hypervisor-maintenance-wait-for-db-instance-migration-to-finish"></a>
+<a id="appendix-1-4"></a>
 #### 4. DBインスタンスマイグレーション完了待機
 
 DBインスタンスの状態が変わらない場合は、**更新**をクリックしてください。

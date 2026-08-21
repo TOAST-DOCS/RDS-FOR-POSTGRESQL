@@ -900,7 +900,7 @@ Replication on a spare master can be interrupted for a variety of reasons, such 
 pg_dump -h {DB instance external domain address} -U {DB instance user ID} -p {DB instance connection port} -d {Database name to export} -f {file path to save locally}
 ```
 
-<a id="export-using-pgdump-export-to-postgresql-database-outside-nhn-cloud-rds"></a>
+<a id="export-to-external-postgresql"></a>
 #### Export to PostgreSQL database outside NHN Cloud RDS
 
 ```
@@ -926,12 +926,12 @@ pg_dump -h {external PostgreSQL connection address} -U {external PostgreSQL user
 
 <!-- TODO: translate body -->
 
-<a id="appendix-1-guide-for-db-instance-migration-for-hypervisor-maintenance"></a>
-### Appendix 1. Guide for DB instance Migration for Hypervisor Maintenance { #appendix-1-guide-for-db-instance-migration-for-hypervisor-maintenance }
+<a id="appendix-1"></a>
+### Appendix 1. Guide for DB instance Migration for Hypervisor Maintenance { #appendix-1 }
 
 <!-- TODO: translate body -->
 
-<a id="appendix-1-guide-for-db-instance-migration-for-hypervisor-maintenance-check-the-db-instance-for-maintenance"></a>
+<a id="appendix-1-1"></a>
 #### 1. Check the DB Instance for Maintenance
 
 Those with **Migration** button next to name are the maintenance targets.
@@ -942,20 +942,20 @@ You can check the detailed schedule of maintenance by putting the mouse pointer 
 
 ![db-instance-planned-migration-popup](../static/images/20260609/db-instance-planned-migration-popup-en.png)
 
-<a id="appendix-1-guide-for-db-instance-migration-for-hypervisor-maintenance-stop-applications-connected-to-the-db-instance-that-requires-maintenance"></a>
+<a id="appendix-1-2"></a>
 #### 2. Stop Applications Connected to the DB Instance that Requires Maintenance
 
 Take appropriate measures to avoid affecting services connected to the DB.
 If you have no choice but to affect the service, please contact NHN Cloud Customer Support and we will guide you with appropriate measures.
 
-<a id="appendix-1-guide-for-db-instance-migration-for-hypervisor-maintenance-perform-migration"></a>
+<a id="appendix-1-3"></a>
 #### 3. Perform Migration
 
 Select the DB instance to be checked, click **Migration** button and when a window appears asking for confirmation of the DB instance migration, click **OK** button.
 
 ![db-instance-planned-migration-confirm](../static/images/20260609/db-instance-planned-migration-confirm-en.png)
 
-<a id="appendix-1-guide-for-db-instance-migration-for-hypervisor-maintenance-wait-for-db-instance-migration-to-finish"></a>
+<a id="appendix-1-4"></a>
 #### 4. Wait for DB Instance Migration to Finish
 
 If the DB instance status does not change, click **Refresh**.

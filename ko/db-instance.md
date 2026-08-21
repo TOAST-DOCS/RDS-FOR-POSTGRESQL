@@ -903,7 +903,7 @@ DB 인스턴스를 강제 재시작하려면 콘솔에서
 pg_dump -h {DB 인스턴스 외부 도메인 주소} -U {DB 인스턴스 사용자 ID} -p {DB 인스턴스 접속 포트} -d {내보낼 대상 데이터베이스명} -f {로컬에 저장할 파일 경로}
 ```
 
-<a id="export-using-pgdump-export-to-postgresql-database-outside-nhn-cloud-rds"></a>
+<a id="export-to-external-postgresql"></a>
 #### NHN Cloud RDS 외부의 PostgreSQL 데이터베이스로 내보낼 경우
 
 ```
@@ -929,8 +929,8 @@ pg_dump -h {외부 PostgreSQL 접속 주소} -U {외부 PostgreSQL 사용자 ID}
 <a id="appendix"></a>
 ## 부록 { #appendix }
 
-<a id="appendix-1-guide-for-db-instance-migration-for-hypervisor-maintenance"></a>
-### 부록1. 하이퍼바이저 점검을 위한 DB 인스턴스 마이그레이션 가이드 { #appendix-1-guide-for-db-instance-migration-for-hypervisor-maintenance }
+<a id="appendix-1"></a>
+### 부록1. 하이퍼바이저 점검을 위한 DB 인스턴스 마이그레이션 가이드 { #appendix-1 }
 
 NHN Cloud는 주기적으로 DB 인스턴스의 하이퍼바이저 소프트웨어를 업데이트하여 보안과 안정성을 향상하고 있습니다.
 점검 대상 하이퍼바이저에서 구동 중인 DB 인스턴스는 마이그레이션으로 점검이 완료된 하이퍼바이저로 이동해야 합니다.
@@ -939,7 +939,7 @@ DB 인스턴스 마이그레이션은 NHN Cloud 콘솔에서 시작할 수 있�
 다음 가이드에 따라 콘솔에 있는 마이그레이션 기능을 이용하세요.
 점검 대상으로 지정된 DB 인스턴스가 있는 프로젝트로 이동합니다.
 
-<a id="appendix-1-guide-for-db-instance-migration-for-hypervisor-maintenance-check-the-db-instance-for-maintenance"></a>
+<a id="appendix-1-1"></a>
 #### 1. 점검 대상 DB 인스턴스 확인
 
 이름 옆에 **마이그레이션**이 있는 DB 인스턴스가 점검 대상 인스턴스입니다.
@@ -950,20 +950,20 @@ DB 인스턴스 마이그레이션은 NHN Cloud 콘솔에서 시작할 수 있�
 
 ![db-instance-planned-migration-popup](../static/images/20260609/db-instance-planned-migration-popup-ko.png)
 
-<a id="appendix-1-guide-for-db-instance-migration-for-hypervisor-maintenance-stop-applications-connected-to-the-db-instance-that-requires-maintenance"></a>
+<a id="appendix-1-2"></a>
 #### 2. 점검 대상 DB 인스턴스에 접속 중인 응용 프로그램 종료
 
 DB에 연결된 서비스에 영향을 주지 않도록 적절히 조치하세요.
 서비스에 영향을 줄 수밖에 없을 때는 NHN Cloud 고객지원으로 연락하면 적합한 조치를 안내합니다.
 
-<a id="appendix-1-guide-for-db-instance-migration-for-hypervisor-maintenance-perform-migration"></a>
+<a id="appendix-1-3"></a>
 #### 3. 마이그레이션 실행
 
 점검 대상 DB 인스턴스를 선택하고 **마이그레이션**을 클릭한 후 DB 인스턴스 마이그레이션 확인을 묻는 창이 나타나면 **확인**을 클릭합니다.
 
 ![db-instance-planned-migration-confirm](../static/images/20260609/db-instance-planned-migration-confirm-ko.png)
 
-<a id="appendix-1-guide-for-db-instance-migration-for-hypervisor-maintenance-wait-for-db-instance-migration-to-finish"></a>
+<a id="appendix-1-4"></a>
 #### 4. DB 인스턴스 마이그레이션 완료 대기
 
 DB 인스턴스 상태가 변경되지 않는다면 **새로 고침**을 클릭하세요.
