@@ -1,5 +1,33 @@
 ## Database > RDS for PostgreSQL > Release Notes
 
+### August 11, 2026
+
+#### Added Features
+
+- New Region Launched
+    - Newly launched in the Korea (Pyeongchon) region.
+- Added the ability to create a read replica in a different region
+    - You can create a read replica by selecting a region different from the source DB instance's region.
+- Added snapshot backup
+    - You can select the snapshot backup method when running a backup.
+    - Backups are performed using Cinder storage snapshots without affecting DB instance performance.
+- Added new DB engine versions
+    - Added PostgreSQL versions 14.23 and 17.10.
+- Added the ability to check version upgrade history
+    - You can check the version upgrade history in a pop-up on the DB instance details screen.
+
+#### Feature Updates
+
+- Improved handling of database and user deletion failures
+    - Improved the console to display an error message when database or user deletion fails.
+- Increased the character limit for database and user names
+    - Improved the feature so that database and user names can be created and modified with up to 63 characters.
+
+#### Bug Fixes
+
+- Fixed an issue where DDL users were not granted creation permission
+    - Fixed an issue where, when adding a DDL user while using direct database control, creation permission was not granted.
+
 ### June 9, 2026
 
 #### Added Features

@@ -3,19 +3,17 @@
 ## DB Instance
 
 A DB instance is a concept that encompasses virtual equipment and installed PostgreSQL, a unit of PostgreSQL provided by RDS for PostgreSQL.
-You do not have direct access to the operating system of the DB instance; you can only access the database through the port you entered when you created the DB instance. The available port ranges have the following restrictions.
+You cannot directly access the operating system of the DB instance, and can only access the database through the port entered when the DB instance was created. The available port range is 5432–45432.
 
-* The available port ranges are from 5432 to 45432.
-
-DB instance is identified by the name given by the customer and the 32-byte ID given automatically.
-DB instance names have the following restrictions.
+DB instance is identified by the name given by the user and the 32-byte ID given automatically.
+DB instance names have the following restrictions:
 
 * DB instance name has to be unique for each region.
 * DB instance names can only contain alphabets between 1 and 100 characters, numbers, and some symbols (-, \_, .), and the first letter can only be an alphabetic character.
 
 ## Create DB Instance
 
-You can create a DB instance through the settings below.
+You can create a DB instance through the settings below:
 
 ### Availability Zone
 
@@ -26,19 +24,28 @@ NHN Cloud has divided the entire system into multiple availability areas to prep
 
 ### DB Engine
 
-The versions specified below are available.
+The versions specified below are available:
 
 | Version          | Note |
-|------------------|------|
-| PostgreSQL 14.17 |      |
-| PostgreSQL 14.19 |      |
-| PostgreSQL 17.4  |      |
-| PostgreSQL 17.6  |      |
+|---------------------|-------------------------------|
+| <strong>17</strong> |                               |
+| PostgreSQL 17.10    |                               |
+| PostgreSQL 17.6     |                               |
+| PostgreSQL 17.4     |                               |
+| PostgreSQL 17.2     | 신규로 생성하거나 읽기 복제본을 추가할 수 없습니다. |
+| <strong>14</strong> |                               |
+| PostgreSQL 14.23    |                               |
+| PostgreSQL 14.19    |                               |
+| PostgreSQL 14.17    |                               |
+| PostgreSQL 14.15    | 신규로 생성하거나 읽기 복제본을 추가할 수 없습니다. |
+| PostgreSQL 14.6     | 신규로 생성하거나 읽기 복제본을 추가할 수 없습니다. |
 
+DB 엔진은 생성 이후 콘솔의 수정 기능으로 버전을 업그레이드할 수 있습니다.
+DB 엔진에 관한 자세한 내용은 [DB 엔진](db-engine-ngovc/)에서 확인할 수 있습니다.
 
 ### DB instance type
 
-DB instances have different CPU cores and different memory capacities, depending on the type.
+DB instances have different CPU cores and memory capacities, depending on the type.
 When you create a DB instance, you must select the appropriate DB instance type according to the database workload.
 
 | Type | Description                                                                                                                              |
@@ -79,7 +86,7 @@ High availability DB instances increase availability and data durability, and pr
 
 ### Information
 
-Set DB instance default information. You can enter the instance name, description, DB port, and user information that you want to create by default.
+Set DB instance default information. You can enter the DB instance name, description, DB port, and user information that you want to create by default.
 The user ID you enter is created with DDL permissions.
 
 **READ**
@@ -94,19 +101,19 @@ The user ID you enter is created with DDL permissions.
 
 ### Floating IP
 
-To access a DB instance from outside, you must connect the floating IP to DB instance. You can create a floating IP only if you connect a subnet to which the Internet Gateway is connected. Floating IP is charged at the same time as it is used, and separately, it is charged separately if traffic is generated in the direction of the Internet through the floating IP.
+To access a DB instance from outside, you must connect the floating IP to DB instance. You can create a floating IP only if you connect a subnet to which the Internet Gateway is used. Floating IP is charged at the same time as it is used, and separately, it is charged separately if traffic is generated in the direction of the Internet through the floating IP.
 
 ### Parameter Group
 
-A parameter group is a set of parameters that allow you to set up a database installed on a DB instance. You must select one parameter group when you create a DB instance. The parameter group can be changed freely even after it is created. For a detailed description of the parameter group, refer to [Parameter Group](parameter-group-ngovc/).
+A parameter group is a set of parameters that allow you to set up a database installed on a DB instance. You must select one parameter group when you create a DB instance. The parameter group can be changed freely even after it is created. For more information, refer to [Parameter Group](parameter-group-ngovc/).
 
 ### DB Security Group
 
-DB security groups are used to restrict access against outside break-in. You can allow access to specific port ranges or database ports for incoming and outgoing traffic. You can apply multiple DB security groups to a DB instance. For a detailed description of DB security groups, refer to [DB security groups](db-security-group-ngovc/).
+DB security groups are used to restrict access against outside break-in. You can allow access to specific port ranges or database ports for incoming and outgoing traffic. You can apply multiple DB security groups to a DB instance. For more information, refer to [DB security groups](db-security-group-ngovc/).
 
 ### Backup
 
-You can set up a database of DB instances to periodically back up, or you can create backups at any time with console. During the backup, the performance might degrade. We recommended that you back up at a time when the service load is not high so as not to affect the service. If you don't want performance degradation from backups, you can perform backups on a read replica. Backup files are stored in internal backup storage and are charged based on backup capacity. We recommend that you enable periodic backups to prepare for unexpected failures. For a detailed description of backups, see [Backup and Restore](backup-and-restore-ngovc/).
+You can set up a database of DB instances to periodically back up, or you can create backups at any time with console. During the backup, the performance might degrade. We recommended that you back up at a time when the service load is not high so as not to affect the service. If you don't want performance degradation from backups, you can perform backups on a read replica. Backup files are stored in internal backup storage and are charged based on backup capacity. We recommend that you enable periodic backups to prepare for unexpected failures. For more information, see [Backup and Restore](backup-and-restore-ngovc/).
 
 ### Maintenance
 
@@ -118,7 +125,7 @@ Clean up archived write ahead logs that do not affect service behavior. Archived
 
 ### Default Notification
 
-You can set default notifications when creating a DB instance. Setting default notifications creates a new notification group with `{DB instance name}-default` name and automatically sets the notification items below. You can freely modify and delete notification groups generated by default notifications. See [Notification Groups](notification-ngovc/) for a detailed description of notification groups.
+You can set default notifications when creating a DB instance. Setting default notifications creates a new notification group with `{DB instance name}-default` name and automatically sets the notification items below. You can freely modify and delete notification groups generated by default notifications. For more information, see [Notification Groups](notification-ngovc/).
 
 | Items                       | comparison method | Threshold value | Duration    |
 |-----------------------------|-------------------|-----------------|-------------|
@@ -184,7 +191,7 @@ If you created a floating IP, issue an additional external domain. External doma
 
 ### Log
 
-On the Logs tab of the DB instance, you can view or download various log files. Log files will rotate to the set settings as follows. Some log files can be enabled or disabled in a parameter group.
+On the **Logs** tab of the DB instance, you can view or download various log files. Log files will rotate to the set settings as follows. Some log files can be enabled or disabled in a parameter group.
 
 | Items           | Rotate Settings      | Whether to change or not | 
 |-----------------|----------------------|--------------------------|
@@ -209,21 +216,21 @@ On the Logs tab of the DB instance, you can view or download various log files. 
 
 #### Create a database
 
-![db-instance-detail-db-create](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260609/db-instance-detail-db-create-en.png)
+![db-instance-detail-db-create](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260811/db-instance-detail-db-create-en.png)
 
 ❶ When you click on **+ Create**, a pop-up window appears where you can enter the name of the database.
 ❷ You can create the database by entering the database name and clicking **Create**.
 ❸ Designate a DDL user to be the owner.
 ❹ Grant database access by selecting the desired users.
 
-Database names have the following restrictions.
+Database names have the following restrictions:
 
 * Only characters between 1 and 63 characters, except quotes (','), can be used.
 * `postgres` `information_schema` `performance_schema` `repmgr` `db_helper` `sys` `mysql` `rds_maintenance` `pgpool` `nsight` `watchdog` `barman` `rman` are not allowed to use as database names. 
 
 #### Modify Database
 
-![db-instance-detail-db-modify](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260609/db-instance-detail-db-modify-en.png)
+![db-instance-detail-db-modify](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260811/db-instance-detail-db-modify-en.png)
 
 ❶ When you click on **Modify** in the database row you want to modify, a pop-up window appears where you can modify the database information.
 ❷ Designate a DDL user to be the owner.
@@ -247,7 +254,7 @@ Database names have the following restrictions.
 
 #### Modify Schema
 
-![db-instance-detail-schema-modify](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260609/db-instance-detail-schema-modify-en.png)
+![db-instance-detail-schema-modify](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260811/db-instance-detail-schema-modify-en.png)
 
 ❶ Click **Modify** on the schema row you wish to modify. A pop-up window will appear where you can update the schema information.
 ❷ Select a DDL user to assign as the owner.
@@ -256,12 +263,12 @@ Database names have the following restrictions.
 
 #### Create a User
 
-![db-instance-detail-user-create](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260609/db-instance-detail-user-create-en.png)
+![db-instance-detail-user-create](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260811/db-instance-detail-user-create-en.png)
 
 ❶ Click on **+ Create** to see the **Add User** pop-up window.
 ❷ Enter user ID.
 
-User ID has the following restrictions.
+User ID has the following restrictions:
 
 * Only characters between 1 and 63 characters, except quotes (','), can be used.
 * `postgres` `repmgr` `barman` `rman` `pgpool` `nsight` `watchdog` `dba` `manager` `mysql.session` `mysql.sys` `mysql.infoschema` `sqlgw` `admin` `etladm` `alertman` `prom` `rds_admin` `rds_mha` `rds_repl` `mariadb.sys` are not allowed to be used as user ID.
@@ -286,9 +293,9 @@ Password has the following restrictions.
 
 ❺ You can choose to add a default access control rule to give the user you're creating full database access. If you don't add a default access control rule, you must set a separate access control rule to access the database.
 
-#### Edit a User
+#### Modify a User
 
-![db-instance-detail-user-modify](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260609/db-instance-detail-user-modify-en.png)
+![db-instance-detail-user-modify](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260811/db-instance-detail-user-modify-en.png)
 
 ❶ When you click on **Modify** in the row of users that you want to edit, a pop-up window appears where you can edit information.
 ❷ If you do not enter a password, it will not be edited.
@@ -558,7 +565,7 @@ To create a read replica from the console,
 
 ❶ After selecting the source DB instance, click **Create Read Replica** to go to the page for creating a read replica.
 
-You can create a read replica using the settings below.
+You can create a read replica using the settings below:
 
 #### Items unavailable to change
 
@@ -567,6 +574,11 @@ When creating a read replica, the items listed below cannot be changed because t
 * DB engine
 * Data storage type
 * User VPC subnet
+
+#### Read Replica Region
+When selecting a region in which to create a read replica, if region peering is supported, you can connect region peering between VPCs in different regions to create a read replica in a subnet that belongs to a VPC in a different region. However, if you select a region different from the source DB instance's region, replication lag may occur, and DB version upgrades are not supported.
+> [Caution]
+> Even if region peering is connected, read replica creation may fail or replication may be interrupted if the route settings are incorrect.
 
 #### Availability Zone
 
@@ -586,15 +598,15 @@ Select whether to use a floating IP for the read replica. For a detailed descrip
 
 #### Parameter group
 
-When selecting a parameter group for a read replica, we recommend that you select the same parameter group as the source DB instance unless you need to change any replication-related settings. For a detailed description of parameter groups, see [Parameter Group](parameter-group-ngovc/).
+When selecting a parameter group for a read replica, we recommend that you select the same parameter group as the source DB instance unless you need to change any replication-related settings. For more information, see [Parameter Group](parameter-group-ngovc/).
 
 #### DB Security Group
 
-Select the DB security group to apply to the read replica. The rules required for replication are applied automatically, so you do not need to add them to the DB security group. For a detailed description of DB security groups, see [DB Security Group](db-security-group-ngovc/).
+Select the DB security group to apply to the read replica. The rules required for replication are applied automatically, so you do not need to add them to the DB security group. For more information, see [DB Security Group](db-security-group-ngovc/).
 
 #### Backup
 
-Select the backup settings for the read replica. For a detailed description of backups, see [Backup and Restore](backup-and-restore-ngovc/).
+Select the backup settings for the read replica. For more information, see [Backup and Restore](backup-and-restore-ngovc/).
 
 #### Default notifications
 
@@ -606,7 +618,7 @@ Select whether to enable erasure protection. For a detailed description, see [De
 
 ### Promote Read Replica
 
-The process of breaking the replication relationship with a master and turning a read replica into a standalone master is called promotion. The promoted master will operate as a standalone DB instance. If there is a replication delay between the read replica and the master that you want to promote, the promotion will not occur until the delay is resolved. Once promoted, a DB instance cannot be reverted to its previous replication relationship.
+The process of breaking the replication relationship with a master and turning a read replica into a standalone master is called promotion. The promoted master operates as a standalone DB instance. If there is a replication delay between the read replica and the master that you want to promote, the promotion will not occur until the delay is resolved. Once promoted, a DB instance cannot be reverted to its previous replication relationship.
 
 > [Caution]
 If the status of the master DB instance is abnormal, you cannot proceed with the promotion operation.
@@ -626,7 +638,7 @@ To end the wait operation, when you are waiting for replication delays to resolv
 
 ### Stop Replication of Read Replicas
 
-A read replica can stop replicating for a number of reasons. If the status of a read replica is `Replication stopped`, you should quickly determine the cause and get it back to normal. If the `replication stopped` state persists for an extended period of time, replication latency will increase. If the WAL logs needed for normalization are not available, you will need to rebuild the read replica.
+A read replica can stop replicating for a number of reasons. If the status of a read replica is `Replication stopped`, you should quickly determine the cause and get it back to normal. If the `replication stopped` state persists for an extended period of time, replication latency increases. If the WAL logs needed for normalization are not available, you will need to rebuild the read replica.
 
 ### Rebuild Read Replica
 
@@ -738,7 +750,7 @@ To detach a failed master, go to the Console
 
 ### Manual Failover
 
-For highly available DB instances, when you perform an operation that involves a restart, you can choose whether to restart with failover or not, as shown below.
+For highly available DB instances, when you perform an operation that involves a restart, you can choose whether to restart with failover or not, as shown below:
 
 * Restart DB Instance
 * Changes to items that require a restart
@@ -773,7 +785,7 @@ Enabling the Wait for replication latency to clear option allows you to wait for
 
 #### Write load blocking
 
-You have the option to additionally block write loads while resolving replication delays. Blocking the write load puts the master into read-only mode just before failover, setting all change queries to fail.
+You can block write loads while resolving replication delays. Blocking the write load puts the master into read-only mode just before failover, setting all change queries to fail.
 
 ### High availability suspended
 
@@ -793,7 +805,7 @@ Replication on a spare master can be interrupted for a variety of reasons, such 
 * Get NHN Cloud RDS instances prepared.
 * Verify that the external instance where you want to store the data to export, or the computer on which the local client is installed has sufficient capacity.
 * If you need to export data to the outside of NHN Cloud, create a floating IP and connect it to the RDS instance where you want to export the data.
-* Export data to the outside via the pg_dump command below.
+* Export data to the outside via the pg_dump command below:
 
 #### Export in Files
 
@@ -831,26 +843,28 @@ DB instance migration can be initiated from NHN Cloud console.
 Follow the guide below to use the migration feature on the console.
 Navigate to the project that contains the DB instance that you specify to maintenance check.
 
-#### 1. Check the DB instance that you want to do maintenance check.
+#### 1. Check the DB Instance for Maintenance
 
-Those with the migration button next to name are the maintenance targets.
+Those with **Migration** button next to name are the maintenance targets.
 
 ![db-instance-planned-migration](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260609/db-instance-planned-migration-en.png)
 
-You can check the detailed schedule of maintenance by putting the mouse pointer over the migration button.
+You can check the detailed schedule of maintenance by putting the mouse pointer over **Migration** button.
 
 ![db-instance-planned-migration-popup](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260609/db-instance-planned-migration-popup-en.png)
 
-#### 2. You have to end the application that is connecting to the DB instance for maintenance targets.
+#### 2. Stop Applications Connected to the DB Instance that Requires Maintenance
 
 Take appropriate measures to avoid affecting services connected to the DB.
 If you have no choice but to affect the service, please contact NHN Cloud Customer Support and we will guide you with appropriate measures.
 
-#### 3. Select the DB instance to be checked, click on Migration button and when a window appears asking for confirmation of the DB instance migration, click on the OK button.
+#### 3. Perform Migration
+
+Select the DB instance to be checked, click **Migration** button and when a window appears asking for confirmation of the DB instance migration, click **OK** button.
 
 ![db-instance-planned-migration-confirm](https://static-station.ngovc.com/v1/AUTH_3365819a41194e7ca358853f5b2eec52/cdn/prod_rds_postgres/20260609/db-instance-planned-migration-confirm-en.png)
 
-#### 4. Wait for DB instance migration to finish.
+#### 4. Wait for DB Instance Migration to Finish
 
 If the DB instance status does not change, click **Refresh**.
 
