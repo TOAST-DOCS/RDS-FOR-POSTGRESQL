@@ -1,4 +1,6 @@
-<!-- pre-align:aligned sig=df3adfc80a5a -->
+<!-- machine_translated: true -->
+
+<!-- pre-align:aligned sig=207aa7fc4e38 -->
 
 <a id="database-rds-for-postgresql-db-instances"></a>
 ## Database > RDS for PostgreSQL > DB Instances { #database-rds-for-postgresql-db-instances }
@@ -134,6 +136,7 @@ You can set up a database of DB instances to periodically back up, or you can cr
 ### Maintenance { #maintenance }
 
 Periodically, set tasks to run that can help stabilize the DB instance. If you are using file I/O, you might experience performance degradation while maintenance tasks are performed. We recommend that you run automatic maintenance tasks during off-peak hours to avoid impacting your services.
+If maintenance tasks are required, they are performed on all DB instances in the DB instance group at the configured time.
 
 <a id="maintenance-enable-auto-storage-cleanup"></a>
 #### Enable Auto Storage Cleanup
