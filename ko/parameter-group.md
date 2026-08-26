@@ -95,7 +95,7 @@ ramSizeByte * 6 / 10
 <a id="change-parameters-change-the-maxconnections-parameter"></a>
 #### `max_connections` 파라미터 변경
 
-Read Replica가 추가된 상태에서 `max_connections` 값을 변경할 때는 적용 순서에 따라 발생하는 문제가 있습니다. Primary의 값이 Read Replica보다 작은 값으로 설정돼야 하므로 Primary의 값만 변경하는 경우 Read Replica보다 큰 값으로 적용할 수 없습니다. 같은 이유로 Read Replica의 값만 변경하는 경우 Primary보다 작은 값으로 적용할 수 없습니다. 필요한 경우 DB 인스턴스 그룹 단위로 전체 적용하는 것을 권장합니다.
+Read Replica가 추가된 상태에서 `max_connections` 값을 변경할 때는 적용 순서에 따라 발생하는 문제가 있습니다. Primary가 Read Replica보다 작은 값으로 설정돼야 하므로 Primary의 값만 변경하는 경우 Read Replica보다 큰 값으로 적용할 수 없습니다. 같은 이유로 Read Replica의 값만 변경하는 경우 Primary보다 작은 값으로 적용할 수 없습니다. 필요한 경우 DB 인스턴스 그룹 단위로 전체 적용하는 것을 권장합니다.
 
 <a id="change-parameters-change-the-sharedbuffers-parameter"></a>
 #### `shared_buffers` 파라미터 변경

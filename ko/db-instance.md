@@ -93,7 +93,7 @@ DB 인스턴스 생성 시 데이터베이스 워크로드에 따라 알맞은 D
 <a id="high-avilability"></a>
 ### 고가용성 { #high-avilability }
 
-고가용성 DB 인스턴스는 가용성과 데이터 내구성을 증가시키고, 장애 허용이 가능한 데이터베이스를 제공합니다. 고가용성 DB 인스턴스는 Primary, Standby로 구성되며 서로 다른 가용성 영역에 생성됩니다. Standby는 장애에 대비한 DB 인스턴스로 평소에는 사용할 수 없습니다. 고가용성 DB 인스턴스는 Standby에서 백업이 수행되기 때문에 백업으로 인한 성능 저하를 회피할 수 있습니다. 고가용성 DB 인스턴스가 제공하는 여러 기능은 [고가용성 DB 인스턴스](#high-availability-db-instance)에서 확인할 수 있습니다.
+고가용성 DB 인스턴스는 가용성과 데이터 내구성을 증가시키고, 장애 허용이 가능한 데이터베이스를 제공합니다. 고가용성 DB 인스턴스는 Primary, Standby로 구성되며 서로 다른 가용성 영역에 생성됩니다. Standby는 장애에 대비한 DB 인스턴스로 평소에는 사용할 수 없습니다. 고가용성 DB 인스턴스는 Standby에서 백업이 수행되기 때문에 백업으로 인한 성능 저하를 피할 수 있습니다. 고가용성 DB 인스턴스가 제공하는 여러 기능은 [고가용성 DB 인스턴스](#high-availability-db-instance)에서 확인할 수 있습니다.
 
 <a id="information"></a>
 ### 정보 { #information }
@@ -208,7 +208,7 @@ DB 인스턴스를 선택하면 상세 정보를 볼 수 있습니다.
 <a id="connection-information"></a>
 ### 접속 정보 { #connection-information }
 
-DB 인스턴스 생성 시 내부 도메인을 발급합니다. 내부 도메인은 사용자 VPC 서브넷에 속한 IP 주소를 가리킵니다. 고가용성 DB 인스턴스는 장애 조치가 되어 Standby가 새로운 Primary로 변경되더라도 내부 도메인은 변경되지 않습니다. 따라서 특별한 이유가 없으면 응용 프로그램의 접속 정보는 반드시 내부 도메인을 이용해야 합니다.
+DB 인스턴스 생성 시 내부 도메인을 발급합니다. 내부 도메인은 사용자 VPC 서브넷에 속한 IP 주소를 가리킵니다. 고가용성 DB 인스턴스는 장애 조치가 되어 Standby가 새로운 Primary로 변경되더라도 내부 도메인은 변경되지 않습니다. 따라서 특별한 이유가 없으면 응용 프로그램의 접속 정보는 반드시 내부 도메인을 사용해야 합니다.
 
 플로팅 IP를 생성한 경우 외부 도메인을 추가로 발급합니다. 외부 도메인은 플로팅 IP의 주소를 가리킵니다. 외부 도메인 또는 플로팅 IP는 외부에서 접근할 수 있으므로 DB 보안 그룹의 규칙을 적절히 설정하여 DB 인스턴스를 보호해야 합니다.
 
@@ -683,15 +683,15 @@ Read Replica의 백업 설정을 선택합니다. 자세한 설명은 [백업 �
 <a id="promote-read-replica"></a>
 ### 읽기 복제본 승격 { #promote-read-replica }
 
-Primary와의 복제 관계를 해제하고 Read Replica를 독립된 Primary로 전환하는 과정을 승격이라고 합니다. 승격된 Primary는 독립된 DB 인스턴스로서 작동합니다. 승격을 원하는 Read Replica와 Primary 사이에 복제 지연이 존재하는 경우 해당 지연이 해결될 때까지 승격이 이루어지지 않습니다. 한번 승격된 DB 인스턴스는 이전의 복제 관계로 되돌릴 수 없습니다.
+Primary와의 복제 관계를 해제하고 Read Replica를 독립된 Primary로 전환하는 과정을 승격이라고 합니다. 승격된 Primary는 독립된 DB 인스턴스로서 작동합니다. 승격을 원하는 Read Replica와 Primary 사이에 복제 지연이 존재하는 경우 해당 지연이 해결될 때까지 승격이 이루어지지 않습니다. 한 번 승격된 DB 인스턴스는 이전의 복제 관계로 되돌릴 수 없습니다.
 
 > [주의]
-> Primary DB 인스턴스의 상태가 비정상일 경우에는 승격 작업을 진행할 수 없습니다.
+> Primary DB 인스턴스의 상태가 비정상일 경우에는 승격 작업을 수행할 수 없습니다.
 
 <a id="force-promote-read-replicas"></a>
 ### 읽기 복제본 강제 승격 { #force-promote-read-replicas }
 
-Primary의 상태와 관계없이 Read Replica의 현재 시점 데이터를 기반으로 강제 승격을 진행합니다. 복제 지연이 있는 경우 대기 시간을 설정해 지연이 해소될 때까지 대기하게 할 수 있지만 지연 해소 여부와 관계없이 승격을 진행하기 때문에 데이터 유실이 발생할 수 있습니다. 따라서 Read Replica를 긴급하게 서비스에 투입해야 하는 상황이 아니라면 이 기능의 사용은 권장하지 않습니다.  
+Primary의 상태와 관계없이 Read Replica의 현재 시점 데이터를 기반으로 강제 승격합니다. 복제 지연이 있는 경우 대기 시간을 설정해 지연이 해소될 때까지 대기하게 할 수 있지만 지연 해소 여부와 관계없이 승격을 진행하기 때문에 데이터 유실이 발생할 수 있습니다. 따라서 Read Replica를 긴급하게 서비스에 투입해야 하는 상황이 아니라면 이 기능의 사용은 권장하지 않습니다.  
 
 <a id="end-wait-for-replication-delay-during-read-replica-promotionforce-promotion"></a>
 ### 읽기 복제본 승격/강제 승격 중 복제 지연 대기 종료 { #end-wait-for-replication-delay-during-read-replica-promotionforce-promotion }
@@ -773,7 +773,7 @@ Standby에는 장애를 감지하기 위한 프로세스가 존재하여 주기�
 <a id="auto-failover"></a>
 ### 자동 장애 조치 { #auto-failover }
 
-Standby에서 Primary의 상태 체크에 4회 연속 실패할 경우 Primary가 서비스를 제공하지 못한다고 판단하여 자동으로 장애 조치를 수행합니다. 스플릿 브레인 방지를 위해 장애가 발생한 Primary에 할당된 모든 사용자 보안 그룹의 연결을 해제하여 외부의 접속을 차단하며, Standby가 Primary의 역할을 대신합니다. 접속을 위한 내부 가상 IP는 장애가 발생한 Primary에서 Standby로 변경되므로, 응용 프로그램의 변경은 필요하지 않습니다. 장애 조치가 완료되면 장애가 발생한 Primary의 종류는 Failed Over Primary로, Standby의 종류는 Primary로 변경됩니다. 장애 조치 과정에서 장애가 발생한 Primary에 대한 자동 복구가 수행되며, 자동 복구에 성공하는 경우 Failed Over Primary는 다시 Standby로 기능합니다. Failed Over Primary를 복구하거나 재구축하기 전까지 장애 조치가 수행되지 않습니다. 승격된 Primary는 Failed Over Primary의 모든 자동 백업을 승계합니다.
+Standby에서 Primary의 상태 체크에 4회 연속 실패할 경우 Primary가 서비스를 제공하지 못한다고 판단하여 자동으로 장애 조치를 수행합니다. 스플릿 브레인 방지를 위해 장애가 발생한 Primary에 할당된 모든 보안 그룹의 연결을 해제하여 외부의 접속을 차단하며, Standby가 Primary의 역할을 대신합니다. 접속을 위한 내부 가상 IP는 장애가 발생한 Primary에서 Standby로 변경되므로, 응용 프로그램의 변경은 필요하지 않습니다. 장애 조치가 완료되면 장애가 발생한 Primary의 종류는 Failed Over Primary로, Standby의 종류는 Primary로 변경됩니다. 장애 조치 과정에서 장애가 발생한 Primary의 자동 복구가 수행되며, 자동 복구에 성공하는 경우 Failed Over Primary는 다시 Standby로 기능합니다. Failed Over Primary를 복구하거나 재구축하기 전까지 장애 조치가 수행되지 않습니다. 승격된 Primary는 Failed Over Primary의 모든 자동 백업을 승계합니다.
 승격된 Primary에서 신규로 백업이 수행된 시간부터 시점 복원을 할 수 있습니다.
 
 > [참고]
@@ -788,7 +788,7 @@ Standby에서 Primary의 상태 체크에 4회 연속 실패할 경우 Primary�
 <a id="restore-failed-over-master"></a>
 ### 장애 조치된 마스터 복구 { #restore-failed-over-master }
 
-장애 조치 과정에서 데이터의 정합성이 깨지지 않았고, 장애가 발생한 시점부터 복구를 시도하는 시점까지 보관된 트랜잭션 로그(Archived Write Ahead Log)가 유실되지 않았다면 Failed Over Primary와 승격된 Primary를 다시 고가용성 구성으로 복구할 수 있습니다. Failed Over Primary의 데이터베이스 그대로 승격된 Primary와 복제 관계를 다시 설정하므로 데이터의 정합성이 깨졌거나 복구에 필요한 보관된 트랜잭션 로그(Archived Write Ahead Log)가 유실되었다면 복구는 실패합니다. Failed Over Primary 복구에 실패할 경우 재구축으로 다시 고가용성 기능을 활성화할 수 있습니다.
+장애 조치 과정에서 데이터의 정합성이 깨지지 않았고, 장애가 발생한 시점부터 복구를 시도하는 시점까지 보관된 트랜잭션 로그(Archived Write Ahead Log)가 유실되지 않았다면 Failed Over Primary와 승격된 Primary를 다시 고가용성 구성으로 복구할 수 있습니다. Failed Over Primary의 데이터베이스 그대로 승격된 Primary와 복제 관계를 다시 설정하므로 데이터의 정합성이 깨졌거나 복구에 필요한 보관된 트랜잭션 로그가 유실되었다면 복구는 실패합니다. Failed Over Primary 복구에 실패할 경우 재구축으로 다시 고가용성 기능을 활성화할 수 있습니다.
 
 Failed Over Primary를 복구하려면 콘솔에서
 
@@ -843,7 +843,7 @@ Failed Over Primary를 분리하려면 콘솔에서
 > 고가용성 기능은 도메인을 기반으로 하고 있기 때문에 접속을 시도하는 클라이언트가 DNS 서버에 접속할 수 없는 네트워크 환경일 경우 도메인으로 DB 인스턴스에 접속할 수 없고, 장애 조치 발생 시 정상적인 접속이 불가능합니다.
 
 > [주의]
-> Standby와 복제 그룹에 포함된 Read Replica의 복제 지연 값이 1 이상일 경우 복제 지연이 발생한 것으로 간주하며, 이때 수동 장애 조치는 실패합니다. 부하가 적은 시간에 수동 장애 조치를 진행하는 것이 좋습니다. 복제 지연으로 인한 재시작 실패는 이벤트 화면에서 확인할 수 있습니다.
+> Standby와 복제 그룹에 포함된 Read Replica의 복제 지연 값이 1 이상일 경우 복제 지연이 발생한 것으로 간주하며, 이때 수동 장애 조치는 실패합니다. 부하가 적은 시간에 수동 장애 조치를 수행하는 것이 좋습니다. 복제 지연으로 인한 재시작 실패는 이벤트 화면에서 확인할 수 있습니다.
 
 장애 조치를 이용한 재시작 시 다음의 항목을 추가로 선택하여 안정성을 높일 수 있습니다.
 
@@ -933,7 +933,7 @@ pg_dump -h {외부 PostgreSQL 접속 주소} -U {외부 PostgreSQL 사용자 ID}
 <a id="appendix-1"></a>
 ### 부록1. 하이퍼바이저 점검을 위한 DB 인스턴스 마이그레이션 가이드 { #appendix-1 }
 
-NHN Cloud는 주기적으로 DB 인스턴스의 하이퍼바이저 소프트웨어를 업데이트하여 보안과 안정성을 높이고 있습니다.
+NHN Cloud는 주기적으로 DB 인스턴스의 하이퍼바이저 소프트웨어를 업데이트하여 보안과 안정성을 높입니다.
 점검 대상 하이퍼바이저에서 구동 중인 DB 인스턴스는 마이그레이션으로 점검이 완료된 하이퍼바이저로 이동해야 합니다.
 
 DB 인스턴스 마이그레이션은 NHN Cloud 콘솔에서 시작할 수 있습니다.
@@ -942,25 +942,31 @@ DB 구성에 따라 특정 DB 인스턴스를 선택하여 마이그레이션 �
 점검 대상으로 지정된 DB 인스턴스가 있는 프로젝트로 이동합니다.
 
 <a id="appendix-1-1"></a>
-#### 1. 점검 대상 DB 인스턴스를 확인합니다.
+#### 1. 점검 대상 DB 인스턴스 확인
 
-**DB 인스턴스** 탭의 목록에서 점검 대상 DB 인스턴스를 확인합니다. **유지 관리**에서 **필수**를 클릭하거나 **DB 인스턴스 상세**의 **유지 관리** 탭에서 하이퍼바이저 마이그레이션 유지 관리 작업이 있는지 확인할 수 있습니다.
-하이퍼바이저 마이그레이션 유지 관리 작업의 **보기**를 클릭하면 하이퍼바이저 마이그레이션의 자세한 점검 내용을 확인할 수 있습니다.
+이름 옆에 **마이그레이션**이 있는 DB 인스턴스가 점검 대상 인스턴스입니다.
+
+![db-instance-planned-migration](../static/images/20260609/db-instance-planned-migration-ko.png)
+
+**마이그레이션** 위에 마우스 포인터를 올리면 자세한 점검 일정을 확인할 수 있습니다.
+
+![db-instance-planned-migration-popup](../static/images/20260609/db-instance-planned-migration-popup-ko.png)
 
 <a id="appendix-1-2"></a>
-#### 2. 점검 대상 DB 인스턴스에 접속 중인 응용 프로그램을 종료해야 합니다.
+#### 2. 점검 대상 DB 인스턴스에 접속 중인 응용 프로그램 종료
 
 DB에 연결된 서비스에 영향을 주지 않도록 적절한 조치를 취하세요.
-서비스에 영향을 줄 수밖에 없을 때는 NHN Cloud 고객지원으로 문의하면 적합한 조치를 안내해 드립니다.
+서비스에 영향을 줄 수밖에 없을 때는 NHN Cloud 고객지원으로 문의하면 적합한 조치를 안내합니다.
 
 <a id="appendix-1-3"></a>
-#### 3. 점검 대상의 DB 인스턴스 마이그레이션을 적용할 수 있습니다.
+#### 3. 점검 대상 DB 인스턴스의 마이그레이션 적용
 
-마이그레이션을 적용할 DB 인스턴스를 선택한 후 **즉시 적용**을 클릭해 하이퍼바이저 마이그레이션을 바로 적용할 수 있습니다.
-**다음 유지 관리 기간에 적용**을 클릭하면 원하는 유지 관리 기간에 하이퍼바이저 마이그레이션을 적용할 수 있습니다.
+점검 대상 DB 인스턴스를 선택하고 **마이그레이션**을 클릭한 후 DB 인스턴스 마이그레이션 확인을 묻는 창이 나타나면 **확인**을 클릭합니다.
+
+![db-instance-planned-migration-confirm](../static/images/20260609/db-instance-planned-migration-confirm-ko.png)
 
 <a id="appendix-1-4"></a>
-#### 4. DB 인스턴스 마이그레이션이 끝날 때까지 대기합니다.
+#### 4. DB 인스턴스 마이그레이션 완료 대기
 
 DB 인스턴스 상태가 변경되지 않는다면 새로 고침하세요.
 DB 인스턴스를 마이그레이션하는 동안에는 아무런 조작을 할 수 없습니다.
