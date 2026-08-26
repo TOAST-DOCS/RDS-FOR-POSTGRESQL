@@ -126,9 +126,9 @@
 | DB_INSTANCE_47_04       | DB_INSTANCE       | 장애 조치 완료된 DB 인스턴스를 일반 DB 인스턴스로 변경 실패 |
 | DB_INSTANCE_48_01       | DB_INSTANCE       | 고가용성 정상화                             |
 | DB_INSTANCE_49_01       | DB_INSTANCE       | 고가용성 중단                              |
-| DB_INSTANCE_50_00       | DB_INSTANCE       | 예비 마스터 재구축 시작                        |
-| DB_INSTANCE_50_01       | DB_INSTANCE       | 예비 마스터 재구축 완료                        |
-| DB_INSTANCE_50_04       | DB_INSTANCE       | 예비 마스터 재구축 실패                        |
+| DB_INSTANCE_50_00       | DB_INSTANCE       | Standby 재구축 시작                        |
+| DB_INSTANCE_50_01       | DB_INSTANCE       | Standby 재구축 완료                        |
+| DB_INSTANCE_50_04       | DB_INSTANCE       | Standby 재구축 실패                        |
 | DB_INSTANCE_51_01       | DB_INSTANCE       | DB 인스턴스 백업 실패(알려진 원인)                |
 | DB_INSTANCE_52_00       | DB_INSTANCE       | DB 인스턴스 백업 후 백업 파일 내보내기 시작           |
 | DB_INSTANCE_52_01       | DB_INSTANCE       | DB 인스턴스 백업 후 백업 파일 내보내기 완료           |
@@ -161,7 +161,7 @@
 | TENANT_02_04            | TENANT            | RAM 용량 제한	                           |
 | TENANT_03_04            | TENANT            | 개별 볼륨 크기 제한                          |
 | TENANT_04_04            | TENANT            | 프로젝트 전체 볼륨 크기 제한                     |
-| TENANT_05_04            | TENANT            | 읽기 복제본 생성 제한                         |
+| TENANT_05_04            | TENANT            | Read Replica 생성 제한                    |
 | JOB_01_04               | JOB               | Job 실행 실패                            |
 
 <a id="subscribe-to-events"></a>
