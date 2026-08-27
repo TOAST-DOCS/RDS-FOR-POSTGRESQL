@@ -26,7 +26,7 @@ PostgreSQL의 버전 번호는 `X.Y` 형식으로 구성됩니다. NHN Cloud의 
 | PostgreSQL 14.15    | 신규로 생성하거나 Read Replica를 추가할 수 없습니다. |
 | PostgreSQL 14.6     | 신규로 생성하거나 Read Replica를 추가할 수 없습니다. |
 
-!!! warning "주의"
+!!! danger "주의"
     PostgreSQL 14.6, 14.15, 17.2 버전은 최신 버전으로 업그레이드할 것을 [권장](https://www.postgresql.org/support/security/CVE-2025-1094/)합니다.
 
 <a id="perform-version-upgrades"></a>
@@ -65,7 +65,7 @@ Primary DB 인스턴스를 수정해 메이저 버전 업그레이드를 수행�
         - 버전 업그레이드 중에는 Read Replica에 다운타임이 발생합니다.
         - 버전 업그레이드 중 실패하면 복제가 중단된 상태로 유지되며, 재구축 작업으로 복구를 시도할 수 있습니다.
 
-!!! warning "주의"
+!!! danger "주의"
     Primary 외 복제 관계의 DB 인스턴스를 업그레이드하는 단계에서 Primary의 쓰기 부하는 차단되며, 읽기 부하만 처리할 수 있습니다.
     DB 인스턴스 그룹 내 버전 업그레이드가 성공한 DB 인스턴스와 실패한 DB 인스턴스가 함께 존재할 수 있습니다. 실패한 DB 인스턴스는 복제 관계가 중단되며, 재구축 작업으로 복구를 시도할 수 있습니다.
 
