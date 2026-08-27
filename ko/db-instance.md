@@ -589,12 +589,12 @@ RDS for PostgreSQL에서 오브젝트 스토리지로 내보낸 백업 파일을
 
 
 <a id="read-replica"></a>
-## 읽기 복제본 { #read-replica }
+## Read Replica { #read-replica }
 
 읽기 성능을 높이기 위해 읽기 전용으로 사용할 수 있는 Read Replica를 생성할 수 있습니다. Read Replica는 하나의 Primary에 최대 5대까지 생성할 수 있습니다. Read Replica의 Read Replica는 생성할 수 없습니다.
 
 <a id="create-read-replica"></a>
-### 읽기 복제본 생성 { #create-read-replica }
+### Read Replica 생성 { #create-read-replica }
 
 Read Replica를 생성하려면 복제 그룹에 속한 DB 인스턴스에서 생성된 백업 파일이 필요합니다. 백업 파일이 없는 경우 다음 순서에 따라 백업을 수행할 DB 인스턴스를 선택합니다.
 
@@ -614,7 +614,7 @@ Read Replica를 생성하려면 콘솔에서
 
 ![db-instance-list-replica-create](../static/images/20260609/db-instance-list-replica-create-ko.png)
 
-❶ 원본 DB 인스턴스를 선택한 뒤 **읽기 복제본 생성**을 클릭하면 Read Replica를 생성하기 위한 페이지로 이동합니다.
+❶ 원본 DB 인스턴스를 선택한 뒤 **Read Replica 생성**을 클릭하면 Read Replica를 생성하기 위한 페이지로 이동합니다.
 
 다음 설정으로 Read Replica를 생성할 수 있습니다.
 
@@ -628,7 +628,7 @@ Read Replica를 생성할 때 다음 나열된 항목은 원본 DB 인스턴스�
 * 사용자 VPC 서브넷
 
 <a id="create-read-replica-read-replica-region"></a>
-#### 읽기 복제본 리전
+#### Read Replica 리전
 
 Read Replica를 생성할 리전을 선택할 때 리전 피어링을 지원하는 경우 서로 다른 리전에 존재하는 VPC 간 리전 피어링을 연결하면 다른 리전 VPC에 속한 서브넷에 Read Replica를 생성할 수 있습니다. 단, 원본 DB 인스턴스의 리전과 다른 리전을 선택하면 복제 지연이 발생할 수 있으며, DB 버전 업그레이드를 지원하지 않습니다.
 
@@ -681,7 +681,7 @@ Read Replica의 백업 설정을 선택합니다. 자세한 설명은 [백업 �
 삭제 보호 사용 여부를 선택합니다. 자세한 설명은 [삭제 보호](#change-deletion-protection-settings) 항목을 참고합니다.
 
 <a id="promote-read-replica"></a>
-### 읽기 복제본 승격 { #promote-read-replica }
+### Read Replica 승격 { #promote-read-replica }
 
 Primary와의 복제 관계를 해제하고 Read Replica를 독립된 Primary로 전환하는 과정을 승격이라고 합니다. 승격된 Primary는 독립된 DB 인스턴스로서 작동합니다. 승격을 원하는 Read Replica와 Primary 사이에 복제 지연이 존재하는 경우 해당 지연이 해결될 때까지 승격이 이루어지지 않습니다. 한 번 승격된 DB 인스턴스는 이전의 복제 관계로 되돌릴 수 없습니다.
 
@@ -689,14 +689,14 @@ Primary와의 복제 관계를 해제하고 Read Replica를 독립된 Primary로
     Primary DB 인스턴스의 상태가 비정상일 경우에는 승격 작업을 수행할 수 없습니다.
 
 <a id="force-promote-read-replicas"></a>
-### 읽기 복제본 강제 승격 { #force-promote-read-replicas }
+### Read Replica 강제 승격 { #force-promote-read-replicas }
 
 Primary의 상태와 관계없이 Read Replica의 현재 시점 데이터를 기반으로 강제 승격합니다. 복제 지연이 있는 경우 대기 시간을 설정해 지연이 해소될 때까지 대기하게 할 수 있지만 지연 해소 여부와 관계없이 승격을 진행하기 때문에 데이터 유실이 발생할 수 있습니다. 따라서 Read Replica를 긴급하게 서비스에 투입해야 하는 상황이 아니라면 이 기능의 사용은 권장하지 않습니다.  
 
 <a id="end-wait-for-replication-delay-during-read-replica-promotionforce-promotion"></a>
-### 읽기 복제본 승격/강제 승격 중 복제 지연 대기 종료 { #end-wait-for-replication-delay-during-read-replica-promotionforce-promotion }
+### Read Replica 승격/강제 승격 중 복제 지연 대기 종료 { #end-wait-for-replication-delay-during-read-replica-promotionforce-promotion }
 
-읽기 복제본 승격 혹은 강제 승격 중에 복제 지연이 해소될 때까지 대기하는 경우 대기 작업을 종료하려면 콘솔에서
+Read Replica 승격 또는 강제 승격 중에 복제 지연이 해소될 때까지 대기하는 경우 대기 작업을 종료하려면 콘솔에서
 
 ![db-instance-list-stop-wait-replication-lag](../static/images/20260609/db-instance-list-stop-wait-replication-lag-ko.png)
 
@@ -704,14 +704,14 @@ Primary의 상태와 관계없이 Read Replica의 현재 시점 데이터를 기
 ❷ **확인**을 클릭해 대기 작업을 종료합니다.
 
 <a id="stop-replication-of-read-replicas"></a>
-### 읽기 복제본의 복제 중단 { #stop-replication-of-read-replicas }
+### Read Replica의 복제 중단 { #stop-replication-of-read-replicas }
 
 Read Replica는 여러 이유로 복제가 중단될 수 있습니다. Read Replica의 상태가 `복제 중단`인 경우 빠르게 원인을 확인하여 정상화해야 합니다. `복제 중단` 상태가 장시간 지속될 경우 복제 지연이 늘어납니다. 정상화에 필요한 WAL 로그가 없는 경우 Read Replica를 재구축해야 합니다.
 
 <a id="rebuild-read-replica"></a>
-### 읽기 복제본의 재구축 { #rebuild-read-replica }
+### Read Replica의 재구축 { #rebuild-read-replica }
 
-Read Replica의 복제 문제를 해결할 수 없는 경우 재구축으로 정상 상태로 복원할 수 있습니다. 이 과정에서 Read Replica의 모든 데이터베이스를 삭제하고, Primary 데이터베이스를 기반으로 새롭게 재구축합니다. 재구축하는 동안 Read Replica는 사용할 수 없습니다. Read Replica를 재구축하려면 복제 그룹에 속한 DB 인스턴스에서 생성된 백업 파일이 필요합니다. 백업 파일이 없는 경우 동작 및 주의 사항은 [읽기 복제본 생성](#create-read-replica) 항목을 참고합니다.
+Read Replica의 복제 문제를 해결할 수 없는 경우 재구축으로 정상 상태로 복원할 수 있습니다. 이 과정에서 Read Replica의 모든 데이터베이스를 삭제하고, Primary 데이터베이스를 기반으로 새롭게 재구축합니다. 재구축하는 동안 Read Replica는 사용할 수 없습니다. Read Replica를 재구축하려면 복제 그룹에 속한 DB 인스턴스에서 생성된 백업 파일이 필요합니다. 백업 파일이 없는 경우 동작 및 주의 사항은 [Read Replica 생성](#create-read-replica) 항목을 참고합니다.
 
 !!! tip "알아두기"
     재구축 후에도 접속 정보(도메인, IP)는 변경되지 않습니다.
@@ -780,13 +780,13 @@ Standby에서 Primary의 상태 체크에 4회 연속 실패할 경우 Primary�
     고가용성 기능은 도메인을 기반으로 하고 있기 때문에 접속을 시도하는 클라이언트가 DNS 서버에 접속할 수 없는 네트워크 환경일 경우 도메인으로 DB 인스턴스에 접속할 수 없고, 장애 조치 발생 시 정상적인 접속이 불가능합니다.
     내부 가상 IP가 Standby에서 Primary로 변경되는 과정에서 일시적으로 접속이 중단될 수 있습니다.
 
-<a id="failed-over-master"></a>
-### 장애 조치된 마스터 { #failed-over-master }
+<a id="failed-over-primary"></a>
+### Failed Over Primary { #failed-over-primary }
 
 장애가 발생하여 장애 조치가 된 Primary를 Failed Over Primary라고 합니다. Failed Over Primary의 자동 백업은 수행되지 않으며, Failed Over Primary 복구, 재구축, 분리, 삭제를 제외한 다른 모든 기능은 수행할 수 없습니다.
 
-<a id="restore-failed-over-master"></a>
-### 장애 조치된 마스터 복구 { #restore-failed-over-master }
+<a id="restore-failed-over-primary"></a>
+### Failed Over Primary 복구 { #restore-failed-over-primary }
 
 장애 조치 과정에서 데이터의 정합성이 깨지지 않았고, 장애가 발생한 시점부터 복구를 시도하는 시점까지 보관된 트랜잭션 로그(Archived Write Ahead Log)가 유실되지 않았다면 Failed Over Primary와 승격된 Primary를 다시 고가용성 구성으로 복구할 수 있습니다. Failed Over Primary의 데이터베이스 그대로 승격된 Primary와 복제 관계를 다시 설정하므로 데이터의 정합성이 깨졌거나 복구에 필요한 보관된 트랜잭션 로그가 유실되었다면 복구는 실패합니다. Failed Over Primary 복구에 실패할 경우 재구축으로 다시 고가용성 기능을 활성화할 수 있습니다.
 
@@ -794,10 +794,10 @@ Failed Over Primary를 복구하려면 콘솔에서
 
 ![db-instance-ha-failover-repair](../static/images/20260609/db-instance-ha-failover-repair-ko.png)
 
-❶ 복구를 원하는 Failed Over Primary를 선택한 후 드롭다운 메뉴에서 **장애 조치된 마스터 복구** 메뉴를 클릭합니다.
+❶ 복구를 원하는 Failed Over Primary를 선택한 후 드롭다운 메뉴에서 **Failed Over Primary 복구** 메뉴를 클릭합니다.
 
-<a id="rebuild-failed-over-master"></a>
-### 장애 조치된 마스터 재구축 { #rebuild-failed-over-master }
+<a id="rebuild-failed-over-primary"></a>
+### Failed Over Primary 재구축 { #rebuild-failed-over-primary }
 
 Failed Over Primary 복구에 실패할 경우 재구축을 이용해 다시 고가용성 기능을 활성화할 수 있습니다. 재구축은 복구와 달리 Failed Over Primary의 데이터베이스를 모두 제거하고, 승격된 Primary의 데이터베이스를 토대로 재구축합니다. Failed Over Primary를 재구축하려면 복제 그룹에 속한 DB 인스턴스 중 백업 파일 및 보관된 트랜잭션 로그(Archived Write Ahead Log)가 필요합니다. 백업 파일이 없는 경우 다음 순서에 따라 백업을 수행할 DB 인스턴스를 선택합니다.
 
@@ -814,10 +814,10 @@ Failed Over Primary를 재구축하려면 콘솔에서
 
 ![db-instance-ha-failover-rebuild](../static/images/20260609/db-instance-ha-failover-rebuild-ko.png)
 
-❶ 재구축을 원하는 Failed Over Primary를 선택한 후 드롭다운 메뉴에서 **장애 조치된 마스터 재구축** 메뉴를 클릭합니다.
+❶ 재구축을 원하는 Failed Over Primary를 선택한 후 드롭다운 메뉴에서 **Failed Over Primary 재구축** 메뉴를 클릭합니다.
 
-<a id="separate-failed-over-master"></a>
-### 장애 조치된 마스터 분리 { #separate-failed-over-master }
+<a id="separate-failed-over-primary"></a>
+### Failed Over Primary 분리 { #separate-failed-over-primary }
 
 Failed Over Primary 복구에 실패하여 데이터 보정이 필요할 경우 Failed Over Primary를 분리하여 고가용성 기능을 비활성화할 수 있습니다. 분리된 Primary와 승격된 Primary 간의 복제 관계가 끊어지며 각각 일반 DB 인스턴스로 동작합니다. 분리된 이후에는 다시 원래 구성으로 복구할 수 없습니다.
 
@@ -825,7 +825,7 @@ Failed Over Primary를 분리하려면 콘솔에서
 
 ![db-instance-ha-failover-split](../static/images/20260609/db-instance-ha-failover-split-ko.png)
 
-❶ 분리를 원하는 Failed Over Primary를 선택한 후 드롭다운 메뉴에서 **장애 조치된 마스터 분리** 메뉴를 클릭합니다.
+❶ 분리를 원하는 Failed Over Primary를 선택한 후 드롭다운 메뉴에서 **Failed Over Primary 분리** 메뉴를 클릭합니다.
 
 <a id="manual-failover"></a>
 ### 수동 장애 조치 { #manual-failover }
@@ -877,8 +877,8 @@ Standby에 변경 사항을 먼저 적용한 뒤 그 추이를 관찰하거나, 
 
 일시적인 작업으로 인한 연결 중단 또는 대량의 부하가 예상되는 상황에서 일시적으로 고가용성 기능을 중지할 수 있습니다. 고가용성 기능이 일시 중지되면 장애를 감지하지 않으므로 장애 조치를 수행하지 않습니다. 고가용성 기능이 일시 중지된 상태에서 재시작이 필요한 작업을 수행해도 일시 중지된 고가용성 기능이 재개되지 않습니다. 고가용성 기능이 일시 중지되어도 데이터 복제는 정상적으로 이루어지지만, 장애가 감지되지 않기 때문에 장시간 일시 중지 상태로 유지하는 것을 권장하지 않습니다.
 
-<a id="rebuild-candidate-master"></a>
-### Standby 재구축 { #rebuild-candidate-master }
+<a id="rebuild-standby"></a>
+### Standby 재구축 { #rebuild-standby }
 
 네트워크의 단절, 다른 Primary로부터의 복제 설정과 같은 다양한 원인으로 Standby 복제가 중단될 수 있습니다. 복제 중단 상태의 Standby는 자동 장애 조치가 실행되지 않습니다. Standby의 복제 중단을 해결하려면 Standby를 재구축해야 합니다. Standby 재구축 시에는 Standby의 데이터베이스를 모두 제거하며, Primary의 데이터베이스를 토대로 재구축합니다. 이 과정에서 재구축에 필요한 백업 파일이 Primary 데이터베이스에 존재하지 않을 경우 Primary에서 백업이 수행되며, 백업으로 인한 성능 저하가 발생할 수 있습니다.
 
