@@ -3,7 +3,7 @@ categories: [RDS_POSTGRES_ALPHA, RDS_POSTGRES_BETA, RDS_POSTGRES]
 ---
 - messageId: pg.error.10608
   messageType: ERROR
-  text: "CIDR 형식 혹은 IP 주소와 함께 넷마스크를 입력하세요."
+  text: "CIDR 형식 또는 IP 주소와 함께 넷마스크를 입력하세요."
 
 - messageId: pg.error.10609
   messageType: ERROR
