@@ -28,7 +28,7 @@ You can use the following versions.
 | PostgreSQL 14.15    | Creation and Read Replicas unsupported. |
 | PostgreSQL 14.6     | Creation and read replicas unsupported |
 
-!!! warning "Caution"
+!!! danger "Caution"
     We [recommend](https://www.postgresql.org/support/security/CVE-2025-1094/) that you upgrade PostgreSQL versions 14.6, 14.15, and 17.2 to the latest version.
 
 <a id="perform-version-upgrades"></a>
@@ -68,8 +68,8 @@ You can perform a major version upgrade by modifying the Primary DB instance. Th
         - Downtime occurs on Read Replicas during the version upgrade.
         - If the version upgrade fails, the replication will remain discontinued, and you can attempt repairs through a rebuild operation.
 
-!!! warning "Caution"
-    During the step of upgrading DB instances in a replication relationship other than the Primary, write operations on the Primary are blocked, and only read operations can be processed.
+!!! danger "Caution"
+    During the step of upgrading DB instances in a non-Primary replication relationship, write traffic to the Primary is blocked, and only read traffic can be processed.
     DB instances that have successfully upgraded their version within a DB instance group can coexist with DB instances that have failed. In the case of a failed DB instance, the replication relationship is broken, and you can attempt to recover by running a rebuild operation.
 
 <a id="perform-version-upgrades-miner-version-upgrade"></a>
