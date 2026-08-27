@@ -793,7 +793,7 @@ If data integrity was not compromised during the failover process, and the archi
 
 To restore a Failed Over Primary, in the console
 
-![db-instance-ha-failover-repair](../static/images/20260609/db-instance-ha-failover-repair-ko.png)
+![db-instance-ha-failover-repair](../static/images/20260609/db-instance-ha-failover-repair-en.png)
 
 ❶ Select the Failed Over Primary that you want to restore, and then click the **Restore Failed Over Primary** menu from the drop-down menu.
 
@@ -813,7 +813,7 @@ If no DB instance meets the criteria, the request to rebuild the Failed Over Pri
 
 To rebuild a Failed Over Primary, in the console,
 
-![db-instance-ha-failover-rebuild](../static/images/20260609/db-instance-ha-failover-rebuild-ko.png)
+![db-instance-ha-failover-rebuild](../static/images/20260609/db-instance-ha-failover-rebuild-en.png)
 
 ❶ Select the Failed Over Primary that you want to rebuild, and then click **Rebuild Failed Over Primary** from the drop-down menu.
 
@@ -824,7 +824,7 @@ If the Failed Over Primary recovery fails and data correction is required, you c
 
 To detach the Failed Over Primary, in the console:
 
-![db-instance-ha-failover-split](../static/images/20260609/db-instance-ha-failover-split-ko.png)
+![db-instance-ha-failover-split](../static/images/20260609/db-instance-ha-failover-split-en.png)
 
 ❶ Select the Failed Over Primary you want to detach, and then click the **Detach Failed Over Primary** menu from the drop-down menu.
 
