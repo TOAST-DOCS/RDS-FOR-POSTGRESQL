@@ -27,8 +27,8 @@ You can create a DB instance through the settings below:
 
 NHN Cloud has divided the entire system into multiple availability areas to prepare for failures caused by physical hardware problems. For each of these availability areas, storage systems, network switches, top and power supplies are all configured separately. Failure within one area of availability does not affect another area of availability, which means increasing availability across the service. If you deploy DB instances across multiple availability areas, you can increase the availability of services. Network communication is possible between DB instances created across multiple availability zones, and there is no network usage charge for this.
 
-> [Caution]
-> You cannot change the availability area of an already created DB instance.
+!!! danger "Caution"
+    You cannot change the availability zone of a DB instance that has already been created.
 
 <a id="db-engine"></a>
 ### DB Engine { #db-engine }
@@ -67,19 +67,19 @@ When you create a DB instance, you must select the appropriate DB instance type 
 
 The type of DB instance that you have already created can be easily changed through the console.
 
-> [Caution]
-> Changing the type of a DB instance that you have already created will shut down the DB instance, resulting in a few minutes of downtime.
+!!! danger "Caution"
+    When the type of an already created DB instance is changed, the DB instance is terminated, resulting in several minutes of downtime.
 
 <a id="data-storage"></a>
 ### Data Storage { #data-storage }
 
 Stores the database's data files in data storage. DB instances support two types of data storage: HDD and SSD. Performance and price vary by data storage type, so you need to choose the right type according to your database workload. Data storage can be created in 20GB to 2TB.
 
-> [Caution]
-> You cannot change the data storage type of an already created DB instance.
+!!! danger "Caution"
+    You cannot change the data storage type of a DB instance that has already been created.
 
-> [Note]
-> To use more than 2TB of data storage, contact NHN Cloud Customer Support.
+!!! tip "Note"
+    To use 2 TB or more of data storage, contact NHN Cloud Customer Support.
 
 The following tasks use the I/O capacity of the data storage, which may degrade the performance of DB instances during the process.
 
@@ -229,10 +229,9 @@ On the **Logs** tab of the DB instance, you can view or download various log fil
 ❷ Click on **Import** to request that the log files of the DB instance be downloaded.
 ❸ When the download is ready, the **Download** button is exposed. Click to download the log.
 
-> [Caution]
-> When **Import** is clicked, the log file is uploaded to the backup storage for approximately 5 minutes and the backup storage capacity is charged to the size of the log file.
-> Click on **Download** to charge Internet traffic as large as the log file.
-
+!!! tip "Note"
+    When you click **Import**, the log file is uploaded to Backup Storage for about 5 minutes, and you will be charged for Backup Storage by the size of the log file.
+    When you click **Download**, you will be charged for internet traffic by the size of the log file.
 
 <a id="database-user"></a>
 ### Database & User { #database-user }
@@ -357,8 +356,8 @@ Password has the following restrictions.
 **Force Delete**
 * Forcibly deletes all owned objects.
 
-> [Caution]
-> Proceed with caution, as recovery is impossible without an existing backup.
+!!! danger "Caution"
+    Proceed with caution, as recovery is impossible without an existing backup.
 
 **Transfer Object Ownership**
 * Transfer all owned objects to the selected user before deletion.
@@ -391,9 +390,8 @@ The status of access control consists of the following values, which change depe
 | APPLIED      | NONE             | Applied                                |
 | -            | -                | Not applicable                         |
 
-> [Caution]
-> If all the targets of the rule that you have added by selecting a specific database and user are deleted, they appear as not applicable state and do not apply to the configuration file.
-
+!!! tip "Note"
+    If all targets of a rule that was added by selecting a specific database and user are deleted, it appears as Not Applicable and is not applied to the configuration file.
 
 <a id="access-control-add-access-control-rules"></a>
 #### Add Access Control Rules
@@ -516,8 +514,8 @@ If you do not use restart with failover, changes are applied sequentially to the
 
 RDS for PostgreSQL provides management features in the console for easy management of databases and users, but also provides a feature to allow users to control them directly. When direct control is enabled, `CREATEDB` and `CREATEROLE` privileges are granted to all DDL users currently created. The same privileges are granted when modifying the privileges of existing users via DDL or when creating new users.
 
-> [Caution]
-> If the privileges managed by RDS are not granted to a directly created user, the user is represented with **CUSTOM** privileges.
+!!! tip "Notice"
+    If users that you directly create are not granted permissions managed by RDS, they are represented by **CUSTOM** permissions.
 
 <a id="delete-db-instance"></a>
 ## Delete DB instance { #delete-db-instance }
@@ -539,8 +537,8 @@ You can use backup to restore data to any point in time. Restore always creates 
 
 If WAL logs are excessively generated due to rapid load and the data storage is low in capacity, you can delete the WAL logs using the capacity acquisition feature on the console. When you select Free Capacity from the console, a pop-up window appears to select WAL log for the DB instance. Select the WAL log and click **Confirm** to delete all WAL logs created before the selected item. The capacity acquisition feature is to temporarily secure capacity. If you continue to run out of capacity, you must scale up your data storage to meet the service load.
 
-> [Caution]
-> Depending on the deleted WAL log, it may not be restored to a certain point in time.
+!!! tip "Note"
+    Depending on the deleted WAL logs, restoration to a specific point in time may not be possible.
 
 <a id="auto-scale-storage"></a>
 ## Auto Scale Storage { #auto-scale-storage }
@@ -606,12 +604,12 @@ To create a Read Replica, you need a backup file created from a DB instance in t
 
 If no DB instance meets the criteria, the request to create a Read Replica fails.
 
-> [Caution]
-> Read Replica creation time may increase proportionally to the size of the database on the Primary.
-> For DB instances that are backed up, there might be a drop in storage I/O performance during the Read Replica creation process.
+!!! danger "Caution"
+    Read Replica creation time may increase in proportion to the size of the Primary database.
+    For DB instances that are backed up, there might be a drop in storage I/O performance during the Read Replica creation process.
 
-> [Note]
-> You may be charged for Backup Storage by the size of the Data Storage required during the Read Replica creation process.
+!!! tip "Note"
+    You may be charged for Backup Storage by the size of the Data Storage required for the Read Replica creation process.
 
 To create a Read Replica, in the console
 
@@ -634,8 +632,8 @@ When creating a Read Replica, the following items cannot be changed because they
 #### Read Replica Region
 When selecting a region in which to create a Read Replica, if region peering is supported, you can create a Read Replica on a subnet that belongs to a VPC in a different region by connecting a region peering between VPCs that exist in different regions. However, if you select a region different from that of the source DB instance, replication lag may occur, and DB version upgrades are not supported.
 
-> [Caution]
-> Even if region peering is connected, if the route settings are incorrect, Read Replica creation might fail or replication might stop.
+!!! danger "Caution"
+    Even if region peering is connected, if the route settings are incorrect, Read Replica creation might fail or replication might stop.
 
 <a id="create-read-replica-availability-zone"></a>
 #### Availability Zone
@@ -687,8 +685,8 @@ Select whether to enable erasure protection. For a detailed description, see [De
 
 The process of breaking the replication relationship with Primary and converting a Read Replica into a standalone Primary is called promotion. A promoted Primary operates as a standalone DB instance. If replication latency exists between the Read Replica to promote and Primary, promotion does not occur until the latency is resolved. A DB instance that has been promoted cannot be reverted to its previous replication relationship.
 
-> [Caution]
-> If the Primary DB instance is in an abnormal state, the promotion cannot be performed.
+!!! danger "Caution"
+    If the Primary DB instance is in an abnormal state, the promotion cannot be performed.
 
 <a id="force-promote-read-replicas"></a>
 ### Force Promote Read Replicas { #force-promote-read-replicas }
@@ -715,8 +713,8 @@ Replication on a Read Replica may stop for various reasons. If the status of a R
 
 If a replication issue with a Read Replica cannot be resolved, you can restore it to a normal state by rebuilding. During this process, all databases in the Read Replica are removed and rebuilt based on the Primary database. The Read Replica is unavailable during the rebuild. To rebuild a Read Replica, you need a backup file created from a DB instance in the replication group. If you do not have a backup file, refer to the [Create a read replica](#create-read-replica) section for behavior and notes.
 
-> [Note]
-Access information (domain, IP) does not change after rebuilding.
+!!! tip "Note"
+    Even after a rebuild, the access information (domain, IP) remains unchanged.
 
 <a id="restart-db-instances"></a>
 ## Restart DB Instances { #restart-db-instances }
@@ -734,8 +732,8 @@ To restart a DB instance, use console
 
 If PostgreSQL of a DB instance is not working properly, you can force a restart. For a forced restart, issue a SIGTERM command to PostgreSQL and wait 10 minutes for normal shutdown. After PostgreSQL shuts down successfully in 10 minutes, reboot the virtual machine afterward. If it does not shut down normally in 10 minutes, force a reboot of the virtual machine. If a virtual machine is forced to reboot, some work-in-progress transactions may be lost and the data volume may become corrupted, making it impossible to recover. After a forced restart, the state of the DB instance might not return to the enabled state. Please contact the customer support if such situation occurs.
 
-> [Caution]
-> This feature should be avoided to use, except in urgent and unavoidable circumstances, as data may be lost or data volume may be compromised.
+!!! danger "Caution"
+    Because there is a possibility of data loss or data volume corruption, this feature should not be used except in urgent and unavoidable circumstances.
 
 To force a DB instance restart from console
 
@@ -762,16 +760,16 @@ Enabling deletion protection secures DB instances from accidental deletion. You 
 
 High-availability DB instances increase availability and data durability, providing a fault-tolerant database. High availability DB instances consist of a Primary and a Standby, and are created in different availability zones. The Standby is the DB instance in case of failure and is not normally available. For high-availability DB instances, backups are performed on the Standby.
 
-> [Note]
-> For high availability DB instances, if you configure force replication from another DB instance or from an external PostgreSQL primary using a PostgreSQL query statement, high availability and some features will not work properly.
+!!! tip "Tip"
+    For high availability DB instances, if you force replication from another DB instance or from an external PostgreSQL primary using a PostgreSQL query statement, high availability and some features will not work properly.
 
 <a id="failure-detection"></a>
 ### Failure Detection { #failure-detection }
 
 The Standby has a process for detecting failures, which periodically detects the health of the Primary. These detection cycles are called ping intervals, and failover occurs if four consecutive health checks fail. The shorter the ping interval, the more sensitive it is to failures, and the longer the ping interval, the more insensitive it is to failures. It is important to set the appropriate ping interval for your service load.
 
-> [Note]
-> Note that if the Primary's data storage usage fills up, the high-availability watchdog process detects the failure and initiates failover.
+!!! tip "Note"
+    Note that if the Primary's data storage usage fills up, the high-availability watchdog process detects the failure and initiates failover.
 
 <a id="auto-failover"></a>
 ### Auto Failover { #auto-failover }
@@ -779,9 +777,9 @@ The Standby has a process for detecting failures, which periodically detects the
 If the Standby fails four consecutive health checks on the Primary, it determines that the Primary is unable to provide service and automatically fails over. To prevent split-brain, all security groups assigned to the failed Primary are unlinked to prevent external access, and the Standby assumes the role of the Primary. The internal virtual IP for connectivity is changed from the failed Primary to the Standby, so no changes to the application are required. When failover is complete, the failed Primary's type is changed to Failed Over Primary and the Standby's type is changed to Primary. During the failover process, automatic recovery occurs for the failed Primary, and if the automatic recovery is successful, the Failed Over Primary functions as a Standby again. Failover does not occur until the Failed Over Primary is recovered or rebuilt. The promoted Primary inherits all automatic backups from the Failed Over Primary.
 You can restore a point in time from the time a new backup was taken on the promoted Primary.
 
-> [Note]
-> Since the high availability feature is based on domains, if the network environment is such that the client attempting to connect cannot reach the DNS server, the DB instance cannot be accessed through the domain, and normal access is not possible in the event of a failover.
-> Access may be temporarily interrupted while the internal virtual IP is changing from Standby to Primary.
+!!! danger "Caution"
+    Since the high availability feature is based on domains, if the network environment is such that the client attempting to connect cannot reach the DNS server, the DB instance cannot be accessed through the domain, and normal access is not possible in the event of a failover.
+    Access may be temporarily interrupted while the internal virtual IP is changing from Standby to Primary.
 
 <a id="failed-over-master"></a>
 ### Failed Over Master { #failed-over-master }
@@ -809,9 +807,9 @@ If recovery of a Failed Over Primary fails, you can use rebuild to enable high a
 
 If no DB instance meets the criteria, the request to rebuild the Failed Over Primary fails.
 
-> [Caution]
-> The time to rebuild a Failed Over Primary may increase proportionally to the size of the database on the Primary.
-> For DB instances that are backed up, there might be a drop in storage I/O performance during the rebuilding of the Failed Over Primary.
+!!! danger "Caution"
+    The time to rebuild a Failed Over Primary may increase proportionally to the size of the database on the Primary.
+    For DB instances that are backed up, there might be a drop in storage I/O performance during the rebuilding of the Failed Over Primary.
 
 To rebuild the Failed Over Primary in the console
 
@@ -842,11 +840,11 @@ For highly available DB instances, when you perform an operation that involves a
 
 When you restart with failover, the Standby is restarted first. Failover then promotes the Standby to Primary, and the existing Primary acts as the Standby. Upon promotion, the internal virtual IP for connectivity changes from the Primary to the Standby, so no changes to the application are required. The promoted Primary inherits all automatic backups from the old Primary.
 
-> [Note]
-> Since the high availability feature is based on domains, if the network environment is such that the client attempting to connect cannot reach the DNS server, the DB instance cannot be accessed through the domain, and normal access is not possible in the event of a failover.
+!!! danger "Caution"
+    Since the high availability feature is based on domains, if the network environment is such that the client attempting to connect cannot reach the DNS server, the DB instance cannot be accessed through the domain, and normal access is not possible in the event of a failover.
 
-> [Caution]
-> If the replication delay value of the Standby and the Read Replicas included in the replication group is 1 or more, replication delay is considered to have occurred, and manual failover fails. We recommend that you perform manual failover during off-peak hours. Restart failures due to replication delay can be checked through the Events screen.
+!!! tip "Note"
+    If the replication delay value of the Standby and the Read Replicas included in the replication group is 1 or more, replication delay is considered to have occurred, and manual failover fails. We recommend that you perform manual failover during off-peak hours. Restart failures due to replication delay can be checked on the Events screen.
 
 When restarting with failover, you can select the following additional items to increase reliability.
 
@@ -862,8 +860,8 @@ You can either apply the changes to the Standby first and observe how they evolv
 
 ![db-instance-ha-wait-manual-failover](../static/images/20260609/db-instance-ha-wait-manual-failover-en.png)
 
-> [Caution]
-> There is no automatic failover while waiting for failover.
+!!! danger "Caution"
+    There is no automatic failover while waiting for failover.
 
 <a id="manual-failover-waiting-for-replication-delays-to-resolve"></a>
 #### Waiting for replication delays to resolve
