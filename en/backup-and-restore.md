@@ -76,8 +76,8 @@ Even when performing manual backups, auto backups can be performed if necessary 
 
 Auto backup name is given in the format of `{DB instance name} yyyy-MM-dd-HH-mm`.
 
-> [Caution]
-> Backups may not be performed in situations such as previous backups not ending.
+!!! danger "Caution"
+    Backups may not be performed in some situations, such as when a previous backup fails to terminate.
 
 <a id="backup-storage-and-pricing"></a>
 ### Backup Storage and Pricing { #backup-storage-and-pricing }
@@ -116,8 +116,8 @@ You can export backup files stored in internal backup storage to user object sto
 
 ❷ Alternatively, on the **Backup** tab, select the backup file you want to export and click **Export Backup to Object Storage**.
 
-> [Note]
-> For manual backup, you cannot export a backup if the original DB instance from which the backup was taken has been deleted.
+!!! tip "Note"
+    For manual backups, if the source DB instance that performed the backup was deleted, you cannot export the backup.
 
 <a id="snapshot-backup"></a>
 ## Snapshot Backup { #snapshot-backup }
@@ -144,8 +144,8 @@ Unlike the existing backup method, snapshot backup separately charges for the co
 
 You can use backup to restore data to any point in time. Restoration always creates a new DB instance and restoration cannot be performed on an existing DB instance. You can only restore to the same DB engine version as the original DB instance from which you performed the backup. It supports backup restore, which restores to the point in time when the backup was created, and Point-in-Time Restore, which restores to a specific point in time that you want.
 
-> [Caution]
-> The restoration might fail if the data storage size of the DB instance you want to restore is smaller than that of the original DB instance from which you performed the backup or if you use a parameter group different from the parameter group of the original DB instance.
+!!! danger "Caution"
+    Restoration might fail if the data storage size of the DB instance that you want to restore is smaller than the data storage size of the source DB instance that you backed up, or if you use a different parameter group than the parameter group of the source DB instance.
 
 <a id="backup-restore"></a>
 ### Backup Restore { #backup-restore }
