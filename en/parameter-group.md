@@ -35,8 +35,8 @@ Once resetting the parameter group, it changes the values of all the parameters 
 
 When you create or modify DB instance, you can select a parameter group to apply to DB instance. One parameter group is applied to one DB instance, and one parameter group can be applied to multiple DB instances. If a parameter in a parameter group changes, those changes do not immediately apply to DB instances. If a connected DB instance exists, the parameter group changes to `Need to Apply`. On DB Instances list dashboard, you can select a DB instance connected with a parameter group and click **Apply Parameter Group Changes** to reflect the parameter changes to the DB instance. When changes to the parameter group are applied to all connected DB instances, the parameter group changes to `Applied`.
 
-> [Caution]
-> DB instances are restarted during the application process if the parameters that require restart have changed.
+!!! danger "Caution"
+    If a parameter that requires a restart is changed, the DB instance is restarted during the application process.
 
 <a id="compare-parameter-groups"></a>
 ### Compare Parameter Groups { #compare-parameter-groups }

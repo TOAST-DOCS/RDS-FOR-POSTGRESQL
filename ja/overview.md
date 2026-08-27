@@ -1,3 +1,5 @@
+<!-- machine_translated: true -->
+
 <!-- pre-align:aligned sig=3fd5cf534dc3 -->
 
 <a id="database-rds-for-postgresql-overview"></a>
@@ -16,5 +18,5 @@ RDS for PostgreSQLはPostgreSQLデータベースをクラウド環境で使用�
 * データベースの状態を一目で把握できるサーバーダッシュボードを提供します。
 * サーバーダッシュボードでインスタンス及びデータベースの各種指標をグラフで確認できます。
 
-> [注意]
-> RDS for PostgreSQLはユーザーのCompute & Networkサービスを有効にすると使用できます。
+!!! tip "ヒント"
+    RDS for PostgreSQL は、ユーザーの Compute & Network サービスを有効にした場合にのみ使用できます。

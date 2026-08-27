@@ -1,3 +1,5 @@
+<!-- machine_translated: true -->
+
 <!-- pre-align:aligned sig=3fd5cf534dc3 -->
 
 <a id="database-rds-for-postgresql-overview"></a>
@@ -16,5 +18,5 @@ RDS for PostgreSQL is a service that allows you to use PostgreSQL databases in c
 * Provides a server dashboard that provides a quick, at-a-glance view of the status of your database.
 * Checks various metrics of instances and databases graphically on the server dashboard.
 
-> [Caution]
-> RDS for PostgreSQL is available only when you enable services in Compute and Network.
+!!! tip "Note"
+    RDS for PostgreSQL is available only when you enable the Compute & Network service.
