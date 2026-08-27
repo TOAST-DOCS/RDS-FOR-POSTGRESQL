@@ -19,3 +19,37 @@
         * note, tip, warning, danger 4개 정도만 사용 가능함
 * Preview
     * http://content-agent.cloud.toastoven.net:7700/preview
+
+## 콘솔 메시지 번들링
+
+콘솔 번역 메시지를 YAML(`.md`) 파일로 관리하고, ko/en/ja를 병합해 Excel로 출력한다.
+
+### 빌드
+
+```bash
+npm run build:RDS_POSTGRES_ALPHA   # 단일 카테고리
+npm run build:all                  # 전체 카테고리
+npm run build:all -- -o dist/      # 출력 디렉터리 지정
+```
+
+### 카테고리 추가
+
+`package.json`의 `scripts`에 `build:{카테고리ID}` 항목을 추가한다.
+
+### 메시지 파일
+
+- 경로: `ko/i18n/*.md` (YAML 형식)
+- frontmatter의 `categories`로 빌드 대상 카테고리를 제한할 수 있다. 미지정 시 전체 카테고리에 포함된다.
+
+```yaml
+---
+categories: [RDS_POSTGRES_ALPHA, RDS_POSTGRES_BETA, RDS_POSTGRES]
+---
+- messageId: pg.error.10608
+  messageType: ERROR
+  text: "CIDR 형식 혹은 IP 주소와 함께 넷마스크를 입력하세요."
+```
+
+### 출력
+
+`dist/{파일명}_{카테고리}_{yyyyMMdd}.xlsx`

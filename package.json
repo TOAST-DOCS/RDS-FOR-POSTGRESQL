@@ -1,0 +1,41 @@
+{
+  "name": "rds-for-postgresql",
+  "version": "1.0.0",
+  "description": "콘솔 번역 메시지 번들링",
+  "main": "index.js",
+  "dependencies": {
+    "esbuild": "^0.27.3",
+    "exceljs": "^4.4.0",
+    "fsevents": "^2.3.3",
+    "get-tsconfig": "^4.13.6",
+    "handlebars": "^4.7.8",
+    "js-yaml": "^5.4.1",
+    "minimist": "^1.2.8",
+    "neo-async": "^2.6.2",
+    "resolve-pkg-maps": "^1.0.0",
+    "source-map": "^0.6.1",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3",
+    "uglify-js": "^3.19.3",
+    "undici-types": "^7.16.0",
+    "wordwrap": "^1.0.0"
+  },
+  "scripts": {
+    "build:RDS_POSTGRES_ALPHA": "node scripts/bundle-messages.js",
+    "build:RDS_POSTGRES_BETA": "node scripts/bundle-messages.js",
+    "build:RDS_POSTGRES": "node scripts/bundle-messages.js",
+    "build:all": "node scripts/bundle-messages.js --all"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TOAST-DOCS/RDS-FOR-POSTGRESQL.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/TOAST-DOCS/RDS-FOR-POSTGRESQL/issues"
+  },
+  "homepage": "https://github.com/TOAST-DOCS/RDS-FOR-POSTGRESQL#readme"
+}
