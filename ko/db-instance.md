@@ -696,7 +696,7 @@ Primary의 상태와 관계없이 Read Replica의 현재 시점 데이터를 기
 <a id="end-wait-for-replication-delay-during-read-replica-promotionforce-promotion"></a>
 ### Read Replica 승격/강제 승격 중 복제 지연 대기 종료 { #end-wait-for-replication-delay-during-read-replica-promotionforce-promotion }
 
-Read Replica 승격 혹은 강제 승격 중에 복제 지연이 해소될 때까지 대기하는 경우 대기 작업을 종료하려면 콘솔에서
+Read Replica 승격 또는 강제 승격 중에 복제 지연이 해소될 때까지 대기하는 경우 대기 작업을 종료하려면 콘솔에서
 
 ![db-instance-list-stop-wait-replication-lag](../static/images/20260609/db-instance-list-stop-wait-replication-lag-ko.png)
 
