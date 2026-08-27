@@ -113,7 +113,7 @@ pg_basebackup 설치 방법은 [PostgreSQL 홈페이지](https://www.postgresql.
 
 ❷ 또는 **백업** 탭에서 내보낼 백업 파일을 선택한 뒤 **오브젝트 스토리지로 백업 내보내기**를 클릭합니다.
 
-!!! tip "참고"
+!!! tip "알아두기"
     수동 백업의 경우 백업을 수행한 원본 DB 인스턴스가 삭제되었다면 백업을 내보낼 수 없습니다.
 
 <a id="snapshot-backup"></a>
