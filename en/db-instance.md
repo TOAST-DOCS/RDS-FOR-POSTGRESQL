@@ -514,7 +514,7 @@ If you do not use restart with failover, changes are applied sequentially to the
 
 RDS for PostgreSQL provides management features in the console for easy management of databases and users, but also provides a feature to allow users to control them directly. When direct control is enabled, `CREATEDB` and `CREATEROLE` privileges are granted to all DDL users currently created. The same privileges are granted when modifying the privileges of existing users via DDL or when creating new users.
 
-!!! tip "Notice"
+!!! tip "Note"
     If users that you directly create are not granted permissions managed by RDS, they are represented by **CUSTOM** permissions.
 
 <a id="delete-db-instance"></a>
