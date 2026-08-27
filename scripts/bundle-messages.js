@@ -30,13 +30,14 @@ function loadCategoryIds() {
 
 function parseFile(filePath) {
   const raw = fs.readFileSync(filePath, "utf-8");
-  const fmMatch = raw.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
+  const stripped = raw.replace(/^(\s*<!--[\s\S]*?-->\s*)+/, "");
+  const fmMatch = stripped.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
   if (fmMatch) {
     const meta = yaml.load(fmMatch[1]) || {};
     const items = yaml.load(fmMatch[2]) || [];
     return { categories: meta.categories || [], items };
   }
-  return { categories: [], items: yaml.load(raw) || [] };
+  return { categories: [], items: yaml.load(stripped) || [] };
 }
 
 function loadMessages(lang, filename) {
