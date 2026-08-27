@@ -69,8 +69,9 @@ You can perform a major version upgrade by modifying the Primary DB instance. Th
         - If the version upgrade fails, the replication will remain discontinued, and you can attempt repairs through a rebuild operation.
 
 !!! danger "Caution"
-    During the step of upgrading DB instances in a non-Primary replication relationship, write traffic to the Primary is blocked, and only read traffic can be processed.
-    DB instances that have successfully upgraded their version within a DB instance group can coexist with DB instances that have failed. In the case of a failed DB instance, the replication relationship is broken, and you can attempt to recover by running a rebuild operation.
+    During the step of upgrading DB instances in non-primary replication relationships, write load on the Primary is blocked, and only read load can be processed.
+    DB instances that have successfully upgraded their version within a DB instance group can coexist with DB instances that have failed.
+    In the case of a failed DB instance, the replication relationship is broken, and you can attempt to recover by running a rebuild operation.
 
 <a id="perform-version-upgrades-miner-version-upgrade"></a>
 #### Miner Version Upgrade
