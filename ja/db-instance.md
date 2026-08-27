@@ -587,9 +587,9 @@ DBインスタンスに接続されたパラメータグループの設定が変
 読み取りパフォーマンスを向上させるために、読み取り専用として使用できるRead Replicaを作成できます。Read Replicaは、1つのPrimaryに対して最大5台まで作成できます。Read ReplicaのRead Replicaは作成することはできません。
 
 <a id="create-read-replica"></a>
-### リードレプリカ作成 { #create-read-replica }
+### Read Replica作成 { #create-read-replica }
 
-リードレプリカを作成するには、レプリケーショングループに属するDBインスタンスで作成されたバックアップファイルが必要です。バックアップファイルがない場合は、次の手順に従って、バックアップを実行するDBインスタンスを選択します。
+Read Replicaを作成するには、レプリケーショングループに属するDBインスタンスで作成されたバックアップファイルが必要です。バックアップファイルがない場合は、次の手順に従って、バックアップを実行するDBインスタンスを選択します。
 
 ❶ 自動バックアップを設定した Read Replica
 ❷ 自動バックアップを設定した Primary
@@ -603,18 +603,18 @@ DBインスタンスに接続されたパラメータグループの設定が変
 !!! tip "ヒント"
     Read Replica の作成プロセスに必要なデータストレージのサイズ分、バックアップストレージの料金が発生する場合があります。
 
-リードレプリカを作成するには、コンソールで
+Read Replicaを作成するには、コンソールで
 
 ![db-instance-list-replica-create](../static/images/20260609/db-instance-list-replica-create-ja.png)
 
-❶ 元のDBインスタンスを選択した後、**[リードレプリカ作成]** をクリックすると、リードレプリカを作成するためのページに移動します。
+❶ 元のDBインスタンスを選択した後、**[Read Replica作成]** をクリックすると、Read Replicaを作成するためのページに移動します。
 
 次の設定でRead Replicaを作成できます。
 
 <a id="create-read-replica-items-unavailable-to-change"></a>
 #### 変更不可項目
 
-リードレプリカを作成する際、次に挙げる項目は元のDBインスタンスの設定に従うため、変更することはできません。
+Read Replicaを作成する際、次に挙げる項目は元のDBインスタンスの設定に従うため、変更することはできません。
 
 * DBエンジン
 * データストレージの種類
@@ -702,7 +702,7 @@ Read Replica の昇格または強制昇格中に、レプリケーション遅�
 Read Replica は、さまざまな理由でレプリケーションが中断される可能性があります。Read Replica のステータスが `복제 중단` の場合、速やかに原因を確認し、正常化する必要があります。`복제 중단` 状態が長時間続く場合、レプリケーションの遅延が増加します。正常化に必要な WAL ログが存在しない場合は、Read Replica を再構築する必要があります。
 
 <a id="rebuild-read-replica"></a>
-### リードレプリカ再構築 { #rebuild-read-replica }
+### Read Replica再構築 { #rebuild-read-replica }
 
 Read Replicaのレプリケーション問題を解決できない場合、再構築により正常な状態に復元できます。このプロセスでは、Read Replicaのすべてのデータベースを削除し、Primaryデータベースをベースに新たに再構築します。再構築中、Read Replicaは使用できません。Read Replicaを再構築するには、レプリケーショングループに属するDBインスタンスから作成されたバックアップファイルが必要です。バックアップファイルがない場合の動作および注意事項については、「[Read Replica 作成](#create-read-replica)」を参照してください。
 
@@ -785,7 +785,7 @@ StandbyがPrimaryの状態チェックに4回連続して失敗した場合、Pr
 
 Failed Over Primary を復旧するには、コンソールで
 
-![db-instance-ha-failover-repair](../static/images/20260609/db-instance-ha-failover-repair-ko.png)
+![db-instance-ha-failover-repair](../static/images/20260609/db-instance-ha-failover-repair-ja.png)
 
 ❶ 復旧する Failed Over Primary を選択した後、ドロップダウンメニューで **[Failed Over Primary 復旧]** メニューをクリックします。
 
@@ -805,7 +805,7 @@ Failed Over Primary の復旧に失敗した場合、再構築を使用して高
 
 Failed Over Primary を再構築するには、コンソールで
 
-![db-instance-ha-failover-rebuild](../static/images/20260609/db-instance-ha-failover-rebuild-ko.png)
+![db-instance-ha-failover-rebuild](../static/images/20260609/db-instance-ha-failover-rebuild-ja.png)
 
 ❶ 再構築する Failed Over Primary を選択し、ドロップダウンメニューで **[Failed Over Primary 再構築]** をクリックします。
 
@@ -816,7 +816,7 @@ Failed Over Primary の復旧に失敗し、データ補正が必要な場合は
 
 Failed Over Primary を分離するには、コンソールで
 
-![db-instance-ha-failover-split](../static/images/20260609/db-instance-ha-failover-split-ko.png)
+![db-instance-ha-failover-split](../static/images/20260609/db-instance-ha-failover-split-ja.png)
 
 ❶ 分離する Failed Over Primary を選択し、ドロップダウンメニューから **[Failed Over Primary の分離]** を選択します。
 
