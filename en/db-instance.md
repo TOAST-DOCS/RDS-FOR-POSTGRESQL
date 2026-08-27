@@ -514,7 +514,7 @@ If you do not use restart with failover, changes are applied sequentially to the
 
 RDS for PostgreSQL provides management features in the console for easy management of databases and users, but also provides a feature to allow users to control them directly. When direct control is enabled, `CREATEDB` and `CREATEROLE` privileges are granted to all DDL users currently created. The same privileges are granted when modifying the privileges of existing users via DDL or when creating new users.
 
-!!! tip "Notice"
+!!! tip "Note"
     If users that you directly create are not granted permissions managed by RDS, they are represented by **CUSTOM** permissions.
 
 <a id="delete-db-instance"></a>
@@ -537,7 +537,7 @@ You can use backup to restore data to any point in time. Restore always creates 
 
 If WAL logs are excessively generated due to rapid load and the data storage is low in capacity, you can delete the WAL logs using the capacity acquisition feature on the console. When you select Free Capacity from the console, a pop-up window appears to select WAL log for the DB instance. Select the WAL log and click **Confirm** to delete all WAL logs created before the selected item. The capacity acquisition feature is to temporarily secure capacity. If you continue to run out of capacity, you must scale up your data storage to meet the service load.
 
-!!! tip "Note"
+!!! danger "Caution"
     Depending on the deleted WAL logs, restoration to a specific point in time may not be possible.
 
 <a id="auto-scale-storage"></a>
@@ -760,16 +760,16 @@ Enabling deletion protection secures DB instances from accidental deletion. You 
 
 High-availability DB instances increase availability and data durability, providing a fault-tolerant database. High availability DB instances consist of a Primary and a Standby, and are created in different availability zones. The Standby is the DB instance in case of failure and is not normally available. For high-availability DB instances, backups are performed on the Standby.
 
-!!! tip "Tip"
-    For high availability DB instances, if you force replication from another DB instance or from an external PostgreSQL primary using a PostgreSQL query statement, high availability and some features will not work properly.
+!!! danger "Caution"
+    For high availability DB instances, if you force replication from another DB instance or from an external PostgreSQL primary with a PostgreSQL query statement, high availability and some features will not work properly.
 
 <a id="failure-detection"></a>
 ### Failure Detection { #failure-detection }
 
 The Standby has a process for detecting failures, which periodically detects the health of the Primary. These detection cycles are called ping intervals, and failover occurs if four consecutive health checks fail. The shorter the ping interval, the more sensitive it is to failures, and the longer the ping interval, the more insensitive it is to failures. It is important to set the appropriate ping interval for your service load.
 
-!!! tip "Note"
-    Note that if the Primary's data storage usage fills up, the high-availability watchdog process detects the failure and initiates failover.
+!!! danger "Caution"
+    If the Primary's data storage usage fills up, the high-availability watchdog process detects the failure and initiates failover.
 
 <a id="auto-failover"></a>
 ### Auto Failover { #auto-failover }
