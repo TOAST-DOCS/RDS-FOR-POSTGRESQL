@@ -1,3 +1,5 @@
+<!-- machine_translated: true -->
+
 <!-- pre-align:aligned sig=fac569e581eb -->
 
 <a id="database-rds-for-postgresql-backup-and-restore"></a>
@@ -119,12 +121,14 @@ You can export backup files stored in internal backup storage to user object sto
 
 <a id="snapshot-backup"></a>
 ## Snapshot Backup { #snapshot-backup }
-With the existing backup method, the backup application runs on the DB instance, which can cause performance degradation during backup. In contrast, **storage snapshot backup** performs backups using Cinder storage snapshots, limited to master DB instances or DB instances where the `archive_mode` parameter is set to `always`.
-After the snapshot is created, data validation and file conversion are performed on a shared backup server, so DB instance performance is not affected during backup.
+While existing backup methods can degrade performance when run directly on the DB instance, **Storage Snapshot Backup** leverages Cinder storage snapshots to perform backups—available only for Primary DB instances or DB instances with the `archive_mode` parameter set to `always`.
+Because all heavy lifting—such as validation and file conversion—is offloaded to a separate server, your database maintains peak performance even during backups.
+
 **Key Features**
-* Maintained performance: DB instance performance is maintained at 100% during backup.
-* Improved reliability: A separate validation process ensures the reliability of the backup data.
-* Temporary pause of high availability: The high availability feature may be temporarily paused at the time the snapshot is created to ensure data consistency.
+* Performance maintenance: DB instance performance is maintained at 100% even during backup operations.
+* Enhanced reliability: Rigorous verification processes ensure the reliability of your backup data.
+* Temporary High Availability (HA) suspension: HA features may be briefly paused during snapshot creation to ensure strict data consistency.
+
 <a id="pricing"></a>
 ### Pricing { #pricing }
 Unlike the existing backup method, snapshot backup separately charges for the cost of the resources used to perform the backup.

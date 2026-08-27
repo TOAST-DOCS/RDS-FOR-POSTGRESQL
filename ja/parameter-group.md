@@ -1,3 +1,5 @@
+<!-- machine_translated: true -->
+
 <!-- pre-align:aligned sig=616384b95f3d -->
 
 <a id="database-rds-for-postgresql-parameter-group"></a>
@@ -59,6 +61,7 @@ DBインスタンスに適用中のパラメータグループを除けば、自
 | 適用タイプ | `固定`と`動的`に分けられます。<br/>`固定`の場合、パラメータ変更事項を適用するにはDBインスタンスを再起動する必要があります。<br/>`動的`の場合、DBインスタンスを再起動することなくすぐにパラメータが適用されます。 |
 | データ形式 | パラメータ値の形式を表します。 `BOOLEAN`、`ENUMERATED`、`MULTI_ENUMERATED`、`NUMERIC`、`NUMERIC_WITH_BYTE_UNIT`、`NUMERIC_WITH_TIME_UNIT`、`STRING` があります。 |
 | カテゴリー   | パラメータのカテゴリーを表します。                                                                                                  |
+| 数式の使用 | 数式を使用できるかどうかを表します。                                                                                               |
 
 <a id="parameter-variables-formulas-and-functions"></a>
 ### パラメータ変数、数式及び関数 { #parameter-variables-formulas-and-functions }
@@ -94,7 +97,7 @@ ramSizeByte * 6 / 10
 <a id="change-parameters-change-the-maxconnections-parameter"></a>
 #### `max_connections`パラメータ変更
 
-リードレプリカが追加された状態で`max_connections`の値を変更する場合は、適用順序によって問題が発生することがあります。マスターの値がリードレプリカより小さい値に設定されなければならないので、マスターの値だけを変更する場合、リードレプリカより大きい値に適用することができません。同じ理由で、リードレプリカの値だけを変更する場合、マスターより小さい値に適用することができません。必要な場合、DBインスタンスグループ単位で全体適用することを推奨します。
+リードレプリカが追加された状態で `max_connections` の値を変更する場合、適用順序によって問題が発生することがあります。PrimaryはRead Replicaより小さい値に設定する必要があるため、Primaryの値のみを変更する場合、Read Replicaより大きい値を適用することはできません。同様の理由で、Read Replicaの値のみを変更する場合、Primaryより小さい値を適用することはできません。必要な場合は、DBインスタンスグループ単位で全体に適用することをお勧めします。
 
 <a id="change-parameters-change-the-sharedbuffers-parameter"></a>
 #### `shared_buffers`パラメータ変更
@@ -104,4 +107,4 @@ ramSizeByte * 6 / 10
 <a id="change-parameters-changing-the-archivemode-parameter"></a>
 #### `archive_mode` パラメータの変更
 
-`archive_mode` パラメータは、既存の `on` 値の他に `always` 値も選択できます。`always` に設定すると、マスターでなくてもアーカイブログを保存します。
+`archive_mode` パラメータは、既存の `on` 値のほかに `always` 値も選択できます。`always` に設定すると、Primaryでなくてもアーカイブログを保存します。
