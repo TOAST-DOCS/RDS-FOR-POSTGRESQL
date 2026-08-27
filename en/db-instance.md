@@ -209,7 +209,7 @@ Select DB instance to view details.
 <a id="connection-information"></a>
 ### Connection Information { #connection-information }
 
-When a DB instance is created, an internal domain is issued. The internal domain points to an IP address within the user's VPC subnet. Even if a high availability DB instance undergoes failover and the standby becomes the new primary, the internal domain does not change. Therefore, unless there is a specific reason, the connection information for your application must use the internal domain.
+When a DB instance is created, an internal domain is issued. The internal domain points to an IP address within the user's VPC subnet. Even if a high availability DB instance undergoes failover and the Standby becomes the new Primary, the internal domain does not change. Therefore, unless there is a specific reason, the connection information for your application must use the internal domain.
 
 If you created a floating IP, issue an additional external domain. External domain points to the address of the floating IP. Because the external domain or floating IP is externally accessible, you must set the rules of the DB security group appropriately to protect the DB instance.
 
@@ -594,7 +594,7 @@ You can restore to a DB instance using a backup file exported from RDS for Postg
 <a id="read-replica"></a>
 ## Read Replica { #read-replica }
 
-To improve read performance, you can create Read Replicas that can be used as read-only. You can create up to 5 Read Replicas per primary. A Read Replica of a Read Replica cannot be created.
+To improve read performance, you can create Read Replicas that can be used as read-only. You can create up to 5 Read Replicas per Primary. A Read Replica of a Read Replica cannot be created.
 
 <a id="create-read-replica"></a>
 ### Create Read Replica { #create-read-replica }
@@ -632,7 +632,7 @@ When creating a Read Replica, the following items cannot be changed because they
 
 <a id="create-read-replica-read-replica-region"></a>
 #### Read Replica Region
-When selecting a region in which to create a read replica, if region peering is supported, you can create a read replica on a subnet that belongs to a VPC in a different region by connecting a region peering between VPCs that exist in different regions. However, if you select a region different from that of the source DB instance, replication lag may occur, and DB version upgrades are not supported.
+When selecting a region in which to create a Read Replica, if region peering is supported, you can create a Read Replica on a subnet that belongs to a VPC in a different region by connecting a region peering between VPCs that exist in different regions. However, if you select a region different from that of the source DB instance, replication lag may occur, and DB version upgrades are not supported.
 
 > [Caution]
 > Even if region peering is connected, if the route settings are incorrect, Read Replica creation might fail or replication might stop.
@@ -665,7 +665,7 @@ When selecting a parameter group for a Read Replica, if no replication-related c
 <a id="create-read-replica-db-security-group"></a>
 #### DB Security Group
 
-Select the DB security group to apply to the read replica. Rules required for replication are applied automatically, so you do not need to add them separately to the DB security group. For more details, see [DB Security Group](db-security-group/).
+Select the DB security group to apply to the Read Replica. Rules required for replication are applied automatically, so you do not need to add them separately to the DB security group. For more details, see [DB Security Group](db-security-group/).
 
 <a id="create-read-replica-backup"></a>
 #### Backup
@@ -688,7 +688,7 @@ Select whether to enable erasure protection. For a detailed description, see [De
 The process of breaking the replication relationship with Primary and converting a Read Replica into a standalone Primary is called promotion. A promoted Primary operates as a standalone DB instance. If replication latency exists between the Read Replica to promote and Primary, promotion does not occur until the latency is resolved. A DB instance that has been promoted cannot be reverted to its previous replication relationship.
 
 > [Caution]
-> If the primary DB instance is in an abnormal state, the promotion cannot be performed.
+> If the Primary DB instance is in an abnormal state, the promotion cannot be performed.
 
 <a id="force-promote-read-replicas"></a>
 ### Force Promote Read Replicas { #force-promote-read-replicas }
@@ -698,7 +698,7 @@ Force promotes to the current point-in-time data of the Read Replica, regardless
 <a id="end-wait-for-replication-delay-during-read-replica-promotionforce-promotion"></a>
 ### End Wait for Replication Delay During Read Replica Promotion/Force Promotion { #end-wait-for-replication-delay-during-read-replica-promotionforce-promotion }
 
-To end the wait operation, when you are waiting for replication delays to resolve during a read replica promotion or force promotion,
+To end the wait operation, when you are waiting for replication delays to resolve during a Read Replica promotion or force promotion,
 
 ![db-instance-list-stop-wait-replication-lag](../static/images/20260609/db-instance-list-stop-wait-replication-lag-en.png)
 
@@ -822,7 +822,7 @@ To rebuild the Failed Over Primary in the console
 <a id="separate-failed-over-master"></a>
 ### Separate Failed Over Master { #separate-failed-over-master }
 
-If recovery of the Failed Over Primary fails and data correction is needed, you can detach the Failed Over Primary to disable the high availability feature. The replication relationship between the detached primary and the promoted primary is severed, and each operates as a regular DB instance. After detachment, the original configuration cannot be recovered.
+If recovery of the Failed Over Primary fails and data correction is needed, you can detach the Failed Over Primary to disable the high availability feature. The replication relationship between the detached Primary and the promoted Primary is severed, and each operates as a regular DB instance. After detachment, the original configuration cannot be recovered.
 
 To detach a Failed Over Primary, use the
 

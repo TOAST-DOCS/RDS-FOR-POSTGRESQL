@@ -2,9 +2,24 @@
 
 ## 편집 규칙
 
-- `en/`, `ja/` 폴더의 파일은 직접 수정하지 않는다. 번역 파일은 별도 파이프라인에서 관리한다.
 - 문서 변경 작업은 `ko/` 폴더에서만 수행한다.
+- 문서 본문은 mkdocs 문법으로 작성한다.
 - 문서 내용에 작성하는 변수 구분자는 `$[ ]$`를 사용한다.
+- Admonition은 `note`, `tip`, `warning`, `danger` 4종만 사용한다.
+- [mkdocs-macros](https://mkdocs-macros-plugin.readthedocs.io/en/latest/) 플러그인의 변수, 조건문 문법을 사용할 수 있다.
+- [mkdocs-include-markdown](https://github.com/mondeja/mkdocs-include-markdown-plugin) 플러그인의 include 문법을 사용할 수 있다.
+- `en/`, `ja/` 폴더의 파일은 직접 수정하지 않는다. 번역 파일은 별도 파이프라인에서 관리한다. 단, 번역 결과의 오류 수정은 허용한다.
+
+## 용어 규칙
+
+DB 인스턴스 타입은 고유명사로 취급하며 대소문자를 엄격하게 지킨다.
+
+| 용어 | 비고 |
+|---|---|
+| Primary | 마스터 DB 인스턴스 |
+| Standby | 예비 마스터 DB 인스턴스 |
+| Read Replica | 읽기 복제본 DB 인스턴스 |
+| Failed Over Primary | 장애 조치된 마스터 DB 인스턴스 |
 
 ## Heading ID 규칙
 

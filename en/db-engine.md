@@ -59,7 +59,7 @@ You can perform a major version upgrade by modifying the Primary DB instance. Th
     - Downtime occurs during the version upgrade.
     - If the version upgrade fails, a repair operation may be attempted, and if successful, the DB instance is restored to its pre-upgrade state.
     - If the repair operation also fails, you can attempt to recover through a rebuild.
-- Proceed by selecting one of the DB instances (including Standby) in non-primary replication relationships.
+- Proceed by selecting one of the DB instances (including Standby) in non-Primary replication relationships.
     - Upgrade the version of the selected DB instance.
         - If a Standby exists, the version upgrade is performed on it before Read Replicas.
         - If the version upgrade fails, the version upgrade will not proceed for other DB instances, and you can attempt to recover the failed DB instance with a rebuild operation.

@@ -11,5 +11,11 @@
 
 ## mkdocs 참고
 
-* mkdocs 문법: https://docs.alpha-nhncloud.com/ko/Open%20Source/agent-test/ko/mkdocs-syntax/
-* Preview: http://content-agent.cloud.toastoven.net:7700/preview
+* mkdocs 문법
+    * [mkdocs-syntax](https://docs.alpha-nhncloud.com/ko/Open%20Source/agent-test/ko/mkdocs-syntax/)
+    * [mkdocs-macros](https://mkdocs-macros-plugin.readthedocs.io/en/latest/)
+    * [mkdocs-include-markdown](https://github.com/mondeja/mkdocs-include-markdown-plugin)
+    * [mkdocs-admonitions](https://squidfunk.github.io/mkdocs-material/reference/admonitions/)
+        * note, tip, warning, danger 4개 정도만 사용 가능함
+* Preview
+    * http://content-agent.cloud.toastoven.net:7700/preview
