@@ -1,3 +1,5 @@
+<!-- machine_translated: true -->
+
 <!-- pre-align:aligned sig=6fb22cdc634d -->
 
 <a id="database-rds-for-postgresql-notification"></a>
@@ -8,8 +10,8 @@
 
 You can manage users who receive notifications as groups. Notification target must be registered as a project member. If a user in a user group is removed as a project member, they won't receive notifications, even if they belong to the user group.
 
-> [Caution]
-> If you don't have mobile phone information because you haven't completed identity verification, you can't receive SMS notifications.
+!!! danger "Caution"
+    If there is no mobile phone information because a user did not complete real-name verification, the user will not receive SMS notifications.
 
 <a id="create-a-user-group"></a>
 ### Create a User Group { #create-a-user-group }
