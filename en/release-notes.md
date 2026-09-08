@@ -12,7 +12,7 @@
 #### Bug Fixes
 
 - Fixed an API response schema error in the DB engine version retrieval API
-    - Fixed an issue where the response schema of the DB engine version retrieval API did not match the API guide, and reverted it to the original schema.
+    - Fixed an issue where the response schema of the DB engine version retrieval API was returned differently from the schema specified in the API guide, and corrected it to match the guide.
 - Fixed a required value handling error in the restore API
     - Fixed an issue where required values specified in the guide were not processed correctly when requesting point-in-time restore or backup restore via API.
 
