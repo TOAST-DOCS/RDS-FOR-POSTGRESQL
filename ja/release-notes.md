@@ -1,7 +1,20 @@
+<!-- machine_translated: true -->
+
 <!-- pre-align:aligned sig=fe0e7c038b52 -->
 
 <a id="database-rds-for-postgresql-release-notes"></a>
 ## Database > RDS for PostgreSQL > リリースノート { #database-rds-for-postgresql-release-notes }
+
+<a id="september-8-2026"></a>
+### 2026. 09. 08. { #september-8-2026 }
+
+<a id="september-8-2026-bug-fixes"></a>
+#### バグ修正
+
+- DBエンジンバージョン照会 API レスポンス形式の不具合を修正
+    - DBエンジンバージョン照会 API のレスポンス形式が API ガイドと一致しない問題があり、既存の形式に戻しました。
+- 復元 API 必須値の処理不具合を修正
+    - API で時点復元またはバックアップ復元をリクエストした際、ガイドに記載された必須値の処理が正常に動作しない問題を修正しました。
 
 <a id="august-11-2026"></a>
 ### 2026. 08. 11. { #august-11-2026 }
