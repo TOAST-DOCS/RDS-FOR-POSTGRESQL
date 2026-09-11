@@ -154,10 +154,9 @@ GET /v1.0/db-versions
 | 名前 | タイプ | 説明 |
 |-----|-----|-----|
 | dbVersions | Array | DBバージョン情報 |
-| dbVersions.dbVersionCode | String | DBバージョンコード |
-| dbVersions.dbMajorVersionCode | String | DBメジャーバージョンコード |
-| dbVersions.name | String | DBバージョン名 |
-| dbVersions.canCreate | Boolean | 新規作成可能かどうか |
+| dbVersions.dbVersion | Enum | DBエンジンバージョン |
+| dbVersions.dbVersionName | String | DBエンジンバージョン名 |
+| dbVersions.restorableFromObs | Boolean | オブジェクトストレージから復元可能かどうか |
 
 ---
 
@@ -976,6 +975,7 @@ POST /v1.0/db-instance-groups/{dbInstanceGroupId}/extensions/{extensionId}
 | `FAIL_TO_CREATE` | DBインスタンス作成に失敗した場合 |
 | `FAIL_TO_CONNECT` | DBインスタンス接続に失敗した場合 |
 | `REPLICATION_STOP` | DBインスタンスの複製が中断された場合 |
+| `REPLICATION_DELAY` | DBインスタンスの複製が遅延している場合 |
 | `FAILOVER` | 高可用性DBインスタンスのフェイルオーバーが完了した場合 |
 | `SHUTDOWN` | DBインスタンスが中止された場合 |
 | `DELETED` | DBインスタンスが削除された場合 |
@@ -984,33 +984,41 @@ POST /v1.0/db-instance-groups/{dbInstanceGroupId}/extensions/{extensionId}
 ### DBインスタンスの進行状態 { #db-instance-progress-status }
 
 | 状態 | 説明 |
-|----------------------------|--------------|
-| `APPLYING_PARAMETER_GROUP` | パラメータグループ適用中 |
-| `BACKING_UP` | バックアップ中 |
-| `CANCELING` | キャンセル中 |
-| `CREATING` | 作成中 |
-| `CREATING_SCHEMA` | スキーマ作成中 |
-| `CREATING_USER` | ユーザー作成中 |
-| `DELETING` | 削除中 |
-| `DELETING_SCHEMA` | スキーマ削除中 |
-| `DELETING_USER` | ユーザー削除中 |
-| `EXPORTING_BACKUP` | バックアップをエクスポート中 |
-| `FAILING_OVER` | フェイルオーバー中 |
-| `MIGRATING` | マイグレーション中 |
-| `MODIFYING` | 修正中 |
-| `PREPARING` | 準備中 |
-| `PROMOTING` | 昇格中 |
-| `REBUILDING` | 再構築中 |
-| `REPAIRING` | 復旧中 |
-| `REPLICATING` | 複製中 |
-| `RESTARTING` | 再起動中 |
-| `RESTARTING_FORCIBLY` | 強制再起動中 |
-| `RESTORING` | 復元中 |
-| `STARTING` | 起動中 |
-| `STOPPING` | 停止中 |
-| `SYNCING_SCHEMA` | スキーマ同期中 |
-| `SYNCING_USER` | ユーザー同期中 |
-| `UPDATING_USER` | ユーザー修正中 |
+|-----------------------------------|------------------------|
+| `APPLYING_DB_INSTANCE_HBA_RULE`   | アクセス制御ルール適用中 |
+| `APPLYING_EXTENSION`              | 拡張適用中           |
+| `APPLYING_PARAMETER_GROUP`        | パラメータグループ適用中 |
+| `BACKING_UP`                      | バックアップ中                |
+| `CANCELING`                       | キャンセル中                |
+| `CREATING`                        | 作成中                |
+| `CREATING_DATABASE`               | データベース作成中   |
+| `CREATING_USER`                   | ユーザー作成中         |
+| `DELETING`                        | 削除中                |
+| `DELETING_DATABASE`               | データベース削除中   |
+| `DELETING_USER`                   | ユーザー削除中         |
+| `EXPORTING_BACKUP`                | バックアップをエクスポート中     |
+| `FAILING_OVER`                    | フェイルオーバー中           |
+| `MIGRATING`                       | マイグレーション中        |
+| `MODIFYING`                       | 修正中                |
+| `OCCUPIED`                        | 占有中                |
+| `PREPARING`                       | 準備中                |
+| `PROMOTING`                       | 昇格中                |
+| `PROMOTING_FORCIBLY`              | 強制昇格中           |
+| `REBUILDING`                      | 再構築中              |
+| `REPAIRING`                       | 復旧中                |
+| `REPLICATING`                     | 複製中                |
+| `RESTARTING`                      | 再起動中              |
+| `RESTARTING_FORCIBLY`             | 強制再起動中         |
+| `RESTORING`                       | 復元中                |
+| `STARTING`                        | 起動中                |
+| `STOPPING`                        | 停止中                |
+| `SYNCING_DATABASE`                | データベース同期中 |
+| `SYNCING_EXTENSION`               | 拡張同期中         |
+| `SYNCING_USER`                    | ユーザー同期中       |
+| `UPDATING_DATABASE`               | データベース修正中   |
+| `UPDATING_SCHEMA`                 | スキーマ修正中         |
+| `UPDATING_USER`                   | ユーザー修正中         |
+| `WAIT_MANUAL_CONTROL`             | 手動フェイルオーバー待機中  |
 
 <a id="get-db-instances"></a>
 ### DBインスタンスリストを表示 { #get-db-instances }
@@ -3100,6 +3108,8 @@ PUT /v1.0/db-instances/{dbInstanceId}/high-availability
 
 | 名前 | タイプ | 必須 | 説明 |
 |-----|-----|-----|-----|
+| useHighAvailability | Boolean | Y | 高可用性を使用するかどうか |
+| pingInterval | Number | N | Ping 間隔（秒）<br/>- 最小値: `1`<br/>- 最大値: `600` |
 | failoverReplWaitingTime | Number | N | 高可用性使用時のフェイルオーバー待機時間<br/>- `-1`に設定時、レプリケーション遅延が解消されるまで待機し続けます。<br/>- 最小値: `-1` |
 
 <a id="modify-high-availability-response"></a>
@@ -4789,6 +4799,8 @@ POST /v1.0/db-security-groups
 | rules.port.portType | Enum | Y | ポートタイプ<br/>- `ALL`: ポート範囲全体(ユーザーコンソールでは使用しない)<br/>- `PORT`: 特定のポート<br/>- `DB_PORT`: DB受信ポート<br/>- `PORT_RANGE`: ポート範囲 |
 | rules.port.minPort | Number | N | ポート範囲の最小値<br/>- 最小値: `1` |
 | rules.port.maxPort | Number | N | ポート範囲の最大値<br/>- 最大値: `65535` |
+| rules.cidr | String | Y | CIDR |
+| rules.description | String | N | セキュリティグループルールの追加情報 |
 
 <a id="create-db-security-group-response"></a>
 #### レスポンス
