@@ -982,44 +982,42 @@ This API does not return a response body.
 <a id="db-instance-progress-status"></a>
 ### DB Instance Progress Status { #db-instance-progress-status }
 
-| Status | Description |
-|----------------------------|--------------|
-|-----------------------------------|------------------------|
-|-----------------------------------|------------------------|
-| `APPLYING_DB_INSTANCE_HBA_RULE`   | Applying access control rule |
-| `APPLYING_EXTENSION`              | Applying extension     |
-| `APPLYING_PARAMETER_GROUP`        | Applying parameter group |
-| `BACKING_UP`                      | Backing up              |
-| `CANCELING`                       | Canceling               |
-| `CREATING`                        | Creating                |
-| `CREATING_DATABASE`               | Creating database       |
-| `CREATING_USER`                   | Creating user           |
-| `DELETING`                        | Deleting                |
-| `DELETING_DATABASE`               | Deleting database       |
-| `DELETING_USER`                   | Deleting user           |
-| `EXPORTING_BACKUP`                | Exporting backup        |
-| `FAILING_OVER`                    | Failing over            |
-| `MIGRATING`                       | Migrating               |
-| `MODIFYING`                       | Modifying               |
-| `OCCUPIED`                        | Occupied                |
-| `PREPARING`                       | Preparing               |
-| `PROMOTING`                       | Promoting               |
-| `PROMOTING_FORCIBLY`              | Forcibly promoting      |
-| `REBUILDING`                      | Rebuilding               |
-| `REPAIRING`                       | Repairing                |
-| `REPLICATING`                     | Replicating              |
-| `RESTARTING`                      | Restarting               |
-| `RESTARTING_FORCIBLY`             | Forcibly restarting      |
-| `RESTORING`                       | Restoring                |
-| `STARTING`                        | Starting                 |
-| `STOPPING`                        | Stopping                 |
-| `SYNCING_DATABASE`                | Syncing database         |
-| `SYNCING_EXTENSION`               | Syncing extension        |
-| `SYNCING_USER`                    | Syncing user             |
-| `UPDATING_DATABASE`               | Updating database        |
-| `UPDATING_SCHEMA`                 | Updating schema          |
-| `UPDATING_USER`                   | Updating user            |
-| `WAIT_MANUAL_CONTROL`             | Waiting for manual failover |
+| Status                              | Description                                      |
+|-------------------------------------|--------------------------------------------------|
+| `APPLYING_DB_INSTANCE_HBA_RULE`     | Applying an access control rule                  |
+| `APPLYING_EXTENSION`                | Applying an extension                            |
+| `APPLYING_PARAMETER_GROUP`          | Applying a parameter group                       |
+| `BACKING_UP`                        | Backing up                                       |
+| `CANCELING`                         | Canceling                                        |
+| `CREATING`                          | Creating                                         |
+| `CREATING_DATABASE`                 | Creating a database                              |
+| `CREATING_USER`                     | Creating a user                                  |
+| `DELETING`                          | Deleting                                         |
+| `DELETING_DATABASE`                 | Deleting a database                              |
+| `DELETING_USER`                     | Deleting a user                                  |
+| `EXPORTING_BACKUP`                  | Exporting a backup                               |
+| `FAILING_OVER`                      | Failing over                                     |
+| `MIGRATING`                         | Migrating                                        |
+| `MODIFYING`                         | Modifying                                        |
+| `OCCUPIED`                          | Occupied                                         |
+| `PREPARING`                         | Preparing                                        |
+| `PROMOTING`                         | Promoting                                        |
+| `PROMOTING_FORCIBLY`                | Promoting forcibly                               |
+| `REBUILDING`                        | Rebuilding                                       |
+| `REPAIRING`                         | Repairing                                        |
+| `REPLICATING`                       | Replicating                                      |
+| `RESTARTING`                        | Restarting                                       |
+| `RESTARTING_FORCIBLY`               | Force restarting                                 |
+| `RESTORING`                         | Restoring                                        |
+| `STARTING`                          | Starting                                         |
+| `STOPPING`                          | Stopping                                         |
+| `SYNCING_DATABASE`                  | Synchronizing a database                         |
+| `SYNCING_EXTENSION`                 | Synchronizing an extension                       |
+| `SYNCING_USER`                      | Synchronizing a user                             |
+| `UPDATING_DATABASE`                 | Updating a database                              |
+| `UPDATING_SCHEMA`                   | Updating a schema                                |
+| `UPDATING_USER`                     | Updating a user                                  |
+| `WAIT_MANUAL_CONTROL`               | Waiting for manual control of failover           |
 
 <a id="get-db-instances"></a>
 ### List DB Instances { #get-db-instances }
@@ -1188,6 +1186,7 @@ POST /v1.0/db-instances
 | storage.storageSize | Number | Y | Data storage size (GB)<br/>- Minimum value: `20` |
 | backup | Object | Y | Backup information objects |
 | backup.backupPeriod | Number | Y | Backup retention period (days)<br/>- Minimum value: `0`<br/>- Maximum value: `730` |
+| backup.backupRetryCount | Number | N | Backup retry count<br/>- Minimum value: `0`<br/>- Maximum value: `10` |
 | backup.periodicAutoBackupStrategyTypeCode | Enum | N | Periodic automatic backup strategy code (DAILY_FULL/SNAPSHOT)<br/>- Default value: `DAILY_FULL`<br/>- `SNAPSHOT`: Daily snapshot backup<br/>- `DAILY_FULL`: Daily full backup |
 | backup.backupSchedules | Array | Y | Backup schedule information |
 | backup.backupSchedules.backupWndBgnTime | Time | Y | Backup start time |
@@ -1841,11 +1840,12 @@ This API does not require a request body.
 |-----|-----|-----|
 | allowAutoBackup | Boolean | Whether automatic backup is allowed |
 | usePeriodicAutoBackup | Boolean | Whether scheduled automatic backup is used |
+| periodicAutoBackupStrategyTypeCode | Enum | Periodic automatic backup strategy code (DAILY_FULL/SNAPSHOT)<br/>- `SNAPSHOT`: Daily snapshot backup<br/>- `DAILY_FULL`: Daily full backup |
 | backupPeriod | Number | Backup retention period (days) |
 | backupRetryCount | Number | Number of backup retries |
-| backupSchedules | Array | Backup schedules |
-| backup.backupSchedules.backupWndBgnTime | Time | Y | Backup start time |
-| backup.backupSchedules.backupWndDuration | Enum | Y | Backup window<br/>- `HALF_AN_HOUR`: 30 minutes<br/>- `ONE_HOUR`: 1 hour<br/>- `ONE_HOUR_AND_HALF`: 1 hour 30 minutes<br/>- `TWO_HOURS`: 2 hours<br/>- `TWO_HOURS_AND_HALF`: 2 hours 30 minutes<br/>- `THREE_HOURS`: 3 hours |
+| backupSchedules | Array | List of backup schedules |
+| backupSchedules.backupWndBgnTime | Time | Backup start time |
+| backupSchedules.backupWndDuration | Enum | Backup window<br/>- `HALF_AN_HOUR`: 30 minutes<br/>- `ONE_HOUR`: 1 hour<br/>- `ONE_HOUR_AND_HALF`: 1 hour 30 minutes<br/>- `TWO_HOURS`: 2 hours<br/>- `TWO_HOURS_AND_HALF`: 2 hours 30 minutes<br/>- `THREE_HOURS`: 3 hours |
 
 ---
 
@@ -1901,12 +1901,12 @@ PUT /v1.0/db-instances/{dbInstanceId}/backup-info
 |-----|-----|-----|-----|
 | allowAutoBackup | Boolean | N | Whether automatic backup is allowed |
 | usePeriodicAutoBackup | Boolean | N | Whether scheduled automatic backup is used |
-| backup.periodicAutoBackupStrategyTypeCode | Enum | N | Periodic automatic backup strategy code (DAILY_FULL/SNAPSHOT)<br/>- Default value: `DAILY_FULL`<br/>- `SNAPSHOT`: Daily snapshot backup<br/>- `DAILY_FULL`: Daily full backup |
+| periodicAutoBackupStrategyTypeCode | Enum | N | Periodic automatic backup strategy code (DAILY_FULL/SNAPSHOT)<br/>- `SNAPSHOT`: Daily snapshot backup<br/>- `DAILY_FULL`: Daily full backup |
 | backupPeriod | Number | N | Backup retention period (days)<br/>- Minimum value: `0`<br/>- Maximum value: `730` |
 | backupRetryCount | Number | N | Number of backup retries<br/>- Minimum value: `0`<br/>- Maximum value: `10` |
 | backupSchedules | Array | N | Backup schedules |
-| backup.backupSchedules.backupWndBgnTime | Time | Y | Backup start time |
-| backup.backupSchedules.backupWndDuration | Enum | Y | Backup window<br/>- `HALF_AN_HOUR`: 30 minutes<br/>- `ONE_HOUR`: 1 hour<br/>- `ONE_HOUR_AND_HALF`: 1 hour 30 minutes<br/>- `TWO_HOURS`: 2 hours<br/>- `TWO_HOURS_AND_HALF`: 2 hours 30 minutes<br/>- `THREE_HOURS`: 3 hours |
+| backupSchedules.backupWndBgnTime | Time | Y | Backup start time |
+| backupSchedules.backupWndDuration | Enum | Y | Backup window<br/>- `HALF_AN_HOUR`: 30 minutes<br/>- `ONE_HOUR`: 1 hour<br/>- `ONE_HOUR_AND_HALF`: 1 hour 30 minutes<br/>- `TWO_HOURS`: 2 hours<br/>- `TWO_HOURS_AND_HALF`: 2 hours 30 minutes<br/>- `THREE_HOURS`: 3 hours |
 
 <a id="modify-backup-info-response"></a>
 #### Response
@@ -2075,6 +2075,7 @@ This API does not require a request body.
 | databases.databaseId | UUID | Database identifier |
 | databases.databaseName | String | Database name |
 | databases.databaseStatus | Enum | Current state of the database<br/>- `STABLE`: Available<br/>- `CREATING`: Creating<br/>- `MODIFYING`: Modifying<br/>- `DELETING`: Deleting<br/>- `DELETED`: Deleted<br/>- `SYNCING`: Synchronizing<br/>- `DELETE_ERROR`: Deletion failed |
+| databases.errorReason | String | Cause of failure |
 | databases.createdYmdt | DateTime | Created date and time (YYYY-MM-DDThh:mm:ss.SSSTZD) |
 | databases.updatedYmdt | DateTime | Modified date and time (YYYY-MM-DDThh:mm:ss.SSSTZD) |
 | databases.schemas | Array | Schema information |
@@ -6138,7 +6139,9 @@ This API does not require a request body.
 <a id="delete-notification-group-permission"></a>
 #### Required Permission
 
-<!-- TODO: translate body -->
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:NotificationGroup.Delete | Delete Notification Group |
 
 <a id="delete-notification-group-request"></a>
 #### Request
@@ -6148,7 +6151,9 @@ This API does not require a request body.
 <a id="delete-notification-group-request-parameters"></a>
 #### Request Parameter
 
-<!-- TODO: translate body -->
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| notificationGroupId | URL | UUID | Y | Notification group identifier |
 
 <a id="delete-notification-group-request-body"></a>
 #### Request Body
