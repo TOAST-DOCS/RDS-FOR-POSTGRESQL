@@ -168,7 +168,7 @@ Or
 You can use point-in-time restoration to restore to a specific point-in-time or specific LSN in the WAL log. To restore a point in time, you need a backup file and a WAL log from the time you performed the backup to the time you want to restore it. WAL logs are stored in the storage of the original DB instance where the backup takes place. Short WAL log retention periods allow more storage capacity, but recovery to the desired point in time can be challenging. For the case listed below, you might not be able to restore to the desired point in time because you do not have the WAL log required for point in time restoration.
 
 * When you have deleted the WAL log of the source DB instance for securing capacity
-* When the WAL log is automatically deleted based on the auto backup retention period
+* When the WAL log is automatically deleted based on the Auto Backup Retention Period
 * When WAL logs are corrupted or deleted for various other reasons
 
 To restore a point in time from the console
