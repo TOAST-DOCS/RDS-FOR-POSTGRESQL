@@ -1313,7 +1313,6 @@ POST /v1.0/db-instances/restore-from-obs
 | backup.backupPeriod | Number | Y | Backup retention period (days)<br/>- Minimum value: `0`<br/>- Maximum value: `730` |
 | backup.periodicAutoBackupStrategyTypeCode | Enum | N | Periodic automatic backup strategy code (DAILY_FULL/SNAPSHOT)<br/>- Default value: `DAILY_FULL`<br/>- `SNAPSHOT`: Daily snapshot backup<br/>- `DAILY_FULL`: Daily full backup |
 | backup.backupRetryCount | Number | N | Number of backup retries<br/>- Minimum value: `0`<br/>- Maximum value: `10` |
-| backup.periodicAutoBackupStrategyTypeCode | Enum | N | Periodic automatic backup strategy code (DAILY_FULL/SNAPSHOT)<br/>- Default value: `DAILY_FULL`<br/>- `SNAPSHOT`: Daily snapshot backup<br/>- `DAILY_FULL`: Daily full backup |
 | backup.backupSchedules | Array | Y | Backup schedule information |
 | backup.backupSchedules.backupWndBgnTime | Time | Y | Backup start time |
 | backup.backupSchedules.backupWndDuration | Enum | Y | Backup window<br/>- `HALF_AN_HOUR`: 30 minutes<br/>- `ONE_HOUR`: 1 hour<br/>- `ONE_HOUR_AND_HALF`: 1 hour 30 minutes<br/>- `TWO_HOURS`: 2 hours<br/>- `TWO_HOURS_AND_HALF`: 2 hours 30 minutes<br/>- `THREE_HOURS`: 3 hours |
@@ -1702,7 +1701,6 @@ This API does not require a request body.
 | Name | Type | Description |
 |-----|-----|-----|
 | availableDbVersions | Array | DB version information |
-| availableDbVersions.dbVersionCode | String | DB version code |
 | availableDbVersions.dbVersion | Enum | DB engine version |
 | availableDbVersions.dbVersionName | String | DB engine version name |
 | availableDbVersions.restorableFromObs | Boolean | Whether restoration from Object Storage is available |
@@ -4025,7 +4023,6 @@ POST /v1.0/db-instances/{dbInstanceId}/restore
 | backup.backupPeriod | Number | Y | Backup retention period (days)<br/>- Minimum value: `0`<br/>- Maximum value: `730` |
 | backup.periodicAutoBackupStrategyTypeCode | Enum | N | Periodic automatic backup strategy code (DAILY_FULL/SNAPSHOT)<br/>- Default value: `DAILY_FULL`<br/>- `SNAPSHOT`: Daily snapshot backup<br/>- `DAILY_FULL`: Daily full backup |
 | backup.backupRetryCount | Number | N | Number of backup retries<br/>- Minimum value: `0`<br/>- Maximum value: `10` |
-| backup.replicationRegion | Enum | N | Backup replication region<br/>- `KR1`: Korea (Pangyo)<br/>- `KR2`: Korea (Pyeongchon) |
 | backup.backupSchedules | Array | Y | Backup schedules |
 | backup.backupSchedules.backupWndBgnTime | Time | Y | Backup start time |
 | backup.backupSchedules.backupWndDuration | Enum | Y | Backup duration<br/>- `HALF_AN_HOUR`: 30 minutes<br/>- `ONE_HOUR`: 1 hour<br/>- `ONE_HOUR_AND_HALF`: 1.5 hours<br/>- `TWO_HOURS`: 2 hours<br/>- `TWO_HOURS_AND_HALF`: 2.5 hours<br/>- `THREE_HOURS`: 3 hours |

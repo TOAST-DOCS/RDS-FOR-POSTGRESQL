@@ -669,13 +669,12 @@ GET /v1.0/db-instance-groups/{dbInstanceGroupId}
 | dbInstanceGroupId | UUID | DBインスタンスグループの識別子 |
 | dbInstanceGroupStatus | Enum | DBインスタンスグループの現在の状態<br/>- `CREATED`: 作成済み<br/>- `DELETED`: 削除済み |
 | replicationType | Enum | DBインスタンスグループのレプリケーション形態<br/>- `STANDALONE`: 高可用性を使用しない<br/>- `HIGH_AVAILABILITY`: 高可用性を使用する |
-| replicationType | Enum | DBインスタンスグループのレプリケーションタイプ<br/>- STANDALONE: `高可用性を使用しない`<br/>- HIGH_AVAILABILITY: `高可用性を使用する` |
 | dbInstances | Array | DBインスタンスグループに属するDBインスタンスリスト |
 | dbInstances.dbInstanceId | UUID | DBインスタンスの識別子 |
-| dbInstances.dbInstanceType | Enum | DBインスタンスのロールタイプ<br/>- `MASTER`: マスター<br/>- `FAILED_MASTER`: フェイルオーバーされたマスター<br/>- `CANDIDATE_MASTER`: スタンバイマスター<br/>- `READ_ONLY_SLAVE`: リードレプリカ |
-| dbInstances.dbInstanceStatus | Enum | DBインスタンスの現在の状態 |
-| createdYmdt | DateTime | 作成日時(YYYY-MM-DDThh:mm:ss.SSSTZD) |
-| updatedYmdt | DateTime | 修正日時(YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| dbInstances.dbInstanceType | Enum | DBインスタンスのロールタイプ<br/>- `MASTER`: マスター<br/>- `FAILED_MASTER`: 障害マスター<br/>- `CANDIDATE_MASTER`: 予備マスター<br/>- `READ_ONLY_SLAVE`: リードレプリカ |
+| dbInstances.dbInstanceStatus | Enum | DBインスタンスの現在の状態<br/>- `BEFORE_CREATE`: 作成前（グレー）<br/>- `AVAILABLE`: 使用可能（緑）<br/>- `STORAGE_FULL`: 容量不足（赤）<br/>- `FAIL_TO_CREATE`: 作成失敗（赤）<br/>- `FAIL_TO_CONNECT`: 接続失敗（赤）<br/>- `REPLICATION_STOP`: レプリケーション停止（赤）<br/>- `REPLICATION_DELAY`: レプリケーション遅延（黄）<br/>- `FAILOVER`: フェイルオーバー完了（赤）<br/>- `SHUTDOWN`: シャットダウン（グレー）<br/>- `DELETED`: 削除済み（グレー） |
+| createdYmdt | DateTime | 作成日時 |
+| updatedYmdt | DateTime | 修正日時 |
 
 ---
 
@@ -1078,19 +1077,18 @@ GET /v1.0/db-instances
 
 | 名前 | タイプ | 説明 |
 |-----|-----|-----|
-| dbInstances | Array | DBインスタンスリスト |
+| dbInstances | Array | DBインスタンス情報 |
 | dbInstances.dbInstanceId | UUID | DBインスタンスの識別子 |
 | dbInstances.dbInstanceGroupId | UUID | DBインスタンスグループの識別子 |
 | dbInstances.dbInstanceName | String | DBインスタンスを識別できる名前 |
 | dbInstances.description | String | DBインスタンスの追加情報 |
-| dbInstances.dbVersion | String | DBエンジンタイプ |
-| dbInstances.dbVersion | Enum | DBエンジンバージョン |
+| dbInstances.dbVersion | Enum | DBエンジンタイプ |
 | dbInstances.dbPort | Number | DBポート |
-| dbInstances.dbInstanceType | Enum | DBインスタンスのロールタイプ<br/>- `MASTER`: マスター<br/>- `FAILED_MASTER`: フェイルオーバーされたマスター<br/>- `CANDIDATE_MASTER`: スタンバイマスター<br/>- `READ_ONLY_SLAVE`: リードレプリカ |
-| dbInstances.dbInstanceStatus | Enum | DBインスタンスの現在の状態 |
-| dbInstances.progressStatus | Enum | DBインスタンスの現在の進行状態 |
-| dbInstances.createdYmdt | DateTime | 作成日時(YYYY-MM-DDThh:mm:ss.SSSTZD) |
-| dbInstances.updatedYmdt | DateTime | 修正日時(YYYY-MM-DDThh:mm:ss.SSSTZD) |
+| dbInstances.dbInstanceType | Enum | DBインスタンスのロールタイプ<br/>- `MASTER`: マスター<br/>- `FAILED_MASTER`: 障害マスター<br/>- `CANDIDATE_MASTER`: 予備マスター<br/>- `READ_ONLY_SLAVE`: リードレプリカ |
+| dbInstances.dbInstanceStatus | Enum | DBインスタンスの現在の状態<br/>- `BEFORE_CREATE`: 作成前（グレー）<br/>- `AVAILABLE`: 使用可能（グリーン）<br/>- `STORAGE_FULL`: 容量不足（レッド）<br/>- `FAIL_TO_CREATE`: 作成失敗（レッド）<br/>- `FAIL_TO_CONNECT`: 接続失敗（レッド）<br/>- `REPLICATION_STOP`: レプリケーション停止（レッド）<br/>- `REPLICATION_DELAY`: レプリケーション遅延（イエロー）<br/>- `FAILOVER`: フェイルオーバー完了（レッド）<br/>- `SHUTDOWN`: 停止済み（グレー）<br/>- `DELETED`: 削除済み（グレー） |
+| dbInstances.progressStatus | Enum | DBインスタンスの現在の進行状態<br/>- `APPLYING_DB_INSTANCE_HBA_RULE`: アクセス制御ルール適用中<br/>- `APPLYING_EXTENSION`: 拡張適用中<br/>- `APPLYING_PARAMETER_GROUP`: パラメータグループ適用中<br/>- `BACKING_UP`: バックアップ中<br/>- `CANCELING`: キャンセル中<br/>- `CREATING`: 作成中<br/>- `CREATING_DATABASE`: データベース作成中<br/>- `CREATING_USER`: ユーザー作成中<br/>- `DELETING`: 削除中<br/>- `DELETING_DATABASE`: データベース削除中<br/>- `DELETING_USER`: ユーザー削除中<br/>- `EXPORTING_BACKUP`: バックアップのエクスポート中<br/>- `EXPORTING_LOG_FILE`: ログファイルのエクスポート中<br/>- `FAILING_OVER`: フェイルオーバー中<br/>- `MIGRATING`: マイグレーション中<br/>- `MODIFYING`: 変更中<br/>- `NONE`: なし<br/>- `OCCUPIED`: 占有中<br/>- `PREPARING`: 準備中<br/>- `PROMOTING`: 昇格中<br/>- `PROMOTING_FORCIBLY`: 強制昇格中<br/>- `REBUILDING`: 再構築中<br/>- `REPAIRING`: 復旧中<br/>- `REPLICATING`: レプリケーション中<br/>- `RESTARTING`: 再起動中<br/>- `RESTARTING_FORCIBLY`: 強制再起動中<br/>- `RESTORING`: リストア中<br/>- `STARTING`: 起動中<br/>- `STOPPING`: 停止中<br/>- `SYNCING_DATABASE`: データベース同期中<br/>- `SYNCING_EXTENSION`: 拡張同期中<br/>- `SYNCING_USER`: ユーザー同期中<br/>- `UPDATING_DATABASE`: データベース変更中<br/>- `UPDATING_SCHEMA`: スキーマ変更中<br/>- `UPDATING_USER`: DBユーザー変更中<br/>- `WAIT_MANUAL_CONTROL`: 手動フェイルオーバー待機中 |
+| dbInstances.createdYmdt | DateTime | 作成日時 |
+| dbInstances.updatedYmdt | DateTime | 修正日時 |
 
 ---
 
@@ -1309,8 +1307,7 @@ POST /v1.0/db-instances/restore-from-obs
 | backup | Object | Y | バックアップ情報オブジェクト |
 | backup.backupPeriod | Number | Y | バックアップの保管期間(日)<br/>- 最小値: `0`<br/>- 最大値: `730` |
 | backup.periodicAutoBackupStrategyTypeCode | Enum | N | 定期自動バックアップ戦略コード(DAILY_FULL/SNAPSHOT)<br/>- デフォルト値: `DAILY_FULL`<br/>- `SNAPSHOT`: 毎日スナップショットバックアップ<br/>- `DAILY_FULL`: 毎日フルバックアップ |
-| backup.backupRetryCount | Number | N | バックアップの再試行回数<br/>- 最小値: `0`<br/>- 最大値: `10` |
-| backup.replicationRegion | Enum | N | バックアップのレプリケーションリージョン<br/>- `KR1`: 韓国(パンギョ)<br/>- `KR2`: 韓国(ピョンチョン) |
+| backup.backupRetryCount | Number | N | バックアップリトライ回数<br/>- 最小値: `0`<br/>- 最大値: `10` |
 | backup.backupSchedules | Array | Y | バックアップスケジュールリスト |
 | backup.backupSchedules.backupWndBgnTime | Time | Y | バックアップ開始時間 |
 | backup.backupSchedules.backupWndDuration | Enum | Y | バックアップウィンドウ<br/>- `HALF_AN_HOUR`: 30分<br/>- `ONE_HOUR`: 1時間<br/>- `ONE_HOUR_AND_HALF`: 1時間30分<br/>- `TWO_HOURS`: 2時間<br/>- `TWO_HOURS_AND_HALF`: 2時間30分<br/>- `THREE_HOURS`: 3時間 |
@@ -3914,13 +3911,12 @@ GET /v1.0/db-instances/{dbInstanceId}/restoration-info
 | restorableBackups.backupName | String | バックアップ名 |
 | restorableBackups.backupStatus | Enum | バックアップ状態<br/>- `BACKING_UP`: バックアップ中の場合<br/>- `COMPLETED`: バックアップが完了した場合<br/>- `DELETING`: バックアップが削除中の場合<br/>- `DELETED`: バックアップが削除された場合<br/>- `ERROR`: エラーが発生した場合 |
 | restorableBackups.dbInstanceId | UUID | 原本DBインスタンスの識別子 |
-| restorableBackups.dbInstanceName | String | 原本DBインスタンス名 |
+| restorableBackups.dbInstanceName | String | 原本DBインスタンスの名前 |
 | restorableBackups.dbVersion | Enum | DBエンジンバージョン |
 | restorableBackups.backupType | Enum | バックアップのタイプ<br/>- `AUTO`: 自動バックアップ<br/>- `MANUAL`: 手動バックアップ |
 | restorableBackups.backupSize | Number | バックアップサイズ<br/>- 単位： `バイト` |
-| restorableBackups.backupSize | Number | バックアップサイズ |
 | restorableBackups.failoverCount | Number | フェイルオーバー回数 |
-| restorableBackups.walFileName | String | WALファイル名 |
+| restorableBackups.walFileName | String | WAL ログファイル名 |
 | restorableBackups.createdYmdt | DateTime | バックアップ作成日時(YYYY-MM-DDThh:mm:ss.SSSTZD) |
 | restorableBackups.updatedYmdt | DateTime | バックアップ更新日時(YYYY-MM-DDThh:mm:ss.SSSTZD) |
 | restorableBackups.startYmdt | DateTime | バックアップ開始日時(YYYY-MM-DDThh:mm:ss.SSSTZD) |
@@ -4027,14 +4023,11 @@ POST /v1.0/db-instances/{dbInstanceId}/restore
 | backup.backupPeriod | Number | Y | バックアップの保管期間(日)<br/>- 最小値: `0`<br/>- 最大値: `730` |
 | backup.periodicAutoBackupStrategyTypeCode | Enum | N | 定期自動バックアップ戦略コード(DAILY_FULL/SNAPSHOT)<br/>- デフォルト値: `DAILY_FULL`<br/>- `SNAPSHOT`: 毎日スナップショットバックアップ<br/>- `DAILY_FULL`: 毎日フルバックアップ |
 | backup.backupRetryCount | Number | N | バックアップの再試行回数<br/>- 最小値: `0`<br/>- 最大値: `10` |
-| backup.replicationRegion | Enum | N | バックアップのレプリケーションリージョン<br/>- `KR1`: 韓国(パンギョ)<br/>- `KR2`: 韓国(ピョンチョン) |
 | backup.backupSchedules | Array | Y | バックアップスケジュールリスト |
 | backup.backupSchedules.backupWndBgnTime | Time | Y | バックアップ開始時間 |
 | backup.backupSchedules.backupWndDuration | Enum | Y | バックアップウィンドウ<br/>- `HALF_AN_HOUR`: 30分<br/>- `ONE_HOUR`: 1時間<br/>- `ONE_HOUR_AND_HALF`: 1時間30分<br/>- `TWO_HOURS`: 2時間<br/>- `TWO_HOURS_AND_HALF`: 2時間30分<br/>- `THREE_HOURS`: 3時間 |
 | restore | Object | Y | 復元情報オブジェクト |
-| restore.restoreType | Enum | Y | 復元タイプ<br/>- BACKUP: `既存のバックアップを利用した復元`<br/>- TIMESTAMP: `復元可能時間内の時間を利用した時点復元` |
-| restore.restoreYmdt | DateTime | N | DBインスタンス復元日時 |
-| restore.backupId | UUID | N | 復元に使用するバックアップの識別子 |
+| restore.restoreType | Enum | Y | 復元タイプ<br/>- `BACKUP`: 既存のバックアップを利用した復元<br/>- `TIMESTAMP`: 復元可能な時間内の時間を利用した時点復元 |
 | useDefaultNotification | Boolean | N | 基本通知の使用有無<br/>- デフォルト値: `false` |
 | parameterGroupId | UUID | Y | パラメータグループの識別子 |
 | dbSecurityGroupIds | Array | N | DBセキュリティグループの識別子リスト |
@@ -5120,6 +5113,8 @@ POST /v1.0/db-security-groups/{dbSecurityGroupId}/rules
 | port.portType | Enum | Y | ポートタイプ<br/>- `ALL`: ポート範囲全体(ユーザーコンソールでは使用しない)<br/>- `PORT`: 特定のポート<br/>- `DB_PORT`: DB受信ポート<br/>- `PORT_RANGE`: ポート範囲 |
 | port.minPort | Number | N | ポート範囲の最小値<br/>- 最小値: `1` |
 | port.maxPort | Number | N | ポート範囲の最大値<br/>- 最大値: `65535` |
+| cidr | String | Y | CIDR |
+| description | String | N | DBセキュリティグループルールに関する追加情報 |
 
 <a id="create-db-security-group-rule-response"></a>
 #### レスポンス
@@ -5201,6 +5196,8 @@ PUT /v1.0/db-security-groups/{dbSecurityGroupId}/rules/{ruleId}
 | port.portType | Enum | Y | ポートタイプ<br/>- `ALL`: ポート範囲全体(ユーザーコンソールでは使用しない)<br/>- `PORT`: 特定のポート<br/>- `DB_PORT`: DB受信ポート<br/>- `PORT_RANGE`: ポート範囲 |
 | port.minPort | Number | N | ポート範囲の最小値<br/>- 最小値: `1` |
 | port.maxPort | Number | N | ポート範囲の最大値<br/>- 最大値: `65535` |
+| cidr | String | Y | CIDR |
+| description | String | N | DBセキュリティグループルールに関する追加情報 |
 
 <a id="modify-db-security-group-rule-response"></a>
 #### レスポンス
