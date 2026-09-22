@@ -3,6 +3,38 @@
 <a id="database-rds-for-postgresql-release-notes"></a>
 ## Database > RDS for PostgreSQL > 릴리스 노트 { #database-rds-for-postgresql-release-notes }
 
+<a id="october-13-2026"></a>
+### 2026. 10. 13. { #october-13-2026 }
+
+<a id="october-13-2026-added-features"></a>
+#### 기능 추가
+
+- DB 인스턴스 그룹 수정 기능 추가
+    - DB 인스턴스 그룹 단위로 관리할 설정을 그룹 수정 화면에서 제공합니다.
+    - Primary에만 노출하던 상세 탭을 그룹 탭으로 이전했습니다.
+- 그룹 단위 백업 설정 기능 추가
+    - 자동 백업 설정 단위를 DB 인스턴스 그룹으로 변경하고, 인스턴스별로 백업 스케줄을 설정하는 기능을 추가했습니다.
+    - 다른 리전에 생성한 Read Replica도 자동 백업 대상에 포함할 수 있습니다.
+- 증분 백업 기능 추가
+    - 마지막 백업 이후 변경된 데이터만 백업하는 증분 백업을 실행할 수 있습니다.
+- 고가용성 DB 인스턴스 중지 기능 추가
+    - 고가용성으로 구성되거나 Read Replica가 있는 DB 인스턴스를 중지하고 시작할 수 있습니다.
+    - Primary를 중지하거나 시작하면 그룹 내 전체 DB 인스턴스가 함께 처리됩니다.
+
+<a id="october-13-2026-feature-updates"></a>
+#### 기능 개선
+
+- DB 인스턴스 종류 용어 변경
+    - DB 인스턴스 종류 용어를 Primary, Standby, Read Replica, Failed Over Primary로 통일했습니다.
+- 백업 삭제 시 연관 증분 백업 안내 기능 추가
+    - 증분 백업이나 증분 백업의 기반이 되는 전체 백업을 삭제할 때 함께 삭제되는 연관 백업 목록을 확인할 수 있습니다.
+
+<a id="october-13-2026-bug-fixes"></a>
+#### 버그 수정
+
+- 고가용성 DB 인스턴스 수정 시 접속 불가 문제 수정
+    - 고가용성 구성이나 Read Replica가 있는 상태에서 DB 포트와 인스턴스 타입을 동시에 변경하면 간헐적으로 Primary에 접속할 수 없던 문제를 수정했습니다.
+
 <a id="september-8-2026"></a>
 ### 2026. 09. 08. { #september-8-2026 }
 
