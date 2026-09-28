@@ -20,7 +20,7 @@
 <a id="common-authorization"></a>
 ### 인증 및 권한 { #common-authorization }
 
-RDS for PostgreSQL은(는) API 호출 시 인증/인가를 위해 User Access Key 토큰을 사용합니다. User Access Key 토큰은 User Access Key를 기반으로 발급되는 Bearer 유형의 일시적 액세스 토큰입니다. User Access Key 토큰 발급 및 사용에 대한 자세한 내용은 [User Access Key 토큰](/nhncloud/ko/public-api/user-access-key-token)을 참고하세요.
+RDS for PostgreSQL은(는) API 호출 시 인증/인가에 User Access Key 토큰을 사용합니다. User Access Key 토큰은 User Access Key를 기반으로 발급되는 Bearer 유형의 일시적 액세스 토큰입니다. User Access Key 토큰 발급 및 사용 방법은 [User Access Key 토큰](/nhncloud/ko/public-api/user-access-key-token)을 참고하세요.
 발급받은 토큰은 Appkey와 함께 요청 헤더에 포함해야 합니다.
 
 | 이름 | 구분 | 타입 | 필수 | 설명 |
@@ -89,7 +89,7 @@ API 요청 시 인증에 실패하거나 권한이 없을 경우 다음과 같�
 <a id="supported-db-engine-versions"></a>
 ### 지원 DB 엔진 버전 { #supported-db-engine-versions }
 
-| DB 엔진 버전 | 생성 가능 여부 | 오브젝트 스토리지에서 복원 가능 여부 |
+| DB 엔진 버전 | 생성 가능 여부 | Object Storage에서 복원 가능 여부 |
 |------------|----------|------------------|
 | POSTGRESQL_V14_6 | N | Y |
 | POSTGRESQL_V14_15 | N | Y |
@@ -107,7 +107,7 @@ API 요청 시 인증에 실패하거나 권한이 없을 경우 다음과 같�
 <a id="get-db-versions"></a>
 ### DB 엔진 버전 목록 보기 { #get-db-versions }
 
-<a id="get-db-versions-permission"></a>
+<a id="get-db-versions-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -166,7 +166,7 @@ GET /v1.0/db-versions
 <a id="get-db-flavors"></a>
 ### DB 인스턴스 유형 목록 보기 { #get-db-flavors }
 
-<a id="get-db-flavors-permission"></a>
+<a id="get-db-flavors-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -227,7 +227,7 @@ GET /v1.0/db-flavors
 <a id="get-project-members"></a>
 ### 프로젝트의 멤버 목록 조회 { #get-project-members }
 
-<a id="get-project-members-permission"></a>
+<a id="get-project-members-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -285,7 +285,7 @@ GET /v1.0/project/members
 <a id="get-project-regions"></a>
 ### 프로젝트의 리전 목록 조회 { #get-project-regions }
 
-<a id="get-project-regions-permission"></a>
+<a id="get-project-regions-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -342,7 +342,7 @@ GET /v1.0/project/regions
 <a id="get-subnets"></a>
 ### 서브넷 목록 보기 { #get-subnets }
 
-<a id="get-subnets-permission"></a>
+<a id="get-subnets-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -405,7 +405,7 @@ GET /v1.0/network/subnets
 <a id="get-storage-types"></a>
 ### 스토리지 유형 목록 보기 { #get-storage-types }
 
-<a id="get-storage-types-permission"></a>
+<a id="get-storage-types-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -476,7 +476,7 @@ GET /v1.0/storage-types
 <a id="get-job-detail"></a>
 ### 작업 정보 상세 보기 { #get-job-detail }
 
-<a id="get-job-detail-permission"></a>
+<a id="get-job-detail-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -495,7 +495,7 @@ GET /v1.0/jobs/{jobId}
 
 | 이름 | 구분 | 타입 | 필수 | 설명 |
 |-----|-----|-----|-----|-----|
-| jobId | URL | UUID | Y |  |
+| jobId | URL | UUID | Y | 작업의 식별자 |
 
 <a id="get-job-detail-request-body"></a>
 #### 요청 본문
@@ -548,7 +548,7 @@ GET /v1.0/jobs/{jobId}
 <a id="get-db-instance-groups"></a>
 ### DB 인스턴스 그룹 목록 보기 { #get-db-instance-groups }
 
-<a id="get-db-instance-groups-permission"></a>
+<a id="get-db-instance-groups-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -608,7 +608,7 @@ GET /v1.0/db-instance-groups
 <a id="get-db-instance-group"></a>
 ### DB 인스턴스 그룹 상세 보기 { #get-db-instance-group }
 
-<a id="get-db-instance-group-permission"></a>
+<a id="get-db-instance-group-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -627,7 +627,7 @@ GET /v1.0/db-instance-groups/{dbInstanceGroupId}
 
 | 이름 | 구분 | 타입 | 필수 | 설명 |
 |-----|-----|-----|-----|-----|
-| dbInstanceGroupId | URL | UUID | Y |  |
+| dbInstanceGroupId | URL | UUID | Y | DB 인스턴스 그룹의 식별자 |
 
 <a id="get-db-instance-group-request-body"></a>
 #### 요청 본문
@@ -657,6 +657,7 @@ GET /v1.0/db-instance-groups/{dbInstanceGroupId}
             "dbInstanceStatus": "BEFORE_CREATE"
         }
     ],
+    "useManualDbDefinition": false,
     "createdYmdt": "2023-12-31T15:00:00+09:00",
     "updatedYmdt": "2023-12-31T15:00:00+09:00"
 }
@@ -671,17 +672,278 @@ GET /v1.0/db-instance-groups/{dbInstanceGroupId}
 | replicationType | Enum | DB 인스턴스 그룹의 복제 형태<br/>- `STANDALONE`: 고가용성 사용 안함<br/>- `HIGH_AVAILABILITY`: 고가용성 사용 |
 | dbInstances | Array | DB 인스턴스 그룹에 속한 DB 인스턴스 목록 |
 | dbInstances.dbInstanceId | UUID | DB 인스턴스의 식별자 |
-| dbInstances.dbInstanceType | Enum | DB 인스턴스의 역할 유형<br/>- `MASTER`: 마스터<br/>- `FAILED_MASTER`: 장애 마스터<br/>- `CANDIDATE_MASTER`: 예비 마스터<br/>- `READ_ONLY_SLAVE`: 읽기 복제본 |
+| dbInstances.dbInstanceType | Enum | DB 인스턴스의 역할 유형<br/>- `MASTER`: Primary<br/>- `FAILED_MASTER`: Failed Over Primary<br/>- `CANDIDATE_MASTER`: Standby<br/>- `READ_ONLY_SLAVE`: 읽기 복제본 |
 | dbInstances.dbInstanceStatus | Enum | DB 인스턴스의 현재 상태<br/>- `BEFORE_CREATE`: 생성 이전(회색)<br/>- `AVAILABLE`: 사용 가능(녹색)<br/>- `STORAGE_FULL`: 용량 부족(적색)<br/>- `FAIL_TO_CREATE`: 생성 실패(적색)<br/>- `FAIL_TO_CONNECT`: 연결 실패(적색)<br/>- `REPLICATION_STOP`: 복제 중단(적색)<br/>- `REPLICATION_DELAY`: 복제 지연(황색)<br/>- `FAILOVER`: 장애 조치 완료(적색)<br/>- `SHUTDOWN`: 중지됨(회색)<br/>- `DELETED`: 삭제됨(회색) |
+| useManualDbDefinition | Boolean | 데이터베이스 & 사용자 직접 제어 사용 여부 |
 | createdYmdt | DateTime | 생성 일시 |
 | updatedYmdt | DateTime | 수정 일시 |
+
+---
+
+<a id="update-db-instance-group"></a>
+### DB 인스턴스 그룹 수정 { #update-db-instance-group }
+
+<a id="update-db-instance-group-required-permissions"></a>
+#### 필요 권한
+
+| 권한명 | 설명 |
+|-----|-----|
+| RDSforPostgreSQL:DbInstanceGroup.Modify | DB 인스턴스 그룹 수정 |
+
+<a id="update-db-instance-group-request"></a>
+#### 요청
+
+```http
+PUT /v1.0/db-instance-groups/{dbInstanceGroupId}
+```
+
+<a id="update-db-instance-group-request-parameters"></a>
+#### 요청 파라미터
+
+| 이름 | 구분 | 타입 | 필수 | 설명 |
+|-----|-----|-----|-----|-----|
+| dbInstanceGroupId | URL | UUID | Y | DB 인스턴스 그룹의 식별자 |
+
+<a id="update-db-instance-group-request-body"></a>
+#### 요청 본문
+
+<details>
+  <summary><strong>예시 코드</strong></summary>
+
+```json
+{
+    "name": "name",
+    "useHighAvailability": false,
+    "primaryName": "primaryName",
+    "standbyName": "standbyName",
+    "pingInterval": 1,
+    "failoverReplWaitingTime": 1,
+    "useManualDbDefinition": false
+}
+```
+
+</details>
+
+| 이름 | 타입 | 필수 | 설명 |
+|-----|-----|-----|-----|
+| name | String | N | DB 인스턴스 그룹 이름<br/>- 최소 길이: `1`<br/>- 최대 길이: `100` |
+| useHighAvailability | Boolean | N | 고가용성 사용 여부 |
+| primaryName | String | N | 마스터 이름<br/>- 최소 길이: `1`<br/>- 최대 길이: `100` |
+| standbyName | String | N | 예비 마스터 이름<br/>- 최소 길이: `1`<br/>- 최대 길이: `100` |
+| pingInterval | Number | N | Ping 간격(초)<br/>- 최솟값: `1`<br/>- 최댓값: `600` |
+| failoverReplWaitingTime | Number | N | 장애 조치 복제 지연 대기 시간(초)<br/>- 최솟값: `-1` |
+| useManualDbDefinition | Boolean | N | 데이터베이스 & 사용자 직접 제어 사용 여부 |
+
+<a id="update-db-instance-group-response"></a>
+#### 응답
+
+<details>
+  <summary><strong>예시 코드</strong></summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
+}
+```
+
+</details>
+
+| 이름 | 타입 | 설명 |
+|-----|-----|-----|
+| jobId | UUID | 요청한 작업의 식별자 |
+
+---
+
+<a id="get-db-instance-group-backup-info"></a>
+### DB 인스턴스 그룹 백업 정보 조회 { #get-db-instance-group-backup-info }
+
+<a id="get-db-instance-group-backup-info-required-permissions"></a>
+#### 필요 권한
+
+| 권한명 | 설명 |
+|-----|-----|
+| RDSforPostgreSQL:DbInstanceGroup.Modify | DB 인스턴스 그룹 백업 정보 조회 |
+
+<a id="get-db-instance-group-backup-info-request"></a>
+#### 요청
+
+```http
+GET /v1.0/db-instance-groups/{dbInstanceGroupId}/backup-info
+```
+
+<a id="get-db-instance-group-backup-info-request-parameters"></a>
+#### 요청 파라미터
+
+| 이름 | 구분 | 타입 | 필수 | 설명 |
+|-----|-----|-----|-----|-----|
+| dbInstanceGroupId | URL | UUID | Y | DB 인스턴스 그룹의 식별자 |
+
+<a id="get-db-instance-group-backup-info-request-body"></a>
+#### 요청 본문
+
+이 API는 요청 본문을 요구하지 않습니다.
+
+<a id="get-db-instance-group-backup-info-response"></a>
+#### 응답
+
+<details>
+  <summary><strong>예시 코드</strong></summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "allowAutoBackup": false,
+    "usePeriodicAutoBackup": false,
+    "backupPeriod": 1,
+    "backupRetryCount": 1,
+    "periodicAutoBackupStrategyType": "SNAPSHOT",
+    "fullBackupDaysOfWeek": [],
+    "backupExecutionTargetType": "AUTO_SINGLE",
+    "backupExecutionTargets": [
+        {
+            "dbInstanceId": "550e8400-e29b-41d4-a716-446655440000",
+            "enabled": false,
+            "backupSchedules": [
+                {
+                    "backupWndBgnTime": "00:00:00",
+                    "backupWndDuration": "HALF_AN_HOUR"
+                }
+            ]
+        }
+    ]
+}
+```
+
+</details>
+
+| 이름 | 타입 | 설명 |
+|-----|-----|-----|
+| allowAutoBackup | Boolean | 자동 백업 사용 여부 |
+| usePeriodicAutoBackup | Boolean | 예정된 자동 백업 사용 여부 |
+| backupPeriod | Number | 백업 보관 기간 |
+| backupRetryCount | Number | 백업 재시도 횟수 |
+| periodicAutoBackupStrategyType | Enum | 정기 자동 백업 전략 유형<br/>- `SNAPSHOT`: 매일 스냅숏 백업<br/>- `DAILY_FULL`: 매일 전체 백업<br/>- `DAILY_FULL_INC`: 매일 전체 및 증분 백업<br/>- `WEEKLY_FULL_DAILY_INC`: 주간 전체 백업 및 일일 증분 백업 |
+| fullBackupDaysOfWeek | Array | 전체 백업 요일 목록 |
+| backupExecutionTargetType | Enum | 백업 실행 대상 유형<br/>- `AUTO_SINGLE`: 후보 중 부하가 적은 인스턴스 1대 자동 선택<br/>- `ALL`: 선택한 후보 전체에 실행 |
+| backupExecutionTargets | Array | 백업 실행 대상 목록 |
+| backupExecutionTargets.dbInstanceId | UUID | DB 인스턴스의 식별자 |
+| backupExecutionTargets.enabled | Boolean | 활성화 여부 |
+| backupExecutionTargets.backupSchedules | Array | 백업 스케줄 목록 |
+| backupExecutionTargets.backupSchedules.backupWndBgnTime | Time | 백업 시작 시간 |
+| backupExecutionTargets.backupSchedules.backupWndDuration | Enum | 백업 윈도우 기간<br/>- `HALF_AN_HOUR`: 30분<br/>- `ONE_HOUR`: 1시간<br/>- `ONE_HOUR_AND_HALF`: 1시간 30분<br/>- `TWO_HOURS`: 2시간<br/>- `TWO_HOURS_AND_HALF`: 2시간 30분<br/>- `THREE_HOURS`: 3시간 |
+
+---
+
+<a id="update-db-instance-group-backup-info"></a>
+### DB 인스턴스 그룹 백업 정보 수정 { #update-db-instance-group-backup-info }
+
+<a id="update-db-instance-group-backup-info-required-permissions"></a>
+#### 필요 권한
+
+| 권한명 | 설명 |
+|-----|-----|
+| RDSforPostgreSQL:DbInstanceGroup.Modify | DB 인스턴스 그룹 백업 정보 수정 |
+
+<a id="update-db-instance-group-backup-info-request"></a>
+#### 요청
+
+```http
+PUT /v1.0/db-instance-groups/{dbInstanceGroupId}/backup-info
+```
+
+<a id="update-db-instance-group-backup-info-request-parameters"></a>
+#### 요청 파라미터
+
+| 이름 | 구분 | 타입 | 필수 | 설명 |
+|-----|-----|-----|-----|-----|
+| dbInstanceGroupId | URL | UUID | Y | DB 인스턴스 그룹의 식별자 |
+
+<a id="update-db-instance-group-backup-info-request-body"></a>
+#### 요청 본문
+
+<details>
+  <summary><strong>예시 코드</strong></summary>
+
+```json
+{
+    "allowAutoBackup": false,
+    "usePeriodicAutoBackup": false,
+    "backupPeriod": 0,
+    "backupRetryCount": 0,
+    "periodicAutoBackupStrategyType": "SNAPSHOT",
+    "fullBackupDaysOfWeek": [],
+    "backupExecutionTargetType": "AUTO_SINGLE",
+    "backupExecutionTargets": [
+        {
+            "dbInstanceId": "550e8400-e29b-41d4-a716-446655440000",
+            "enabled": true,
+            "backupSchedules": [
+                {
+                    "backupWndBgnTime": "00:00:00",
+                    "backupWndDuration": "HALF_AN_HOUR"
+                }
+            ]
+        }
+    ]
+}
+```
+
+</details>
+
+| 이름 | 타입 | 필수 | 설명 |
+|-----|-----|-----|-----|
+| allowAutoBackup | Boolean | N | 자동 백업 사용 여부 |
+| usePeriodicAutoBackup | Boolean | N | 예정된 자동 백업 사용 여부 |
+| backupPeriod | Number | N | 백업 보관 기간<br/>- 최솟값: `0`<br/>- 최댓값: `730` |
+| backupRetryCount | Number | N | 백업 재시도 횟수<br/>- 최솟값: `0`<br/>- 최댓값: `10` |
+| periodicAutoBackupStrategyType | Enum | N | 정기 자동 백업 전략 유형<br/>- `SNAPSHOT`: 매일 스냅숏 백업<br/>- `DAILY_FULL`: 매일 전체 백업<br/>- `DAILY_FULL_INC`: 매일 전체 및 증분 백업<br/>- `WEEKLY_FULL_DAILY_INC`: 주간 전체 백업 및 일일 증분 백업 |
+| fullBackupDaysOfWeek | Array | N | 전체 백업 요일 목록 |
+| backupExecutionTargetType | Enum | N | 백업 실행 대상 유형<br/>- `AUTO_SINGLE`: 후보 중 부하가 적은 인스턴스 1대 자동 선택<br/>- `ALL`: 선택한 후보 전체에 실행 |
+| backupExecutionTargets | Array | N | 백업 실행 대상 목록 |
+| backupExecutionTargets.dbInstanceId | UUID | Y | DB 인스턴스의 식별자 |
+| backupExecutionTargets.enabled | Boolean | N | 활성화 여부<br/>- 기본값: `true` |
+| backupExecutionTargets.backupSchedules | Array | Y | 백업 스케줄 목록 |
+| backupExecutionTargets.backupSchedules.backupWndBgnTime | Time | Y | 백업 시작 시간 |
+| backupExecutionTargets.backupSchedules.backupWndDuration | Enum | Y | 백업 윈도우 기간<br/>- `HALF_AN_HOUR`: 30분<br/>- `ONE_HOUR`: 1시간<br/>- `ONE_HOUR_AND_HALF`: 1시간 30분<br/>- `TWO_HOURS`: 2시간<br/>- `TWO_HOURS_AND_HALF`: 2시간 30분<br/>- `THREE_HOURS`: 3시간 |
+
+<a id="update-db-instance-group-backup-info-response"></a>
+#### 응답
+
+<details>
+  <summary><strong>예시 코드</strong></summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
+}
+```
+
+</details>
+
+| 이름 | 타입 | 설명 |
+|-----|-----|-----|
+| jobId | UUID | 요청한 작업의 식별자 |
 
 ---
 
 <a id="get-extensions"></a>
 ### 확장 리스트 조회 { #get-extensions }
 
-<a id="get-extensions-permission"></a>
+<a id="get-extensions-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -763,7 +1025,7 @@ GET /v1.0/db-instance-groups/{dbInstanceGroupId}/extensions
 <a id="apply-extensions"></a>
 ### 확장 변경 사항 적용 { #apply-extensions }
 
-<a id="apply-extensions-permission"></a>
+<a id="apply-extensions-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -817,7 +1079,7 @@ POST /v1.0/db-instance-groups/{dbInstanceGroupId}/extensions/apply
 <a id="sync-extensions"></a>
 ### 확장 동기화 { #sync-extensions }
 
-<a id="sync-extensions-permission"></a>
+<a id="sync-extensions-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -871,7 +1133,7 @@ POST /v1.0/db-instance-groups/{dbInstanceGroupId}/extensions/sync
 <a id="delete-extension"></a>
 ### 확장 삭제(취소) { #delete-extension }
 
-<a id="delete-extension-permission"></a>
+<a id="delete-extension-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -909,7 +1171,7 @@ DELETE /v1.0/db-instance-groups/{dbInstanceGroupId}/extensions/{dbInstanceGroupE
 <a id="create-extension"></a>
 ### 확장 설치 { #create-extension }
 
-<a id="create-extension-permission"></a>
+<a id="create-extension-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -957,6 +1219,139 @@ POST /v1.0/db-instance-groups/{dbInstanceGroupId}/extensions/{extensionId}
 #### 응답
 
 이 API는 응답 본문을 반환하지 않습니다.
+
+---
+
+<a id="get-db-instance-group-maintenance-info"></a>
+### DB 인스턴스 그룹 유지 관리 정보 조회 { #get-db-instance-group-maintenance-info }
+
+<a id="get-db-instance-group-maintenance-info-required-permissions"></a>
+#### 필요 권한
+
+| 권한명 | 설명 |
+|-----|-----|
+| RDSforPostgreSQL:DbInstanceGroup.Modify | DB 인스턴스 그룹 유지 관리 정보 조회 |
+
+<a id="get-db-instance-group-maintenance-info-request"></a>
+#### 요청
+
+```http
+GET /v1.0/db-instance-groups/{dbInstanceGroupId}/maintenance-info
+```
+
+<a id="get-db-instance-group-maintenance-info-request-parameters"></a>
+#### 요청 파라미터
+
+| 이름 | 구분 | 타입 | 필수 | 설명 |
+|-----|-----|-----|-----|-----|
+| dbInstanceGroupId | URL | UUID | Y | DB 인스턴스 그룹의 식별자 |
+
+<a id="get-db-instance-group-maintenance-info-request-body"></a>
+#### 요청 본문
+
+이 API는 요청 본문을 요구하지 않습니다.
+
+<a id="get-db-instance-group-maintenance-info-response"></a>
+#### 응답
+
+<details>
+  <summary><strong>예시 코드</strong></summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "maintWndBgnTime": "00:00:00",
+    "maintWndDuration": "HALF_AN_HOUR",
+    "useAutoStorageCleanup": false,
+    "logRetentionPeriod": 1
+}
+```
+
+</details>
+
+| 이름 | 타입 | 설명 |
+|-----|-----|-----|
+| maintWndBgnTime | Time | 유지 관리 시작 시간 |
+| maintWndDuration | Enum | 유지 관리 윈도우 기간<br/>- `HALF_AN_HOUR`: 30분<br/>- `ONE_HOUR`: 1시간<br/>- `ONE_HOUR_AND_HALF`: 1시간 30분<br/>- `TWO_HOURS`: 2시간<br/>- `TWO_HOURS_AND_HALF`: 2시간 30분<br/>- `THREE_HOURS`: 3시간 |
+| useAutoStorageCleanup | Boolean | 자동 스토리지 정리 사용 여부 |
+| logRetentionPeriod | Number | 로그 보관 기간 (일) |
+
+---
+
+<a id="update-db-instance-group-maintenance-info"></a>
+### DB 인스턴스 그룹 유지 관리 정보 수정 { #update-db-instance-group-maintenance-info }
+
+<a id="update-db-instance-group-maintenance-info-required-permissions"></a>
+#### 필요 권한
+
+| 권한명 | 설명 |
+|-----|-----|
+| RDSforPostgreSQL:DbInstanceGroup.Modify | DB 인스턴스 그룹 유지 관리 정보 수정 |
+
+<a id="update-db-instance-group-maintenance-info-request"></a>
+#### 요청
+
+```http
+PUT /v1.0/db-instance-groups/{dbInstanceGroupId}/maintenance-info
+```
+
+<a id="update-db-instance-group-maintenance-info-request-parameters"></a>
+#### 요청 파라미터
+
+| 이름 | 구분 | 타입 | 필수 | 설명 |
+|-----|-----|-----|-----|-----|
+| dbInstanceGroupId | URL | UUID | Y | DB 인스턴스 그룹의 식별자 |
+
+<a id="update-db-instance-group-maintenance-info-request-body"></a>
+#### 요청 본문
+
+<details>
+  <summary><strong>예시 코드</strong></summary>
+
+```json
+{
+    "maintWndBgnTime": "00:00:00",
+    "maintWndDuration": "HALF_AN_HOUR",
+    "useAutoStorageCleanup": false,
+    "logRetentionPeriod": 1
+}
+```
+
+</details>
+
+| 이름 | 타입 | 필수 | 설명 |
+|-----|-----|-----|-----|
+| maintWndBgnTime | Time | N | 유지 관리 시작 시간 |
+| maintWndDuration | Enum | N | 유지 관리 윈도우 기간<br/>- `HALF_AN_HOUR`: 30분<br/>- `ONE_HOUR`: 1시간<br/>- `ONE_HOUR_AND_HALF`: 1시간 30분<br/>- `TWO_HOURS`: 2시간<br/>- `TWO_HOURS_AND_HALF`: 2시간 30분<br/>- `THREE_HOURS`: 3시간 |
+| useAutoStorageCleanup | Boolean | N | 자동 스토리지 정리 사용 여부 |
+| logRetentionPeriod | Number | N | 로그 보관 기간 (일)<br/>- 최솟값: `1`<br/>- 최댓값: `30` |
+
+<a id="update-db-instance-group-maintenance-info-response"></a>
+#### 응답
+
+<details>
+  <summary><strong>예시 코드</strong></summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
+}
+```
+
+</details>
+
+| 이름 | 타입 | 설명 |
+|-----|-----|-----|
+| jobId | UUID | 요청한 작업의 식별자 |
 
 ---
 
@@ -1022,7 +1417,7 @@ POST /v1.0/db-instance-groups/{dbInstanceGroupId}/extensions/{extensionId}
 <a id="get-db-instances"></a>
 ### DB 인스턴스 목록 보기 { #get-db-instances }
 
-<a id="get-db-instances-permission"></a>
+<a id="get-db-instances-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -1083,7 +1478,7 @@ GET /v1.0/db-instances
 | dbInstances.description | String | DB 인스턴스에 대한 추가 정보 |
 | dbInstances.dbVersion | Enum | DB 엔진 유형 |
 | dbInstances.dbPort | Number | DB 포트 |
-| dbInstances.dbInstanceType | Enum | DB 인스턴스의 역할 유형<br/>- `MASTER`: 마스터<br/>- `FAILED_MASTER`: 장애 마스터<br/>- `CANDIDATE_MASTER`: 예비 마스터<br/>- `READ_ONLY_SLAVE`: 읽기 복제본 |
+| dbInstances.dbInstanceType | Enum | DB 인스턴스의 역할 유형<br/>- `MASTER`: Primary<br/>- `FAILED_MASTER`: Failed Over Primary<br/>- `CANDIDATE_MASTER`: Standby<br/>- `READ_ONLY_SLAVE`: 읽기 복제본 |
 | dbInstances.dbInstanceStatus | Enum | DB 인스턴스의 현재 상태<br/>- `BEFORE_CREATE`: 생성 이전(회색)<br/>- `AVAILABLE`: 사용 가능(녹색)<br/>- `STORAGE_FULL`: 용량 부족(적색)<br/>- `FAIL_TO_CREATE`: 생성 실패(적색)<br/>- `FAIL_TO_CONNECT`: 연결 실패(적색)<br/>- `REPLICATION_STOP`: 복제 중단(적색)<br/>- `REPLICATION_DELAY`: 복제 지연(황색)<br/>- `FAILOVER`: 장애 조치 완료(적색)<br/>- `SHUTDOWN`: 중지됨(회색)<br/>- `DELETED`: 삭제됨(회색) |
 | dbInstances.progressStatus | Enum | DB 인스턴스의 현재 진행 상태<br/>- `APPLYING_DB_INSTANCE_HBA_RULE`: 접근 제어 규칙 적용 중<br/>- `APPLYING_EXTENSION`: 확장 적용 중<br/>- `APPLYING_PARAMETER_GROUP`: 파라미터 그룹 적용 중<br/>- `BACKING_UP`: 백업 중<br/>- `CANCELING`: 취소 중<br/>- `CREATING`: 생성 중<br/>- `CREATING_DATABASE`: 데이터베이스 생성 중<br/>- `CREATING_USER`: 사용자 생성 중<br/>- `DELETING`: 삭제 중<br/>- `DELETING_DATABASE`: 데이터베이스 삭제 중<br/>- `DELETING_USER`: 사용자 삭제 중<br/>- `EXPORTING_BACKUP`: 백업을 내보내는 중<br/>- `EXPORTING_LOG_FILE`: 로그 파일을 내보내는 중<br/>- `FAILING_OVER`: 장애 조치 중<br/>- `MIGRATING`: 마이그레이션 중<br/>- `MODIFYING`: 수정 중<br/>- `NONE`: 없음<br/>- `OCCUPIED`: 점유 중<br/>- `PREPARING`: 준비 중<br/>- `PROMOTING`: 승격 중<br/>- `PROMOTING_FORCIBLY`: 강제 승격 중<br/>- `REBUILDING`: 재구축 중<br/>- `REPAIRING`: 복구 중<br/>- `REPLICATING`: 복제 중<br/>- `RESTARTING`: 재시작 중<br/>- `RESTARTING_FORCIBLY`: 강제 재시작 중<br/>- `RESTORING`: 복원 중<br/>- `STARTING`: 시작 중<br/>- `STOPPING`: 정지 중<br/>- `SYNCING_DATABASE`: 데이터베이스 동기화 중<br/>- `SYNCING_EXTENSION`: 확장 동기화 중<br/>- `SYNCING_USER`: 유저 동기화 중<br/>- `UPDATING_DATABASE`: 데이터베이스 수정 중<br/>- `UPDATING_SCHEMA`: 스키마 수정 중<br/>- `UPDATING_USER`: DB 사용자 수정 중<br/>- `WAIT_MANUAL_CONTROL`: 수동 장애조치 대기 중 |
 | dbInstances.createdYmdt | DateTime | 생성 일시 |
@@ -1094,7 +1489,7 @@ GET /v1.0/db-instances
 <a id="create-db-instance"></a>
 ### DB 인스턴스 생성하기 { #create-db-instance }
 
-<a id="create-db-instance-permission"></a>
+<a id="create-db-instance-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -1145,7 +1540,8 @@ POST /v1.0/db-instances
     "backup": {
         "backupPeriod": 0,
         "backupRetryCount": 0,
-        "periodicAutoBackupStrategyTypeCode": "DAILY_FULL",
+        "periodicAutoBackupStrategyType": "DAILY_FULL",
+        "fullBackupDaysOfWeek": [],
         "backupSchedules": [
             {
                 "backupWndBgnTime": "00:00:00",
@@ -1161,7 +1557,7 @@ POST /v1.0/db-instances
 | 이름 | 타입 | 필수 | 설명 |
 |-----|-----|-----|-----|
 | dbInstanceName | String | Y | DB 인스턴스를 식별할 수 있는 이름 |
-| dbInstanceCandidateName | String | N | DB 인스턴스를 식별할 수 있는 예비 마스터 이름 |
+| dbInstanceCandidateName | String | N | Standby DB 인스턴스를 식별할 수 있는 이름 |
 | description | String | N | DB 인스턴스에 대한 추가 정보 |
 | dbFlavorId | UUID | Y | DB 인스턴스 사양의 식별자 |
 | dbVersion | Enum | Y | DB 엔진 버전 |
@@ -1187,7 +1583,8 @@ POST /v1.0/db-instances
 | backup | Object | Y | 백업 정보 |
 | backup.backupPeriod | Number | Y | 백업 보관 기간(일)<br/>- 최솟값: `0`<br/>- 최댓값: `730` |
 | backup.backupRetryCount | Number | N | 백업 재시도 횟수<br/>- 최솟값: `0`<br/>- 최댓값: `10` |
-| backup.periodicAutoBackupStrategyTypeCode | Enum | N | 주기적 자동 백업 전략 코드 (DAILY_FULL/SNAPSHOT)<br/>- 기본값: `DAILY_FULL`<br/>- `SNAPSHOT`: 매일 스냅숏 백업<br/>- `DAILY_FULL`: 매일 전체 백업 |
+| backup.periodicAutoBackupStrategyType | Enum | N | 정기 자동 백업 전략 유형<br/>- 기본값: `DAILY_FULL`<br/>- `SNAPSHOT`: 매일 스냅숏 백업<br/>- `DAILY_FULL`: 매일 전체 백업<br/>- `DAILY_FULL_INC`: 매일 전체 및 증분 백업<br/>- `WEEKLY_FULL_DAILY_INC`: 주간 전체 백업 및 일일 증분 백업 |
+| backup.fullBackupDaysOfWeek | Array | N | 전체 백업 요일 목록 (정기 자동 백업 전략이 WEEKLY_FULL_DAILY_INC 이면 필수) |
 | backup.backupSchedules | Array | Y | 백업 스케줄 정보 |
 | backup.backupSchedules.backupWndBgnTime | Time | Y | 백업 시작 시간 |
 | backup.backupSchedules.backupWndDuration | Enum | Y | 백업 윈도우<br/>- `HALF_AN_HOUR`: 30분<br/>- `ONE_HOUR`: 1시간<br/>- `ONE_HOUR_AND_HALF`: 1시간 30분<br/>- `TWO_HOURS`: 2시간<br/>- `TWO_HOURS_AND_HALF`: 2시간 30분<br/>- `THREE_HOURS`: 3시간 |
@@ -1220,7 +1617,7 @@ POST /v1.0/db-instances
 <a id="restore-from-object-storage"></a>
 ### DB 인스턴스 오브젝트 스토리지에 있는 백업으로 복원 { #restore-from-object-storage }
 
-<a id="restore-from-object-storage-permission"></a>
+<a id="restore-from-object-storage-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -1263,7 +1660,8 @@ POST /v1.0/db-instances/restore-from-obs
     },
     "backup": {
         "backupPeriod": 0,
-        "periodicAutoBackupStrategyTypeCode": "DAILY_FULL",
+        "periodicAutoBackupStrategyType": "DAILY_FULL",
+        "fullBackupDaysOfWeek": [],
         "backupRetryCount": 0,
         "backupSchedules": [
             {
@@ -1292,7 +1690,7 @@ POST /v1.0/db-instances/restore-from-obs
 | 이름 | 타입 | 필수 | 설명 |
 |-----|-----|-----|-----|
 | dbInstanceName | String | N | DB 인스턴스를 식별할 수 있는 이름<br/>- 최소 길이: `1`<br/>- 최대 길이: `100` |
-| dbInstanceCandidateName | String | N | DB 인스턴스를 식별할 수 있는 예비 마스터 이름 |
+| dbInstanceCandidateName | String | N | Standby DB 인스턴스를 식별할 수 있는 이름 |
 | description | String | N | DB 인스턴스에 대한 추가 정보<br/>- 최대 길이: `100` |
 | dbFlavorId | UUID | Y | DB 인스턴스 사양의 식별자 |
 | dbPort | Number | N | DB 포트<br/>- 최솟값: 5432, 최댓값: 45432 |
@@ -1310,7 +1708,8 @@ POST /v1.0/db-instances/restore-from-obs
 | network.availabilityZone | Enum | N | DB 인스턴스를 생성할 가용성 영역 |
 | backup | Object | Y | 백업 정보 객체 |
 | backup.backupPeriod | Number | Y | 백업 보관 기간(일)<br/>- 최솟값: `0`<br/>- 최댓값: `730` |
-| backup.periodicAutoBackupStrategyTypeCode | Enum | N | 주기적 자동 백업 전략 코드 (DAILY_FULL/SNAPSHOT)<br/>- 기본값: `DAILY_FULL`<br/>- `SNAPSHOT`: 매일 스냅숏 백업<br/>- `DAILY_FULL`: 매일 전체 백업 |
+| backup.periodicAutoBackupStrategyType | Enum | N | 정기 자동 백업 전략 유형<br/>- 기본값: `DAILY_FULL`<br/>- `SNAPSHOT`: 매일 스냅숏 백업<br/>- `DAILY_FULL`: 매일 전체 백업<br/>- `DAILY_FULL_INC`: 매일 전체 및 증분 백업<br/>- `WEEKLY_FULL_DAILY_INC`: 주간 전체 백업 및 일일 증분 백업 |
+| backup.fullBackupDaysOfWeek | Array | N | 전체 백업 요일 목록 (정기 자동 백업 전략이 WEEKLY_FULL_DAILY_INC 이면 필수) |
 | backup.backupRetryCount | Number | N | 백업 재시도 횟수<br/>- 최솟값: `0`<br/>- 최댓값: `10` |
 | backup.backupSchedules | Array | Y | 백업 스케줄 목록 |
 | backup.backupSchedules.backupWndBgnTime | Time | Y | 백업 시작 시간 |
@@ -1355,7 +1754,7 @@ POST /v1.0/db-instances/restore-from-obs
 <a id="delete-db-instance"></a>
 ### DB 인스턴스 삭제하기 { #delete-db-instance }
 
-<a id="delete-db-instance-permission"></a>
+<a id="delete-db-instance-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -1409,7 +1808,7 @@ DELETE /v1.0/db-instances/{dbInstanceId}
 <a id="get-db-instance"></a>
 ### DB 인스턴스 상세 보기 { #get-db-instance }
 
-<a id="get-db-instance-permission"></a>
+<a id="get-db-instance-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -1484,7 +1883,7 @@ GET /v1.0/db-instances/{dbInstanceId}
 | description | String | DB 인스턴스에 대한 추가 정보 |
 | dbVersion | Enum | DB 엔진 유형 |
 | dbPort | Number | DB 포트 |
-| dbInstanceType | Enum | DB 인스턴스의 역할 유형<br/>- `MASTER`: 마스터<br/>- `FAILED_MASTER`: 장애 마스터<br/>- `CANDIDATE_MASTER`: 예비 마스터<br/>- `READ_ONLY_SLAVE`: 읽기 복제본 |
+| dbInstanceType | Enum | DB 인스턴스의 역할 유형<br/>- `MASTER`: Primary<br/>- `FAILED_MASTER`: Failed Over Primary<br/>- `CANDIDATE_MASTER`: Standby<br/>- `READ_ONLY_SLAVE`: 읽기 복제본 |
 | dbInstanceStatus | Enum | DB 인스턴스의 현재 상태<br/>- `BEFORE_CREATE`: 생성 이전(회색)<br/>- `AVAILABLE`: 사용 가능(녹색)<br/>- `STORAGE_FULL`: 용량 부족(적색)<br/>- `FAIL_TO_CREATE`: 생성 실패(적색)<br/>- `FAIL_TO_CONNECT`: 연결 실패(적색)<br/>- `REPLICATION_STOP`: 복제 중단(적색)<br/>- `REPLICATION_DELAY`: 복제 지연(황색)<br/>- `FAILOVER`: 장애 조치 완료(적색)<br/>- `SHUTDOWN`: 중지됨(회색)<br/>- `DELETED`: 삭제됨(회색) |
 | progressStatus | Enum | DB 인스턴스의 현재 진행 상태<br/>- `APPLYING_DB_INSTANCE_HBA_RULE`: 접근 제어 규칙 적용 중<br/>- `APPLYING_EXTENSION`: 확장 적용 중<br/>- `APPLYING_PARAMETER_GROUP`: 파라미터 그룹 적용 중<br/>- `BACKING_UP`: 백업 중<br/>- `CANCELING`: 취소 중<br/>- `CREATING`: 생성 중<br/>- `CREATING_DATABASE`: 데이터베이스 생성 중<br/>- `CREATING_USER`: 사용자 생성 중<br/>- `DELETING`: 삭제 중<br/>- `DELETING_DATABASE`: 데이터베이스 삭제 중<br/>- `DELETING_USER`: 사용자 삭제 중<br/>- `EXPORTING_BACKUP`: 백업을 내보내는 중<br/>- `EXPORTING_LOG_FILE`: 로그 파일을 내보내는 중<br/>- `FAILING_OVER`: 장애 조치 중<br/>- `MIGRATING`: 마이그레이션 중<br/>- `MODIFYING`: 수정 중<br/>- `NONE`: 없음<br/>- `OCCUPIED`: 점유 중<br/>- `PREPARING`: 준비 중<br/>- `PROMOTING`: 승격 중<br/>- `PROMOTING_FORCIBLY`: 강제 승격 중<br/>- `REBUILDING`: 재구축 중<br/>- `REPAIRING`: 복구 중<br/>- `REPLICATING`: 복제 중<br/>- `RESTARTING`: 재시작 중<br/>- `RESTARTING_FORCIBLY`: 강제 재시작 중<br/>- `RESTORING`: 복원 중<br/>- `STARTING`: 시작 중<br/>- `STOPPING`: 정지 중<br/>- `SYNCING_DATABASE`: 데이터베이스 동기화 중<br/>- `SYNCING_EXTENSION`: 확장 동기화 중<br/>- `SYNCING_USER`: 유저 동기화 중<br/>- `UPDATING_DATABASE`: 데이터베이스 수정 중<br/>- `UPDATING_SCHEMA`: 스키마 수정 중<br/>- `UPDATING_USER`: DB 사용자 수정 중<br/>- `WAIT_MANUAL_CONTROL`: 수동 장애조치 대기 중 |
 | dbFlavorId | UUID | DB 인스턴스 사양의 식별자 |
@@ -1503,7 +1902,7 @@ GET /v1.0/db-instances/{dbInstanceId}
 <a id="modify-db-instance"></a>
 ### DB 인스턴스 수정하기 { #modify-db-instance }
 
-<a id="modify-db-instance-permission"></a>
+<a id="modify-db-instance-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -1552,7 +1951,7 @@ PUT /v1.0/db-instances/{dbInstanceId}
 | 이름 | 타입 | 필수 | 설명 |
 |-----|-----|-----|-----|
 | dbInstanceName | String | N | DB 인스턴스를 식별할 수 있는 이름 |
-| dbInstanceCandidateName | String | N | DB 인스턴스를 식별할 수 있는 예비 마스터 이름 |
+| dbInstanceCandidateName | String | N | Standby DB 인스턴스를 식별할 수 있는 이름 |
 | description | String | N | DB 인스턴스에 대한 추가 정보<br/>- 최대 길이: `100` |
 | dbPort | Number | N | DB 포트<br/>- 최솟값: 5432, 최댓값: 45432 |
 | dbFlavorId | UUID | N | DB 인스턴스 사양의 식별자 |
@@ -1592,7 +1991,7 @@ PUT /v1.0/db-instances/{dbInstanceId}
 <a id="apply-recent-parameter-group"></a>
 ### DB 인스턴스 최신 파라미터 그룹 적용하기 { #apply-recent-parameter-group }
 
-<a id="apply-recent-parameter-group-permission"></a>
+<a id="apply-recent-parameter-group-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -1646,7 +2045,7 @@ POST /v1.0/db-instances/{dbInstanceId}/apply-recent-parameter-group
 <a id="get-available-db-versions-for-current-db-instance"></a>
 ### 현 DB 인스턴스에서 선택 가능한 DB 엔진 버전 조회 { #get-available-db-versions-for-current-db-instance }
 
-<a id="get-available-db-versions-for-current-db-instance-permission"></a>
+<a id="get-available-db-versions-for-current-db-instance-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -1709,7 +2108,7 @@ GET /v1.0/db-instances/{dbInstanceId}/available-db-versions
 <a id="backup-db-instance"></a>
 ### DB 인스턴스 백업하기 { #backup-db-instance }
 
-<a id="backup-db-instance-permission"></a>
+<a id="backup-db-instance-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -1739,7 +2138,8 @@ POST /v1.0/db-instances/{dbInstanceId}/backup
 ```json
 {
     "backupName": "backupName-example",
-    "backupMethodType": "FULL"
+    "backupMethodType": "FULL",
+    "baseBackupId": "baseBackupId-example"
 }
 ```
 
@@ -1748,7 +2148,8 @@ POST /v1.0/db-instances/{dbInstanceId}/backup
 | 이름 | 타입 | 필수 | 설명 |
 |-----|-----|-----|-----|
 | backupName | String | Y | 백업을 식별할 수 있는 이름 |
-| backupMethodType | Enum | N | 백업 방식<br/>- `FULL`<br/>- `SNAPSHOT` |
+| backupMethodType | Enum | N | 백업 방식<br/>- `FULL`: 전체 백업<br/>- `INCREMENTAL`: 증분 백업<br/>- `SNAPSHOT`: 스냅숏 백업 |
+| baseBackupId | String | N | 원본 백업의 식별자 |
 
 <a id="backup-db-instance-response"></a>
 #### 응답
@@ -1778,7 +2179,7 @@ POST /v1.0/db-instances/{dbInstanceId}/backup
 <a id="get-backup-info"></a>
 ### DB 인스턴스 백업 정보 조회 { #get-backup-info }
 
-<a id="get-backup-info-permission"></a>
+<a id="get-backup-info-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -1818,8 +2219,10 @@ GET /v1.0/db-instances/{dbInstanceId}/backup-info
         "isSuccessful": true
     },
     "allowAutoBackup": false,
+    "allowAutoBackupExecutionTarget": false,
     "usePeriodicAutoBackup": false,
-    "periodicAutoBackupStrategyTypeCode": "SNAPSHOT",
+    "periodicAutoBackupStrategyType": "SNAPSHOT",
+    "fullBackupDaysOfWeek": [],
     "backupPeriod": 1,
     "backupRetryCount": 1,
     "backupSchedules": [
@@ -1836,8 +2239,10 @@ GET /v1.0/db-instances/{dbInstanceId}/backup-info
 | 이름 | 타입 | 설명 |
 |-----|-----|-----|
 | allowAutoBackup | Boolean | 자동 백업 허용 여부 |
+| allowAutoBackupExecutionTarget | Boolean | 자동 백업 실행 대상 허용 여부 |
 | usePeriodicAutoBackup | Boolean | 예정된 자동 백업 사용 여부 |
-| periodicAutoBackupStrategyTypeCode | Enum | 주기적 자동 백업 전략 코드 (DAILY_FULL/SNAPSHOT)<br/>- `SNAPSHOT`: 매일 스냅숏 백업<br/>- `DAILY_FULL`: 매일 전체 백업 |
+| periodicAutoBackupStrategyType | Enum | 정기 자동 백업 전략 유형<br/>- `SNAPSHOT`: 매일 스냅숏 백업<br/>- `DAILY_FULL`: 매일 전체 백업<br/>- `DAILY_FULL_INC`: 매일 전체 및 증분 백업<br/>- `WEEKLY_FULL_DAILY_INC`: 주간 전체 백업 및 일일 증분 백업 |
+| fullBackupDaysOfWeek | Array | 전체 백업 요일 목록 (정기 자동 백업 전략이 WEEKLY_FULL_DAILY_INC 이면 필수) |
 | backupPeriod | Number | 백업 보관 기간(일) |
 | backupRetryCount | Number | 백업 재시도 횟수 |
 | backupSchedules | Array | 백업 스케줄 목록 |
@@ -1849,7 +2254,7 @@ GET /v1.0/db-instances/{dbInstanceId}/backup-info
 <a id="modify-backup-info"></a>
 ### DB 인스턴스 백업 정보 수정하기 { #modify-backup-info }
 
-<a id="modify-backup-info-permission"></a>
+<a id="modify-backup-info-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -1879,8 +2284,11 @@ PUT /v1.0/db-instances/{dbInstanceId}/backup-info
 ```json
 {
     "allowAutoBackup": false,
+    "allowAutoBackupExecutionTarget": false,
     "usePeriodicAutoBackup": false,
-    "periodicAutoBackupStrategyTypeCode": "SNAPSHOT",
+    "backupExecutionTargetType": "AUTO_SINGLE",
+    "periodicAutoBackupStrategyType": "SNAPSHOT",
+    "fullBackupDaysOfWeek": [],
     "backupPeriod": 0,
     "backupRetryCount": 0,
     "backupSchedules": [
@@ -1897,8 +2305,11 @@ PUT /v1.0/db-instances/{dbInstanceId}/backup-info
 | 이름 | 타입 | 필수 | 설명 |
 |-----|-----|-----|-----|
 | allowAutoBackup | Boolean | N | 자동 백업 허용 여부 |
+| allowAutoBackupExecutionTarget | Boolean | N | 자동 백업 실행 대상 허용 여부 |
 | usePeriodicAutoBackup | Boolean | N | 예정된 자동 백업 사용 여부 |
-| periodicAutoBackupStrategyTypeCode | Enum | N | 주기적 자동 백업 전략 코드 (DAILY_FULL/SNAPSHOT)<br/>- `SNAPSHOT`: 매일 스냅숏 백업<br/>- `DAILY_FULL`: 매일 전체 백업 |
+| backupExecutionTargetType | Enum | N | 백업 실행 대상 유형<br/>- `AUTO_SINGLE`: 후보 중 부하가 적은 인스턴스 1대 자동 선택<br/>- `ALL`: 선택한 후보 전체에 실행 |
+| periodicAutoBackupStrategyType | Enum | N | 정기 자동 백업 전략 유형<br/>- `SNAPSHOT`: 매일 스냅숏 백업<br/>- `DAILY_FULL`: 매일 전체 백업<br/>- `DAILY_FULL_INC`: 매일 전체 및 증분 백업<br/>- `WEEKLY_FULL_DAILY_INC`: 주간 전체 백업 및 일일 증분 백업 |
+| fullBackupDaysOfWeek | Array | N | 전체 백업 요일 목록 (정기 자동 백업 전략이 WEEKLY_FULL_DAILY_INC 이면 필수) |
 | backupPeriod | Number | N | 백업 보관 기간(일)<br/>- 최솟값: `0`<br/>- 최댓값: `730` |
 | backupRetryCount | Number | N | 백업 재시도 횟수<br/>- 최솟값: `0`<br/>- 최댓값: `10` |
 | backupSchedules | Array | N | 백업 스케줄 목록 |
@@ -1933,7 +2344,7 @@ PUT /v1.0/db-instances/{dbInstanceId}/backup-info
 <a id="backup-to-object-storage"></a>
 ### DB 인스턴스 오브젝트 스토리지로 백업 { #backup-to-object-storage }
 
-<a id="backup-to-object-storage-permission"></a>
+<a id="backup-to-object-storage-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -2008,7 +2419,7 @@ POST /v1.0/db-instances/{dbInstanceId}/backup-to-object-storage
 <a id="get-databases"></a>
 ### 데이터베이스 목록 보기 { #get-databases }
 
-<a id="get-databases-permission"></a>
+<a id="get-databases-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -2084,7 +2495,7 @@ GET /v1.0/db-instances/{dbInstanceId}/databases
 <a id="create-database"></a>
 ### 데이터베이스 생성하기 { #create-database }
 
-<a id="create-database-permission"></a>
+<a id="create-database-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -2151,7 +2562,7 @@ POST /v1.0/db-instances/{dbInstanceId}/databases
 <a id="delete-database"></a>
 ### 데이터베이스 삭제하기 { #delete-database }
 
-<a id="delete-database-permission"></a>
+<a id="delete-database-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -2206,7 +2617,7 @@ DELETE /v1.0/db-instances/{dbInstanceId}/databases/{databaseId}
 <a id="modify-database"></a>
 ### 데이터베이스 수정하기 { #modify-database }
 
-<a id="modify-database-permission"></a>
+<a id="modify-database-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -2276,7 +2687,7 @@ PUT /v1.0/db-instances/{dbInstanceId}/databases/{databaseId}
 <a id="get-users"></a>
 ### 사용자 목록 보기 { #get-users }
 
-<a id="get-users-permission"></a>
+<a id="get-users-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -2345,7 +2756,7 @@ GET /v1.0/db-instances/{dbInstanceId}/db-users
 <a id="create-db-user"></a>
 ### 사용자 생성하기 { #create-db-user }
 
-<a id="create-db-user-permission"></a>
+<a id="create-db-user-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -2420,7 +2831,7 @@ POST /v1.0/db-instances/{dbInstanceId}/db-users
 <a id="delete-db-user"></a>
 ### 사용자 삭제하기 { #delete-db-user }
 
-<a id="delete-db-user-permission"></a>
+<a id="delete-db-user-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -2475,7 +2886,7 @@ DELETE /v1.0/db-instances/{dbInstanceId}/db-users/{dbUserId}
 <a id="modify-db-user"></a>
 ### 사용자 수정하기 { #modify-db-user }
 
-<a id="modify-db-user-permission"></a>
+<a id="modify-db-user-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -2549,7 +2960,7 @@ PUT /v1.0/db-instances/{dbInstanceId}/db-users/{dbUserId}
 <a id="change-deletion-protection"></a>
 ### DB 인스턴스 삭제 보호 설정 변경하기 { #change-deletion-protection }
 
-<a id="change-deletion-protection-permission"></a>
+<a id="change-deletion-protection-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -2598,7 +3009,7 @@ PUT /v1.0/db-instances/{dbInstanceId}/deletion-protection
 <a id="force-restart-db-instance"></a>
 ### DB 인스턴스 강제 재시작하기 { #force-restart-db-instance }
 
-<a id="force-restart-db-instance-permission"></a>
+<a id="force-restart-db-instance-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -2634,7 +3045,7 @@ POST /v1.0/db-instances/{dbInstanceId}/force-restart
 <a id="get-hba-rules"></a>
 ### 접근 제어 규칙 목록 보기 { #get-hba-rules }
 
-<a id="get-hba-rules-permission"></a>
+<a id="get-hba-rules-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -2729,7 +3140,7 @@ GET /v1.0/db-instances/{dbInstanceId}/hba-rules
 <a id="create-hba-rule"></a>
 ### 접근 제어 규칙 추가하기 { #create-hba-rule }
 
-<a id="create-hba-rule-permission"></a>
+<a id="create-hba-rule-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -2808,7 +3219,7 @@ POST /v1.0/db-instances/{dbInstanceId}/hba-rules
 <a id="apply-hba-rules"></a>
 ### 접근 제어 규칙 적용하기 { #apply-hba-rules }
 
-<a id="apply-hba-rules-permission"></a>
+<a id="apply-hba-rules-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -2862,7 +3273,7 @@ POST /v1.0/db-instances/{dbInstanceId}/hba-rules/apply
 <a id="modify-hba-rule-orders"></a>
 ### 접근 제어 규칙 순서 조정 { #modify-hba-rule-orders }
 
-<a id="modify-hba-rule-orders-permission"></a>
+<a id="modify-hba-rule-orders-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -2899,7 +3310,7 @@ PUT /v1.0/db-instances/{dbInstanceId}/hba-rules/orders
 
 | 이름 | 타입 | 필수 | 설명 |
 |-----|-----|-----|-----|
-| hbaRuleIds | Array | Y | 정렬된 접속제어 규칙 ID 리스트 (요청받은 순서대로 저장) |
+| hbaRuleIds | Array | Y | 정렬된 접속제어 규칙의 식별자 목록 (요청받은 순서대로 저장) |
 
 <a id="modify-hba-rule-orders-response"></a>
 #### 응답
@@ -2911,7 +3322,7 @@ PUT /v1.0/db-instances/{dbInstanceId}/hba-rules/orders
 <a id="delete-hba-configuration"></a>
 ### 접근 제어 설정 삭제하기 { #delete-hba-configuration }
 
-<a id="delete-hba-configuration-permission"></a>
+<a id="delete-hba-configuration-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -2948,7 +3359,7 @@ DELETE /v1.0/db-instances/{dbInstanceId}/hba-rules/{hbaRuleId}
 <a id="modify-hba-rule"></a>
 ### 접근 제어 규칙 수정하기 { #modify-hba-rule }
 
-<a id="modify-hba-rule-permission"></a>
+<a id="modify-hba-rule-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -3010,7 +3421,7 @@ PUT /v1.0/db-instances/{dbInstanceId}/hba-rules/{hbaRuleId}
 <a id="get-high-availability"></a>
 ### 고가용성 정보 조회 { #get-high-availability }
 
-<a id="get-high-availability-permission"></a>
+<a id="get-high-availability-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -3068,7 +3479,7 @@ GET /v1.0/db-instances/{dbInstanceId}/high-availability
 <a id="modify-high-availability"></a>
 ### 고가용성 수정하기 { #modify-high-availability }
 
-<a id="modify-high-availability-permission"></a>
+<a id="modify-high-availability-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -3139,7 +3550,7 @@ PUT /v1.0/db-instances/{dbInstanceId}/high-availability
 <a id="pause-high-availability"></a>
 ### 고가용성 일시 중지하기 { #pause-high-availability }
 
-<a id="pause-high-availability-permission"></a>
+<a id="pause-high-availability-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -3193,7 +3604,7 @@ POST /v1.0/db-instances/{dbInstanceId}/high-availability/pause
 <a id="repair-high-availability"></a>
 ### 고가용성 복구하기 { #repair-high-availability }
 
-<a id="repair-high-availability-permission"></a>
+<a id="repair-high-availability-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -3247,7 +3658,7 @@ POST /v1.0/db-instances/{dbInstanceId}/high-availability/repair
 <a id="resume-high-availability"></a>
 ### 고가용성 다시 시작하기 { #resume-high-availability }
 
-<a id="resume-high-availability-permission"></a>
+<a id="resume-high-availability-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -3301,7 +3712,7 @@ POST /v1.0/db-instances/{dbInstanceId}/high-availability/resume
 <a id="split-high-availability"></a>
 ### 고가용성 분리하기 { #split-high-availability }
 
-<a id="split-high-availability-permission"></a>
+<a id="split-high-availability-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -3353,14 +3764,14 @@ POST /v1.0/db-instances/{dbInstanceId}/high-availability/split
 ---
 
 <a id="get-maintenance-info"></a>
-### DB 인스턴스 유지 보수 정보 조회 { #get-maintenance-info }
+### DB 인스턴스 유지 관리 정보 조회 { #get-maintenance-info }
 
-<a id="get-maintenance-info-permission"></a>
+<a id="get-maintenance-info-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
 |-----|-----|
-| RDSforPostgreSQL:DbInstance.Get | DB 인스턴스 유지 보수 정보 조회 |
+| RDSforPostgreSQL:DbInstance.Get | DB 인스턴스 유지 관리 정보 조회 |
 
 <a id="get-maintenance-info-request"></a>
 #### 요청
@@ -3394,7 +3805,6 @@ GET /v1.0/db-instances/{dbInstanceId}/maintenance-info
         "resultMessage": "SUCCESS",
         "isSuccessful": true
     },
-    "allowAutoMaintenance": false,
     "useAutoStorageCleanup": false,
     "maintWndBgnTime": "00:00:00",
     "maintWndDuration": "HALF_AN_HOUR",
@@ -3406,23 +3816,22 @@ GET /v1.0/db-instances/{dbInstanceId}/maintenance-info
 
 | 이름 | 타입 | 설명 |
 |-----|-----|-----|
-| allowAutoMaintenance | Boolean | 자동 유지 보수 허용 여부 |
 | useAutoStorageCleanup | Boolean | 자동 스토리지 정리 사용 여부 |
-| maintWndBgnTime | Time | 자동 유지 보수 시작 시간 |
-| maintWndDuration | Enum | 유지 보수 윈도우<br/>- `HALF_AN_HOUR`: 30분<br/>- `ONE_HOUR`: 1시간<br/>- `ONE_HOUR_AND_HALF`: 1시간 30분<br/>- `TWO_HOURS`: 2시간<br/>- `TWO_HOURS_AND_HALF`: 2시간 30분<br/>- `THREE_HOURS`: 3시간 |
+| maintWndBgnTime | Time | 자동 유지 관리 시작 시간 |
+| maintWndDuration | Enum | 유지 관리 윈도우<br/>- `HALF_AN_HOUR`: 30분<br/>- `ONE_HOUR`: 1시간<br/>- `ONE_HOUR_AND_HALF`: 1시간 30분<br/>- `TWO_HOURS`: 2시간<br/>- `TWO_HOURS_AND_HALF`: 2시간 30분<br/>- `THREE_HOURS`: 3시간 |
 | logRetentionPeriod | Number | 로그 보관 기간 (일) |
 
 ---
 
 <a id="modify-maintenance-info"></a>
-### DB 인스턴스 유지 보수 정보 수정하기 { #modify-maintenance-info }
+### DB 인스턴스 유지 관리 정보 수정하기 { #modify-maintenance-info }
 
-<a id="modify-maintenance-info-permission"></a>
+<a id="modify-maintenance-info-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
 |-----|-----|
-| RDSforPostgreSQL:DbInstance.Modify | DB 인스턴스 유지 보수 정보 수정하기 |
+| RDSforPostgreSQL:DbInstance.Modify | DB 인스턴스 유지 관리 정보 수정하기 |
 
 <a id="modify-maintenance-info-request"></a>
 #### 요청
@@ -3446,7 +3855,6 @@ PUT /v1.0/db-instances/{dbInstanceId}/maintenance-info
 
 ```json
 {
-    "allowAutoMaintenance": false,
     "useAutoStorageCleanup": false,
     "maintWndBgnTime": "00:00:00",
     "maintWndDuration": "HALF_AN_HOUR",
@@ -3458,10 +3866,9 @@ PUT /v1.0/db-instances/{dbInstanceId}/maintenance-info
 
 | 이름 | 타입 | 필수 | 설명 |
 |-----|-----|-----|-----|
-| allowAutoMaintenance | Boolean | N | 자동 유지 보수 허용 여부 |
 | useAutoStorageCleanup | Boolean | N | 자동 스토리지 정리 사용 여부 |
-| maintWndBgnTime | Time | N | 자동 유지 보수 시작 시간 |
-| maintWndDuration | Enum | N | 유지 보수 윈도우<br/>- `HALF_AN_HOUR`: 30분<br/>- `ONE_HOUR`: 1시간<br/>- `ONE_HOUR_AND_HALF`: 1시간 30분<br/>- `TWO_HOURS`: 2시간<br/>- `TWO_HOURS_AND_HALF`: 2시간 30분<br/>- `THREE_HOURS`: 3시간 |
+| maintWndBgnTime | Time | N | 자동 유지 관리 시작 시간 |
+| maintWndDuration | Enum | N | 유지 관리 윈도우<br/>- `HALF_AN_HOUR`: 30분<br/>- `ONE_HOUR`: 1시간<br/>- `ONE_HOUR_AND_HALF`: 1시간 30분<br/>- `TWO_HOURS`: 2시간<br/>- `TWO_HOURS_AND_HALF`: 2시간 30분<br/>- `THREE_HOURS`: 3시간 |
 | logRetentionPeriod | Number | N | 로그 보관 기간 (일)<br/>- 최솟값: `1`<br/>- 최댓값: `30` |
 
 <a id="modify-maintenance-info-response"></a>
@@ -3492,7 +3899,7 @@ PUT /v1.0/db-instances/{dbInstanceId}/maintenance-info
 <a id="get-network-info"></a>
 ### DB 인스턴스 네트워크 정보 조회 { #get-network-info }
 
-<a id="get-network-info-permission"></a>
+<a id="get-network-info-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -3568,7 +3975,7 @@ GET /v1.0/db-instances/{dbInstanceId}/network-info
 <a id="modify-network-info"></a>
 ### DB 인스턴스 네트워크 정보 수정하기 { #modify-network-info }
 
-<a id="modify-network-info-permission"></a>
+<a id="modify-network-info-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -3635,7 +4042,7 @@ PUT /v1.0/db-instances/{dbInstanceId}/network-info
 <a id="promote-db-instance"></a>
 ### DB 인스턴스 승격하기 { #promote-db-instance }
 
-<a id="promote-db-instance-permission"></a>
+<a id="promote-db-instance-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -3689,7 +4096,7 @@ POST /v1.0/db-instances/{dbInstanceId}/promote
 <a id="replicate-db-instance"></a>
 ### 읽기 복제본 생성 { #replicate-db-instance }
 
-<a id="replicate-db-instance-permission"></a>
+<a id="replicate-db-instance-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -3786,7 +4193,7 @@ POST /v1.0/db-instances/{dbInstanceId}/replicate
 <a id="restart-db-instance"></a>
 ### DB 인스턴스 재시작하기 { #restart-db-instance }
 
-<a id="restart-db-instance-permission"></a>
+<a id="restart-db-instance-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -3840,7 +4247,7 @@ POST /v1.0/db-instances/{dbInstanceId}/restart
 <a id="get-restoration-info"></a>
 ### DB 인스턴스 복원 정보 조회 { #get-restoration-info }
 
-<a id="get-restoration-info-permission"></a>
+<a id="get-restoration-info-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -3929,7 +4336,7 @@ GET /v1.0/db-instances/{dbInstanceId}/restoration-info
 <a id="restore-db-instance"></a>
 ### DB 인스턴스 복원하기 { #restore-db-instance }
 
-<a id="restore-db-instance-permission"></a>
+<a id="restore-db-instance-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -3978,7 +4385,8 @@ POST /v1.0/db-instances/{dbInstanceId}/restore
     },
     "backup": {
         "backupPeriod": 0,
-        "periodicAutoBackupStrategyTypeCode": "DAILY_FULL",
+        "periodicAutoBackupStrategyType": "DAILY_FULL",
+        "fullBackupDaysOfWeek": [],
         "backupRetryCount": 0,
         "backupSchedules": [
             {
@@ -4003,7 +4411,7 @@ POST /v1.0/db-instances/{dbInstanceId}/restore
 | 이름 | 타입 | 필수 | 설명 |
 |-----|-----|-----|-----|
 | dbInstanceName | String | N | DB 인스턴스를 식별할 수 있는 이름 |
-| dbInstanceCandidateName | String | N | DB 인스턴스를 식별할 수 있는 예비 마스터 이름 |
+| dbInstanceCandidateName | String | N | Standby DB 인스턴스를 식별할 수 있는 이름 |
 | description | String | N | DB 인스턴스에 대한 추가 정보<br/>- 최대 길이: `100` |
 | dbFlavorId | UUID | Y | DB 인스턴스 사양의 식별자 |
 | dbPort | Number | N | DB 포트<br/>- 최솟값: 5432, 최댓값: 45432 |
@@ -4020,7 +4428,8 @@ POST /v1.0/db-instances/{dbInstanceId}/restore
 | network.availabilityZone | Enum | N | DB 인스턴스를 생성할 가용성 영역 |
 | backup | Object | Y | 백업 정보 객체 |
 | backup.backupPeriod | Number | Y | 백업 보관 기간(일)<br/>- 최솟값: `0`<br/>- 최댓값: `730` |
-| backup.periodicAutoBackupStrategyTypeCode | Enum | N | 주기적 자동 백업 전략 코드 (DAILY_FULL/SNAPSHOT)<br/>- 기본값: `DAILY_FULL`<br/>- `SNAPSHOT`: 매일 스냅숏 백업<br/>- `DAILY_FULL`: 매일 전체 백업 |
+| backup.periodicAutoBackupStrategyType | Enum | N | 정기 자동 백업 전략 유형<br/>- 기본값: `DAILY_FULL`<br/>- `SNAPSHOT`: 매일 스냅숏 백업<br/>- `DAILY_FULL`: 매일 전체 백업<br/>- `DAILY_FULL_INC`: 매일 전체 및 증분 백업<br/>- `WEEKLY_FULL_DAILY_INC`: 주간 전체 백업 및 일일 증분 백업 |
+| backup.fullBackupDaysOfWeek | Array | N | 전체 백업 요일 목록 (정기 자동 백업 전략이 WEEKLY_FULL_DAILY_INC 이면 필수) |
 | backup.backupRetryCount | Number | N | 백업 재시도 횟수<br/>- 최솟값: `0`<br/>- 최댓값: `10` |
 | backup.backupSchedules | Array | Y | 백업 스케줄 목록 |
 | backup.backupSchedules.backupWndBgnTime | Time | Y | 백업 시작 시간 |
@@ -4033,14 +4442,14 @@ POST /v1.0/db-instances/{dbInstanceId}/restore
 | userGroupIds | Array | N | 사용자 그룹의 식별자 목록 |
 | useDeletionProtection | Boolean | N | 삭제 보호 여부<br/>- 기본값: `false` |
 
-<a id="restore-db-instance-timestamprestore-typetimestamp"></a>
+<a id="restore-db-instance-timestamp-restoretype-timestamp"></a>
 #### Timestamp를 이용한 시점 복원 시 요청(restoreType이 `TIMESTAMP`인 경우)
 
 | 이름 | 타입 | 필수 | 설명 |
 |-----|-----|-----|-----|
 | restore.restoreYmdt | DateTime | Y | DB 인스턴스 복원 시간(YYYY-MM-DDThh:mm:ss.SSSTZD)<br/>- 복원 정보 조회로 조회한 가장 최신의 복원 가능한 시간 이전에 대해서만 복원이 가능하다. |
 
-<a id="restore-db-instance-restore-typebackup"></a>
+<a id="restore-db-instance-restoretype-backup"></a>
 #### 백업을 이용한 복원 시 요청(restoreType이 `BACKUP`인 경우)
 
 | 이름 | 타입 | 필수 | 설명 |
@@ -4075,7 +4484,7 @@ POST /v1.0/db-instances/{dbInstanceId}/restore
 <a id="start-db-instance"></a>
 ### DB 인스턴스 시작하기 { #start-db-instance }
 
-<a id="start-db-instance-permission"></a>
+<a id="start-db-instance-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -4129,7 +4538,7 @@ POST /v1.0/db-instances/{dbInstanceId}/start
 <a id="stop-db-instance"></a>
 ### DB 인스턴스 정지하기 { #stop-db-instance }
 
-<a id="stop-db-instance-permission"></a>
+<a id="stop-db-instance-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -4183,7 +4592,7 @@ POST /v1.0/db-instances/{dbInstanceId}/stop
 <a id="get-storage-info"></a>
 ### DB 인스턴스 스토리지 정보 조회 { #get-storage-info }
 
-<a id="get-storage-info-permission"></a>
+<a id="get-storage-info-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -4241,7 +4650,7 @@ GET /v1.0/db-instances/{dbInstanceId}/storage-info
 <a id="modify-storage-info"></a>
 ### DB 인스턴스 스토리지 정보 수정하기 { #modify-storage-info }
 
-<a id="modify-storage-info-permission"></a>
+<a id="modify-storage-info-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -4322,7 +4731,7 @@ PUT /v1.0/db-instances/{dbInstanceId}/storage-info
 <a id="get-backups"></a>
 ### 백업 목록 보기 { #get-backups }
 
-<a id="get-backups-permission"></a>
+<a id="get-backups-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -4404,10 +4813,71 @@ GET /v1.0/backups
 
 ---
 
+<a id="get-cascade-deletion-target-backups"></a>
+### 함께 삭제될 백업 목록 보기 { #get-cascade-deletion-target-backups }
+
+<a id="get-cascade-deletion-target-backups-required-permissions"></a>
+#### 필요 권한
+
+| 권한명 | 설명 |
+|-----|-----|
+| RDSforPostgreSQL:Backup.List | 함께 삭제될 백업 목록 보기 |
+
+<a id="get-cascade-deletion-target-backups-request"></a>
+#### 요청
+
+```http
+GET /v1.0/backups/cascade-deletion-targets
+```
+
+<a id="get-cascade-deletion-target-backups-request-parameters"></a>
+#### 요청 파라미터
+
+| 이름 | 구분 | 타입 | 필수 | 설명 |
+|-----|-----|-----|-----|-----|
+| backupIds | Query | Array | N | 백업의 식별자 목록 |
+
+<a id="get-cascade-deletion-target-backups-request-body"></a>
+#### 요청 본문
+
+이 API는 요청 본문을 요구하지 않습니다.
+
+<a id="get-cascade-deletion-target-backups-response"></a>
+#### 응답
+
+<details>
+  <summary><strong>예시 코드</strong></summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "cascadeDeletionTargetBackups": [
+        {
+            "backupId": "550e8400-e29b-41d4-a716-446655440000",
+            "backupName": "backupName-example"
+        }
+    ]
+}
+```
+
+</details>
+
+| 이름 | 타입 | 설명 |
+|-----|-----|-----|
+| cascadeDeletionTargetBackups | Array | 함께 삭제될 백업 목록 |
+| cascadeDeletionTargetBackups.backupId | UUID | 백업의 식별자 |
+| cascadeDeletionTargetBackups.backupName | String | 백업을 식별할 수 있는 이름 |
+
+---
+
 <a id="delete-backup"></a>
 ### 백업 삭제하기 { #delete-backup }
 
-<a id="delete-backup-permission"></a>
+<a id="delete-backup-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -4461,7 +4931,7 @@ DELETE /v1.0/backups/{backupId}
 <a id="export-backup"></a>
 ### 백업 내보내기 { #export-backup }
 
-<a id="export-backup-permission"></a>
+<a id="export-backup-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -4536,7 +5006,7 @@ POST /v1.0/backups/{backupId}/export
 <a id="restore-backup"></a>
 ### 백업 복원하기 { #restore-backup }
 
-<a id="restore-backup-permission"></a>
+<a id="restore-backup-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -4589,7 +5059,8 @@ POST /v1.0/backups/{backupId}/restore
     },
     "backup": {
         "backupPeriod": 0,
-        "periodicAutoBackupStrategyTypeCode": "DAILY_FULL",
+        "periodicAutoBackupStrategyType": "DAILY_FULL",
+        "fullBackupDaysOfWeek": [],
         "backupRetryCount": 0,
         "backupSchedules": [
             {
@@ -4606,7 +5077,7 @@ POST /v1.0/backups/{backupId}/restore
 | 이름 | 타입 | 필수 | 설명 |
 |-----|-----|-----|-----|
 | dbInstanceName | String | Y | DB 인스턴스를 식별할 수 있는 이름 |
-| dbInstanceCandidateName | String | N | DB 인스턴스를 식별할 수 있는 예비 마스터 이름 |
+| dbInstanceCandidateName | String | N | Standby DB 인스턴스를 식별할 수 있는 이름 |
 | description | String | N | DB 인스턴스에 대한 추가 정보 |
 | dbFlavorId | UUID | Y | DB 인스턴스 사양의 식별자 |
 | dbPort | Number | Y | DB 포트<br/>- 최솟값: 5432, 최댓값: 45432 |
@@ -4627,7 +5098,8 @@ POST /v1.0/backups/{backupId}/restore
 | storage.storageSize | Number | Y | 데이터 스토리지 크기(GB)<br/>- 최솟값: `20` |
 | backup | Object | Y | 백업 정보 객체 |
 | backup.backupPeriod | Number | Y | 백업 보관 기간(일)<br/>- 최솟값: `0`<br/>- 최댓값: `730` |
-| backup.periodicAutoBackupStrategyTypeCode | Enum | N | 주기적 자동 백업 전략 코드 (DAILY_FULL/SNAPSHOT)<br/>- 기본값: `DAILY_FULL`<br/>- `SNAPSHOT`: 매일 스냅숏 백업<br/>- `DAILY_FULL`: 매일 전체 백업 |
+| backup.periodicAutoBackupStrategyType | Enum | N | 정기 자동 백업 전략 유형<br/>- 기본값: `DAILY_FULL`<br/>- `SNAPSHOT`: 매일 스냅숏 백업<br/>- `DAILY_FULL`: 매일 전체 백업<br/>- `DAILY_FULL_INC`: 매일 전체 및 증분 백업<br/>- `WEEKLY_FULL_DAILY_INC`: 주간 전체 백업 및 일일 증분 백업 |
+| backup.fullBackupDaysOfWeek | Array | N | 전체 백업 요일 목록 (정기 자동 백업 전략이 WEEKLY_FULL_DAILY_INC 이면 필수) |
 | backup.backupRetryCount | Number | N | 백업 재시도 횟수<br/>- 최솟값: `0`<br/>- 최댓값: `10` |
 | backup.backupSchedules | Array | Y | 백업 스케줄 목록 |
 | backup.backupSchedules.backupWndBgnTime | Time | Y | 백업 시작 시간 |
@@ -4674,7 +5146,7 @@ POST /v1.0/backups/{backupId}/restore
 <a id="get-db-security-groups"></a>
 ### DB 보안 그룹 목록 보기 { #get-db-security-groups }
 
-<a id="get-db-security-groups-permission"></a>
+<a id="get-db-security-groups-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -4738,7 +5210,7 @@ GET /v1.0/db-security-groups
 <a id="create-db-security-group"></a>
 ### DB 보안 그룹 생성하기 { #create-db-security-group }
 
-<a id="create-db-security-group-permission"></a>
+<a id="create-db-security-group-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -4822,7 +5294,7 @@ POST /v1.0/db-security-groups
 <a id="delete-db-security-group"></a>
 ### DB 보안 그룹 삭제하기 { #delete-db-security-group }
 
-<a id="delete-db-security-group-permission"></a>
+<a id="delete-db-security-group-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -4841,7 +5313,7 @@ DELETE /v1.0/db-security-groups/{dbSecurityGroupId}
 
 | 이름 | 구분 | 타입 | 필수 | 설명 |
 |-----|-----|-----|-----|-----|
-| dbSecurityGroupId | URL | UUID | Y |  |
+| dbSecurityGroupId | URL | UUID | Y | DB 보안 그룹의 식별자 |
 
 <a id="delete-db-security-group-request-body"></a>
 #### 요청 본문
@@ -4858,7 +5330,7 @@ DELETE /v1.0/db-security-groups/{dbSecurityGroupId}
 <a id="get-db-security-group"></a>
 ### DB 보안 그룹 상세 보기 { #get-db-security-group }
 
-<a id="get-db-security-group-permission"></a>
+<a id="get-db-security-group-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -4877,7 +5349,7 @@ GET /v1.0/db-security-groups/{dbSecurityGroupId}
 
 | 이름 | 구분 | 타입 | 필수 | 설명 |
 |-----|-----|-----|-----|-----|
-| dbSecurityGroupId | URL | UUID | Y |  |
+| dbSecurityGroupId | URL | UUID | Y | DB 보안 그룹의 식별자 |
 
 <a id="get-db-security-group-request-body"></a>
 #### 요청 본문
@@ -4955,7 +5427,7 @@ GET /v1.0/db-security-groups/{dbSecurityGroupId}
 <a id="modify-db-security-group"></a>
 ### DB 보안 그룹 수정하기 { #modify-db-security-group }
 
-<a id="modify-db-security-group-permission"></a>
+<a id="modify-db-security-group-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -4974,7 +5446,7 @@ PUT /v1.0/db-security-groups/{dbSecurityGroupId}
 
 | 이름 | 구분 | 타입 | 필수 | 설명 |
 |-----|-----|-----|-----|-----|
-| dbSecurityGroupId | URL | UUID | Y |  |
+| dbSecurityGroupId | URL | UUID | Y | DB 보안 그룹의 식별자 |
 
 <a id="modify-db-security-group-request-body"></a>
 #### 요청 본문
@@ -5006,7 +5478,7 @@ PUT /v1.0/db-security-groups/{dbSecurityGroupId}
 <a id="delete-db-security-group-rule"></a>
 ### DB 보안 그룹 규칙 삭제하기 { #delete-db-security-group-rule }
 
-<a id="delete-db-security-group-rule-permission"></a>
+<a id="delete-db-security-group-rule-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -5025,8 +5497,8 @@ DELETE /v1.0/db-security-groups/{dbSecurityGroupId}/rules
 
 | 이름 | 구분 | 타입 | 필수 | 설명 |
 |-----|-----|-----|-----|-----|
-| dbSecurityGroupId | URL | UUID | Y |  |
-| ruleIds | Query | String | Y | DB 보안 그룹 규칙 ID 리스트 |
+| dbSecurityGroupId | URL | UUID | Y | DB 보안 그룹의 식별자 |
+| ruleIds | Query | String | Y | DB 보안 그룹 규칙의 식별자 목록 |
 
 <a id="delete-db-security-group-rule-request-body"></a>
 #### 요청 본문
@@ -5061,7 +5533,7 @@ DELETE /v1.0/db-security-groups/{dbSecurityGroupId}/rules
 <a id="create-db-security-group-rule"></a>
 ### DB 보안 그룹 규칙 생성하기 { #create-db-security-group-rule }
 
-<a id="create-db-security-group-rule-permission"></a>
+<a id="create-db-security-group-rule-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -5080,7 +5552,7 @@ POST /v1.0/db-security-groups/{dbSecurityGroupId}/rules
 
 | 이름 | 구분 | 타입 | 필수 | 설명 |
 |-----|-----|-----|-----|-----|
-| dbSecurityGroupId | URL | UUID | Y |  |
+| dbSecurityGroupId | URL | UUID | Y | DB 보안 그룹의 식별자 |
 
 <a id="create-db-security-group-rule-request-body"></a>
 #### 요청 본문
@@ -5143,7 +5615,7 @@ POST /v1.0/db-security-groups/{dbSecurityGroupId}/rules
 <a id="modify-db-security-group-rule"></a>
 ### DB 보안 그룹 규칙 수정하기 { #modify-db-security-group-rule }
 
-<a id="modify-db-security-group-rule-permission"></a>
+<a id="modify-db-security-group-rule-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -5162,8 +5634,8 @@ PUT /v1.0/db-security-groups/{dbSecurityGroupId}/rules/{ruleId}
 
 | 이름 | 구분 | 타입 | 필수 | 설명 |
 |-----|-----|-----|-----|-----|
-| dbSecurityGroupId | URL | UUID | Y |  |
-| ruleId | URL | UUID | Y |  |
+| dbSecurityGroupId | URL | UUID | Y | DB 보안 그룹의 식별자 |
+| ruleId | URL | UUID | Y | DB 보안 그룹 규칙의 식별자 |
 
 <a id="modify-db-security-group-rule-request-body"></a>
 #### 요청 본문
@@ -5229,7 +5701,7 @@ PUT /v1.0/db-security-groups/{dbSecurityGroupId}/rules/{ruleId}
 <a id="get-parameter-groups"></a>
 ### 파라미터 그룹 목록 보기 { #get-parameter-groups }
 
-<a id="get-parameter-groups-permission"></a>
+<a id="get-parameter-groups-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -5300,7 +5772,7 @@ GET /v1.0/parameter-groups
 <a id="create-parameter-group"></a>
 ### 파라미터 그룹 생성하기 { #create-parameter-group }
 
-<a id="create-parameter-group-permission"></a>
+<a id="create-parameter-group-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -5334,7 +5806,7 @@ POST /v1.0/parameter-groups
 |-----|-----|-----|-----|
 | parameterGroupName | String | Y | 파라미터 그룹을 식별할 수 있는 이름 |
 | description | String | N | 파라미터 그룹에 대한 추가 정보 |
-| dbVersion | Enum | Y | DB 엔진 버전 |
+| dbVersion | Enum | N | DB 엔진 버전 (사용자 파라미터 그룹 생성 시 필수, 패밀리 파라미터 그룹 생성 시 null) |
 
 <a id="create-parameter-group-response"></a>
 #### 응답
@@ -5364,7 +5836,7 @@ POST /v1.0/parameter-groups
 <a id="delete-parameter-group"></a>
 ### 파라미터 그룹 삭제하기 { #delete-parameter-group }
 
-<a id="delete-parameter-group-permission"></a>
+<a id="delete-parameter-group-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -5400,7 +5872,7 @@ DELETE /v1.0/parameter-groups/{parameterGroupId}
 <a id="get-parameter-group"></a>
 ### 파라미터 그룹 상세 조회 { #get-parameter-group }
 
-<a id="get-parameter-group-permission"></a>
+<a id="get-parameter-group-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -5491,7 +5963,7 @@ GET /v1.0/parameter-groups/{parameterGroupId}
 <a id="modify-parameter-group"></a>
 ### 파라미터 그룹 수정하기 { #modify-parameter-group }
 
-<a id="modify-parameter-group-permission"></a>
+<a id="modify-parameter-group-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -5542,7 +6014,7 @@ PUT /v1.0/parameter-groups/{parameterGroupId}
 <a id="copy-parameter-group"></a>
 ### 파라미터 그룹 복사하기 { #copy-parameter-group }
 
-<a id="copy-parameter-group-permission"></a>
+<a id="copy-parameter-group-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -5611,7 +6083,7 @@ POST /v1.0/parameter-groups/{parameterGroupId}/copy
 <a id="modify-parameter-group-parameters"></a>
 ### 파라미터 그룹 내 파라미터 수정하기 { #modify-parameter-group-parameters }
 
-<a id="modify-parameter-group-parameters-permission"></a>
+<a id="modify-parameter-group-parameters-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -5643,7 +6115,8 @@ PUT /v1.0/parameter-groups/{parameterGroupId}/parameters
     "modifiedParameters": [
         {
             "parameterName": "checkpoint_timeout",
-            "value": "100s"
+            "value": "100s",
+            "parameterTemplateId": "parameterTemplateId-example"
         }
     ]
 }
@@ -5656,6 +6129,7 @@ PUT /v1.0/parameter-groups/{parameterGroupId}/parameters
 | modifiedParameters | Array | Y | 변경할 파라미터 목록 |
 | modifiedParameters.parameterName | String | Y | 파라미터 이름 |
 | modifiedParameters.value | String | Y | 변경할 파라미터 값 |
+| modifiedParameters.parameterTemplateId | String | N | 구간 대표 템플릿 ID (다구간 파라미터 수정 시 지정) |
 
 <a id="modify-parameter-group-parameters-response"></a>
 #### 응답
@@ -5667,7 +6141,7 @@ PUT /v1.0/parameter-groups/{parameterGroupId}/parameters
 <a id="reset-parameter-group"></a>
 ### 파라미터 그룹 재설정하기 { #reset-parameter-group }
 
-<a id="reset-parameter-group-permission"></a>
+<a id="reset-parameter-group-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -5706,7 +6180,7 @@ PUT /v1.0/parameter-groups/{parameterGroupId}/reset
 <a id="get-user-groups"></a>
 ### 사용자 그룹 목록 보기 { #get-user-groups }
 
-<a id="get-user-groups-permission"></a>
+<a id="get-user-groups-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -5766,7 +6240,7 @@ GET /v1.0/user-groups
 <a id="create-user-group"></a>
 ### 사용자 그룹 생성하기 { #create-user-group }
 
-<a id="create-user-group-permission"></a>
+<a id="create-user-group-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -5830,7 +6304,7 @@ POST /v1.0/user-groups
 <a id="delete-user-group"></a>
 ### 사용자 그룹 삭제하기 { #delete-user-group }
 
-<a id="delete-user-group-permission"></a>
+<a id="delete-user-group-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -5866,7 +6340,7 @@ DELETE /v1.0/user-groups/{userGroupId}
 <a id="get-user-group"></a>
 ### 사용자 그룹 상세 보기 { #get-user-group }
 
-<a id="get-user-group-permission"></a>
+<a id="get-user-group-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -5937,7 +6411,7 @@ GET /v1.0/user-groups/{userGroupId}
 <a id="modify-user-group"></a>
 ### 사용자 그룹 수정하기 { #modify-user-group }
 
-<a id="modify-user-group-permission"></a>
+<a id="modify-user-group-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -5993,7 +6467,7 @@ PUT /v1.0/user-groups/{userGroupId}
 <a id="get-notification-groups"></a>
 ### 알림 그룹 목록 보기 { #get-notification-groups }
 
-<a id="get-notification-groups-permission"></a>
+<a id="get-notification-groups-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -6044,7 +6518,7 @@ GET /v1.0/notification-groups
 
 | 이름 | 타입 | 설명 |
 |-----|-----|-----|
-| notificationGroups | Array |  |
+| notificationGroups | Array | 알림 그룹 목록 |
 | notificationGroups.notificationGroupId | UUID | 알림 그룹의 식별자 |
 | notificationGroups.notificationGroupName | String | 알림 그룹을 식별할 수 있는 이름 |
 | notificationGroups.notificationGroupStatus | Enum | 알림 그룹의 현재 상태<br/>- `CREATED`: 생성됨<br/>- `DELETED`: 삭제됨 |
@@ -6059,7 +6533,7 @@ GET /v1.0/notification-groups
 <a id="create-notification-group"></a>
 ### 알림 그룹 생성하기 { #create-notification-group }
 
-<a id="create-notification-group-permission"></a>
+<a id="create-notification-group-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -6129,7 +6603,7 @@ POST /v1.0/notification-groups
 <a id="delete-notification-group"></a>
 ### 알림 그룹 삭제하기 { #delete-notification-group }
 
-<a id="delete-notification-group-permission"></a>
+<a id="delete-notification-group-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -6165,7 +6639,7 @@ DELETE /v1.0/notification-groups/{notificationGroupId}
 <a id="get-notification-group"></a>
 ### 알림 그룹 상세 보기 { #get-notification-group }
 
-<a id="get-notification-group-permission"></a>
+<a id="get-notification-group-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -6251,7 +6725,7 @@ GET /v1.0/notification-groups/{notificationGroupId}
 <a id="modify-notification-group"></a>
 ### 알림 그룹 수정하기 { #modify-notification-group }
 
-<a id="modify-notification-group-permission"></a>
+<a id="modify-notification-group-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -6310,7 +6784,7 @@ PUT /v1.0/notification-groups/{notificationGroupId}
 <a id="get-notification-watchdogs"></a>
 ### 감시 설정 목록 보기 { #get-notification-watchdogs }
 
-<a id="get-notification-watchdogs-permission"></a>
+<a id="get-notification-watchdogs-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -6379,7 +6853,7 @@ GET /v1.0/notification-groups/{notificationGroupId}/watchdogs
 <a id="create-notification-watchdog"></a>
 ### 감시 설정 생성하기 { #create-notification-watchdog }
 
-<a id="create-notification-watchdog-permission"></a>
+<a id="create-notification-watchdog-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -6452,7 +6926,7 @@ POST /v1.0/notification-groups/{notificationGroupId}/watchdogs
 <a id="delete-notification-watchdog"></a>
 ### 감시 설정 삭제하기 { #delete-notification-watchdog }
 
-<a id="delete-notification-watchdog-permission"></a>
+<a id="delete-notification-watchdog-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -6489,7 +6963,7 @@ DELETE /v1.0/notification-groups/{notificationGroupId}/watchdogs/{watchdogId}
 <a id="modify-notification-watchdog"></a>
 ### 감시 설정 수정하기 { #modify-notification-watchdog }
 
-<a id="modify-notification-watchdog-permission"></a>
+<a id="modify-notification-watchdog-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -6548,7 +7022,7 @@ PUT /v1.0/notification-groups/{notificationGroupId}/watchdogs/{watchdogId}
 <a id="get-metric-statistics"></a>
 ### 통계 정보 조회 { #get-metric-statistics }
 
-<a id="get-metric-statistics-permission"></a>
+<a id="get-metric-statistics-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -6622,7 +7096,7 @@ GET /v1.0/metric-statistics
 <a id="get-metrics"></a>
 ### 성능 지표 목록 보기 { #get-metrics }
 
-<a id="get-metrics-permission"></a>
+<a id="get-metrics-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -6693,7 +7167,7 @@ GET /v1.0/metrics
 <a id="get-event-codes"></a>
 ### 구독 가능한 이벤트 코드 목록 보기 { #get-event-codes }
 
-<a id="get-event-codes-permission"></a>
+<a id="get-event-codes-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
@@ -6747,7 +7221,7 @@ GET /v1.0/event-codes
 <a id="get-events"></a>
 ### 이벤트 목록 보기 { #get-events }
 
-<a id="get-events-permission"></a>
+<a id="get-events-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
