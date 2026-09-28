@@ -1,6 +1,6 @@
 <!-- machine_translated: true -->
 
-<!-- pre-align:aligned sig=d58a9ac7e400 -->
+<!-- pre-align:aligned sig=a673f7413bba -->
 
 <a id="rds-for-postgresql-api"></a>
 ## RDS for PostgreSQL API Guide { #rds-for-postgresql-api }
