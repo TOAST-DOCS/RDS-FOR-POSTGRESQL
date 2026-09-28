@@ -1,3 +1,5 @@
+<!-- machine_translated: true -->
+
 <!-- pre-align:aligned sig=d58a9ac7e400 -->
 
 <a id="rds-for-postgresql-api"></a>
@@ -106,13 +108,6 @@ APIリクエスト時、認証に失敗または権限がない場合、次の�
 <a id="get-db-versions"></a>
 ### DBエンジンバージョンリストの照会 { #get-db-versions }
 
-<a id="get-db-versions-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:DbVersion.List | DBエンジンバージョンリストの照会 |
-
 <a id="get-db-versions-request"></a>
 #### リクエスト
 
@@ -165,13 +160,6 @@ GET /v1.0/db-versions
 
 <a id="get-db-flavors"></a>
 ### DBインスタンスタイプリストの照会 { #get-db-flavors }
-
-<a id="get-db-flavors-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:DbFlavor.List | DBインスタンスタイプリストの照会 |
 
 <a id="get-db-flavors-request"></a>
 #### リクエスト
@@ -227,13 +215,6 @@ GET /v1.0/db-flavors
 <a id="get-project-members"></a>
 ### プロジェクトメンバーリストを表示 { #get-project-members }
 
-<a id="get-project-members-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:Project.Get | プロジェクトメンバーリストを表示 |
-
 <a id="get-project-members-request"></a>
 #### リクエスト
 
@@ -285,13 +266,6 @@ GET /v1.0/project/members
 <a id="get-project-regions"></a>
 ### リージョンリストを表示 { #get-project-regions }
 
-<a id="get-project-regions-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:Project.Get | リージョンリストを表示 |
-
 <a id="get-project-regions-request"></a>
 #### リクエスト
 
@@ -341,13 +315,6 @@ GET /v1.0/project/regions
 
 <a id="get-subnets"></a>
 ### サブネットリストを表示 { #get-subnets }
-
-<a id="get-subnets-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:Network.List | サブネットリストを表示 |
 
 <a id="get-subnets-request"></a>
 #### リクエスト
@@ -404,13 +371,6 @@ GET /v1.0/network/subnets
 
 <a id="get-storage-types"></a>
 ### ストレージタイプリストを表示 { #get-storage-types }
-
-<a id="get-storage-types-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:Storage.List | ストレージタイプリストを表示 |
 
 <a id="get-storage-types-request"></a>
 #### リクエスト
@@ -475,13 +435,6 @@ GET /v1.0/storage-types
 
 <a id="get-job-detail"></a>
 ### 作業情報の詳細を表示 { #get-job-detail }
-
-<a id="get-job-detail-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:Job.Get | 作業情報の詳細を表示 |
 
 <a id="get-job-detail-request"></a>
 #### リクエスト
@@ -548,13 +501,6 @@ GET /v1.0/jobs/{jobId}
 <a id="get-db-instance-groups"></a>
 ### DBインスタンスグループリストを表示 { #get-db-instance-groups }
 
-<a id="get-db-instance-groups-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:DbInstanceGroup.List | DBインスタンスグループリストを表示 |
-
 <a id="get-db-instance-groups-request"></a>
 #### リクエスト
 
@@ -607,13 +553,6 @@ GET /v1.0/db-instance-groups
 
 <a id="get-db-instance-group"></a>
 ### DBインスタンスグループ詳細を表示 { #get-db-instance-group }
-
-<a id="get-db-instance-group-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:DbInstanceGroup.Get | DBインスタンスグループ詳細を表示 |
 
 <a id="get-db-instance-group-request"></a>
 #### リクエスト
@@ -680,13 +619,6 @@ GET /v1.0/db-instance-groups/{dbInstanceGroupId}
 
 <a id="get-extensions"></a>
 ### 拡張機能リスト照会 { #get-extensions }
-
-<a id="get-extensions-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:DbInstanceGroupExtension.List | 拡張機能リスト照会 |
 
 <a id="get-extensions-request"></a>
 #### リクエスト
@@ -763,13 +695,6 @@ GET /v1.0/db-instance-groups/{dbInstanceGroupId}/extensions
 <a id="apply-extensions"></a>
 ### 拡張機能変更事項適用 { #apply-extensions }
 
-<a id="apply-extensions-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:DbInstanceGroupExtension.Apply | 拡張機能変更事項適用 |
-
 <a id="apply-extensions-request"></a>
 #### リクエスト
 
@@ -816,13 +741,6 @@ POST /v1.0/db-instance-groups/{dbInstanceGroupId}/extensions/apply
 
 <a id="sync-extensions"></a>
 ### 拡張機能の同期 { #sync-extensions }
-
-<a id="sync-extensions-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:DbInstanceGroupExtension.Sync | 拡張機能の同期 |
 
 <a id="sync-extensions-request"></a>
 #### リクエスト
@@ -871,13 +789,6 @@ POST /v1.0/db-instance-groups/{dbInstanceGroupId}/extensions/sync
 <a id="delete-extension"></a>
 ### 拡張機能の削除(キャンセル) { #delete-extension }
 
-<a id="delete-extension-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:DbInstanceGroupExtension.Delete | 拡張機能の削除(キャンセル) |
-
 <a id="delete-extension-request"></a>
 #### リクエスト
 
@@ -908,13 +819,6 @@ DELETE /v1.0/db-instance-groups/{dbInstanceGroupId}/extensions/{dbInstanceGroupE
 
 <a id="create-extension"></a>
 ### 拡張機能のインストール { #create-extension }
-
-<a id="create-extension-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:DbInstanceGroupExtension.Install | 拡張機能のインストール |
 
 <a id="create-extension-request"></a>
 #### リクエスト
@@ -1022,13 +926,6 @@ POST /v1.0/db-instance-groups/{dbInstanceGroupId}/extensions/{extensionId}
 <a id="get-db-instances"></a>
 ### DBインスタンスリストを表示 { #get-db-instances }
 
-<a id="get-db-instances-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:DbInstance.List | DBインスタンスリストを表示 |
-
 <a id="get-db-instances-request"></a>
 #### リクエスト
 
@@ -1094,13 +991,6 @@ GET /v1.0/db-instances
 
 <a id="create-db-instance"></a>
 ### DBインスタンスを作成する { #create-db-instance }
-
-<a id="create-db-instance-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:DbInstance.Create | DBインスタンスを作成する |
 
 <a id="create-db-instance-request"></a>
 #### リクエスト
@@ -1214,13 +1104,6 @@ POST /v1.0/db-instances
 
 <a id="restore-from-object-storage"></a>
 ### オブジェクトストレージにあるバックアップからDBインスタンスを復元する { #restore-from-object-storage }
-
-<a id="restore-from-object-storage-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:DbInstance.RestoreFromObs | オブジェクトストレージにあるバックアップからDBインスタンスを復元 |
 
 <a id="restore-from-object-storage-request"></a>
 #### リクエスト
@@ -1351,13 +1234,6 @@ POST /v1.0/db-instances/restore-from-obs
 <a id="delete-db-instance"></a>
 ### DBインスタンスの削除 { #delete-db-instance }
 
-<a id="delete-db-instance-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:DbInstance.Delete | DBインスタンスの削除 |
-
 <a id="delete-db-instance-request"></a>
 #### リクエスト
 
@@ -1404,13 +1280,6 @@ DELETE /v1.0/db-instances/{dbInstanceId}
 
 <a id="get-db-instance"></a>
 ### DBインスタンス詳細を表示 { #get-db-instance }
-
-<a id="get-db-instance-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:DbInstance.Get | DBインスタンス詳細を表示 |
 
 <a id="get-db-instance-request"></a>
 #### リクエスト
@@ -1500,13 +1369,6 @@ GET /v1.0/db-instances/{dbInstanceId}
 <a id="modify-db-instance"></a>
 ### DBインスタンスを修正する { #modify-db-instance }
 
-<a id="modify-db-instance-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:DbInstance.Modify | DBインスタンスを修正する |
-
 <a id="modify-db-instance-request"></a>
 #### リクエスト
 
@@ -1589,13 +1451,6 @@ PUT /v1.0/db-instances/{dbInstanceId}
 <a id="apply-recent-parameter-group"></a>
 ### DBインスタンスの最新パラメータグループを適用する { #apply-recent-parameter-group }
 
-<a id="apply-recent-parameter-group-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:DbInstance.Modify | DBインスタンスの最新パラメータグループを適用する |
-
 <a id="apply-recent-parameter-group-request"></a>
 #### リクエスト
 
@@ -1642,13 +1497,6 @@ POST /v1.0/db-instances/{dbInstanceId}/apply-recent-parameter-group
 
 <a id="get-available-db-versions-for-current-db-instance"></a>
 ### 現在のDBインスタンスで選択可能なDBエンジンバージョンの照会 { #get-available-db-versions-for-current-db-instance }
-
-<a id="get-available-db-versions-for-current-db-instance-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:DbInstance.Get | 現在のDBインスタンスで選択可能なDBエンジンバージョンの照会 |
 
 <a id="get-available-db-versions-for-current-db-instance-request"></a>
 #### リクエスト
@@ -1705,13 +1553,6 @@ GET /v1.0/db-instances/{dbInstanceId}/available-db-versions
 
 <a id="backup-db-instance"></a>
 ### DBインスタンスのバックアップ { #backup-db-instance }
-
-<a id="backup-db-instance-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:DbInstance.Backup | DBインスタンスのバックアップ |
 
 <a id="backup-db-instance-request"></a>
 #### リクエスト
@@ -1774,13 +1615,6 @@ POST /v1.0/db-instances/{dbInstanceId}/backup
 
 <a id="get-backup-info"></a>
 ### DBインスタンスバックアップ情報の照会 { #get-backup-info }
-
-<a id="get-backup-info-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:DbInstance.Get | DBインスタンスバックアップ情報の照会 |
 
 <a id="get-backup-info-request"></a>
 #### リクエスト
@@ -1845,13 +1679,6 @@ GET /v1.0/db-instances/{dbInstanceId}/backup-info
 
 <a id="modify-backup-info"></a>
 ### DBインスタンスバックアップ情報の修正 { #modify-backup-info }
-
-<a id="modify-backup-info-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:DbInstance.Modify | DBインスタンスバックアップ情報の修正 |
 
 <a id="modify-backup-info-request"></a>
 #### リクエスト
@@ -1930,13 +1757,6 @@ PUT /v1.0/db-instances/{dbInstanceId}/backup-info
 <a id="backup-to-object-storage"></a>
 ### DBインスタンスバックアップ後にオブジェクトストレージへエクスポート { #backup-to-object-storage }
 
-<a id="backup-to-object-storage-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:DbInstance.BackupToObjectStorage | DBインスタンスバックアップ後にオブジェクトストレージへエクスポート |
-
 <a id="backup-to-object-storage-request"></a>
 #### リクエスト
 
@@ -2004,13 +1824,6 @@ POST /v1.0/db-instances/{dbInstanceId}/backup-to-object-storage
 
 <a id="get-databases"></a>
 ### データベースリスト表示 { #get-databases }
-
-<a id="get-databases-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:DbInstanceDatabase.List | データベースリスト表示 |
 
 <a id="get-databases-request"></a>
 #### リクエスト
@@ -2082,13 +1895,6 @@ GET /v1.0/db-instances/{dbInstanceId}/databases
 <a id="create-database"></a>
 ### データベース作成 { #create-database }
 
-<a id="create-database-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:DbInstanceDatabase.Create | データベース作成 |
-
 <a id="create-database-request"></a>
 #### リクエスト
 
@@ -2149,13 +1955,6 @@ POST /v1.0/db-instances/{dbInstanceId}/databases
 <a id="delete-database"></a>
 ### データベース削除 { #delete-database }
 
-<a id="delete-database-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:DbInstanceDatabase.Delete | データベース削除 |
-
 <a id="delete-database-request"></a>
 #### リクエスト
 
@@ -2203,13 +2002,6 @@ DELETE /v1.0/db-instances/{dbInstanceId}/databases/{databaseId}
 
 <a id="modify-database"></a>
 ### データベースの修正 { #modify-database }
-
-<a id="modify-database-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:DbInstanceDatabase.Modify | データベースの修正 |
 
 <a id="modify-database-request"></a>
 #### リクエスト
@@ -2274,13 +2066,6 @@ PUT /v1.0/db-instances/{dbInstanceId}/databases/{databaseId}
 <a id="get-users"></a>
 ### ユーザーリスト表示 { #get-users }
 
-<a id="get-users-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:DbInstanceUser.List | ユーザーリスト表示 |
-
 <a id="get-users-request"></a>
 #### リクエスト
 
@@ -2342,13 +2127,6 @@ GET /v1.0/db-instances/{dbInstanceId}/db-users
 
 <a id="create-db-user"></a>
 ### ユーザー作成 { #create-db-user }
-
-<a id="create-db-user-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:DbInstanceUser.Create | ユーザー作成 |
 
 <a id="create-db-user-request"></a>
 #### リクエスト
@@ -2418,13 +2196,6 @@ POST /v1.0/db-instances/{dbInstanceId}/db-users
 <a id="delete-db-user"></a>
 ### ユーザー削除 { #delete-db-user }
 
-<a id="delete-db-user-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:DbInstanceUser.Delete | ユーザー削除 |
-
 <a id="delete-db-user-request"></a>
 #### リクエスト
 
@@ -2472,13 +2243,6 @@ DELETE /v1.0/db-instances/{dbInstanceId}/db-users/{dbUserId}
 
 <a id="modify-db-user"></a>
 ### ユーザー修正 { #modify-db-user }
-
-<a id="modify-db-user-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:DbInstanceUser.Modify | ユーザー修正 |
 
 <a id="modify-db-user-request"></a>
 #### リクエスト
@@ -2547,13 +2311,6 @@ PUT /v1.0/db-instances/{dbInstanceId}/db-users/{dbUserId}
 <a id="change-deletion-protection"></a>
 ### DBインスタンス削除保護設定の変更 { #change-deletion-protection }
 
-<a id="change-deletion-protection-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:DbInstance.Modify | DBインスタンス削除保護設定の変更 |
-
 <a id="change-deletion-protection-request"></a>
 #### リクエスト
 
@@ -2596,13 +2353,6 @@ PUT /v1.0/db-instances/{dbInstanceId}/deletion-protection
 <a id="force-restart-db-instance"></a>
 ### DBインスタンスの強制再起動 { #force-restart-db-instance }
 
-<a id="force-restart-db-instance-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:DbInstance.ForceRestart | DBインスタンスの強制再起動 |
-
 <a id="force-restart-db-instance-request"></a>
 #### リクエスト
 
@@ -2631,13 +2381,6 @@ POST /v1.0/db-instances/{dbInstanceId}/force-restart
 
 <a id="get-hba-rules"></a>
 ### アクセス制御ルールリストを表示 { #get-hba-rules }
-
-<a id="get-hba-rules-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:DbInstanceHba.List | アクセス制御ルールリストを表示 |
 
 <a id="get-hba-rules-request"></a>
 #### リクエスト
@@ -2727,13 +2470,6 @@ GET /v1.0/db-instances/{dbInstanceId}/hba-rules
 <a id="create-hba-rule"></a>
 ### アクセス制御ルールの追加 { #create-hba-rule }
 
-<a id="create-hba-rule-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:DbInstanceHba.Create | アクセス制御ルールの追加 |
-
 <a id="create-hba-rule-request"></a>
 #### リクエスト
 
@@ -2806,13 +2542,6 @@ POST /v1.0/db-instances/{dbInstanceId}/hba-rules
 <a id="apply-hba-rules"></a>
 ### アクセス制御ルールを適用 { #apply-hba-rules }
 
-<a id="apply-hba-rules-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:DbInstance.Modify | アクセス制御ルールの適用 |
-
 <a id="apply-hba-rules-request"></a>
 #### リクエスト
 
@@ -2860,13 +2589,6 @@ POST /v1.0/db-instances/{dbInstanceId}/hba-rules/apply
 <a id="modify-hba-rule-orders"></a>
 ### アクセス制御ルールの順序調整 { #modify-hba-rule-orders }
 
-<a id="modify-hba-rule-orders-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:DbInstanceHba.Modify | アクセス制御ルールの順序調整 |
-
 <a id="modify-hba-rule-orders-request"></a>
 #### リクエスト
 
@@ -2909,13 +2631,6 @@ PUT /v1.0/db-instances/{dbInstanceId}/hba-rules/orders
 <a id="delete-hba-configuration"></a>
 ### アクセス制御設定の削除 { #delete-hba-configuration }
 
-<a id="delete-hba-configuration-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:DbInstanceHba.Delete | アクセス制御設定の削除 |
-
 <a id="delete-hba-configuration-request"></a>
 #### リクエスト
 
@@ -2945,13 +2660,6 @@ DELETE /v1.0/db-instances/{dbInstanceId}/hba-rules/{hbaRuleId}
 
 <a id="modify-hba-rule"></a>
 ### アクセス制御ルールの修正 { #modify-hba-rule }
-
-<a id="modify-hba-rule-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:DbInstanceHba.Modify | アクセス制御ルールの修正 |
 
 <a id="modify-hba-rule-request"></a>
 #### リクエスト
@@ -3008,13 +2716,6 @@ PUT /v1.0/db-instances/{dbInstanceId}/hba-rules/{hbaRuleId}
 <a id="get-high-availability"></a>
 ### 高可用性情報の照会 { #get-high-availability }
 
-<a id="get-high-availability-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:HighAvailability.Get | 高可用性情報照会 |
-
 <a id="get-high-availability-request"></a>
 #### リクエスト
 
@@ -3065,13 +2766,6 @@ GET /v1.0/db-instances/{dbInstanceId}/high-availability
 
 <a id="modify-high-availability"></a>
 ### 高可用性を修正する { #modify-high-availability }
-
-<a id="modify-high-availability-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:HighAvailability.Modify | 高可用性を修正する |
 
 <a id="modify-high-availability-request"></a>
 #### リクエスト
@@ -3137,13 +2831,6 @@ PUT /v1.0/db-instances/{dbInstanceId}/high-availability
 <a id="pause-high-availability"></a>
 ### 高可用性の一時停止 { #pause-high-availability }
 
-<a id="pause-high-availability-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:HighAvailability.Pause | 高可用性の一時停止 |
-
 <a id="pause-high-availability-request"></a>
 #### リクエスト
 
@@ -3190,13 +2877,6 @@ POST /v1.0/db-instances/{dbInstanceId}/high-availability/pause
 
 <a id="repair-high-availability"></a>
 ### 高可用性の復旧 { #repair-high-availability }
-
-<a id="repair-high-availability-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:HighAvailability.Repair | 高可用性の復旧 |
 
 <a id="repair-high-availability-request"></a>
 #### リクエスト
@@ -3245,13 +2925,6 @@ POST /v1.0/db-instances/{dbInstanceId}/high-availability/repair
 <a id="resume-high-availability"></a>
 ### 高可用性の再起動 { #resume-high-availability }
 
-<a id="resume-high-availability-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:HighAvailability.Resume | 高可用性の再起動 |
-
 <a id="resume-high-availability-request"></a>
 #### リクエスト
 
@@ -3299,13 +2972,6 @@ POST /v1.0/db-instances/{dbInstanceId}/high-availability/resume
 <a id="split-high-availability"></a>
 ### 高可用性の分離 { #split-high-availability }
 
-<a id="split-high-availability-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:HighAvailability.Split | 高可用性の分離 |
-
 <a id="split-high-availability-request"></a>
 #### リクエスト
 
@@ -3352,13 +3018,6 @@ POST /v1.0/db-instances/{dbInstanceId}/high-availability/split
 
 <a id="get-maintenance-info"></a>
 ### DBインスタンスメンテナンス情報照会 { #get-maintenance-info }
-
-<a id="get-maintenance-info-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:DbInstance.Get | DBインスタンスメンテナンス情報照会 |
 
 <a id="get-maintenance-info-request"></a>
 #### リクエスト
@@ -3414,13 +3073,6 @@ GET /v1.0/db-instances/{dbInstanceId}/maintenance-info
 
 <a id="modify-maintenance-info"></a>
 ### DBインスタンスメンテナンス情報修正 { #modify-maintenance-info }
-
-<a id="modify-maintenance-info-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:DbInstance.Modify | DBインスタンスメンテナンス情報修正 |
 
 <a id="modify-maintenance-info-request"></a>
 #### リクエスト
@@ -3489,13 +3141,6 @@ PUT /v1.0/db-instances/{dbInstanceId}/maintenance-info
 
 <a id="get-network-info"></a>
 ### DBインスタンスネットワーク情報の照会 { #get-network-info }
-
-<a id="get-network-info-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:DbInstance.Get | DBインスタンスネットワーク情報の照会 |
 
 <a id="get-network-info-request"></a>
 #### リクエスト
@@ -3566,13 +3211,6 @@ GET /v1.0/db-instances/{dbInstanceId}/network-info
 <a id="modify-network-info"></a>
 ### DBインスタンスネットワーク情報の修正 { #modify-network-info }
 
-<a id="modify-network-info-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:DbInstance.Modify | DBインスタンスネットワーク情報の修正 |
-
 <a id="modify-network-info-request"></a>
 #### リクエスト
 
@@ -3633,13 +3271,6 @@ PUT /v1.0/db-instances/{dbInstanceId}/network-info
 <a id="promote-db-instance"></a>
 ### DBインスタンスの昇格 { #promote-db-instance }
 
-<a id="promote-db-instance-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:DbInstance.Promote | DBインスタンスの昇格 |
-
 <a id="promote-db-instance-request"></a>
 #### リクエスト
 
@@ -3686,13 +3317,6 @@ POST /v1.0/db-instances/{dbInstanceId}/promote
 
 <a id="replicate-db-instance"></a>
 ### リードレプリカの作成 { #replicate-db-instance }
-
-<a id="replicate-db-instance-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:DbInstance.Replicate | リードレプリカの作成 |
 
 <a id="replicate-db-instance-request"></a>
 #### リクエスト
@@ -3784,13 +3408,6 @@ POST /v1.0/db-instances/{dbInstanceId}/replicate
 <a id="restart-db-instance"></a>
 ### DBインスタンスの再起動 { #restart-db-instance }
 
-<a id="restart-db-instance-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:DbInstance.Restart | DBインスタンスの再起動 |
-
 <a id="restart-db-instance-request"></a>
 #### リクエスト
 
@@ -3837,13 +3454,6 @@ POST /v1.0/db-instances/{dbInstanceId}/restart
 
 <a id="get-restoration-info"></a>
 ### DBインスタンス復元情報の照会 { #get-restoration-info }
-
-<a id="get-restoration-info-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:DbInstance.Get | DBインスタンス復元情報の照会 |
 
 <a id="get-restoration-info-request"></a>
 #### リクエスト
@@ -3926,13 +3536,6 @@ GET /v1.0/db-instances/{dbInstanceId}/restoration-info
 
 <a id="restore-db-instance"></a>
 ### DBインスタンスの復元 { #restore-db-instance }
-
-<a id="restore-db-instance-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:DbInstance.Restore | DBインスタンスの復元 |
 
 <a id="restore-db-instance-request"></a>
 #### リクエスト
@@ -4034,20 +3637,6 @@ POST /v1.0/db-instances/{dbInstanceId}/restore
 | userGroupIds | Array | N | ユーザーグループの識別子リスト |
 | useDeletionProtection | Boolean | N | 削除保護の有無<br/>- デフォルト値: `false` |
 
-<a id="restore-db-instance-timestamprestore-typetimestamp"></a>
-#### Timestampを使用した時点復元時のリクエスト(restoreTypeが `TIMESTAMP`の場合)
-
-| 名前 | タイプ | 必須 | 説明 |
-|-----|-----|-----|-----|
-| restore.restoreYmdt | DateTime | Y | DBインスタンスの復元時間(YYYY-MM-DDThh:mm:ss.SSSTZD)<br/>- 復元情報の照会で照会した最も最新の復元可能な時間以前に対してのみ復元が可能です。 |
-
-<a id="restore-db-instance-restore-typebackup"></a>
-#### バックアップを使用した復元時のリクエスト(restoreTypeが `BACKUP`の場合)
-
-| 名前 | タイプ | 必須 | 説明 |
-|-----|-----|-----|-----|
-| restore.backupId | UUID | Y | 復元に使用するバックアップの識別子 |
-
 <a id="restore-db-instance-response"></a>
 #### レスポンス
 
@@ -4075,13 +3664,6 @@ POST /v1.0/db-instances/{dbInstanceId}/restore
 
 <a id="start-db-instance"></a>
 ### DBインスタンス開始 { #start-db-instance }
-
-<a id="start-db-instance-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:DbInstance.Start | DBインスタンス開始 |
 
 <a id="start-db-instance-request"></a>
 #### リクエスト
@@ -4130,13 +3712,6 @@ POST /v1.0/db-instances/{dbInstanceId}/start
 <a id="stop-db-instance"></a>
 ### DBインスタンス停止 { #stop-db-instance }
 
-<a id="stop-db-instance-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:DbInstance.Stop | DBインスタンスを停止する |
-
 <a id="stop-db-instance-request"></a>
 #### リクエスト
 
@@ -4183,13 +3758,6 @@ POST /v1.0/db-instances/{dbInstanceId}/stop
 
 <a id="get-storage-info"></a>
 ### DBインスタンスストレージ情報の照会 { #get-storage-info }
-
-<a id="get-storage-info-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:DbInstance.Get | DBインスタンスストレージ情報の照会 |
 
 <a id="get-storage-info-request"></a>
 #### リクエスト
@@ -4241,13 +3809,6 @@ GET /v1.0/db-instances/{dbInstanceId}/storage-info
 
 <a id="modify-storage-info"></a>
 ### DBインスタンスストレージ情報の修正 { #modify-storage-info }
-
-<a id="modify-storage-info-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:DbInstance.Modify | DBインスタンスストレージ情報の修正 |
 
 <a id="modify-storage-info-request"></a>
 #### リクエスト
@@ -4322,13 +3883,6 @@ PUT /v1.0/db-instances/{dbInstanceId}/storage-info
 
 <a id="get-backups"></a>
 ### バックアップリストを表示 { #get-backups }
-
-<a id="get-backups-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:Backup.List | バックアップリストを表示 |
 
 <a id="get-backups-request"></a>
 #### リクエスト
@@ -4405,15 +3959,15 @@ GET /v1.0/backups
 
 ---
 
+<a id="get-cascade-deletion-target-backups-request-parameters"></a>
+#### リクエストパラメータ
+
+| 名前 | 区分 | タイプ | 必須 | 説明 |
+|-----|-----|-----|-----|-----|
+| backupIds | Query | Array | Y | バックアップの識別子リスト |
+
 <a id="delete-backup"></a>
 ### バックアップ削除 { #delete-backup }
-
-<a id="delete-backup-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:Backup.Delete | バックアップ削除 |
 
 <a id="delete-backup-request"></a>
 #### リクエスト
@@ -4461,13 +4015,6 @@ DELETE /v1.0/backups/{backupId}
 
 <a id="export-backup"></a>
 ### バックアップをエクスポート { #export-backup }
-
-<a id="export-backup-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:Backup.Export | バックアップをエクスポート |
 
 <a id="export-backup-request"></a>
 #### リクエスト
@@ -4536,13 +4083,6 @@ POST /v1.0/backups/{backupId}/export
 
 <a id="restore-backup"></a>
 ### バックアップの復元 { #restore-backup }
-
-<a id="restore-backup-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:Backup.Restore | バックアップの復元 |
 
 <a id="restore-backup-request"></a>
 #### リクエスト
@@ -4675,13 +4215,6 @@ POST /v1.0/backups/{backupId}/restore
 <a id="get-db-security-groups"></a>
 ### DBセキュリティグループリストを表示 { #get-db-security-groups }
 
-<a id="get-db-security-groups-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:DbSecurityGroup.List | DBセキュリティグループリストを表示 |
-
 <a id="get-db-security-groups-request"></a>
 #### リクエスト
 
@@ -4738,13 +4271,6 @@ GET /v1.0/db-security-groups
 
 <a id="create-db-security-group"></a>
 ### DBセキュリティグループの作成 { #create-db-security-group }
-
-<a id="create-db-security-group-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:DbSecurityGroup.Create | DBセキュリティグループ作成 |
 
 <a id="create-db-security-group-request"></a>
 #### リクエスト
@@ -4823,13 +4349,6 @@ POST /v1.0/db-security-groups
 <a id="delete-db-security-group"></a>
 ### DBセキュリティグループの削除 { #delete-db-security-group }
 
-<a id="delete-db-security-group-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:DbSecurityGroup.Delete | DBセキュリティグループの削除 |
-
 <a id="delete-db-security-group-request"></a>
 #### リクエスト
 
@@ -4858,13 +4377,6 @@ DELETE /v1.0/db-security-groups/{dbSecurityGroupId}
 
 <a id="get-db-security-group"></a>
 ### DBセキュリティグループ詳細を表示 { #get-db-security-group }
-
-<a id="get-db-security-group-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:DbSecurityGroup.Get | DBセキュリティグループ詳細を表示 |
 
 <a id="get-db-security-group-request"></a>
 #### リクエスト
@@ -4956,13 +4468,6 @@ GET /v1.0/db-security-groups/{dbSecurityGroupId}
 <a id="modify-db-security-group"></a>
 ### DBセキュリティグループの修正 { #modify-db-security-group }
 
-<a id="modify-db-security-group-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:DbSecurityGroup.Modify | DBセキュリティグループの修正 |
-
 <a id="modify-db-security-group-request"></a>
 #### リクエスト
 
@@ -5006,13 +4511,6 @@ PUT /v1.0/db-security-groups/{dbSecurityGroupId}
 
 <a id="delete-db-security-group-rule"></a>
 ### DBセキュリティグループルールの削除 { #delete-db-security-group-rule }
-
-<a id="delete-db-security-group-rule-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:DbSecurityGroupRule.Delete | DBセキュリティグループルールの削除 |
 
 <a id="delete-db-security-group-rule-request"></a>
 #### リクエスト
@@ -5061,13 +4559,6 @@ DELETE /v1.0/db-security-groups/{dbSecurityGroupId}/rules
 
 <a id="create-db-security-group-rule"></a>
 ### DBセキュリティグループルールの作成 { #create-db-security-group-rule }
-
-<a id="create-db-security-group-rule-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:DbSecurityGroupRule.Create | DBセキュリティグループルールの作成 |
 
 <a id="create-db-security-group-rule-request"></a>
 #### リクエスト
@@ -5143,13 +4634,6 @@ POST /v1.0/db-security-groups/{dbSecurityGroupId}/rules
 
 <a id="modify-db-security-group-rule"></a>
 ### DBセキュリティグループルールの修正 { #modify-db-security-group-rule }
-
-<a id="modify-db-security-group-rule-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:DbSecurityGroupRule.Modify | DBセキュリティグループルールの修正 |
 
 <a id="modify-db-security-group-rule-request"></a>
 #### リクエスト
@@ -5230,13 +4714,6 @@ PUT /v1.0/db-security-groups/{dbSecurityGroupId}/rules/{ruleId}
 <a id="get-parameter-groups"></a>
 ### パラメータグループリストを表示 { #get-parameter-groups }
 
-<a id="get-parameter-groups-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:ParameterGroup.List | パラメータグループリストを表示 |
-
 <a id="get-parameter-groups-request"></a>
 #### リクエスト
 
@@ -5301,13 +4778,6 @@ GET /v1.0/parameter-groups
 <a id="create-parameter-group"></a>
 ### パラメータグループの作成 { #create-parameter-group }
 
-<a id="create-parameter-group-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:ParameterGroup.Create | パラメータグループの作成 |
-
 <a id="create-parameter-group-request"></a>
 #### リクエスト
 
@@ -5365,13 +4835,6 @@ POST /v1.0/parameter-groups
 <a id="delete-parameter-group"></a>
 ### パラメータグループの削除 { #delete-parameter-group }
 
-<a id="delete-parameter-group-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:ParameterGroup.Delete | パラメータグループの削除 |
-
 <a id="delete-parameter-group-request"></a>
 #### リクエスト
 
@@ -5400,13 +4863,6 @@ DELETE /v1.0/parameter-groups/{parameterGroupId}
 
 <a id="get-parameter-group"></a>
 ### パラメータグループ詳細照会 { #get-parameter-group }
-
-<a id="get-parameter-group-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:ParameterGroup.Get | パラメータグループ詳細照会 |
 
 <a id="get-parameter-group-request"></a>
 #### リクエスト
@@ -5492,13 +4948,6 @@ GET /v1.0/parameter-groups/{parameterGroupId}
 <a id="modify-parameter-group"></a>
 ### パラメータグループの修正 { #modify-parameter-group }
 
-<a id="modify-parameter-group-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:ParameterGroup.Modify | パラメータグループの修正 |
-
 <a id="modify-parameter-group-request"></a>
 #### リクエスト
 
@@ -5542,13 +4991,6 @@ PUT /v1.0/parameter-groups/{parameterGroupId}
 
 <a id="copy-parameter-group"></a>
 ### パラメータグループのコピー { #copy-parameter-group }
-
-<a id="copy-parameter-group-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:ParameterGroup.Copy | パラメータグループのコピー |
 
 <a id="copy-parameter-group-request"></a>
 #### リクエスト
@@ -5612,13 +5054,6 @@ POST /v1.0/parameter-groups/{parameterGroupId}/copy
 <a id="modify-parameter-group-parameters"></a>
 ### パラメータグループ内のパラメータ修正 { #modify-parameter-group-parameters }
 
-<a id="modify-parameter-group-parameters-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:ParameterGroup.Modify | パラメータグループ内のパラメータ修正 |
-
 <a id="modify-parameter-group-parameters-request"></a>
 #### リクエスト
 
@@ -5668,13 +5103,6 @@ PUT /v1.0/parameter-groups/{parameterGroupId}/parameters
 <a id="reset-parameter-group"></a>
 ### パラメータグループの再設定 { #reset-parameter-group }
 
-<a id="reset-parameter-group-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:ParameterGroup.Reset | パラメータグループの再設定 |
-
 <a id="reset-parameter-group-request"></a>
 #### リクエスト
 
@@ -5706,13 +5134,6 @@ PUT /v1.0/parameter-groups/{parameterGroupId}/reset
 
 <a id="get-user-groups"></a>
 ### ユーザーグループリストを表示 { #get-user-groups }
-
-<a id="get-user-groups-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:UserGroup.List | ユーザーグループリストを表示 |
 
 <a id="get-user-groups-request"></a>
 #### リクエスト
@@ -5766,13 +5187,6 @@ GET /v1.0/user-groups
 
 <a id="create-user-group"></a>
 ### ユーザーグループの作成 { #create-user-group }
-
-<a id="create-user-group-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:UserGroup.Create | ユーザーグループの作成 |
 
 <a id="create-user-group-request"></a>
 #### リクエスト
@@ -5831,13 +5245,6 @@ POST /v1.0/user-groups
 <a id="delete-user-group"></a>
 ### ユーザーグループの削除 { #delete-user-group }
 
-<a id="delete-user-group-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:UserGroup.Delete | ユーザーグループの削除 |
-
 <a id="delete-user-group-request"></a>
 #### リクエスト
 
@@ -5866,13 +5273,6 @@ DELETE /v1.0/user-groups/{userGroupId}
 
 <a id="get-user-group"></a>
 ### ユーザーグループ詳細を表示 { #get-user-group }
-
-<a id="get-user-group-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:UserGroup.Get | ユーザーグループ詳細を表示 |
 
 <a id="get-user-group-request"></a>
 #### リクエスト
@@ -5938,13 +5338,6 @@ GET /v1.0/user-groups/{userGroupId}
 <a id="modify-user-group"></a>
 ### ユーザーグループの修正 { #modify-user-group }
 
-<a id="modify-user-group-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:UserGroup.Modify | ユーザーグループの修正 |
-
 <a id="modify-user-group-request"></a>
 #### リクエスト
 
@@ -5993,13 +5386,6 @@ PUT /v1.0/user-groups/{userGroupId}
 
 <a id="get-notification-groups"></a>
 ### 通知グループリストを表示 { #get-notification-groups }
-
-<a id="get-notification-groups-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:NotificationGroup.List | 通知グループリストを表示 |
 
 <a id="get-notification-groups-request"></a>
 #### リクエスト
@@ -6059,13 +5445,6 @@ GET /v1.0/notification-groups
 
 <a id="create-notification-group"></a>
 ### 通知グループの作成 { #create-notification-group }
-
-<a id="create-notification-group-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:NotificationGroup.Create | 通知グループの作成 |
 
 <a id="create-notification-group-request"></a>
 #### リクエスト
@@ -6130,13 +5509,6 @@ POST /v1.0/notification-groups
 <a id="delete-notification-group"></a>
 ### 通知グループの削除 { #delete-notification-group }
 
-<a id="delete-notification-group-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:NotificationGroup.Delete | 通知グループの削除 |
-
 <a id="delete-notification-group-request"></a>
 #### リクエスト
 
@@ -6165,13 +5537,6 @@ DELETE /v1.0/notification-groups/{notificationGroupId}
 
 <a id="get-notification-group"></a>
 ### 通知グループ詳細を表示 { #get-notification-group }
-
-<a id="get-notification-group-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:NotificationGroup.Get | 通知グループ詳細を表示 |
 
 <a id="get-notification-group-request"></a>
 #### リクエスト
@@ -6252,13 +5617,6 @@ GET /v1.0/notification-groups/{notificationGroupId}
 <a id="modify-notification-group"></a>
 ### 通知グループの修正 { #modify-notification-group }
 
-<a id="modify-notification-group-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:NotificationGroup.Modify | 通知グループの修正 |
-
 <a id="modify-notification-group-request"></a>
 #### リクエスト
 
@@ -6310,13 +5668,6 @@ PUT /v1.0/notification-groups/{notificationGroupId}
 
 <a id="get-notification-watchdogs"></a>
 ### 監視設定リストを表示 { #get-notification-watchdogs }
-
-<a id="get-notification-watchdogs-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:NotificationWatchdog.List | 監視設定リストを表示 |
 
 <a id="get-notification-watchdogs-request"></a>
 #### リクエスト
@@ -6379,13 +5730,6 @@ GET /v1.0/notification-groups/{notificationGroupId}/watchdogs
 
 <a id="create-notification-watchdog"></a>
 ### 監視設定の作成 { #create-notification-watchdog }
-
-<a id="create-notification-watchdog-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:NotificationWatchdog.Create | 監視設定の作成 |
 
 <a id="create-notification-watchdog-request"></a>
 #### リクエスト
@@ -6453,13 +5797,6 @@ POST /v1.0/notification-groups/{notificationGroupId}/watchdogs
 <a id="delete-notification-watchdog"></a>
 ### 監視設定の削除 { #delete-notification-watchdog }
 
-<a id="delete-notification-watchdog-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:NotificationWatchdog.Delete | 監視設定の削除 |
-
 <a id="delete-notification-watchdog-request"></a>
 #### リクエスト
 
@@ -6489,13 +5826,6 @@ DELETE /v1.0/notification-groups/{notificationGroupId}/watchdogs/{watchdogId}
 
 <a id="modify-notification-watchdog"></a>
 ### 監視設定の修正 { #modify-notification-watchdog }
-
-<a id="modify-notification-watchdog-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:NotificationWatchdog.Modify | 監視設定の修正 |
 
 <a id="modify-notification-watchdog-request"></a>
 #### リクエスト
@@ -6548,13 +5878,6 @@ PUT /v1.0/notification-groups/{notificationGroupId}/watchdogs/{watchdogId}
 
 <a id="get-metric-statistics"></a>
 ### 統計情報照会 { #get-metric-statistics }
-
-<a id="get-metric-statistics-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:Metric.List | 統計情報照会 |
 
 <a id="get-metric-statistics-request"></a>
 #### リクエスト
@@ -6623,13 +5946,6 @@ GET /v1.0/metric-statistics
 <a id="get-metrics"></a>
 ### 性能指標リストを表示 { #get-metrics }
 
-<a id="get-metrics-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:Metric.List | 性能指標リストを表示 |
-
 <a id="get-metrics-request"></a>
 #### リクエスト
 
@@ -6694,13 +6010,6 @@ GET /v1.0/metrics
 <a id="get-event-codes"></a>
 ### 購読可能なイベントコードリストを表示 { #get-event-codes }
 
-<a id="get-event-codes-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:Event.List | 購読可能なイベントコードリストを表示 |
-
 <a id="get-event-codes-request"></a>
 #### リクエスト
 
@@ -6747,13 +6056,6 @@ GET /v1.0/event-codes
 
 <a id="get-events"></a>
 ### イベントリストを表示 { #get-events }
-
-<a id="get-events-permission"></a>
-#### 必要権限
-
-| 権限名 | 説明 |
-|-----|-----|
-| RDSforPostgreSQL:Event.List | イベントリストを表示 |
 
 <a id="get-events-request"></a>
 #### リクエスト
