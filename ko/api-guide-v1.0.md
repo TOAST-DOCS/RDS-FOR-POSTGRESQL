@@ -4835,7 +4835,7 @@ GET /v1.0/backups/cascade-deletion-targets
 
 | 이름 | 구분 | 타입 | 필수 | 설명 |
 |-----|-----|-----|-----|-----|
-| backupIds | Query | Array | N | 백업의 식별자 목록 |
+| backupIds | Query | Array | Y | 백업의 식별자 목록 |
 
 <a id="get-cascade-deletion-target-backups-request-body"></a>
 #### 요청 본문
@@ -5806,7 +5806,7 @@ POST /v1.0/parameter-groups
 |-----|-----|-----|-----|
 | parameterGroupName | String | Y | 파라미터 그룹을 식별할 수 있는 이름 |
 | description | String | N | 파라미터 그룹에 대한 추가 정보 |
-| dbVersion | Enum | N | DB 엔진 버전 |
+| dbVersion | Enum | Y | DB 엔진 버전 |
 
 <a id="create-parameter-group-response"></a>
 #### 응답
