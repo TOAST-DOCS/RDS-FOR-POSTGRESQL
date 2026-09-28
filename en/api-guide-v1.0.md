@@ -4836,7 +4836,7 @@ GET /v1.0/backups/cascade-deletion-targets
 
 | Name | Category | Type | Required | Description |
 |-----|-----|-----|-----|-----|
-| backupIds | Query | Array | N | List of backup identifiers |
+| backupIds | Query | Array | Y | List of backup identifiers |
 
 <a id="get-cascade-deletion-target-backups-request-body"></a>
 #### Request Body
@@ -5807,7 +5807,7 @@ POST /v1.0/parameter-groups
 |-----|-----|-----|-----|
 | parameterGroupName | String | Y | Name to identify parameter groups |
 | description | String | N | Additional information on parameter group |
-| dbVersion | Enum | N | DB engine version |
+| dbVersion | Enum | Y | DB engine version |
 
 <a id="create-parameter-group-response"></a>
 #### Response
