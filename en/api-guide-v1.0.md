@@ -114,7 +114,7 @@ The API responds with "200 OK" to all API requests. For more information on the 
 
 | Permission Name | Description |
 |-----|-----|
-| RDSforPostgreSQL:DbVersion.List | View DB Version List |
+| RDSforPostgreSQL:DbVersion.List | View DB engine version list |
 
 <a id="get-db-versions-request"></a>
 #### Request
@@ -173,7 +173,7 @@ This API does not require a request body.
 
 | Permission Name | Description |
 |-----|-----|
-| RDSforPostgreSQL:DbFlavor.List | List DB Instance Types |
+| RDSforPostgreSQL:DbFlavor.List | List DB Instance Specifications |
 
 <a id="get-db-flavors-request"></a>
 #### Request
@@ -234,7 +234,7 @@ This API does not require a request body.
 
 | Permission Name | Description |
 |-----|-----|
-| RDSforPostgreSQL:Project.Get | List project members |
+| RDSforPostgreSQL:Project.Get | List Project Members |
 
 <a id="get-project-members-request"></a>
 #### Request
@@ -292,7 +292,7 @@ This API does not require a request body.
 
 | Permission Name | Description |
 |-----|-----|
-| RDSforPostgreSQL:Project.Get | Get a list of regions in the project |
+| RDSforPostgreSQL:Project.Get | List Regions |
 
 <a id="get-project-regions-request"></a>
 #### Request
@@ -412,7 +412,7 @@ This API does not require a request body.
 
 | Permission Name | Description |
 |-----|-----|
-| RDSforPostgreSQL:Storage.List | View a List of Storage Types |
+| RDSforPostgreSQL:Storage.List | View the List of Storage Types |
 
 <a id="get-storage-types-request"></a>
 #### Request
@@ -483,7 +483,7 @@ This API does not require a request body.
 
 | Permission Name | Description |
 |-----|-----|
-| RDSforPostgreSQL:Job.Get | List Task Details |
+| RDSforPostgreSQL:Job.Get | View Task Details |
 
 <a id="get-job-detail-request"></a>
 #### Request
@@ -555,7 +555,7 @@ This API does not require a request body.
 
 | Permission Name | Description |
 |-----|-----|
-| RDSforPostgreSQL:DbInstanceGroup.List | List DB Instances |
+| RDSforPostgreSQL:DbInstanceGroup.List | List DB Instance Groups |
 
 <a id="get-db-instance-groups-request"></a>
 #### Request
@@ -950,7 +950,7 @@ PUT /v1.0/db-instance-groups/{dbInstanceGroupId}/backup-info
 
 | Permission Name | Description |
 |-----|-----|
-| RDSforPostgreSQL:DbInstanceGroupExtension.List | List extensions |
+| RDSforPostgreSQL:DbInstanceGroupExtension.List | View Extension List |
 
 <a id="get-extensions-request"></a>
 #### Request
@@ -1140,7 +1140,7 @@ This API does not require a request body.
 
 | Permission Name | Description |
 |-----|-----|
-| RDSforPostgreSQL:DbInstanceGroupExtension.Delete | Delete Extensions (Cancel) |
+| RDSforPostgreSQL:DbInstanceGroupExtension.Delete | Delete Extension (Cancel) |
 
 <a id="delete-extension-request"></a>
 #### Request
@@ -1178,7 +1178,7 @@ This API does not return a response body.
 
 | Permission Name | Description |
 |-----|-----|
-| RDSforPostgreSQL:DbInstanceGroupExtension.Install | Install Extensions |
+| RDSforPostgreSQL:DbInstanceGroupExtension.Install | Install Extension |
 
 <a id="create-extension-request"></a>
 #### Request
@@ -1624,7 +1624,7 @@ POST /v1.0/db-instances
 
 | Permission Name | Description |
 |-----|-----|
-| RDSforPostgreSQL:DbInstance.RestoreFromObs | Restore DB instance from backup in object storage |
+| RDSforPostgreSQL:DbInstance.RestoreFromObs | Restore DB Instance from Backup in Object Storage |
 
 <a id="restore-from-object-storage-request"></a>
 #### Request
@@ -1761,7 +1761,7 @@ POST /v1.0/db-instances/restore-from-obs
 
 | Permission Name | Description |
 |-----|-----|
-| RDSforPostgreSQL:DbInstance.Delete | Delete DB instance |
+| RDSforPostgreSQL:DbInstance.Delete | Delete DB Instance |
 
 <a id="delete-db-instance-request"></a>
 #### Request
@@ -1998,7 +1998,7 @@ PUT /v1.0/db-instances/{dbInstanceId}
 
 | Permission Name | Description |
 |-----|-----|
-| RDSforPostgreSQL:DbInstance.Modify | Apply the latest parameter group to a DB instance |
+| RDSforPostgreSQL:DbInstance.Modify | Apply Latest Parameter Group to DB Instance |
 
 <a id="apply-recent-parameter-group-request"></a>
 #### Request
@@ -2052,7 +2052,7 @@ This API does not require a request body.
 
 | Permission Name | Description |
 |-----|-----|
-| RDSforPostgreSQL:DbInstance.Get | Retrieve available DB engine versions for the current DB instance |
+| RDSforPostgreSQL:DbInstance.Get | Get selectable DB engine versions in the current DB instance |
 
 <a id="get-available-db-versions-for-current-db-instance-request"></a>
 #### Request
@@ -2186,7 +2186,7 @@ POST /v1.0/db-instances/{dbInstanceId}/backup
 
 | Permission Name | Description |
 |-----|-----|
-| RDSforPostgreSQL:DbInstance.Get | Get DB instance backup information |
+| RDSforPostgreSQL:DbInstance.Get | Get DB Instance Backup Information |
 
 <a id="get-backup-info-request"></a>
 #### Request
@@ -2261,7 +2261,7 @@ This API does not require a request body.
 
 | Permission Name | Description |
 |-----|-----|
-| RDSforPostgreSQL:DbInstance.Modify | Modify Backup Information |
+| RDSforPostgreSQL:DbInstance.Modify | Modify DB Instance Backup Information |
 
 <a id="modify-backup-info-request"></a>
 #### Request
@@ -2351,7 +2351,7 @@ PUT /v1.0/db-instances/{dbInstanceId}/backup-info
 
 | Permission Name | Description |
 |-----|-----|
-| RDSforPostgreSQL:DbInstance.BackupToObjectStorage | Back up DB instance to Object Storage |
+| RDSforPostgreSQL:DbInstance.BackupToObjectStorage | Export after Backing up DB Instance to Object Storage |
 
 <a id="backup-to-object-storage-request"></a>
 #### Request
@@ -2426,7 +2426,7 @@ POST /v1.0/db-instances/{dbInstanceId}/backup-to-object-storage
 
 | Permission Name | Description |
 |-----|-----|
-| RDSforPostgreSQL:DbInstanceDatabase.List | View database list |
+| RDSforPostgreSQL:DbInstanceDatabase.List | View the list of databases |
 
 <a id="get-databases-request"></a>
 #### Request
@@ -2693,7 +2693,7 @@ PUT /v1.0/db-instances/{dbInstanceId}/databases/{databaseId}
 
 | Permission Name | Description |
 |-----|-----|
-| RDSforPostgreSQL:DbInstanceUser.List | View List |
+| RDSforPostgreSQL:DbInstanceUser.List | View the list of users |
 
 <a id="get-users-request"></a>
 #### Request
@@ -2762,7 +2762,7 @@ This API does not require a request body.
 
 | Permission Name | Description |
 |-----|-----|
-| RDSforPostgreSQL:DbInstanceUser.Create | Create DB User |
+| RDSforPostgreSQL:DbInstanceUser.Create | Create a user |
 
 <a id="create-db-user-request"></a>
 #### Request
@@ -2837,7 +2837,7 @@ POST /v1.0/db-instances/{dbInstanceId}/db-users
 
 | Permission Name | Description |
 |-----|-----|
-| RDSforPostgreSQL:DbInstanceUser.Delete | Delete DB user |
+| RDSforPostgreSQL:DbInstanceUser.Delete | Delete a user |
 
 <a id="delete-db-user-request"></a>
 #### Request
@@ -2892,7 +2892,7 @@ This API does not require a request body.
 
 | Permission Name | Description |
 |-----|-----|
-| RDSforPostgreSQL:DbInstanceUser.Modify | Modify DB User |
+| RDSforPostgreSQL:DbInstanceUser.Modify | Edit a user |
 
 <a id="modify-db-user-request"></a>
 #### Request
@@ -2966,7 +2966,7 @@ PUT /v1.0/db-instances/{dbInstanceId}/db-users/{dbUserId}
 
 | Permission Name | Description |
 |-----|-----|
-| RDSforPostgreSQL:DbInstance.Modify | Change DB Instance Deletion Protection Settings |
+| RDSforPostgreSQL:DbInstance.Modify | Change DB instance deletion protection settings |
 
 <a id="change-deletion-protection-request"></a>
 #### Request
@@ -3015,7 +3015,7 @@ This API does not return a response body.
 
 | Permission Name | Description |
 |-----|-----|
-| RDSforPostgreSQL:DbInstance.ForceRestart | Force Restart DB instance |
+| RDSforPostgreSQL:DbInstance.ForceRestart | Force Restart DB Instance |
 
 <a id="force-restart-db-instance-request"></a>
 #### Request
@@ -3051,7 +3051,7 @@ This API does not return a response body.
 
 | Permission Name | Description |
 |-----|-----|
-| RDSforPostgreSQL:DbInstanceHba.List | View access control rule list |
+| RDSforPostgreSQL:DbInstanceHba.List | View a list of access control rules |
 
 <a id="get-hba-rules-request"></a>
 #### Request
@@ -3146,7 +3146,7 @@ This API does not require a request body.
 
 | Permission Name | Description |
 |-----|-----|
-| RDSforPostgreSQL:DbInstanceHba.Create | Add Access Control Rule |
+| RDSforPostgreSQL:DbInstanceHba.Create | Add access control rules |
 
 <a id="create-hba-rule-request"></a>
 #### Request
@@ -3279,7 +3279,7 @@ This API does not require a request body.
 
 | Permission Name | Description |
 |-----|-----|
-| RDSforPostgreSQL:DbInstanceHba.Modify | Adjust access control rule order |
+| RDSforPostgreSQL:DbInstanceHba.Modify | Reorder access control rules |
 
 <a id="modify-hba-rule-orders-request"></a>
 #### Request
@@ -3328,7 +3328,7 @@ This API does not return a response body.
 
 | Permission Name | Description |
 |-----|-----|
-| RDSforPostgreSQL:DbInstanceHba.Delete | Delete access control settings |
+| RDSforPostgreSQL:DbInstanceHba.Delete | Delete access control rules |
 
 <a id="delete-hba-configuration-request"></a>
 #### Request
@@ -3981,7 +3981,7 @@ This API does not require a request body.
 
 | Permission Name | Description |
 |-----|-----|
-| RDSforPostgreSQL:DbInstance.Modify | Modify DB Instance Network Information |
+| RDSforPostgreSQL:DbInstance.Modify | Modify DB instance network information |
 
 <a id="modify-network-info-request"></a>
 #### Request
@@ -4102,7 +4102,7 @@ This API does not require a request body.
 
 | Permission Name | Description |
 |-----|-----|
-| RDSforPostgreSQL:DbInstance.Replicate | Create Read Replica |
+| RDSforPostgreSQL:DbInstance.Replicate | Create read replica |
 
 <a id="replicate-db-instance-request"></a>
 #### Request
@@ -4253,7 +4253,7 @@ This API does not require a request body.
 
 | Permission Name | Description |
 |-----|-----|
-| RDSforPostgreSQL:DbInstance.Get | View DB instance restoration information |
+| RDSforPostgreSQL:DbInstance.Get | Get DB instance restore information |
 
 <a id="get-restoration-info-request"></a>
 #### Request
@@ -4444,18 +4444,18 @@ POST /v1.0/db-instances/{dbInstanceId}/restore
 | useDeletionProtection | Boolean | N | Whether to use deletion protection<br/>- Default: `false` |
 
 <a id="restore-db-instance-timestamp-restoretype-timestamp"></a>
-#### Request when restoring a point in time restoration using Timestamp (if restoreType is `TIMESTAMP`)
+#### Request for point-in-time restore using a timestamp (when restoreType is `TIMESTAMP`)
 
 | Name | Type | Required | Description |
 |-----|-----|-----|-----|
-| restore.restoreYmdt | DateTime | Y | DB instance restore time. (YYYY-MM-DDThh:mm:ss.SSSTZD)<br/>- Restoration is possible only before the most recent restorable time, which is queried through restoration information inquiry. |
+| restore.restoreYmdt | DateTime | Y | DB instance restore time (YYYY-MM-DDThh:mm:ss.SSSTZD)<br/>- Restoration is only possible to a time before the most recent restorable time retrieved from the restore information query. |
 
 <a id="restore-db-instance-restoretype-backup"></a>
-#### Request when restoring from backup (if restoreType is `BACKUP`)
+#### Request for restore using a backup (when restoreType is `BACKUP`)
 
 | Name | Type | Required | Description |
 |-----|-----|-----|-----|
-| restore.backupId | UUID | Y | Identifier of the backup to use for restoration |
+| restore.backupId | UUID | Y | Identifier of the backup to use for the restore |
 
 <a id="restore-db-instance-response"></a>
 #### Response
@@ -4598,7 +4598,7 @@ This API does not require a request body.
 
 | Permission Name | Description |
 |-----|-----|
-| RDSforPostgreSQL:DbInstance.Get | Get DB instance storage information |
+| RDSforPostgreSQL:DbInstance.Get | Get DB Instance Storage Information |
 
 <a id="get-storage-info-request"></a>
 #### Request
@@ -4656,7 +4656,7 @@ This API does not require a request body.
 
 | Permission Name | Description |
 |-----|-----|
-| RDSforPostgreSQL:DbInstance.Modify | Modify DB instance storage information |
+| RDSforPostgreSQL:DbInstance.Modify | Modify DB Instance Storage Information |
 
 <a id="modify-storage-info-request"></a>
 #### Request
@@ -4737,7 +4737,7 @@ PUT /v1.0/db-instances/{dbInstanceId}/storage-info
 
 | Permission Name | Description |
 |-----|-----|
-| RDSforPostgreSQL:Backup.List | View backup list |
+| RDSforPostgreSQL:Backup.List | Retrieve Backup List |
 
 <a id="get-backups-request"></a>
 #### Request
@@ -4937,7 +4937,7 @@ This API does not require a request body.
 
 | Permission Name | Description |
 |-----|-----|
-| RDSforPostgreSQL:Backup.Export | Export Backup |
+| RDSforPostgreSQL:Backup.Export | Export Backup to Object Storage |
 
 <a id="export-backup-request"></a>
 #### Request
@@ -5539,7 +5539,7 @@ This API does not require a request body.
 
 | Permission Name | Description |
 |-----|-----|
-| RDSforPostgreSQL:DbSecurityGroupRule.Create | Create DB Security Group |
+| RDSforPostgreSQL:DbSecurityGroupRule.Create | Create DB Security Group Rule |
 
 <a id="create-db-security-group-rule-request"></a>
 #### Request
@@ -5878,7 +5878,7 @@ This API does not return a response body.
 
 | Permission Name | Description |
 |-----|-----|
-| RDSforPostgreSQL:ParameterGroup.Get | Get parameter group details |
+| RDSforPostgreSQL:ParameterGroup.Get | List Parameter Group Details |
 
 <a id="get-parameter-group-request"></a>
 #### Request
@@ -6094,7 +6094,7 @@ This API does not return a response body.
 
 | Permission Name | Description |
 |-----|-----|
-| RDSforPostgreSQL:ParameterGroup.Modify | Modify Parameter |
+| RDSforPostgreSQL:ParameterGroup.Modify | Modify Parameter Group |
 
 <a id="modify-parameter-group-parameters-request"></a>
 #### Request
@@ -6648,7 +6648,7 @@ This API does not return a response body.
 
 | Permission Name | Description |
 |-----|-----|
-| RDSforPostgreSQL:NotificationGroup.Get | List Notification Groups |
+| RDSforPostgreSQL:NotificationGroup.Get | View Notification Group Details |
 
 <a id="get-notification-group-request"></a>
 #### Request
@@ -6734,7 +6734,7 @@ This API does not require a request body.
 
 | Permission Name | Description |
 |-----|-----|
-| RDSforPostgreSQL:NotificationGroup.Modify | Modify a notification group |
+| RDSforPostgreSQL:NotificationGroup.Modify | Modify Notification Group |
 
 <a id="modify-notification-group-request"></a>
 #### Request
@@ -6793,7 +6793,7 @@ This API does not return a response body.
 
 | Permission Name | Description |
 |-----|-----|
-| RDSforPostgreSQL:NotificationWatchdog.List | View Monitoring Settings List |
+| RDSforPostgreSQL:NotificationWatchdog.List | List Watch Settings |
 
 <a id="get-notification-watchdogs-request"></a>
 #### Request
@@ -6862,7 +6862,7 @@ This API does not require a request body.
 
 | Permission Name | Description |
 |-----|-----|
-| RDSforPostgreSQL:NotificationWatchdog.Create | Create a monitoring setting |
+| RDSforPostgreSQL:NotificationWatchdog.Create | Create Watch Setting |
 
 <a id="create-notification-watchdog-request"></a>
 #### Request
@@ -6935,7 +6935,7 @@ This API does not require a request body.
 
 | Permission Name | Description |
 |-----|-----|
-| RDSforPostgreSQL:NotificationWatchdog.Delete | Delete a monitoring setting |
+| RDSforPostgreSQL:NotificationWatchdog.Delete | Delete Watch Setting |
 
 <a id="delete-notification-watchdog-request"></a>
 #### Request
@@ -6972,7 +6972,7 @@ This API does not return a response body.
 
 | Permission Name | Description |
 |-----|-----|
-| RDSforPostgreSQL:NotificationWatchdog.Modify | Modify monitoring settings |
+| RDSforPostgreSQL:NotificationWatchdog.Modify | Modify Watch Setting |
 
 <a id="modify-notification-watchdog-request"></a>
 #### Request
@@ -7103,7 +7103,7 @@ This API does not require a request body.
 
 | Permission Name | Description |
 |-----|-----|
-| RDSforPostgreSQL:Metric.List | View performance metric list |
+| RDSforPostgreSQL:Metric.List | View a list of performance metrics |
 
 <a id="get-metrics-request"></a>
 #### Request
@@ -7176,7 +7176,7 @@ This API does not require a request body.
 
 | Permission Name | Description |
 |-----|-----|
-| RDSforPostgreSQL:Event.List | List Subscribable Event Codes |
+| RDSforPostgreSQL:Event.List | List subscribable event codes |
 
 <a id="get-event-codes-request"></a>
 #### Request
@@ -7230,7 +7230,7 @@ This API does not require a request body.
 
 | Permission Name | Description |
 |-----|-----|
-| RDSforPostgreSQL:Event.List | View Event List |
+| RDSforPostgreSQL:Event.List | View the list of events |
 
 <a id="get-events-request"></a>
 #### Request
