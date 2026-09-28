@@ -1,4 +1,6 @@
-<!-- pre-align:aligned sig=d58a9ac7e400 -->
+<!-- machine_translated: true -->
+
+<!-- pre-align:aligned sig=a673f7413bba -->
 
 <a id="rds-for-postgresql-api"></a>
 ## RDS for PostgreSQL API Guide { #rds-for-postgresql-api }
@@ -107,7 +109,7 @@ The API responds with "200 OK" to all API requests. For more information on the 
 <a id="get-db-versions"></a>
 ### View DB Engine Version List { #get-db-versions }
 
-<a id="get-db-versions-permission"></a>
+<a id="get-db-versions-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -166,7 +168,7 @@ This API does not require a request body.
 <a id="get-db-flavors"></a>
 ### List DB Instance Specifications { #get-db-flavors }
 
-<a id="get-db-flavors-permission"></a>
+<a id="get-db-flavors-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -227,7 +229,7 @@ This API does not require a request body.
 <a id="get-project-members"></a>
 ### List Project Members { #get-project-members }
 
-<a id="get-project-members-permission"></a>
+<a id="get-project-members-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -285,7 +287,7 @@ This API does not require a request body.
 <a id="get-project-regions"></a>
 ### List Regions { #get-project-regions }
 
-<a id="get-project-regions-permission"></a>
+<a id="get-project-regions-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -342,7 +344,7 @@ This API does not require a request body.
 <a id="get-subnets"></a>
 ### List Subnets { #get-subnets }
 
-<a id="get-subnets-permission"></a>
+<a id="get-subnets-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -405,7 +407,7 @@ This API does not require a request body.
 <a id="get-storage-types"></a>
 ### View the List of Storage Types { #get-storage-types }
 
-<a id="get-storage-types-permission"></a>
+<a id="get-storage-types-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -476,7 +478,7 @@ This API does not require a request body.
 <a id="get-job-detail"></a>
 ### View Task Details { #get-job-detail }
 
-<a id="get-job-detail-permission"></a>
+<a id="get-job-detail-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -495,7 +497,7 @@ GET /v1.0/jobs/{jobId}
 
 | Name | Category | Type | Required | Description |
 |-----|-----|-----|-----|-----|
-| jobId | URL | UUID | Y |  |
+| jobId | URL | UUID | Y | Task identifier |
 
 <a id="get-job-detail-request-body"></a>
 #### Request Body
@@ -548,7 +550,7 @@ This API does not require a request body.
 <a id="get-db-instance-groups"></a>
 ### List DB Instance Groups { #get-db-instance-groups }
 
-<a id="get-db-instance-groups-permission"></a>
+<a id="get-db-instance-groups-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -608,7 +610,7 @@ This API does not require a request body.
 <a id="get-db-instance-group"></a>
 ### List DB Instance Group Details { #get-db-instance-group }
 
-<a id="get-db-instance-group-permission"></a>
+<a id="get-db-instance-group-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -638,27 +640,28 @@ This API does not require a request body.
 #### Response
 
 <details>
-  <summary><strong>Example Code</strong></summary>
+  <summary><strong>Example code</strong></summary>
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"dbInstanceGroupId": "550e8400-e29b-41d4-a716-446655440000",
-"dbInstanceGroupStatus": "CREATED",
-"replicationType": "STANDALONE",
-"dbInstances": [
-{
-"dbInstanceId": "550e8400-e29b-41d4-a716-446655440000",
-"dbInstanceType": "MASTER",
-"dbInstanceStatus": "AVAILABLE"
-}
-],
-"createdYmdt": "2023-12-31T15:00:00+09:00",
-"updatedYmdt": "2023-12-31T15:00:00+09:00"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "dbInstanceGroupId": "550e8400-e29b-41d4-a716-446655440000",
+    "dbInstanceGroupStatus": "CREATED",
+    "replicationType": "STANDALONE",
+    "dbInstances": [
+        {
+            "dbInstanceId": "550e8400-e29b-41d4-a716-446655440000",
+            "dbInstanceType": "MASTER",
+            "dbInstanceStatus": "BEFORE_CREATE"
+        }
+    ],
+    "useManualDbDefinition": false,
+    "createdYmdt": "2023-12-31T15:00:00+09:00",
+    "updatedYmdt": "2023-12-31T15:00:00+09:00"
 }
 ```
 
@@ -671,17 +674,278 @@ This API does not require a request body.
 | replicationType | Enum | DB instance group replication type<br/>- `STANDALONE`: High availability not used<br/>- `HIGH_AVAILABILITY`: High availability used |
 | dbInstances | Array | List of DB instances belonging to the DB instance group |
 | dbInstances.dbInstanceId | UUID | DB instance identifier |
-| dbInstances.dbInstanceType | Enum | DB instance role type<br/>- `MASTER`: Master<br/>- `FAILED_MASTER`: Failed master<br/>- `CANDIDATE_MASTER`: Candidate master<br/>- `READ_ONLY_SLAVE`: Read replica |
+| dbInstances.dbInstanceType | Enum | Role type of the DB instance<br/>- `MASTER`: Primary<br/>- `FAILED_MASTER`: Failed Over Primary<br/>- `CANDIDATE_MASTER`: Standby<br/>- `READ_ONLY_SLAVE`: Read replica |
 | dbInstances.dbInstanceStatus | Enum | DB instance current status |
+| useManualDbDefinition | Boolean | Whether to use database & user direct control |
 | createdYmdt | DateTime | Created date and time (YYYY-MM-DDThh:mm:ss.SSSTZD) |
 | updatedYmdt | DateTime | Modified date and time (YYYY-MM-DDThh:mm:ss.SSSTZD) |
+
+---
+
+<a id="update-db-instance-group"></a>
+### Modify DB Instance Group { #update-db-instance-group }
+
+<a id="update-db-instance-group-required-permissions"></a>
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:DbInstanceGroup.Modify | Modify DB Instance Group |
+
+<a id="update-db-instance-group-request"></a>
+#### Request
+
+```http
+PUT /v1.0/db-instance-groups/{dbInstanceGroupId}
+```
+
+<a id="update-db-instance-group-request-parameters"></a>
+#### Request Parameters
+
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| dbInstanceGroupId | URL | UUID | Y | DB instance group identifier |
+
+<a id="update-db-instance-group-request-body"></a>
+#### Request Body
+
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+    "name": "name",
+    "useHighAvailability": false,
+    "primaryName": "primaryName",
+    "standbyName": "standbyName",
+    "pingInterval": 1,
+    "failoverReplWaitingTime": 1,
+    "useManualDbDefinition": false
+}
+```
+
+</details>
+
+| Name | Type | Required | Description |
+|-----|-----|-----|-----|
+| name | String | N | DB instance group name<br/>- Minimum length: `1`<br/>- Maximum length: `100` |
+| useHighAvailability | Boolean | N | Whether to use high availability |
+| primaryName | String | N | Master name<br/>- Minimum length: `1`<br/>- Maximum length: `100` |
+| standbyName | String | N | Candidate master name<br/>- Minimum length: `1`<br/>- Maximum length: `100` |
+| pingInterval | Number | N | Ping interval (seconds)<br/>- Minimum value: `1`<br/>- Maximum value: `600` |
+| failoverReplWaitingTime | Number | N | Failover replication delay wait time (seconds)<br/>- Minimum value: `-1` |
+| useManualDbDefinition | Boolean | N | Whether to use direct control of databases & users |
+
+<a id="update-db-instance-group-response"></a>
+#### Response
+
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
+}
+```
+
+</details>
+
+| Name | Type | Description |
+|-----|-----|-----|
+| jobId | UUID | Identifier of requested task |
+
+---
+
+<a id="get-db-instance-group-backup-info"></a>
+### Get DB Instance Group Backup Information { #get-db-instance-group-backup-info }
+
+<a id="get-db-instance-group-backup-info-required-permissions"></a>
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:DbInstanceGroup.Modify | Get DB instance group backup information |
+
+<a id="get-db-instance-group-backup-info-request"></a>
+#### Request
+
+```http
+GET /v1.0/db-instance-groups/{dbInstanceGroupId}/backup-info
+```
+
+<a id="get-db-instance-group-backup-info-request-parameters"></a>
+#### Request Parameters
+
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| dbInstanceGroupId | URL | UUID | Y | DB instance group identifier |
+
+<a id="get-db-instance-group-backup-info-request-body"></a>
+#### Request Body
+
+This API does not require a request body.
+
+<a id="get-db-instance-group-backup-info-response"></a>
+#### Response
+
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "allowAutoBackup": false,
+    "usePeriodicAutoBackup": false,
+    "backupPeriod": 1,
+    "backupRetryCount": 1,
+    "periodicAutoBackupStrategyType": "SNAPSHOT",
+    "fullBackupDaysOfWeek": [],
+    "backupExecutionTargetType": "AUTO_SINGLE",
+    "backupExecutionTargets": [
+        {
+            "dbInstanceId": "550e8400-e29b-41d4-a716-446655440000",
+            "enabled": false,
+            "backupSchedules": [
+                {
+                    "backupWndBgnTime": "00:00:00",
+                    "backupWndDuration": "HALF_AN_HOUR"
+                }
+            ]
+        }
+    ]
+}
+```
+
+</details>
+
+| Name | Type | Description |
+|-----|-----|-----|
+| allowAutoBackup | Boolean | Whether to use automatic backup |
+| usePeriodicAutoBackup | Boolean | Whether to use scheduled automatic backup |
+| backupPeriod | Number | Backup retention period |
+| backupRetryCount | Number | Backup retry count |
+| periodicAutoBackupStrategyType | Enum | Periodic automatic backup strategy type<br/>- `SNAPSHOT`: Daily snapshot backup<br/>- `DAILY_FULL`: Daily full backup<br/>- `DAILY_FULL_INC`: Daily Full and Incremental Backup<br/>- `WEEKLY_FULL_DAILY_INC`: Weekly Full Backup and Daily Incremental Backup |
+| fullBackupDaysOfWeek | Array | List of days for full backup |
+| backupExecutionTargetType | Enum | Backup execution target type<br/>- `AUTO_SINGLE`: Automatically selects one instance with the lowest load from among the candidates<br/>- `ALL`: Runs on all selected candidates |
+| backupExecutionTargets | Array | List of backup execution targets |
+| backupExecutionTargets.dbInstanceId | UUID | DB instance identifier |
+| backupExecutionTargets.enabled | Boolean | Whether enabled |
+| backupExecutionTargets.backupSchedules | Array | List of backup schedules |
+| backupExecutionTargets.backupSchedules.backupWndBgnTime | Time | Backup start time |
+| backupExecutionTargets.backupSchedules.backupWndDuration | Enum | Backup window duration<br/>- `HALF_AN_HOUR`: 30 minutes<br/>- `ONE_HOUR`: 1 hour<br/>- `ONE_HOUR_AND_HALF`: 1.5 hour<br/>- `TWO_HOURS`: 2 hour<br/>- `TWO_HOURS_AND_HALF`: 2.5 hour<br/>- `THREE_HOURS`: 3 hour |
+
+---
+
+<a id="update-db-instance-group-backup-info"></a>
+### Modify DB Instance Group Backup Information { #update-db-instance-group-backup-info }
+
+<a id="update-db-instance-group-backup-info-required-permissions"></a>
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:DbInstanceGroup.Modify | Modify DB instance group backup information |
+
+<a id="update-db-instance-group-backup-info-request"></a>
+#### Request
+
+```http
+PUT /v1.0/db-instance-groups/{dbInstanceGroupId}/backup-info
+```
+
+<a id="update-db-instance-group-backup-info-request-parameters"></a>
+#### Request Parameters
+
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| dbInstanceGroupId | URL | UUID | Y | DB instance group identifier |
+
+<a id="update-db-instance-group-backup-info-request-body"></a>
+#### Request Body
+
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+    "allowAutoBackup": false,
+    "usePeriodicAutoBackup": false,
+    "backupPeriod": 0,
+    "backupRetryCount": 0,
+    "periodicAutoBackupStrategyType": "SNAPSHOT",
+    "fullBackupDaysOfWeek": [],
+    "backupExecutionTargetType": "AUTO_SINGLE",
+    "backupExecutionTargets": [
+        {
+            "dbInstanceId": "550e8400-e29b-41d4-a716-446655440000",
+            "enabled": true,
+            "backupSchedules": [
+                {
+                    "backupWndBgnTime": "00:00:00",
+                    "backupWndDuration": "HALF_AN_HOUR"
+                }
+            ]
+        }
+    ]
+}
+```
+
+</details>
+
+| Name | Type | Required | Description |
+|-----|-----|-----|-----|
+| allowAutoBackup | Boolean | N | Whether to use automatic backup |
+| usePeriodicAutoBackup | Boolean | N | Whether to use periodic automatic backup |
+| backupPeriod | Number | N | Backup retention period<br/>- Minimum: `0`<br/>- Maximum: `730` |
+| backupRetryCount | Number | N | Backup retry count<br/>- Minimum: `0`<br/>- Maximum: `10` |
+| periodicAutoBackupStrategyType | Enum | N | Periodic automatic backup strategy type<br/>- `SNAPSHOT`: Daily snapshot backup<br/>- `DAILY_FULL`: Daily full backup<br/>- `DAILY_FULL_INC`: Daily Full and Incremental Backup<br/>- `WEEKLY_FULL_DAILY_INC`: Weekly Full Backup and Daily Incremental Backup |
+| fullBackupDaysOfWeek | Array | N | List of days of the week for full backup |
+| backupExecutionTargetType | Enum | N | Backup execution target type<br/>- `AUTO_SINGLE`: Automatically selects one instance with the lowest load among candidates<br/>- `ALL`: Runs on all selected candidates |
+| backupExecutionTargets | Array | N | List of backup execution targets |
+| backupExecutionTargets.dbInstanceId | UUID | Y | Identifier of the DB instance |
+| backupExecutionTargets.enabled | Boolean | N | Whether to enable<br/>- Default: `true` |
+| backupExecutionTargets.backupSchedules | Array | Y | List of backup schedules |
+| backupExecutionTargets.backupSchedules.backupWndBgnTime | Time | Y | Backup start time |
+| backupExecutionTargets.backupSchedules.backupWndDuration | Enum | Y | Backup window duration<br/>- `HALF_AN_HOUR`: 30 minutes<br/>- `ONE_HOUR`: 1 hour<br/>- `ONE_HOUR_AND_HALF`: 1.5 hour<br/>- `TWO_HOURS`: 2 hour<br/>- `TWO_HOURS_AND_HALF`: 2.5 hour<br/>- `THREE_HOURS`: 3 hour |
+
+<a id="update-db-instance-group-backup-info-response"></a>
+#### Response
+
+<details>
+  <summary><strong>Example code</strong></summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
+}
+```
+
+</details>
+
+| Name | Type | Description |
+|-----|-----|-----|
+| jobId | UUID | Identifier of requested task |
 
 ---
 
 <a id="get-extensions"></a>
 ### View Extension List { #get-extensions }
 
-<a id="get-extensions-permission"></a>
+<a id="get-extensions-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -763,7 +1027,7 @@ This API does not require a request body.
 <a id="apply-extensions"></a>
 ### Apply Extension Changes { #apply-extensions }
 
-<a id="apply-extensions-permission"></a>
+<a id="apply-extensions-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -817,7 +1081,7 @@ This API does not require a request body.
 <a id="sync-extensions"></a>
 ### Synchronize Extensions { #sync-extensions }
 
-<a id="sync-extensions-permission"></a>
+<a id="sync-extensions-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -871,7 +1135,7 @@ This API does not require a request body.
 <a id="delete-extension"></a>
 ### Delete Extension (Cancel) { #delete-extension }
 
-<a id="delete-extension-permission"></a>
+<a id="delete-extension-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -909,7 +1173,7 @@ This API does not return a response body.
 <a id="create-extension"></a>
 ### Install Extension { #create-extension }
 
-<a id="create-extension-permission"></a>
+<a id="create-extension-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -957,6 +1221,139 @@ POST /v1.0/db-instance-groups/{dbInstanceGroupId}/extensions/{extensionId}
 #### Response
 
 This API does not return a response body.
+
+---
+
+<a id="get-db-instance-group-maintenance-info"></a>
+### Get DB Instance Group Maintenance Information { #get-db-instance-group-maintenance-info }
+
+<a id="get-db-instance-group-maintenance-info-required-permissions"></a>
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:DbInstanceGroup.Modify | View DB instance group maintenance information |
+
+<a id="get-db-instance-group-maintenance-info-request"></a>
+#### Request
+
+```http
+GET /v1.0/db-instance-groups/{dbInstanceGroupId}/maintenance-info
+```
+
+<a id="get-db-instance-group-maintenance-info-request-parameters"></a>
+#### Request Parameters
+
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| dbInstanceGroupId | URL | UUID | Y | DB instance group identifier |
+
+<a id="get-db-instance-group-maintenance-info-request-body"></a>
+#### Request Body
+
+This API does not require a request body.
+
+<a id="get-db-instance-group-maintenance-info-response"></a>
+#### Response
+
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "maintWndBgnTime": "00:00:00",
+    "maintWndDuration": "HALF_AN_HOUR",
+    "useAutoStorageCleanup": false,
+    "logRetentionPeriod": 1
+}
+```
+
+</details>
+
+| Name | Type | Description |
+|-----|-----|-----|
+| maintWndBgnTime | Time | Maintenance start time |
+| maintWndDuration | Enum | Maintenance window duration<br/>- `HALF_AN_HOUR`: 30 minutes<br/>- `ONE_HOUR`: 1 hour<br/>- `ONE_HOUR_AND_HALF`: 1.5 hour<br/>- `TWO_HOURS`: 2 hour<br/>- `TWO_HOURS_AND_HALF`: 2.5 hour<br/>- `THREE_HOURS`: 3 hour |
+| useAutoStorageCleanup | Boolean | Whether to enable automatic storage cleanup |
+| logRetentionPeriod | Number | Log retention period (days) |
+
+---
+
+<a id="update-db-instance-group-maintenance-info"></a>
+### Modify DB Instance Group Maintenance Information { #update-db-instance-group-maintenance-info }
+
+<a id="update-db-instance-group-maintenance-info-required-permissions"></a>
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:DbInstanceGroup.Modify | Modify DB instance group maintenance information |
+
+<a id="update-db-instance-group-maintenance-info-request"></a>
+#### Request
+
+```http
+PUT /v1.0/db-instance-groups/{dbInstanceGroupId}/maintenance-info
+```
+
+<a id="update-db-instance-group-maintenance-info-request-parameters"></a>
+#### Request Parameters
+
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| dbInstanceGroupId | URL | UUID | Y | DB instance group identifier |
+
+<a id="update-db-instance-group-maintenance-info-request-body"></a>
+#### Request Body
+
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+    "maintWndBgnTime": "00:00:00",
+    "maintWndDuration": "HALF_AN_HOUR",
+    "useAutoStorageCleanup": false,
+    "logRetentionPeriod": 1
+}
+```
+
+</details>
+
+| Name | Type | Required | Description |
+|-----|-----|-----|-----|
+| maintWndBgnTime | Time | N | Maintenance start time |
+| maintWndDuration | Enum | N | Maintenance window duration<br/>- `HALF_AN_HOUR`: 30 minutes<br/>- `ONE_HOUR`: 1 hour<br/>- `ONE_HOUR_AND_HALF`: 1.5 hour<br/>- `TWO_HOURS`: 2 hour<br/>- `TWO_HOURS_AND_HALF`: 2.5 hour<br/>- `THREE_HOURS`: 3 hour |
+| useAutoStorageCleanup | Boolean | N | Whether to enable automatic storage cleanup |
+| logRetentionPeriod | Number | N | Log Retention Period (day)<br/>- Minimum: `1`<br/>- Maximum: `30` |
+
+<a id="update-db-instance-group-maintenance-info-response"></a>
+#### Response
+
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
+}
+```
+
+</details>
+
+| Name | Type | Description |
+|-----|-----|-----|
+| jobId | UUID | Identifier of requested task |
 
 ---
 
@@ -1022,7 +1419,7 @@ This API does not return a response body.
 <a id="get-db-instances"></a>
 ### List DB Instances { #get-db-instances }
 
-<a id="get-db-instances-permission"></a>
+<a id="get-db-instances-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -1083,7 +1480,7 @@ This API does not require a request body.
 | dbInstances.description | String | Additional information on DB instances |
 | dbInstances.dbVersion | Enum | DB engine version |
 | dbInstances.dbPort | Number | DB port |
-| dbInstances.dbInstanceType | Enum | DB instance role type<br/>- `MASTER`: Master<br/>- `FAILED_MASTER`: Failed master<br/>- `CANDIDATE_MASTER`: Candidate master<br/>- `READ_ONLY_SLAVE`: Read replica |
+| dbInstances.dbInstanceType | Enum | Role type of the DB instance<br/>- `MASTER`: Primary<br/>- `FAILED_MASTER`: Failed Over Primary<br/>- `CANDIDATE_MASTER`: Standby<br/>- `READ_ONLY_SLAVE`: Read replica |
 | dbInstances.dbInstanceStatus | Enum | DB instance current status |
 | dbInstances.progressStatus | Enum | Current task status of DB instance |
 | dbInstances.createdYmdt | DateTime | Created date and time (YYYY-MM-DDThh:mm:ss.SSSTZD) |
@@ -1094,7 +1491,7 @@ This API does not require a request body.
 <a id="create-db-instance"></a>
 ### Create DB Instance { #create-db-instance }
 
-<a id="create-db-instance-permission"></a>
+<a id="create-db-instance-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -1112,47 +1509,48 @@ POST /v1.0/db-instances
 #### Request Body
 
 <details>
-  <summary><strong>Example Code</strong></summary>
+  <summary><strong>Example code</strong></summary>
 
 ```json
 {
-"dbInstanceName": "dbInstanceName-example",
-"dbInstanceCandidateName": "dbInstanceCandidateName-example",
-"description": "description-example",
-"dbFlavorId": "550e8400-e29b-41d4-a716-446655440000",
-"dbVersion": "POSTGRESQL_V17_10",
-"dbPort": 15432,
-"databaseName": "database-1",
-"dbUserName": "dbUserName-example",
-"dbPassword": "dbPassword-example",
-"parameterGroupId": "550e8400-e29b-41d4-a716-446655440000",
-"dbSecurityGroupIds": [],
-"userGroupIds": [],
-"useHighAvailability": false,
-"useDefaultNotification": false,
-"useDeletionProtection": false,
-"pingInterval": 1,
-"failoverReplWaitingTime": 1,
-"network": {
-"subnetId": "550e8400-e29b-41d4-a716-446655440000",
-"usePublicAccess": false,
-"availabilityZone": "kr-pub-a"
-},
-"storage": {
-"storageType": "General SSD",
-"storageSize": 20
-},
-"backup": {
-"backupPeriod": 0,
-"backupRetryCount": 0,
-"periodicAutoBackupStrategyTypeCode": "DAILY_FULL",
-"backupSchedules": [
-{
-"backupWndBgnTime": "00:00:00",
-"backupWndDuration": "HALF_AN_HOUR"
-}
-]
-}
+    "dbInstanceName": "dbInstanceName-example",
+    "dbInstanceCandidateName": "dbInstanceCandidateName-example",
+    "description": "description-example",
+    "dbFlavorId": "550e8400-e29b-41d4-a716-446655440000",
+    "dbVersion": "POSTGRESQL_V17_10",
+    "dbPort": 15432,
+    "databaseName": "database-1",
+    "dbUserName": "dbUserName-example",
+    "dbPassword": "dbPassword-example",
+    "parameterGroupId": "550e8400-e29b-41d4-a716-446655440000",
+    "dbSecurityGroupIds": [],
+    "userGroupIds": [],
+    "useHighAvailability": false,
+    "useDefaultNotification": false,
+    "useDeletionProtection": false,
+    "pingInterval": 1,
+    "failoverReplWaitingTime": 1,
+    "network": {
+        "subnetId": "550e8400-e29b-41d4-a716-446655440000",
+        "usePublicAccess": false,
+        "availabilityZone": "kr-pub-a"
+    },
+    "storage": {
+        "storageType": "General SSD",
+        "storageSize": 20
+    },
+    "backup": {
+        "backupPeriod": 0,
+        "backupRetryCount": 0,
+        "periodicAutoBackupStrategyType": "DAILY_FULL",
+        "fullBackupDaysOfWeek": [],
+        "backupSchedules": [
+            {
+                "backupWndBgnTime": "00:00:00",
+                "backupWndDuration": "HALF_AN_HOUR"
+            }
+        ]
+    }
 }
 ```
 
@@ -1161,7 +1559,7 @@ POST /v1.0/db-instances
 | Name | Type | Required | Description |
 |-----|-----|-----|-----|
 | dbInstanceName | String | Y | Name to identify DB instances |
-| dbInstanceCandidateName | String | N | Candidate master name to identify the DB instance |
+| dbInstanceCandidateName | String | N | Name to identify standby DB instances |
 | description | String | N | Additional information on DB instances |
 | dbFlavorId | UUID | Y | Identifier of DB instance specifications |
 | dbVersion | Enum | Y | DB engine version |
@@ -1187,7 +1585,8 @@ POST /v1.0/db-instances
 | backup | Object | Y | Backup information objects |
 | backup.backupPeriod | Number | Y | Backup retention period (days)<br/>- Minimum value: `0`<br/>- Maximum value: `730` |
 | backup.backupRetryCount | Number | N | Backup retry count<br/>- Minimum value: `0`<br/>- Maximum value: `10` |
-| backup.periodicAutoBackupStrategyTypeCode | Enum | N | Periodic automatic backup strategy code (DAILY_FULL/SNAPSHOT)<br/>- Default value: `DAILY_FULL`<br/>- `SNAPSHOT`: Daily snapshot backup<br/>- `DAILY_FULL`: Daily full backup |
+| backup.periodicAutoBackupStrategyType | Enum | N | Periodic automatic backup strategy type<br/>- Default: `DAILY_FULL`<br/>- `SNAPSHOT`: Daily snapshot backup<br/>- `DAILY_FULL`: Daily full backup<br/>- `DAILY_FULL_INC`: Daily full and incremental backup<br/>- `WEEKLY_FULL_DAILY_INC`: Weekly full backup and daily incremental backup |
+| backup.fullBackupDaysOfWeek | Array | N | List of days of the week for full backups (required if the periodic automatic backup strategy is `WEEKLY_FULL_DAILY_INC`) |
 | backup.backupSchedules | Array | Y | Backup schedule information |
 | backup.backupSchedules.backupWndBgnTime | Time | Y | Backup start time |
 | backup.backupSchedules.backupWndDuration | Enum | Y | Backup window<br/>- `HALF_AN_HOUR`: 30 minutes<br/>- `ONE_HOUR`: 1 hour<br/>- `ONE_HOUR_AND_HALF`: 1 hour 30 minutes<br/>- `TWO_HOURS`: 2 hours<br/>- `TWO_HOURS_AND_HALF`: 2 hours 30 minutes<br/>- `THREE_HOURS`: 3 hours |
@@ -1220,7 +1619,7 @@ POST /v1.0/db-instances
 <a id="restore-from-object-storage"></a>
 ### Restore DB Instance from Backup in Object Storage { #restore-from-object-storage }
 
-<a id="restore-from-object-storage-permission"></a>
+<a id="restore-from-object-storage-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -1242,49 +1641,49 @@ POST /v1.0/db-instances/restore-from-obs
 
 ```json
 {
-"dbInstanceName": "dbInstanceName",
-"dbInstanceCandidateName": "dbInstanceCandidateName-example",
-"description": "description-example",
-"dbFlavorId": "550e8400-e29b-41d4-a716-446655440000",
-"dbPort": 15432,
-"dbVersion": "POSTGRESQL_V17_10",
-"useHighAvailability": false,
-"imageId": "550e8400-e29b-41d4-a716-446655440000",
-"pingInterval": 3,
-"failoverReplWaitingTime": 60,
-"storage": {
-"storageType": "General SSD",
-"storageSize": 20
-},
-"network": {
-"subnetId": "550e8400-e29b-41d4-a716-446655440000",
-"usePublicAccess": false,
-"availabilityZone": "kr-pub-a"
-},
-"backup": {
-"backupPeriod": 0,
-"backupRetryCount": 0,
-"periodicAutoBackupStrategyTypeCode": "DAILY_FULL",
-"replicationRegion": "KR1",
-"backupSchedules": [
-{
-"backupWndBgnTime": "00:00:00",
-"backupWndDuration": "HALF_AN_HOUR"
-}
-]
-},
-"restore": {
-"tenantId": "0123456789abcdef0123456789abcdef",
-"username": "username-example",
-"password": "password-example",
-"targetContainer": "targetContainer-example",
-"objectPath": "objectPath-example"
-},
-"useDefaultNotification": false,
-"parameterGroupId": "550e8400-e29b-41d4-a716-446655440000",
-"dbSecurityGroupIds": [],
-"userGroupIds": [],
-"useDeletionProtection": false
+    "dbInstanceName": "dbInstanceName",
+    "dbInstanceCandidateName": "dbInstanceCandidateName-example",
+    "description": "description-example",
+    "dbFlavorId": "550e8400-e29b-41d4-a716-446655440000",
+    "dbPort": 15432,
+    "dbVersion": "POSTGRESQL_V17_10",
+    "useHighAvailability": false,
+    "imageId": "550e8400-e29b-41d4-a716-446655440000",
+    "pingInterval": 3,
+    "failoverReplWaitingTime": 60,
+    "storage": {
+        "storageType": "General SSD",
+        "storageSize": 20
+    },
+    "network": {
+        "subnetId": "550e8400-e29b-41d4-a716-446655440000",
+        "usePublicAccess": false,
+        "availabilityZone": "kr-pub-a"
+    },
+    "backup": {
+        "backupPeriod": 0,
+        "periodicAutoBackupStrategyType": "DAILY_FULL",
+        "fullBackupDaysOfWeek": [],
+        "backupRetryCount": 0,
+        "backupSchedules": [
+            {
+                "backupWndBgnTime": "00:00:00",
+                "backupWndDuration": "HALF_AN_HOUR"
+            }
+        ]
+    },
+    "restore": {
+        "tenantId": "0123456789abcdef0123456789abcdef",
+        "username": "username-example",
+        "password": "password-example",
+        "targetContainer": "targetContainer-example",
+        "objectPath": "objectPath-example"
+    },
+    "useDefaultNotification": false,
+    "parameterGroupId": "550e8400-e29b-41d4-a716-446655440000",
+    "dbSecurityGroupIds": [],
+    "userGroupIds": [],
+    "useDeletionProtection": false
 }
 ```
 
@@ -1293,7 +1692,7 @@ POST /v1.0/db-instances/restore-from-obs
 | Name | Type | Required | Description |
 |-----|-----|-----|-----|
 | dbInstanceName | String | N | Name to identify DB instances<br/>- Minimum length: `1`<br/>- Maximum length: `100` |
-| dbInstanceCandidateName | String | N | Candidate master name to identify the DB instance |
+| dbInstanceCandidateName | String | N | Name to identify standby DB instances |
 | description | String | N | Additional information on the DB instance<br/>- Maximum length: `100` |
 | dbFlavorId | UUID | Y | Identifier of DB instance specifications |
 | dbPort | Number | N | DB port<br/>- Minimum value: 5432, Maximum value: 45432 |
@@ -1311,7 +1710,8 @@ POST /v1.0/db-instances/restore-from-obs
 | network.availabilityZone | Enum | N | Availability zone where DB instance will be created |
 | backup | Object | Y | Backup information objects |
 | backup.backupPeriod | Number | Y | Backup retention period (days)<br/>- Minimum value: `0`<br/>- Maximum value: `730` |
-| backup.periodicAutoBackupStrategyTypeCode | Enum | N | Periodic automatic backup strategy code (DAILY_FULL/SNAPSHOT)<br/>- Default value: `DAILY_FULL`<br/>- `SNAPSHOT`: Daily snapshot backup<br/>- `DAILY_FULL`: Daily full backup |
+| backup.periodicAutoBackupStrategyType | Enum | N | Periodic automatic backup strategy type<br/>- Default: `DAILY_FULL`<br/>- `SNAPSHOT`: Daily snapshot backup<br/>- `DAILY_FULL`: Daily full backup<br/>- `DAILY_FULL_INC`: Daily full and incremental backup<br/>- `WEEKLY_FULL_DAILY_INC`: Weekly full backup and daily incremental backup |
+| backup.fullBackupDaysOfWeek | Array | N | List of days of the week for full backups (required if the periodic automatic backup strategy is `WEEKLY_FULL_DAILY_INC`) |
 | backup.backupRetryCount | Number | N | Number of backup retries<br/>- Minimum value: `0`<br/>- Maximum value: `10` |
 | backup.backupSchedules | Array | Y | Backup schedule information |
 | backup.backupSchedules.backupWndBgnTime | Time | Y | Backup start time |
@@ -1356,7 +1756,7 @@ POST /v1.0/db-instances/restore-from-obs
 <a id="delete-db-instance"></a>
 ### Delete DB Instance { #delete-db-instance }
 
-<a id="delete-db-instance-permission"></a>
+<a id="delete-db-instance-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -1410,7 +1810,7 @@ This API does not require a request body.
 <a id="get-db-instance"></a>
 ### List DB Instance Details { #get-db-instance }
 
-<a id="get-db-instance-permission"></a>
+<a id="get-db-instance-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -1485,7 +1885,7 @@ This API does not require a request body.
 | description | String | Additional information on DB instances |
 | dbVersion | Enum | DB engine version |
 | dbPort | Number | DB port |
-| dbInstanceType | Enum | DB instance role type<br/>- `MASTER`: Master<br/>- `FAILED_MASTER`: Failed master<br/>- `CANDIDATE_MASTER`: Candidate master<br/>- `READ_ONLY_SLAVE`: Read replica |
+| dbInstanceType | Enum | DB instance role type<br/>- `MASTER`: Primary<br/>- `FAILED_MASTER`: Failed Over Primary<br/>- `CANDIDATE_MASTER`: Standby<br/>- `READ_ONLY_SLAVE`: Read replica |
 | dbInstanceStatus | Enum | DB instance current status |
 | progressStatus | Enum | Current task status of DB instance |
 | dbFlavorId | UUID | Identifier of DB instance specifications |
@@ -1504,7 +1904,7 @@ This API does not require a request body.
 <a id="modify-db-instance"></a>
 ### Modify DB Instance { #modify-db-instance }
 
-<a id="modify-db-instance-permission"></a>
+<a id="modify-db-instance-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -1553,7 +1953,7 @@ PUT /v1.0/db-instances/{dbInstanceId}
 | Name | Type | Required | Description |
 |-----|-----|-----|-----|
 | dbInstanceName | String | N | Name to identify DB instances |
-| dbInstanceCandidateName | String | N | Candidate master name to identify the DB instance |
+| dbInstanceCandidateName | String | N | Name to identify standby DB instances |
 | description | String | N | Additional information on the DB instance<br/>- Maximum length: `100` |
 | dbPort | Number | N | DB port<br/>- Minimum value: 5432, Maximum value: 45432 |
 | dbFlavorId | UUID | N | Identifier of DB instance specifications |
@@ -1593,7 +1993,7 @@ PUT /v1.0/db-instances/{dbInstanceId}
 <a id="apply-recent-parameter-group"></a>
 ### Apply Latest Parameter Group to DB Instance { #apply-recent-parameter-group }
 
-<a id="apply-recent-parameter-group-permission"></a>
+<a id="apply-recent-parameter-group-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -1647,7 +2047,7 @@ This API does not require a request body.
 <a id="get-available-db-versions-for-current-db-instance"></a>
 ### Get selectable DB engine versions in the current DB instance { #get-available-db-versions-for-current-db-instance }
 
-<a id="get-available-db-versions-for-current-db-instance-permission"></a>
+<a id="get-available-db-versions-for-current-db-instance-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -1710,7 +2110,7 @@ This API does not require a request body.
 <a id="backup-db-instance"></a>
 ### Backup DB Instance { #backup-db-instance }
 
-<a id="backup-db-instance-permission"></a>
+<a id="backup-db-instance-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -1739,8 +2139,9 @@ POST /v1.0/db-instances/{dbInstanceId}/backup
 
 ```json
 {
-"backupName": "backupName-example",
-"backupMethodType": "FULL"
+    "backupName": "backupName-example",
+    "backupMethodType": "FULL",
+    "baseBackupId": "baseBackupId-example"
 }
 ```
 
@@ -1749,7 +2150,8 @@ POST /v1.0/db-instances/{dbInstanceId}/backup
 | Name | Type | Required | Description |
 |-----|-----|-----|-----|
 | backupName | String | Y | Name to identify backups |
-| backupMethodType | Enum | N | Backup method<br/>- `FULL`<br/>- `SNAPSHOT` |
+| backupMethodType | Enum | N | Backup method<br/>- `FULL`: Full backup<br/>- `INCREMENTAL`: Incremental backup<br/>- `SNAPSHOT`: Snapshot backup |
+| baseBackupId | String | N | Backup identifier of the source backup |
 
 <a id="backup-db-instance-response"></a>
 #### Response
@@ -1779,7 +2181,7 @@ POST /v1.0/db-instances/{dbInstanceId}/backup
 <a id="get-backup-info"></a>
 ### Get DB Instance Backup Information { #get-backup-info }
 
-<a id="get-backup-info-permission"></a>
+<a id="get-backup-info-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -1809,26 +2211,28 @@ This API does not require a request body.
 #### Response
 
 <details>
-  <summary><strong>Example Code</strong></summary>
+  <summary><strong>Example code</strong></summary>
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"allowAutoBackup": false,
-"usePeriodicAutoBackup": false,
-"periodicAutoBackupStrategyTypeCode": "SNAPSHOT",
-"backupPeriod": 1,
-"backupRetryCount": 1,
-"backupSchedules": [
-{
-"backupWndBgnTime": "00:00:00",
-"backupWndDuration": "HALF_AN_HOUR"
-}
-]
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "allowAutoBackup": false,
+    "allowAutoBackupExecutionTarget": false,
+    "usePeriodicAutoBackup": false,
+    "periodicAutoBackupStrategyType": "SNAPSHOT",
+    "fullBackupDaysOfWeek": [],
+    "backupPeriod": 1,
+    "backupRetryCount": 1,
+    "backupSchedules": [
+        {
+            "backupWndBgnTime": "00:00:00",
+            "backupWndDuration": "HALF_AN_HOUR"
+        }
+    ]
 }
 ```
 
@@ -1837,8 +2241,10 @@ This API does not require a request body.
 | Name | Type | Description |
 |-----|-----|-----|
 | allowAutoBackup | Boolean | Whether automatic backup is allowed |
+| allowAutoBackupExecutionTarget | Boolean | Whether to allow automatic backup execution target |
 | usePeriodicAutoBackup | Boolean | Whether scheduled automatic backup is used |
-| periodicAutoBackupStrategyTypeCode | Enum | Periodic automatic backup strategy code (DAILY_FULL/SNAPSHOT)<br/>- `SNAPSHOT`: Daily snapshot backup<br/>- `DAILY_FULL`: Daily full backup |
+| periodicAutoBackupStrategyType | Enum | Periodic automatic backup strategy type<br/>- `SNAPSHOT`: Daily Snapshot Backup<br/>- `DAILY_FULL`: Daily Full Backup<br/>- `DAILY_FULL_INC`: Daily Full and Incremental Backup<br/>- `WEEKLY_FULL_DAILY_INC`: Weekly Full Backup and Daily Incremental Backup |
+| fullBackupDaysOfWeek | Array | List of days of the week for full backups (required if the periodic automatic backup strategy is WEEKLY_FULL_DAILY_INC) |
 | backupPeriod | Number | Backup retention period (days) |
 | backupRetryCount | Number | Number of backup retries |
 | backupSchedules | Array | List of backup schedules |
@@ -1850,7 +2256,7 @@ This API does not require a request body.
 <a id="modify-backup-info"></a>
 ### Modify DB Instance Backup Information { #modify-backup-info }
 
-<a id="modify-backup-info-permission"></a>
+<a id="modify-backup-info-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -1875,21 +2281,24 @@ PUT /v1.0/db-instances/{dbInstanceId}/backup-info
 #### Request Body
 
 <details>
-  <summary><strong>Example Code</strong></summary>
+  <summary><strong>Example code</strong></summary>
 
 ```json
 {
-"allowAutoBackup": false,
-"usePeriodicAutoBackup": false,
-"periodicAutoBackupStrategyTypeCode": "SNAPSHOT",
-"backupPeriod": 0,
-"backupRetryCount": 0,
-"backupSchedules": [
-{
-"backupWndBgnTime": "00:00:00",
-"backupWndDuration": "HALF_AN_HOUR"
-}
-]
+    "allowAutoBackup": false,
+    "allowAutoBackupExecutionTarget": false,
+    "usePeriodicAutoBackup": false,
+    "backupExecutionTargetType": "AUTO_SINGLE",
+    "periodicAutoBackupStrategyType": "SNAPSHOT",
+    "fullBackupDaysOfWeek": [],
+    "backupPeriod": 0,
+    "backupRetryCount": 0,
+    "backupSchedules": [
+        {
+            "backupWndBgnTime": "00:00:00",
+            "backupWndDuration": "HALF_AN_HOUR"
+        }
+    ]
 }
 ```
 
@@ -1898,8 +2307,11 @@ PUT /v1.0/db-instances/{dbInstanceId}/backup-info
 | Name | Type | Required | Description |
 |-----|-----|-----|-----|
 | allowAutoBackup | Boolean | N | Whether automatic backup is allowed |
+| allowAutoBackupExecutionTarget | Boolean | N | Whether to allow automatic backup execution targets |
 | usePeriodicAutoBackup | Boolean | N | Whether scheduled automatic backup is used |
-| periodicAutoBackupStrategyTypeCode | Enum | N | Periodic automatic backup strategy code (DAILY_FULL/SNAPSHOT)<br/>- `SNAPSHOT`: Daily snapshot backup<br/>- `DAILY_FULL`: Daily full backup |
+| backupExecutionTargetType | Enum | N | Backup execution target type<br/>- `AUTO_SINGLE`: Automatically selects one instance with the lowest load among candidates<br/>- `ALL`: Runs on all selected candidates |
+| periodicAutoBackupStrategyType | Enum | N | Periodic automatic backup strategy type<br/>- `SNAPSHOT`: Daily Snapshot Backup<br/>- `DAILY_FULL`: Daily full backup<br/>- `DAILY_FULL_INC`: Daily Full and Incremental Backup<br/>- `WEEKLY_FULL_DAILY_INC`: Weekly Full Backup and Daily Incremental Backup |
+| fullBackupDaysOfWeek | Array | N | List of days for full backups (required if the periodic automatic backup strategy is `WEEKLY_FULL_DAILY_INC`) |
 | backupPeriod | Number | N | Backup retention period (days)<br/>- Minimum value: `0`<br/>- Maximum value: `730` |
 | backupRetryCount | Number | N | Number of backup retries<br/>- Minimum value: `0`<br/>- Maximum value: `10` |
 | backupSchedules | Array | N | Backup schedules |
@@ -1934,7 +2346,7 @@ PUT /v1.0/db-instances/{dbInstanceId}/backup-info
 <a id="backup-to-object-storage"></a>
 ### Export after Backing up DB Instance to Object Storage { #backup-to-object-storage }
 
-<a id="backup-to-object-storage-permission"></a>
+<a id="backup-to-object-storage-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -2009,7 +2421,7 @@ POST /v1.0/db-instances/{dbInstanceId}/backup-to-object-storage
 <a id="get-databases"></a>
 ### View the list of databases { #get-databases }
 
-<a id="get-databases-permission"></a>
+<a id="get-databases-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -2084,7 +2496,7 @@ This API does not require a request body.
 <a id="create-database"></a>
 ### Create a database { #create-database }
 
-<a id="create-database-permission"></a>
+<a id="create-database-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -2151,7 +2563,7 @@ POST /v1.0/db-instances/{dbInstanceId}/databases
 <a id="delete-database"></a>
 ### Delete a database { #delete-database }
 
-<a id="delete-database-permission"></a>
+<a id="delete-database-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -2206,7 +2618,7 @@ This API does not require a request body.
 <a id="modify-database"></a>
 ### Modify a database { #modify-database }
 
-<a id="modify-database-permission"></a>
+<a id="modify-database-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -2276,7 +2688,7 @@ PUT /v1.0/db-instances/{dbInstanceId}/databases/{databaseId}
 <a id="get-users"></a>
 ### View the list of users { #get-users }
 
-<a id="get-users-permission"></a>
+<a id="get-users-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -2345,7 +2757,7 @@ This API does not require a request body.
 <a id="create-db-user"></a>
 ### Create a user { #create-db-user }
 
-<a id="create-db-user-permission"></a>
+<a id="create-db-user-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -2420,7 +2832,7 @@ POST /v1.0/db-instances/{dbInstanceId}/db-users
 <a id="delete-db-user"></a>
 ### Delete a user { #delete-db-user }
 
-<a id="delete-db-user-permission"></a>
+<a id="delete-db-user-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -2475,7 +2887,7 @@ This API does not require a request body.
 <a id="modify-db-user"></a>
 ### Edit a user { #modify-db-user }
 
-<a id="modify-db-user-permission"></a>
+<a id="modify-db-user-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -2549,7 +2961,7 @@ PUT /v1.0/db-instances/{dbInstanceId}/db-users/{dbUserId}
 <a id="change-deletion-protection"></a>
 ### Change DB Instance Deletion Protection Settings { #change-deletion-protection }
 
-<a id="change-deletion-protection-permission"></a>
+<a id="change-deletion-protection-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -2598,7 +3010,7 @@ This API does not return a response body.
 <a id="force-restart-db-instance"></a>
 ### Force Restart DB Instance { #force-restart-db-instance }
 
-<a id="force-restart-db-instance-permission"></a>
+<a id="force-restart-db-instance-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -2634,7 +3046,7 @@ This API does not return a response body.
 <a id="get-hba-rules"></a>
 ### View a list of access control rules { #get-hba-rules }
 
-<a id="get-hba-rules-permission"></a>
+<a id="get-hba-rules-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -2729,7 +3141,7 @@ This API does not require a request body.
 <a id="create-hba-rule"></a>
 ### Add Access Control Rules { #create-hba-rule }
 
-<a id="create-hba-rule-permission"></a>
+<a id="create-hba-rule-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -2808,7 +3220,7 @@ POST /v1.0/db-instances/{dbInstanceId}/hba-rules
 <a id="apply-hba-rules"></a>
 ### Apply Access Control Rules { #apply-hba-rules }
 
-<a id="apply-hba-rules-permission"></a>
+<a id="apply-hba-rules-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -2862,7 +3274,7 @@ This API does not require a request body.
 <a id="modify-hba-rule-orders"></a>
 ### Reorder Access Control Rules { #modify-hba-rule-orders }
 
-<a id="modify-hba-rule-orders-permission"></a>
+<a id="modify-hba-rule-orders-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -2911,7 +3323,7 @@ This API does not return a response body.
 <a id="delete-hba-configuration"></a>
 ### Delete Access Control Rules { #delete-hba-configuration }
 
-<a id="delete-hba-configuration-permission"></a>
+<a id="delete-hba-configuration-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -2948,7 +3360,7 @@ This API does not return a response body.
 <a id="modify-hba-rule"></a>
 ### Modify Access Control Rules { #modify-hba-rule }
 
-<a id="modify-hba-rule-permission"></a>
+<a id="modify-hba-rule-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -3010,7 +3422,7 @@ This API does not return a response body.
 <a id="get-high-availability"></a>
 ### Get high availability information { #get-high-availability }
 
-<a id="get-high-availability-permission"></a>
+<a id="get-high-availability-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -3068,7 +3480,7 @@ This API does not require a request body.
 <a id="modify-high-availability"></a>
 ### Modify High Availability { #modify-high-availability }
 
-<a id="modify-high-availability-permission"></a>
+<a id="modify-high-availability-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -3139,7 +3551,7 @@ PUT /v1.0/db-instances/{dbInstanceId}/high-availability
 <a id="pause-high-availability"></a>
 ### Pause High Availability { #pause-high-availability }
 
-<a id="pause-high-availability-permission"></a>
+<a id="pause-high-availability-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -3193,7 +3605,7 @@ This API does not require a request body.
 <a id="repair-high-availability"></a>
 ### Recover High Availability { #repair-high-availability }
 
-<a id="repair-high-availability-permission"></a>
+<a id="repair-high-availability-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -3247,7 +3659,7 @@ This API does not require a request body.
 <a id="resume-high-availability"></a>
 ### Restart High Availability { #resume-high-availability }
 
-<a id="resume-high-availability-permission"></a>
+<a id="resume-high-availability-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -3301,7 +3713,7 @@ This API does not require a request body.
 <a id="split-high-availability"></a>
 ### Separate High Availability { #split-high-availability }
 
-<a id="split-high-availability-permission"></a>
+<a id="split-high-availability-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -3353,14 +3765,14 @@ This API does not require a request body.
 ---
 
 <a id="get-maintenance-info"></a>
-### Get DB instance maintenance information { #get-maintenance-info }
+### Get DB Instance Maintenance Information { #get-maintenance-info }
 
-<a id="get-maintenance-info-permission"></a>
+<a id="get-maintenance-info-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
 |-----|-----|
-| RDSforPostgreSQL:DbInstance.Get | Get DB instance maintenance information |
+| RDSforPostgreSQL:DbInstance.Get | View DB instance maintenance information |
 
 <a id="get-maintenance-info-request"></a>
 #### Request
@@ -3385,20 +3797,19 @@ This API does not require a request body.
 #### Response
 
 <details>
-  <summary><strong>Example Code</strong></summary>
+  <summary><strong>Example code</strong></summary>
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"allowAutoMaintenance": false,
-"useAutoStorageCleanup": false,
-"maintWndBgnTime": "00:00:00",
-"maintWndDuration": "HALF_AN_HOUR",
-"logRetentionPeriod": 1
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "useAutoStorageCleanup": false,
+    "maintWndBgnTime": "00:00:00",
+    "maintWndDuration": "HALF_AN_HOUR",
+    "logRetentionPeriod": 1
 }
 ```
 
@@ -3406,10 +3817,9 @@ This API does not require a request body.
 
 | Name | Type | Description |
 |-----|-----|-----|
-| allowAutoMaintenance | Boolean | Whether to allow automatic maintenance |
 | useAutoStorageCleanup | Boolean | Whether to enable automatic storage cleanup |
 | maintWndBgnTime | Time | Automatic maintenance start time |
-| maintWndDuration | Enum | Maintenance window<br/>- `HALF_AN_HOUR`: 30 minutes<br/>- `ONE_HOUR`: 1 hour<br/>- `ONE_HOUR_AND_HALF`: 1 hour 30 minutes<br/>- `TWO_HOURS`: 2 hours<br/>- `TWO_HOURS_AND_HALF`: 2 hours 30 minutes<br/>- `THREE_HOURS`: 3 hours |
+| maintWndDuration | Enum | Maintenance window<br/>- `HALF_AN_HOUR`: 30 minutes<br/>- `ONE_HOUR`: 1 hour<br/>- `ONE_HOUR_AND_HALF`: 1.5 hour<br/>- `TWO_HOURS`: 2 hour<br/>- `TWO_HOURS_AND_HALF`: 2.5 hour<br/>- `THREE_HOURS`: 3 hour |
 | logRetentionPeriod | Number | Log retention period (days) |
 
 ---
@@ -3417,7 +3827,7 @@ This API does not require a request body.
 <a id="modify-maintenance-info"></a>
 ### Modify DB instance maintenance information { #modify-maintenance-info }
 
-<a id="modify-maintenance-info-permission"></a>
+<a id="modify-maintenance-info-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -3446,11 +3856,10 @@ PUT /v1.0/db-instances/{dbInstanceId}/maintenance-info
 
 ```json
 {
-"allowAutoMaintenance": false,
-"useAutoStorageCleanup": false,
-"maintWndBgnTime": "00:00:00",
-"maintWndDuration": "HALF_AN_HOUR",
-"logRetentionPeriod": 1
+    "useAutoStorageCleanup": false,
+    "maintWndBgnTime": "00:00:00",
+    "maintWndDuration": "HALF_AN_HOUR",
+    "logRetentionPeriod": 1
 }
 ```
 
@@ -3458,10 +3867,9 @@ PUT /v1.0/db-instances/{dbInstanceId}/maintenance-info
 
 | Name | Type | Required | Description |
 |-----|-----|-----|-----|
-| allowAutoMaintenance | Boolean | N | Whether to allow automatic maintenance |
 | useAutoStorageCleanup | Boolean | N | Whether to enable automatic storage cleanup |
 | maintWndBgnTime | Time | N | Automatic maintenance start time |
-| maintWndDuration | Enum | N | Maintenance window<br/>- `HALF_AN_HOUR`: 30 minutes<br/>- `ONE_HOUR`: 1 hour<br/>- `ONE_HOUR_AND_HALF`: 1 hour 30 minutes<br/>- `TWO_HOURS`: 2 hours<br/>- `TWO_HOURS_AND_HALF`: 2 hours 30 minutes<br/>- `THREE_HOURS`: 3 hours |
+| maintWndDuration | Enum | N | Maintenance window<br/>- `HALF_AN_HOUR`: 30 minutes<br/>- `ONE_HOUR`: 1 hour<br/>- `ONE_HOUR_AND_HALF`: 1.5 hour<br/>- `TWO_HOURS`: 2 hour<br/>- `TWO_HOURS_AND_HALF`: 2.5 hour<br/>- `THREE_HOURS`: 3 hour |
 | logRetentionPeriod | Number | N | Log retention period (days)<br/>- Minimum: `1`<br/>- Maximum: `30` |
 
 <a id="modify-maintenance-info-response"></a>
@@ -3492,7 +3900,7 @@ PUT /v1.0/db-instances/{dbInstanceId}/maintenance-info
 <a id="get-network-info"></a>
 ### Get DB instance network information { #get-network-info }
 
-<a id="get-network-info-permission"></a>
+<a id="get-network-info-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -3568,7 +3976,7 @@ This API does not require a request body.
 <a id="modify-network-info"></a>
 ### Modify DB instance network information { #modify-network-info }
 
-<a id="modify-network-info-permission"></a>
+<a id="modify-network-info-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -3635,7 +4043,7 @@ PUT /v1.0/db-instances/{dbInstanceId}/network-info
 <a id="promote-db-instance"></a>
 ### Promote DB Instance { #promote-db-instance }
 
-<a id="promote-db-instance-permission"></a>
+<a id="promote-db-instance-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -3689,7 +4097,7 @@ This API does not require a request body.
 <a id="replicate-db-instance"></a>
 ### Create Read Replica { #replicate-db-instance }
 
-<a id="replicate-db-instance-permission"></a>
+<a id="replicate-db-instance-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -3786,7 +4194,7 @@ POST /v1.0/db-instances/{dbInstanceId}/replicate
 <a id="restart-db-instance"></a>
 ### Restart DB Instance { #restart-db-instance }
 
-<a id="restart-db-instance-permission"></a>
+<a id="restart-db-instance-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -3840,7 +4248,7 @@ This API does not require a request body.
 <a id="get-restoration-info"></a>
 ### Get DB Instance Restore Information { #get-restoration-info }
 
-<a id="get-restoration-info-permission"></a>
+<a id="get-restoration-info-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -3929,7 +4337,7 @@ This API does not require a request body.
 <a id="restore-db-instance"></a>
 ### Restore DB Instance { #restore-db-instance }
 
-<a id="restore-db-instance-permission"></a>
+<a id="restore-db-instance-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -3954,48 +4362,48 @@ POST /v1.0/db-instances/{dbInstanceId}/restore
 #### Request Body
 
 <details>
-  <summary><strong>Example Code</strong></summary>
+  <summary><strong>Example code</strong></summary>
 
 ```json
 {
-"dbInstanceName": "dbInstanceName-example",
-"dbInstanceCandidateName": "dbInstanceCandidateName-example",
-"description": "description-example",
-"dbFlavorId": "550e8400-e29b-41d4-a716-446655440000",
-"dbPort": 15432,
-"useHighAvailability": false,
-"imageId": "550e8400-e29b-41d4-a716-446655440000",
-"pingInterval": 3,
-"failoverReplWaitingTime": 60,
-"storage": {
-"storageType": "General SSD",
-"storageSize": 20
-},
-"network": {
-"subnetId": "550e8400-e29b-41d4-a716-446655440000",
-"usePublicAccess": false,
-"availabilityZone": "kr-pub-a"
-},
-"backup": {
-"backupPeriod": 0,
-"periodicAutoBackupStrategyTypeCode": "DAILY_FULL",
-"backupRetryCount": 0,
-"replicationRegion": "KR1",
-"backupSchedules": [
-{
-"backupWndBgnTime": "00:00:00",
-"backupWndDuration": "HALF_AN_HOUR"
-}
-]
-},
-"restore": {
-"restoreType": "BACKUP"
-},
-"useDefaultNotification": false,
-"parameterGroupId": "550e8400-e29b-41d4-a716-446655440000",
-"dbSecurityGroupIds": [],
-"userGroupIds": [],
-"useDeletionProtection": false
+    "dbInstanceName": "dbInstanceName-example",
+    "dbInstanceCandidateName": "dbInstanceCandidateName-example",
+    "description": "description-example",
+    "dbFlavorId": "550e8400-e29b-41d4-a716-446655440000",
+    "dbPort": 15432,
+    "useHighAvailability": false,
+    "imageId": "550e8400-e29b-41d4-a716-446655440000",
+    "pingInterval": 3,
+    "failoverReplWaitingTime": 60,
+    "storage": {
+        "storageType": "General SSD",
+        "storageSize": 20
+    },
+    "network": {
+        "subnetId": "550e8400-e29b-41d4-a716-446655440000",
+        "usePublicAccess": false,
+        "availabilityZone": "kr-pub-a"
+    },
+    "backup": {
+        "backupPeriod": 0,
+        "periodicAutoBackupStrategyType": "DAILY_FULL",
+        "fullBackupDaysOfWeek": [],
+        "backupRetryCount": 0,
+        "backupSchedules": [
+            {
+                "backupWndBgnTime": "00:00:00",
+                "backupWndDuration": "HALF_AN_HOUR"
+            }
+        ]
+    },
+    "restore": {
+        "restoreType": "BACKUP"
+    },
+    "useDefaultNotification": false,
+    "parameterGroupId": "550e8400-e29b-41d4-a716-446655440000",
+    "dbSecurityGroupIds": [],
+    "userGroupIds": [],
+    "useDeletionProtection": false
 }
 ```
 
@@ -4004,7 +4412,7 @@ POST /v1.0/db-instances/{dbInstanceId}/restore
 | Name | Type | Required | Description |
 |-----|-----|-----|-----|
 | dbInstanceName | String | N | Name to identify DB instances |
-| dbInstanceCandidateName | String | N | Candidate master name to identify the DB instance |
+| dbInstanceCandidateName | String | N | Name to identify standby DB instances |
 | description | String | N | Additional information on the DB instance<br/>- Maximum length: `100` |
 | dbFlavorId | UUID | Y | Identifier of DB instance specifications |
 | dbPort | Number | N | DB port<br/>- Minimum value: 5432, Maximum value: 45432 |
@@ -4021,7 +4429,8 @@ POST /v1.0/db-instances/{dbInstanceId}/restore
 | network.availabilityZone | Enum | N | Availability zone where DB instance will be created |
 | backup | Object | Y | Backup information objects |
 | backup.backupPeriod | Number | Y | Backup retention period (days)<br/>- Minimum value: `0`<br/>- Maximum value: `730` |
-| backup.periodicAutoBackupStrategyTypeCode | Enum | N | Periodic automatic backup strategy code (DAILY_FULL/SNAPSHOT)<br/>- Default value: `DAILY_FULL`<br/>- `SNAPSHOT`: Daily snapshot backup<br/>- `DAILY_FULL`: Daily full backup |
+| backup.periodicAutoBackupStrategyType | Enum | N | Periodic automatic backup strategy type<br/>- Default: `DAILY_FULL`<br/>- `SNAPSHOT`: Daily snapshot backup<br/>- `DAILY_FULL`: Daily full backup<br/>- `DAILY_FULL_INC`: Daily full and incremental backup<br/>- `WEEKLY_FULL_DAILY_INC`: Weekly full backup and daily incremental backup |
+| backup.fullBackupDaysOfWeek | Array | N | List of days of the week for full backups (required if the periodic automatic backup strategy is `WEEKLY_FULL_DAILY_INC`) |
 | backup.backupRetryCount | Number | N | Number of backup retries<br/>- Minimum value: `0`<br/>- Maximum value: `10` |
 | backup.backupSchedules | Array | Y | Backup schedules |
 | backup.backupSchedules.backupWndBgnTime | Time | Y | Backup start time |
@@ -4034,13 +4443,16 @@ POST /v1.0/db-instances/{dbInstanceId}/restore
 | userGroupIds | Array | N | List of user group identifiers |
 | useDeletionProtection | Boolean | N | Whether to use deletion protection<br/>- Default: `false` |
 
-<a id="restore-db-instance-timestamprestore-typetimestamp"></a>
+<a id="restore-db-instance-timestamp-restoretype-timestamp"></a>
 #### Request for point-in-time restore using a timestamp (when restoreType is `TIMESTAMP`)
+
 | Name | Type | Required | Description |
 |-----|-----|-----|-----|
 | restore.restoreYmdt | DateTime | Y | DB instance restore time (YYYY-MM-DDThh:mm:ss.SSSTZD)<br/>- Restoration is only possible to a time before the most recent restorable time retrieved from the restore information query. |
-<a id="restore-db-instance-restore-typebackup"></a>
+
+<a id="restore-db-instance-restoretype-backup"></a>
 #### Request for restore using a backup (when restoreType is `BACKUP`)
+
 | Name | Type | Required | Description |
 |-----|-----|-----|-----|
 | restore.backupId | UUID | Y | Identifier of the backup to use for the restore |
@@ -4073,7 +4485,7 @@ POST /v1.0/db-instances/{dbInstanceId}/restore
 <a id="start-db-instance"></a>
 ### Start DB Instance { #start-db-instance }
 
-<a id="start-db-instance-permission"></a>
+<a id="start-db-instance-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -4127,7 +4539,7 @@ This API does not require a request body.
 <a id="stop-db-instance"></a>
 ### Stop DB Instance { #stop-db-instance }
 
-<a id="stop-db-instance-permission"></a>
+<a id="stop-db-instance-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -4181,7 +4593,7 @@ This API does not require a request body.
 <a id="get-storage-info"></a>
 ### Get DB Instance Storage Information { #get-storage-info }
 
-<a id="get-storage-info-permission"></a>
+<a id="get-storage-info-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -4239,7 +4651,7 @@ This API does not require a request body.
 <a id="modify-storage-info"></a>
 ### Modify DB Instance Storage Information { #modify-storage-info }
 
-<a id="modify-storage-info-permission"></a>
+<a id="modify-storage-info-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -4320,7 +4732,7 @@ PUT /v1.0/db-instances/{dbInstanceId}/storage-info
 <a id="get-backups"></a>
 ### Retrieve Backup List { #get-backups }
 
-<a id="get-backups-permission"></a>
+<a id="get-backups-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -4336,6 +4748,7 @@ GET /v1.0/backups
 
 <a id="get-backups-request-parameters"></a>
 #### Request Parameters
+
 | Name | Category | Type | Required | Description |
 |-----|-----|-----|-----|-----|
 | page | Query | Number | Y | Page of the list to retrieve<br/>- Minimum value: `1` |
@@ -4401,10 +4814,71 @@ This API does not require a request body.
 
 ---
 
+<a id="get-cascade-deletion-target-backups"></a>
+### Retrieve a List of Backups to Be Deleted Together { #get-cascade-deletion-target-backups }
+
+<a id="get-cascade-deletion-target-backups-required-permissions"></a>
+#### Required Permission
+
+| Permission Name | Description |
+|-----|-----|
+| RDSforPostgreSQL:Backup.List | Retrieve the backup list to be deleted together |
+
+<a id="get-cascade-deletion-target-backups-request"></a>
+#### Request
+
+```http
+GET /v1.0/backups/cascade-deletion-targets
+```
+
+<a id="get-cascade-deletion-target-backups-request-parameters"></a>
+#### Request Parameters
+
+| Name | Category | Type | Required | Description |
+|-----|-----|-----|-----|-----|
+| backupIds | Query | Array | N | List of backup identifiers |
+
+<a id="get-cascade-deletion-target-backups-request-body"></a>
+#### Request Body
+
+This API does not require a request body.
+
+<a id="get-cascade-deletion-target-backups-response"></a>
+#### Response
+
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "cascadeDeletionTargetBackups": [
+        {
+            "backupId": "550e8400-e29b-41d4-a716-446655440000",
+            "backupName": "backupName-example"
+        }
+    ]
+}
+```
+
+</details>
+
+| Name | Type | Description |
+|-----|-----|-----|
+| cascadeDeletionTargetBackups | Array | List of backups to be deleted together |
+| cascadeDeletionTargetBackups.backupId | UUID | Identifier of the backup |
+| cascadeDeletionTargetBackups.backupName | String | Name to identify backups |
+
+---
+
 <a id="delete-backup"></a>
 ### Delete Backup { #delete-backup }
 
-<a id="delete-backup-permission"></a>
+<a id="delete-backup-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -4458,7 +4932,7 @@ This API does not require a request body.
 <a id="export-backup"></a>
 ### Export Backup to Object Storage { #export-backup }
 
-<a id="export-backup-permission"></a>
+<a id="export-backup-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -4533,7 +5007,7 @@ POST /v1.0/backups/{backupId}/export
 <a id="restore-backup"></a>
 ### Restore Backup { #restore-backup }
 
-<a id="restore-backup-permission"></a>
+<a id="restore-backup-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -4562,39 +5036,40 @@ POST /v1.0/backups/{backupId}/restore
 
 ```json
 {
-"dbInstanceName": "dbInstanceName-example",
-"dbInstanceCandidateName": "dbInstanceCandidateName-example",
-"description": "description-example",
-"dbFlavorId": "550e8400-e29b-41d4-a716-446655440000",
-"dbPort": 15432,
-"parameterGroupId": "550e8400-e29b-41d4-a716-446655440000",
-"dbSecurityGroupIds": [],
-"userGroupIds": [],
-"useHighAvailability": false,
-"useDefaultNotification": false,
-"useDeletionProtection": false,
-"pingInterval": 1,
-"failoverReplWaitingTime": 1,
-"network": {
-"subnetId": "550e8400-e29b-41d4-a716-446655440000",
-"usePublicAccess": false,
-"availabilityZone": "kr-pub-a"
-},
-"storage": {
-"storageType": "General SSD",
-"storageSize": 20
-},
-"backup": {
-"backupPeriod": 0,
-"periodicAutoBackupStrategyTypeCode": "DAILY_FULL",
-"backupRetryCount": 0,
-"backupSchedules": [
-{
-"backupWndBgnTime": "00:00:00",
-"backupWndDuration": "HALF_AN_HOUR"
-}
-]
-}
+    "dbInstanceName": "dbInstanceName-example",
+    "dbInstanceCandidateName": "dbInstanceCandidateName-example",
+    "description": "description-example",
+    "dbFlavorId": "550e8400-e29b-41d4-a716-446655440000",
+    "dbPort": 15432,
+    "parameterGroupId": "550e8400-e29b-41d4-a716-446655440000",
+    "dbSecurityGroupIds": [],
+    "userGroupIds": [],
+    "useHighAvailability": false,
+    "useDefaultNotification": false,
+    "useDeletionProtection": false,
+    "pingInterval": 1,
+    "failoverReplWaitingTime": 1,
+    "network": {
+        "subnetId": "550e8400-e29b-41d4-a716-446655440000",
+        "usePublicAccess": false,
+        "availabilityZone": "kr-pub-a"
+    },
+    "storage": {
+        "storageType": "General SSD",
+        "storageSize": 20
+    },
+    "backup": {
+        "backupPeriod": 0,
+        "periodicAutoBackupStrategyType": "DAILY_FULL",
+        "fullBackupDaysOfWeek": [],
+        "backupRetryCount": 0,
+        "backupSchedules": [
+            {
+                "backupWndBgnTime": "00:00:00",
+                "backupWndDuration": "HALF_AN_HOUR"
+            }
+        ]
+    }
 }
 ```
 
@@ -4603,7 +5078,7 @@ POST /v1.0/backups/{backupId}/restore
 | Name | Type | Required | Description |
 |-----|-----|-----|-----|
 | dbInstanceName | String | Y | Name to identify DB instances |
-| dbInstanceCandidateName | String | N | Candidate master name to identify the DB instance |
+| dbInstanceCandidateName | String | N | Name to identify standby DB instances |
 | description | String | N | Additional information on DB instances |
 | dbFlavorId | UUID | Y | Identifier of DB instance specifications |
 | dbPort | Number | Y | DB port<br/>- Minimum value: 5432, Maximum value: 45432 |
@@ -4624,7 +5099,8 @@ POST /v1.0/backups/{backupId}/restore
 | storage.storageSize | Number | Y | Data storage size (GB)<br/>- Minimum value: `20` |
 | backup | Object | Y | Backup information objects |
 | backup.backupPeriod | Number | Y | Backup retention period (days)<br/>- Minimum value: `0`<br/>- Maximum value: `730` |
-| backup.periodicAutoBackupStrategyTypeCode | Enum | N | Periodic automatic backup strategy code (DAILY_FULL/SNAPSHOT)<br/>- Default value: `DAILY_FULL`<br/>- `SNAPSHOT`: Daily snapshot backup<br/>- `DAILY_FULL`: Daily full backup |
+| backup.periodicAutoBackupStrategyType | Enum | N | Periodic automatic backup strategy type<br/>- Default: `DAILY_FULL`<br/>- `SNAPSHOT`: Daily snapshot backup<br/>- `DAILY_FULL`: Daily full backup<br/>- `DAILY_FULL_INC`: Daily full and incremental backup<br/>- `WEEKLY_FULL_DAILY_INC`: Weekly full backup and daily incremental backup |
+| backup.fullBackupDaysOfWeek | Array | N | List of days of the week for full backups (required if the periodic automatic backup strategy is `WEEKLY_FULL_DAILY_INC`) |
 | backup.backupRetryCount | Number | N | Number of backup retries<br/>- Minimum value: `0`<br/>- Maximum value: `10` |
 | backup.backupSchedules | Array | Y | Backup schedules |
 | backup.backupSchedules.backupWndBgnTime | Time | Y | Backup start time |
@@ -4671,7 +5147,7 @@ POST /v1.0/backups/{backupId}/restore
 <a id="get-db-security-groups"></a>
 ### List DB Security Groups { #get-db-security-groups }
 
-<a id="get-db-security-groups-permission"></a>
+<a id="get-db-security-groups-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -4735,7 +5211,7 @@ This API does not require a request body.
 <a id="create-db-security-group"></a>
 ### Create DB Security Group { #create-db-security-group }
 
-<a id="create-db-security-group-permission"></a>
+<a id="create-db-security-group-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -4819,7 +5295,7 @@ POST /v1.0/db-security-groups
 <a id="delete-db-security-group"></a>
 ### Delete DB Security Group { #delete-db-security-group }
 
-<a id="delete-db-security-group-permission"></a>
+<a id="delete-db-security-group-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -4838,7 +5314,7 @@ DELETE /v1.0/db-security-groups/{dbSecurityGroupId}
 
 | Name | Category | Type | Required | Description |
 |-----|-----|-----|-----|-----|
-| dbSecurityGroupId | URL | UUID | Y |  |
+| dbSecurityGroupId | URL | UUID | Y | DB security group identifier |
 
 <a id="delete-db-security-group-request-body"></a>
 #### Request Body
@@ -4855,7 +5331,7 @@ This API does not return a response body.
 <a id="get-db-security-group"></a>
 ### List DB Security Group Details { #get-db-security-group }
 
-<a id="get-db-security-group-permission"></a>
+<a id="get-db-security-group-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -4874,7 +5350,7 @@ GET /v1.0/db-security-groups/{dbSecurityGroupId}
 
 | Name | Category | Type | Required | Description |
 |-----|-----|-----|-----|-----|
-| dbSecurityGroupId | URL | UUID | Y |  |
+| dbSecurityGroupId | URL | UUID | Y | DB security group identifier |
 
 <a id="get-db-security-group-request-body"></a>
 #### Request Body
@@ -4952,7 +5428,7 @@ This API does not require a request body.
 <a id="modify-db-security-group"></a>
 ### Modify DB Security Group { #modify-db-security-group }
 
-<a id="modify-db-security-group-permission"></a>
+<a id="modify-db-security-group-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -4971,7 +5447,7 @@ PUT /v1.0/db-security-groups/{dbSecurityGroupId}
 
 | Name | Category | Type | Required | Description |
 |-----|-----|-----|-----|-----|
-| dbSecurityGroupId | URL | UUID | Y |  |
+| dbSecurityGroupId | URL | UUID | Y | DB security group identifier |
 
 <a id="modify-db-security-group-request-body"></a>
 #### Request Body
@@ -5003,7 +5479,7 @@ This API does not return a response body.
 <a id="delete-db-security-group-rule"></a>
 ### Delete DB Security Group Rule { #delete-db-security-group-rule }
 
-<a id="delete-db-security-group-rule-permission"></a>
+<a id="delete-db-security-group-rule-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -5022,8 +5498,8 @@ DELETE /v1.0/db-security-groups/{dbSecurityGroupId}/rules
 
 | Name | Category | Type | Required | Description |
 |-----|-----|-----|-----|-----|
-| dbSecurityGroupId | URL | UUID | Y |  |
-| ruleIds | Query | String | Y | DB security group rule ID list |
+| dbSecurityGroupId | URL | UUID | Y | DB security group identifier |
+| ruleIds | Query | String | Y | DB security group rule identifiers |
 
 <a id="delete-db-security-group-rule-request-body"></a>
 #### Request Body
@@ -5058,7 +5534,7 @@ This API does not require a request body.
 <a id="create-db-security-group-rule"></a>
 ### Create DB Security Group Rule { #create-db-security-group-rule }
 
-<a id="create-db-security-group-rule-permission"></a>
+<a id="create-db-security-group-rule-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -5077,7 +5553,7 @@ POST /v1.0/db-security-groups/{dbSecurityGroupId}/rules
 
 | Name | Category | Type | Required | Description |
 |-----|-----|-----|-----|-----|
-| dbSecurityGroupId | URL | UUID | Y |  |
+| dbSecurityGroupId | URL | UUID | Y | DB security group identifier |
 
 <a id="create-db-security-group-rule-request-body"></a>
 #### Request Body
@@ -5140,7 +5616,7 @@ POST /v1.0/db-security-groups/{dbSecurityGroupId}/rules
 <a id="modify-db-security-group-rule"></a>
 ### Modify DB Security Group Rule { #modify-db-security-group-rule }
 
-<a id="modify-db-security-group-rule-permission"></a>
+<a id="modify-db-security-group-rule-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -5159,8 +5635,8 @@ PUT /v1.0/db-security-groups/{dbSecurityGroupId}/rules/{ruleId}
 
 | Name | Category | Type | Required | Description |
 |-----|-----|-----|-----|-----|
-| dbSecurityGroupId | URL | UUID | Y |  |
-| ruleId | URL | UUID | Y |  |
+| dbSecurityGroupId | URL | UUID | Y | DB security group identifier |
+| ruleId | URL | UUID | Y | DB security group rule identifier |
 
 <a id="modify-db-security-group-rule-request-body"></a>
 #### Request Body
@@ -5226,7 +5702,7 @@ PUT /v1.0/db-security-groups/{dbSecurityGroupId}/rules/{ruleId}
 <a id="get-parameter-groups"></a>
 ### List Parameter Groups { #get-parameter-groups }
 
-<a id="get-parameter-groups-permission"></a>
+<a id="get-parameter-groups-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -5297,7 +5773,7 @@ This API does not require a request body.
 <a id="create-parameter-group"></a>
 ### Create Parameter Group { #create-parameter-group }
 
-<a id="create-parameter-group-permission"></a>
+<a id="create-parameter-group-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -5331,7 +5807,7 @@ POST /v1.0/parameter-groups
 |-----|-----|-----|-----|
 | parameterGroupName | String | Y | Name to identify parameter groups |
 | description | String | N | Additional information on parameter group |
-| dbVersion | Enum | Y | DB engine version |
+| dbVersion | Enum | N | DB engine version |
 
 <a id="create-parameter-group-response"></a>
 #### Response
@@ -5361,7 +5837,7 @@ POST /v1.0/parameter-groups
 <a id="delete-parameter-group"></a>
 ### Delete Parameter Group { #delete-parameter-group }
 
-<a id="delete-parameter-group-permission"></a>
+<a id="delete-parameter-group-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -5397,7 +5873,7 @@ This API does not return a response body.
 <a id="get-parameter-group"></a>
 ### List Parameter Group Details { #get-parameter-group }
 
-<a id="get-parameter-group-permission"></a>
+<a id="get-parameter-group-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -5493,7 +5969,7 @@ This API does not require a request body.
 <a id="modify-parameter-group"></a>
 ### Modify Parameter Group { #modify-parameter-group }
 
-<a id="modify-parameter-group-permission"></a>
+<a id="modify-parameter-group-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -5544,7 +6020,7 @@ This API does not return a response body.
 <a id="copy-parameter-group"></a>
 ### Copy Parameter Group { #copy-parameter-group }
 
-<a id="copy-parameter-group-permission"></a>
+<a id="copy-parameter-group-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -5613,7 +6089,7 @@ This API does not return a response body.
 <a id="modify-parameter-group-parameters"></a>
 ### Modify Parameter { #modify-parameter-group-parameters }
 
-<a id="modify-parameter-group-parameters-permission"></a>
+<a id="modify-parameter-group-parameters-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -5669,7 +6145,7 @@ This API does not return a response body.
 <a id="reset-parameter-group"></a>
 ### Reset Parameter Group { #reset-parameter-group }
 
-<a id="reset-parameter-group-permission"></a>
+<a id="reset-parameter-group-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -5708,7 +6184,7 @@ This API does not return a response body.
 <a id="get-user-groups"></a>
 ### List User Groups { #get-user-groups }
 
-<a id="get-user-groups-permission"></a>
+<a id="get-user-groups-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -5768,7 +6244,7 @@ This API does not require a request body.
 <a id="create-user-group"></a>
 ### Create User Group { #create-user-group }
 
-<a id="create-user-group-permission"></a>
+<a id="create-user-group-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -5832,7 +6308,7 @@ This API does not require a request body.
 <a id="delete-user-group"></a>
 ### Delete User Group { #delete-user-group }
 
-<a id="delete-user-group-permission"></a>
+<a id="delete-user-group-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -5868,7 +6344,7 @@ This API does not return a response body.
 <a id="get-user-group"></a>
 ### List User Group Details { #get-user-group }
 
-<a id="get-user-group-permission"></a>
+<a id="get-user-group-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -5939,7 +6415,7 @@ This API does not require a request body.
 <a id="modify-user-group"></a>
 ### Modify User Group { #modify-user-group }
 
-<a id="modify-user-group-permission"></a>
+<a id="modify-user-group-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -5995,7 +6471,7 @@ This API does not return a response body.
 <a id="get-notification-groups"></a>
 ### List Notification Groups { #get-notification-groups }
 
-<a id="get-notification-groups-permission"></a>
+<a id="get-notification-groups-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -6046,7 +6522,7 @@ This API does not require a request body.
 
 | Name | Type | Description |
 |-----|-----|-----|
-| notificationGroups | Array |  |
+| notificationGroups | Array | Notification Groups |
 | notificationGroups.notificationGroupId | UUID | Notification group identifier |
 | notificationGroups.notificationGroupName | String | Name to identify notification groups |
 | notificationGroups.notificationGroupStatus | Enum | Current status of notification groups<br/>- `CREATED`: Created<br/>- `DELETED`: Deleted |
@@ -6061,7 +6537,7 @@ This API does not require a request body.
 <a id="create-notification-group"></a>
 ### Create Notification Group { #create-notification-group }
 
-<a id="create-notification-group-permission"></a>
+<a id="create-notification-group-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -6131,7 +6607,7 @@ This API does not require a request body.
 <a id="delete-notification-group"></a>
 ### Delete Notification Group { #delete-notification-group }
 
-<a id="delete-notification-group-permission"></a>
+<a id="delete-notification-group-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -6167,7 +6643,7 @@ This API does not return a response body.
 <a id="get-notification-group"></a>
 ### View Notification Group Details { #get-notification-group }
 
-<a id="get-notification-group-permission"></a>
+<a id="get-notification-group-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -6253,7 +6729,7 @@ This API does not require a request body.
 <a id="modify-notification-group"></a>
 ### Modify Notification Group { #modify-notification-group }
 
-<a id="modify-notification-group-permission"></a>
+<a id="modify-notification-group-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -6312,7 +6788,7 @@ This API does not return a response body.
 <a id="get-notification-watchdogs"></a>
 ### List Watch Settings { #get-notification-watchdogs }
 
-<a id="get-notification-watchdogs-permission"></a>
+<a id="get-notification-watchdogs-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -6381,7 +6857,7 @@ This API does not require a request body.
 <a id="create-notification-watchdog"></a>
 ### Create Watch Setting { #create-notification-watchdog }
 
-<a id="create-notification-watchdog-permission"></a>
+<a id="create-notification-watchdog-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -6454,7 +6930,7 @@ This API does not require a request body.
 <a id="delete-notification-watchdog"></a>
 ### Delete Watch Setting { #delete-notification-watchdog }
 
-<a id="delete-notification-watchdog-permission"></a>
+<a id="delete-notification-watchdog-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -6491,7 +6967,7 @@ This API does not return a response body.
 <a id="modify-notification-watchdog"></a>
 ### Modify Watch Setting { #modify-notification-watchdog }
 
-<a id="modify-notification-watchdog-permission"></a>
+<a id="modify-notification-watchdog-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -6550,7 +7026,7 @@ This API does not return a response body.
 <a id="get-metric-statistics"></a>
 ### View stats { #get-metric-statistics }
 
-<a id="get-metric-statistics-permission"></a>
+<a id="get-metric-statistics-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -6566,6 +7042,7 @@ This API does not require a request body.
 
 <a id="get-metric-statistics-request-parameters"></a>
 #### Request Parameters
+
 | Name | Category | Type | Required | Description |
 |-----|-----|-----|-----|-----|
 | dbInstanceId | Query | UUID | Y | Identifier of the DB instance |
@@ -6606,6 +7083,7 @@ This API does not require a request body.
 }
 ```
 </details>
+
 | Name | Type | Description |
 |-----|-----|-----|
 | metricStatistics | Array | List of statistics |
@@ -6620,7 +7098,7 @@ This API does not require a request body.
 <a id="get-metrics"></a>
 ### View a list of performance metrics { #get-metrics }
 
-<a id="get-metrics-permission"></a>
+<a id="get-metrics-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -6693,7 +7171,7 @@ This API does not require a request body.
 <a id="get-event-codes"></a>
 ### List subscribable event codes { #get-event-codes }
 
-<a id="get-event-codes-permission"></a>
+<a id="get-event-codes-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -6747,7 +7225,7 @@ This API does not require a request body.
 <a id="get-events"></a>
 ### View the list of events { #get-events }
 
-<a id="get-events-permission"></a>
+<a id="get-events-required-permissions"></a>
 #### Required Permission
 
 | Permission Name | Description |
@@ -6763,6 +7241,7 @@ This API does not require a request body.
 
 <a id="get-events-request-parameters"></a>
 #### Request Parameters
+
 | Name | Category | Type | Required | Description |
 |-----|-----|-----|-----|-----|
 | page | Query | Number | Y | Page of the list to retrieve<br/>- Minimum value: `1` |
