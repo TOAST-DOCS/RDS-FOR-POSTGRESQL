@@ -4841,7 +4841,7 @@ GET /v1.0/backups/cascade-deletion-targets
 
 | 名前 | 区分 | タイプ | 必須 | 説明 |
 |-----|-----|-----|-----|-----|
-| backupIds | Query | Array | N | バックアップの識別子リスト |
+| backupIds | Query | Array | Y | バックアップの識別子リスト |
 
 <a id="get-cascade-deletion-target-backups-request-body"></a>
 #### リクエスト本文
@@ -5812,7 +5812,7 @@ POST /v1.0/parameter-groups
 |-----|-----|-----|-----|
 | parameterGroupName | String | Y | パラメータグループを識別できる名前 |
 | description | String | N | パラメータグループの追加情報 |
-| dbVersion | Enum | N | DBエンジンバージョン |
+| dbVersion | Enum | Y | DBエンジンバージョン |
 
 <a id="create-parameter-group-response"></a>
 #### レスポンス
