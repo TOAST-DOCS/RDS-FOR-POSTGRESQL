@@ -732,8 +732,8 @@ PUT /v1.0/db-instance-groups/{dbInstanceGroupId}
 | useHighAvailability | Boolean | N | Whether to use high availability |
 | primaryName | String | N | Master name<br/>- Minimum length: `1`<br/>- Maximum length: `100` |
 | standbyName | String | N | Candidate master name<br/>- Minimum length: `1`<br/>- Maximum length: `100` |
-| pingInterval | Number | N | Ping interval (seconds)<br/>- Minimum value: `1`<br/>- Maximum value: `600` |
-| failoverReplWaitingTime | Number | N | Failover replication delay wait time (seconds)<br/>- Minimum value: `-1` |
+| pingInterval | Number | N | Ping interval (sec) when using high availability<br/>- Minimum value: `1`<br/>- Maximum value: `600` |
+| failoverReplWaitingTime | Number | N | Failover wait time (seconds) when using high availability<br/>- If set to `-1`, it will continue to wait for the replication delay to resolve.<br/>- Minimum value: `-1` |
 | useManualDbDefinition | Boolean | N | Whether to use direct control of databases & users |
 
 <a id="update-db-instance-group-response"></a>
@@ -1573,8 +1573,8 @@ POST /v1.0/db-instances
 | useHighAvailability | Boolean | N | Whether to use high availability<br/>- Default: `false` |
 | useDefaultNotification | Boolean | N | Whether to use default notification<br/>- Default: `false` |
 | useDeletionProtection | Boolean | N | Whether to use deletion protection<br/>- Default: `false` |
-| pingInterval | Number | N | Ping interval (seconds)<br/>- Minimum value: `1`<br/>- Maximum value: `600` |
-| failoverReplWaitingTime | Number | N | Failover wait time when high availability is used<br/>- If set to `-1`, waits continuously until the replication lag is resolved.<br/>- Minimum value: `-1` |
+| pingInterval | Number | N | Ping interval (sec) when using high availability<br/>- Minimum value: `1`<br/>- Maximum value: `600` |
+| failoverReplWaitingTime | Number | N | Failover wait time (seconds) when using high availability<br/>- If set to `-1`, it will continue to wait for the replication delay to resolve.<br/>- Minimum value: `-1` |
 | network | Object | Y | Network information objects |
 | network.subnetId | UUID | Y | Subnet identifier |
 | network.usePublicAccess | Boolean | N | Whether external access is available<br/>- Default: `false` |
@@ -1700,7 +1700,7 @@ POST /v1.0/db-instances/restore-from-obs
 | useHighAvailability | Boolean | N | Whether to use high availability<br/>- Default: `false` |
 | imageId | UUID | N | Image identifier |
 | pingInterval | Number | N | Ping interval (sec) when using high availability<br/>- Minimum value: `1`<br/>- Maximum value: `600` |
-| failoverReplWaitingTime | Number | N | Failover wait time when high availability is used<br/>- If set to `-1`, waits continuously until the replication lag is resolved.<br/>- Minimum value: `-1` |
+| failoverReplWaitingTime | Number | N | Failover wait time (seconds) when using high availability<br/>- If set to `-1`, it will continue to wait for the replication delay to resolve.<br/>- Minimum value: `-1` |
 | storage | Object | Y | Storage information objects |
 | storage.storageType | Enum | Y | Storage type |
 | storage.storageSize | Number | Y | Data storage size (GB)<br/>- Minimum value: `20` |
@@ -3472,8 +3472,8 @@ This API does not require a request body.
 | Name | Type | Description |
 |-----|-----|-----|
 | haStatus | Enum | High availability status<br/>- `CREATED`: Created<br/>- `STABLE`: Stable<br/>- `PAUSING`: Pausing<br/>- `PAUSED`: Paused<br/>- `PAUSED_DUE_TO_TASK`: Paused due to task<br/>- `DISABLE_REPLICATION_DELAY`: Failover disabled due to replication lag<br/>- `FAILOVER_STARTED`: Failover started<br/>- `FAILOVER_FAILED`: Failover failed<br/>- `FAILOVER_COMPLETED`: Failover completed<br/>- `DELETED`: Deleted |
-| pingInterval | Number | Ping interval (seconds)<br/>- Minimum value: `1`<br/>- Maximum value: `600` |
-| failoverReplWaitingTime | Number | Failover wait time when high availability is used<br/>- If set to `-1`, waits continuously until the replication lag is resolved.<br/>- Minimum value: `-1` |
+| pingInterval | Number | Ping interval (seconds) when using high availability<br/>- Minimum value: `1`<br/>- Maximum value: `600` |
+| failoverReplWaitingTime | Number | Failover wait time (seconds) when using high availability<br/>- If set to `-1`, waits continuously until the replication lag is resolved.<br/>- Minimum value: `-1` |
 
 ---
 
@@ -3520,8 +3520,8 @@ PUT /v1.0/db-instances/{dbInstanceId}/high-availability
 | Name | Type | Required | Description |
 |-----|-----|-----|-----|
 | useHighAvailability | Boolean | Y | Whether to use high availability |
-| pingInterval | Number | N | Ping interval (seconds)<br/>- Minimum value: `1`<br/>- Maximum value: `600` |
-| failoverReplWaitingTime | Number | N | Failover wait time when high availability is used<br/>- If set to `-1`, waits continuously until the replication lag is resolved.<br/>- Minimum value: `-1` |
+| pingInterval | Number | N | Ping interval (sec) when using high availability<br/>- Minimum value: `1`<br/>- Maximum value: `600` |
+| failoverReplWaitingTime | Number | N | Failover wait time (seconds) when using high availability<br/>- If set to `-1`, it will continue to wait for the replication delay to resolve.<br/>- Minimum value: `-1` |
 
 <a id="modify-high-availability-response"></a>
 #### Response
@@ -4419,7 +4419,7 @@ POST /v1.0/db-instances/{dbInstanceId}/restore
 | useHighAvailability | Boolean | N | Whether to use high availability<br/>- Default: `false` |
 | imageId | UUID | N | Image identifier |
 | pingInterval | Number | N | Ping interval (sec) when using high availability<br/>- Minimum value: `1`<br/>- Maximum value: `600` |
-| failoverReplWaitingTime | Number | N | Failover wait time when high availability is used<br/>- If set to `-1`, waits continuously until the replication lag is resolved.<br/>- Minimum value: `-1` |
+| failoverReplWaitingTime | Number | N | Failover wait time (seconds) when using high availability<br/>- If set to `-1`, it will continue to wait for the replication delay to resolve.<br/>- Minimum value: `-1` |
 | storage | Object | Y | Storage information objects |
 | storage.storageType | Enum | Y | Storage type |
 | storage.storageSize | Number | Y | Data storage size (GB)<br/>- Minimum value: `20` |
@@ -5088,8 +5088,8 @@ POST /v1.0/backups/{backupId}/restore
 | useHighAvailability | Boolean | N | Whether to use high availability<br/>- Default: `false` |
 | useDefaultNotification | Boolean | N | Whether to use default notification<br/>- Default: `false` |
 | useDeletionProtection | Boolean | N | Whether to use deletion protection<br/>- Default: `false` |
-| pingInterval | Number | N | Ping interval (seconds)<br/>- Minimum value: `1`<br/>- Maximum value: `600` |
-| failoverReplWaitingTime | Number | N | Failover wait time when high availability is used<br/>- If set to `-1`, waits continuously until the replication lag is resolved.<br/>- Minimum value: `-1` |
+| pingInterval | Number | N | Ping interval (sec) when using high availability<br/>- Minimum value: `1`<br/>- Maximum value: `600` |
+| failoverReplWaitingTime | Number | N | Failover wait time (seconds) when using high availability<br/>- If set to `-1`, it will continue to wait for the replication delay to resolve.<br/>- Minimum value: `-1` |
 | network | Object | Y | Network information objects |
 | network.subnetId | UUID | Y | Subnet identifier |
 | network.usePublicAccess | Boolean | N | Whether external access is available<br/>- Default: `false` |
