@@ -574,12 +574,12 @@ DBインスタンスに接続されたパラメータグループの設定が変
 <a id="export-backup-files-to-object-storage-after-backup"></a>
 ## バックアップ後、オブジェクトストレージへのバックアップファイルのエクスポート { #export-backup-files-to-object-storage-after-backup }
 
-<!-- TODO: translate body -->
+バックアップ後、バックアップファイルをNHN Cloudのユーザーオブジェクトストレージにエクスポートできます。詳細については、[バックアップファイルのエクスポート](backup-and-restore/#export-backup-files)を参照してください。
 
 <a id="restore-using-backup-in-object-storage"></a>
 ## オブジェクトストレージにあるバックアップからの復元 { #restore-using-backup-in-object-storage }
 
-<!-- TODO: translate body -->
+RDS for PostgreSQL からオブジェクトストレージにエクスポートしたバックアップファイルを使用して、DB インスタンスに復元できます。詳細については、[オブジェクトストレージにあるバックアップを使用した復元](backup-and-restore/#restore-using-backup-in-object-storage) を参照してください。
 
 <a id="read-replica"></a>
 ## Read Replica { #read-replica }

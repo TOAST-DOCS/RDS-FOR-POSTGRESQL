@@ -929,8 +929,6 @@ pg_dump -h {external PostgreSQL connection address} -U {external PostgreSQL user
 <a id="appendix"></a>
 ## Appendix { #appendix }
 
-<!-- TODO: translate body -->
-
 <a id="appendix-1"></a>
 ### Appendix 1. Guide for DB instance Migration for Hypervisor Maintenance { #appendix-1 }
 

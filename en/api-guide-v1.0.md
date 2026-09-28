@@ -6131,8 +6131,6 @@ This API does not require a request body.
 <a id="delete-notification-group"></a>
 ### Delete Notification Group { #delete-notification-group }
 
-<!-- TODO: translate body -->
-
 <a id="delete-notification-group-permission"></a>
 #### Required Permission
 
@@ -6143,7 +6141,9 @@ This API does not require a request body.
 <a id="delete-notification-group-request"></a>
 #### Request
 
-<!-- TODO: translate body -->
+```http
+DELETE /v1.0/notification-groups/{notificationGroupId}
+```
 
 <a id="delete-notification-group-request-parameters"></a>
 #### Request Parameter
@@ -6155,12 +6155,14 @@ This API does not require a request body.
 <a id="delete-notification-group-request-body"></a>
 #### Request Body
 
-<!-- TODO: translate body -->
+This API does not require a request body.
 
 <a id="delete-notification-group-response"></a>
 #### Response
 
-<!-- TODO: translate body -->
+This API does not return a response body.
+
+---
 
 <a id="get-notification-group"></a>
 ### View Notification Group Details { #get-notification-group }
