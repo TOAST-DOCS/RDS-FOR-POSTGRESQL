@@ -1,4 +1,4 @@
-<!-- pre-align:aligned sig=a673f7413bba -->
+<!-- pre-align:aligned sig=d58a9ac7e400 -->
 
 <a id="rds-for-postgresql-api"></a>
 ## RDS for PostgreSQL API 가이드 { #rds-for-postgresql-api }
@@ -730,8 +730,8 @@ PUT /v1.0/db-instance-groups/{dbInstanceGroupId}
 | useHighAvailability | Boolean | N | 고가용성 사용 여부 |
 | primaryName | String | N | 마스터 이름<br/>- 최소 길이: `1`<br/>- 최대 길이: `100` |
 | standbyName | String | N | 예비 마스터 이름<br/>- 최소 길이: `1`<br/>- 최대 길이: `100` |
-| pingInterval | Number | N | Ping 간격(초)<br/>- 최솟값: `1`<br/>- 최댓값: `600` |
-| failoverReplWaitingTime | Number | N | 장애 조치 복제 지연 대기 시간(초)<br/>- 최솟값: `-1` |
+| pingInterval | Number | N | 고가용성 사용 시 Ping 간격(초)<br/>- 최솟값: `1`<br/>- 최댓값: `600` |
+| failoverReplWaitingTime | Number | N | 고가용성 사용 시 장애 조치 대기 시간(초)<br/>- `-1`로 설정 시, 복제 지연 해소까지 계속해서 대기합니다.<br/>- 최솟값: `-1` |
 | useManualDbDefinition | Boolean | N | 데이터베이스 & 사용자 직접 제어 사용 여부 |
 
 <a id="update-db-instance-group-response"></a>
@@ -1571,8 +1571,8 @@ POST /v1.0/db-instances
 | useHighAvailability | Boolean | N | 고가용성 사용 여부<br/>- 기본값: `false` |
 | useDefaultNotification | Boolean | N | 기본 알림 사용 여부<br/>- 기본값: `false` |
 | useDeletionProtection | Boolean | N | 삭제 보호 여부<br/>- 기본값: `false` |
-| pingInterval | Number | N | Ping 간격(초)<br/>- 최솟값: `1`<br/>- 최댓값: `600` |
-| failoverReplWaitingTime | Number | N | 고가용성 사용 시 장애 조치 대기 시간<br/>- `-1`로 설정 시, 복제 지연 해소까지 계속해서 대기합니다.<br/>- 최솟값: `-1` |
+| pingInterval | Number | N | 고가용성 사용 시 Ping 간격(초)<br/>- 최솟값: `1`<br/>- 최댓값: `600` |
+| failoverReplWaitingTime | Number | N | 고가용성 사용 시 장애 조치 대기 시간(초)<br/>- `-1`로 설정 시, 복제 지연 해소까지 계속해서 대기합니다.<br/>- 최솟값: `-1` |
 | network | Object | Y | 네트워크 정보 |
 | network.subnetId | UUID | Y | 서브넷의 식별자 |
 | network.usePublicAccess | Boolean | N | 외부 접속 가능 여부<br/>- 기본값: `false` |
@@ -1698,7 +1698,7 @@ POST /v1.0/db-instances/restore-from-obs
 | useHighAvailability | Boolean | N | 고가용성 사용 여부<br/>- 기본값: `false` |
 | imageId | UUID | N | 이미지의 식별자 |
 | pingInterval | Number | N | 고가용성 사용 시 Ping 간격(초)<br/>- 최솟값: `1`<br/>- 최댓값: `600` |
-| failoverReplWaitingTime | Number | N | 고가용성 사용 시 장애 조치 대기 시간<br/>- `-1`로 설정 시, 복제 지연 해소까지 계속해서 대기합니다.<br/>- 최솟값: `-1` |
+| failoverReplWaitingTime | Number | N | 고가용성 사용 시 장애 조치 대기 시간(초)<br/>- `-1`로 설정 시, 복제 지연 해소까지 계속해서 대기합니다.<br/>- 최솟값: `-1` |
 | storage | Object | Y | 스토리지 정보 객체 |
 | storage.storageType | Enum | Y | 스토리지 유형 |
 | storage.storageSize | Number | Y | 데이터 스토리지 크기(GB)<br/>- 최솟값: `20` |
@@ -3471,8 +3471,8 @@ GET /v1.0/db-instances/{dbInstanceId}/high-availability
 | 이름 | 타입 | 설명 |
 |-----|-----|-----|
 | haStatus | Enum | 고가용성 상태<br/>- `CREATED`: 생성됨<br/>- `STABLE`: 정상<br/>- `PAUSING`: 일시 중지 중<br/>- `PAUSED`: 일시 중지<br/>- `PAUSED_DUE_TO_TASK`: 작업으로 인한 일시 중지<br/>- `PAUSED_DUE_TO_STOP`: DB 인스턴스 정지로 인한 일시 중지<br/>- `DISABLE_REPLICATION_DELAY`: 복제 지연으로 인한 장애 조치 정지<br/>- `FAILOVER_STARTED`: 장애 조치 시작<br/>- `FAILOVER_FAILED`: 장애 조치 실패<br/>- `FAILOVER_COMPLETED`: 장애 조치 완료<br/>- `DELETED`: 삭제됨 |
-| pingInterval | Number | Ping 간격(초)<br/>- 최솟값: `1`<br/>- 최댓값: `600` |
-| failoverReplWaitingTime | Number | 고가용성 사용 시 장애 조치 대기 시간<br/>- `-1`로 설정 시, 복제 지연 해소까지 계속해서 대기합니다.<br/>- 최솟값: `-1` |
+| pingInterval | Number | 고가용성 사용 시 Ping 간격(초)<br/>- 최솟값: `1`<br/>- 최댓값: `600` |
+| failoverReplWaitingTime | Number | 고가용성 사용 시 장애 조치 대기 시간(초)<br/>- `-1`로 설정 시, 복제 지연 해소까지 계속해서 대기합니다.<br/>- 최솟값: `-1` |
 
 ---
 
@@ -3519,8 +3519,8 @@ PUT /v1.0/db-instances/{dbInstanceId}/high-availability
 | 이름 | 타입 | 필수 | 설명 |
 |-----|-----|-----|-----|
 | useHighAvailability | Boolean | Y | 고가용성 사용 여부 |
-| pingInterval | Number | N | Ping 간격(초)<br/>- 최솟값: `1`<br/>- 최댓값: `600` |
-| failoverReplWaitingTime | Number | N | 고가용성 사용 시 장애 조치 대기 시간<br/>- `-1`로 설정 시, 복제 지연 해소까지 계속해서 대기합니다.<br/>- 최솟값: `-1` |
+| pingInterval | Number | N | 고가용성 사용 시 Ping 간격(초)<br/>- 최솟값: `1`<br/>- 최댓값: `600` |
+| failoverReplWaitingTime | Number | N | 고가용성 사용 시 장애 조치 대기 시간(초)<br/>- `-1`로 설정 시, 복제 지연 해소까지 계속해서 대기합니다.<br/>- 최솟값: `-1` |
 
 <a id="modify-high-availability-response"></a>
 #### 응답
@@ -4418,7 +4418,7 @@ POST /v1.0/db-instances/{dbInstanceId}/restore
 | useHighAvailability | Boolean | N | 고가용성 사용 여부<br/>- 기본값: `false` |
 | imageId | UUID | N | 이미지의 식별자 |
 | pingInterval | Number | N | 고가용성 사용 시 Ping 간격(초)<br/>- 최솟값: `1`<br/>- 최댓값: `600` |
-| failoverReplWaitingTime | Number | N | 고가용성 사용 시 장애 조치 대기 시간<br/>- `-1`로 설정 시, 복제 지연 해소까지 계속해서 대기합니다.<br/>- 최솟값: `-1` |
+| failoverReplWaitingTime | Number | N | 고가용성 사용 시 장애 조치 대기 시간(초)<br/>- `-1`로 설정 시, 복제 지연 해소까지 계속해서 대기합니다.<br/>- 최솟값: `-1` |
 | storage | Object | Y | 스토리지 정보 객체 |
 | storage.storageType | Enum | Y | 스토리지 유형 |
 | storage.storageSize | Number | Y | 데이터 스토리지 크기(GB)<br/>- 최솟값: `20` |
@@ -5087,8 +5087,8 @@ POST /v1.0/backups/{backupId}/restore
 | useHighAvailability | Boolean | N | 고가용성 사용 여부<br/>- 기본값: `false` |
 | useDefaultNotification | Boolean | N | 기본 알림 사용 여부<br/>- 기본값: `false` |
 | useDeletionProtection | Boolean | N | 삭제 보호 여부<br/>- 기본값: `false` |
-| pingInterval | Number | N | Ping 간격(초)<br/>- 최솟값: `1`<br/>- 최댓값: `600` |
-| failoverReplWaitingTime | Number | N | 고가용성 사용 시 장애 조치 대기 시간<br/>- `-1`로 설정 시, 복제 지연 해소까지 계속해서 대기합니다.<br/>- 최솟값: `-1` |
+| pingInterval | Number | N | 고가용성 사용 시 Ping 간격(초)<br/>- 최솟값: `1`<br/>- 최댓값: `600` |
+| failoverReplWaitingTime | Number | N | 고가용성 사용 시 장애 조치 대기 시간(초)<br/>- `-1`로 설정 시, 복제 지연 해소까지 계속해서 대기합니다.<br/>- 최솟값: `-1` |
 | network | Object | Y | 네트워크 정보 객체 |
 | network.subnetId | UUID | Y | 서브넷의 식별자 |
 | network.usePublicAccess | Boolean | N | 외부 접속 가능 여부<br/>- 기본값: `false` |
