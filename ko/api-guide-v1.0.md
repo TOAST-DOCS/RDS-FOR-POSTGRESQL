@@ -1278,7 +1278,7 @@ GET /v1.0/db-instance-groups/{dbInstanceGroupId}/maintenance-info
 | maintWndBgnTime | Time | 유지 관리 시작 시간 |
 | maintWndDuration | Enum | 유지 관리 윈도우 기간<br/>- `HALF_AN_HOUR`: 30분<br/>- `ONE_HOUR`: 1시간<br/>- `ONE_HOUR_AND_HALF`: 1시간 30분<br/>- `TWO_HOURS`: 2시간<br/>- `TWO_HOURS_AND_HALF`: 2시간 30분<br/>- `THREE_HOURS`: 3시간 |
 | useAutoStorageCleanup | Boolean | 자동 스토리지 정리 사용 여부 |
-| logRetentionPeriod | Number | 로그 보관 기간 (일) |
+| logRetentionPeriod | Number | 로그 보관 기간(일) |
 
 ---
 
@@ -1328,7 +1328,7 @@ PUT /v1.0/db-instance-groups/{dbInstanceGroupId}/maintenance-info
 | maintWndBgnTime | Time | N | 유지 관리 시작 시간 |
 | maintWndDuration | Enum | N | 유지 관리 윈도우 기간<br/>- `HALF_AN_HOUR`: 30분<br/>- `ONE_HOUR`: 1시간<br/>- `ONE_HOUR_AND_HALF`: 1시간 30분<br/>- `TWO_HOURS`: 2시간<br/>- `TWO_HOURS_AND_HALF`: 2시간 30분<br/>- `THREE_HOURS`: 3시간 |
 | useAutoStorageCleanup | Boolean | N | 자동 스토리지 정리 사용 여부 |
-| logRetentionPeriod | Number | N | 로그 보관 기간 (일)<br/>- 최솟값: `1`<br/>- 최댓값: `30` |
+| logRetentionPeriod | Number | N | 로그 보관 기간(일)<br/>- 최솟값: `1`<br/>- 최댓값: `30` |
 
 <a id="update-db-instance-group-maintenance-info-response"></a>
 #### 응답
@@ -1584,7 +1584,7 @@ POST /v1.0/db-instances
 | backup.backupPeriod | Number | Y | 백업 보관 기간(일)<br/>- 최솟값: `0`<br/>- 최댓값: `730` |
 | backup.backupRetryCount | Number | N | 백업 재시도 횟수<br/>- 최솟값: `0`<br/>- 최댓값: `10` |
 | backup.periodicAutoBackupStrategyType | Enum | N | 정기 자동 백업 전략 유형<br/>- 기본값: `DAILY_FULL`<br/>- `SNAPSHOT`: 매일 스냅숏 백업<br/>- `DAILY_FULL`: 매일 전체 백업<br/>- `DAILY_FULL_INC`: 매일 전체 및 증분 백업<br/>- `WEEKLY_FULL_DAILY_INC`: 주간 전체 백업 및 일일 증분 백업 |
-| backup.fullBackupDaysOfWeek | Array | N | 전체 백업 요일 목록 (정기 자동 백업 전략이 WEEKLY_FULL_DAILY_INC 이면 필수) |
+| backup.fullBackupDaysOfWeek | Array | N | 전체 백업 요일 목록(정기 자동 백업 전략이 WEEKLY_FULL_DAILY_INC 이면 필수) |
 | backup.backupSchedules | Array | Y | 백업 스케줄 정보 |
 | backup.backupSchedules.backupWndBgnTime | Time | Y | 백업 시작 시간 |
 | backup.backupSchedules.backupWndDuration | Enum | Y | 백업 윈도우<br/>- `HALF_AN_HOUR`: 30분<br/>- `ONE_HOUR`: 1시간<br/>- `ONE_HOUR_AND_HALF`: 1시간 30분<br/>- `TWO_HOURS`: 2시간<br/>- `TWO_HOURS_AND_HALF`: 2시간 30분<br/>- `THREE_HOURS`: 3시간 |
@@ -1709,7 +1709,7 @@ POST /v1.0/db-instances/restore-from-obs
 | backup | Object | Y | 백업 정보 객체 |
 | backup.backupPeriod | Number | Y | 백업 보관 기간(일)<br/>- 최솟값: `0`<br/>- 최댓값: `730` |
 | backup.periodicAutoBackupStrategyType | Enum | N | 정기 자동 백업 전략 유형<br/>- 기본값: `DAILY_FULL`<br/>- `SNAPSHOT`: 매일 스냅숏 백업<br/>- `DAILY_FULL`: 매일 전체 백업<br/>- `DAILY_FULL_INC`: 매일 전체 및 증분 백업<br/>- `WEEKLY_FULL_DAILY_INC`: 주간 전체 백업 및 일일 증분 백업 |
-| backup.fullBackupDaysOfWeek | Array | N | 전체 백업 요일 목록 (정기 자동 백업 전략이 WEEKLY_FULL_DAILY_INC 이면 필수) |
+| backup.fullBackupDaysOfWeek | Array | N | 전체 백업 요일 목록(정기 자동 백업 전략이 WEEKLY_FULL_DAILY_INC 이면 필수) |
 | backup.backupRetryCount | Number | N | 백업 재시도 횟수<br/>- 최솟값: `0`<br/>- 최댓값: `10` |
 | backup.backupSchedules | Array | Y | 백업 스케줄 목록 |
 | backup.backupSchedules.backupWndBgnTime | Time | Y | 백업 시작 시간 |
@@ -2242,7 +2242,7 @@ GET /v1.0/db-instances/{dbInstanceId}/backup-info
 | allowAutoBackupExecutionTarget | Boolean | 자동 백업 실행 대상 허용 여부 |
 | usePeriodicAutoBackup | Boolean | 예정된 자동 백업 사용 여부 |
 | periodicAutoBackupStrategyType | Enum | 정기 자동 백업 전략 유형<br/>- `SNAPSHOT`: 매일 스냅숏 백업<br/>- `DAILY_FULL`: 매일 전체 백업<br/>- `DAILY_FULL_INC`: 매일 전체 및 증분 백업<br/>- `WEEKLY_FULL_DAILY_INC`: 주간 전체 백업 및 일일 증분 백업 |
-| fullBackupDaysOfWeek | Array | 전체 백업 요일 목록 (정기 자동 백업 전략이 WEEKLY_FULL_DAILY_INC 이면 필수) |
+| fullBackupDaysOfWeek | Array | 전체 백업 요일 목록(정기 자동 백업 전략이 WEEKLY_FULL_DAILY_INC 이면 필수) |
 | backupPeriod | Number | 백업 보관 기간(일) |
 | backupRetryCount | Number | 백업 재시도 횟수 |
 | backupSchedules | Array | 백업 스케줄 목록 |
@@ -2309,7 +2309,7 @@ PUT /v1.0/db-instances/{dbInstanceId}/backup-info
 | usePeriodicAutoBackup | Boolean | N | 예정된 자동 백업 사용 여부 |
 | backupExecutionTargetType | Enum | N | 백업 실행 대상 유형<br/>- `AUTO_SINGLE`: 후보 중 부하가 적은 인스턴스 1대 자동 선택<br/>- `ALL`: 선택한 후보 전체에 실행 |
 | periodicAutoBackupStrategyType | Enum | N | 정기 자동 백업 전략 유형<br/>- `SNAPSHOT`: 매일 스냅숏 백업<br/>- `DAILY_FULL`: 매일 전체 백업<br/>- `DAILY_FULL_INC`: 매일 전체 및 증분 백업<br/>- `WEEKLY_FULL_DAILY_INC`: 주간 전체 백업 및 일일 증분 백업 |
-| fullBackupDaysOfWeek | Array | N | 전체 백업 요일 목록 (정기 자동 백업 전략이 WEEKLY_FULL_DAILY_INC 이면 필수) |
+| fullBackupDaysOfWeek | Array | N | 전체 백업 요일 목록(정기 자동 백업 전략이 WEEKLY_FULL_DAILY_INC 이면 필수) |
 | backupPeriod | Number | N | 백업 보관 기간(일)<br/>- 최솟값: `0`<br/>- 최댓값: `730` |
 | backupRetryCount | Number | N | 백업 재시도 횟수<br/>- 최솟값: `0`<br/>- 최댓값: `10` |
 | backupSchedules | Array | N | 백업 스케줄 목록 |
@@ -3310,7 +3310,7 @@ PUT /v1.0/db-instances/{dbInstanceId}/hba-rules/orders
 
 | 이름 | 타입 | 필수 | 설명 |
 |-----|-----|-----|-----|
-| hbaRuleIds | Array | Y | 정렬된 접속제어 규칙의 식별자 목록 (요청받은 순서대로 저장) |
+| hbaRuleIds | Array | Y | 정렬된 접근 제어 규칙의 식별자 목록(요청받은 순서대로 저장) |
 
 <a id="modify-hba-rule-orders-response"></a>
 #### 응답
@@ -3819,7 +3819,7 @@ GET /v1.0/db-instances/{dbInstanceId}/maintenance-info
 | useAutoStorageCleanup | Boolean | 자동 스토리지 정리 사용 여부 |
 | maintWndBgnTime | Time | 자동 유지 관리 시작 시간 |
 | maintWndDuration | Enum | 유지 관리 윈도우<br/>- `HALF_AN_HOUR`: 30분<br/>- `ONE_HOUR`: 1시간<br/>- `ONE_HOUR_AND_HALF`: 1시간 30분<br/>- `TWO_HOURS`: 2시간<br/>- `TWO_HOURS_AND_HALF`: 2시간 30분<br/>- `THREE_HOURS`: 3시간 |
-| logRetentionPeriod | Number | 로그 보관 기간 (일) |
+| logRetentionPeriod | Number | 로그 보관 기간(일) |
 
 ---
 
@@ -3869,7 +3869,7 @@ PUT /v1.0/db-instances/{dbInstanceId}/maintenance-info
 | useAutoStorageCleanup | Boolean | N | 자동 스토리지 정리 사용 여부 |
 | maintWndBgnTime | Time | N | 자동 유지 관리 시작 시간 |
 | maintWndDuration | Enum | N | 유지 관리 윈도우<br/>- `HALF_AN_HOUR`: 30분<br/>- `ONE_HOUR`: 1시간<br/>- `ONE_HOUR_AND_HALF`: 1시간 30분<br/>- `TWO_HOURS`: 2시간<br/>- `TWO_HOURS_AND_HALF`: 2시간 30분<br/>- `THREE_HOURS`: 3시간 |
-| logRetentionPeriod | Number | N | 로그 보관 기간 (일)<br/>- 최솟값: `1`<br/>- 최댓값: `30` |
+| logRetentionPeriod | Number | N | 로그 보관 기간(일)<br/>- 최솟값: `1`<br/>- 최댓값: `30` |
 
 <a id="modify-maintenance-info-response"></a>
 #### 응답
@@ -4429,7 +4429,7 @@ POST /v1.0/db-instances/{dbInstanceId}/restore
 | backup | Object | Y | 백업 정보 객체 |
 | backup.backupPeriod | Number | Y | 백업 보관 기간(일)<br/>- 최솟값: `0`<br/>- 최댓값: `730` |
 | backup.periodicAutoBackupStrategyType | Enum | N | 정기 자동 백업 전략 유형<br/>- 기본값: `DAILY_FULL`<br/>- `SNAPSHOT`: 매일 스냅숏 백업<br/>- `DAILY_FULL`: 매일 전체 백업<br/>- `DAILY_FULL_INC`: 매일 전체 및 증분 백업<br/>- `WEEKLY_FULL_DAILY_INC`: 주간 전체 백업 및 일일 증분 백업 |
-| backup.fullBackupDaysOfWeek | Array | N | 전체 백업 요일 목록 (정기 자동 백업 전략이 WEEKLY_FULL_DAILY_INC 이면 필수) |
+| backup.fullBackupDaysOfWeek | Array | N | 전체 백업 요일 목록(정기 자동 백업 전략이 WEEKLY_FULL_DAILY_INC 이면 필수) |
 | backup.backupRetryCount | Number | N | 백업 재시도 횟수<br/>- 최솟값: `0`<br/>- 최댓값: `10` |
 | backup.backupSchedules | Array | Y | 백업 스케줄 목록 |
 | backup.backupSchedules.backupWndBgnTime | Time | Y | 백업 시작 시간 |
@@ -4814,14 +4814,14 @@ GET /v1.0/backups
 ---
 
 <a id="get-cascade-deletion-target-backups"></a>
-### 함께 삭제될 백업 목록 보기 { #get-cascade-deletion-target-backups }
+### 함께 삭제될 백업 목록 조회 { #get-cascade-deletion-target-backups }
 
 <a id="get-cascade-deletion-target-backups-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
 |-----|-----|
-| RDSforPostgreSQL:Backup.List | 함께 삭제될 백업 목록 보기 |
+| RDSforPostgreSQL:Backup.List | 함께 삭제될 백업 목록 조회 |
 
 <a id="get-cascade-deletion-target-backups-request"></a>
 #### 요청
@@ -5099,7 +5099,7 @@ POST /v1.0/backups/{backupId}/restore
 | backup | Object | Y | 백업 정보 객체 |
 | backup.backupPeriod | Number | Y | 백업 보관 기간(일)<br/>- 최솟값: `0`<br/>- 최댓값: `730` |
 | backup.periodicAutoBackupStrategyType | Enum | N | 정기 자동 백업 전략 유형<br/>- 기본값: `DAILY_FULL`<br/>- `SNAPSHOT`: 매일 스냅숏 백업<br/>- `DAILY_FULL`: 매일 전체 백업<br/>- `DAILY_FULL_INC`: 매일 전체 및 증분 백업<br/>- `WEEKLY_FULL_DAILY_INC`: 주간 전체 백업 및 일일 증분 백업 |
-| backup.fullBackupDaysOfWeek | Array | N | 전체 백업 요일 목록 (정기 자동 백업 전략이 WEEKLY_FULL_DAILY_INC 이면 필수) |
+| backup.fullBackupDaysOfWeek | Array | N | 전체 백업 요일 목록(정기 자동 백업 전략이 WEEKLY_FULL_DAILY_INC 이면 필수) |
 | backup.backupRetryCount | Number | N | 백업 재시도 횟수<br/>- 최솟값: `0`<br/>- 최댓값: `10` |
 | backup.backupSchedules | Array | Y | 백업 스케줄 목록 |
 | backup.backupSchedules.backupWndBgnTime | Time | Y | 백업 시작 시간 |
@@ -5806,7 +5806,7 @@ POST /v1.0/parameter-groups
 |-----|-----|-----|-----|
 | parameterGroupName | String | Y | 파라미터 그룹을 식별할 수 있는 이름 |
 | description | String | N | 파라미터 그룹에 대한 추가 정보 |
-| dbVersion | Enum | N | DB 엔진 버전 (사용자 파라미터 그룹 생성 시 필수, 패밀리 파라미터 그룹 생성 시 null) |
+| dbVersion | Enum | N | DB 엔진 버전 |
 
 <a id="create-parameter-group-response"></a>
 #### 응답
@@ -6115,8 +6115,7 @@ PUT /v1.0/parameter-groups/{parameterGroupId}/parameters
     "modifiedParameters": [
         {
             "parameterName": "checkpoint_timeout",
-            "value": "100s",
-            "parameterTemplateId": "parameterTemplateId-example"
+            "value": "100s"
         }
     ]
 }
@@ -6129,7 +6128,6 @@ PUT /v1.0/parameter-groups/{parameterGroupId}/parameters
 | modifiedParameters | Array | Y | 변경할 파라미터 목록 |
 | modifiedParameters.parameterName | String | Y | 파라미터 이름 |
 | modifiedParameters.value | String | Y | 변경할 파라미터 값 |
-| modifiedParameters.parameterTemplateId | String | N | 구간 대표 템플릿 ID (다구간 파라미터 수정 시 지정) |
 
 <a id="modify-parameter-group-parameters-response"></a>
 #### 응답
