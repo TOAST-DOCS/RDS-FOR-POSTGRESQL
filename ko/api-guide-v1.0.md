@@ -1,4 +1,4 @@
-<!-- pre-align:aligned sig=a673f7413bba -->
+<!-- pre-align:aligned sig=d58a9ac7e400 -->
 
 <a id="rds-for-postgresql-api"></a>
 ## RDS for PostgreSQL API 가이드 { #rds-for-postgresql-api }
@@ -4134,7 +4134,9 @@ POST /v1.0/db-instances/{dbInstanceId}/replicate
     "userGroupIds": [],
     "useDefaultNotification": false,
     "useDeletionProtection": false,
+    "regionCode": "KR1",
     "network": {
+        "subnetId": "550e8400-e29b-41d4-a716-446655440000",
         "usePublicAccess": false,
         "availabilityZone": "kr-pub-a"
     },
@@ -4158,7 +4160,9 @@ POST /v1.0/db-instances/{dbInstanceId}/replicate
 | userGroupIds | Array | N | 사용자 그룹의 식별자 목록 |
 | useDefaultNotification | Boolean | N | 기본 알림 사용 여부<br/>- 기본값: `false` |
 | useDeletionProtection | Boolean | N | 삭제 보호 여부<br/>- 기본값: `false` |
+| regionCode | Enum | N | 읽기 복제본을 생성할 리전 코드<br/>- 지정하지 않으면 원본 DB 인스턴스와 같은 리전에 생성<br/>- `KR1`: 한국(판교)<br/>- `KR2`: 한국(평촌) |
 | network | Object | N | 네트워크 정보 객체 |
+| network.subnetId | UUID | N | 서브넷의 식별자<br/>- 리전 코드 직접 입력 시 필수 |
 | network.usePublicAccess | Boolean | N | 외부 접속 가능 여부<br/>- 기본값: `false` |
 | network.availabilityZone | Enum | N | DB 인스턴스를 생성할 가용성 영역 |
 | storage | Object | N | 스토리지 정보 객체 |
