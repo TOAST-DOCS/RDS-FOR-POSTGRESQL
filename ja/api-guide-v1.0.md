@@ -4131,23 +4131,25 @@ POST /v1.0/db-instances/{dbInstanceId}/replicate
 
 ```json
 {
-"dbInstanceName": "dbInstanceName-example",
-"description": "description-example",
-"dbFlavorId": "550e8400-e29b-41d4-a716-446655440000",
-"dbPort": 15432,
-"parameterGroupId": "550e8400-e29b-41d4-a716-446655440000",
-"dbSecurityGroupIds": [],
-"userGroupIds": [],
-"useDefaultNotification": false,
-"useDeletionProtection": false,
-"network": {
-"usePublicAccess": false,
-"availabilityZone": "kr-pub-a"
-},
-"storage": {
-"storageType": "General SSD",
-"storageSize": 20
-}
+    "dbInstanceName": "dbInstanceName-example",
+    "description": "description-example",
+    "dbFlavorId": "550e8400-e29b-41d4-a716-446655440000",
+    "dbPort": 15432,
+    "parameterGroupId": "550e8400-e29b-41d4-a716-446655440000",
+    "dbSecurityGroupIds": [],
+    "userGroupIds": [],
+    "useDefaultNotification": false,
+    "useDeletionProtection": false,
+    "regionCode": "KR1",
+    "network": {
+        "subnetId": "550e8400-e29b-41d4-a716-446655440000",
+        "usePublicAccess": false,
+        "availabilityZone": "kr-pub-a"
+    },
+    "storage": {
+        "storageType": "General SSD",
+        "storageSize": 20
+    }
 }
 ```
 
@@ -4164,7 +4166,9 @@ POST /v1.0/db-instances/{dbInstanceId}/replicate
 | userGroupIds | Array | N | ユーザーグループの識別子リスト |
 | useDefaultNotification | Boolean | N | 基本通知の使用有無<br/>- デフォルト値: `false` |
 | useDeletionProtection | Boolean | N | 削除保護の有無<br/>- デフォルト値: `false` |
+| regionCode | Enum | N | リードレプリカを作成するリージョンコード<br/>- 指定しない場合、元のDBインスタンスと同じリージョンに作成<br/>- `KR1`: 韓国（判橋）<br/>- `KR2`: 韓国（平村） |
 | network | Object | N | ネットワーク情報オブジェクト |
+| network.subnetId | UUID | N | サブネットの識別子<br/>- リージョンコードを直接入力する場合は必須 |
 | network.usePublicAccess | Boolean | N | 外部接続可否<br/>- デフォルト値: `false` |
 | network.availabilityZone | Enum | N | DBインスタンスを作成するアベイラビリティゾーン |
 | storage | Object | N | ストレージ情報オブジェクト |
