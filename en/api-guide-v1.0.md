@@ -4126,23 +4126,25 @@ POST /v1.0/db-instances/{dbInstanceId}/replicate
 
 ```json
 {
-"dbInstanceName": "dbInstanceName-example",
-"description": "description-example",
-"dbFlavorId": "550e8400-e29b-41d4-a716-446655440000",
-"dbPort": 15432,
-"parameterGroupId": "550e8400-e29b-41d4-a716-446655440000",
-"dbSecurityGroupIds": [],
-"userGroupIds": [],
-"useDefaultNotification": false,
-"useDeletionProtection": false,
-"network": {
-"usePublicAccess": false,
-"availabilityZone": "kr-pub-a"
-},
-"storage": {
-"storageType": "General SSD",
-"storageSize": 20
-}
+    "dbInstanceName": "dbInstanceName-example",
+    "description": "description-example",
+    "dbFlavorId": "550e8400-e29b-41d4-a716-446655440000",
+    "dbPort": 15432,
+    "parameterGroupId": "550e8400-e29b-41d4-a716-446655440000",
+    "dbSecurityGroupIds": [],
+    "userGroupIds": [],
+    "useDefaultNotification": false,
+    "useDeletionProtection": false,
+    "regionCode": "KR1",
+    "network": {
+        "subnetId": "550e8400-e29b-41d4-a716-446655440000",
+        "usePublicAccess": false,
+        "availabilityZone": "kr-pub-a"
+    },
+    "storage": {
+        "storageType": "General SSD",
+        "storageSize": 20
+    }
 }
 ```
 
@@ -4159,7 +4161,9 @@ POST /v1.0/db-instances/{dbInstanceId}/replicate
 | userGroupIds | Array | N | List of user group identifiers |
 | useDefaultNotification | Boolean | N | Whether to use default notification<br/>- Default: `false` |
 | useDeletionProtection | Boolean | N | Whether to use deletion protection<br/>- Default: `false` |
+| regionCode | Enum | N | Region code where the read replica will be created<br/>- If not specified, the read replica is created in the same region as the source DB instance<br/>- `KR1`: Korea (Pangyo)<br/>- `KR2`: Korea (Pyeongchon) |
 | network | Object | N | Network information objects |
+| network.subnetId | UUID | N | Subnet identifier<br/>- Required when entering a region code directly |
 | network.usePublicAccess | Boolean | N | Whether external access is available<br/>- Default: `false` |
 | network.availabilityZone | Enum | N | Availability zone where DB instance will be created |
 | storage | Object | N | Storage information objects |
