@@ -733,8 +733,8 @@ PUT /v1.0/db-instance-groups/{dbInstanceGroupId}
 | useHighAvailability | Boolean | N | 高可用性を使用するかどうか |
 | primaryName | String | N | マスター名<br/>- 最小長: `1`<br/>- 最大長: `100` |
 | standbyName | String | N | 予備マスター名<br/>- 最小長: `1`<br/>- 最大長: `100` |
-| pingInterval | Number | N | Ping 間隔（秒）<br/>- 最小値: `1`<br/>- 最大値: `600` |
-| failoverReplWaitingTime | Number | N | フェイルオーバーレプリケーション遅延待機時間（秒）<br/>- 最小値: `-1` |
+| pingInterval | Number | N | 高可用性使用時のPing間隔(秒)<br/>- 最小値: `1`<br/>- 最大値: `600` |
+| failoverReplWaitingTime | Number | N | 高可用性使用時のフェイルオーバー待機時間(秒)<br/>- `-1`に設定時、レプリケーション遅延が解消されるまで待機し続けます。<br/>- 最小値: `-1` |
 | useManualDbDefinition | Boolean | N | データベース＆ユーザー直接制御を使用するかどうか |
 
 <a id="update-db-instance-group-response"></a>
@@ -1575,8 +1575,8 @@ POST /v1.0/db-instances
 | useHighAvailability | Boolean | N | 高可用性の使用有無<br/>- デフォルト値: `false` |
 | useDefaultNotification | Boolean | N | 基本通知の使用有無<br/>- デフォルト値: `false` |
 | useDeletionProtection | Boolean | N | 削除保護の有無<br/>- デフォルト値: `false` |
-| pingInterval | Number | N | Ping間隔(秒)<br/>- 最小値: `1`<br/>- 最大値: `600` |
-| failoverReplWaitingTime | Number | N | 高可用性使用時のフェイルオーバー待機時間<br/>- `-1`に設定時、レプリケーション遅延が解消されるまで待機し続けます。<br/>- 最小値: `-1` |
+| pingInterval | Number | N | 高可用性使用時のPing間隔(秒)<br/>- 最小値: `1`<br/>- 最大値: `600` |
+| failoverReplWaitingTime | Number | N | 高可用性使用時のフェイルオーバー待機時間(秒)<br/>- `-1`に設定時、レプリケーション遅延が解消されるまで待機し続けます。<br/>- 最小値: `-1` |
 | network | Object | Y | ネットワーク情報オブジェクト |
 | network.subnetId | UUID | Y | サブネットの識別子 |
 | network.usePublicAccess | Boolean | N | 外部接続可否<br/>- デフォルト値: `false` |
@@ -1702,7 +1702,7 @@ POST /v1.0/db-instances/restore-from-obs
 | useHighAvailability | Boolean | N | 高可用性の使用有無<br/>- デフォルト値: `false` |
 | imageId | UUID | N | イメージの識別子 |
 | pingInterval | Number | N | 高可用性使用時のPing間隔(秒)<br/>- 最小値: `1`<br/>- 最大値: `600` |
-| failoverReplWaitingTime | Number | N | 高可用性使用時のフェイルオーバー待機時間<br/>- `-1`に設定時、レプリケーション遅延が解消されるまで待機し続けます。<br/>- 最小値: `-1` |
+| failoverReplWaitingTime | Number | N | 高可用性使用時のフェイルオーバー待機時間(秒)<br/>- `-1`に設定時、レプリケーション遅延が解消されるまで待機し続けます。<br/>- 最小値: `-1` |
 | storage | Object | Y | ストレージ情報オブジェクト |
 | storage.storageType | Enum | Y | ストレージタイプ |
 | storage.storageSize | Number | Y | データストレージサイズ(GB)<br/>- 最小値: `20` |
@@ -3476,9 +3476,9 @@ GET /v1.0/db-instances/{dbInstanceId}/high-availability
 
 | 名前 | タイプ | 説明 |
 |-----|-----|-----|
-| haStatus | Enum | 高可用性の状態<br/>- `CREATED`: 作成済み<br/>- `STABLE`: 正常<br/>- `PAUSING`: 一時停止中<br/>- `PAUSED`: 一時停止<br/>- `PAUSED_DUE_TO_TASK`: ジョブによる一時停止<br/>- `DISABLE_REPLICATION_DELAY`: レプリケーション遅延によるフェイルオーバーの停止<br/>- `FAILOVER_STARTED`: フェイルオーバー開始<br/>- `FAILOVER_FAILED`: フェイルオーバー失敗<br/>- `FAILOVER_COMPLETED`: フェイルオーバー完了<br/>- `DELETED`: 削除済み |
-| pingInterval | Number | Ping間隔(秒)<br/>- 最小値: `1`<br/>- 最大値: `600` |
-| failoverReplWaitingTime | Number | 高可用性使用時のフェイルオーバー待機時間<br/>- `-1`に設定時、レプリケーション遅延が解消されるまで待機し続けます。<br/>- 最小値: `-1` |
+| haStatus | Enum | 高可用性の状態<br/>- `CREATED`: 作成済み<br/>- `STABLE`: 正常<br/>- `PAUSING`: 一時停止中<br/>- `PAUSED`: 一時停止<br/>- `PAUSED_DUE_TO_TASK`: ジョブによる一時停止<br/>- `PAUSED_DUE_TO_STOP`: DBインスタンス停止による一時停止<br/>- `DISABLE_REPLICATION_DELAY`: レプリケーション遅延によるフェイルオーバーの停止<br/>- `FAILOVER_STARTED`: フェイルオーバー開始<br/>- `FAILOVER_FAILED`: フェイルオーバー失敗<br/>- `FAILOVER_COMPLETED`: フェイルオーバー完了<br/>- `DELETED`: 削除済み |
+| pingInterval | Number | 高可用性使用時のPing間隔(秒)<br/>- 最小値: `1`<br/>- 最大値: `600` |
+| failoverReplWaitingTime | Number | 高可用性使用時のフェイルオーバー待機時間(秒)<br/>- `-1`に設定時、レプリケーション遅延が解消されるまで待機し続けます。<br/>- 最小値: `-1` |
 
 ---
 
@@ -3525,8 +3525,8 @@ PUT /v1.0/db-instances/{dbInstanceId}/high-availability
 | 名前 | タイプ | 必須 | 説明 |
 |-----|-----|-----|-----|
 | useHighAvailability | Boolean | Y | 高可用性を使用するかどうか |
-| pingInterval | Number | N | Ping 間隔（秒）<br/>- 最小値: `1`<br/>- 最大値: `600` |
-| failoverReplWaitingTime | Number | N | 高可用性使用時のフェイルオーバー待機時間<br/>- `-1`に設定時、レプリケーション遅延が解消されるまで待機し続けます。<br/>- 最小値: `-1` |
+| pingInterval | Number | N | 高可用性使用時のPing間隔(秒)<br/>- 最小値: `1`<br/>- 最大値: `600` |
+| failoverReplWaitingTime | Number | N | 高可用性使用時のフェイルオーバー待機時間(秒)<br/>- `-1`に設定時、レプリケーション遅延が解消されるまで待機し続けます。<br/>- 最小値: `-1` |
 
 <a id="modify-high-availability-response"></a>
 #### レスポンス
@@ -4424,7 +4424,7 @@ POST /v1.0/db-instances/{dbInstanceId}/restore
 | useHighAvailability | Boolean | N | 高可用性の使用有無<br/>- デフォルト値: `false` |
 | imageId | UUID | N | イメージの識別子 |
 | pingInterval | Number | N | 高可用性使用時のPing間隔(秒)<br/>- 最小値: `1`<br/>- 最大値: `600` |
-| failoverReplWaitingTime | Number | N | 高可用性使用時のフェイルオーバー待機時間<br/>- `-1`に設定時、レプリケーション遅延が解消されるまで待機し続けます。<br/>- 最小値: `-1` |
+| failoverReplWaitingTime | Number | N | 高可用性使用時のフェイルオーバー待機時間(秒)<br/>- `-1`に設定時、レプリケーション遅延が解消されるまで待機し続けます。<br/>- 最小値: `-1` |
 | storage | Object | Y | ストレージ情報オブジェクト |
 | storage.storageType | Enum | Y | ストレージタイプ |
 | storage.storageSize | Number | Y | データストレージサイズ(GB)<br/>- 最小値: `20` |
@@ -5093,8 +5093,8 @@ POST /v1.0/backups/{backupId}/restore
 | useHighAvailability | Boolean | N | 高可用性の使用有無<br/>- デフォルト値: `false` |
 | useDefaultNotification | Boolean | N | 基本通知の使用有無<br/>- デフォルト値: `false` |
 | useDeletionProtection | Boolean | N | 削除保護の有無<br/>- デフォルト値: `false` |
-| pingInterval | Number | N | Ping間隔(秒)<br/>- 最小値: `1`<br/>- 最大値: `600` |
-| failoverReplWaitingTime | Number | N | 高可用性使用時のフェイルオーバー待機時間<br/>- `-1`に設定時、レプリケーション遅延が解消されるまで待機し続けます。<br/>- 最小値: `-1` |
+| pingInterval | Number | N | 高可用性使用時のPing間隔(秒)<br/>- 最小値: `1`<br/>- 最大値: `600` |
+| failoverReplWaitingTime | Number | N | 高可用性使用時のフェイルオーバー待機時間(秒)<br/>- `-1`に設定時、レプリケーション遅延が解消されるまで待機し続けます。<br/>- 最小値: `-1` |
 | network | Object | Y | ネットワーク情報オブジェクト |
 | network.subnetId | UUID | Y | サブネットの識別子 |
 | network.usePublicAccess | Boolean | N | 外部接続可否<br/>- デフォルト値: `false` |
@@ -7279,7 +7279,7 @@ GET /v1.0/events
             "sourceName": "sourceName-example",
             "messages": [
                 {
-                    "langCode": "KO",
+                    "langCode": "JA",
                     "message": "DBインスタンスの開始"
                 }
             ],
