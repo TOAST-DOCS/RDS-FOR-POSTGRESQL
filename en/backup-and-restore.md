@@ -132,10 +132,12 @@ Because all heavy lifting—such as validation and file conversion—is offloade
 <a id="pricing"></a>
 ### Pricing { #pricing }
 Unlike the existing backup method, snapshot backup separately charges for the cost of the resources used to perform the backup.
+
 | Category | Existing Backup Method | Snapshot Backup Method |
 |-------|-----------------------------|---------------------------|
 | Billing Method | Included in the DB instance usage fee (no separate charge) | Separate charge for backup-dedicated resource costs |
 | Billing Target | Object Storage upload cost (separate) | Shared backup server + volume + snapshot + Object Storage |
+
 * Shared backup server fee: This is the usage fee for the shared backup server used to validate and convert backup data.
     * Even though shared resources are used, billing is based only on the time each customer actually uses.
 
