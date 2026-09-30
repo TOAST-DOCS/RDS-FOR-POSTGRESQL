@@ -1,6 +1,6 @@
 <!-- machine_translated: true -->
 
-<!-- pre-align:aligned sig=7cdcf13fa3b4 -->
+<!-- pre-align:aligned sig=1c0378286e19 -->
 
 <a id="database-rds-for-postgresql-release-notes"></a>
 ## Database > RDS for PostgreSQL > リリースノート { #database-rds-for-postgresql-release-notes }
