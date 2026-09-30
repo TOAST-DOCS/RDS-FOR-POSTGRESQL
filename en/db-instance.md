@@ -120,7 +120,7 @@ To access a DB instance from outside, you must connect the floating IP to DB ins
 <a id="parameter-group"></a>
 ### Parameter Group { #parameter-group }
 
-A parameter group is a set of parameters that allow you to set up a database installed on a DB instance. You must select one parameter group when you create a DB instance. The parameter group can be changed freely even after it is created. For more information, refer to [Parameter Group](parameter-group/).
+A parameter group is a set of parameters that allow you to configure the database installed on a DB instance. You must select one parameter group when you create a DB instance. The parameter group can be changed freely even after it is created. For more information, refer to [Parameter Group](parameter-group/).
 
 <a id="db-security-group"></a>
 ### DB Security Group { #db-security-group }
@@ -130,7 +130,7 @@ DB security groups are used to restrict access against outside break-in. You can
 <a id="backup"></a>
 ### Backup { #backup }
 
-You can configure the database of a DB instance to be backed up periodically, or create a backup through the console whenever you want. Performance may degrade while a backup is in progress. We recommend that you perform backups during off-peak hours to avoid affecting your service. To avoid performance degradation due to backups, you can use a high-availability configuration or perform backups from a Read Replica. Backup files are stored in internal backup storage, and charges are incurred based on backup capacity. If needed, you can export them to user object storage in NHN Cloud. We recommend that you configure periodic backups to prepare for unexpected failures. For more information, see [Backup and Restore](backup-and-restore/).
+You can configure the database of a DB instance to be backed up periodically, or create a backup through the console whenever you want. Performance may degrade while a backup is in progress. We recommend that you perform backups during off-peak hours to avoid affecting your service. To avoid performance degradation due to backups, you can use a high-availability configuration, back up only the incremental data since the previous backup, or perform backups from a Read Replica. Backup files are stored in internal backup storage, and charges are incurred based on backup capacity. If needed, you can export them to user object storage in NHN Cloud. We recommend that you configure periodic backups to prepare for unexpected failures. For more information, see [Backup and Restore](backup-and-restore/).
 
 <a id="maintenance"></a>
 ### Maintenance { #maintenance }
@@ -139,7 +139,7 @@ Periodically, set tasks to run that can help stabilize the DB instance. If you a
 If maintenance tasks are required, they are performed on all DB instances in the DB instance group at the configured time.
 
 <a id="maintenance-enable-auto-storage-cleanup"></a>
-#### Enable Auto Storage Cleanup
+### Enable Auto Storage Cleanup
 
 Clean up archived write ahead logs that do not affect service behavior. Archived transaction logs that do not affect service behavior are logs that are not used when using automatic backups to restore to the current point in time.
 
@@ -193,45 +193,18 @@ The search conditions that can be changed are as follows.
 ❶ Retrieve the status of DB instance by filtering criteria.
 ❷ Retrieve availability zones by filtering criteria.
 
-<a id="db-instance-details"></a>
-## DB Instance Details { #db-instance-details }
+<a id="db-instance-group-details"></a>
+## DB Instance Group Details { #db-instance-group-details }
 
-Select DB instance to view details.
+After viewing DB instances on the **Group** screen, select a DB instance group to view its details. The group details screen displays the following tabs:
 
-![db-instance-detail-basic](../static/images/20260609/db-instance-detail-basic-en.png)
-
-❶ When you click on the domain of the connection information, the pop-up window to verify the IP address appears.
-❷ When you click on the DB security group, a pop-up window appears to verify the DB security rules.
-❸ Click a parameter group to go to the screen where you can check the parameters.
-❹ Adjust the height of the detail panel by dragging and dropping with the mouse.
-❺ Adjust the height of the detail panel to a pre-determined height.
-
-<a id="connection-information"></a>
-### Connection Information { #connection-information }
-
-When a DB instance is created, an internal domain is issued. The internal domain points to an IP address within the user's VPC subnet. Even if a high availability DB instance undergoes failover and the Standby becomes the new Primary, the internal domain does not change. Therefore, unless there is a specific reason, the connection information for your application must use the internal domain.
-
-If you created a floating IP, issue an additional external domain. External domain points to the address of the floating IP. Because the external domain or floating IP is externally accessible, you must set the rules of the DB security group appropriately to protect the DB instance.
-
-<a id="log"></a>
-### Log { #log }
-
-On the **Logs** tab of the DB instance, you can view or download various log files. Log files will rotate to the set settings as follows. Some log files can be enabled or disabled in a parameter group.
-
-| Items           | Rotate Settings      | Whether to change or not | 
-|-----------------|----------------------|--------------------------|
-| postgresql.log  | 40 items of 100 MB   | Static                   |
-| backup.log      | Daily 10 items       | Static                   |
-
-![db-instance-detail-log](../static/images/20260609/db-instance-detail-log-en.png)
-
-❶ When you click **View Log**, a pop-up window appears where you can view the contents of the log file. You can check logs up to 65,535 Bytes.
-❷ Click on **Import** to request that the log files of the DB instance be downloaded.
-❸ When the download is ready, the **Download** button is exposed. Click to download the log.
-
-!!! tip "Note"
-    When you click **Import**, the log file is uploaded to Backup Storage for about 5 minutes, and you will be charged for Backup Storage by the size of the log file.
-    When you click **Download**, you will be charged for internet traffic by the size of the log file.
+| Tab                   | Description                                                                                                                                                            |
+|-----------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Basic Information     | Displays the DB instance group name and ID, high availability configuration, Primary and Standby names, and Ping settings.                                             |
+| Backup                | Manages backups for all DB instances in the group. Backups created in other regions are also displayed.                                                                |
+| Database & User       | Manages databases and users for DB instances in the group. You can also manage database connection permissions and schema query permissions.                            |
+| Access Control        | Manages access control rules for DB instances in the group. The configured rules are applied to the `pg_hba.conf` file.                                                |
+| Manage Extensions     | Manages extensions that require SUPERUSER privileges for DB instances in the group.                                                                                    |
 
 <a id="database-user"></a>
 ### Database & User { #database-user }
@@ -475,39 +448,37 @@ You can get and control the extensions that require SUPERUSER permission from **
 ❶ If you click **Synchronize**, a **Confirm Synchronization** pop-up window will appear.
 ❷ Click **Confirm** to request synchronization.
 
+<a id="modify-db-instance-group"></a>
+## Modify DB Instance Group { #modify-db-instance-group }
 
-<a id="modify-db-instance"></a>
-## Modify DB Instance { #modify-db-instance }
+On the group details screen, you can change settings at the group level by clicking **Modify Group** on the **Basic Information** tab. The change request is processed asynchronously, and you can check the status of the group and the operations in progress until it is complete.
 
-You can easily change various items in DB instance created with the console. The change items you request are applied to DB instances sequentially. If a restart is required during the application process, apply all changes and restart the DB instance. Items that cannot be changed and that require a restart are as follows.
+You can change the following items on the modification screen:
 
-| Items                     | Whether able to change or not | Whether need to restart or not                                 |
-|---------------------------|-------------------------------|----------------------------------------------------------------|
-| Availability Zone         | No                            |                                                                |
-| DB version                | Yes                            |Yes                                                              |
-| DB instance type          | Yes                           | Yes                                                            |
-| Data Storage Types        | No                            |                                                                |
-| Data Storage Sizes        | Yes                           | Yes                                                            |
-| High Availability available         | Yes        | No                     |
-| Ping Interval         | Yes        | No                     |
-| Failover latency     | Yes        | No                     |
-| Name                      | Yes                           | No                                                             |
-| Description               | Yes                           | No                                                             |
-| DB port                   | Yes                           | Yes                                                            |
-| VPC Sub-net               | No                            |                                                                |
-| Floating IP               | Yes                           | No                                                             |
-| Parameter Group           | Yes                           | Determines whether or not the changed parameters are restarted |
-| DB Security Group         | Yes                           | No                                                             |
-| Backup Settings           | Yes                           | No                                                             |
-| Auto Scale Storage      | Yes        | No                     |
-| Database and User Control | Yes                           | No                                                             |
-| Access Control            | Yes                           | No                                                             |
+| Item                                  | Description                                                                                                                                                                                              |
+|---------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Group name                            | Group names can only contain between 1 and 100 uppercase and lowercase English letters, numbers, and certain symbols (-, _, .). The first character must be an English letter.                           |
+| High availability                     | A single configuration can be switched to a high availability configuration, and a high availability configuration can be switched to a single configuration.                                             |
+| Primary name                          | Managed separately from the group name.                                                                                                                                                                  |
+| Standby name                          | Enter this when configuring high availability for the first time. It cannot be the same as the Primary name, and the naming rules are the same as for Primary.                                           |
+| Ping interval                         | Set between 1 and 600 seconds for a high availability configuration.                                                                                                                                     |
+| Failover wait time                    | Set to an integer value of -1 or greater for a high availability configuration. When set to `-1`, it waits until the replication latency is resolved.                                                    |
+| Allow automatic backup                | Backups are performed automatically as needed by the DB instance or based on the settings. If you don't allow auto backup, some operations are not possible, including restoration and replication.       |
+| Automatic backup retention period     | When automatic backup is allowed, set between 0 and 730 days.                                                                                                                                            |
+| Automatic backup retry count          | When automatic backup is allowed, set between 0 and 10 times.                                                                                                                                            |
+| Use scheduled automatic backup        | Automatic backup runs within the configured period from the backup start time.                                                                                                                           |
+| Automatic backup strategy             | Specify the strategy for performing automatic backups to perform a full backup or incremental backup every day.                                                                                           |
+| Backup target                         | Manages the backup time and whether to perform automatic backups for DB instances. You can specify that backups are performed on one or all of the selected candidates.                                   |
+| Maintenance                           | When maintenance tasks are required, they are performed on all DB instances in the group at the configured time.                                                                                          |
+| Enable Auto Storage Cleanup           | Automatically secures capacity by deleting stored transaction logs and other data.                                                                                                                        |
+| Log retention period                  | When Enable Auto Storage Cleanup is used, set between 1 and 30 days.                                                                                                                                     |
+| Database & User Control               | Changes whether to use direct control of schemas and users for DB instances in the group.                                                                                                                |
 
-For high-availability DB instances, we provide a failover restart feature to increase reliability and reduce net time when there is a change to something that requires a restart.
-
-![modify-ha-popup](../static/images/20260414/modify-ha-popup-en.png)
-
-If you do not use restart with failover, changes are applied sequentially to the Primary and Standby, and then the DB instance is restarted. For more information, see [Manual Failover](#manual-failover) of High Availability DB Instances.
+!!! danger "Caution"
+    * If you disable high availability, the Standby is deleted and the configuration switches to a single configuration. Make sure that there is no data or settings that exist only on the Standby before proceeding.
+    * You cannot change whether high availability is enabled in a DB instance group where failover is in progress.
+    * You cannot change the Primary name in a private network. Additionally, the Standby name for an existing high availability configuration cannot be changed; you can only enter the Standby name when configuring high availability for the first time.
+    * In a high availability configuration, the names of Primary and Standby must be different from each other.
 
 <a id="database-user-control"></a>
 ### Database User Control { #database-user-control }
@@ -517,6 +488,76 @@ RDS for PostgreSQL provides management features in the console for easy manageme
 !!! tip "Note"
     If users that you directly create are not granted permissions managed by RDS, they are represented by **CUSTOM** permissions.
 
+<a id="db-instance-details"></a>
+## DB Instance Details { #db-instance-details }
+
+Select a DB instance to view its details.
+
+![db-instance-detail-basic](../static/images/20260609/db-instance-detail-basic-en.png)
+
+❶ Click the domain in the connection information to open a pop-up window where you can check the IP address.
+❷ Click the DB security group to open a pop-up window where you can check the DB Security Rules.
+❸ Click the parameter group to go to the screen where you can view the parameters.
+❹ You can drag and drop with the mouse to adjust the height of the details panel.
+❺ You can adjust the height of the details panel to a preset height.
+
+<a id="connection-information"></a>
+### Connection Information { #connection-information }
+
+When a DB instance is created, an internal domain is issued. The internal domain points to an IP address that belongs to the user's VPC subnet. For high availability DB instances, the internal domain does not change even if a failover is performed and the standby becomes the new primary. Therefore, unless there is a specific reason, the connection information for your application must use the internal domain.
+
+If a floating IP is created, an external domain is additionally issued. The external domain points to the address of the floating IP. Because the external domain or floating IP can be accessed from outside, you must configure the rules of the DB security group appropriately to protect the DB instance.
+
+<a id="log"></a>
+### Log { #log }
+
+In the **Log** tab of a DB instance, you can view or download various log files. Log files are rotated with the following fixed settings. Some log files can be enabled or disabled in the parameter group.
+
+| Item             | Rotation Settings | Configurable | 
+|----------------|-----------|-------|
+| postgresql.log | 100 MB, 40 files  | Static    |
+| backup.log     | Daily, 10 files   | Static    |
+
+![db-instance-detail-log](../static/images/20260609/db-instance-detail-log-en.png)
+
+❶ Click **View Log** to open a pop-up window where you can view the contents of a log file. You can view up to 65,535 bytes of logs.
+❷ Click **Import** to request a download of the log file from the DB instance.
+❸ When the download is ready, the **Download** button appears. Click it to download the log.
+
+!!! tip "Note"
+    When you click **Import**, the log file is uploaded to backup storage for about 5 minutes, and you are charged for backup storage for the size of the log file.
+    When you click **Download**, you are charged for internet traffic for the size of the log file.
+
+<a id="modify-db-instance"></a>
+
+![db-instance-detail-log](../static/images/20260609/db-instance-detail-log-en.png)
+
+## Modify DB Instance { #modify-db-instance }
+
+You can change various settings of a DB instance created in the Console. The items that you requested to change are applied to the DB instance sequentially. If a restart is required during the application process, the DB instance is restarted after all changes are applied. The following table lists items that cannot be changed and items that require a restart:
+
+| Item | Changeable | Restart Required |
+|---|---|---|
+| Availability zone | No | |
+| DB version | Yes | Yes |
+| DB instance type | Yes | Yes |
+| Data storage type | No | |
+| Data storage size | Yes | Yes |
+| Name | Yes | No |
+| Description | Yes | No |
+| DB port | Yes | Yes |
+| VPC subnet | No | |
+| Floating IP | Yes | No |
+| Parameter group | Yes | Depends on whether the changed parameter requires a restart |
+| DB security group | Yes | No |
+| Auto scale storage | Yes | No |
+
+For high availability DB instances, when changes require a restart, the restart using failover feature is available to improve stability and minimize downtime.
+
+![modify-ha-popup](../static/images/20260414/modify-ha-popup-en.png)
+
+If you do not use restart using failover, changes are applied to Primary and Standby sequentially, and then the DB instance is restarted. For more information, see [Manual Failover](#manual-failover) of high availability DB instances.
+
 <a id="delete-db-instance"></a>
 ## Delete DB instance { #delete-db-instance }
 
@@ -525,12 +566,12 @@ You can delete DB instances that you no longer use. Deleting a Primary also dele
 <a id="backup-2"></a>
 ## Backup { #backup-2 }
 
-You can prepare a database of DB instances to recover in case of a failure. You can perform backups from the console whenever you need to or you can set to perform periodical back up. See [Backup](backup-and-restore/#backup) for more information.
+You can prepare in advance to recover the DB instance's database in case of failure. You can perform backups from the console whenever you need to or you can set to perform periodical back up. For more information, see [Backup](backup-and-restore/#backup).
 
 <a id="restoration"></a>
 ## Restoration { #restoration }
 
-You can use backup to restore data to any point in time. Restore always creates a new DB instance and cannot be restored to an existing DB instance. See [Backup](backup-and-restore/#restore) for more information.
+You can use backup to restore data to any point in time. Restoration always creates a new DB instance and cannot be restored to an existing DB instance. For more information, see [Restore](backup-and-restore/#restore).
 
 <a id="secure-capacity"></a>
 ## Secure Capacity { #secure-capacity }
@@ -587,7 +628,6 @@ After backing up, you can export the backup file to user object storage in NHN C
 ## Restore Using Backup in Object Storage { #restore-using-backup-in-object-storage }
 
 You can restore to a DB instance using a backup file exported from RDS for PostgreSQL to object storage. For more information, see [Restore using Backup in Object Storage](backup-and-restore/#restore-using-backup-in-object-storage).
-
 
 <a id="read-replica"></a>
 ## Read Replica { #read-replica }
@@ -678,7 +718,7 @@ Select whether to enable default notifications. For a detailed description, see 
 <a id="create-read-replica-deletion-protection"></a>
 #### Deletion Protection
 
-Select whether to enable erasure protection. For a detailed description, see [Deletion Protection](#change-deletion-protection-settings).
+Select whether to enable deletion protection. For a detailed description, see [Deletion Protection](#change-deletion-protection-settings).
 
 <a id="promote-read-replica"></a>
 ### Promote Read Replica { #promote-read-replica }
