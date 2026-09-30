@@ -1,6 +1,6 @@
 <!-- machine_translated: true -->
 
-<!-- pre-align:aligned sig=fac569e581eb -->
+<!-- pre-align:aligned sig=c164d17a97df -->
 
 <a id="database-rds-for-postgresql-backup-and-restore"></a>
 ## Database > RDS for PostgreSQL > Backup and Restore { #database-rds-for-postgresql-backup-and-restore }
