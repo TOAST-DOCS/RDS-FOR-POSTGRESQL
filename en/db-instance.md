@@ -139,7 +139,7 @@ Periodically, set tasks to run that can help stabilize the DB instance. If you a
 If maintenance tasks are required, they are performed on all DB instances in the DB instance group at the configured time.
 
 <a id="maintenance-enable-auto-storage-cleanup"></a>
-### Enable Auto Storage Cleanup
+### Enable Auto Storage Cleanup { #maintenance-enable-auto-storage-cleanup }
 
 Clean up archived write ahead logs that do not affect service behavior. Archived transaction logs that do not affect service behavior are logs that are not used when using automatic backups to restore to the current point in time.
 
@@ -532,6 +532,7 @@ In the **Log** tab of a DB instance, you can view or download various log files.
 
 ![db-instance-detail-log](../static/images/20260609/db-instance-detail-log-en.png)
 
+<a id="modify-db-instance"></a>
 ## Modify DB Instance { #modify-db-instance }
 
 You can change various settings of a DB instance created in the Console. The items that you requested to change are applied to the DB instance sequentially. If a restart is required during the application process, the DB instance is restarted after all changes are applied. The following table lists items that cannot be changed and items that require a restart:
