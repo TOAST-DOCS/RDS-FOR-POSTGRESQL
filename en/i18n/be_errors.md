@@ -19,7 +19,8 @@ categories: [RDS_POSTGRES_ALPHA, RDS_POSTGRES_BETA, RDS_POSTGRES]
 
 - messageId: pg.error.11014
   messageType: ERROR
-  text: "Incremental backup can't be proceeded based on the selected backup. The summarize_wal parameter of the DB instance is disabled, or it was enabled after the selected backup was created."
+  text: "Incremental backup can't be performed based on the selected backup. The summarize_wal parameter of the DB instance is disabled, or it was enabled after the selected backup was created."
+
 - messageId: pg.error.11017
   messageType: ERROR
   text: "A backup with another task in progress cannot be deleted. Try again after the task is completed."
