@@ -1966,8 +1966,8 @@ PUT /v1.0/db-instances/{dbInstanceId}
 | dbSecurityGroupIds | Array | N | DBセキュリティグループの識別子リスト |
 | executeBackup | Boolean | N | 現時点バックアップを実行するかどうか<br/>- デフォルト値: `false` |
 | useOnlineFailover | Boolean | N | フェイルオーバーを利用した再起動の有無<br/>- デフォルト値: `false` |
-| waitReplicationDelay | Boolean | N | 複製遅延の解消を待機するかどうか<br/>- デフォルト値: `false` |
-| useReadOnly | Boolean | N | 書き込み負荷のブロック<br/>- デフォルト値: `false` |
+| waitReplicationDelay | Boolean | N | レプリケーション遅延の解消を待機するかどうか<br/>- デフォルト値: `false` |
+| useReadOnly | Boolean | N | 書き込み負荷を遮断するかどうか<br/>- デフォルト値: `false` |
 
 <a id="modify-db-instance-response"></a>
 #### レスポンス
@@ -2127,7 +2127,7 @@ GET /v1.0/db-instances/{dbInstanceId}/available-db-versions
 | availableDbVersions | Array | DBバージョン情報 |
 | availableDbVersions.dbVersion | Enum | DBエンジンバージョン |
 | availableDbVersions.dbVersionName | String | DBエンジンバージョン名 |
-| availableDbVersions.canCreate | Boolean | 作成可能かどうか |
+| availableDbVersions.canCreate | Boolean | 作成可否 |
 | availableDbVersions.restorableFromObs | Boolean | オブジェクトストレージからの復元可否 |
 
 ---

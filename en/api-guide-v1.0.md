@@ -2036,9 +2036,9 @@ POST /v1.0/db-instances/{dbInstanceId}/apply-recent-parameter-group
 | Name | Type | Required | Description |
 |-----|-----|-----|-----|
 | useOnlineFailover | Boolean | N | Whether to restart using failover |
-| executeBackup | Boolean | N | Whether to execute backup at this time |
-| waitReplicationDelay | Boolean | N | Wait for replication lag to clear |
-| useReadOnly | Boolean | N | Write load blocking |
+| executeBackup | Boolean | N | Whether to perform backup at this time |
+| waitReplicationDelay | Boolean | N | Whether to wait for replication lag to clear |
+| useReadOnly | Boolean | N | Whether to block write workloads |
 
 <a id="apply-recent-parameter-group-response"></a>
 #### Response
@@ -4262,9 +4262,9 @@ POST /v1.0/db-instances/{dbInstanceId}/restart
 | Name | Type | Required | Description |
 |-----|-----|-----|-----|
 | useOnlineFailover | Boolean | N | Whether to restart using failover |
-| executeBackup | Boolean | N | Whether to execute backup at this time |
-| waitReplicationDelay | Boolean | N | Wait for replication lag to clear |
-| useReadOnly | Boolean | N | Write load blocking |
+| executeBackup | Boolean | N | Whether to perform backup at this time |
+| waitReplicationDelay | Boolean | N | Whether to wait for replication lag to clear |
+| useReadOnly | Boolean | N | Whether to block write workloads |
 
 <a id="restart-db-instance-response"></a>
 #### Response
