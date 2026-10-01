@@ -145,6 +145,7 @@ This API does not require a request body.
         {
             "dbVersion": "POSTGRESQL_V17_10",
             "dbVersionName": "PostgreSQL V17.10",
+            "canCreate": true,
             "restorableFromObs": true
         }
     ]
@@ -158,6 +159,7 @@ This API does not require a request body.
 | dbVersions | Array | DB version information |
 | dbVersions.dbVersion | Enum | DB engine version |
 | dbVersions.dbVersionName | String | DB engine version name |
+| dbVersions.canCreate | Boolean | Available for creation |
 | dbVersions.restorableFromObs | Boolean | Whether restoration from Object Storage is available |
 
 ---
@@ -769,7 +771,7 @@ PUT /v1.0/db-instance-groups/{dbInstanceGroupId}
 
 | Permission Name | Description |
 |-----|-----|
-| RDSforPostgreSQL:DbInstanceGroup.Modify | Get DB instance group backup information |
+| RDSforPostgreSQL:DbInstanceGroup.Get | Get DB instance group backup information |
 
 <a id="get-db-instance-group-backup-info-request"></a>
 #### Request
@@ -1232,7 +1234,7 @@ This API does not return a response body.
 
 | Permission Name | Description |
 |-----|-----|
-| RDSforPostgreSQL:DbInstanceGroup.Modify | View DB instance group maintenance information |
+| RDSforPostgreSQL:DbInstanceGroup.Get | Get DB instance group maintenance information |
 
 <a id="get-db-instance-group-maintenance-info-request"></a>
 #### Request
@@ -1962,7 +1964,7 @@ PUT /v1.0/db-instances/{dbInstanceId}
 | dbSecurityGroupIds | Array | N | List of DB security group identifiers |
 | executeBackup | Boolean | N | Whether to perform backup at this time<br/>- Default: `false` |
 | useOnlineFailover | Boolean | N | Whether to restart using failover<br/>- Default: `false` |
-| waitReplicationDelay | Boolean | N | Whether to wait for replication delay to resolve<br/>- Default: `false` |
+| waitReplicationDelay | Boolean | N | Whether to wait for replication lag to clear<br/>- Default: `false` |
 | useReadOnly | Boolean | N | Whether to block write workloads<br/>- Default: `false` |
 
 <a id="modify-db-instance-response"></a>
@@ -2017,7 +2019,26 @@ POST /v1.0/db-instances/{dbInstanceId}/apply-recent-parameter-group
 <a id="apply-recent-parameter-group-request-body"></a>
 #### Request Body
 
-This API does not require a request body.
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+    "useOnlineFailover": false,
+    "executeBackup": false,
+    "waitReplicationDelay": false,
+    "useReadOnly": false
+}
+```
+
+</details>
+
+| Name | Type | Required | Description |
+|-----|-----|-----|-----|
+| useOnlineFailover | Boolean | N | Whether to restart using failover |
+| executeBackup | Boolean | N | Whether to execute backup at this time |
+| waitReplicationDelay | Boolean | N | Wait for replication lag to clear |
+| useReadOnly | Boolean | N | Write load blocking |
 
 <a id="apply-recent-parameter-group-response"></a>
 #### Response
@@ -2081,15 +2102,16 @@ This API does not require a request body.
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"availableDbVersions": [
-{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "availableDbVersions": [
+        {
             "dbVersion": "POSTGRESQL_V17_10",
             "dbVersionName": "PostgreSQL V17.10",
+            "canCreate": true,
             "restorableFromObs": true
         }
     ]
@@ -2103,6 +2125,7 @@ This API does not require a request body.
 | availableDbVersions | Array | DB version information |
 | availableDbVersions.dbVersion | Enum | DB engine version |
 | availableDbVersions.dbVersionName | String | DB engine version name |
+| availableDbVersions.canCreate | Boolean | Available for creation |
 | availableDbVersions.restorableFromObs | Boolean | Whether restoration from Object Storage is available |
 
 ---
@@ -4222,7 +4245,26 @@ POST /v1.0/db-instances/{dbInstanceId}/restart
 <a id="restart-db-instance-request-body"></a>
 #### Request Body
 
-This API does not require a request body.
+<details>
+  <summary><strong>Example Code</strong></summary>
+
+```json
+{
+    "useOnlineFailover": false,
+    "executeBackup": false,
+    "waitReplicationDelay": false,
+    "useReadOnly": false
+}
+```
+
+</details>
+
+| Name | Type | Required | Description |
+|-----|-----|-----|-----|
+| useOnlineFailover | Boolean | N | Whether to restart using failover |
+| executeBackup | Boolean | N | Whether to execute backup at this time |
+| waitReplicationDelay | Boolean | N | Wait for replication lag to clear |
+| useReadOnly | Boolean | N | Write load blocking |
 
 <a id="restart-db-instance-response"></a>
 #### Response
