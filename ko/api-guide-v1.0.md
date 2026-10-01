@@ -1962,8 +1962,8 @@ PUT /v1.0/db-instances/{dbInstanceId}
 | dbSecurityGroupIds | Array | N | DB 보안 그룹의 식별자 목록 |
 | executeBackup | Boolean | N | 현재 시점 백업 수행 여부<br/>- 기본값: `false` |
 | useOnlineFailover | Boolean | N | 장애 조치를 이용한 재시작 여부<br/>- 기본값: `false` |
-| waitReplicationDelay | Boolean | N | 복제 지연 해소 대기<br/>- 기본값: `false` |
-| useReadOnly | Boolean | N | 쓰기 부하 차단<br/>- 기본값: `false` |
+| waitReplicationDelay | Boolean | N | 복제 지연 해소 대기 여부<br/>- 기본값: `false` |
+| useReadOnly | Boolean | N | 쓰기 부하 차단 여부<br/>- 기본값: `false` |
 
 <a id="modify-db-instance-response"></a>
 #### 응답
@@ -2035,8 +2035,8 @@ POST /v1.0/db-instances/{dbInstanceId}/apply-recent-parameter-group
 |-----|-----|-----|-----|
 | useOnlineFailover | Boolean | N | 장애 조치를 이용한 재시작 여부 |
 | executeBackup | Boolean | N | 현재 시점 백업 수행 여부 |
-| waitReplicationDelay | Boolean | N | 복제 지연 해소 대기 |
-| useReadOnly | Boolean | N | 쓰기 부하 차단 |
+| waitReplicationDelay | Boolean | N | 복제 지연 해소 대기 여부 |
+| useReadOnly | Boolean | N | 쓰기 부하 차단 여부 |
 
 <a id="apply-recent-parameter-group-response"></a>
 #### 응답
@@ -4262,8 +4262,8 @@ POST /v1.0/db-instances/{dbInstanceId}/restart
 |-----|-----|-----|-----|
 | useOnlineFailover | Boolean | N | 장애 조치를 이용한 재시작 여부 |
 | executeBackup | Boolean | N | 현재 시점 백업 수행 여부 |
-| waitReplicationDelay | Boolean | N | 복제 지연 해소 대기 |
-| useReadOnly | Boolean | N | 쓰기 부하 차단 |
+| waitReplicationDelay | Boolean | N | 복제 지연 해소 대기 여부 |
+| useReadOnly | Boolean | N | 쓰기 부하 차단 여부 |
 
 <a id="restart-db-instance-response"></a>
 #### 응답
