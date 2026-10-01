@@ -15,23 +15,23 @@ categories: [RDS_POSTGRES_ALPHA, RDS_POSTGRES_BETA, RDS_POSTGRES]
 
 - messageId: pg.error.11006
   messageType: ERROR
-  text: "Cannot perform an incremental backup based on the selected backup."
+  text: "Incremental backup can't be performed based on the selected backup."
 
 - messageId: pg.error.11007
   messageType: ERROR
-  text: "Cannot perform an incremental backup based on the selected backup. Exceeded the maximum number of incremental backups (13) that can be performed based on one full backup."
+  text: "Incremental backup can't be performed based on the selected backup. The maximum number of incremental backups (13) that can be performed based on one full backup has been exceeded."
 
 - messageId: pg.error.11009
   messageType: ERROR
-  text: "Cannot perform an incremental backup based on the selected backup. The DB engine version has been upgraded since the selected backup was created."
+  text: "Incremental backup can't be performed based on the selected backup. The DB engine version has been upgraded since the selected backup was created."
 
 - messageId: pg.error.11011
   messageType: ERROR
-  text: "Cannot perform an incremental backup based on the selected backup. An incremental backup created following the selected backup already exists."
+  text: "Incremental backup can't be performed based on the selected backup. An incremental backup created following the selected backup already exists."
 
 - messageId: pg.error.11012
   messageType: ERROR
-  text: "Cannot perform an incremental backup based on the selected backup. A failover was performed after the selected backup was created."
+  text: "Incremental backup can't be performed based on the selected backup. A failover was performed after the selected backup was created."
 
 - messageId: pg.error.11013
   messageType: ERROR

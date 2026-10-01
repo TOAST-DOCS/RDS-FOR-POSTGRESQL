@@ -23,7 +23,7 @@ categories: [RDS_POSTGRES_ALPHA, RDS_POSTGRES_BETA, RDS_POSTGRES]
 
 - messageId: pg.error.11009
   messageType: ERROR
-  text: "選択したバックアップを基準に増分バックアップを実行できません。選択したバックアップが作成された後に、DB エンジンのバージョンがアップグレードされました。"
+  text: "選択したバックアップを基準に増分バックアップを実行できません。選択したバックアップが作成された後に、DBエンジンのバージョンがアップグレードされました。"
 
 - messageId: pg.error.11011
   messageType: ERROR
