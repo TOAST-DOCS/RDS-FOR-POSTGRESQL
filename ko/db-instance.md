@@ -1,4 +1,4 @@
-<!-- pre-align:aligned sig=77106c928268 -->
+<!-- pre-align:aligned sig=9dbb17ffe66e -->
 
 <a id="database-rds-for-postgresql-db-instances"></a>
 ## Database > RDS for PostgreSQL > DB 인스턴스 { #database-rds-for-postgresql-db-instances }
@@ -138,7 +138,7 @@ DB 인스턴스의 데이터베이스를 주기적으로 백업하도록 설정�
 유지 관리 작업이 필요한 경우 설정한 시간에 DB 인스턴스 그룹 내 모든 DB 인스턴스에서 수행됩니다.
 
 <a id="maintenance-enable-auto-storage-cleanup"></a>
-### 자동 스토리지 정리 사용
+#### 자동 스토리지 정리 사용
 
 서비스 동작에 영향을 미치지 않는 보관된 트랜잭션 로그(Archived Write Ahead Log)의 정리합니다. 서비스 동작에 영향을 미치지 않는 보관된 트랜잭션 로그란, 자동 백업을 이용하여 현재 시점까지 복원할 때 사용되지 않는 로그를 말합니다.
 

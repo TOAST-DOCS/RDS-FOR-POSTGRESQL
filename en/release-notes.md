@@ -1,9 +1,41 @@
 <!-- machine_translated: true -->
 
-<!-- pre-align:aligned sig=7cdcf13fa3b4 -->
+<!-- pre-align:aligned sig=1c0378286e19 -->
 
 <a id="database-rds-for-postgresql-release-notes"></a>
 ## Database > RDS for PostgreSQL > Release Notes { #database-rds-for-postgresql-release-notes }
+
+<a id="october-13-2026"></a>
+### October 13, 2026 { #october-13-2026 }
+
+<a id="october-13-2026-added-features"></a>
+#### Added Features
+
+- Added a feature to modify DB instance groups
+    - Settings managed at the DB instance group level are now available on the group edit screen.
+    - Moved the detail tab, which was previously only visible on the Primary, to the group tab.
+- Added a feature to configure backup settings at the group level
+    - Changed the automatic backup configuration unit to DB instance group, and added a feature to configure backup schedules per instance.
+    - Read Replicas created in other regions can also be included as automatic backup targets.
+- Added an incremental backup feature
+    - You can run incremental backups that only back up data changed since the last backup.
+- Added a feature to stop high availability DB instances
+    - You can stop and start DB instances configured for high availability or with Read Replicas.
+    - Stopping or starting the Primary processes all DB instances in the group together.
+
+<a id="october-13-2026-feature-updates"></a>
+#### Feature Updates
+
+- Changed DB instance type terminology
+    - Unified DB instance type terminology to Primary, Standby, Read Replica, and Failed Over Primary.
+- Added a feature to show related incremental backups when deleting a backup
+    - When deleting an incremental backup or a full backup that serves as the base for incremental backups, you can view the list of related backups that will also be deleted.
+
+<a id="october-13-2026-bug-fixes"></a>
+#### Bug Fixes
+
+- Fixed an issue where the Primary became inaccessible when modifying a high availability DB instance
+    - Fixed an issue where changing the DB port and instance type simultaneously in a high availability configuration or with Read Replicas prevented connections to the Primary at specific timing.
 
 <a id="september-8-2026"></a>
 ### September 8, 2026 { #september-8-2026 }
@@ -104,7 +136,7 @@
 ### February 10, 2026 { #february-10-2026 }
 
 <a id="february-10-2026-added-feautures"></a>
-#### Added Feautures
+#### Added Features
 
 - Added DB extensions
     - Enabled the `pg_cron` extension.
@@ -180,7 +212,7 @@
     - You can upgrade the DB Engine version from an existing version to the recently added version.
 
 <a id="feb-11-2025-features-updates"></a>
-#### Features Updates
+#### Feature Updates
 
 - Added DB engine creation limit
     - A security vulnerability has been discovered in PostgreSQL version 14.6 and an upgrade to a newer version is [recommended](https://www.postgresql.org/about/news/postgresql-171-165-159-1414-1317-and-1221-released-2955/).

@@ -1,4 +1,4 @@
-<!-- pre-align:aligned sig=7cdcf13fa3b4 -->
+<!-- pre-align:aligned sig=1c0378286e19 -->
 
 <a id="database-rds-for-postgresql-release-notes"></a>
 ## Database > RDS for PostgreSQL > 릴리스 노트 { #database-rds-for-postgresql-release-notes }

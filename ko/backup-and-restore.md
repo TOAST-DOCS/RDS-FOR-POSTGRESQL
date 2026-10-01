@@ -1,4 +1,4 @@
-<!-- pre-align:aligned sig=fac569e581eb -->
+<!-- pre-align:aligned sig=c164d17a97df -->
 
 <a id="database-rds-for-postgresql-backup-and-restore"></a>
 ## Database > RDS for PostgreSQL > 백업 및 복원 { #database-rds-for-postgresql-backup-and-restore }

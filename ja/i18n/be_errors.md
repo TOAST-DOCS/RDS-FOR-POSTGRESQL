@@ -5,14 +5,18 @@
 ---
 categories: [RDS_POSTGRES_ALPHA, RDS_POSTGRES_BETA, RDS_POSTGRES]
 ---
-- messageId: pg.error.10608
+- messageId: pg.error.3402
   messageType: ERROR
-  text: "CIDR形式またはIPアドレスとともにネットマスクを入力してください。"
+  text: "選択したアベイラビリティゾーンは使用できません。使用可能なアベイラビリティゾーンを確認してから、再度お試しください。"
 
-- messageId: pg.error.10609
+- messageId: pg.error.3403
   messageType: ERROR
-  text: "重複したルールが存在します。"
+  text: "選択したサブネットが見つかりません。ユーザー VPC のサブネットを確認してから、再度お試しください。"
 
-- messageId: pg.error.2706
+- messageId: pg.error.11013
   messageType: ERROR
-  text: "スナップショットクォータを超過しました。"
+  text: "選択したバックアップを基準に増分バックアップを実行できません。増分バックアップは PostgreSQL 17 バージョン以上でのみサポートされています。"
+
+- messageId: pg.error.11017
+  messageType: ERROR
+  text: "バックアップに別の操作が進行中のため、バックアップを削除できません。操作が完了してから、再度お試しください。"
