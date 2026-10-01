@@ -1,4 +1,4 @@
-<!-- pre-align:aligned sig=a673f7413bba -->
+<!-- pre-align:aligned sig=d58a9ac7e400 -->
 
 <a id="rds-for-postgresql-api"></a>
 ## RDS for PostgreSQL API 가이드 { #rds-for-postgresql-api }
@@ -143,6 +143,7 @@ GET /v1.0/db-versions
         {
             "dbVersion": "POSTGRESQL_V17_10",
             "dbVersionName": "PostgreSQL V17.10",
+            "canCreate": true,
             "restorableFromObs": true
         }
     ]
@@ -156,6 +157,7 @@ GET /v1.0/db-versions
 | dbVersions | Array | DB 버전 정보 |
 | dbVersions.dbVersion | Enum | DB 엔진 버전 |
 | dbVersions.dbVersionName | String | DB 엔진 버전명 |
+| dbVersions.canCreate | Boolean | 생성 가능 여부 |
 | dbVersions.restorableFromObs | Boolean | 오브젝트 스토리지에서 복원 가능 여부 |
 
 ---
@@ -767,7 +769,7 @@ PUT /v1.0/db-instance-groups/{dbInstanceGroupId}
 
 | 권한명 | 설명 |
 |-----|-----|
-| RDSforPostgreSQL:DbInstanceGroup.Modify | DB 인스턴스 그룹 백업 정보 조회 |
+| RDSforPostgreSQL:DbInstanceGroup.Get | DB 인스턴스 그룹 백업 정보 조회 |
 
 <a id="get-db-instance-group-backup-info-request"></a>
 #### 요청
@@ -1230,7 +1232,7 @@ POST /v1.0/db-instance-groups/{dbInstanceGroupId}/extensions/{extensionId}
 
 | 권한명 | 설명 |
 |-----|-----|
-| RDSforPostgreSQL:DbInstanceGroup.Modify | DB 인스턴스 그룹 유지 관리 정보 조회 |
+| RDSforPostgreSQL:DbInstanceGroup.Get | DB 인스턴스 그룹 유지 관리 정보 조회 |
 
 <a id="get-db-instance-group-maintenance-info-request"></a>
 #### 요청
@@ -1960,8 +1962,8 @@ PUT /v1.0/db-instances/{dbInstanceId}
 | dbSecurityGroupIds | Array | N | DB 보안 그룹의 식별자 목록 |
 | executeBackup | Boolean | N | 현재 시점 백업 수행 여부<br/>- 기본값: `false` |
 | useOnlineFailover | Boolean | N | 장애 조치를 이용한 재시작 여부<br/>- 기본값: `false` |
-| waitReplicationDelay | Boolean | N | 복제 지연 해소 대기<br/>- 기본값: `false` |
-| useReadOnly | Boolean | N | 쓰기 부하 차단<br/>- 기본값: `false` |
+| waitReplicationDelay | Boolean | N | 복제 지연 해소 대기 여부<br/>- 기본값: `false` |
+| useReadOnly | Boolean | N | 쓰기 부하 차단 여부<br/>- 기본값: `false` |
 
 <a id="modify-db-instance-response"></a>
 #### 응답
@@ -2015,7 +2017,26 @@ POST /v1.0/db-instances/{dbInstanceId}/apply-recent-parameter-group
 <a id="apply-recent-parameter-group-request-body"></a>
 #### 요청 본문
 
-이 API는 요청 본문을 요구하지 않습니다.
+<details>
+  <summary><strong>예시 코드</strong></summary>
+
+```json
+{
+    "useOnlineFailover": false,
+    "executeBackup": false,
+    "waitReplicationDelay": false,
+    "useReadOnly": false
+}
+```
+
+</details>
+
+| 이름 | 타입 | 필수 | 설명 |
+|-----|-----|-----|-----|
+| useOnlineFailover | Boolean | N | 장애 조치를 이용한 재시작 여부 |
+| executeBackup | Boolean | N | 현재 시점 백업 수행 여부 |
+| waitReplicationDelay | Boolean | N | 복제 지연 해소 대기 여부 |
+| useReadOnly | Boolean | N | 쓰기 부하 차단 여부 |
 
 <a id="apply-recent-parameter-group-response"></a>
 #### 응답
@@ -2088,6 +2109,7 @@ GET /v1.0/db-instances/{dbInstanceId}/available-db-versions
         {
             "dbVersion": "POSTGRESQL_V17_10",
             "dbVersionName": "PostgreSQL V17.10",
+            "canCreate": true,
             "restorableFromObs": true
         }
     ]
@@ -2101,6 +2123,7 @@ GET /v1.0/db-instances/{dbInstanceId}/available-db-versions
 | availableDbVersions | Array | DB 버전 정보 |
 | availableDbVersions.dbVersion | Enum | DB 엔진 버전 |
 | availableDbVersions.dbVersionName | String | DB 엔진 버전명 |
+| availableDbVersions.canCreate | Boolean | 생성 가능 여부 |
 | availableDbVersions.restorableFromObs | Boolean | 오브젝트 스토리지에서 복원 가능 여부 |
 
 ---
@@ -4221,7 +4244,26 @@ POST /v1.0/db-instances/{dbInstanceId}/restart
 <a id="restart-db-instance-request-body"></a>
 #### 요청 본문
 
-이 API는 요청 본문을 요구하지 않습니다.
+<details>
+  <summary><strong>예시 코드</strong></summary>
+
+```json
+{
+    "useOnlineFailover": false,
+    "executeBackup": false,
+    "waitReplicationDelay": false,
+    "useReadOnly": false
+}
+```
+
+</details>
+
+| 이름 | 타입 | 필수 | 설명 |
+|-----|-----|-----|-----|
+| useOnlineFailover | Boolean | N | 장애 조치를 이용한 재시작 여부 |
+| executeBackup | Boolean | N | 현재 시점 백업 수행 여부 |
+| waitReplicationDelay | Boolean | N | 복제 지연 해소 대기 여부 |
+| useReadOnly | Boolean | N | 쓰기 부하 차단 여부 |
 
 <a id="restart-db-instance-response"></a>
 #### 응답
