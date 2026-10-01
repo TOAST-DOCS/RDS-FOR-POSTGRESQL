@@ -136,19 +136,19 @@ GET /v1.0/db-versions
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"dbVersions": [
-{
-            "dbVersionCode": "dbVersionCode-example",
-            "dbMajorVersionCode": "dbMajorVersionCode-example",
-"name": "PostgreSQL V14.6",
-"canCreate": false
-}
-]
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "dbVersions": [
+        {
+            "dbVersion": "POSTGRESQL_V17_10",
+            "dbVersionName": "PostgreSQL V17.10",
+            "canCreate": true,
+            "restorableFromObs": true
+        }
+    ]
 }
 ```
 
@@ -159,6 +159,7 @@ GET /v1.0/db-versions
 | dbVersions | Array | DBバージョン情報 |
 | dbVersions.dbVersion | Enum | DBエンジンバージョン |
 | dbVersions.dbVersionName | String | DBエンジンバージョン名 |
+| dbVersions.canCreate | Boolean | 作成可否 |
 | dbVersions.restorableFromObs | Boolean | オブジェクトストレージから復元可能かどうか |
 
 ---
@@ -770,7 +771,7 @@ PUT /v1.0/db-instance-groups/{dbInstanceGroupId}
 
 | 権限名 | 説明 |
 |-----|-----|
-| RDSforPostgreSQL:DbInstanceGroup.Modify | DBインスタンスグループのバックアップ情報照会 |
+| RDSforPostgreSQL:DbInstanceGroup.Get | DBインスタンスグループのバックアップ情報照会 |
 
 <a id="get-db-instance-group-backup-info-request"></a>
 #### リクエスト
@@ -1233,7 +1234,7 @@ POST /v1.0/db-instance-groups/{dbInstanceGroupId}/extensions/{extensionId}
 
 | 権限名 | 説明 |
 |-----|-----|
-| RDSforPostgreSQL:DbInstanceGroup.Modify | DBインスタンスグループのメンテナンス情報照会 |
+| RDSforPostgreSQL:DbInstanceGroup.Get | DBインスタンスグループのメンテナンス情報照会 |
 
 <a id="get-db-instance-group-maintenance-info-request"></a>
 #### リクエスト
@@ -1965,8 +1966,8 @@ PUT /v1.0/db-instances/{dbInstanceId}
 | dbSecurityGroupIds | Array | N | DBセキュリティグループの識別子リスト |
 | executeBackup | Boolean | N | 現時点バックアップを実行するかどうか<br/>- デフォルト値: `false` |
 | useOnlineFailover | Boolean | N | フェイルオーバーを利用した再起動の有無<br/>- デフォルト値: `false` |
-| waitReplicationDelay | Boolean | N | 複製遅延の解消を待機するかどうか<br/>- デフォルト値: `false` |
-| useReadOnly | Boolean | N | 書き込み負荷のブロック<br/>- デフォルト値: `false` |
+| waitReplicationDelay | Boolean | N | レプリケーション遅延の解消を待機するかどうか<br/>- デフォルト値: `false` |
+| useReadOnly | Boolean | N | 書き込み負荷を遮断するかどうか<br/>- デフォルト値: `false` |
 
 <a id="modify-db-instance-response"></a>
 #### レスポンス
@@ -2020,7 +2021,26 @@ POST /v1.0/db-instances/{dbInstanceId}/apply-recent-parameter-group
 <a id="apply-recent-parameter-group-request-body"></a>
 #### リクエスト本文
 
-このAPIはリクエスト本文を要求しません。
+<details>
+  <summary><strong>例コード</strong></summary>
+
+```json
+{
+    "useOnlineFailover": false,
+    "executeBackup": false,
+    "waitReplicationDelay": false,
+    "useReadOnly": false
+}
+```
+
+</details>
+
+| 名前 | タイプ | 必須 | 説明 |
+|-----|-----|-----|-----|
+| useOnlineFailover | Boolean | N | フェイルオーバーを使用した再起動かどうか |
+| executeBackup | Boolean | N | 現時点のバックアップを実行するかどうか |
+| waitReplicationDelay | Boolean | N | レプリケーション遅延の解消を待機するかどうか |
+| useReadOnly | Boolean | N | 書き込み負荷を遮断するかどうか |
 
 <a id="apply-recent-parameter-group-response"></a>
 #### レスポンス
@@ -2084,18 +2104,19 @@ GET /v1.0/db-instances/{dbInstanceId}/available-db-versions
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"availableDbVersions": [
-{
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "availableDbVersions": [
+        {
             "dbVersion": "POSTGRESQL_V17_10",
             "dbVersionName": "PostgreSQL V17.10",
+            "canCreate": true,
             "restorableFromObs": true
-}
-]
+        }
+    ]
 }
 ```
 
@@ -2106,6 +2127,7 @@ GET /v1.0/db-instances/{dbInstanceId}/available-db-versions
 | availableDbVersions | Array | DBバージョン情報 |
 | availableDbVersions.dbVersion | Enum | DBエンジンバージョン |
 | availableDbVersions.dbVersionName | String | DBエンジンバージョン名 |
+| availableDbVersions.canCreate | Boolean | 作成可否 |
 | availableDbVersions.restorableFromObs | Boolean | オブジェクトストレージからの復元可否 |
 
 ---
@@ -4227,7 +4249,26 @@ POST /v1.0/db-instances/{dbInstanceId}/restart
 <a id="restart-db-instance-request-body"></a>
 #### リクエスト本文
 
-このAPIはリクエスト本文を要求しません。
+<details>
+  <summary><strong>例コード</strong></summary>
+
+```json
+{
+    "useOnlineFailover": false,
+    "executeBackup": false,
+    "waitReplicationDelay": false,
+    "useReadOnly": false
+}
+```
+
+</details>
+
+| 名前 | タイプ | 必須 | 説明 |
+|-----|-----|-----|-----|
+| useOnlineFailover | Boolean | N | フェイルオーバーを使用した再起動かどうか |
+| executeBackup | Boolean | N | 現時点のバックアップを実行するかどうか |
+| waitReplicationDelay | Boolean | N | レプリケーション遅延の解消を待機するかどうか |
+| useReadOnly | Boolean | N | 書き込み負荷を遮断するかどうか |
 
 <a id="restart-db-instance-response"></a>
 #### レスポンス
