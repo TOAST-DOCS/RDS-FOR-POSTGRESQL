@@ -13,15 +13,15 @@
 
 - Added a feature to modify DB instance groups
     - Settings managed at the DB instance group level are now available on the group edit screen.
-    - Moved the detail tab, which was previously only visible on the primary, to the group tab.
+    - Moved the detail tab, which was previously only visible on the Primary, to the group tab.
 - Added a feature to configure backup settings at the group level
     - Changed the automatic backup configuration unit to DB instance group, and added a feature to configure backup schedules per instance.
-    - Read replicas created in other regions can also be included as automatic backup targets.
+    - Read Replicas created in other regions can also be included as automatic backup targets.
 - Added an incremental backup feature
     - You can run incremental backups that only back up data changed since the last backup.
 - Added a feature to stop high availability DB instances
-    - You can stop and start DB instances configured for high availability or with read replicas.
-    - Stopping or starting the primary processes all DB instances in the group together.
+    - You can stop and start DB instances configured for high availability or with Read Replicas.
+    - Stopping or starting the Primary processes all DB instances in the group together.
 
 <a id="october-13-2026-feature-updates"></a>
 #### Feature Updates
@@ -34,8 +34,8 @@
 <a id="october-13-2026-bug-fixes"></a>
 #### Bug Fixes
 
-- Fixed an issue where the primary became inaccessible when modifying a high availability DB instance
-    - Fixed an issue where changing the DB port and instance type simultaneously in a high availability configuration or with read replicas prevented connections to the primary at specific timing.
+- Fixed an issue where the Primary became inaccessible when modifying a high availability DB instance
+    - Fixed an issue where changing the DB port and instance type simultaneously in a high availability configuration or with Read Replicas prevented connections to the Primary at specific timing.
 
 <a id="september-8-2026"></a>
 ### September 8, 2026 { #september-8-2026 }

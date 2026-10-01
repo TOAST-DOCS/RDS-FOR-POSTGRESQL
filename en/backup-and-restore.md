@@ -58,7 +58,7 @@ Or, on the **Backup** tab,
 <a id="manual-backup-create-manual-incremental-backup"></a>
 #### Create Incremental Backup Manually
 
-You can create an incremental backup by selecting a baseline backup on the **Backup** tab and then clicking **Create Incremental Backup**. Some backups cannot be selected as a baseline backup. For a detailed description of baseline backups, see [Baseline backups](#baseline-backup).
+You can create an incremental backup by selecting a baseline backup on the **Backup** tab and then clicking **Create Incremental Backup**. Some backups cannot be selected as a baseline backup. For a detailed description of baseline backups, see [Baseline Backup](#baseline-backup).
 
 <a id="auto-backup"></a>
 ### Auto Backup { #auto-backup }
@@ -90,12 +90,12 @@ Even when performing manual backups, auto backups can be performed if necessary 
     * Daily snapshot backup: Back up all data daily via snapshots.
 
 <a id="auto-backup-full-backup-days-of-week"></a>
-#### Full backup days of week
+#### Full Backup Days of Week
 
 * Can only be specified when using the weekly full backup and daily incremental backup strategies. You must select at least one day for full backup days of week, and full backups will occur on the selected days and incremental backups will occur on the unselected days.
 
 <a id="auto-backup-backup-execution-target"></a>
-#### Backup execution target
+#### Backup Execution Target
 
 * Select the DB instance for performing auto backups. If you select Standby or Read Replica in addition to Primary, you can reduce the backup load on Primary.
 * You can specify the backup method as one of the following:
@@ -175,7 +175,7 @@ When restoring to an incremental backup, the restore proceeds from the baseline 
     Restoring from incremental backups may take more time than restoring from a full backup, which is proportional to the sum of the capacity of the incremental backups required for the restore.
 
 <a id="baseline-backup"></a>
-#### Baseline backup
+#### Baseline Backup
 
 Incremental backups require a backup to baseline data changes on. An incremental backup can also be the baseline backup for a new incremental backup.
 
@@ -183,13 +183,13 @@ The following constraints apply to backups that serve as the baseline for an inc
 
 * A backup in an error state cannot be a baseline backup.
 * A backup created before the last failover cannot be the baseline backup.
-* A backup created before the last DB Engine version upgrade cannot be a baseline backup.
+* A backup created before the last DB engine version upgrade cannot be a baseline backup.
 * If an incremental backup already exists that is based on that backup, it cannot be the baseline backup. However, if the previous increment failed, you can increment based on the same backup.
 * A backup performed with the `summarize_wal` parameter disabled cannot be a baseline backup.
 
-When an incremental backup runs according to [Automatic backup](#auto-backup), a baseline backup that satisfies the above constraints along with the following additional constraints is automatically selected. If no baseline backup satisfies the constraints, a full backup is performed regardless of the auto backup strategy.
+When an incremental backup runs according to [Auto Backup](#auto-backup), a baseline backup that satisfies the above constraints along with the following additional constraints is automatically selected. If no baseline backup satisfies the constraints, a full backup is performed regardless of the auto backup strategy.
 
-* A backup performed on a Standby or Read Replica that is in a replication down state cannot be a baseline backup.
+* A backup performed on a Standby or Read Replica that is in the Replication Stopped state cannot be a baseline backup.
 * If a new full backup was created after that backup was created, it cannot be the baseline backup.
 
 <a id="snapshot-backup"></a>
@@ -198,7 +198,7 @@ While existing backup methods can degrade performance when run directly on the D
 Because all heavy lifting—such as validation and file conversion—is offloaded to a separate server, your database maintains peak performance even during backups.
 
 <a id="key-features"></a>
-### Key features { #key-features }
+### Key Features { #key-features }
 
 * Performance maintenance: DB instance performance is maintained at 100% even during backup operations.
 * Improved reliability: Rigorous verification processes ensure the reliability of your backup data.

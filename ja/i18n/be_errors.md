@@ -7,7 +7,7 @@ categories: [RDS_POSTGRES_ALPHA, RDS_POSTGRES_BETA, RDS_POSTGRES]
 ---
 - messageId: pg.error.3402
   messageType: ERROR
-  text: "選択したアベイラビリティーゾーンは使用できません。使用可能なアベイラビリティーゾーンを確認してから、再度お試しください。"
+  text: "選択したアベイラビリティゾーンは使用できません。使用可能なアベイラビリティゾーンを確認してから、再度お試しください。"
 
 - messageId: pg.error.3403
   messageType: ERROR
@@ -16,6 +16,7 @@ categories: [RDS_POSTGRES_ALPHA, RDS_POSTGRES_BETA, RDS_POSTGRES]
 - messageId: pg.error.11013
   messageType: ERROR
   text: "選択したバックアップを基準に増分バックアップを実行できません。増分バックアップは PostgreSQL 17 バージョン以上でのみサポートされています。"
+
 - messageId: pg.error.11017
   messageType: ERROR
   text: "バックアップに別の操作が進行中のため、バックアップを削除できません。操作が完了してから、再度お試しください。"

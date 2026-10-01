@@ -139,7 +139,7 @@ Periodically, set tasks to run that can help stabilize the DB instance. If you a
 If maintenance tasks are required, they are performed on all DB instances in the DB instance group at the configured time.
 
 <a id="maintenance-enable-auto-storage-cleanup"></a>
-### Enable Auto Storage Cleanup { #maintenance-enable-auto-storage-cleanup }
+#### Enable Auto Storage Cleanup
 
 Clean up archived write ahead logs that do not affect service behavior. Archived transaction logs that do not affect service behavior are logs that are not used when using automatic backups to restore to the current point in time.
 
@@ -468,7 +468,7 @@ You can change the following items on the modification screen:
 | Automatic backup retry count          | When automatic backup is allowed, set between 0 and 10 times.                                                                                                                                            |
 | Use scheduled automatic backup        | Automatic backup runs within the configured period from the backup start time.                                                                                                                           |
 | Automatic backup strategy             | Specify the strategy for performing automatic backups to perform a full backup or incremental backup every day.                                                                                           |
-| Backup target                         | Manages the backup time and whether to perform automatic backups for DB instances. You can specify that backups are performed on one or all of the selected candidates.                                   |
+| Backup execution target               | Manages the backup time and whether to perform automatic backups for DB instances. You can specify that backups are performed on one or all of the selected candidates.                                   |
 | Maintenance                           | When maintenance tasks are required, they are performed on all DB instances in the group at the configured time.                                                                                          |
 | Enable Auto Storage Cleanup           | Automatically secures capacity by deleting stored transaction logs and other data.                                                                                                                        |
 | Log retention period                  | When Enable Auto Storage Cleanup is used, set between 1 and 30 days.                                                                                                                                     |
@@ -504,7 +504,7 @@ Select a DB instance to view its details.
 <a id="connection-information"></a>
 ### Connection Information { #connection-information }
 
-When a DB instance is created, an internal domain is issued. The internal domain points to an IP address that belongs to the user's VPC subnet. For high availability DB instances, the internal domain does not change even if a failover is performed and the standby becomes the new primary. Therefore, unless there is a specific reason, the connection information for your application must use the internal domain.
+When a DB instance is created, an internal domain is issued. The internal domain points to an IP address that belongs to the user's VPC subnet. For high availability DB instances, the internal domain does not change even if a failover is performed and the Standby becomes the new Primary. Therefore, unless there is a specific reason, the connection information for your application must use the internal domain.
 
 If a floating IP is created, an external domain is additionally issued. The external domain points to the address of the floating IP. Because the external domain or floating IP can be accessed from outside, you must configure the rules of the DB security group appropriately to protect the DB instance.
 
@@ -527,10 +527,6 @@ In the **Log** tab of a DB instance, you can view or download various log files.
 !!! tip "Note"
     When you click **Import**, the log file is uploaded to backup storage for about 5 minutes, and you are charged for backup storage for the size of the log file.
     When you click **Download**, you are charged for internet traffic for the size of the log file.
-
-<a id="modify-db-instance"></a>
-
-![db-instance-detail-log](../static/images/20260609/db-instance-detail-log-en.png)
 
 <a id="modify-db-instance"></a>
 ## Modify DB Instance { #modify-db-instance }
