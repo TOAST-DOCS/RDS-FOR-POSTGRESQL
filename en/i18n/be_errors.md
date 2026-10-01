@@ -13,6 +13,26 @@ categories: [RDS_POSTGRES_ALPHA, RDS_POSTGRES_BETA, RDS_POSTGRES]
   messageType: ERROR
   text: "The selected subnet cannot be found. Check the subnets in your VPC and try again."
 
+- messageId: pg.error.11006
+  messageType: ERROR
+  text: "Incremental backup can't be performed based on the selected backup."
+
+- messageId: pg.error.11007
+  messageType: ERROR
+  text: "Incremental backup can't be performed based on the selected backup. The maximum number of incremental backups (13) that can be performed based on one full backup has been exceeded."
+
+- messageId: pg.error.11009
+  messageType: ERROR
+  text: "Incremental backup can't be performed based on the selected backup. The DB engine version has been upgraded since the selected backup was created."
+
+- messageId: pg.error.11011
+  messageType: ERROR
+  text: "Incremental backup can't be performed based on the selected backup. An incremental backup created following the selected backup already exists."
+
+- messageId: pg.error.11012
+  messageType: ERROR
+  text: "Incremental backup can't be performed based on the selected backup. A failover was performed after the selected backup was created."
+
 - messageId: pg.error.11013
   messageType: ERROR
   text: "Incremental backup can't be performed based on the selected backup. Incremental backup is supported only on PostgreSQL Version 17 or later."
