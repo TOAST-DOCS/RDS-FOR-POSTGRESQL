@@ -4186,7 +4186,7 @@ POST /v1.0/db-instances/{dbInstanceId}/replicate
 | userGroupIds | Array | N | ユーザーグループの識別子リスト |
 | useDefaultNotification | Boolean | N | 基本通知の使用有無<br/>- デフォルト値: `false` |
 | useDeletionProtection | Boolean | N | 削除保護の有無<br/>- デフォルト値: `false` |
-| regionCode | Enum | N | リードレプリカを作成するリージョンコード<br/>- 指定しない場合、原本DBインスタンスと同じリージョンに作成<br/>- `KR1`: 韓国(パンギョ)<br/>- `KR2`: 韓国(ピョンチョン) |
+| regionCode | Enum | N | Read Replicaを作成するリージョンコード<br/>- 指定しない場合、原本DBインスタンスと同じリージョンに作成<br/>- `KR1`: 韓国(パンギョ)<br/>- `KR2`: 韓国(ピョンチョン) |
 | network | Object | N | ネットワーク情報オブジェクト |
 | network.subnetId | UUID | N | サブネットの識別子<br/>- リージョンコードを直接入力する場合は必須 |
 | network.usePublicAccess | Boolean | N | 外部接続可否<br/>- デフォルト値: `false` |
