@@ -47,4 +47,4 @@ categories: [RDS_POSTGRES_ALPHA, RDS_POSTGRES_BETA, RDS_POSTGRES]
 
 - messageId: pg.error.11018
   messageType: ERROR
-  text: "Incremental backup can't be performed based on the selected backup. Changes made after the selected backup have not been reflected yet. Please try again later."
+  text: "Incremental backup can't be performed based on the selected backup. Changes made after the selected backup have not been reflected yet. Try again later."
