@@ -154,9 +154,9 @@ Event refers to RDS for PostgreSQL or a significant event that is caused by a us
 | DB_INSTANCE_59_00       | DB_INSTANCE       | Auto scale storage started                        |
 | DB_INSTANCE_59_01       | DB_INSTANCE       | Auto scale storage completed                        |
 | DB_INSTANCE_59_04       | DB_INSTANCE       | Auto scale storage failed                        |
-| DB_INSTANCE_61_00       | DB_INSTANCE       | Changing DB instance group settings started                 |
-| DB_INSTANCE_61_01       | DB_INSTANCE       | Changing DB instance group settings completed                 |
-| DB_INSTANCE_61_04       | DB_INSTANCE       | Changing DB instance group settings failed                 |
+| DB_INSTANCE_61_00       | DB_INSTANCE       | Changing DB Instance Group settings started                 |
+| DB_INSTANCE_61_01       | DB_INSTANCE       | Changing DB Instance Group settings completed                 |
+| DB_INSTANCE_61_04       | DB_INSTANCE       | Changing DB Instance Group settings failed                 |
 | DB_SECURITY_GROUP_01_01 | DB_SECURITY_GROUP | DB security group created                                                     |
 | DB_SECURITY_GROUP_02_00 | DB_SECURITY_GROUP | Changing DB security group started                                            |
 | DB_SECURITY_GROUP_02_01 | DB_SECURITY_GROUP | Changing DB security group completed                                          |
