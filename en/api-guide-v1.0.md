@@ -54,11 +54,11 @@ The API responds with "200 OK" to all API requests. For more information on the 
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-}
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    }
 }
 ```
 
@@ -69,11 +69,11 @@ The API responds with "200 OK" to all API requests. For more information on the 
 
 ```json
 {
-"header": {
+    "header": {
         "resultCode": -1,
         "resultMessage": "FAIL",
         "isSuccessful": false
-}
+    }
 }
 ```
 
@@ -197,19 +197,19 @@ This API does not require a request body.
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"dbFlavors": [
-{
-"dbFlavorId": "289e34e9-cd8a-4baf-82e3-a3d013c5186b",
-"dbFlavorName": "r2.c2m4",
-"ram": 4096,
-"vcpus": 2
-}
-]
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "dbFlavors": [
+        {
+            "dbFlavorId": "289e34e9-cd8a-4baf-82e3-a3d013c5186b",
+            "dbFlavorName": "r2.c2m4",
+            "ram": 4096,
+            "vcpus": 2
+        }
+    ]
 }
 ```
 
@@ -258,19 +258,19 @@ This API does not require a request body.
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"projectMembers": [
-{
-"memberId": "550e8400-e29b-41d4-a716-446655440000",
-"memberName": "memberName-example",
-"emailAddress": "user@example.com",
-"phoneNumber": "010-1234-5678"
-}
-]
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "projectMembers": [
+        {
+            "memberId": "550e8400-e29b-41d4-a716-446655440000",
+            "memberName": "memberName-example",
+            "emailAddress": "user@example.com",
+            "phoneNumber": "010-1234-5678"
+        }
+    ]
 }
 ```
 
@@ -316,17 +316,17 @@ This API does not require a request body.
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"regions": [
-{
-"regionCode": "KR1",
-"isEnabled": false
-}
-]
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "regions": [
+        {
+            "regionCode": "KR1",
+            "isEnabled": false
+        }
+    ]
 }
 ```
 
@@ -436,15 +436,15 @@ This API does not require a request body.
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"storageTypes": [
-"General SSD",
-"General HDD"
-]
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "storageTypes": [
+        "General SSD",
+        "General HDD"
+    ]
 }
 ```
 
@@ -985,29 +985,29 @@ This API does not require a request body.
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"extensions": [
-{
-"extensionId": "550e8400-e29b-41d4-a716-446655440000",
-"extensionName": "address_standardizer",
-"extensionStatus": "AVAILABLE",
-"databases": [
-{
-"dbInstanceGroupExtensionId": "550e8400-e29b-41d4-a716-446655440000",
-"databaseId": "550e8400-e29b-41d4-a716-446655440000",
-"databaseName": "database-1",
-"dbInstanceGroupExtensionStatus": "CREATED",
-"reservedAction": "NONE",
-"errorReason": "errorReason-example"
-}
-]
-}
-],
-"isNeedToApply": false
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "extensions": [
+        {
+            "extensionId": "550e8400-e29b-41d4-a716-446655440000",
+            "extensionName": "address_standardizer",
+            "extensionStatus": "AVAILABLE",
+            "databases": [
+                {
+                    "dbInstanceGroupExtensionId": "550e8400-e29b-41d4-a716-446655440000",
+                    "databaseId": "550e8400-e29b-41d4-a716-446655440000",
+                    "databaseName": "database-1",
+                    "dbInstanceGroupExtensionStatus": "CREATED",
+                    "reservedAction": "NONE",
+                    "errorReason": "errorReason-example"
+                }
+            ]
+        }
+    ],
+    "isNeedToApply": false
 }
 ```
 
@@ -1067,12 +1067,12 @@ This API does not require a request body.
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -1121,12 +1121,12 @@ This API does not require a request body.
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -1209,9 +1209,9 @@ POST /v1.0/db-instance-groups/{dbInstanceGroupId}/extensions/{extensionId}
 
 ```json
 {
-"databaseId": "550e8400-e29b-41d4-a716-446655440000",
-"schemaName": "rds",
-"withCascade": false
+    "databaseId": "550e8400-e29b-41d4-a716-446655440000",
+    "schemaName": "rds",
+    "withCascade": false
 }
 ```
 
@@ -1452,26 +1452,26 @@ This API does not require a request body.
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"dbInstances": [
-{
-"dbInstanceId": "550e8400-e29b-41d4-a716-446655440000",
-"dbInstanceGroupId": "550e8400-e29b-41d4-a716-446655440000",
-"dbInstanceName": "dbInstanceName-example",
-"description": "description-example",
-"dbVersion": "POSTGRESQL_V17_10",
-"dbPort": 15432,
-"dbInstanceType": "MASTER",
-"dbInstanceStatus": "AVAILABLE",
-"progressStatus": "NONE",
-"createdYmdt": "2023-12-31T15:00:00+09:00",
-"updatedYmdt": "2023-12-31T15:00:00+09:00"
-}
-]
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "dbInstances": [
+        {
+            "dbInstanceId": "550e8400-e29b-41d4-a716-446655440000",
+            "dbInstanceGroupId": "550e8400-e29b-41d4-a716-446655440000",
+            "dbInstanceName": "dbInstanceName-example",
+            "description": "description-example",
+            "dbVersion": "POSTGRESQL_V17_10",
+            "dbPort": 15432,
+            "dbInstanceType": "MASTER",
+            "dbInstanceStatus": "AVAILABLE",
+            "progressStatus": "NONE",
+            "createdYmdt": "2023-12-31T15:00:00+09:00",
+            "updatedYmdt": "2023-12-31T15:00:00+09:00"
+        }
+    ]
 }
 ```
 
@@ -1605,12 +1605,12 @@ POST /v1.0/db-instances
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -1742,12 +1742,12 @@ POST /v1.0/db-instances/restore-from-obs
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -1796,12 +1796,12 @@ This API does not require a request body.
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -1850,34 +1850,34 @@ This API does not require a request body.
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"dbInstanceId": "550e8400-e29b-41d4-a716-446655440000",
-"dbInstanceGroupId": "550e8400-e29b-41d4-a716-446655440000",
-"dbInstanceName": "dbInstanceName-example",
-"description": "description-example",
-"dbVersion": "POSTGRESQL_V17_10",
-"dbPort": 15432,
-"dbInstanceType": "MASTER",
-"dbInstanceStatus": "AVAILABLE",
-"progressStatus": "NONE",
-"dbFlavorId": "550e8400-e29b-41d4-a716-446655440000",
-"parameterGroupId": "550e8400-e29b-41d4-a716-446655440000",
-"dbSecurityGroupIds": [
-"550e8400-e29b-41d4-a716-446655440000"
-],
-"notificationGroupIds": [
-"550e8400-e29b-41d4-a716-446655440000"
-],
-"useDeletionProtection": false,
-"needToApplyParameterGroup": false,
-"needMigration": false,
-"osVersion": "Ubuntu Server 24.04 LTS",
-"createdYmdt": "2023-12-31T15:00:00+09:00",
-"updatedYmdt": "2023-12-31T15:00:00+09:00"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "dbInstanceId": "550e8400-e29b-41d4-a716-446655440000",
+    "dbInstanceGroupId": "550e8400-e29b-41d4-a716-446655440000",
+    "dbInstanceName": "dbInstanceName-example",
+    "description": "description-example",
+    "dbVersion": "POSTGRESQL_V17_10",
+    "dbPort": 15432,
+    "dbInstanceType": "MASTER",
+    "dbInstanceStatus": "AVAILABLE",
+    "progressStatus": "NONE",
+    "dbFlavorId": "550e8400-e29b-41d4-a716-446655440000",
+    "parameterGroupId": "550e8400-e29b-41d4-a716-446655440000",
+    "dbSecurityGroupIds": [
+        "550e8400-e29b-41d4-a716-446655440000"
+    ],
+    "notificationGroupIds": [
+        "550e8400-e29b-41d4-a716-446655440000"
+    ],
+    "useDeletionProtection": false,
+    "needToApplyParameterGroup": false,
+    "needMigration": false,
+    "osVersion": "Ubuntu Server 24.04 LTS",
+    "createdYmdt": "2023-12-31T15:00:00+09:00",
+    "updatedYmdt": "2023-12-31T15:00:00+09:00"
 }
 ```
 
@@ -1939,18 +1939,18 @@ PUT /v1.0/db-instances/{dbInstanceId}
 
 ```json
 {
-"dbInstanceName": "dbInstanceName-example",
-"dbInstanceCandidateName": "dbInstanceCandidateName-example",
-"description": "description-example",
-"dbPort": 15432,
-"dbFlavorId": "550e8400-e29b-41d4-a716-446655440000",
-"parameterGroupId": "550e8400-e29b-41d4-a716-446655440000",
-"dbVersion": "POSTGRESQL_V17_10",
-"dbSecurityGroupIds": [],
-"executeBackup": false,
-"useOnlineFailover": false,
-"waitReplicationDelay": false,
-"useReadOnly": false
+    "dbInstanceName": "dbInstanceName-example",
+    "dbInstanceCandidateName": "dbInstanceCandidateName-example",
+    "description": "description-example",
+    "dbPort": 15432,
+    "dbFlavorId": "550e8400-e29b-41d4-a716-446655440000",
+    "parameterGroupId": "550e8400-e29b-41d4-a716-446655440000",
+    "dbVersion": "POSTGRESQL_V17_10",
+    "dbSecurityGroupIds": [],
+    "executeBackup": false,
+    "useOnlineFailover": false,
+    "waitReplicationDelay": false,
+    "useReadOnly": false
 }
 ```
 
@@ -1979,12 +1979,12 @@ PUT /v1.0/db-instances/{dbInstanceId}
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -2052,12 +2052,12 @@ POST /v1.0/db-instances/{dbInstanceId}/apply-recent-parameter-group
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -2188,12 +2188,12 @@ POST /v1.0/db-instances/{dbInstanceId}/backup
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -2353,12 +2353,12 @@ PUT /v1.0/db-instances/{dbInstanceId}/backup-info
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -2402,11 +2402,11 @@ POST /v1.0/db-instances/{dbInstanceId}/backup-to-object-storage
 
 ```json
 {
-"tenantId": "0123456789abcdef0123456789abcdef",
-"username": "example@nhncloud.com or example",
-"password": "password-example",
-"targetContainer": "targetContainer-example",
-"objectPath": "objectPath-example"
+    "tenantId": "0123456789abcdef0123456789abcdef",
+    "username": "example@nhncloud.com or example",
+    "password": "password-example",
+    "targetContainer": "targetContainer-example",
+    "objectPath": "objectPath-example"
 }
 ```
 
@@ -2428,12 +2428,12 @@ POST /v1.0/db-instances/{dbInstanceId}/backup-to-object-storage
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -2482,21 +2482,21 @@ This API does not require a request body.
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"databases": [
-{
-"databaseId": "550e8400-e29b-41d4-a716-446655440000",
-"databaseName": "database-1",
-"databaseStatus": "STABLE",
-"createdYmdt": "2023-12-31T15:00:00+09:00",
-"updatedYmdt": "2023-12-31T15:00:00+09:00",
-"schemas": [
-{
-"schemaName": "rds"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "databases": [
+        {
+            "databaseId": "550e8400-e29b-41d4-a716-446655440000",
+            "databaseName": "database-1",
+            "databaseStatus": "STABLE",
+            "createdYmdt": "2023-12-31T15:00:00+09:00",
+            "updatedYmdt": "2023-12-31T15:00:00+09:00",
+            "schemas": [
+                {
+                    "schemaName": "rds"
                 }
             ]
         }
@@ -2552,7 +2552,7 @@ POST /v1.0/db-instances/{dbInstanceId}/databases
 
 ```json
 {
-"databaseName": "database-1"
+    "databaseName": "database-1"
 }
 ```
 
@@ -2570,12 +2570,12 @@ POST /v1.0/db-instances/{dbInstanceId}/databases
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -2625,12 +2625,12 @@ This API does not require a request body.
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -2675,8 +2675,8 @@ PUT /v1.0/db-instances/{dbInstanceId}/databases/{databaseId}
 
 ```json
 {
-"applyHbaRulesImmediately": false,
-"databaseName": "database-1"
+    "applyHbaRulesImmediately": false,
+    "databaseName": "database-1"
 }
 ```
 
@@ -2695,12 +2695,12 @@ PUT /v1.0/db-instances/{dbInstanceId}/databases/{databaseId}
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -2749,21 +2749,21 @@ This API does not require a request body.
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"dbUsers": [
-{
-"dbUserId": "550e8400-e29b-41d4-a716-446655440000",
-"dbUserName": "dbUserName-example",
-"authorityType": "CUSTOM",
-"dbUserStatus": "STABLE",
-"createdYmdt": "2023-12-31T15:00:00+09:00",
-"updatedYmdt": "2023-12-31T15:00:00+09:00"
-}
-]
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "dbUsers": [
+        {
+            "dbUserId": "550e8400-e29b-41d4-a716-446655440000",
+            "dbUserName": "dbUserName-example",
+            "authorityType": "CUSTOM",
+            "dbUserStatus": "STABLE",
+            "createdYmdt": "2023-12-31T15:00:00+09:00",
+            "updatedYmdt": "2023-12-31T15:00:00+09:00"
+        }
+    ]
 }
 ```
 
@@ -2813,11 +2813,11 @@ POST /v1.0/db-instances/{dbInstanceId}/db-users
 
 ```json
 {
-"dbUserName": "dbUserName-example",
-"dbPassword": "dbPassword-example",
-"authorityType": "CUSTOM",
-"createDefaultHbaRules": false,
-"address": "192.168.0.10/32"
+    "dbUserName": "dbUserName-example",
+    "dbPassword": "dbPassword-example",
+    "authorityType": "CUSTOM",
+    "createDefaultHbaRules": false,
+    "address": "192.168.0.10/32"
 }
 ```
 
@@ -2839,12 +2839,12 @@ POST /v1.0/db-instances/{dbInstanceId}/db-users
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -2894,12 +2894,12 @@ This API does not require a request body.
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -2944,10 +2944,10 @@ PUT /v1.0/db-instances/{dbInstanceId}/db-users/{dbUserId}
 
 ```json
 {
-"dbUserName": "dbUserName-example",
-"dbPassword": "dbPassword-example",
-"authorityType": "CUSTOM",
-"applyHbaRulesImmediately": false
+    "dbUserName": "dbUserName-example",
+    "dbPassword": "dbPassword-example",
+    "authorityType": "CUSTOM",
+    "applyHbaRulesImmediately": false
 }
 ```
 
@@ -2968,12 +2968,12 @@ PUT /v1.0/db-instances/{dbInstanceId}/db-users/{dbUserId}
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -3017,7 +3017,7 @@ PUT /v1.0/db-instances/{dbInstanceId}/deletion-protection
 
 ```json
 {
-"useDeletionProtection": false
+    "useDeletionProtection": false
 }
 ```
 
@@ -3107,37 +3107,37 @@ This API does not require a request body.
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"hbaRules": [
-{
-"hbaRuleId": "550e8400-e29b-41d4-a716-446655440000",
-"hbaRuleStatus": "CREATED",
-"databaseApplyType": "ENTIRE",
-"dbUserApplyTypeCode": "ENTIRE",
-"databases": [
-{
-"databaseId": "550e8400-e29b-41d4-a716-446655440000",
-"databaseName": "databaseName-example"
-}
-],
-"dbUsers": [
-{
-"dbUserId": "550e8400-e29b-41d4-a716-446655440000",
-"dbUserName": "dbUserName-example"
-}
-],
-"address": "192.168.0.10/32",
-"authMethod": "TRUST",
-"reservedAction": "NONE",
-"order": 1,
-"applicable": false
-}
-],
-"needToApply": false
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "hbaRules": [
+        {
+            "hbaRuleId": "550e8400-e29b-41d4-a716-446655440000",
+            "hbaRuleStatus": "CREATED",
+            "databaseApplyType": "ENTIRE",
+            "dbUserApplyTypeCode": "ENTIRE",
+            "databases": [
+                {
+                    "databaseId": "550e8400-e29b-41d4-a716-446655440000",
+                    "databaseName": "databaseName-example"
+                }
+            ],
+            "dbUsers": [
+                {
+                    "dbUserId": "550e8400-e29b-41d4-a716-446655440000",
+                    "dbUserName": "dbUserName-example"
+                }
+            ],
+            "address": "192.168.0.10/32",
+            "authMethod": "TRUST",
+            "reservedAction": "NONE",
+            "order": 1,
+            "applicable": false
+        }
+    ],
+    "needToApply": false
 }
 ```
 
@@ -3197,13 +3197,13 @@ POST /v1.0/db-instances/{dbInstanceId}/hba-rules
 
 ```json
 {
-"connectionTypeCode": "HOST",
-"databaseApplyType": "ENTIRE",
-"dbUserApplyType": "ENTIRE",
-"databaseIds": [],
-"dbUserIds": [],
-"address": "192.168.0.10/32",
-"authMethod": "TRUST"
+    "connectionTypeCode": "HOST",
+    "databaseApplyType": "ENTIRE",
+    "dbUserApplyType": "ENTIRE",
+    "databaseIds": [],
+    "dbUserIds": [],
+    "address": "192.168.0.10/32",
+    "authMethod": "TRUST"
 }
 ```
 
@@ -3227,12 +3227,12 @@ POST /v1.0/db-instances/{dbInstanceId}/hba-rules
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"hbaRuleId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "hbaRuleId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -3281,12 +3281,12 @@ This API does not require a request body.
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -3330,7 +3330,7 @@ PUT /v1.0/db-instances/{dbInstanceId}/hba-rules/orders
 
 ```json
 {
-"hbaRuleIds": []
+    "hbaRuleIds": []
 }
 ```
 
@@ -3417,13 +3417,13 @@ PUT /v1.0/db-instances/{dbInstanceId}/hba-rules/{hbaRuleId}
 
 ```json
 {
-"connectionTypeCode": "HOST",
-"databaseApplyType": "ENTIRE",
-"dbUserApplyType": "ENTIRE",
-"databaseIds": [],
-"dbUserIds": [],
-"address": "192.168.0.10/32",
-"authMethod": "TRUST"
+    "connectionTypeCode": "HOST",
+    "databaseApplyType": "ENTIRE",
+    "dbUserApplyType": "ENTIRE",
+    "databaseIds": [],
+    "dbUserIds": [],
+    "address": "192.168.0.10/32",
+    "authMethod": "TRUST"
 }
 ```
 
@@ -3483,14 +3483,14 @@ This API does not require a request body.
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"haStatus": "CREATED",
-"pingInterval": 1,
-"failoverReplWaitingTime": 1
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "haStatus": "CREATED",
+    "pingInterval": 1,
+    "failoverReplWaitingTime": 1
 }
 ```
 
@@ -3536,9 +3536,9 @@ PUT /v1.0/db-instances/{dbInstanceId}/high-availability
 
 ```json
 {
-"useHighAvailability": false,
-"pingInterval": 1,
-"failoverReplWaitingTime": 1
+    "useHighAvailability": false,
+    "pingInterval": 1,
+    "failoverReplWaitingTime": 1
 }
 ```
 
@@ -3558,12 +3558,12 @@ PUT /v1.0/db-instances/{dbInstanceId}/high-availability
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -3612,12 +3612,12 @@ This API does not require a request body.
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -3666,12 +3666,12 @@ This API does not require a request body.
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -3720,12 +3720,12 @@ This API does not require a request body.
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -3774,12 +3774,12 @@ This API does not require a request body.
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -3907,12 +3907,12 @@ PUT /v1.0/db-instances/{dbInstanceId}/maintenance-info
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -3961,25 +3961,25 @@ This API does not require a request body.
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"availabilityZone": "kr-pub-a",
-"subnet": {
-"subnetId": "550e8400-e29b-41d4-a716-446655440000",
-"subnetName": "Default Network",
-"subnetCidr": "192.168.0.0/24",
-"publicAccessible": false
-},
-"endPoints": [
-{
-"domain": "ea548a78-d85f-43b4-8ddf-c88d999b9905.internal.kr1.postgres.rds.nhncloudservice.com",
-"ipAddress": "192.168.0.1",
-"endPointType": "INTERNAL"
-}
-]
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "availabilityZone": "kr-pub-a",
+    "subnet": {
+        "subnetId": "550e8400-e29b-41d4-a716-446655440000",
+        "subnetName": "Default Network",
+        "subnetCidr": "192.168.0.0/24",
+        "publicAccessible": false
+    },
+    "endPoints": [
+        {
+            "domain": "ea548a78-d85f-43b4-8ddf-c88d999b9905.internal.kr1.postgres.rds.nhncloudservice.com",
+            "ipAddress": "192.168.0.1",
+            "endPointType": "INTERNAL"
+        }
+    ]
 }
 ```
 
@@ -4032,7 +4032,7 @@ PUT /v1.0/db-instances/{dbInstanceId}/network-info
 
 ```json
 {
-"usePublicAccess": false
+    "usePublicAccess": false
 }
 ```
 
@@ -4050,12 +4050,12 @@ PUT /v1.0/db-instances/{dbInstanceId}/network-info
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -4104,12 +4104,12 @@ This API does not require a request body.
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -4205,12 +4205,12 @@ POST /v1.0/db-instances/{dbInstanceId}/replicate
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -4278,12 +4278,12 @@ POST /v1.0/db-instances/{dbInstanceId}/restart
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -4332,31 +4332,31 @@ This API does not require a request body.
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"oldestRestorableYmdt": "2023-12-31T15:00:00+09:00",
-"latestRestorableYmdt": "2023-12-31T15:00:00+09:00",
-"restorableBackups": [
-{
-"backupId": "550e8400-e29b-41d4-a716-446655440000",
-"backupName": "backupName-example",
-"backupStatus": "BACKING_UP",
-"dbInstanceId": "550e8400-e29b-41d4-a716-446655440000",
-"dbInstanceName": "dbInstanceName-example",
-"dbVersion": "POSTGRESQL_V17_10",
-"backupType": "AUTO",
-"backupSize": 1,
-"failoverCount": 1,
-"walFileName": "000000010000000000000005",
-"createdYmdt": "2023-12-31T15:00:00+09:00",
-"updatedYmdt": "2023-12-31T15:00:00+09:00",
-"startYmdt": "2023-12-31T15:00:00+09:00",
-"completedYmdt": "2023-12-31T15:00:00+09:00"
-}
-]
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "oldestRestorableYmdt": "2023-12-31T15:00:00+09:00",
+    "latestRestorableYmdt": "2023-12-31T15:00:00+09:00",
+    "restorableBackups": [
+        {
+            "backupId": "550e8400-e29b-41d4-a716-446655440000",
+            "backupName": "backupName-example",
+            "backupStatus": "BACKING_UP",
+            "dbInstanceId": "550e8400-e29b-41d4-a716-446655440000",
+            "dbInstanceName": "dbInstanceName-example",
+            "dbVersion": "POSTGRESQL_V17_10",
+            "backupType": "AUTO",
+            "backupSize": 1,
+            "failoverCount": 1,
+            "walFileName": "000000010000000000000005",
+            "createdYmdt": "2023-12-31T15:00:00+09:00",
+            "updatedYmdt": "2023-12-31T15:00:00+09:00",
+            "startYmdt": "2023-12-31T15:00:00+09:00",
+            "completedYmdt": "2023-12-31T15:00:00+09:00"
+        }
+    ]
 }
 ```
 
@@ -4515,12 +4515,12 @@ POST /v1.0/db-instances/{dbInstanceId}/restore
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -4569,12 +4569,12 @@ This API does not require a request body.
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -4623,12 +4623,12 @@ This API does not require a request body.
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -4677,14 +4677,14 @@ This API does not require a request body.
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"storageType": "General SSD",
-"storageSize": 1,
-"storageStatus": "DELETED"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "storageType": "General SSD",
+    "storageSize": 1,
+    "storageStatus": "DELETED"
 }
 ```
 
@@ -4730,7 +4730,7 @@ PUT /v1.0/db-instances/{dbInstanceId}/storage-info
 
 ```json
 {
-"storageSize": 1
+    "storageSize": 1
 }
 ```
 
@@ -4748,12 +4748,12 @@ PUT /v1.0/db-instances/{dbInstanceId}/storage-info
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -4820,27 +4820,27 @@ This API does not require a request body.
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"totalCounts": 1,
-"backups": [
-{
-"backupId": "550e8400-e29b-41d4-a716-446655440000",
-"backupName": "backupName-example",
-"backupStatus": "BACKING_UP",
-"dbInstanceId": "550e8400-e29b-41d4-a716-446655440000",
-"dbVersion": "POSTGRESQL_V17_10",
-"backupType": "AUTO",
-"backupSize": 1,
-"startYmdt": "2023-12-31T15:00:00+09:00",
-"createdYmdt": "2023-12-31T15:00:00+09:00",
-"updatedYmdt": "2023-12-31T15:00:00+09:00",
-"completedYmdt": "2023-12-31T15:00:00+09:00"
-}
-]
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "totalCounts": 1,
+    "backups": [
+        {
+            "backupId": "550e8400-e29b-41d4-a716-446655440000",
+            "backupName": "backupName-example",
+            "backupStatus": "BACKING_UP",
+            "dbInstanceId": "550e8400-e29b-41d4-a716-446655440000",
+            "dbVersion": "POSTGRESQL_V17_10",
+            "backupType": "AUTO",
+            "backupSize": 1,
+            "startYmdt": "2023-12-31T15:00:00+09:00",
+            "createdYmdt": "2023-12-31T15:00:00+09:00",
+            "updatedYmdt": "2023-12-31T15:00:00+09:00",
+            "completedYmdt": "2023-12-31T15:00:00+09:00"
+        }
+    ]
 }
 ```
 
@@ -4962,12 +4962,12 @@ This API does not require a request body.
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -5011,11 +5011,11 @@ POST /v1.0/backups/{backupId}/export
 
 ```json
 {
-"tenantId": "0123456789abcdef0123456789abcdef",
-"username": "example@nhncloud.com or example",
-"password": "password-example",
-"targetContainer": "targetContainer-example",
-"objectPath": "objectPath-example"
+    "tenantId": "0123456789abcdef0123456789abcdef",
+    "username": "example@nhncloud.com or example",
+    "password": "password-example",
+    "targetContainer": "targetContainer-example",
+    "objectPath": "objectPath-example"
 }
 ```
 
@@ -5037,12 +5037,12 @@ POST /v1.0/backups/{backupId}/export
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -5164,12 +5164,12 @@ POST /v1.0/backups/{backupId}/restore
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -5224,22 +5224,22 @@ This API does not require a request body.
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"dbSecurityGroups": [
-{
-"dbSecurityGroupId": "550e8400-e29b-41d4-a716-446655440000",
-"dbSecurityGroupName": "dbSecurityGroupName-example",
-"dbSecurityGroupStatus": "CREATED",
-"description": "description-example",
-"progressStatus": "NONE",
-"createdYmdt": "2023-12-31T15:00:00+09:00",
-"updatedYmdt": "2023-12-31T15:00:00+09:00"
-}
-]
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "dbSecurityGroups": [
+        {
+            "dbSecurityGroupId": "550e8400-e29b-41d4-a716-446655440000",
+            "dbSecurityGroupName": "dbSecurityGroupName-example",
+            "dbSecurityGroupStatus": "CREATED",
+            "description": "description-example",
+            "progressStatus": "NONE",
+            "createdYmdt": "2023-12-31T15:00:00+09:00",
+            "updatedYmdt": "2023-12-31T15:00:00+09:00"
+        }
+    ]
 }
 ```
 
@@ -5283,21 +5283,21 @@ POST /v1.0/db-security-groups
 
 ```json
 {
-"dbSecurityGroupName": "dbSecurityGroupName-example",
-"description": "description-example",
-"rules": [
-{
-"direction": "INGRESS",
-"etherType": "IPV4",
-"port": {
-"portType": "ALL",
-"minPort": 1,
-"maxPort": 1
-},
-"cidr": "192.168.0.0/24",
-"description": "description-example"
-}
-]
+    "dbSecurityGroupName": "dbSecurityGroupName-example",
+    "description": "description-example",
+    "rules": [
+        {
+            "direction": "INGRESS",
+            "etherType": "IPV4",
+            "port": {
+                "portType": "ALL",
+                "minPort": 1,
+                "maxPort": 1
+            },
+            "cidr": "192.168.0.0/24",
+            "description": "description-example"
+        }
+    ]
 }
 ```
 
@@ -5325,12 +5325,12 @@ POST /v1.0/db-security-groups
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"dbSecurityGroupId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "dbSecurityGroupId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -5415,36 +5415,36 @@ This API does not require a request body.
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"dbSecurityGroup": {
-"dbSecurityGroupId": "550e8400-e29b-41d4-a716-446655440000",
-"dbSecurityGroupName": "dbSecurityGroupName-example",
-"dbSecurityGroupStatus": "CREATED",
-"description": "description-example",
-"progressStatus": "NONE",
-"rules": [
-{
-"ruleId": "550e8400-e29b-41d4-a716-446655440000",
-"description": "description-example",
-"direction": "INGRESS",
-"etherType": "IPV4",
-"port": {
-"portType": "ALL",
-"minPort": 1,
-"maxPort": 1
-},
-"cidr": "192.168.0.0/24",
-"createdYmdt": "2023-12-31T15:00:00+09:00",
-"updatedYmdt": "2023-12-31T15:00:00+09:00"
-}
-],
-"createdYmdt": "2023-12-31T15:00:00+09:00",
-"updatedYmdt": "2023-12-31T15:00:00+09:00"
-}
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "dbSecurityGroup": {
+        "dbSecurityGroupId": "550e8400-e29b-41d4-a716-446655440000",
+        "dbSecurityGroupName": "dbSecurityGroupName-example",
+        "dbSecurityGroupStatus": "CREATED",
+        "description": "description-example",
+        "progressStatus": "NONE",
+        "rules": [
+            {
+                "ruleId": "550e8400-e29b-41d4-a716-446655440000",
+                "description": "description-example",
+                "direction": "INGRESS",
+                "etherType": "IPV4",
+                "port": {
+                    "portType": "ALL",
+                    "minPort": 1,
+                    "maxPort": 1
+                },
+                "cidr": "192.168.0.0/24",
+                "createdYmdt": "2023-12-31T15:00:00+09:00",
+                "updatedYmdt": "2023-12-31T15:00:00+09:00"
+            }
+        ],
+        "createdYmdt": "2023-12-31T15:00:00+09:00",
+        "updatedYmdt": "2023-12-31T15:00:00+09:00"
+    }
 }
 ```
 
@@ -5507,8 +5507,8 @@ PUT /v1.0/db-security-groups/{dbSecurityGroupId}
 
 ```json
 {
-"dbSecurityGroupName": "dbSecurityGroupName-example",
-"description": "description-example"
+    "dbSecurityGroupName": "dbSecurityGroupName-example",
+    "description": "description-example"
 }
 ```
 
@@ -5564,12 +5564,12 @@ This API does not require a request body.
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -5613,15 +5613,15 @@ POST /v1.0/db-security-groups/{dbSecurityGroupId}/rules
 
 ```json
 {
-"direction": "INGRESS",
-"etherType": "IPV4",
-"port": {
-"portType": "ALL",
-"minPort": 1,
-"maxPort": 1
-},
-"cidr": "192.168.0.0/24",
-"description": "description-example"
+    "direction": "INGRESS",
+    "etherType": "IPV4",
+    "port": {
+        "portType": "ALL",
+        "minPort": 1,
+        "maxPort": 1
+    },
+    "cidr": "192.168.0.0/24",
+    "description": "description-example"
 }
 ```
 
@@ -5646,12 +5646,12 @@ POST /v1.0/db-security-groups/{dbSecurityGroupId}/rules
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -5696,15 +5696,15 @@ PUT /v1.0/db-security-groups/{dbSecurityGroupId}/rules/{ruleId}
 
 ```json
 {
-"direction": "INGRESS",
-"etherType": "IPV4",
-"port": {
-"portType": "ALL",
-"minPort": 1,
-"maxPort": 1
-},
-"cidr": "192.168.0.0/24",
-"description": "description-example"
+    "direction": "INGRESS",
+    "etherType": "IPV4",
+    "port": {
+        "portType": "ALL",
+        "minPort": 1,
+        "maxPort": 1
+    },
+    "cidr": "192.168.0.0/24",
+    "description": "description-example"
 }
 ```
 
@@ -5729,12 +5729,12 @@ PUT /v1.0/db-security-groups/{dbSecurityGroupId}/rules/{ruleId}
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -5786,22 +5786,22 @@ This API does not require a request body.
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"parameterGroups": [
-{
-"parameterGroupId": "550e8400-e29b-41d4-a716-446655440000",
-"parameterGroupName": "parameterGroupName-example",
-"description": "description-example",
-"dbVersion": "POSTGRESQL_V17_10",
-"parameterGroupStatus": "STABLE",
-"createdYmdt": "2023-12-31T15:00:00+09:00",
-"updatedYmdt": "2023-12-31T15:00:00+09:00"
-}
-]
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "parameterGroups": [
+        {
+            "parameterGroupId": "550e8400-e29b-41d4-a716-446655440000",
+            "parameterGroupName": "parameterGroupName-example",
+            "description": "description-example",
+            "dbVersion": "POSTGRESQL_V17_10",
+            "parameterGroupStatus": "STABLE",
+            "createdYmdt": "2023-12-31T15:00:00+09:00",
+            "updatedYmdt": "2023-12-31T15:00:00+09:00"
+        }
+    ]
 }
 ```
 
@@ -5845,9 +5845,9 @@ POST /v1.0/parameter-groups
 
 ```json
 {
-"parameterGroupName": "parameterGroupName-example",
-"description": "description-example",
-"dbVersion": "POSTGRESQL_V14_17"
+    "parameterGroupName": "parameterGroupName-example",
+    "description": "description-example",
+    "dbVersion": "POSTGRESQL_V14_17"
 }
 ```
 
@@ -5867,12 +5867,12 @@ POST /v1.0/parameter-groups
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"parameterGroupId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "parameterGroupId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -5957,37 +5957,32 @@ This API does not require a request body.
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"parameterGroupId": "550e8400-e29b-41d4-a716-446655440000",
-"parameterGroupName": "parameterGroupName-example",
-"description": "description-example",
-"dbVersion": "POSTGRESQL_V17_10",
-"parameterGroupStatus": "STABLE",
-"parameters": [
-{
-"parameterCategory": "Write-Ahead Log / Checkpoints",
-"parameterName": "checkpoint_timeout",
-"value": "300s",
-"valueUnit": "s",
-"defaultValue": "300s",
-"allowedValue": "30~86400s",
-"valueType": "NUMERIC_WITH_TIME_UNIT",
-"updateType": "VARIABLE",
-"applyType": "BOTH",
-"expressionAvailable": true
-}
-],
-"createdYmdt": "2023-12-31T15:00:00+09:00",
-"updatedYmdt": "2023-12-31T15:00:00+09:00"
-}
-}
-],
-"createdYmdt": "2023-12-31T15:00:00+09:00",
-"updatedYmdt": "2023-12-31T15:00:00+09:00"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "parameterGroupId": "550e8400-e29b-41d4-a716-446655440000",
+    "parameterGroupName": "parameterGroupName-example",
+    "description": "description-example",
+    "dbVersion": "POSTGRESQL_V17_10",
+    "parameterGroupStatus": "STABLE",
+    "parameters": [
+        {
+            "parameterCategory": "Write-Ahead Log / Checkpoints",
+            "parameterName": "checkpoint_timeout",
+            "value": "300s",
+            "valueUnit": "s",
+            "defaultValue": "300s",
+            "allowedValue": "30~86400s",
+            "valueType": "NUMERIC_WITH_TIME_UNIT",
+            "updateType": "VARIABLE",
+            "applyType": "BOTH",
+            "expressionAvailable": true
+        }
+    ],
+    "createdYmdt": "2023-12-31T15:00:00+09:00",
+    "updatedYmdt": "2023-12-31T15:00:00+09:00"
 }
 ```
 
@@ -6030,7 +6025,7 @@ This API does not require a request body.
 #### Request
 
 ```http
-}
+PUT /v1.0/parameter-groups/{parameterGroupId}
 ```
 
 <a id="modify-parameter-group-request-parameters"></a>
@@ -6048,8 +6043,8 @@ This API does not require a request body.
 
 ```json
 {
-"parameterGroupName": "parameterGroupName-example",
-"description": "description-example"
+    "parameterGroupName": "parameterGroupName-example",
+    "description": "description-example"
 }
 ```
 
@@ -6081,7 +6076,7 @@ This API does not return a response body.
 #### Request
 
 ```http
-}
+POST /v1.0/parameter-groups/{parameterGroupId}/copy
 ```
 
 <a id="copy-parameter-group-request-parameters"></a>
@@ -6099,8 +6094,8 @@ This API does not return a response body.
 
 ```json
 {
-"parameterGroupName": "parameterGroupName-example",
-"description": "description-example"
+    "parameterGroupName": "parameterGroupName-example",
+    "description": "description-example"
 }
 ```
 
@@ -6119,12 +6114,12 @@ This API does not return a response body.
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"parameterGroupId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "parameterGroupId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -6150,7 +6145,7 @@ This API does not return a response body.
 #### Request
 
 ```http
-"parameterName": "parameterName-example",
+PUT /v1.0/parameter-groups/{parameterGroupId}/parameters
 ```
 
 <a id="modify-parameter-group-parameters-request-parameters"></a>
@@ -6206,7 +6201,7 @@ This API does not return a response body.
 #### Request
 
 ```http
-This API does not require a request body.
+PUT /v1.0/parameter-groups/{parameterGroupId}/reset
 ```
 
 <a id="reset-parameter-group-request-parameters"></a>
@@ -6245,7 +6240,7 @@ This API does not return a response body.
 #### Request
 
 ```http
-"resultCode": 0,
+GET /v1.0/user-groups
 ```
 
 <a id="get-user-groups-request-body"></a>
@@ -6261,20 +6256,20 @@ This API does not require a request body.
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"createdYmdt": "2023-12-31T15:00:00+09:00",
-{
-}
-]
-}
-"createdYmdt": "2023-12-31T15:00:00+09:00",
-"updatedYmdt": "2023-12-31T15:00:00+09:00"
-}
-]
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "userGroups": [
+        {
+            "userGroupId": "550e8400-e29b-41d4-a716-446655440000",
+            "userGroupName": "userGroupName-example",
+            "userGroupStatus": "CREATED",
+            "createdYmdt": "2023-12-31T15:00:00+09:00",
+            "updatedYmdt": "2023-12-31T15:00:00+09:00"
+        }
+    ]
 }
 ```
 
@@ -6305,7 +6300,7 @@ This API does not require a request body.
 #### Request
 
 ```http
-"selectAllYN": false
+POST /v1.0/user-groups
 ```
 
 <a id="create-user-group-request-body"></a>
@@ -6316,9 +6311,9 @@ This API does not require a request body.
 
 ```json
 {
-]
-{
-"header": {
+    "userGroupName": "userGroupName-example",
+    "memberIds": [],
+    "selectAllYN": false
 }
 ```
 
@@ -6338,12 +6333,12 @@ This API does not require a request body.
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-This API does not require a request body.
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "userGroupId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -6369,7 +6364,7 @@ This API does not require a request body.
 #### Request
 
 ```http
-This API does not require a request body.
+DELETE /v1.0/user-groups/{userGroupId}
 ```
 
 <a id="delete-user-group-request-parameters"></a>
@@ -6405,7 +6400,7 @@ This API does not return a response body.
 #### Request
 
 ```http
-"resultCode": 0,
+GET /v1.0/user-groups/{userGroupId}
 ```
 
 <a id="get-user-group-request-parameters"></a>
@@ -6428,22 +6423,22 @@ This API does not require a request body.
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-}
-]
-}
-}
-"createdYmdt": "2023-12-31T15:00:00+09:00",
-{
-}
-}
-],
-"createdYmdt": "2023-12-31T15:00:00+09:00",
-"updatedYmdt": "2023-12-31T15:00:00+09:00"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "userGroupId": "550e8400-e29b-41d4-a716-446655440000",
+    "userGroupName": "userGroupName-example",
+    "userGroupTypeCode": "ENTIRE",
+    "userGroupStatus": "CREATED",
+    "members": [
+        {
+            "memberId": "550e8400-e29b-41d4-a716-446655440000"
+        }
+    ],
+    "createdYmdt": "2023-12-31T15:00:00+09:00",
+    "updatedYmdt": "2023-12-31T15:00:00+09:00"
 }
 ```
 
@@ -6476,7 +6471,7 @@ This API does not require a request body.
 #### Request
 
 ```http
-"selectAllYN": false
+PUT /v1.0/user-groups/{userGroupId}
 ```
 
 <a id="modify-user-group-request-parameters"></a>
@@ -6494,9 +6489,9 @@ This API does not require a request body.
 
 ```json
 {
-]
-{
-"header": {
+    "userGroupName": "userGroupName-example",
+    "memberIds": [],
+    "selectAllYN": false
 }
 ```
 
@@ -6532,7 +6527,7 @@ This API does not return a response body.
 #### Request
 
 ```http
-"resultCode": 0,
+GET /v1.0/notification-groups
 ```
 
 <a id="get-notification-groups-request-body"></a>
@@ -6548,23 +6543,23 @@ This API does not require a request body.
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"notifyEmail": false,
-{
-"isEnabled": false,
-"createdYmdt": "2023-12-31T15:00:00+09:00",
-"updatedYmdt": "2023-12-31T15:00:00+09:00"
-}
-]
-}
-"createdYmdt": "2023-12-31T15:00:00+09:00",
-"updatedYmdt": "2023-12-31T15:00:00+09:00"
-}
-]
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "notificationGroups": [
+        {
+            "notificationGroupId": "550e8400-e29b-41d4-a716-446655440000",
+            "notificationGroupName": "notificationGroupName-example",
+            "notificationGroupStatus": "CREATED",
+            "notifyEmail": false,
+            "notifySms": false,
+            "isEnabled": false,
+            "createdYmdt": "2023-12-31T15:00:00+09:00",
+            "updatedYmdt": "2023-12-31T15:00:00+09:00"
+        }
+    ]
 }
 ```
 
@@ -6598,7 +6593,7 @@ This API does not require a request body.
 #### Request
 
 ```http
-"notifySms": true,
+POST /v1.0/notification-groups
 ```
 
 <a id="create-notification-group-request-body"></a>
@@ -6609,12 +6604,12 @@ This API does not require a request body.
 
 ```json
 {
-"createdYmdt": "2023-12-31T15:00:00+09:00",
-}
-</p>
-<p>
-{
-"header": {
+    "notificationGroupName": "notificationGroupName-example",
+    "notifyEmail": true,
+    "notifySms": true,
+    "isEnabled": true,
+    "dbInstanceIds": [],
+    "userGroupIds": []
 }
 ```
 
@@ -6637,12 +6632,12 @@ This API does not require a request body.
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-This API does not require a request body.
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "notificationGroupId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -6704,7 +6699,7 @@ This API does not return a response body.
 #### Request
 
 ```http
-"resultCode": 0,
+GET /v1.0/notification-groups/{notificationGroupId}
 ```
 
 <a id="get-notification-group-request-parameters"></a>
@@ -6727,31 +6722,31 @@ This API does not require a request body.
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"isEnabled": false,
-"createdYmdt": "2023-12-31T15:00:00+09:00",
-"updatedYmdt": "2023-12-31T15:00:00+09:00"
-}
-]
-}
-"dbInstances": [
-{
-"dbInstanceId": "550e8400-e29b-41d4-a716-446655440000",
-"userGroupId": "550e8400-e29b-41d4-a716-446655440000",
-}
-],
-"createdYmdt": "2023-12-31T15:00:00+09:00",
-{
-}
-}
-}
-],
-"createdYmdt": "2023-12-31T15:00:00+09:00",
-"updatedYmdt": "2023-12-31T15:00:00+09:00"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "notificationGroupId": "550e8400-e29b-41d4-a716-446655440000",
+    "notificationGroupName": "notificationGroupName-example",
+    "notificationGroupStatus": "CREATED",
+    "notifyEmail": false,
+    "notifySms": false,
+    "isEnabled": false,
+    "dbInstances": [
+        {
+            "dbInstanceId": "550e8400-e29b-41d4-a716-446655440000",
+            "dbInstanceName": "dbInstanceName-example"
+        }
+    ],
+    "userGroups": [
+        {
+            "userGroupId": "550e8400-e29b-41d4-a716-446655440000",
+            "userGroupName": "userGroupName-example"
+        }
+    ],
+    "createdYmdt": "2023-12-31T15:00:00+09:00",
+    "updatedYmdt": "2023-12-31T15:00:00+09:00"
 }
 ```
 
@@ -6790,7 +6785,7 @@ This API does not require a request body.
 #### Request
 
 ```http
-"notifySms": false,
+PUT /v1.0/notification-groups/{notificationGroupId}
 ```
 
 <a id="modify-notification-group-request-parameters"></a>
@@ -6808,12 +6803,12 @@ This API does not require a request body.
 
 ```json
 {
-"createdYmdt": "2023-12-31T15:00:00+09:00",
-}
-]
-}
-{
-"header": {
+    "notificationGroupName": "notificationGroupName-example",
+    "notifyEmail": false,
+    "notifySms": false,
+    "isEnabled": false,
+    "dbInstanceIds": [],
+    "userGroupIds": []
 }
 ```
 
@@ -6849,7 +6844,7 @@ This API does not return a response body.
 #### Request
 
 ```http
-"resultCode": 0,
+GET /v1.0/notification-groups/{notificationGroupId}/watchdogs
 ```
 
 <a id="get-notification-watchdogs-request-parameters"></a>
@@ -6918,7 +6913,7 @@ This API does not require a request body.
 #### Request
 
 ```http
-"threshold": 0,
+POST /v1.0/notification-groups/{notificationGroupId}/watchdogs
 ```
 
 <a id="create-notification-watchdog-request-parameters"></a>
@@ -6960,12 +6955,12 @@ This API does not require a request body.
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-This API does not require a request body.
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "watchdogId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -6991,7 +6986,7 @@ This API does not require a request body.
 #### Request
 
 ```http
-<p>
+DELETE /v1.0/notification-groups/{notificationGroupId}/watchdogs/{watchdogId}
 ```
 
 <a id="delete-notification-watchdog-request-parameters"></a>
@@ -7028,7 +7023,7 @@ This API does not return a response body.
 #### Request
 
 ```http
-"threshold": 0,
+PUT /v1.0/notification-groups/{notificationGroupId}/watchdogs/{watchdogId}
 ```
 
 <a id="modify-notification-watchdog-request-parameters"></a>
@@ -7087,7 +7082,7 @@ This API does not return a response body.
 #### Request
 
 ```http
-This API does not require a request body.
+GET /v1.0/metric-statistics
 ```
 
 <a id="get-metric-statistics-request-parameters"></a>
@@ -7159,7 +7154,7 @@ This API does not require a request body.
 #### Request
 
 ```http
-"resultCode": 0,
+GET /v1.0/metrics
 ```
 
 <a id="get-metrics-request-body"></a>
@@ -7182,8 +7177,6 @@ This API does not require a request body.
     },
     "metrics": [
         {
-            "metricName": "metricName-example",
-            "unit": "unit-example"
             "metricName": "CPU_USAGE",
             "unit": "%"
         }
@@ -7207,7 +7200,7 @@ This API does not require a request body.
 <a id="event-category"></a>
 ### Event category { #event-category }
 
-"header": {
+Events can be classified into the following categories.
 
 | Event category | Description |
 |-------------|---------|
@@ -7232,7 +7225,7 @@ This API does not require a request body.
 #### Request
 
 ```http
-"resultCode": 0,
+GET /v1.0/event-codes
 ```
 
 <a id="get-event-codes-request-body"></a>
@@ -7286,7 +7279,7 @@ This API does not require a request body.
 #### Request
 
 ```http
-"resultCode": 0,
+GET /v1.0/events
 ```
 
 <a id="get-events-request-parameters"></a>

@@ -54,11 +54,11 @@ APIリクエスト時、認証に失敗または権限がない場合、次の�
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-}
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    }
 }
 ```
 
@@ -69,11 +69,11 @@ APIリクエスト時、認証に失敗または権限がない場合、次の�
 
 ```json
 {
-"header": {
+    "header": {
         "resultCode": -1,
         "resultMessage": "FAIL",
         "isSuccessful": false
-}
+    }
 }
 ```
 
@@ -197,19 +197,19 @@ GET /v1.0/db-flavors
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"dbFlavors": [
-{
-"dbFlavorId": "289e34e9-cd8a-4baf-82e3-a3d013c5186b",
-"dbFlavorName": "r2.c2m4",
-"ram": 4096,
-"vcpus": 2
-}
-]
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "dbFlavors": [
+        {
+            "dbFlavorId": "289e34e9-cd8a-4baf-82e3-a3d013c5186b",
+            "dbFlavorName": "r2.c2m4",
+            "ram": 4096,
+            "vcpus": 2
+        }
+    ]
 }
 ```
 
@@ -258,19 +258,19 @@ GET /v1.0/project/members
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"projectMembers": [
-{
-"memberId": "550e8400-e29b-41d4-a716-446655440000",
-"memberName": "memberName-example",
-"emailAddress": "user@example.com",
-"phoneNumber": "010-1234-5678"
-}
-]
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "projectMembers": [
+        {
+            "memberId": "550e8400-e29b-41d4-a716-446655440000",
+            "memberName": "memberName-example",
+            "emailAddress": "user@example.com",
+            "phoneNumber": "010-1234-5678"
+        }
+    ]
 }
 ```
 
@@ -316,17 +316,17 @@ GET /v1.0/project/regions
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"regions": [
-{
-"regionCode": "KR1",
-"isEnabled": false
-}
-]
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "regions": [
+        {
+            "regionCode": "KR1",
+            "isEnabled": false
+        }
+    ]
 }
 ```
 
@@ -373,20 +373,20 @@ GET /v1.0/network/subnets
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"subnets": [
-{
-"subnetId": "550e8400-e29b-41d4-a716-446655440000",
-"subnetName": "subnetName-example",
-"subnetCidr": "192.168.0.0/24",
-"usingGateway": false,
-"availableIpCount": 240
-}
-]
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "subnets": [
+        {
+            "subnetId": "550e8400-e29b-41d4-a716-446655440000",
+            "subnetName": "subnetName-example",
+            "subnetCidr": "192.168.0.0/24",
+            "usingGateway": false,
+            "availableIpCount": 240
+        }
+    ]
 }
 ```
 
@@ -436,15 +436,15 @@ GET /v1.0/storage-types
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"storageTypes": [
-"General SSD",
-"General HDD"
-]
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "storageTypes": [
+        "General SSD",
+        "General HDD"
+    ]
 }
 ```
 
@@ -514,21 +514,21 @@ GET /v1.0/jobs/{jobId}
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000",
-"jobStatus": "DELETED",
-"resourceRelations": [
-{
-"resourceType": "resourceType-example",
-"resourceId": "resourceId-example"
-}
-],
-"createdYmdt": "2023-12-31T15:00:00+09:00",
-"updatedYmdt": "2023-12-31T15:00:00+09:00"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000",
+    "jobStatus": "DELETED",
+    "resourceRelations": [
+        {
+            "resourceType": "resourceType-example",
+            "resourceId": "resourceId-example"
+        }
+    ],
+    "createdYmdt": "2023-12-31T15:00:00+09:00",
+    "updatedYmdt": "2023-12-31T15:00:00+09:00"
 }
 ```
 
@@ -985,29 +985,29 @@ GET /v1.0/db-instance-groups/{dbInstanceGroupId}/extensions
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"extensions": [
-{
-"extensionId": "550e8400-e29b-41d4-a716-446655440000",
-"extensionName": "address_standardizer",
-"extensionStatus": "AVAILABLE",
-"databases": [
-{
-"dbInstanceGroupExtensionId": "550e8400-e29b-41d4-a716-446655440000",
-"databaseId": "550e8400-e29b-41d4-a716-446655440000",
-"databaseName": "database-1",
-"dbInstanceGroupExtensionStatus": "CREATED",
-"reservedAction": "NONE",
-"errorReason": "errorReason-example"
-}
-]
-}
-],
-"isNeedToApply": false
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "extensions": [
+        {
+            "extensionId": "550e8400-e29b-41d4-a716-446655440000",
+            "extensionName": "address_standardizer",
+            "extensionStatus": "AVAILABLE",
+            "databases": [
+                {
+                    "dbInstanceGroupExtensionId": "550e8400-e29b-41d4-a716-446655440000",
+                    "databaseId": "550e8400-e29b-41d4-a716-446655440000",
+                    "databaseName": "database-1",
+                    "dbInstanceGroupExtensionStatus": "CREATED",
+                    "reservedAction": "NONE",
+                    "errorReason": "errorReason-example"
+                }
+            ]
+        }
+    ],
+    "isNeedToApply": false
 }
 ```
 
@@ -1067,12 +1067,12 @@ POST /v1.0/db-instance-groups/{dbInstanceGroupId}/extensions/apply
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -1121,12 +1121,12 @@ POST /v1.0/db-instance-groups/{dbInstanceGroupId}/extensions/sync
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -1209,9 +1209,9 @@ POST /v1.0/db-instance-groups/{dbInstanceGroupId}/extensions/{extensionId}
 
 ```json
 {
-"databaseId": "550e8400-e29b-41d4-a716-446655440000",
-"schemaName": "rds",
-"withCascade": false
+    "databaseId": "550e8400-e29b-41d4-a716-446655440000",
+    "schemaName": "rds",
+    "withCascade": false
 }
 ```
 
@@ -1452,7 +1452,6 @@ GET /v1.0/db-instances
 
 ```json
 {
-{
     "header": {
         "resultCode": 0,
         "resultMessage": "SUCCESS",
@@ -1464,11 +1463,11 @@ GET /v1.0/db-instances
             "dbInstanceGroupId": "550e8400-e29b-41d4-a716-446655440000",
             "dbInstanceName": "dbInstanceName-example",
             "description": "description-example",
-            "dbVersion": "POSTGRESQL_V17_10",
-            "dbPort": 15432,
+            "dbVersion": "POSTGRESQL_V14_17",
+            "dbPort": 1,
             "dbInstanceType": "MASTER",
-            "dbInstanceStatus": "AVAILABLE",
-            "progressStatus": "NONE",
+            "dbInstanceStatus": "BEFORE_CREATE",
+            "progressStatus": "APPLYING_DB_INSTANCE_HBA_RULE",
             "createdYmdt": "2023-12-31T15:00:00+09:00",
             "updatedYmdt": "2023-12-31T15:00:00+09:00"
         }
@@ -1606,12 +1605,12 @@ POST /v1.0/db-instances
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -1743,12 +1742,12 @@ POST /v1.0/db-instances/restore-from-obs
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -1797,12 +1796,12 @@ DELETE /v1.0/db-instances/{dbInstanceId}
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -1851,35 +1850,35 @@ GET /v1.0/db-instances/{dbInstanceId}
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"dbInstanceId": "550e8400-e29b-41d4-a716-446655440000",
-"dbInstanceGroupId": "550e8400-e29b-41d4-a716-446655440000",
-"dbInstanceName": "dbInstanceName-example",
-"description": "description-example",
-"dbVersion": "POSTGRESQL_V17_10",
-"dbPort": 15432,
-"dbInstanceType": "MASTER",
-"dbInstanceStatus": "AVAILABLE",
-"progressStatus": "NONE",
-"dbFlavorId": "550e8400-e29b-41d4-a716-446655440000",
-"parameterGroupId": "550e8400-e29b-41d4-a716-446655440000",
-"dbSecurityGroupIds": [
-"550e8400-e29b-41d4-a716-446655440000"
-],
-"notificationGroupIds": [
-"550e8400-e29b-41d4-a716-446655440000"
-],
-"useDeletionProtection": false,
-"needToApplyParameterGroup": false,
-"needMigration": false,
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "dbInstanceId": "550e8400-e29b-41d4-a716-446655440000",
+    "dbInstanceGroupId": "550e8400-e29b-41d4-a716-446655440000",
+    "dbInstanceName": "dbInstanceName-example",
+    "description": "description-example",
+    "dbVersion": "POSTGRESQL_V17_10",
+    "dbPort": 15432,
+    "dbInstanceType": "MASTER",
+    "dbInstanceStatus": "AVAILABLE",
+    "progressStatus": "NONE",
+    "dbFlavorId": "550e8400-e29b-41d4-a716-446655440000",
+    "parameterGroupId": "550e8400-e29b-41d4-a716-446655440000",
+    "dbSecurityGroupIds": [
+        "550e8400-e29b-41d4-a716-446655440000"
+    ],
+    "notificationGroupIds": [
+        "550e8400-e29b-41d4-a716-446655440000"
+    ],
+    "useDeletionProtection": false,
+    "needToApplyParameterGroup": false,
+    "needMigration": false,
     "osVersion": "osVersion-example",
     "osVersion": "Ubuntu Server 24.04 LTS",
-"createdYmdt": "2023-12-31T15:00:00+09:00",
-"updatedYmdt": "2023-12-31T15:00:00+09:00"
+    "createdYmdt": "2023-12-31T15:00:00+09:00",
+    "updatedYmdt": "2023-12-31T15:00:00+09:00"
 }
 ```
 
@@ -1941,18 +1940,18 @@ PUT /v1.0/db-instances/{dbInstanceId}
 
 ```json
 {
-"dbInstanceName": "dbInstanceName-example",
-"dbInstanceCandidateName": "dbInstanceCandidateName-example",
-"description": "description-example",
-"dbPort": 15432,
-"dbFlavorId": "550e8400-e29b-41d4-a716-446655440000",
-"parameterGroupId": "550e8400-e29b-41d4-a716-446655440000",
-"dbVersion": "POSTGRESQL_V17_10",
-"dbSecurityGroupIds": [],
-"executeBackup": false,
-"useOnlineFailover": false,
-"waitReplicationDelay": false,
-"useReadOnly": false
+    "dbInstanceName": "dbInstanceName-example",
+    "dbInstanceCandidateName": "dbInstanceCandidateName-example",
+    "description": "description-example",
+    "dbPort": 15432,
+    "dbFlavorId": "550e8400-e29b-41d4-a716-446655440000",
+    "parameterGroupId": "550e8400-e29b-41d4-a716-446655440000",
+    "dbVersion": "POSTGRESQL_V17_10",
+    "dbSecurityGroupIds": [],
+    "executeBackup": false,
+    "useOnlineFailover": false,
+    "waitReplicationDelay": false,
+    "useReadOnly": false
 }
 ```
 
@@ -1981,12 +1980,12 @@ PUT /v1.0/db-instances/{dbInstanceId}
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -2054,12 +2053,12 @@ POST /v1.0/db-instances/{dbInstanceId}/apply-recent-parameter-group
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -2190,12 +2189,12 @@ POST /v1.0/db-instances/{dbInstanceId}/backup
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -2355,12 +2354,12 @@ PUT /v1.0/db-instances/{dbInstanceId}/backup-info
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -2404,11 +2403,11 @@ POST /v1.0/db-instances/{dbInstanceId}/backup-to-object-storage
 
 ```json
 {
-"tenantId": "0123456789abcdef0123456789abcdef",
-"username": "example@nhncloud.com or example",
-"password": "password-example",
-"targetContainer": "targetContainer-example",
-"objectPath": "objectPath-example"
+    "tenantId": "0123456789abcdef0123456789abcdef",
+    "username": "example@nhncloud.com or example",
+    "password": "password-example",
+    "targetContainer": "targetContainer-example",
+    "objectPath": "objectPath-example"
 }
 ```
 
@@ -2430,12 +2429,12 @@ POST /v1.0/db-instances/{dbInstanceId}/backup-to-object-storage
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -2484,27 +2483,27 @@ GET /v1.0/db-instances/{dbInstanceId}/databases
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"databases": [
-{
-"databaseId": "550e8400-e29b-41d4-a716-446655440000",
-"databaseName": "database-1",
-"databaseStatus": "STABLE",
-"errorReason": "errorReason-example",
-"createdYmdt": "2023-12-31T15:00:00+09:00",
-"updatedYmdt": "2023-12-31T15:00:00+09:00",
-"schemas": [
-{
-"schemaName": "rds"
-}
-],
-"errorReason": "errorReason-example"
-}
-]
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "databases": [
+        {
+            "databaseId": "550e8400-e29b-41d4-a716-446655440000",
+            "databaseName": "database-1",
+            "databaseStatus": "STABLE",
+            "errorReason": "errorReason-example",
+            "createdYmdt": "2023-12-31T15:00:00+09:00",
+            "updatedYmdt": "2023-12-31T15:00:00+09:00",
+            "schemas": [
+                {
+                    "schemaName": "rds"
+                }
+            ],
+            "errorReason": "errorReason-example"
+        }
+    ]
 }
 ```
 
@@ -2556,7 +2555,7 @@ POST /v1.0/db-instances/{dbInstanceId}/databases
 
 ```json
 {
-"databaseName": "database-1"
+    "databaseName": "database-1"
 }
 ```
 
@@ -2574,12 +2573,12 @@ POST /v1.0/db-instances/{dbInstanceId}/databases
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -2629,12 +2628,12 @@ DELETE /v1.0/db-instances/{dbInstanceId}/databases/{databaseId}
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -2679,8 +2678,8 @@ PUT /v1.0/db-instances/{dbInstanceId}/databases/{databaseId}
 
 ```json
 {
-"applyHbaRulesImmediately": false,
-"databaseName": "database-1"
+    "applyHbaRulesImmediately": false,
+    "databaseName": "database-1"
 }
 ```
 
@@ -2699,12 +2698,12 @@ PUT /v1.0/db-instances/{dbInstanceId}/databases/{databaseId}
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -2753,21 +2752,21 @@ GET /v1.0/db-instances/{dbInstanceId}/db-users
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"dbUsers": [
-{
-"dbUserId": "550e8400-e29b-41d4-a716-446655440000",
-"dbUserName": "dbUserName-example",
-"authorityType": "CUSTOM",
-"dbUserStatus": "STABLE",
-"createdYmdt": "2023-12-31T15:00:00+09:00",
-"updatedYmdt": "2023-12-31T15:00:00+09:00"
-}
-]
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "dbUsers": [
+        {
+            "dbUserId": "550e8400-e29b-41d4-a716-446655440000",
+            "dbUserName": "dbUserName-example",
+            "authorityType": "CUSTOM",
+            "dbUserStatus": "STABLE",
+            "createdYmdt": "2023-12-31T15:00:00+09:00",
+            "updatedYmdt": "2023-12-31T15:00:00+09:00"
+        }
+    ]
 }
 ```
 
@@ -2817,11 +2816,11 @@ POST /v1.0/db-instances/{dbInstanceId}/db-users
 
 ```json
 {
-"dbUserName": "dbUserName-example",
-"dbPassword": "dbPassword-example",
-"authorityType": "CUSTOM",
-"createDefaultHbaRules": false,
-"address": "192.168.0.10/32"
+    "dbUserName": "dbUserName-example",
+    "dbPassword": "dbPassword-example",
+    "authorityType": "CUSTOM",
+    "createDefaultHbaRules": false,
+    "address": "192.168.0.10/32"
 }
 ```
 
@@ -2843,12 +2842,12 @@ POST /v1.0/db-instances/{dbInstanceId}/db-users
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -2898,12 +2897,12 @@ DELETE /v1.0/db-instances/{dbInstanceId}/db-users/{dbUserId}
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -2948,10 +2947,10 @@ PUT /v1.0/db-instances/{dbInstanceId}/db-users/{dbUserId}
 
 ```json
 {
-"dbUserName": "dbUserName-example",
-"dbPassword": "dbPassword-example",
-"authorityType": "CUSTOM",
-"applyHbaRulesImmediately": false
+    "dbUserName": "dbUserName-example",
+    "dbPassword": "dbPassword-example",
+    "authorityType": "CUSTOM",
+    "applyHbaRulesImmediately": false
 }
 ```
 
@@ -2972,12 +2971,12 @@ PUT /v1.0/db-instances/{dbInstanceId}/db-users/{dbUserId}
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -3021,7 +3020,7 @@ PUT /v1.0/db-instances/{dbInstanceId}/deletion-protection
 
 ```json
 {
-"useDeletionProtection": false
+    "useDeletionProtection": false
 }
 ```
 
@@ -3111,37 +3110,37 @@ GET /v1.0/db-instances/{dbInstanceId}/hba-rules
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"hbaRules": [
-{
-"hbaRuleId": "550e8400-e29b-41d4-a716-446655440000",
-"hbaRuleStatus": "CREATED",
-"databaseApplyType": "ENTIRE",
-"dbUserApplyTypeCode": "ENTIRE",
-"databases": [
-{
-"databaseId": "550e8400-e29b-41d4-a716-446655440000",
-"databaseName": "databaseName-example"
-}
-],
-"dbUsers": [
-{
-"dbUserId": "550e8400-e29b-41d4-a716-446655440000",
-"dbUserName": "dbUserName-example"
-}
-],
-"address": "192.168.0.10/32",
-"authMethod": "TRUST",
-"reservedAction": "NONE",
-"order": 1,
-"applicable": false
-}
-],
-"needToApply": false
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "hbaRules": [
+        {
+            "hbaRuleId": "550e8400-e29b-41d4-a716-446655440000",
+            "hbaRuleStatus": "CREATED",
+            "databaseApplyType": "ENTIRE",
+            "dbUserApplyTypeCode": "ENTIRE",
+            "databases": [
+                {
+                    "databaseId": "550e8400-e29b-41d4-a716-446655440000",
+                    "databaseName": "databaseName-example"
+                }
+            ],
+            "dbUsers": [
+                {
+                    "dbUserId": "550e8400-e29b-41d4-a716-446655440000",
+                    "dbUserName": "dbUserName-example"
+                }
+            ],
+            "address": "192.168.0.10/32",
+            "authMethod": "TRUST",
+            "reservedAction": "NONE",
+            "order": 1,
+            "applicable": false
+        }
+    ],
+    "needToApply": false
 }
 ```
 
@@ -3201,13 +3200,13 @@ POST /v1.0/db-instances/{dbInstanceId}/hba-rules
 
 ```json
 {
-"connectionTypeCode": "HOST",
-"databaseApplyType": "ENTIRE",
-"dbUserApplyType": "ENTIRE",
-"databaseIds": [],
-"dbUserIds": [],
-"address": "192.168.0.10/32",
-"authMethod": "TRUST"
+    "connectionTypeCode": "HOST",
+    "databaseApplyType": "ENTIRE",
+    "dbUserApplyType": "ENTIRE",
+    "databaseIds": [],
+    "dbUserIds": [],
+    "address": "192.168.0.10/32",
+    "authMethod": "TRUST"
 }
 ```
 
@@ -3231,12 +3230,12 @@ POST /v1.0/db-instances/{dbInstanceId}/hba-rules
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"hbaRuleId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "hbaRuleId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -3285,12 +3284,12 @@ POST /v1.0/db-instances/{dbInstanceId}/hba-rules/apply
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -3334,7 +3333,7 @@ PUT /v1.0/db-instances/{dbInstanceId}/hba-rules/orders
 
 ```json
 {
-"hbaRuleIds": []
+    "hbaRuleIds": []
 }
 ```
 
@@ -3421,13 +3420,13 @@ PUT /v1.0/db-instances/{dbInstanceId}/hba-rules/{hbaRuleId}
 
 ```json
 {
-"connectionTypeCode": "HOST",
-"databaseApplyType": "ENTIRE",
-"dbUserApplyType": "ENTIRE",
-"databaseIds": [],
-"dbUserIds": [],
-"address": "192.168.0.10/32",
-"authMethod": "TRUST"
+    "connectionTypeCode": "HOST",
+    "databaseApplyType": "ENTIRE",
+    "dbUserApplyType": "ENTIRE",
+    "databaseIds": [],
+    "dbUserIds": [],
+    "address": "192.168.0.10/32",
+    "authMethod": "TRUST"
 }
 ```
 
@@ -3487,14 +3486,14 @@ GET /v1.0/db-instances/{dbInstanceId}/high-availability
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"haStatus": "CREATED",
-"pingInterval": 1,
-"failoverReplWaitingTime": 1
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "haStatus": "CREATED",
+    "pingInterval": 1,
+    "failoverReplWaitingTime": 1
 }
 ```
 
@@ -3540,9 +3539,9 @@ PUT /v1.0/db-instances/{dbInstanceId}/high-availability
 
 ```json
 {
-"useHighAvailability": false,
-"pingInterval": 1,
-"failoverReplWaitingTime": 1
+    "useHighAvailability": false,
+    "pingInterval": 1,
+    "failoverReplWaitingTime": 1
 }
 ```
 
@@ -3562,12 +3561,12 @@ PUT /v1.0/db-instances/{dbInstanceId}/high-availability
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -3616,12 +3615,12 @@ POST /v1.0/db-instances/{dbInstanceId}/high-availability/pause
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -3670,12 +3669,12 @@ POST /v1.0/db-instances/{dbInstanceId}/high-availability/repair
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -3724,12 +3723,12 @@ POST /v1.0/db-instances/{dbInstanceId}/high-availability/resume
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -3778,12 +3777,12 @@ POST /v1.0/db-instances/{dbInstanceId}/high-availability/split
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -3911,12 +3910,12 @@ PUT /v1.0/db-instances/{dbInstanceId}/maintenance-info
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -3965,25 +3964,25 @@ GET /v1.0/db-instances/{dbInstanceId}/network-info
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"availabilityZone": "kr-pub-a",
-"subnet": {
-"subnetId": "550e8400-e29b-41d4-a716-446655440000",
-"subnetName": "Default Network",
-"subnetCidr": "192.168.0.0/24",
-"publicAccessible": false
-},
-"endPoints": [
-{
-"domain": "ea548a78-d85f-43b4-8ddf-c88d999b9905.internal.kr1.postgres.rds.nhncloudservice.com",
-"ipAddress": "192.168.0.1",
-"endPointType": "INTERNAL"
-}
-]
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "availabilityZone": "kr-pub-a",
+    "subnet": {
+        "subnetId": "550e8400-e29b-41d4-a716-446655440000",
+        "subnetName": "Default Network",
+        "subnetCidr": "192.168.0.0/24",
+        "publicAccessible": false
+    },
+    "endPoints": [
+        {
+            "domain": "ea548a78-d85f-43b4-8ddf-c88d999b9905.internal.kr1.postgres.rds.nhncloudservice.com",
+            "ipAddress": "192.168.0.1",
+            "endPointType": "INTERNAL"
+        }
+    ]
 }
 ```
 
@@ -4036,7 +4035,7 @@ PUT /v1.0/db-instances/{dbInstanceId}/network-info
 
 ```json
 {
-"usePublicAccess": false
+    "usePublicAccess": false
 }
 ```
 
@@ -4054,12 +4053,12 @@ PUT /v1.0/db-instances/{dbInstanceId}/network-info
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -4108,12 +4107,12 @@ POST /v1.0/db-instances/{dbInstanceId}/promote
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -4209,12 +4208,12 @@ POST /v1.0/db-instances/{dbInstanceId}/replicate
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -4282,12 +4281,12 @@ POST /v1.0/db-instances/{dbInstanceId}/restart
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -4336,31 +4335,31 @@ GET /v1.0/db-instances/{dbInstanceId}/restoration-info
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"oldestRestorableYmdt": "2023-12-31T15:00:00+09:00",
-"latestRestorableYmdt": "2023-12-31T15:00:00+09:00",
-"restorableBackups": [
-{
-"backupId": "550e8400-e29b-41d4-a716-446655440000",
-"backupName": "backupName-example",
-"backupStatus": "BACKING_UP",
-"dbInstanceId": "550e8400-e29b-41d4-a716-446655440000",
-"dbInstanceName": "dbInstanceName-example",
-"dbVersion": "POSTGRESQL_V17_10",
-"backupType": "AUTO",
-"backupSize": 1,
-"failoverCount": 1,
-"walFileName": "000000010000000000000005",
-"createdYmdt": "2023-12-31T15:00:00+09:00",
-"updatedYmdt": "2023-12-31T15:00:00+09:00",
-"startYmdt": "2023-12-31T15:00:00+09:00",
-"completedYmdt": "2023-12-31T15:00:00+09:00"
-}
-]
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "oldestRestorableYmdt": "2023-12-31T15:00:00+09:00",
+    "latestRestorableYmdt": "2023-12-31T15:00:00+09:00",
+    "restorableBackups": [
+        {
+            "backupId": "550e8400-e29b-41d4-a716-446655440000",
+            "backupName": "backupName-example",
+            "backupStatus": "BACKING_UP",
+            "dbInstanceId": "550e8400-e29b-41d4-a716-446655440000",
+            "dbInstanceName": "dbInstanceName-example",
+            "dbVersion": "POSTGRESQL_V17_10",
+            "backupType": "AUTO",
+            "backupSize": 1,
+            "failoverCount": 1,
+            "walFileName": "000000010000000000000005",
+            "createdYmdt": "2023-12-31T15:00:00+09:00",
+            "updatedYmdt": "2023-12-31T15:00:00+09:00",
+            "startYmdt": "2023-12-31T15:00:00+09:00",
+            "completedYmdt": "2023-12-31T15:00:00+09:00"
+        }
+    ]
 }
 ```
 
@@ -4519,12 +4518,12 @@ POST /v1.0/db-instances/{dbInstanceId}/restore
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -4573,12 +4572,12 @@ POST /v1.0/db-instances/{dbInstanceId}/start
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -4627,12 +4626,12 @@ POST /v1.0/db-instances/{dbInstanceId}/stop
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -4681,14 +4680,14 @@ GET /v1.0/db-instances/{dbInstanceId}/storage-info
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"storageType": "General SSD",
-"storageSize": 1,
-"storageStatus": "DELETED"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "storageType": "General SSD",
+    "storageSize": 1,
+    "storageStatus": "DELETED"
 }
 ```
 
@@ -4734,7 +4733,7 @@ PUT /v1.0/db-instances/{dbInstanceId}/storage-info
 
 ```json
 {
-"storageSize": 1
+    "storageSize": 1
 }
 ```
 
@@ -4752,12 +4751,12 @@ PUT /v1.0/db-instances/{dbInstanceId}/storage-info
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -4824,27 +4823,27 @@ GET /v1.0/backups
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"totalCounts": 1,
-"backups": [
-{
-"backupId": "550e8400-e29b-41d4-a716-446655440000",
-"backupName": "backupName-example",
-"backupStatus": "BACKING_UP",
-"dbInstanceId": "550e8400-e29b-41d4-a716-446655440000",
-"dbVersion": "POSTGRESQL_V17_10",
-"backupType": "AUTO",
-"backupSize": 1,
-"startYmdt": "2023-12-31T15:00:00+09:00",
-"createdYmdt": "2023-12-31T15:00:00+09:00",
-"updatedYmdt": "2023-12-31T15:00:00+09:00",
-"completedYmdt": "2023-12-31T15:00:00+09:00"
-}
-]
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "totalCounts": 1,
+    "backups": [
+        {
+            "backupId": "550e8400-e29b-41d4-a716-446655440000",
+            "backupName": "backupName-example",
+            "backupStatus": "BACKING_UP",
+            "dbInstanceId": "550e8400-e29b-41d4-a716-446655440000",
+            "dbVersion": "POSTGRESQL_V17_10",
+            "backupType": "AUTO",
+            "backupSize": 1,
+            "startYmdt": "2023-12-31T15:00:00+09:00",
+            "createdYmdt": "2023-12-31T15:00:00+09:00",
+            "updatedYmdt": "2023-12-31T15:00:00+09:00",
+            "completedYmdt": "2023-12-31T15:00:00+09:00"
+        }
+    ]
 }
 ```
 
@@ -4966,12 +4965,12 @@ DELETE /v1.0/backups/{backupId}
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -5015,11 +5014,11 @@ POST /v1.0/backups/{backupId}/export
 
 ```json
 {
-"tenantId": "0123456789abcdef0123456789abcdef",
-"username": "example@nhncloud.com or example",
-"password": "password-example",
-"targetContainer": "targetContainer-example",
-"objectPath": "objectPath-example"
+    "tenantId": "0123456789abcdef0123456789abcdef",
+    "username": "example@nhncloud.com or example",
+    "password": "password-example",
+    "targetContainer": "targetContainer-example",
+    "objectPath": "objectPath-example"
 }
 ```
 
@@ -5041,12 +5040,12 @@ POST /v1.0/backups/{backupId}/export
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -5168,12 +5167,12 @@ POST /v1.0/backups/{backupId}/restore
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -5228,22 +5227,22 @@ GET /v1.0/db-security-groups
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"dbSecurityGroups": [
-{
-"dbSecurityGroupId": "550e8400-e29b-41d4-a716-446655440000",
-"dbSecurityGroupName": "dbSecurityGroupName-example",
-"dbSecurityGroupStatus": "CREATED",
-"description": "description-example",
-"progressStatus": "NONE",
-"createdYmdt": "2023-12-31T15:00:00+09:00",
-"updatedYmdt": "2023-12-31T15:00:00+09:00"
-}
-]
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "dbSecurityGroups": [
+        {
+            "dbSecurityGroupId": "550e8400-e29b-41d4-a716-446655440000",
+            "dbSecurityGroupName": "dbSecurityGroupName-example",
+            "dbSecurityGroupStatus": "CREATED",
+            "description": "description-example",
+            "progressStatus": "NONE",
+            "createdYmdt": "2023-12-31T15:00:00+09:00",
+            "updatedYmdt": "2023-12-31T15:00:00+09:00"
+        }
+    ]
 }
 ```
 
@@ -5287,21 +5286,21 @@ POST /v1.0/db-security-groups
 
 ```json
 {
-"dbSecurityGroupName": "dbSecurityGroupName-example",
-"description": "description-example",
-"rules": [
-{
-"direction": "INGRESS",
-"etherType": "IPV4",
-"port": {
-"portType": "ALL",
-"minPort": 1,
-"maxPort": 1
-},
-"cidr": "192.168.0.0/24",
-"description": "description-example"
-}
-]
+    "dbSecurityGroupName": "dbSecurityGroupName-example",
+    "description": "description-example",
+    "rules": [
+        {
+            "direction": "INGRESS",
+            "etherType": "IPV4",
+            "port": {
+                "portType": "ALL",
+                "minPort": 1,
+                "maxPort": 1
+            },
+            "cidr": "192.168.0.0/24",
+            "description": "description-example"
+        }
+    ]
 }
 ```
 
@@ -5329,12 +5328,12 @@ POST /v1.0/db-security-groups
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"dbSecurityGroupId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "dbSecurityGroupId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -5419,36 +5418,36 @@ GET /v1.0/db-security-groups/{dbSecurityGroupId}
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"dbSecurityGroup": {
-"dbSecurityGroupId": "550e8400-e29b-41d4-a716-446655440000",
-"dbSecurityGroupName": "dbSecurityGroupName-example",
-"dbSecurityGroupStatus": "CREATED",
-"description": "description-example",
-"progressStatus": "NONE",
-"rules": [
-{
-"ruleId": "550e8400-e29b-41d4-a716-446655440000",
-"description": "description-example",
-"direction": "INGRESS",
-"etherType": "IPV4",
-"port": {
-"portType": "ALL",
-"minPort": 1,
-"maxPort": 1
-},
-"cidr": "192.168.0.0/24",
-"createdYmdt": "2023-12-31T15:00:00+09:00",
-"updatedYmdt": "2023-12-31T15:00:00+09:00"
-}
-],
-"createdYmdt": "2023-12-31T15:00:00+09:00",
-"updatedYmdt": "2023-12-31T15:00:00+09:00"
-}
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "dbSecurityGroup": {
+        "dbSecurityGroupId": "550e8400-e29b-41d4-a716-446655440000",
+        "dbSecurityGroupName": "dbSecurityGroupName-example",
+        "dbSecurityGroupStatus": "CREATED",
+        "description": "description-example",
+        "progressStatus": "NONE",
+        "rules": [
+            {
+                "ruleId": "550e8400-e29b-41d4-a716-446655440000",
+                "description": "description-example",
+                "direction": "INGRESS",
+                "etherType": "IPV4",
+                "port": {
+                    "portType": "ALL",
+                    "minPort": 1,
+                    "maxPort": 1
+                },
+                "cidr": "192.168.0.0/24",
+                "createdYmdt": "2023-12-31T15:00:00+09:00",
+                "updatedYmdt": "2023-12-31T15:00:00+09:00"
+            }
+        ],
+        "createdYmdt": "2023-12-31T15:00:00+09:00",
+        "updatedYmdt": "2023-12-31T15:00:00+09:00"
+    }
 }
 ```
 
@@ -5511,8 +5510,8 @@ PUT /v1.0/db-security-groups/{dbSecurityGroupId}
 
 ```json
 {
-"dbSecurityGroupName": "dbSecurityGroupName-example",
-"description": "description-example"
+    "dbSecurityGroupName": "dbSecurityGroupName-example",
+    "description": "description-example"
 }
 ```
 
@@ -5568,12 +5567,12 @@ DELETE /v1.0/db-security-groups/{dbSecurityGroupId}/rules
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -5617,15 +5616,15 @@ POST /v1.0/db-security-groups/{dbSecurityGroupId}/rules
 
 ```json
 {
-"direction": "INGRESS",
-"etherType": "IPV4",
-"port": {
-"portType": "ALL",
-"minPort": 1,
-"maxPort": 1
-},
-"cidr": "192.168.0.0/24",
-"description": "description-example"
+    "direction": "INGRESS",
+    "etherType": "IPV4",
+    "port": {
+        "portType": "ALL",
+        "minPort": 1,
+        "maxPort": 1
+    },
+    "cidr": "192.168.0.0/24",
+    "description": "description-example"
 }
 ```
 
@@ -5650,12 +5649,12 @@ POST /v1.0/db-security-groups/{dbSecurityGroupId}/rules
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -5700,15 +5699,15 @@ PUT /v1.0/db-security-groups/{dbSecurityGroupId}/rules/{ruleId}
 
 ```json
 {
-"direction": "INGRESS",
-"etherType": "IPV4",
-"port": {
-"portType": "ALL",
-"minPort": 1,
-"maxPort": 1
-},
-"cidr": "192.168.0.0/24",
-"description": "description-example"
+    "direction": "INGRESS",
+    "etherType": "IPV4",
+    "port": {
+        "portType": "ALL",
+        "minPort": 1,
+        "maxPort": 1
+    },
+    "cidr": "192.168.0.0/24",
+    "description": "description-example"
 }
 ```
 
@@ -5733,12 +5732,12 @@ PUT /v1.0/db-security-groups/{dbSecurityGroupId}/rules/{ruleId}
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"jobId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "jobId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
@@ -5790,22 +5789,22 @@ GET /v1.0/parameter-groups
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"parameterGroups": [
-{
-"parameterGroupId": "550e8400-e29b-41d4-a716-446655440000",
-"parameterGroupName": "parameterGroupName-example",
-"description": "description-example",
-"dbVersion": "POSTGRESQL_V17_10",
-"parameterGroupStatus": "STABLE",
-"createdYmdt": "2023-12-31T15:00:00+09:00",
-"updatedYmdt": "2023-12-31T15:00:00+09:00"
-}
-]
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "parameterGroups": [
+        {
+            "parameterGroupId": "550e8400-e29b-41d4-a716-446655440000",
+            "parameterGroupName": "parameterGroupName-example",
+            "description": "description-example",
+            "dbVersion": "POSTGRESQL_V17_10",
+            "parameterGroupStatus": "STABLE",
+            "createdYmdt": "2023-12-31T15:00:00+09:00",
+            "updatedYmdt": "2023-12-31T15:00:00+09:00"
+        }
+    ]
 }
 ```
 
@@ -5849,9 +5848,9 @@ POST /v1.0/parameter-groups
 
 ```json
 {
-"parameterGroupName": "parameterGroupName-example",
-"description": "description-example",
-"dbVersion": "POSTGRESQL_V17_10"
+    "parameterGroupName": "parameterGroupName-example",
+    "description": "description-example",
+    "dbVersion": "POSTGRESQL_V17_10"
 }
 ```
 
@@ -5871,12 +5870,12 @@ POST /v1.0/parameter-groups
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"parameterGroupId": "550e8400-e29b-41d4-a716-446655440000"
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "parameterGroupId": "550e8400-e29b-41d4-a716-446655440000"
 }
 ```
 
