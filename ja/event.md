@@ -154,6 +154,9 @@
 | DB_INSTANCE_59_00       | DB_INSTANCE       | 自動ストレージ拡張開始                         |
 | DB_INSTANCE_59_01       | DB_INSTANCE       | 自動ストレージ拡張完了                         |
 | DB_INSTANCE_59_04       | DB_INSTANCE       | 自動ストレージ拡張失敗                         |
+| DB_INSTANCE_61_00       | DB_INSTANCE       | DBインスタンスグループ設定変更開始                 |
+| DB_INSTANCE_61_01       | DB_INSTANCE       | DBインスタンスグループ設定変更完了                 |
+| DB_INSTANCE_61_04       | DB_INSTANCE       | DBインスタンスグループ設定変更失敗                 |
 | DB_SECURITY_GROUP_01_01 | DB_SECURITY_GROUP | DBセキュリティグループ作成                            |
 | DB_SECURITY_GROUP_02_00 | DB_SECURITY_GROUP | DBセキュリティグループ変更開始                          |
 | DB_SECURITY_GROUP_02_01 | DB_SECURITY_GROUP | DBセキュリティグループ変更完了                          |
