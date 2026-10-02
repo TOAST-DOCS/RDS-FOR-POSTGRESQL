@@ -579,20 +579,21 @@ GET /v1.0/db-instance-groups
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"dbInstanceGroups": [
-{
-"dbInstanceGroupId": "550e8400-e29b-41d4-a716-446655440000",
-"dbInstanceGroupStatus": "CREATED",
-"replicationType": "STANDALONE",
-"createdYmdt": "2023-12-31T15:00:00+09:00",
-"updatedYmdt": "2023-12-31T15:00:00+09:00"
-}
-]
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "dbInstanceGroups": [
+        {
+            "dbInstanceGroupId": "550e8400-e29b-41d4-a716-446655440000",
+            "dbInstanceGroupName": "dbInstanceGroupName-example",
+            "dbInstanceGroupStatus": "CREATED",
+            "replicationType": "STANDALONE",
+            "createdYmdt": "2023-12-31T15:00:00+09:00",
+            "updatedYmdt": "2023-12-31T15:00:00+09:00"
+        }
+    ]
 }
 ```
 
@@ -602,6 +603,7 @@ GET /v1.0/db-instance-groups
 |-----|-----|-----|
 | dbInstanceGroups | Array | DBインスタンスグループ情報 |
 | dbInstanceGroups.dbInstanceGroupId | UUID | DBインスタンスグループの識別子 |
+| dbInstanceGroups.dbInstanceGroupName | String | DBインスタンスグループを識別できる名前 |
 | dbInstanceGroups.dbInstanceGroupStatus | Enum | DBインスタンスグループの現在の状態<br/>- `CREATED`: 作成済み<br/>- `DELETED`: 削除済み |
 | dbInstanceGroups.replicationType | Enum | DBインスタンスグループのレプリケーション形態<br/>- `STANDALONE`: 高可用性を使用しない<br/>- `HIGH_AVAILABILITY`: 高可用性を使用する |
 | dbInstanceGroups.createdYmdt | DateTime | 作成日時(YYYY-MM-DDThh:mm:ss.SSSTZD) |
@@ -652,6 +654,7 @@ GET /v1.0/db-instance-groups/{dbInstanceGroupId}
         "isSuccessful": true
     },
     "dbInstanceGroupId": "550e8400-e29b-41d4-a716-446655440000",
+    "dbInstanceGroupName": "dbInstanceGroupName-example",
     "dbInstanceGroupStatus": "CREATED",
     "replicationType": "STANDALONE",
     "dbInstances": [
@@ -672,6 +675,7 @@ GET /v1.0/db-instance-groups/{dbInstanceGroupId}
 | 名前 | タイプ | 説明 |
 |-----|-----|-----|
 | dbInstanceGroupId | UUID | DBインスタンスグループの識別子 |
+| dbInstanceGroupName | String | DBインスタンスグループを識別できる名前 |
 | dbInstanceGroupStatus | Enum | DBインスタンスグループの現在の状態<br/>- `CREATED`: 作成済み<br/>- `DELETED`: 削除済み |
 | replicationType | Enum | DBインスタンスグループのレプリケーション形態<br/>- `STANDALONE`: 高可用性を使用しない<br/>- `HIGH_AVAILABILITY`: 高可用性を使用する |
 | dbInstances | Array | DBインスタンスグループに属するDBインスタンスリスト |
