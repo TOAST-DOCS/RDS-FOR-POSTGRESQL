@@ -659,7 +659,7 @@ GET /v1.0/db-instance-groups/{dbInstanceGroupId}
         {
             "dbInstanceId": "550e8400-e29b-41d4-a716-446655440000",
             "dbInstanceType": "MASTER",
-            "dbInstanceStatus": "BEFORE_CREATE"
+            "dbInstanceStatus": "AVAILABLE"
         }
     ],
     "useManualDbDefinition": false,
@@ -678,7 +678,7 @@ GET /v1.0/db-instance-groups/{dbInstanceGroupId}
 | replicationType | Enum | DB 인스턴스 그룹의 복제 형태<br/>- `STANDALONE`: 고가용성 사용 안함<br/>- `HIGH_AVAILABILITY`: 고가용성 사용 |
 | dbInstances | Array | DB 인스턴스 그룹에 속한 DB 인스턴스 목록 |
 | dbInstances.dbInstanceId | UUID | DB 인스턴스의 식별자 |
-| dbInstances.dbInstanceType | Enum | DB 인스턴스의 역할 유형<br/>- `MASTER`: Primary<br/>- `FAILED_MASTER`: Failed Over Primary<br/>- `CANDIDATE_MASTER`: Standby<br/>- `READ_ONLY_SLAVE`: 읽기 복제본 |
+| dbInstances.dbInstanceType | Enum | DB 인스턴스의 역할 유형<br/>- `MASTER`: Primary<br/>- `FAILED_MASTER`: Failed Over Primary<br/>- `CANDIDATE_MASTER`: Standby<br/>- `READ_ONLY_SLAVE`: Read Replica |
 | dbInstances.dbInstanceStatus | Enum | DB 인스턴스의 현재 상태<br/>- `BEFORE_CREATE`: 생성 이전(회색)<br/>- `AVAILABLE`: 사용 가능(녹색)<br/>- `STORAGE_FULL`: 용량 부족(적색)<br/>- `FAIL_TO_CREATE`: 생성 실패(적색)<br/>- `FAIL_TO_CONNECT`: 연결 실패(적색)<br/>- `REPLICATION_STOP`: 복제 중단(적색)<br/>- `REPLICATION_DELAY`: 복제 지연(황색)<br/>- `FAILOVER`: 장애 조치 완료(적색)<br/>- `SHUTDOWN`: 중지됨(회색)<br/>- `DELETED`: 삭제됨(회색) |
 | useManualDbDefinition | Boolean | 데이터베이스 & 사용자 직접 제어 사용 여부 |
 | createdYmdt | DateTime | 생성 일시 |
@@ -718,10 +718,8 @@ PUT /v1.0/db-instance-groups/{dbInstanceGroupId}
 
 ```json
 {
-    "name": "name",
+    "dbInstanceGroupName": "dbInstanceGroupName",
     "useHighAvailability": false,
-    "primaryName": "primaryName",
-    "standbyName": "standbyName",
     "pingInterval": 1,
     "failoverReplWaitingTime": 1,
     "useManualDbDefinition": false
@@ -732,10 +730,8 @@ PUT /v1.0/db-instance-groups/{dbInstanceGroupId}
 
 | 이름 | 타입 | 필수 | 설명 |
 |-----|-----|-----|-----|
-| name | String | N | DB 인스턴스 그룹 이름<br/>- 최소 길이: `1`<br/>- 최대 길이: `100` |
+| dbInstanceGroupName | String | N | DB 인스턴스 그룹을 식별할 수 있는 이름<br/>- 최소 길이: `1`<br/>- 최대 길이: `100` |
 | useHighAvailability | Boolean | N | 고가용성 사용 여부 |
-| primaryName | String | N | 마스터 이름<br/>- 최소 길이: `1`<br/>- 최대 길이: `100` |
-| standbyName | String | N | 예비 마스터 이름<br/>- 최소 길이: `1`<br/>- 최대 길이: `100` |
 | pingInterval | Number | N | 고가용성 사용 시 Ping 간격(초)<br/>- 최솟값: `1`<br/>- 최댓값: `600` |
 | failoverReplWaitingTime | Number | N | 고가용성 사용 시 장애 조치 대기 시간(초)<br/>- `-1`로 설정 시, 복제 지연 해소까지 계속해서 대기합니다.<br/>- 최솟값: `-1` |
 | useManualDbDefinition | Boolean | N | 데이터베이스 & 사용자 직접 제어 사용 여부 |
@@ -1461,11 +1457,11 @@ GET /v1.0/db-instances
             "dbInstanceGroupId": "550e8400-e29b-41d4-a716-446655440000",
             "dbInstanceName": "dbInstanceName-example",
             "description": "description-example",
-            "dbVersion": "POSTGRESQL_V14_17",
+            "dbVersion": "POSTGRESQL_V17_10",
             "dbPort": 15432,
             "dbInstanceType": "MASTER",
-            "dbInstanceStatus": "BEFORE_CREATE",
-            "progressStatus": "APPLYING_DB_INSTANCE_HBA_RULE",
+            "dbInstanceStatus": "AVAILABLE",
+            "progressStatus": "NONE",
             "createdYmdt": "2023-12-31T15:00:00+09:00",
             "updatedYmdt": "2023-12-31T15:00:00+09:00"
         }
@@ -1484,7 +1480,7 @@ GET /v1.0/db-instances
 | dbInstances.description | String | DB 인스턴스에 대한 추가 정보 |
 | dbInstances.dbVersion | Enum | DB 엔진 유형 |
 | dbInstances.dbPort | Number | DB 포트 |
-| dbInstances.dbInstanceType | Enum | DB 인스턴스의 역할 유형<br/>- `MASTER`: Primary<br/>- `FAILED_MASTER`: Failed Over Primary<br/>- `CANDIDATE_MASTER`: Standby<br/>- `READ_ONLY_SLAVE`: 읽기 복제본 |
+| dbInstances.dbInstanceType | Enum | DB 인스턴스의 역할 유형<br/>- `MASTER`: Primary<br/>- `FAILED_MASTER`: Failed Over Primary<br/>- `CANDIDATE_MASTER`: Standby<br/>- `READ_ONLY_SLAVE`: Read Replica |
 | dbInstances.dbInstanceStatus | Enum | DB 인스턴스의 현재 상태<br/>- `BEFORE_CREATE`: 생성 이전(회색)<br/>- `AVAILABLE`: 사용 가능(녹색)<br/>- `STORAGE_FULL`: 용량 부족(적색)<br/>- `FAIL_TO_CREATE`: 생성 실패(적색)<br/>- `FAIL_TO_CONNECT`: 연결 실패(적색)<br/>- `REPLICATION_STOP`: 복제 중단(적색)<br/>- `REPLICATION_DELAY`: 복제 지연(황색)<br/>- `FAILOVER`: 장애 조치 완료(적색)<br/>- `SHUTDOWN`: 중지됨(회색)<br/>- `DELETED`: 삭제됨(회색) |
 | dbInstances.progressStatus | Enum | DB 인스턴스의 현재 진행 상태<br/>- `APPLYING_DB_INSTANCE_HBA_RULE`: 접근 제어 규칙 적용 중<br/>- `APPLYING_EXTENSION`: 확장 적용 중<br/>- `APPLYING_PARAMETER_GROUP`: 파라미터 그룹 적용 중<br/>- `BACKING_UP`: 백업 중<br/>- `CANCELING`: 취소 중<br/>- `CREATING`: 생성 중<br/>- `CREATING_DATABASE`: 데이터베이스 생성 중<br/>- `CREATING_USER`: 사용자 생성 중<br/>- `DELETING`: 삭제 중<br/>- `DELETING_DATABASE`: 데이터베이스 삭제 중<br/>- `DELETING_USER`: 사용자 삭제 중<br/>- `EXPORTING_BACKUP`: 백업을 내보내는 중<br/>- `EXPORTING_LOG_FILE`: 로그 파일을 내보내는 중<br/>- `FAILING_OVER`: 장애 조치 중<br/>- `MIGRATING`: 마이그레이션 중<br/>- `MODIFYING`: 수정 중<br/>- `NONE`: 없음<br/>- `OCCUPIED`: 점유 중<br/>- `PREPARING`: 준비 중<br/>- `PROMOTING`: 승격 중<br/>- `PROMOTING_FORCIBLY`: 강제 승격 중<br/>- `REBUILDING`: 재구축 중<br/>- `REPAIRING`: 복구 중<br/>- `REPLICATING`: 복제 중<br/>- `RESTARTING`: 재시작 중<br/>- `RESTARTING_FORCIBLY`: 강제 재시작 중<br/>- `RESTORING`: 복원 중<br/>- `STARTING`: 시작 중<br/>- `STOPPING`: 정지 중<br/>- `SYNCING_DATABASE`: 데이터베이스 동기화 중<br/>- `SYNCING_EXTENSION`: 확장 동기화 중<br/>- `SYNCING_USER`: 유저 동기화 중<br/>- `UPDATING_DATABASE`: 데이터베이스 수정 중<br/>- `UPDATING_SCHEMA`: 스키마 수정 중<br/>- `UPDATING_USER`: DB 사용자 수정 중<br/>- `WAIT_MANUAL_CONTROL`: 수동 장애조치 대기 중 |
 | dbInstances.createdYmdt | DateTime | 생성 일시 |
@@ -1857,11 +1853,11 @@ GET /v1.0/db-instances/{dbInstanceId}
     "dbInstanceGroupId": "550e8400-e29b-41d4-a716-446655440000",
     "dbInstanceName": "dbInstanceName-example",
     "description": "description-example",
-    "dbVersion": "POSTGRESQL_V14_17",
+    "dbVersion": "POSTGRESQL_V17_10",
     "dbPort": 15432,
     "dbInstanceType": "MASTER",
-    "dbInstanceStatus": "BEFORE_CREATE",
-    "progressStatus": "APPLYING_DB_INSTANCE_HBA_RULE",
+    "dbInstanceStatus": "AVAILABLE",
+    "progressStatus": "NONE",
     "dbFlavorId": "550e8400-e29b-41d4-a716-446655440000",
     "parameterGroupId": "550e8400-e29b-41d4-a716-446655440000",
     "dbSecurityGroupIds": [
@@ -1873,7 +1869,7 @@ GET /v1.0/db-instances/{dbInstanceId}
     "useDeletionProtection": false,
     "needToApplyParameterGroup": false,
     "needMigration": false,
-    "osVersion": "osVersion-example",
+    "osVersion": "Ubuntu Server 24.04 LTS",
     "createdYmdt": "2023-12-31T15:00:00+09:00",
     "updatedYmdt": "2023-12-31T15:00:00+09:00"
 }
@@ -1889,7 +1885,7 @@ GET /v1.0/db-instances/{dbInstanceId}
 | description | String | DB 인스턴스에 대한 추가 정보 |
 | dbVersion | Enum | DB 엔진 유형 |
 | dbPort | Number | DB 포트 |
-| dbInstanceType | Enum | DB 인스턴스의 역할 유형<br/>- `MASTER`: Primary<br/>- `FAILED_MASTER`: Failed Over Primary<br/>- `CANDIDATE_MASTER`: Standby<br/>- `READ_ONLY_SLAVE`: 읽기 복제본 |
+| dbInstanceType | Enum | DB 인스턴스의 역할 유형<br/>- `MASTER`: Primary<br/>- `FAILED_MASTER`: Failed Over Primary<br/>- `CANDIDATE_MASTER`: Standby<br/>- `READ_ONLY_SLAVE`: Read Replica |
 | dbInstanceStatus | Enum | DB 인스턴스의 현재 상태<br/>- `BEFORE_CREATE`: 생성 이전(회색)<br/>- `AVAILABLE`: 사용 가능(녹색)<br/>- `STORAGE_FULL`: 용량 부족(적색)<br/>- `FAIL_TO_CREATE`: 생성 실패(적색)<br/>- `FAIL_TO_CONNECT`: 연결 실패(적색)<br/>- `REPLICATION_STOP`: 복제 중단(적색)<br/>- `REPLICATION_DELAY`: 복제 지연(황색)<br/>- `FAILOVER`: 장애 조치 완료(적색)<br/>- `SHUTDOWN`: 중지됨(회색)<br/>- `DELETED`: 삭제됨(회색) |
 | progressStatus | Enum | DB 인스턴스의 현재 진행 상태<br/>- `APPLYING_DB_INSTANCE_HBA_RULE`: 접근 제어 규칙 적용 중<br/>- `APPLYING_EXTENSION`: 확장 적용 중<br/>- `APPLYING_PARAMETER_GROUP`: 파라미터 그룹 적용 중<br/>- `BACKING_UP`: 백업 중<br/>- `CANCELING`: 취소 중<br/>- `CREATING`: 생성 중<br/>- `CREATING_DATABASE`: 데이터베이스 생성 중<br/>- `CREATING_USER`: 사용자 생성 중<br/>- `DELETING`: 삭제 중<br/>- `DELETING_DATABASE`: 데이터베이스 삭제 중<br/>- `DELETING_USER`: 사용자 삭제 중<br/>- `EXPORTING_BACKUP`: 백업을 내보내는 중<br/>- `EXPORTING_LOG_FILE`: 로그 파일을 내보내는 중<br/>- `FAILING_OVER`: 장애 조치 중<br/>- `MIGRATING`: 마이그레이션 중<br/>- `MODIFYING`: 수정 중<br/>- `NONE`: 없음<br/>- `OCCUPIED`: 점유 중<br/>- `PREPARING`: 준비 중<br/>- `PROMOTING`: 승격 중<br/>- `PROMOTING_FORCIBLY`: 강제 승격 중<br/>- `REBUILDING`: 재구축 중<br/>- `REPAIRING`: 복구 중<br/>- `REPLICATING`: 복제 중<br/>- `RESTARTING`: 재시작 중<br/>- `RESTARTING_FORCIBLY`: 강제 재시작 중<br/>- `RESTORING`: 복원 중<br/>- `STARTING`: 시작 중<br/>- `STOPPING`: 정지 중<br/>- `SYNCING_DATABASE`: 데이터베이스 동기화 중<br/>- `SYNCING_EXTENSION`: 확장 동기화 중<br/>- `SYNCING_USER`: 유저 동기화 중<br/>- `UPDATING_DATABASE`: 데이터베이스 수정 중<br/>- `UPDATING_SCHEMA`: 스키마 수정 중<br/>- `UPDATING_USER`: DB 사용자 수정 중<br/>- `WAIT_MANUAL_CONTROL`: 수동 장애조치 대기 중 |
 | dbFlavorId | UUID | DB 인스턴스 사양의 식별자 |
@@ -4121,14 +4117,14 @@ POST /v1.0/db-instances/{dbInstanceId}/promote
 ---
 
 <a id="replicate-db-instance"></a>
-### 읽기 복제본 생성 { #replicate-db-instance }
+### Read Replica 생성 { #replicate-db-instance }
 
 <a id="replicate-db-instance-required-permissions"></a>
 #### 필요 권한
 
 | 권한명 | 설명 |
 |-----|-----|
-| RDSforPostgreSQL:DbInstance.Replicate | 읽기 복제본 생성 |
+| RDSforPostgreSQL:DbInstance.Replicate | Read Replica 생성 |
 
 <a id="replicate-db-instance-request"></a>
 #### 요청
@@ -4187,7 +4183,7 @@ POST /v1.0/db-instances/{dbInstanceId}/replicate
 | userGroupIds | Array | N | 사용자 그룹의 식별자 목록 |
 | useDefaultNotification | Boolean | N | 기본 알림 사용 여부<br/>- 기본값: `false` |
 | useDeletionProtection | Boolean | N | 삭제 보호 여부<br/>- 기본값: `false` |
-| regionCode | Enum | N | 읽기 복제본을 생성할 리전 코드<br/>- 지정하지 않으면 원본 DB 인스턴스와 같은 리전에 생성<br/>- `KR1`: 한국(판교)<br/>- `KR2`: 한국(평촌) |
+| regionCode | Enum | N | Read Replica를 생성할 리전 코드<br/>- 지정하지 않으면 원본 DB 인스턴스와 같은 리전에 생성<br/>- `KR1`: 한국(판교)<br/>- `KR2`: 한국(평촌) |
 | network | Object | N | 네트워크 정보 객체 |
 | network.subnetId | UUID | N | 서브넷의 식별자<br/>- 리전 코드 직접 입력 시 필수 |
 | network.usePublicAccess | Boolean | N | 외부 접속 가능 여부<br/>- 기본값: `false` |
