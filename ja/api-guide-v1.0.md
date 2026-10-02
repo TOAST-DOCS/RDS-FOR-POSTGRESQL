@@ -661,7 +661,7 @@ GET /v1.0/db-instance-groups/{dbInstanceGroupId}
         {
             "dbInstanceId": "550e8400-e29b-41d4-a716-446655440000",
             "dbInstanceType": "MASTER",
-            "dbInstanceStatus": "BEFORE_CREATE"
+            "dbInstanceStatus": "AVAILABLE"
         }
     ],
     "useManualDbDefinition": false,
@@ -680,7 +680,7 @@ GET /v1.0/db-instance-groups/{dbInstanceGroupId}
 | replicationType | Enum | DBインスタンスグループのレプリケーション形態<br/>- `STANDALONE`: 高可用性を使用しない<br/>- `HIGH_AVAILABILITY`: 高可用性を使用する |
 | dbInstances | Array | DBインスタンスグループに属するDBインスタンスリスト |
 | dbInstances.dbInstanceId | UUID | DBインスタンスの識別子 |
-| dbInstances.dbInstanceType | Enum | DBインスタンスの役割タイプ<br/>- `MASTER`: Primary<br/>- `FAILED_MASTER`: Failed Over Primary<br/>- `CANDIDATE_MASTER`: Standby<br/>- `READ_ONLY_SLAVE`: リードレプリカ |
+| dbInstances.dbInstanceType | Enum | DBインスタンスの役割タイプ<br/>- `MASTER`: Primary<br/>- `FAILED_MASTER`: Failed Over Primary<br/>- `CANDIDATE_MASTER`: Standby<br/>- `READ_ONLY_SLAVE`: Read Replica |
 | dbInstances.dbInstanceStatus | Enum | DBインスタンスの現在の状態<br/>- `BEFORE_CREATE`: 作成前（グレー）<br/>- `AVAILABLE`: 使用可能（緑）<br/>- `STORAGE_FULL`: 容量不足（赤）<br/>- `FAIL_TO_CREATE`: 作成失敗（赤）<br/>- `FAIL_TO_CONNECT`: 接続失敗（赤）<br/>- `REPLICATION_STOP`: レプリケーション停止（赤）<br/>- `REPLICATION_DELAY`: レプリケーション遅延（黄）<br/>- `FAILOVER`: フェイルオーバー完了（赤）<br/>- `SHUTDOWN`: シャットダウン（グレー）<br/>- `DELETED`: 削除済み（グレー） |
 | useManualDbDefinition | Boolean | データベース＆ユーザー直接制御の有効かどうか |
 | createdYmdt | DateTime | 作成日時 |
@@ -720,10 +720,8 @@ PUT /v1.0/db-instance-groups/{dbInstanceGroupId}
 
 ```json
 {
-    "name": "name",
+    "dbInstanceGroupName": "dbInstanceGroupName",
     "useHighAvailability": false,
-    "primaryName": "primaryName",
-    "standbyName": "standbyName",
     "pingInterval": 1,
     "failoverReplWaitingTime": 1,
     "useManualDbDefinition": false
@@ -734,10 +732,8 @@ PUT /v1.0/db-instance-groups/{dbInstanceGroupId}
 
 | 名前 | タイプ | 必須 | 説明 |
 |-----|-----|-----|-----|
-| name | String | N | DBインスタンスグループ名<br/>- 最小長: `1`<br/>- 最大長: `100` |
+| dbInstanceGroupName | String | N | DBインスタンスグループを識別できる名前<br/>- 最小長: `1`<br/>- 最大長: `100` |
 | useHighAvailability | Boolean | N | 高可用性を使用するかどうか |
-| primaryName | String | N | マスター名<br/>- 最小長: `1`<br/>- 最大長: `100` |
-| standbyName | String | N | 予備マスター名<br/>- 最小長: `1`<br/>- 最大長: `100` |
 | pingInterval | Number | N | 高可用性使用時のPing間隔(秒)<br/>- 最小値: `1`<br/>- 最大値: `600` |
 | failoverReplWaitingTime | Number | N | 高可用性使用時のフェイルオーバー待機時間(秒)<br/>- `-1`に設定時、レプリケーション遅延が解消されるまで待機し続けます。<br/>- 最小値: `-1` |
 | useManualDbDefinition | Boolean | N | データベース＆ユーザー直接制御を使用するかどうか |
@@ -1463,11 +1459,11 @@ GET /v1.0/db-instances
             "dbInstanceGroupId": "550e8400-e29b-41d4-a716-446655440000",
             "dbInstanceName": "dbInstanceName-example",
             "description": "description-example",
-            "dbVersion": "POSTGRESQL_V14_17",
+            "dbVersion": "POSTGRESQL_V17_10",
             "dbPort": 15432,
             "dbInstanceType": "MASTER",
-            "dbInstanceStatus": "BEFORE_CREATE",
-            "progressStatus": "APPLYING_DB_INSTANCE_HBA_RULE",
+            "dbInstanceStatus": "AVAILABLE",
+            "progressStatus": "NONE",
             "createdYmdt": "2023-12-31T15:00:00+09:00",
             "updatedYmdt": "2023-12-31T15:00:00+09:00"
         }
@@ -1486,7 +1482,7 @@ GET /v1.0/db-instances
 | dbInstances.description | String | DBインスタンスの追加情報 |
 | dbInstances.dbVersion | Enum | DBエンジンタイプ |
 | dbInstances.dbPort | Number | DBポート |
-| dbInstances.dbInstanceType | Enum | DBインスタンスの役割タイプ<br/>- `MASTER`: Primary<br/>- `FAILED_MASTER`: Failed Over Primary<br/>- `CANDIDATE_MASTER`: Standby<br/>- `READ_ONLY_SLAVE`: リードレプリカ |
+| dbInstances.dbInstanceType | Enum | DBインスタンスの役割タイプ<br/>- `MASTER`: Primary<br/>- `FAILED_MASTER`: Failed Over Primary<br/>- `CANDIDATE_MASTER`: Standby<br/>- `READ_ONLY_SLAVE`: Read Replica |
 | dbInstances.dbInstanceStatus | Enum | DBインスタンスの現在の状態<br/>- `BEFORE_CREATE`: 作成前（グレー）<br/>- `AVAILABLE`: 使用可能（グリーン）<br/>- `STORAGE_FULL`: 容量不足（レッド）<br/>- `FAIL_TO_CREATE`: 作成失敗（レッド）<br/>- `FAIL_TO_CONNECT`: 接続失敗（レッド）<br/>- `REPLICATION_STOP`: レプリケーション停止（レッド）<br/>- `REPLICATION_DELAY`: レプリケーション遅延（イエロー）<br/>- `FAILOVER`: フェイルオーバー完了（レッド）<br/>- `SHUTDOWN`: 停止済み（グレー）<br/>- `DELETED`: 削除済み（グレー） |
 | dbInstances.progressStatus | Enum | DBインスタンスの現在の進行状態<br/>- `APPLYING_DB_INSTANCE_HBA_RULE`: アクセス制御ルール適用中<br/>- `APPLYING_EXTENSION`: 拡張適用中<br/>- `APPLYING_PARAMETER_GROUP`: パラメータグループ適用中<br/>- `BACKING_UP`: バックアップ中<br/>- `CANCELING`: キャンセル中<br/>- `CREATING`: 作成中<br/>- `CREATING_DATABASE`: データベース作成中<br/>- `CREATING_USER`: ユーザー作成中<br/>- `DELETING`: 削除中<br/>- `DELETING_DATABASE`: データベース削除中<br/>- `DELETING_USER`: ユーザー削除中<br/>- `EXPORTING_BACKUP`: バックアップのエクスポート中<br/>- `EXPORTING_LOG_FILE`: ログファイルのエクスポート中<br/>- `FAILING_OVER`: フェイルオーバー中<br/>- `MIGRATING`: マイグレーション中<br/>- `MODIFYING`: 変更中<br/>- `NONE`: なし<br/>- `OCCUPIED`: 占有中<br/>- `PREPARING`: 準備中<br/>- `PROMOTING`: 昇格中<br/>- `PROMOTING_FORCIBLY`: 強制昇格中<br/>- `REBUILDING`: 再構築中<br/>- `REPAIRING`: 復旧中<br/>- `REPLICATING`: レプリケーション中<br/>- `RESTARTING`: 再起動中<br/>- `RESTARTING_FORCIBLY`: 強制再起動中<br/>- `RESTORING`: リストア中<br/>- `STARTING`: 起動中<br/>- `STOPPING`: 停止中<br/>- `SYNCING_DATABASE`: データベース同期中<br/>- `SYNCING_EXTENSION`: 拡張同期中<br/>- `SYNCING_USER`: ユーザー同期中<br/>- `UPDATING_DATABASE`: データベース変更中<br/>- `UPDATING_SCHEMA`: スキーマ変更中<br/>- `UPDATING_USER`: DBユーザー変更中<br/>- `WAIT_MANUAL_CONTROL`: 手動フェイルオーバー待機中 |
 | dbInstances.createdYmdt | DateTime | 作成日時 |
@@ -1859,11 +1855,11 @@ GET /v1.0/db-instances/{dbInstanceId}
     "dbInstanceGroupId": "550e8400-e29b-41d4-a716-446655440000",
     "dbInstanceName": "dbInstanceName-example",
     "description": "description-example",
-    "dbVersion": "POSTGRESQL_V14_17",
+    "dbVersion": "POSTGRESQL_V17_10",
     "dbPort": 15432,
     "dbInstanceType": "MASTER",
-    "dbInstanceStatus": "BEFORE_CREATE",
-    "progressStatus": "APPLYING_DB_INSTANCE_HBA_RULE",
+    "dbInstanceStatus": "AVAILABLE",
+    "progressStatus": "NONE",
     "dbFlavorId": "550e8400-e29b-41d4-a716-446655440000",
     "parameterGroupId": "550e8400-e29b-41d4-a716-446655440000",
     "dbSecurityGroupIds": [
@@ -1875,7 +1871,7 @@ GET /v1.0/db-instances/{dbInstanceId}
     "useDeletionProtection": false,
     "needToApplyParameterGroup": false,
     "needMigration": false,
-    "osVersion": "osVersion-example",
+    "osVersion": "Ubuntu Server 24.04 LTS",
     "createdYmdt": "2023-12-31T15:00:00+09:00",
     "updatedYmdt": "2023-12-31T15:00:00+09:00"
 }
@@ -1891,7 +1887,7 @@ GET /v1.0/db-instances/{dbInstanceId}
 | description | String | DBインスタンスの追加情報 |
 | dbVersion | Enum | DBエンジンバージョン |
 | dbPort | Number | DBポート |
-| dbInstanceType | Enum | DBインスタンスのロールタイプ<br/>- `MASTER`: Primary<br/>- `FAILED_MASTER`: Failed Over Primary<br/>- `CANDIDATE_MASTER`: Standby<br/>- `READ_ONLY_SLAVE`: リードレプリカ |
+| dbInstanceType | Enum | DBインスタンスのロールタイプ<br/>- `MASTER`: Primary<br/>- `FAILED_MASTER`: Failed Over Primary<br/>- `CANDIDATE_MASTER`: Standby<br/>- `READ_ONLY_SLAVE`: Read Replica |
 | dbInstanceStatus | Enum | DBインスタンスの現在の状態 |
 | progressStatus | Enum | DBインスタンスの現在の進行状態 |
 | dbFlavorId | UUID | DBインスタンス仕様の識別子 |
@@ -4124,14 +4120,14 @@ POST /v1.0/db-instances/{dbInstanceId}/promote
 ---
 
 <a id="replicate-db-instance"></a>
-### リードレプリカの作成 { #replicate-db-instance }
+### Read Replica 作成 { #replicate-db-instance }
 
 <a id="replicate-db-instance-required-permissions"></a>
 #### 必要権限
 
 | 権限名 | 説明 |
 |-----|-----|
-| RDSforPostgreSQL:DbInstance.Replicate | リードレプリカの作成 |
+| RDSforPostgreSQL:DbInstance.Replicate | Read Replica 作成 |
 
 <a id="replicate-db-instance-request"></a>
 #### リクエスト
