@@ -1,4 +1,4 @@
-<!-- pre-align:aligned sig=a673f7413bba -->
+<!-- pre-align:aligned sig=d58a9ac7e400 -->
 
 <a id="rds-for-postgresql-api"></a>
 ## RDS for PostgreSQL API 가이드 { #rds-for-postgresql-api }
@@ -585,6 +585,7 @@ GET /v1.0/db-instance-groups
     "dbInstanceGroups": [
         {
             "dbInstanceGroupId": "550e8400-e29b-41d4-a716-446655440000",
+            "dbInstanceGroupName": "dbInstanceGroupName-example",
             "dbInstanceGroupStatus": "CREATED",
             "replicationType": "STANDALONE",
             "createdYmdt": "2023-12-31T15:00:00+09:00",
@@ -600,7 +601,8 @@ GET /v1.0/db-instance-groups
 |-----|-----|-----|
 | dbInstanceGroups | Array | DB 인스턴스 그룹 정보 |
 | dbInstanceGroups.dbInstanceGroupId | UUID | DB 인스턴스 그룹의 식별자 |
-| dbInstanceGroups.dbInstanceGroupStatus | Enum | DB 인스턴스 그룹의 현재 형태<br/>- `CREATED`: 생성됨<br/>- `DELETED`: 삭제됨 |
+| dbInstanceGroups.dbInstanceGroupName | String | DB 인스턴스 그룹을 식별할 수 있는 이름 |
+| dbInstanceGroups.dbInstanceGroupStatus | Enum | DB 인스턴스 그룹의 현재 상태<br/>- `CREATED`: 생성됨<br/>- `DELETED`: 삭제됨 |
 | dbInstanceGroups.replicationType | Enum | DB 인스턴스 그룹의 복제 형태<br/>- `STANDALONE`: 고가용성 사용 안함<br/>- `HIGH_AVAILABILITY`: 고가용성 사용 |
 | dbInstanceGroups.createdYmdt | DateTime | 생성 일시(YYYY-MM-DDThh:mm:ss.SSSTZD) |
 | dbInstanceGroups.updatedYmdt | DateTime | 수정 일시(YYYY-MM-DDThh:mm:ss.SSSTZD) |
@@ -650,6 +652,7 @@ GET /v1.0/db-instance-groups/{dbInstanceGroupId}
         "isSuccessful": true
     },
     "dbInstanceGroupId": "550e8400-e29b-41d4-a716-446655440000",
+    "dbInstanceGroupName": "dbInstanceGroupName-example",
     "dbInstanceGroupStatus": "CREATED",
     "replicationType": "STANDALONE",
     "dbInstances": [
@@ -670,6 +673,7 @@ GET /v1.0/db-instance-groups/{dbInstanceGroupId}
 | 이름 | 타입 | 설명 |
 |-----|-----|-----|
 | dbInstanceGroupId | UUID | DB 인스턴스 그룹의 식별자 |
+| dbInstanceGroupName | String | DB 인스턴스 그룹을 식별할 수 있는 이름 |
 | dbInstanceGroupStatus | Enum | DB 인스턴스 그룹의 현재 상태<br/>- `CREATED`: 생성됨<br/>- `DELETED`: 삭제됨 |
 | replicationType | Enum | DB 인스턴스 그룹의 복제 형태<br/>- `STANDALONE`: 고가용성 사용 안함<br/>- `HIGH_AVAILABILITY`: 고가용성 사용 |
 | dbInstances | Array | DB 인스턴스 그룹에 속한 DB 인스턴스 목록 |
