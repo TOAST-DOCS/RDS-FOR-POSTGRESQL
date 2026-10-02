@@ -44,3 +44,7 @@ categories: [RDS_POSTGRES_ALPHA, RDS_POSTGRES_BETA, RDS_POSTGRES]
 - messageId: pg.error.11017
   messageType: ERROR
   text: "A backup with another task in progress cannot be deleted. Try again after the task is completed."
+
+- messageId: pg.error.11018
+  messageType: ERROR
+  text: "Incremental backup can't be performed based on the selected backup. Changes made after the selected backup have not been reflected yet. Please try again later."
