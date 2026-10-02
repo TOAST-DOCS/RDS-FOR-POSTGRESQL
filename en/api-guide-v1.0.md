@@ -661,7 +661,7 @@ This API does not require a request body.
         {
             "dbInstanceId": "550e8400-e29b-41d4-a716-446655440000",
             "dbInstanceType": "MASTER",
-            "dbInstanceStatus": "BEFORE_CREATE"
+            "dbInstanceStatus": "AVAILABLE"
         }
     ],
     "useManualDbDefinition": false,
@@ -680,7 +680,7 @@ This API does not require a request body.
 | replicationType | Enum | DB instance group replication type<br/>- `STANDALONE`: High availability not used<br/>- `HIGH_AVAILABILITY`: High availability used |
 | dbInstances | Array | List of DB instances belonging to the DB instance group |
 | dbInstances.dbInstanceId | UUID | DB instance identifier |
-| dbInstances.dbInstanceType | Enum | Role type of the DB instance<br/>- `MASTER`: Primary<br/>- `FAILED_MASTER`: Failed Over Primary<br/>- `CANDIDATE_MASTER`: Standby<br/>- `READ_ONLY_SLAVE`: Read replica |
+| dbInstances.dbInstanceType | Enum | Role type of the DB instance<br/>- `MASTER`: Primary<br/>- `FAILED_MASTER`: Failed Over Primary<br/>- `CANDIDATE_MASTER`: Standby<br/>- `READ_ONLY_SLAVE`: Read Replica |
 | dbInstances.dbInstanceStatus | Enum | DB instance current status |
 | useManualDbDefinition | Boolean | Whether to use database & user direct control |
 | createdYmdt | DateTime | Created date and time (YYYY-MM-DDThh:mm:ss.SSSTZD) |
@@ -720,10 +720,8 @@ PUT /v1.0/db-instance-groups/{dbInstanceGroupId}
 
 ```json
 {
-    "name": "name",
+    "dbInstanceGroupName": "dbInstanceGroupName",
     "useHighAvailability": false,
-    "primaryName": "primaryName",
-    "standbyName": "standbyName",
     "pingInterval": 1,
     "failoverReplWaitingTime": 1,
     "useManualDbDefinition": false
@@ -734,10 +732,8 @@ PUT /v1.0/db-instance-groups/{dbInstanceGroupId}
 
 | Name | Type | Required | Description |
 |-----|-----|-----|-----|
-| name | String | N | DB instance group name<br/>- Minimum length: `1`<br/>- Maximum length: `100` |
+| dbInstanceGroupName | String | N | Name to identify DB instance groups<br/>- Minimum length: `1`<br/>- Maximum length: `100` |
 | useHighAvailability | Boolean | N | Whether to use high availability |
-| primaryName | String | N | Master name<br/>- Minimum length: `1`<br/>- Maximum length: `100` |
-| standbyName | String | N | Candidate master name<br/>- Minimum length: `1`<br/>- Maximum length: `100` |
 | pingInterval | Number | N | Ping interval (seconds) when using high availability<br/>- Minimum value: `1`<br/>- Maximum value: `600` |
 | failoverReplWaitingTime | Number | N | Failover wait time (seconds) when using high availability<br/>- If set to `-1`, waits continuously until the replication lag is resolved.<br/>- Minimum value: `-1` |
 | useManualDbDefinition | Boolean | N | Whether to use direct control of databases & users |
@@ -1463,11 +1459,11 @@ This API does not require a request body.
             "dbInstanceGroupId": "550e8400-e29b-41d4-a716-446655440000",
             "dbInstanceName": "dbInstanceName-example",
             "description": "description-example",
-            "dbVersion": "POSTGRESQL_V14_17",
+            "dbVersion": "POSTGRESQL_V17_10",
             "dbPort": 15432,
             "dbInstanceType": "MASTER",
-            "dbInstanceStatus": "BEFORE_CREATE",
-            "progressStatus": "APPLYING_DB_INSTANCE_HBA_RULE",
+            "dbInstanceStatus": "AVAILABLE",
+            "progressStatus": "NONE",
             "createdYmdt": "2023-12-31T15:00:00+09:00",
             "updatedYmdt": "2023-12-31T15:00:00+09:00"
         }
@@ -1486,7 +1482,7 @@ This API does not require a request body.
 | dbInstances.description | String | Additional information on DB instances |
 | dbInstances.dbVersion | Enum | DB engine version |
 | dbInstances.dbPort | Number | DB port |
-| dbInstances.dbInstanceType | Enum | Role type of the DB instance<br/>- `MASTER`: Primary<br/>- `FAILED_MASTER`: Failed Over Primary<br/>- `CANDIDATE_MASTER`: Standby<br/>- `READ_ONLY_SLAVE`: Read replica |
+| dbInstances.dbInstanceType | Enum | Role type of the DB instance<br/>- `MASTER`: Primary<br/>- `FAILED_MASTER`: Failed Over Primary<br/>- `CANDIDATE_MASTER`: Standby<br/>- `READ_ONLY_SLAVE`: Read Replica |
 | dbInstances.dbInstanceStatus | Enum | DB instance current status |
 | dbInstances.progressStatus | Enum | Current task status of DB instance |
 | dbInstances.createdYmdt | DateTime | Created date and time (YYYY-MM-DDThh:mm:ss.SSSTZD) |
@@ -1859,11 +1855,11 @@ This API does not require a request body.
     "dbInstanceGroupId": "550e8400-e29b-41d4-a716-446655440000",
     "dbInstanceName": "dbInstanceName-example",
     "description": "description-example",
-    "dbVersion": "POSTGRESQL_V14_17",
+    "dbVersion": "POSTGRESQL_V17_10",
     "dbPort": 15432,
     "dbInstanceType": "MASTER",
-    "dbInstanceStatus": "BEFORE_CREATE",
-    "progressStatus": "APPLYING_DB_INSTANCE_HBA_RULE",
+    "dbInstanceStatus": "AVAILABLE",
+    "progressStatus": "NONE",
     "dbFlavorId": "550e8400-e29b-41d4-a716-446655440000",
     "parameterGroupId": "550e8400-e29b-41d4-a716-446655440000",
     "dbSecurityGroupIds": [
@@ -1875,7 +1871,7 @@ This API does not require a request body.
     "useDeletionProtection": false,
     "needToApplyParameterGroup": false,
     "needMigration": false,
-    "osVersion": "osVersion-example",
+    "osVersion": "Ubuntu Server 24.04 LTS",
     "createdYmdt": "2023-12-31T15:00:00+09:00",
     "updatedYmdt": "2023-12-31T15:00:00+09:00"
 }
@@ -1891,7 +1887,7 @@ This API does not require a request body.
 | description | String | Additional information on DB instances |
 | dbVersion | Enum | DB engine version |
 | dbPort | Number | DB port |
-| dbInstanceType | Enum | DB instance role type<br/>- `MASTER`: Primary<br/>- `FAILED_MASTER`: Failed Over Primary<br/>- `CANDIDATE_MASTER`: Standby<br/>- `READ_ONLY_SLAVE`: Read replica |
+| dbInstanceType | Enum | DB instance role type<br/>- `MASTER`: Primary<br/>- `FAILED_MASTER`: Failed Over Primary<br/>- `CANDIDATE_MASTER`: Standby<br/>- `READ_ONLY_SLAVE`: Read Replica |
 | dbInstanceStatus | Enum | DB instance current status |
 | progressStatus | Enum | Current task status of DB instance |
 | dbFlavorId | UUID | Identifier of DB instance specifications |
@@ -4129,7 +4125,7 @@ This API does not require a request body.
 
 | Permission Name | Description |
 |-----|-----|
-| RDSforPostgreSQL:DbInstance.Replicate | Create read replica |
+| RDSforPostgreSQL:DbInstance.Replicate | Create Read Replica |
 
 <a id="replicate-db-instance-request"></a>
 #### Request
@@ -4188,7 +4184,7 @@ POST /v1.0/db-instances/{dbInstanceId}/replicate
 | userGroupIds | Array | N | List of user group identifiers |
 | useDefaultNotification | Boolean | N | Whether to use default notification<br/>- Default: `false` |
 | useDeletionProtection | Boolean | N | Whether to use deletion protection<br/>- Default: `false` |
-| regionCode | Enum | N | Region code where the read replica will be created<br/>- If not specified, the read replica is created in the same region as the source DB instance<br/>- `KR1`: Korea (Pangyo)<br/>- `KR2`: Korea (Pyeongchon) |
+| regionCode | Enum | N | Region code where the Read Replica will be created<br/>- If not specified, the Read Replica is created in the same region as the source DB instance<br/>- `KR1`: Korea (Pangyo)<br/>- `KR2`: Korea (Pyeongchon) |
 | network | Object | N | Network information objects |
 | network.subnetId | UUID | N | Subnet identifier<br/>- Required when entering a region code directly |
 | network.usePublicAccess | Boolean | N | Whether external access is available<br/>- Default: `false` |
