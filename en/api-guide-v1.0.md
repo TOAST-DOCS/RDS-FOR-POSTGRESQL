@@ -579,20 +579,21 @@ This API does not require a request body.
 
 ```json
 {
-"header": {
-"resultCode": 0,
-"resultMessage": "SUCCESS",
-"isSuccessful": true
-},
-"dbInstanceGroups": [
-{
-"dbInstanceGroupId": "550e8400-e29b-41d4-a716-446655440000",
-"dbInstanceGroupStatus": "CREATED",
-"replicationType": "STANDALONE",
-"createdYmdt": "2023-12-31T15:00:00+09:00",
-"updatedYmdt": "2023-12-31T15:00:00+09:00"
-}
-]
+    "header": {
+        "resultCode": 0,
+        "resultMessage": "SUCCESS",
+        "isSuccessful": true
+    },
+    "dbInstanceGroups": [
+        {
+            "dbInstanceGroupId": "550e8400-e29b-41d4-a716-446655440000",
+            "dbInstanceGroupName": "dbInstanceGroupName-example",
+            "dbInstanceGroupStatus": "CREATED",
+            "replicationType": "STANDALONE",
+            "createdYmdt": "2023-12-31T15:00:00+09:00",
+            "updatedYmdt": "2023-12-31T15:00:00+09:00"
+        }
+    ]
 }
 ```
 
@@ -602,6 +603,7 @@ This API does not require a request body.
 |-----|-----|-----|
 | dbInstanceGroups | Array | DB instance group information |
 | dbInstanceGroups.dbInstanceGroupId | UUID | DB instance group identifier |
+| dbInstanceGroups.dbInstanceGroupName | String | Name to identify DB instance groups |
 | dbInstanceGroups.dbInstanceGroupStatus | Enum | Current status of the DB instance group<br/>- `CREATED`: Created<br/>- `DELETED`: Deleted |
 | dbInstanceGroups.replicationType | Enum | DB instance group replication type<br/>- `STANDALONE`: High availability not used<br/>- `HIGH_AVAILABILITY`: High availability used |
 | dbInstanceGroups.createdYmdt | DateTime | Created date and time (YYYY-MM-DDThh:mm:ss.SSSTZD) |
@@ -642,7 +644,7 @@ This API does not require a request body.
 #### Response
 
 <details>
-  <summary><strong>Example code</strong></summary>
+  <summary><strong>Example Code</strong></summary>
 
 ```json
 {
@@ -652,6 +654,7 @@ This API does not require a request body.
         "isSuccessful": true
     },
     "dbInstanceGroupId": "550e8400-e29b-41d4-a716-446655440000",
+    "dbInstanceGroupName": "dbInstanceGroupName-example",
     "dbInstanceGroupStatus": "CREATED",
     "replicationType": "STANDALONE",
     "dbInstances": [
@@ -672,6 +675,7 @@ This API does not require a request body.
 | Name | Type | Description |
 |-----|-----|-----|
 | dbInstanceGroupId | UUID | DB instance group identifier |
+| dbInstanceGroupName | String | Name to identify DB instance groups |
 | dbInstanceGroupStatus | Enum | Current status of the DB instance group<br/>- `CREATED`: Created<br/>- `DELETED`: Deleted |
 | replicationType | Enum | DB instance group replication type<br/>- `STANDALONE`: High availability not used<br/>- `HIGH_AVAILABILITY`: High availability used |
 | dbInstances | Array | List of DB instances belonging to the DB instance group |
