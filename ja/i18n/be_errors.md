@@ -44,3 +44,7 @@ categories: [RDS_POSTGRES_ALPHA, RDS_POSTGRES_BETA, RDS_POSTGRES]
 - messageId: pg.error.11017
   messageType: ERROR
   text: "別の操作が進行中のバックアップは削除できません。操作が完了してから、再度お試しください。"
+
+- messageId: pg.error.11018
+  messageType: ERROR
+  text: "選択したバックアップを基準に増分バックアップを実行できません。選択したバックアップ以降の変更がまだ反映されていません。しばらくしてから、再度お試しください。"
