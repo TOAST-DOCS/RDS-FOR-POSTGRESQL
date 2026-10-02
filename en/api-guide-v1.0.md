@@ -1463,11 +1463,11 @@ This API does not require a request body.
             "dbInstanceGroupId": "550e8400-e29b-41d4-a716-446655440000",
             "dbInstanceName": "dbInstanceName-example",
             "description": "description-example",
-            "dbVersion": "POSTGRESQL_V17_10",
+            "dbVersion": "POSTGRESQL_V14_17",
             "dbPort": 15432,
             "dbInstanceType": "MASTER",
-            "dbInstanceStatus": "AVAILABLE",
-            "progressStatus": "NONE",
+            "dbInstanceStatus": "BEFORE_CREATE",
+            "progressStatus": "APPLYING_DB_INSTANCE_HBA_RULE",
             "createdYmdt": "2023-12-31T15:00:00+09:00",
             "updatedYmdt": "2023-12-31T15:00:00+09:00"
         }
@@ -1859,11 +1859,11 @@ This API does not require a request body.
     "dbInstanceGroupId": "550e8400-e29b-41d4-a716-446655440000",
     "dbInstanceName": "dbInstanceName-example",
     "description": "description-example",
-    "dbVersion": "POSTGRESQL_V17_10",
+    "dbVersion": "POSTGRESQL_V14_17",
     "dbPort": 15432,
     "dbInstanceType": "MASTER",
-    "dbInstanceStatus": "AVAILABLE",
-    "progressStatus": "NONE",
+    "dbInstanceStatus": "BEFORE_CREATE",
+    "progressStatus": "APPLYING_DB_INSTANCE_HBA_RULE",
     "dbFlavorId": "550e8400-e29b-41d4-a716-446655440000",
     "parameterGroupId": "550e8400-e29b-41d4-a716-446655440000",
     "dbSecurityGroupIds": [
@@ -1875,7 +1875,7 @@ This API does not require a request body.
     "useDeletionProtection": false,
     "needToApplyParameterGroup": false,
     "needMigration": false,
-    "osVersion": "Ubuntu Server 24.04 LTS",
+    "osVersion": "osVersion-example",
     "createdYmdt": "2023-12-31T15:00:00+09:00",
     "updatedYmdt": "2023-12-31T15:00:00+09:00"
 }
