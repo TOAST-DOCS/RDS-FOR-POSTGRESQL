@@ -52,4 +52,7 @@ categories: [RDS_POSTGRES_ALPHA, RDS_POSTGRES_BETA, RDS_POSTGRES]
 
 ### 출력
 
-`dist/{파일명}_{카테고리}_{yyyyMMdd}.xlsx`
+`dist/{카테고리}_{yyyyMMdd}.xlsx`
+
+`ko/i18n/` 의 메시지 파일을 카테고리별로 합쳐 Excel 파일 하나로 출력한다.
+파일 사이에 `messageId` 가 중복되면 빌드를 중단한다.
