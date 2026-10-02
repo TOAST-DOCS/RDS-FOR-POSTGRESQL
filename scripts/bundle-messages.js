@@ -123,23 +123,39 @@ async function bundleCategory(categoryId, outputDir, today) {
   }
 
   console.log(`[${categoryId}]`);
+  const rows = [];
+  const seen = new Map();
   for (const filename of mdFiles) {
     const fileCats = getFileCategories(filename);
     if (fileCats.length > 0 && !fileCats.includes(categoryId)) {
       console.log(`  건너뜀: ${filename} (카테고리 범위 밖)`);
       continue;
     }
-    const prefix = path.basename(filename, ".md");
-    const rows = mergeMessages(filename);
-    if (rows.length === 0) {
+    const fileRows = mergeMessages(filename);
+    if (fileRows.length === 0) {
       console.log(`  건너뜀: ${filename} (메시지 없음)`);
       continue;
     }
 
-    const output = path.join(outputDir, `${prefix}_${categoryId}_${today}.xlsx`);
-    await writeExcel(rows, categoryId, output);
-    console.log(`  ${path.relative(PROJECT_ROOT, output)} (${rows.length}건)`);
+    for (const row of fileRows) {
+      if (seen.has(row.messageId)) {
+        console.error(`  중복 messageId: ${row.messageId} (${seen.get(row.messageId)}, ${filename})`);
+        process.exit(1);
+      }
+      seen.set(row.messageId, filename);
+    }
+    rows.push(...fileRows);
+    console.log(`  포함: ${filename} (${fileRows.length}건)`);
   }
+
+  if (rows.length === 0) {
+    console.log("  건너뜀: 포함할 메시지 없음");
+    return;
+  }
+
+  const output = path.join(outputDir, `${categoryId}_${today}.xlsx`);
+  await writeExcel(rows, categoryId, output);
+  console.log(`  ${path.relative(PROJECT_ROOT, output)} (${rows.length}건)`);
 }
 
 async function main() {
