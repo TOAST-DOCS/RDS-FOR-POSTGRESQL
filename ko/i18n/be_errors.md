@@ -42,3 +42,7 @@ categories: [RDS_POSTGRES_ALPHA, RDS_POSTGRES_BETA, RDS_POSTGRES]
 - messageId: pg.error.11017
   messageType: ERROR
   text: "다른 작업이 진행 중인 백업은 삭제할 수 없습니다. 작업이 완료된 후 다시 시도하세요."
+
+- messageId: pg.error.11018
+  messageType: ERROR
+  text: "선택한 백업을 기준으로 증분 백업을 수행할 수 없습니다. 선택한 백업 이후의 변경 사항이 아직 반영되지 않았습니다. 잠시 후 다시 시도하세요."
