@@ -72,8 +72,8 @@ Even when performing manual backups, auto backups can be performed if necessary 
 
 * Sets the time period for storing backups on storage. It can be kept for up to 730 days, and if the backup retention period changes, the expired automatic backup files will be deleted immediately.
 
-  !!! danger "Caution"
-      Incrementally created backups are deleted when the baseline backup is deleted, even if the auto backup retention period has not passed.
+!!! danger "Caution"
+    Incrementally created backups are deleted when the baseline backup is deleted, even if the auto backup retention period has not passed.
 
 <a id="auto-backup-number-of-automatic-backup-retries"></a>
 #### Number of Automatic Backup Retries
