@@ -1,4 +1,4 @@
-<!-- pre-align:aligned sig=a673f7413bba -->
+<!-- pre-align:aligned sig=d58a9ac7e400 -->
 
 <a id="rds-for-postgresql-api"></a>
 ## RDS for PostgreSQL API 가이드 { #rds-for-postgresql-api }
@@ -1462,7 +1462,7 @@ GET /v1.0/db-instances
             "dbInstanceName": "dbInstanceName-example",
             "description": "description-example",
             "dbVersion": "POSTGRESQL_V14_17",
-            "dbPort": 1,
+            "dbPort": 15432,
             "dbInstanceType": "MASTER",
             "dbInstanceStatus": "BEFORE_CREATE",
             "progressStatus": "APPLYING_DB_INSTANCE_HBA_RULE",
@@ -1858,7 +1858,7 @@ GET /v1.0/db-instances/{dbInstanceId}
     "dbInstanceName": "dbInstanceName-example",
     "description": "description-example",
     "dbVersion": "POSTGRESQL_V14_17",
-    "dbPort": 1,
+    "dbPort": 15432,
     "dbInstanceType": "MASTER",
     "dbInstanceStatus": "BEFORE_CREATE",
     "progressStatus": "APPLYING_DB_INSTANCE_HBA_RULE",
