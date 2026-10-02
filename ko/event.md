@@ -152,6 +152,9 @@
 | DB_INSTANCE_59_00       | DB_INSTANCE       | 스토리지 자동 확장 시작                        |
 | DB_INSTANCE_59_01       | DB_INSTANCE       | 스토리지 자동 확장 완료                        |
 | DB_INSTANCE_59_04       | DB_INSTANCE       | 스토리지 자동 확장 실패                        |
+| DB_INSTANCE_61_00       | DB_INSTANCE       | DB 인스턴스 그룹 설정 변경 시작                 |
+| DB_INSTANCE_61_01       | DB_INSTANCE       | DB 인스턴스 그룹 설정 변경 완료                 |
+| DB_INSTANCE_61_04       | DB_INSTANCE       | DB 인스턴스 그룹 설정 변경 실패                 |
 | DB_SECURITY_GROUP_01_01 | DB_SECURITY_GROUP | DB 보안 그룹 생성                          |
 | DB_SECURITY_GROUP_02_00 | DB_SECURITY_GROUP | DB 보안 그룹 변경 시작                       |
 | DB_SECURITY_GROUP_02_01 | DB_SECURITY_GROUP | DB 보안 그룹 변경 완료                       |
