@@ -1,6 +1,6 @@
 <!-- machine_translated: true -->
 
-<!-- pre-align:aligned sig=9dbb17ffe66e -->
+<!-- pre-align:aligned sig=89c96ee2f904 -->
 
 <a id="database-rds-for-postgresql-db-instances"></a>
 ## Database > RDS for PostgreSQL > DBインスタンス { #database-rds-for-postgresql-db-instances }
@@ -212,8 +212,6 @@ DBインスタンスの**データベース＆ユーザー**タブでは、DBエ
 <a id="database-user-create-a-database"></a>
 #### データベースの作成
 
-![db-instance-detail-db-create](../static/images/20260811/db-instance-detail-db-create-ja.png)
-
 ❶ **+ 作成**をクリックすると、データベースの名前を入力できるポップアップウィンドウが表示されます。
 ❷データベース名を入力した後、**作成**をクリックしてデータベースを作成できます。
 ❸ DDLユーザーを選択し、所有者に設定できます。
@@ -227,8 +225,6 @@ DBインスタンスの**データベース＆ユーザー**タブでは、DBエ
 <a id="database-user-modify-database"></a>
 #### データベースの修正
 
-![db-instance-detail-db-modify](../static/images/20260811/db-instance-detail-db-modify-ja.png)
-
 ❶修正するデータベース行の**修正**をクリックすると、データベース情報を修正できるポップアップウィンドウが表示されます。
 ❷ DDLユーザーを選択し、所有者に設定できます。
 ❸ 接続権限を付与するユーザーを選択すると、データベースに接続できる権限が付与されます。
@@ -238,23 +234,17 @@ DBインスタンスの**データベース＆ユーザー**タブでは、DBエ
 <a id="database-user-synchronize-database"></a>
 #### データベースの同期
 
-![db-instance-detail-db-sync](../static/images/20260609/db-instance-detail-db-sync-ja.png)
-
 ❶ **同期**をクリックすると、**同期確認**ポップアップウィンドウが表示されます。
 ❷ **確認**をクリックして同期をリクエストできます。
 
 <a id="database-user-delete-database"></a>
 #### データベースの削除
 
-![db-instance-detail-db-delete](../static/images/20260609/db-instance-detail-db-delete-ja.png)
-
 ❶削除するデータベースを選択し、**削除**をクリックすると、削除確認ポップアップウィンドウが表示されます。
 ❷ **削除**をクリックして削除をリクエストできます。
 
 <a id="database-user-modify-schema"></a>
 #### スキーマ修正
-
-![db-instance-detail-schema-modify](../static/images/20260811/db-instance-detail-schema-modify-ja.png)
 
 ❶ 修正するスキーマ行の**修正**をクリックすると、スキーマ情報を修正できるポップアップウィンドウが表示されます。
 ❷ DDLユーザーを選択し、所有者に設定できます。
@@ -263,8 +253,6 @@ DBインスタンスの**データベース＆ユーザー**タブでは、DBエ
 
 <a id="database-user-create-a-user"></a>
 #### ユーザーの作成
-
-![db-instance-detail-user-create](../static/images/20260811/db-instance-detail-user-create-ja.png)
 
 ❶ **+ 作成**をクリックすると、ユーザー追加ポップアップウィンドウが表示されます。
 ❷ユーザーIDを入力します。
@@ -297,8 +285,6 @@ DBインスタンスの**データベース＆ユーザー**タブでは、DBエ
 <a id="database-user-modify-a-user"></a>
 #### ユーザーの修正
 
-![db-instance-detail-user-modify](../static/images/20260811/db-instance-detail-user-modify-ja.png)
-
 ❶修正するユーザー行の**修正**をクリックすると、ユーザー情報を修正できるポップアップウィンドウが表示されます。
 ❷パスワードを入力しないと変更されません。
 ❸ **変更予定アクセス制御即時適用**をチェックすると、アクセス制御ルールにも修正内容が即時適用されます。
@@ -306,22 +292,15 @@ DBインスタンスの**データベース＆ユーザー**タブでは、DBエ
 <a id="database-user-synchronize-user"></a>
 #### ユーザーの同期
 
-![db-instance-detail-user-sync](../static/images/20260609/db-instance-detail-user-sync-ja.png)
-
 ❶ **同期**をクリックすると、**同期確認**ポップアップウィンドウが表示されます。
 ❷ **確認**をクリックして同期をリクエストできます。
 
 <a id="database-user-delete-a-user"></a>
 #### ユーザーの削除
 
-![db-instance-detail-user-delete](../static/images/20260609/db-instance-detail-user-delete-ja.png)
-
-❶削除するユーザーを選択し、ドロップダウンメニューをクリックします。
+❶ 削除するユーザーを選択し、ドロップダウンメニューをクリックします。
 ❷ **削除**をクリックすると、**削除確認**ポップアップウィンドウが表示されます。**確認**をクリックして削除をリクエストできます。
-
-![db-instance-detail-user-delete-with-option](../static/images/20260609/db-instance-detail-user-delete-with-option-ja.png)
-
-❶ 削除するユーザーが所有するオブジェクトがある場合、下部に追加オプションが表示されます。選択できるオプションと説明は次の通りです。
+❸ 削除するユーザーが所有するオブジェクトがある場合、下部に追加オプションが表示されます。選択できるオプションと説明は次のとおりです。
 
 > [注意]
 > 保有しているバックアップがない場合、復旧できませんので慎重に選択してください。
@@ -343,8 +322,6 @@ DBインスタンスの**データベース＆ユーザー**タブでは、DBエ
 
 DBインスタンスの**アクセス制御**タブでは、特定のデータベースとユーザーに対するDBエンジンのアクセスルールを照会及び制御できます。ここで設定したルールは`pg_hba.conf`ファイルに適用されます。
 
-![db-instance-detail-hba](../static/images/20260609/db-instance-detail-hba-ja.png)
-
 ❶アクセス制御ルールの適用状態を確認できます。
 ❷進行中の作業があれば、スピナーが表示されます。
 ❸検索キーワードを入力して検索できます。
@@ -365,8 +342,6 @@ DBインスタンスの**アクセス制御**タブでは、特定のデータ�
 <a id="access-control-add-access-control-rules"></a>
 #### アクセス制御ルールの追加
 
-![db-instance-detail-hba-create](../static/images/20260609/db-instance-detail-hba-create-ja.png)
-
 ❶ **+ 作成**をクリックすると、**アクセス制御ルールの追加**ポップアップウィンドウが表示されます。
 ❷ 入力方式で**基本**を選択すると、DBインスタンスに保存されたデータベースやユーザーを指定してルールを追加できます。
 ❸ ルールの適用対象を全ての対象にするか、特定のデータベースやユーザーを選択して指定できます。
@@ -386,23 +361,18 @@ DBインスタンスの**アクセス制御**タブでは、特定のデータ�
 ❼ 設定が完了した後、**変更事項の適用**をクリックしてDBインスタンスにアクセス制御設定を適用します。
 ❽ DBインスタンスに適用されると、ステータスが**適用済み**に変更されます。
 
-![db-instance-detail-hba-create-by-text](../static/images/20260609/db-instance-detail-hba-create-by-text-ja.png)
-
-❶ 入力方式で**ルール原文で一括追加**を選択すると、`pg_hba.conf`の記述をそのまま入力してルールを一括追加できます。
-❷ コメントを含む`pg_hba.conf`の記述をそのまま使用できます。詳細は[PostgreSQLのホームページ](https://www.postgresql.org/docs/17/auth-pg-hba-conf.html)をご参照ください。
+!!! tip "ポイント"
+    入力方式で**ルール原文で大量追加**を選択すると、`pg_hba.conf`の記述をそのまま入力してルールを大量追加できます。
+    コメントを含む`pg_hba.conf`の記述をそのまま使用できます。詳細は[PostgreSQLのホームページ](https://www.postgresql.org/docs/17/auth-pg-hba-conf.html)をご参照ください。
 
 <a id="access-control-modify-access-control-rules"></a>
 #### アクセス制御ルールの修正
-
-![db-instance-detail-hba-modify](../static/images/20260609/db-instance-detail-hba-modify-ja.png)
 
 ❶修正するアクセス制御ルール行の**修正**をクリックすると、既存の情報を修正できるポップアップウィンドウが表示されます。
 ❷修正したルールは**変更事項の適用**をクリックしてDBインスタンスにアクセス制御設定を適用する必要があります。
 
 <a id="access-control-delete-access-control-rules"></a>
 #### アクセス制御ルールの削除
-
-![db-instance-detail-hba-delete](../static/images/20260609/db-instance-detail-hba-delete-ja.png)
 
 ❶ 削除するアクセス制御ルールを選択し、**削除**をクリックすると、**削除確認**ポップアップが表示されます。
 ❷ 削除したルールは、**変更の適用**をクリックしてDBインスタンスにアクセス制御設定を適用する必要があります。
@@ -415,8 +385,6 @@ DBインスタンスの**拡張管理**タブでは、SUPERUSER権限が必要�
 <a id="extension-install-extensions"></a>
 #### 拡張機能のインストール
 
-![db-instance-detail-extension-install](../static/images/20260609/db-instance-detail-extension-install-ja.png)
-
 ❶ **インストール**をクリックすると、選択した拡張機能をインストールするデータベースを選択できるポップアップウィンドウが表示されます。
 ❷ **強制インストール**をチェックすると、依存関係にある拡張機能を強制的にインストールします。
 ❸ インストールするデータベースを選択した後、**確認**をクリックするとインストール作業が予約されます。
@@ -426,8 +394,6 @@ DBインスタンスの**拡張管理**タブでは、SUPERUSER権限が必要�
 <a id="extension-delete-extensions"></a>
 #### 拡張機能の削除
 
-![db-instance-detail-extension-delete](../static/images/20260609/db-instance-detail-extension-delete-ja.png)
-
 ❶ 削除するデータベースの行で**削除**をクリックすると、**削除確認**ポップアップウィンドウが表示されます。
 ❷ **強制削除**をチェックすると、依存関係にある拡張機能を強制的に削除します。
 ❸ **削除**をクリックすると削除作業が予約されます。
@@ -436,8 +402,6 @@ DBインスタンスの**拡張管理**タブでは、SUPERUSER権限が必要�
 
 <a id="extension-synchronize-extensions"></a>
 #### 拡張機能の同期
-
-![db-instance-detail-extension-sync](../static/images/20260609/db-instance-detail-extension-sync-ja.png)
 
 ❶ **同期**をクリックすると、**同期確認** ポップアップウィンドウが表示されます。
 ❷ **確認**をクリックして同期をリクエストできます。
@@ -487,8 +451,6 @@ RDS for PostgreSQLでは、データベースとユーザーを管理できる�
 
 DBインスタンスを選択すると、詳細情報を確認できます。
 
-![db-instance-detail-basic](../static/images/20260609/db-instance-detail-basic-ja.png)
-
 ❶ 接続情報のドメインをクリックすると、IPアドレスを確認できるポップアップウィンドウが表示されます。
 ❷ DBセキュリティグループをクリックすると、DBセキュリティルールを確認できるポップアップウィンドウが表示されます。
 ❸ パラメータグループをクリックすると、パラメータを確認できる画面に移動します。
@@ -511,8 +473,6 @@ DBインスタンスの**ログ**タブでは、各種ログファイルを確�
 |----------------|------------|-------|
 | postgresql.log | 100MB 40個  | 固定    |
 | backup.log     | デイリー 10個  | 固定    |
-
-![db-instance-detail-log](../static/images/20260609/db-instance-detail-log-ja.png)
 
 ❶ **ログ表示**をクリックすると、ログファイルの内容を確認できるポップアップウィンドウが表示されます。最大 65,535 Bytes のログを確認できます。
 ❷ **インポート**をクリックすると、DBインスタンスのログファイルのダウンロードをリクエストします。
