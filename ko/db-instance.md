@@ -214,8 +214,6 @@ DB 인스턴스의 **데이터베이스 & 사용자** 탭에서는 DB 엔진에 
 <a id="database-user-create-a-database"></a>
 #### 데이터베이스 생성
 
-![db-instance-detail-db-create](../static/images/20260811/db-instance-detail-db-create-ko.png)
-
 ❶ **+ 생성**을 클릭하면 데이터베이스의 이름을 입력할 수 있는 팝업 창이 나타납니다.
 ❷ 데이터베이스 이름을 입력한 뒤 **생성**을 클릭하여 데이터베이스를 생성할 수 있습니다.
 ❸ DDL 사용자를 선택해 소유자로 설정할 수 있습니다.
@@ -229,8 +227,6 @@ DB 인스턴스의 **데이터베이스 & 사용자** 탭에서는 DB 엔진에 
 <a id="database-user-modify-database"></a>
 #### 데이터베이스 수정
 
-![db-instance-detail-db-modify](../static/images/20260811/db-instance-detail-db-modify-ko.png)
-
 ❶ 수정할 데이터베이스 행의 **수정**을 클릭하면 데이터베이스 정보를 수정할 수 있는 팝업 창이 나타납니다.
 ❷ DDL 사용자를 선택해 소유자로 설정할 수 있습니다.
 ❸ 접속 권한을 부여할 사용자를 선택하면 데이터베이스에 접속할 수 있는 권한이 부여됩니다.
@@ -240,23 +236,17 @@ DB 인스턴스의 **데이터베이스 & 사용자** 탭에서는 DB 엔진에 
 <a id="database-user-synchronize-database"></a>
 #### 데이터베이스 동기화
 
-![db-instance-detail-db-sync](../static/images/20260609/db-instance-detail-db-sync-ko.png)
-
 ❶ **동기화**를 클릭하면 **동기화 확인** 팝업 창이 나타납니다.
 ❷ **확인**을 클릭하여 동기화를 요청할 수 있습니다.
 
 <a id="database-user-delete-database"></a>
 #### 데이터베이스 삭제
 
-![db-instance-detail-db-delete](../static/images/20260609/db-instance-detail-db-delete-ko.png)
-
 ❶ 삭제할 데이터베이스를 선택한 후 **삭제**를 클릭하면 **삭제 확인** 팝업 창이 나타납니다.
 ❷ **삭제**를 클릭하여 삭제를 요청할 수 있습니다.
 
 <a id="database-user-modify-schema"></a>
 #### 스키마 수정
-
-![db-instance-detail-schema-modify](../static/images/20260811/db-instance-detail-schema-modify-ko.png)
 
 ❶ 수정할 스키마 행의 **수정**을 클릭하면 스키마 정보를 수정할 수 있는 팝업 창이 나타납니다.
 ❷ DDL 사용자를 선택해 소유자로 설정할 수 있습니다.
@@ -265,8 +255,6 @@ DB 인스턴스의 **데이터베이스 & 사용자** 탭에서는 DB 엔진에 
 
 <a id="database-user-create-a-user"></a>
 #### 사용자 생성
-
-![db-instance-detail-user-create](../static/images/20260811/db-instance-detail-user-create-ko.png)
 
 ❶ **+ 생성**을 클릭하면 **사용자 추가** 팝업 창이 나타납니다.
 ❷ 사용자 ID를 입력합니다.
@@ -299,8 +287,6 @@ DB 인스턴스의 **데이터베이스 & 사용자** 탭에서는 DB 엔진에 
 <a id="database-user-modify-a-user"></a>
 #### 사용자 수정
 
-![db-instance-detail-user-modify](../static/images/20260811/db-instance-detail-user-modify-ko.png)
-
 ❶ 수정할 사용자 행의 **수정**을 클릭하면 사용자 정보를 수정할 수 있는 팝업 창이 나타납니다.
 ❷ 비밀번호를 입력하지 않으면 변경되지 않습니다.
 ❸ **변경 예정 접근 제어 즉시 적용**을 체크하면 접근 제어 규칙에도 수정 사항이 즉시 적용됩니다.
@@ -308,22 +294,15 @@ DB 인스턴스의 **데이터베이스 & 사용자** 탭에서는 DB 엔진에 
 <a id="database-user-synchronize-user"></a>
 #### 사용자 동기화
 
-![db-instance-detail-user-sync](../static/images/20260609/db-instance-detail-user-sync-ko.png)
-
 ❶ **동기화**를 클릭하면 **동기화 확인** 팝업 창이 나타납니다.
 ❷ **확인**을 클릭하여 동기화를 요청할 수 있습니다.
 
 <a id="database-user-delete-a-user"></a>
 #### 사용자 삭제
 
-![db-instance-detail-user-delete](../static/images/20260609/db-instance-detail-user-delete-ko.png)
-
 ❶ 삭제할 사용자를 선택한 후 드롭다운 메뉴를 클릭합니다.
 ❷ **삭제**를 클릭하면 **삭제 확인** 팝업 창이 나타납니다. **확인**을 클릭하여 삭제를 요청할 수 있습니다.
-
-![db-instance-detail-user-delete-with-option](../static/images/20260609/db-instance-detail-user-delete-with-option-ko.png)
-
-❶ 삭제할 사용자가 소유한 객체가 있는 경우 하단에 추가 옵션이 나타납니다. 선택할 수 있는 옵션과 설명은 다음과 같습니다.
+❸ 삭제할 사용자가 소유한 객체가 있는 경우 하단에 추가 옵션이 나타납니다. 선택할 수 있는 옵션과 설명은 다음과 같습니다.
 
 **강제 삭제**
 * 소유한 모든 객체를 강제로 삭제합니다.
@@ -346,8 +325,6 @@ DB 인스턴스의 **데이터베이스 & 사용자** 탭에서는 DB 엔진에 
 
 DB 인스턴스의 **접근 제어** 탭에서는 특정 데이터베이스와 사용자에 대한 DB 엔진 접근 규칙을 조회하고 제어할 수 있습니다. 여기에 설정한 규칙은 `pg_hba.conf` 파일에 적용됩니다.
 
-![db-instance-detail-hba](../static/images/20260609/db-instance-detail-hba-ko.png)
-
 ❶ 접근 제어 규칙에 대한 적용 상태를 볼 수 있습니다.
 ❷ 진행 중인 작업이 있으면 스피너가 나타납니다.
 ❸ 검색 키워드를 입력해 검색해서 볼 수 있습니다.
@@ -369,8 +346,6 @@ DB 인스턴스의 **접근 제어** 탭에서는 특정 데이터베이스와 �
 <a id="access-control-add-access-control-rules"></a>
 #### 접근 제어 규칙 추가
 
-![db-instance-detail-hba-create](../static/images/20260609/db-instance-detail-hba-create-ko.png)
-
 ❶ **+ 생성**을 클릭하면 **접근 제어 규칙 추가** 팝업 창이 나타납니다.
 ❷ 입력 방식을 **기본**으로 선택하면 DB 인스턴스에 저장된 데이터베이스나 사용자를 지정하여 규칙을 추가할 수 있습니다.
 ❸ 규칙 적용 대상을 전체 대상으로 지정하거나 특정 데이터베이스나 사용자를 선택해서 지정할 수 있습니다.
@@ -391,23 +366,18 @@ DB 인스턴스의 **접근 제어** 탭에서는 특정 데이터베이스와 �
 ❼ 설정을 마친 뒤 **변경 사항 적용**을 클릭해 DB 인스턴스에 접근 제어 설정을 적용합니다.
 ❽ DB 인스턴스에 적용되면 상태가 **적용됨**으로 변경됩니다.
 
-![db-instance-detail-hba-create-by-text](../static/images/20260609/db-instance-detail-hba-create-by-text-ko.png)
-
-❶ 입력 방식을 **규칙 원문으로 대량 추가**로 선택하면 `pg_hba.conf` 원문을 그대로 입력해 규칙을 대량 추가할 수 있습니다.
-❷ 주석을 포함한 `pg_hba.conf` 원문을 그대로 사용할 수 있으며 자세한 내용은 [PostgreSQL 홈페이지](https://www.postgresql.org/docs/17/auth-pg-hba-conf.html)를 참고하세요.
+!!! tip "알아두기"
+    입력 방식을 **규칙 원문으로 대량 추가**로 선택하면 `pg_hba.conf` 원문을 그대로 입력해 규칙을 대량 추가할 수 있습니다.
+    주석을 포함한 `pg_hba.conf` 원문을 그대로 사용할 수 있으며 자세한 내용은 [PostgreSQL 홈페이지](https://www.postgresql.org/docs/17/auth-pg-hba-conf.html)를 참고하세요.
 
 <a id="access-control-modify-access-control-rules"></a>
 #### 접근 제어 규칙 수정
-
-![db-instance-detail-hba-modify](../static/images/20260609/db-instance-detail-hba-modify-ko.png)
 
 ❶ 수정할 접근 제어 규칙 행의 **수정**을 클릭하면 기존 정보를 수정할 수 있는 팝업 창이 나타납니다.
 ❷ 수정한 규칙은 **변경 사항 적용**을 클릭해 DB 인스턴스에 접근 제어 설정을 적용해야 합니다.
 
 <a id="access-control-delete-access-control-rules"></a>
 #### 접근 제어 규칙 삭제
-
-![db-instance-detail-hba-delete](../static/images/20260609/db-instance-detail-hba-delete-ko.png)
 
 ❶ 삭제할 접근 제어 규칙을 선택한 후 **삭제**를 클릭하면 **삭제 확인** 팝업 창이 나타납니다.
 ❷ 삭제한 규칙은 **변경 사항 적용**을 클릭해 DB 인스턴스에 접근 제어 설정을 적용해야 합니다.
@@ -420,8 +390,6 @@ DB 인스턴스의 **확장 관리** 탭에서는 SUPERUSER 권한이 필요한 
 <a id="extension-install-extensions"></a>
 #### 확장 설치
 
-![db-instance-detail-extension-install](../static/images/20260609/db-instance-detail-extension-install-ko.png)
-
 ❶ **설치**를 클릭하면 선택한 확장을 설치할 데이터베이스를 선택할 수 있는 팝업 창이 나타납니다.
 ❷ **강제 설치**를 체크하면 의존 관계에 있는 확장을 강제 설치합니다.
 ❸ 설치할 데이터베이스를 선택한 후 **확인**을 클릭하면 설치 작업이 예약됩니다.
@@ -431,8 +399,6 @@ DB 인스턴스의 **확장 관리** 탭에서는 SUPERUSER 권한이 필요한 
 <a id="extension-delete-extensions"></a>
 #### 확장 삭제
 
-![db-instance-detail-extension-delete](../static/images/20260609/db-instance-detail-extension-delete-ko.png)
-
 ❶ 삭제할 데이터베이스 행에서 **삭제**를 클릭하면 **삭제 확인** 팝업 창이 나타납니다.
 ❷ **강제 삭제**를 체크하면 의존 관계에 있는 확장을 강제 삭제합니다.
 ❸ **삭제**를 클릭하면 삭제 작업이 예약됩니다.
@@ -441,8 +407,6 @@ DB 인스턴스의 **확장 관리** 탭에서는 SUPERUSER 권한이 필요한 
 
 <a id="extension-synchronize-extensions"></a>
 #### 확장 동기화
-
-![db-instance-detail-extension-sync](../static/images/20260609/db-instance-detail-extension-sync-ko.png)
 
 ❶ **동기화**를 클릭하면 **동기화 확인** 팝업 창이 나타납니다.
 ❷ **확인**을 클릭하여 동기화를 요청할 수 있습니다.
@@ -492,8 +456,6 @@ RDS for PostgreSQL에서는 데이터베이스와 사용자를 관리할 수 있
 
 DB 인스턴스를 선택하면 상세 정보를 볼 수 있습니다.
 
-![db-instance-detail-basic](../static/images/20260609/db-instance-detail-basic-ko.png)
-
 ❶ 접속 정보의 도메인을 클릭하면 IP 주소를 확인할 수 있는 팝업 창이 나타납니다.
 ❷ DB 보안 그룹을 클릭하면 DB 보안 규칙을 확인할 수 있는 팝업 창이 나타납니다.
 ❸ 파라미터 그룹을 클릭하면 파라미터를 확인할 수 있는 화면으로 이동합니다.
@@ -516,8 +478,6 @@ DB 인스턴스의 **로그** 탭에서는 각종 로그 파일을 보거나 다
 |----------------|-----------|-------|
 | postgresql.log | 100MB 40개 | 고정    |
 | backup.log     | 데일리 10개   | 고정    |
-
-![db-instance-detail-log](../static/images/20260609/db-instance-detail-log-ko.png)
 
 ❶ **로그 보기**를 클릭하면 로그 파일의 내용을 확인할 수 있는 팝업 창이 나타납니다. 최대 65,535Bytes의 로그를 확인할 수 있습니다.
 ❷ **가져오기**를 클릭하면 DB 인스턴스의 로그 파일을 다운로드할 수 있도록 요청합니다.
