@@ -215,8 +215,6 @@ After viewing DB instances on the **Group** screen, select a DB instance group t
 <a id="database-user-create-a-database"></a>
 #### Create a database
 
-![db-instance-detail-db-create](../static/images/20260811/db-instance-detail-db-create-en.png)
-
 ❶ When you click on **+ Create**, a pop-up window appears where you can enter the name of the database.
 ❷ You can create the database by entering the database name and clicking **Create**.
 ❸ Designate a DDL user to be the owner.
@@ -230,8 +228,6 @@ Database names have the following restrictions:
 <a id="database-user-modify-database"></a>
 #### Modify Database
 
-![db-instance-detail-db-modify](../static/images/20260811/db-instance-detail-db-modify-en.png)
-
 ❶ When you click on **Modify** in the database row you want to modify, a pop-up window appears where you can modify the database information.
 ❷ Designate a DDL user to be the owner.
 ❸ Grant database access by selecting the desired users.
@@ -241,23 +237,17 @@ Database names have the following restrictions:
 <a id="database-user-synchronize-database"></a>
 #### Synchronize Database
 
-![db-instance-detail-db-sync](../static/images/20260609/db-instance-detail-db-sync-en.png)
-
 ❶ After you click **Synchronization**, the **synchronization confirmation** pop-up window appears.
 ❷ You can click **Confirm** to request the synchronization.
 
 <a id="database-user-delete-database"></a>
 #### Delete Database
 
-![db-instance-detail-db-delete](../static/images/20260609/db-instance-detail-db-delete-en.png)
-
 ❶ If select the database you want to delete and click on **Delete**, the Delete confirmation pop-up window appears.
 ❷ You can request deletion by clicking on **Delete**.
 
 <a id="database-user-modify-schema"></a>
 #### Modify Schema
-
-![db-instance-detail-schema-modify](../static/images/20260811/db-instance-detail-schema-modify-en.png)
 
 ❶ Click **Modify** on the schema row you wish to modify. A pop-up window will appear where you can update the schema information.
 ❷ Select a DDL user to assign as the owner.
@@ -266,8 +256,6 @@ Database names have the following restrictions:
 
 <a id="database-user-create-a-user"></a>
 #### Create a User
-
-![db-instance-detail-user-create](../static/images/20260811/db-instance-detail-user-create-en.png)
 
 ❶ Click on **+ Create** to see the **Add User** pop-up window.
 ❷ Enter user ID.
@@ -300,8 +288,6 @@ Password has the following restrictions.
 <a id="database-user-modify-a-user"></a>
 #### Modify a User
 
-![db-instance-detail-user-modify](../static/images/20260811/db-instance-detail-user-modify-en.png)
-
 ❶ When you click on **Modify** in the row of users that you want to edit, a pop-up window appears where you can edit information.
 ❷ If you do not enter a password, it will not be edited.
 ❸ When checking **Immediate Apply Scheduled Access Control**, the modifications are also applied to the access control rule immediately.
@@ -309,22 +295,15 @@ Password has the following restrictions.
 <a id="database-user-synchronize-user"></a>
 #### Synchronize User
 
-![db-instance-detail-user-sync](../static/images/20260609/db-instance-detail-user-sync-en.png)
-
 ❶ Click **Synchronization** and a **Confirm Synchronization** pop-up window will appear.
 ❷ Click **Confirm** to request synchronization.
 
 <a id="database-user-delete-a-user"></a>
 #### Delete a User
 
-![db-instance-detail-user-delete](../static/images/20260609/db-instance-detail-user-delete-en.png)
-
 ❶ Select the user that you want to delete and click on the drop-down menu.
-❷ When **Delete** is clicked, **Delete Confirmation** pop-up window appears. You can request deletion by clicking on **Confirm**.
-
-![db-instance-detail-user-delete-with-option](../static/images/20260609/db-instance-detail-user-delete-with-option-en.png)
-
-❶ Displays additional options below when deleting a user who owns objects. See the table below for available options and their descriptions:
+❷ Click **Delete** to open **Confirm Deletion** dialog, then select **Confirm** to complete the request.
+❸ Displays additional options below when deleting a user who owns objects. See the table below for available options and their descriptions:
 
 **Force Delete**
 * Forcibly deletes all owned objects.
@@ -347,8 +326,6 @@ Password has the following restrictions.
 
 **Access Control** tab of the DB instance allows you to query and control DB Engine access rules for specific databases and users. The rules set here apply to file `pg_hba.conf`.
 
-![db-instance-detail-hba](../static/images/20260609/db-instance-detail-hba-en.png)
-
 ❶ You can view the application status for access control rules.
 ❷ If there is any work in progress, a spinner will appear.
 ❸ You can search and view by entering search keywords.
@@ -368,8 +345,6 @@ The status of access control consists of the following values, which change depe
 
 <a id="access-control-add-access-control-rules"></a>
 #### Add Access Control Rules
-
-![db-instance-detail-hba-create](../static/images/20260609/db-instance-detail-hba-create-en.png)
 
 ❶ When you click on **+ Create**, an **Add Access Control Rule** pop-up window appears.
 ❷ If you select **Default** as the input method, you can add rules by specifying a database or user stored in the DB instance.
@@ -391,23 +366,18 @@ The status of access control consists of the following values, which change depe
 ❼ After finish setting, click **Apply Changes** to apply the access control settings to DB instance.
 ❽ When applied to DB instance, the status changes to **Applied**.
 
-![db-instance-detail-hba-create-by-text](../static/images/20260609/db-instance-detail-hba-create-by-text-en.png)
-
-❶ If you select **Bulk Add by Rule Source** as the input method, you can bulk add rules by entering the `pg_hba.conf` source as-is.
-❷ You can use the `pg_hba.conf` source as-is, including comments. For more information, see the [PostgreSQL website](https://www.postgresql.org/docs/17/auth-pg-hba-conf.html).
+!!! tip "Note"
+    If you select **Bulk Add by Rule Source** as the input method, you can bulk add rules by entering the `pg_hba.conf` source as-is.
+    You can use the `pg_hba.conf` source as-is, including comments. For more information, see the [PostgreSQL website](https://www.postgresql.org/docs/17/auth-pg-hba-conf.html).
 
 <a id="access-control-modify-access-control-rules"></a>
 #### Modify Access Control Rules
-
-![db-instance-detail-hba-modify](../static/images/20260609/db-instance-detail-hba-modify-en.png)
 
 ❶ When click **Modify** in the row of access control rules to modify, a pop-up window appears where you can modify existing information.
 ❷ Modified rules must apply access control settings to DB instances by clicking on **Apply Changes**.
 
 <a id="access-control-delete-access-control-rules"></a>
 #### Delete Access Control Rules
-
-![db-instance-detail-hba-delete](../static/images/20260609/db-instance-detail-hba-delete-en.png)
 
 ❶ After selecting the access control rules to delete, click on **Delete**, the **Delete confirmation** pop-up window appears.
 ❷ Deleted rules must apply access control settings to DB instances by clicking on **Apply Changes**.
@@ -421,8 +391,6 @@ You can get and control the extensions that require SUPERUSER permission from **
 <a id="extension-install-extensions"></a>
 #### Install Extensions
 
-![db-instance-detail-extension-install](../static/images/20260609/db-instance-detail-extension-install-en.png)
-
 ❶ Click **Install** to display a pop-up window that allows you to select the database on which to install the selected extension.
 ❷ Check **Force Install** to force installation of dependent extensions.
 ❸ After selecting the installed database, click **Confirm** to schedule the installation task.
@@ -432,8 +400,6 @@ You can get and control the extensions that require SUPERUSER permission from **
 <a id="extension-delete-extensions"></a>
 #### Delete Extensions
 
-![db-instance-detail-extension-delete](../static/images/20260609/db-instance-detail-extension-delete-en.png)
-
 ❶ Click **Delete** from the database row to be deleted to display a **Confirm Delete** pop-up window.
 ❷ Check **Force Install** to force deletion of dependent extensions.
 ❸ Click **Delete** to schedule the deletion task.
@@ -442,8 +408,6 @@ You can get and control the extensions that require SUPERUSER permission from **
 
 <a id="extension-synchronize-extensions"></a>
 #### Synchronize Extensions
-
-![db-instance-detail-extension-sync](../static/images/20260609/db-instance-detail-extension-sync-en.png)
 
 ❶ If you click **Synchronize**, a **Confirm Synchronization** pop-up window will appear.
 ❷ Click **Confirm** to request synchronization.
@@ -493,8 +457,6 @@ RDS for PostgreSQL provides management features in the console for easy manageme
 
 Select a DB instance to view its details.
 
-![db-instance-detail-basic](../static/images/20260609/db-instance-detail-basic-en.png)
-
 ❶ Click the domain in the connection information to open a pop-up window where you can check the IP address.
 ❷ Click the DB security group to open a pop-up window where you can check the DB Security Rules.
 ❸ Click the parameter group to go to the screen where you can view the parameters.
@@ -517,8 +479,6 @@ In the **Log** tab of a DB instance, you can view or download various log files.
 |----------------|-----------|-------|
 | postgresql.log | 100 MB, 40 files  | Static    |
 | backup.log     | Daily, 10 files   | Static    |
-
-![db-instance-detail-log](../static/images/20260609/db-instance-detail-log-en.png)
 
 ❶ Click **View Log** to open a pop-up window where you can view the contents of a log file. You can view up to 65,535 bytes of logs.
 ❷ Click **Import** to request a download of the log file from the DB instance.
