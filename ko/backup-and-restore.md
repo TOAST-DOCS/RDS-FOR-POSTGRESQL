@@ -1,8 +1,12 @@
-## Database > RDS for PostgreSQL > 백업 및 복원
+<!-- pre-align:aligned sig=c164d17a97df -->
 
-## 백업
+<a id="database-rds-for-postgresql-backup-and-restore"></a>
+## Database > RDS for PostgreSQL > 백업 및 복원 { #database-rds-for-postgresql-backup-and-restore }
 
-장애 상황에 대비하여 DB 인스턴스의 데이터베이스를 복구할 수 있도록 미리 준비할 수 있습니다. 필요할 때마다 콘솔에서 백업을 수행하거나, 주기적으로 백업이 수행되도록 설정할 수 있습니다. 백업이 수행되는 동안에는 해당 DB 인스턴스 스토리지의 성능 저하가 발생할 수 있습니다. 서비스에 영향을 주지 않도록 서비스 부하가 적은 시간에 백업할 것을 권장합니다.
+<a id="backup"></a>
+## 백업 { #backup }
+
+장애 상황에 대비하여 DB 인스턴스의 데이터베이스를 복구할 수 있도록 미리 준비할 수 있습니다. 필요할 때마다 콘솔에서 백업을 수행하거나, 주기적으로 백업이 수행되도록 설정할 수 있습니다. 백업이 수행되는 동안에는 해당 DB 인스턴스 스토리지의 성능 저하가 발생할 수 있습니다. 서비스에 영향을 주지 않도록 서비스 부하가 적은 시간에 백업할 것을 권장합니다. 백업으로 인한 성능 저하를 원하지 않는 경우 고가용성 구성을 사용하거나, 이전 백업 이후 데이터의 증분만 백업할 수 있으며, Read Replica에서 백업을 수행할 수도 있습니다.
 
 RDS for PostgreSQL에서는 pg_basebackup 도구를 이용하여 데이터베이스를 백업합니다. 외부 PostgreSQL의 백업으로 복원하거나 RDS for PostgreSQL의 백업으로 복원하려면 RDS for PostgreSQL에서 사용하는 pg_basebackup과 동일한 버전을 사용해야 합니다. DB 엔진 버전에 따른 pg_basebackup 버전은 다음과 같습니다.
 
@@ -24,13 +28,14 @@ pg_basebackup 설치 방법은 [PostgreSQL 홈페이지](https://www.postgresql.
 
 백업 시 적용되는 설정 항목은 다음과 같으며, 자동 백업과 수동 백업에 모두 적용됩니다.
 
-![backup-config](https://static.toastoven.net/prod_rds_postgres/20241210/backup-config-ko.png)
+![backup-config](../static/images/20241210/backup-config-ko.png)
 
-### 수동 백업
+<a id="manual-backup"></a>
+### 수동 백업 { #manual-backup }
 
 특정 시점의 데이터베이스를 영구히 저장하려면 콘솔에서 수동으로 백업을 수행할 수 있습니다. 수동 백업은 자동 백업과 달리 명시적으로 백업을 삭제하지 않는 한 DB 인스턴스가 삭제될 때 같이 삭제되지 않습니다. 콘솔에서 수동 백업을 수행하려면
 
-![db-instance-detail-backup](https://static.toastoven.net/prod_rds_postgres/20260609/db-instance-detail-backup-ko.png)
+![db-instance-detail-backup](../static/images/20260609/db-instance-detail-backup-ko.png)
 
 ❶ 백업할 DB 인스턴스를 선택한 뒤 **백업**을 클릭하면 **백업 생성** 팝업 창이 나타납니다.
     - DB 인스턴스를 선택하지 않고 **백업**을 클릭하면 **백업 생성** 팝업 창 내 드롭다운 메뉴에서 DB 인스턴스를 선택할 수 있습니다.
@@ -41,48 +46,87 @@ pg_basebackup 설치 방법은 [PostgreSQL 홈페이지](https://www.postgresql.
 
 또는 **백업** 탭에서
 
-![backup-create](https://static.toastoven.net/prod_rds_postgres/20241210/backup-create-ko.png)
+![backup-create](../static/images/20241210/backup-create-ko.png)
 
 ❶ **+ 백업 생성**을 클릭하면 **백업 생성** 팝업 창이 나타납니다.
 ❷ 백업을 수행할 DB 인스턴스를 선택합니다.
 ❸ 백업 이름을 입력한 뒤 **생성**을 클릭해 백업 생성을 요청합니다.
 
-### 자동 백업
+<a id="manual-backup-create-manual-incremental-backup"></a>
+#### 수동 증분 백업 생성하기
+
+**백업** 탭에서 기준 백업을 선택한 뒤 **증분 백업 생성**을 클릭하여 증분 백업을 생성할 수 있습니다. 일부 백업은 기준 백업으로 선택할 수 없습니다. 기준 백업에 대한 자세한 설명은 [기준 백업](#baseline-backup)을 참고하세요.
+
+<a id="auto-backup"></a>
+### 자동 백업 { #auto-backup }
 
 수동으로 백업하는 경우 외에도 복원 작업에 필요한 경우나 자동 백업 스케줄 설정에 따라 자동 백업이 수행될 수 있습니다. DB 인스턴스의 백업 보관 기간을 1일 이상으로 설정하면 자동 백업이 활성화되며, 지정된 시간에 백업이 수행됩니다. 자동 백업은 DB 인스턴스와 생명 주기가 동일합니다. DB 인스턴스가 삭제되면 보관된 자동 백업은 모두 삭제됩니다. 자동 백업에서 지원하는 설정 항목은 다음과 같습니다.
 
-![backup-config](https://static.toastoven.net/prod_rds_postgres/20241210/backup-config-ko.png)
+![backup-config](../static/images/20241210/backup-config-ko.png)
 
-**자동 백업 보관 기간(일)**
+<a id="auto-backup-retention-period-days"></a>
+#### 자동 백업 보관 기간(일)
 
 * 백업을 스토리지에 저장하는 기간을 설정합니다. 최대 730일까지 보관할 수 있으며, 백업 보관 기간이 변경되면 보관 기간이 지난 자동 백업 파일은 바로 삭제됩니다.
 
-**자동 백업 재시도 횟수**
+!!! danger "주의"
+    증분 방식으로 생성된 백업은 자동 백업 보관 기간이 지나지 않았더라도 기준 백업이 삭제될 때 함께 삭제됩니다.
+
+<a id="auto-backup-number-of-automatic-backup-retries"></a>
+#### 자동 백업 재시도 횟수
 
 * DML 쿼리 부하 또는 다양한 이유로 자동 백업이 실패한 경우 재시도하도록 설정할 수 있습니다. 최대 10회까지 재시도할 수 있습니다. 재시도 횟수가 남아 있더라도 자동 백업 수행 시간 설정에 따라 재시도하지 않을 수 있습니다.
 
-**백업 수행 시간**
+<a id="auto-backup-strategy"></a>
+#### 자동 백업 전략
+
+* 자동 백업을 수행할 전략을 지정할 수 있습니다.
+    * 매일 전체 백업: 매일 전체 데이터를 백업합니다.
+    * 매일 전체 및 증분 백업: 매일 전체 데이터를 1회 백업하고, 수 회 증분을 백업합니다.
+    * 주간 전체 백업 및 일일 증분 백업: 특정 요일에 전체 데이터를 1회 백업하고, 나머지 요일에는 증분을 1회 백업합니다.
+    * 매일 스냅숏 백업: 매일 전체 데이터를 스냅숏으로 백업합니다.
+
+<a id="auto-backup-full-backup-days-of-week"></a>
+#### 전체 백업 요일
+
+* 주간 전체 백업 및 일일 증분 백업 전략 사용 시에만 지정 가능합니다. 전체 백업 요일은 최소 1개 이상 선택해야 하며, 선택한 요일에는 전체 백업이 진행되고 선택하지 않은 요일에는 증분 백업이 진행됩니다.
+
+<a id="auto-backup-backup-execution-target"></a>
+#### 백업 실행 대상
+
+* 자동 백업을 수행할 DB 인스턴스를 선택합니다. Primary 외에 Standby나 Read Replica를 선택하면 Primary의 백업 부하를 줄일 수 있습니다.
+* 백업 실행 방식을 다음 중 하나로 지정할 수 있습니다.
+    * 선택한 후보 중 1대: 선택한 DB 인스턴스 중 시스템 부하가 가장 낮은 1대에서 자동으로 백업을 수행합니다.
+    * 선택한 후보 전체: 선택한 모든 DB 인스턴스에서 백업을 수행합니다.
+
+<a id="auto-backup-backup-execution-time"></a>
+#### 백업 수행 시간
 
 * 백업이 자동으로 수행되는 시간을 설정할 수 있습니다. 백업 시작 시간과 백업 윈도우로 구성됩니다. 백업 수행 시간은 겹치지 않게 여러 번 설정할 수 있습니다. 백업 시작 시간을 기준으로 백업 윈도우 안의 임의 시점에 백업을 수행합니다. 백업 윈도우는 백업 총 수행 시간과는 관련이 없습니다. 백업에 걸리는 시간은 데이터베이스 크기에 비례하며, 서비스 부하에 따라 달라집니다. 백업이 실패할 경우 백업 윈도우를 넘지 않았다면 백업 재시도 횟수에 따라 백업을 다시 시도합니다.
 
 자동 백업 이름은 `{DB 인스턴스의 이름}_yyyy-MM-dd-HH-mm` 형태로 부여됩니다.
 
-> [주의]
-> 앞선 백업이 종료되지 않는 등의 상황에서는 백업이 수행되지 않을 수 있습니다.
+!!! danger "주의"
+    앞선 백업이 종료되지 않는 등의 상황에서는 백업이 수행되지 않을 수 있습니다.
+    예정상 증분 백업을 수행할 차례이더라도 증분이 가능한 기준 백업이 존재하지 않는 경우 전체 백업이 수행될 수 있습니다.
+    증분 가능한 기준 백업에 대한 자세한 설명은 [기준 백업](#baseline-backup) 항목을 참고하세요.
 
-### 백업 스토리지 및 과금
+<a id="backup-storage-and-pricing"></a>
+### 백업 스토리지 및 과금 { #backup-storage-and-pricing }
 
 모든 백업 파일은 내부 백업 스토리지에 업로드되어 저장됩니다. 수동 백업의 경우 별도로 삭제하기 전까지 영구히 저장되며 백업 용량에 따라 백업 스토리지 과금이 발생합니다. 자동 백업의 경우 설정한 보관 기간만큼 저장되며 자동 백업 파일의 전체 크기 중 DB 인스턴스의 스토리지 크기를 초과한 용량을 과금합니다. 백업 파일이 저장된 내부 백업 스토리지에 직접 접근할 수 없습니다.
 
-### 백업 내보내기
+<a id="export-backup"></a>
+### 백업 내보내기 { #export-backup }
 
+<a id="export-backup-export-files-while-executing-backup"></a>
 #### 백업을 수행하면서 파일 내보내기
 
-백업 후 백업 파일을 사용자 오브젝트 스토리지로 내보낼 수 있습니다.
+백업 후 백업 파일을 사용자 오브젝트 스토리지로 내보낼 수 있습니다. 증분 백업은 지원되지 않습니다.
 
-![db-instance-list-export-obs](https://static.toastoven.net/prod_rds_postgres/20260609/db-instance-list-export-obs-ko.png)
+![db-instance-list-export-obs](../static/images/20260609/db-instance-list-export-obs-ko.png)
 
-![db-instance-list-export-obs-modal](https://static.toastoven.net/prod_rds_postgres/20260609/db-instance-list-export-obs-modal-ko.png)
+![db-instance-list-export-obs-modal](../static/images/20260609/db-instance-list-export-obs-modal-ko.png)
 
 ❶ 백업할 DB 인스턴스를 선택한 뒤 드롭다운 메뉴에서 **백업 후 오브젝트 스토리지로 백업 파일 내보내기**를 클릭하면 설정 팝업 화면이 나타납니다.
 ❷ 백업이 저장될 오브젝트 스토리지의 테넌트 ID를 입력합니다. 테넌트 ID는 API 엔드포인트 설정에서 확인할 수 있습니다.
@@ -91,32 +135,75 @@ pg_basebackup 설치 방법은 [PostgreSQL 홈페이지](https://www.postgresql.
 ❺ 백업이 저장될 오브젝트 스토리지의 컨테이너를 입력합니다.
 ❻ 컨테이너에 저장될 백업의 경로를 입력합니다. 폴더 이름은 최대 255바이트이고, 전체 경로는 최대 1024바이트입니다. 특정 형태(. 또는 ..)는 사용할 수 없으며 특수 문자(' " < > ;)와 공백은 입력할 수 없습니다.
 
+<a id="export-backup-files"></a>
 #### 백업 파일 내보내기
 
-내부 백업 스토리지에 저장된 백업 파일을 사용자 오브젝트 스토리지로 내보낼 수 있습니다.
+내부 백업 스토리지에 저장된 백업 파일을 사용자 오브젝트 스토리지로 내보낼 수 있습니다. 증분 백업은 지원되지 않습니다.
 
-![db-instance-detail-backup-export](https://static.toastoven.net/prod_rds_postgres/20260609/db-instance-detail-backup-export-ko.png)
+![db-instance-detail-backup-export](../static/images/20260609/db-instance-detail-backup-export-ko.png)
 
 ❶ 백업을 수행한 원본 DB 인스턴스의 상세 탭에서 내보낼 백업 파일을 선택한 뒤 **오브젝트 스토리지로 백업 내보내기**를 클릭하면 백업 내보내기 팝업 화면이 나타납니다.
 
-![backup-export](https://static.toastoven.net/prod_rds_postgres/20241210/backup-export-ko.png)
+![backup-export](../static/images/20241210/backup-export-ko.png)
 
 ❷ 또는 **백업** 탭에서 내보낼 백업 파일을 선택한 뒤 **오브젝트 스토리지로 백업 내보내기**를 클릭합니다.
 
-> [참고]
-> 수동 백업의 경우 백업을 수행한 원본 DB 인스턴스가 삭제되었다면 백업을 내보낼 수 없습니다.
+!!! tip "알아두기"
+    수동 백업의 경우 백업을 수행한 원본 DB 인스턴스가 삭제되었다면 백업을 내보낼 수 없습니다.
 
-## 스냅숏 백업
+<a id="backup-method"></a>
+## 백업 방식 { #backup-method }
 
-기존 백업 방식은 백업 애플리케이션이 DB 인스턴스에서 실행되어 백업 중 성능 저하가 발생할 수 있으나, **스토리지 스냅숏 백업**은 마스터 또는 `archive_mode` 파라미터가 `always`인 DB 인스턴스에 한해 Cinder 스토리지 스냅숏을 활용하여 백업을 수행합니다.
+전체 백업 방식과 증분 백업 방식이 제공됩니다.
+
+<a id="full-backup"></a>
+### 전체 백업 { #full-backup }
+
+DB 인스턴스의 모든 데이터를 백업합니다.
+
+<a id="incremental-backup"></a>
+### 증분 백업 { #incremental-backup }
+
+기준 백업이 수행된 이후의 데이터 변경분만을 증분 방식으로 백업합니다. 변경이 드문 데이터가 주를 이루는 경우 권장합니다. PostgreSQL 17 버전 이상에서만 지원됩니다.
+증분 백업은 항상 기준 백업을 수행했던 DB 인스턴스에서 수행됩니다.
+증분 백업으로 복원하면 기준이 되는 전체 백업을 먼저 복원한 뒤, 선택한 증분 백업까지의 증분을 순서대로 반영합니다.
+
+!!! danger "주의"
+    증분 백업으로 복원 시에는 전체 백업으로 복원할 때보다 더 많은 시간이 소요될 수 있으며 이는 복원에 필요한 증분 백업 용량 합계에 비례합니다.
+
+<a id="baseline-backup"></a>
+#### 기준 백업
+
+증분 백업에는 데이터 변경 사항의 기준이 될 백업이 필요합니다. 증분 백업도 새로운 증분 백업의 기준 백업이 될 수 있습니다.
+
+증분 백업의 기준이 되는 백업에는 다음 제약 사항이 존재합니다. 수동 및 자동으로 증분 백업 시에 공통으로 적용됩니다.
+
+* 오류 상태의 백업은 기준 백업이 될 수 없습니다.
+* 마지막 장애 조치 이전에 생성된 백업은 기준 백업이 될 수 없습니다.
+* 마지막 DB 엔진 버전 업그레이드 이전에 생성된 백업은 기준 백업이 될 수 없습니다.
+* 이미 해당 백업을 기준으로 한 증분 백업이 존재하는 경우 기준 백업이 될 수 없습니다. 단, 이전 증분이 실패한 경우에는 동일한 백업을 기준으로 증분이 가능합니다.
+* `summarize_wal` 파라미터가 비활성화된 상태에서 수행된 백업은 기준 백업이 될 수 없습니다.
+
+[자동 백업](#auto-backup)에 따라 증분 백업이 실행되는 경우 위 제약 사항과 함께 다음 추가 제약 사항을 만족하는 기준 백업이 자동으로 선택됩니다. 제약 사항을 만족하는 기준 백업이 없는 경우 자동 백업 전략과 관계없이 전체 백업을 수행합니다.
+
+* 복제 중단 상태인 Standby, Read Replica에서 수행된 백업은 기준 백업이 될 수 없습니다.
+* 해당 백업 생성 이후에 새로운 전체 백업이 생성된 경우 기준 백업이 될 수 없습니다.
+
+<a id="snapshot-backup"></a>
+## 스냅숏 백업 { #snapshot-backup }
+
+기존 백업 방식은 백업 애플리케이션이 DB 인스턴스에서 실행되어 백업 중 성능 저하가 발생할 수 있으나, **스토리지 스냅숏 백업**은 Primary 또는 `archive_mode` 파라미터가 `always`인 DB 인스턴스에 한해 Cinder 스토리지 스냅숏을 활용하여 백업을 수행합니다.
 스냅숏 생성 후 공용 백업 서버에서 데이터 유효성 검사 및 파일 변환을 수행하므로 백업 중에도 DB 인스턴스의 성능에 영향을 주지 않습니다.
 
-**주요 특징**
+<a id="key-features"></a>
+### 주요 특징 { #key-features }
+
 * 성능 유지: 백업 수행 중에도 DB 인스턴스의 성능이 100% 유지됩니다.
 * 안정성 향상: 별도의 검증 프로세스를 통해 백업 데이터의 신뢰성을 보장합니다.
 * 고가용성 일시 정지: 스냅숏 생성 시점에는 데이터 일관성을 위해 고가용성 기능이 일시 정지될 수 있습니다.
 
-### 요금 체계
+<a id="pricing"></a>
+### 요금 체계 { #pricing }
 
 스냅숏 백업은 기존 백업과 달리 백업 수행을 위해 사용된 리소스 비용이 별도로 청구됩니다.
 
@@ -128,62 +215,67 @@ pg_basebackup 설치 방법은 [PostgreSQL 홈페이지](https://www.postgresql.
 * 공용 백업 서버 요금: 백업 데이터의 검증 및 변환에 사용하는 공용 백업 서버 사용 요금입니다.
     * 공용 리소스를 사용하더라도 각 고객이 실제 사용한 시간만큼 과금됩니다.
 
-## 복원
+<a id="restore"></a>
+## 복원 { #restore }
 
 백업을 이용하여 원하는 시점으로 데이터를 복원할 수 있습니다. 복원 시 항상 새로운 DB 인스턴스가 생성되며, 기존 DB 인스턴스에 복원할 수 없습니다. 백업을 수행한 원본 DB 인스턴스와 동일한 DB 엔진 버전으로만 복원할 수 있습니다. 백업이 생성된 시점으로 복원하는 백업 복원, 원하는 특정 시점으로 복원하는 시점 복원을 지원합니다.
 
-> [주의]
-> 복원할 DB 인스턴스의 데이터 스토리지 크기가 백업을 수행한 원본 DB 인스턴스의 데이터 스토리지 크기보다 작거나, 원본 DB 인스턴스의 파라미터 그룹과 다른 파라미터 그룹을 사용할 경우 복원에 실패할 수 있습니다.
+!!! danger "주의"
+    복원할 DB 인스턴스의 데이터 스토리지 크기가 백업을 수행한 원본 DB 인스턴스의 데이터 스토리지 크기보다 작거나, 원본 DB 인스턴스의 파라미터 그룹과 다른 파라미터 그룹을 사용할 경우 복원에 실패할 수 있습니다.
 
-### 백업 복원
+<a id="backup-restore"></a>
+### 백업 복원 { #backup-restore }
 
 백업 파일만으로 복원하므로 백업을 수행한 원본 DB 인스턴스가 필요하지 않습니다. 콘솔에서 백업을 복원하려면
 
-![db-instance-detail-backup-restore](https://static.toastoven.net/prod_rds_postgres/20260609/db-instance-detail-backup-restore-ko.png)
+![db-instance-detail-backup-restore](../static/images/20260609/db-instance-detail-backup-restore-ko.png)
 
 ❶ DB 인스턴스의 상세 탭에서 복원할 백업 파일을 선택한 뒤 **백업 복원**을 클릭하면 DB 인스턴스 복원 화면으로 이동합니다.
 
 또는
 
-![backup-restore](https://static.toastoven.net/prod_rds_postgres/20241210/backup-restore-ko.png)
+![backup-restore](../static/images/20241210/backup-restore-ko.png)
 
 ❶ **백업** 탭에서 복원할 백업 파일을 선택한 뒤 **백업 복원**을 클릭합니다.
 
-### 시점 복원
+<a id="point-in-time-restore"></a>
+### 시점 복원 { #point-in-time-restore }
 
 시점 복원을 이용하여 원하는 특정 시점 또는 WAL 로그의 특정 LSN으로 복원할 수 있습니다. 시점 복원을 하려면 백업 파일과 백업을 수행한 시점부터 복원을 원하는 시점까지의 WAL 로그가 필요합니다. WAL 로그는 백업이 수행되는 원본 DB 인스턴스의 스토리지에 저장됩니다. WAL 로그 보관 기간이 짧으면 스토리지 용량을 더 많이 사용할 수 있지만, 원하는 시점으로 복원이 어려울 수 있습니다. 다음과 같은 경우 시점 복원에 필요한 WAL 로그가 없기 때문에 원하는 시점으로 복원하지 못할 수 있습니다.
 
 * 용량 확보를 위해 원본 DB 인스턴스의 WAL 로그를 삭제한 경우
-* WAL 로그 보관 기간(최대 7일)에 따라 PostgreSQL이 WAL 로그를 자동으로 삭제한 경우
+* 자동 백업 보관 기간에 따라 WAL 로그가 자동으로 삭제된 경우
 * 기타 다양한 이유로 WAL 로그가 손상되거나 삭제된 경우
 
 콘솔에서 시점 복원을 하려면
 
-![db-instance-pitr](https://static.toastoven.net/prod_rds_postgres/20260609/db-instance-pitr-ko.png)
+![db-instance-pitr](../static/images/20260609/db-instance-pitr-ko.png)
 
 ❶ 시점 복원할 DB 인스턴스를 선택한 뒤 **시점 복원**을 클릭하면 시점 복원을 설정할 수 있는 페이지로 이동합니다.
 
+<a id="point-in-time-restore-restore-with-timestamp"></a>
 #### Timestamp를 이용한 복원
 
 Timestamp를 사용한 복원 시에는 선택한 시점과 가장 가까운 백업 파일을 기준으로 복원한 뒤, 원하는 시점까지의 WAL 로그를 적용합니다.
 
-![db-instance-pitr-timestamp](https://static.toastoven.net/prod_rds_postgres/20260609/db-instance-pitr-timestamp-ko.png)
+![db-instance-pitr-timestamp](../static/images/20260609/db-instance-pitr-timestamp-ko.png)
 
 ❶ 복원 시간을 선택합니다. 가장 최근 시점으로 복원하거나, 원하는 특정 시점을 직접 입력할 수 있습니다.
 
-### 오브젝트 스토리지에 있는 백업을 이용한 복원
+<a id="restore-using-backup-in-object-storage"></a>
+### 오브젝트 스토리지에 있는 백업을 이용한 복원 { #restore-using-backup-in-object-storage }
 
 RDS for PostgreSQL에서 오브젝트 스토리지로 내보낸 백업 파일을 이용하여 DB 인스턴스를 생성할 수 있습니다.
 
-(1) [백업 파일 내보내기](backup-and-restore/#_5) 항목을 참고하여 RDS for PostgreSQL의 백업을 오브젝트 스토리지로 내보냅니다.
+(1) [백업 파일 내보내기](#export-backup-files) 항목을 참고하여 RDS for PostgreSQL의 백업을 오브젝트 스토리지로 내보냅니다.
 
 (2) 복원할 프로젝트의 콘솔에 접속한 뒤 **DB 인스턴스** 탭에서 **오브젝트 스토리지에 있는 백업으로 복원** 버튼을 클릭합니다.
 
-![backup-obs-restore](https://static.toastoven.net/prod_rds_postgres/20241210/backup-obs-restore-ko.png)
+![backup-obs-restore](../static/images/20241210/backup-obs-restore-ko.png)
 
 ❶ 백업이 저장된 오브젝트 스토리지의 테넌트 ID를 입력합니다. 테넌트 ID는 API 엔드포인트 설정에서 확인할 수 있습니다.
 ❷ 백업이 저장된 오브젝트 스토리지의 NHN Cloud 계정 또는 IAM 계정을 입력합니다.
 ❸ 백업이 저장된 오브젝트 스토리지의 API 비밀번호를 입력합니다.
 ❹ 백업이 저장된 오브젝트 스토리지의 컨테이너를 입력합니다.
 ❺ 컨테이너에 저장될 백업의 경로를 입력합니다. 폴더 이름은 최대 255바이트이고, 전체 경로는 최대 1024바이트입니다. 특정 형태(. 또는 ..)는 사용할 수 없으며 특수 문자(' " < > ;)와 공백은 입력할 수 없습니다.
-❻ [DB 인스턴스 생성](db-instance/#db_1) 항목을 참고해 나머지 설정을 입력한 후 **오브젝트 스토리지에 있는 백업으로 복원** 버튼을 클릭합니다.
+❻ [DB 인스턴스 생성](db-instance/#create-db-instance) 항목을 참고해 나머지 설정을 입력한 후 **오브젝트 스토리지에 있는 백업으로 복원** 버튼을 클릭합니다.

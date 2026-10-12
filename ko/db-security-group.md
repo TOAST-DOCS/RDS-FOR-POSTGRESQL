@@ -1,6 +1,10 @@
-## Database > RDS for PostgreSQL > DB 보안 그룹
+<!-- pre-align:aligned sig=17ddfff5be7b -->
 
-## DB 보안 그룹
+<a id="database-rds-for-postgresql-db-security-group"></a>
+## Database > RDS for PostgreSQL > DB 보안 그룹 { #database-rds-for-postgresql-db-security-group }
+
+<a id="db-security-groups"></a>
+## DB 보안 그룹 { #db-security-groups }
 
 DB 보안 그룹은 DB 인스턴스의 송수신 트래픽을 제어하여 DB 인스턴스를 보호할 목적으로 사용합니다. 규칙으로 지정한 트래픽은 허용하고, 나머지 트래픽은 차단하는 '포지티브 시큐리티 모델(positive security model)'을 사용합니다. DB 인스턴스에 DB 보안 그룹을 연결하지 않을 경우 모든 송수신 트래픽이 허용되지 않습니다. DB 보안 그룹을 생성하더라도 DB 인스턴스에 적용하지 않으면 DB 보안 그룹의 규칙이 적용되지 않습니다. DB 인스턴스에 다수의 DB 보안 그룹을 적용할 수 있습니다. DB 보안 그룹의 주요 특징은 아래와 같습니다.
 
@@ -15,11 +19,13 @@ DB 보안 그룹은 이름과 설명, 다수의 DB 보안 규칙으로 구성되
 * DB 보안 그룹 이름은 리전별로 고유해야 합니다.
 * DB 보안 그룹 이름은 1~100 사이의 영문자, 숫자, 일부 기호(-, _, .)만 사용할 수 있으며, 첫 번째 글자는 영문자만 사용할 수 있습니다.
 
-### DB 보안 그룹 적용
+<a id="apply-db-security-groups"></a>
+### DB 보안 그룹 적용 { #apply-db-security-groups }
 
 DB 인스턴스를 생성할 때 적용할 DB 보안 그룹을 선택할 수 있습니다. DB 인스턴스에 다수의 DB 보안 그룹을 적용할 수 있습니다. 적용된 모든 DB 보안 그룹의 규칙들이 DB 인스턴스에 적용됩니다. 적용된 DB 인스턴스는 DB 인스턴스 수정 화면에서 자유롭게 변경할 수 있습니다.
 
-## DB 보안 규칙
+<a id="db-security-rules"></a>
+## DB 보안 규칙 { #db-security-rules }
 
 하나의 DB 보안 그룹에 다수의 DB 보안 규칙을 생성할 수 있습니다. DB 인스턴스에 DB 보안 그룹을 설정하면 해당 DB 보안 그룹에 생성된 모든 DB 보안 규칙들이 적용됩니다.
 
@@ -31,6 +37,7 @@ DB 인스턴스를 생성할 때 적용할 DB 보안 그룹을 선택할 수 있
 | 원격         | IP 주소 범위를 지정할 수 있습니다. 규칙의 방향이 '송신'이면 목적지가 원격이고, '수신'이면 출발지가 원격입니다.<br/>규칙의 방향에 따라 트래픽의 출발지와 목적지가 설정된 IP 주소나 범위인지를 비교합니다. |
 | 설명         | DB 보안 그룹 규칙에 대한 설명을 추가할 수 있습니다.                                                                                          |
 
-### DB 보안 규칙 변경
+<a id="change-db-security-rules"></a>
+### DB 보안 규칙 변경 { #change-db-security-rules }
 
 DB 보안 규칙의 생성, 수정, 삭제와 같은 변경이 발생하면 변경 사항이 DB 보안 그룹과 연결된 DB 인스턴스에 순차적으로 적용됩니다. DB 보안 그룹에 연결된 모든 DB 인스턴스에 적용되기 전까지 DB 보안 그룹에 신규로 DB 보안 규칙을 추가하거나, 다른 DB 보안 규칙을 수정, 삭제할 수 없습니다.

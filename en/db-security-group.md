@@ -1,6 +1,10 @@
-## Database > RDS for PostgreSQL > DB Security Group
+<!-- pre-align:aligned sig=17ddfff5be7b -->
 
-## DB Security Groups
+<a id="database-rds-for-postgresql-db-security-group"></a>
+## Database > RDS for PostgreSQL > DB Security Group { #database-rds-for-postgresql-db-security-group }
+
+<a id="db-security-groups"></a>
+## DB Security Groups { #db-security-groups }
 
 DB security groups are used to protect DB instances by controlling the inbound and outbound traffic of DB instances. Use a 'positive security model' that allows the traffic specified by the rule and blocks the rest of the traffic. If you do not associate a DB security group with the DB instance, all inbound and outbound traffic is not allowed and you cannot communicate. Even if you create a DB security group, the rules in the DB security group will not take effect unless you apply them to a DB instance. You can apply multiple DB security groups to DB instance. Main characteristics of DB security group are as follows.
 
@@ -15,11 +19,13 @@ DB security groups consist of names, descriptions, and a number of DB security r
 * Name of DB security group must be unique for each region.
 * DB security group names can only contain alphabets between 1 and 100 characters, numbers, and some symbols (-, _, .), and the first letter can only be an alphabetic character.
 
-### Apply DB Security Groups
+<a id="apply-db-security-groups"></a>
+### Apply DB Security Groups { #apply-db-security-groups }
 
 When you create DB instance, you can select DB security group to apply. You can apply multiple DB security groups to DB instance. The rules of all applied DB security groups are applied to DB instance. The applied DB instance can be changed freely on Modify DB instance screen.
 
-## DB Security Rules
+<a id="db-security-rules"></a>
+## DB Security Rules { #db-security-rules }
 
 You can create multiple DB security rules in a single DB security group. When you set up DB security group on DB instance, all DB security rules created for that DB security group are applied.
 
@@ -31,6 +37,7 @@ You can create multiple DB security rules in a single DB security group. When yo
 | Remote      | You can specify a range of IP addresses. If the direction of the rule is 'outbound', the destination is remote, and if it is 'inbound,' the origin is remote.<br/>Depending on the direction of the rule, compare whether the origin and destination of the traffic are set IP addresses or ranges. |
 | Description | You can add a description of DB security group rules.                                                                                                                                                                                                                                               |
 
-### Change DB Security Rules
+<a id="change-db-security-rules"></a>
+### Change DB Security Rules { #change-db-security-rules }
 
 When changes occur, such as creating, modifying, or deleting DB security rules, the changes are applied sequentially to DB instances connected with DB security groups. You cannot add new DB security rules to DB security group or modify or delete other DB security rules until they are applied to all DB instances connected with the DB security group.

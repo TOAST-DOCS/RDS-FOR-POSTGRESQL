@@ -1,9 +1,14 @@
-## Database > RDS for PostgreSQL > DB 확장 기능
+<!-- pre-align:aligned sig=0f665c3fcbd5 -->
 
-## DB 확장 기능
+<a id="database-rds-for-postgresql-db-extensions"></a>
+## Database > RDS for PostgreSQL > DB 확장 기능 { #database-rds-for-postgresql-db-extensions }
+
+<a id="db-extensions"></a>
+## DB 확장 기능 { #db-extensions }
 미리 빌드된 확장 기능을 PostgreSQL에 설치하여 기능을 확장할 수 있습니다. NHN Cloud의 RDS for PostgreSQL에서 지원하는 확장 기능은 아래와 같습니다.
 
-### PostgreSQL 기본 제공 기능
+<a id="postgresql-built-in-features"></a>
+### PostgreSQL 기본 제공 기능 { #postgresql-built-in-features }
 
 `auto_explain` 확장은 파라미터 그룹의 `shared_preload_libraries` 파라미터에 추가해서 전체 세션에 적용시킬 수 있습니다. 나머지 확장 기능들은 SUPERUSER 권한이 필요한 경우 [확장 관리](db-instance/#extension) 항목을 참고해 제어하거나  [CREATE EXTENSION](https://www.postgresql.org/docs/17/sql-createextension.html) 구문으로 필요한 확장 기능을 설치할 수 있습니다.
 
@@ -27,7 +32,8 @@
 | postgres_fdw       | 1.1                 | 1.1                 | O            |            | https://www.postgresql.org/docs/17/postgres-fdw.html     |
 | tablefunc          | 1.0                 | 1.0                 |              |            | https://www.postgresql.org/docs/17/tablefunc.html        |
 
-### RDS 추가 제공 기능
+<a id="rds-additional-features"></a>
+### RDS 추가 제공 기능 { #rds-additional-features }
 
 추가 제공되는 확장 기능을 설치하려면 필요한 경우 파라미터 그룹의 `shared_preload_libraries` 파라미터에 설정 추가 후 DB 엔진 재시작이 필요합니다.
 
