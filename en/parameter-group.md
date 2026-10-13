@@ -59,7 +59,7 @@ Parameters have the following information:
 | Value          | The value to be applied to the parameter.                                                                                                                                                                             |
 | Allowed values | A range of values that can be applied to the parameter.                                                                                                                                                               |
 | Applied type   | Either `static` or `dynamic.`<br/>If set to `Static,` the DB instance must be restarted to apply changes to the parameter.<br/>If set to `Dynamic,` the parameter is applied immediately without DB instance restart. |
-| Data type      | The type of the parameter value. `BOOLEAN`, `ENUMERATED`, `MULTI_ENUMERATED`, `NUMERIC`, `NUMERIC_WITH_BYTE_UNIT`, `NUMERIC_WITH_TIME_UNIT`, `STRING`이 있습니다. |
+| Data type      | The type of the parameter value. Can be `BOOLEAN`, `ENUMERATED`, `MULTI_ENUMERATED`, `NUMERIC`, `NUMERIC_WITH_BYTE_UNIT`, `NUMERIC_WITH_TIME_UNIT`, or `STRING`. |
 | Category   | Indicates categories of parameters.                                                                                                  |
 | Use formulas   | Indicates whether or not the formula is available for use                                                                                                                                                             |
 
