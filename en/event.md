@@ -1,6 +1,12 @@
-## Database > RDS for PostgreSQL > Event
+<!-- machine_translated: true -->
 
-## Event
+<!-- pre-align:aligned sig=a6332d48b331 -->
+
+<a id="database-rds-for-postgresql-event"></a>
+## Database > RDS for PostgreSQL > Event { #database-rds-for-postgresql-event }
+
+<a id="event"></a>
+## Event { #event }
 
 Event refers to RDS for PostgreSQL or a significant event that is caused by a user's action. Event consists of event category , the date and time of occurrence, the source and the message. Event can be viewed on the console, and the category of events and possible events are as follows:
 
@@ -122,9 +128,9 @@ Event refers to RDS for PostgreSQL or a significant event that is caused by a us
 | DB_INSTANCE_47_04       | DB_INSTANCE       | Changing DB instance with a completed failover to normal instance failed      |
 | DB_INSTANCE_48_01       | DB_INSTANCE       | High availability normalized                                                  |
 | DB_INSTANCE_49_01       | DB_INSTANCE       | High availability stopped                                                     |
-| DB_INSTANCE_50_00       | DB_INSTANCE       | Candidate master rebuilding started                                           |
-| DB_INSTANCE_50_01       | DB_INSTANCE       | Candidate master rebuilding completed                                         |
-| DB_INSTANCE_50_04       | DB_INSTANCE       | Candidate master rebuilding failed                                            |
+| DB_INSTANCE_50_00       | DB_INSTANCE       | Standby rebuilding started                        |
+| DB_INSTANCE_50_01       | DB_INSTANCE       | Standby rebuilding completed                        |
+| DB_INSTANCE_50_04       | DB_INSTANCE       | Standby rebuilding failed                        |
 | DB_INSTANCE_51_01       | DB_INSTANCE       | Backup of DB instance failed (Known cause)                                    |
 | DB_INSTANCE_52_00       | DB_INSTANCE       | Exporting backup file after backing up DB instance started                    |
 | DB_INSTANCE_52_01       | DB_INSTANCE       | Exporting backup file after backing up DB instance completed                  |
@@ -148,6 +154,9 @@ Event refers to RDS for PostgreSQL or a significant event that is caused by a us
 | DB_INSTANCE_59_00       | DB_INSTANCE       | Auto scale storage started                        |
 | DB_INSTANCE_59_01       | DB_INSTANCE       | Auto scale storage completed                        |
 | DB_INSTANCE_59_04       | DB_INSTANCE       | Auto scale storage failed                        |
+| DB_INSTANCE_61_00       | DB_INSTANCE       | Changing DB Instance Group settings started                 |
+| DB_INSTANCE_61_01       | DB_INSTANCE       | Changing DB Instance Group settings completed                 |
+| DB_INSTANCE_61_04       | DB_INSTANCE       | Changing DB Instance Group settings failed                 |
 | DB_SECURITY_GROUP_01_01 | DB_SECURITY_GROUP | DB security group created                                                     |
 | DB_SECURITY_GROUP_02_00 | DB_SECURITY_GROUP | Changing DB security group started                                            |
 | DB_SECURITY_GROUP_02_01 | DB_SECURITY_GROUP | Changing DB security group completed                                          |
@@ -157,14 +166,15 @@ Event refers to RDS for PostgreSQL or a significant event that is caused by a us
 | TENANT_02_04            | TENANT            | RAM capacity limit	                                                           |
 | TENANT_03_04            | TENANT            | Individual volume limit                                                       |
 | TENANT_04_04            | TENANT            | Total project volume limit                                                    |
-| TENANT_05_04            | TENANT            | Limit read replica creation                                                   |
+| TENANT_05_04            | TENANT            | Limit read replica creation                    |
 | JOB_01_04               | JOB               | Job execution failed                                                          |
 
-### Subscribe to Events
+<a id="subscribe-to-events"></a>
+### Subscribe to Events { #subscribe-to-events }
 
 If subscribed to an event, a notification will be received via email and SMS when the event occurs. Notifications are sent to a user of the user group subscribed to the event. Subscription can be subdivided by event type, event code, and event source. In order to temporarily stop the notifications, modify the enabled event subscription. If disabled, notifications are not sent.
 
-![event-subscription](https://static.toastoven.net/prod_rds_postgres/20240813/event-subscription-en.png)
+![event-subscription](../static/images/20240813/event-subscription-en.png)
 
 * ❶ Click **Register Event Subscription**and a pop-up window will appear where you can sign up for an event subscription.
 * ❷ Select the type of event you want to subscribe to. The event type changes the event codes you can select.

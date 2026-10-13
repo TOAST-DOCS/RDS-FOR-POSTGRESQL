@@ -1,6 +1,12 @@
-## Database > RDS for PostgreSQL > イベント
+<!-- machine_translated: true -->
 
-## イベント
+<!-- pre-align:aligned sig=a6332d48b331 -->
+
+<a id="database-rds-for-postgresql-event"></a>
+## Database > RDS for PostgreSQL > イベント { #database-rds-for-postgresql-event }
+
+<a id="event"></a>
+## イベント { #event }
 
 イベントとは、RDS for PostgreSQLのシステム動作や、ユーザーの操作によって発生する重要な出来事を意味します。イベントは、イベントタイプ、発生日時、発生元ソース、およびメッセージで構成されます。イベントはコンソールで照会でき、イベントのタイプと発生し得るイベントは以下のとおりです。
 
@@ -122,9 +128,9 @@
 | DB_INSTANCE_47_04       | DB_INSTANCE       | フェイルオーバー完了したDBインスタンスを一般DBインスタンスに変更失敗      |
 | DB_INSTANCE_48_01       | DB_INSTANCE       | 高可用性正常化                                   |
 | DB_INSTANCE_49_01       | DB_INSTANCE       | 高可用性中断                                    |
-| DB_INSTANCE_50_00       | DB_INSTANCE       | 予備マスター再構築開始                               |
-| DB_INSTANCE_50_01       | DB_INSTANCE       | 予備マスター再構築完了                               |
-| DB_INSTANCE_50_04       | DB_INSTANCE       | 予備マスター再構築失敗                               |
+| DB_INSTANCE_50_00       | DB_INSTANCE       | Standby 再構築開始                        |
+| DB_INSTANCE_50_01       | DB_INSTANCE       | Standby 再構築完了                        |
+| DB_INSTANCE_50_04       | DB_INSTANCE       | Standby 再構築失敗                        |
 | DB_INSTANCE_51_01       | DB_INSTANCE       | DBインスタンスバックアップ失敗(既知の原因)                   |
 | DB_INSTANCE_52_00       | DB_INSTANCE       | DBインスタンスバックアップ後、バックアップファイルエクスポート開始        |
 | DB_INSTANCE_52_01       | DB_INSTANCE       | DBインスタンスバックアップ後、バックアップファイルエクスポート完了        |
@@ -148,6 +154,9 @@
 | DB_INSTANCE_59_00       | DB_INSTANCE       | 自動ストレージ拡張開始                         |
 | DB_INSTANCE_59_01       | DB_INSTANCE       | 自動ストレージ拡張完了                         |
 | DB_INSTANCE_59_04       | DB_INSTANCE       | 自動ストレージ拡張失敗                         |
+| DB_INSTANCE_61_00       | DB_INSTANCE       | DBインスタンスグループ設定変更開始                 |
+| DB_INSTANCE_61_01       | DB_INSTANCE       | DBインスタンスグループ設定変更完了                 |
+| DB_INSTANCE_61_04       | DB_INSTANCE       | DBインスタンスグループ設定変更失敗                 |
 | DB_SECURITY_GROUP_01_01 | DB_SECURITY_GROUP | DBセキュリティグループ作成                            |
 | DB_SECURITY_GROUP_02_00 | DB_SECURITY_GROUP | DBセキュリティグループ変更開始                          |
 | DB_SECURITY_GROUP_02_01 | DB_SECURITY_GROUP | DBセキュリティグループ変更完了                          |
@@ -157,14 +166,15 @@
 | TENANT_02_04            | TENANT            | RAM容量制限                                   |
 | TENANT_03_04            | TENANT            | 個別ボリュームサイズ制限                              |
 | TENANT_04_04            | TENANT            | プロジェクト全体のボリュームサイズ制限                       |
-| TENANT_05_04            | TENANT            | リードレプリカ作成制限                               |
+| TENANT_05_04            | TENANT            | Read Replica 作成制限                    |
 | JOB_01_04               | JOB               | Job実行失敗                                   |
 
-### イベント購読
+<a id="subscribe-to-events"></a>
+### イベント購読 { #subscribe-to-events }
 
 イベントを購読すると、イベント発生時に電子メールやSMSで通知を受けることができます。イベント購読に接続されたユーザーグループのユーザーに通知を送信します。イベントタイプ、イベントコード、イベントソースで細分化して購読できます。しばらく通知を中断する場合は、イベント購読を無効に修正します。有効にしない場合、通知を送信しません。
 
-![event-subscription](https://static.toastoven.net/prod_rds_postgres/20240813/event-subscription-ja.png)
+![event-subscription](../static/images/20240813/event-subscription-ja.png)
 
 * ❶ **イベント購読登録**を押すと、イベント購読を登録できるポップアップウィンドウが表示されます。
 * ❷購読するイベントの種類を選択します。イベントタイプによって選択できるイベントコードが変更されます。

@@ -1,6 +1,10 @@
-## Database > RDS for PostgreSQL > 이벤트
+<!-- pre-align:aligned sig=a6332d48b331 -->
 
-## 이벤트
+<a id="database-rds-for-postgresql-event"></a>
+## Database > RDS for PostgreSQL > 이벤트 { #database-rds-for-postgresql-event }
+
+<a id="event"></a>
+## 이벤트 { #event }
 
 이벤트는 RDS for PostgreSQL이나 사용자 행위로 발생하는 중요한 사건을 의미합니다. 이벤트는 이벤트 유형, 발생 일시, 원본 소스와 메시지로 구성됩니다. 이벤트는 콘솔에서 조회할 수 있으며, 이벤트의 유형과 발생 가능한 이벤트는 아래와 같습니다.
 
@@ -122,9 +126,9 @@
 | DB_INSTANCE_47_04       | DB_INSTANCE       | 장애 조치 완료된 DB 인스턴스를 일반 DB 인스턴스로 변경 실패 |
 | DB_INSTANCE_48_01       | DB_INSTANCE       | 고가용성 정상화                             |
 | DB_INSTANCE_49_01       | DB_INSTANCE       | 고가용성 중단                              |
-| DB_INSTANCE_50_00       | DB_INSTANCE       | 예비 마스터 재구축 시작                        |
-| DB_INSTANCE_50_01       | DB_INSTANCE       | 예비 마스터 재구축 완료                        |
-| DB_INSTANCE_50_04       | DB_INSTANCE       | 예비 마스터 재구축 실패                        |
+| DB_INSTANCE_50_00       | DB_INSTANCE       | Standby 재구축 시작                        |
+| DB_INSTANCE_50_01       | DB_INSTANCE       | Standby 재구축 완료                        |
+| DB_INSTANCE_50_04       | DB_INSTANCE       | Standby 재구축 실패                        |
 | DB_INSTANCE_51_01       | DB_INSTANCE       | DB 인스턴스 백업 실패(알려진 원인)                |
 | DB_INSTANCE_52_00       | DB_INSTANCE       | DB 인스턴스 백업 후 백업 파일 내보내기 시작           |
 | DB_INSTANCE_52_01       | DB_INSTANCE       | DB 인스턴스 백업 후 백업 파일 내보내기 완료           |
@@ -148,6 +152,9 @@
 | DB_INSTANCE_59_00       | DB_INSTANCE       | 스토리지 자동 확장 시작                        |
 | DB_INSTANCE_59_01       | DB_INSTANCE       | 스토리지 자동 확장 완료                        |
 | DB_INSTANCE_59_04       | DB_INSTANCE       | 스토리지 자동 확장 실패                        |
+| DB_INSTANCE_61_00       | DB_INSTANCE       | DB 인스턴스 그룹 설정 변경 시작                 |
+| DB_INSTANCE_61_01       | DB_INSTANCE       | DB 인스턴스 그룹 설정 변경 완료                 |
+| DB_INSTANCE_61_04       | DB_INSTANCE       | DB 인스턴스 그룹 설정 변경 실패                 |
 | DB_SECURITY_GROUP_01_01 | DB_SECURITY_GROUP | DB 보안 그룹 생성                          |
 | DB_SECURITY_GROUP_02_00 | DB_SECURITY_GROUP | DB 보안 그룹 변경 시작                       |
 | DB_SECURITY_GROUP_02_01 | DB_SECURITY_GROUP | DB 보안 그룹 변경 완료                       |
@@ -157,14 +164,15 @@
 | TENANT_02_04            | TENANT            | RAM 용량 제한	                           |
 | TENANT_03_04            | TENANT            | 개별 볼륨 크기 제한                          |
 | TENANT_04_04            | TENANT            | 프로젝트 전체 볼륨 크기 제한                     |
-| TENANT_05_04            | TENANT            | 읽기 복제본 생성 제한                         |
+| TENANT_05_04            | TENANT            | Read Replica 생성 제한                    |
 | JOB_01_04               | JOB               | Job 실행 실패                            |
 
-### 이벤트 구독
+<a id="subscribe-to-events"></a>
+### 이벤트 구독 { #subscribe-to-events }
 
 이벤트를 구독하면 이벤트 발생 시 이메일 및 SMS로 알림을 받을 수 있습니다. 이벤트 구독에 연결된 사용자 그룹의 사용자에게 알림을 발송합니다. 이벤트 유형, 이벤트 코드, 이벤트 소스로 세분화하여 구독할 수 있습니다. 잠시 알림을 중단하려면 이벤트 구독의 활성화 여부를 수정합니다. 활성화하지 않으면 알림을 발송하지 않습니다.
 
-![event-subscription](https://static.toastoven.net/prod_rds_postgres/20240813/event-subscription-ko.png)
+![event-subscription](../static/images/20240813/event-subscription-ko.png)
 
 * ❶ **이벤트 구독 등록**을 누르면 이벤트 구독을 등록할 수 있는 팝업 창이 나타납니다.
 * ❷ 구독할 이벤트 유형을 선택합니다. 이벤트 유형에 따라 선택할 수 있는 이벤트 코드가 변경됩니다.
