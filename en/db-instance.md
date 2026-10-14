@@ -49,8 +49,8 @@ The versions specified below are available:
 | PostgreSQL 14.15    | Creation and read replicas unsupported |
 | PostgreSQL 14.6     | Creation and read replicas unsupported |
 
-DB 엔진은 생성 이후 콘솔의 수정 기능으로 버전을 업그레이드할 수 있습니다.
-DB 엔진에 관한 자세한 내용은 [DB 엔진](db-engine/)에서 확인할 수 있습니다.
+After creation, you can upgrade the DB engine version using the modify feature in the Console.
+For more information about the DB engine, see [DB Engine](db-engine/).
 
 <a id="db-instance-type"></a>
 ### DB instance type { #db-instance-type }
